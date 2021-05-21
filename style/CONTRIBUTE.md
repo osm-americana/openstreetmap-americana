@@ -5,7 +5,7 @@ _'murica!_
 The repository is organized as follows:
 
 - **layer/** - Individual style layers, organized by subject area
-- **americana.js** - OpenMapTiles loader with layer ordering
+- **layers.js** - OpenMapTiles loader with layer ordering
 - **index.html** - Demonstration map HTML page
 - **dev/** - Development tools
 
@@ -16,6 +16,7 @@ Pre-requisites:
   - **npm** (`apt install npm`)
   - **prettify** (`npm install --save-dev --save-exact prettier`)
   - **python3**, to run a local web server (`apt install python3`)
+  - **spritezero**, to combine icons into a stylesheet (see https://support.maptiler.com/i643-own-map-icons-sprites)
 
 Before submitting a PR
 
