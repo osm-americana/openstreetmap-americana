@@ -16,7 +16,8 @@ Pre-requisites:
   - **npm** (`apt install npm`)
   - **prettify** (`npm install --save-dev --save-exact prettier`)
   - **python3**, to run a local web server (`apt install python3`)
-  - **spritezero**, to combine icons into a stylesheet (see https://support.maptiler.com/i643-own-map-icons-sprites)
+  - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
+  - **spritezero**, to combine icons into a stylesheet (`npm install -g @beyondtracks/spritezero-cli`)
 
 Before submitting a PR
 
