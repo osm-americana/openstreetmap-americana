@@ -8,4 +8,4 @@ The purpose of the Americana style is to:
 * Challenge the status quo by showcasing innovation and invention
 * Promote collaboration and common purpose in the American mapping community
 
-Read the [Contributor's Guide](CONTRIBUTOR.md) to get started.
+Read the [Contributor's Guide](CONTRIBUTE.md) to get started.
