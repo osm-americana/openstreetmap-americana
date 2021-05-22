@@ -9,6 +9,8 @@ The repository is organized as follows:
 - **index.html** - Demonstration map HTML page
 - **dev/** - Development tools
 
+## Developer Notes
+
 Pre-requisites:
 
 - This guide is written for Ubuntu Linux. Users of Windows or other Linux distributions are encouraged to add OS-specific development guidelines.
