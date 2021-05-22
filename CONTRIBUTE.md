@@ -2,7 +2,8 @@
 *Contributors welcome!*
 
 The repository is organized as follows:
-* **style/** - The map style itself.  See [Style Contributor's Guide](style/CONTRIBUTE.md)
+* **style/** - The map style.  See [Style Contributor's Guide](style/CONTRIBUTE.md)
+* *Coming soon!: other customized parts of the tech stack.*
 
 Some general guidelines:
 * Please follow the coding style guidelines described in each sub-folder.  These guidelines are designed to make it easier for collaboration and reduce the chance of edit conflicts.
