@@ -15,7 +15,7 @@ Some general guidelines:
 
 The technology stack for this style can be summarized below:
 
-<img src="doc-img/osm-americana-tech-stack.png" alt="Americana technology stack" width="200"/>
+<img src="doc-img/osm-americana-tech-stack.png" alt="Americana technology stack" />
 
 Some notes:
 * This style currently consists of the stylesheets alone, and relies on the MapTiler Cloud service, however, we hope to migrate to a self-hosted vector tile server that would allow us to customize the tiles, integrate other technologies, and optimize the size of served vector tiles.
