@@ -6,6 +6,7 @@ The repository is organized as follows:
 
 - **layer/** - Individual style layers, organized by subject area
 - **icons/** - SVG icons, which get converted into PNG stylesheets
+- **constants/** - Style elements that are frequently re-used
 - **dev/** - Development tools
 - **key.js** - Put your MapTiler API key here (see below)
 - **layers.js** - OpenMapTiles loader with layer ordering
