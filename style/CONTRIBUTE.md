@@ -35,6 +35,6 @@ Before submitting a PR
 
 ## Running the Americana style
 
-The simplest way to run the style is to run  `make run`. This will generate the sprite sheet and launch a simple HTTP server on port 1776 with a document root at the current location. For a production installation, the .html and .js files, as well as the generated sprites folder need to be installed on a production web server.
+The simplest way to run the style is to run `make run`. This will generate the sprite sheet and launch a simple HTTP server on port 1776 with a document root at the current location. For a production installation, the .html and .js files, as well as the generated sprites folder need to be installed on a production web server.
 
 Running `make clean sprites` will re-generate the sprite sheets without needing to restart the web server.
