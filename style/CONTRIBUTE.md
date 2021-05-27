@@ -27,6 +27,7 @@ Pre-requisites:
   - **prettify** (`npm install --save-dev --save-exact prettier`)
   - **python3**, to run a local web server (`apt install python3`)
   - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
+  - **xmlstarlet**, to preprocess imported SVGs for map displays (`apt install xmlstarlet`)
   - **spritezero**, to combine icons into a stylesheet (`npm install -g @beyondtracks/spritezero-cli`)
 
 Before submitting a PR
@@ -35,6 +36,6 @@ Before submitting a PR
 
 ## Running the Americana style
 
-The simplest way to run the style is to run  `make run`. This will generate the sprite sheet and launch a simple HTTP server on port 1776 with a document root at the current location. For a production installation, the .html and .js files, as well as the generated sprites folder need to be installed on a production web server.
+The simplest way to run the style is to run `make run`. This will generate the sprite sheet and launch a simple HTTP server on port 1776 with a document root at the current location. For a production installation, the .html and .js files, as well as the generated sprites folder need to be installed on a production web server.
 
 Running `make clean sprites` will re-generate the sprite sheets without needing to restart the web server.
