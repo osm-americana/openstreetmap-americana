@@ -29,5 +29,7 @@ var americanaLayers = [
 
   layerMotorwayLabel,
 
-  layerHighwayShieldInterstate,
+  layerHighwayShieldInterstate12,
+  layerHighwayShieldInterstate3,
+  layerHighwayShieldInterstate4,
 ];
