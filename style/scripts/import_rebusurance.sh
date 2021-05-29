@@ -7,9 +7,12 @@ done
 
 for i in $( ls build/rebusurance-v1.0.0/image2d/ | grep [A-Z] );
 do
+  #Remove text placeholder from shields
   sed -i 's/<text.*\/text>//g' "build/rebusurance-v1.0.0/image2d/$i"
+
+  #Scale shields to a reasonable size for rasterization
   sed -i 's/transform=""/transform="scale(0.35,0.35)"/g' "build/rebusurance-v1.0.0/image2d/$i"
-#  sed -i 's/stroke-width="2"/stroke-width="2.5"/g' "build/rebusurance-v1.0.0/image2d/$i"
+
   cp "build/rebusurance-v1.0.0/image2d/$i" icons/us_`echo "$i" | tr 'A-Z' 'a-z'`
 done
 
