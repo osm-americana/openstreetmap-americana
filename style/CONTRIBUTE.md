@@ -27,6 +27,7 @@ Pre-requisites:
   - **prettify** (`npm install --save-dev --save-exact prettier`)
   - **python3**, to run a local web server (`apt install python3`)
   - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
+  - **xmlstarlet**, to preprocess imported SVGs for map displays (`apt install xmlstarlet`)
   - **spritezero**, to combine icons into a stylesheet (`npm install -g @beyondtracks/spritezero-cli`)
 
 Before submitting a PR
