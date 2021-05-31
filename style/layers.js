@@ -27,9 +27,8 @@ var americanaLayers = [
   layerBridgeOneway,
   layerBridgeOnewayLink,
 
+  layerMotorwayExit,
   layerMotorwayLabel,
 
-  layerHighwayShieldInterstate12,
-  layerHighwayShieldInterstate3,
-  layerHighwayShieldInterstate4,
+  layerHighwayShieldInterstate,
 ];
