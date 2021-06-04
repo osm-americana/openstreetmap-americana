@@ -30,4 +30,10 @@ var americanaLayers = [
   layerMotorwayLabel,
 
   layerHighwayShieldInterstate,
+
+  layerAerodrome,
+  layerBusStation,
+  layerTrainStation,
+  layerLibrary,
+  layerLightRailStation,
 ];
