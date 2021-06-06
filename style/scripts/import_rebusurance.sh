@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if ! command -v xmlstarlet &> /dev/null
+then
+    echo "xmlstarlet is not available."
+    exit -1
+fi
+
 find "build/rebusurance-v1.0.0/image2d" -name "*.svg" -type f -print0 | while read -d $'\0' f; do
   newfile=`echo "$f" | sed -e 's/ /_/g; s/U.S./us/g'`
   mv -n "$f" "$newfile";
