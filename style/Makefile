@@ -11,8 +11,8 @@ build/rebusurance-v1.0.0: rebusurance.zip
 sprites: build/rebusurance-v1.0.0
 	scripts/import_rebusurance.sh
 	mkdir -p sprites
-	spritezero sprites/sprite@2x icons/ --retina
-	spritezero sprites/sprite icons/
+	npx spritezero sprites/sprite@2x icons/ --retina
+	npx spritezero sprites/sprite icons/
 
 code_format:
 	npx prettier --write .
