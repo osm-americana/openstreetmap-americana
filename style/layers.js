@@ -37,5 +37,5 @@ var americanaLayers = [
   layerPlaceCountry3,
   layerPlaceCountry2,
   layerPlaceCountry1,
-  layerPlaceContinent
+  layerPlaceContinent,
 ];
