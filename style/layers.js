@@ -1,41 +1,47 @@
 /*
  This is a list of the layers in the Americana style, from bottom to top.  They're defined in the layer/ folder
 */
-var americanaLayers = [
-  layerBackground,
+var americanaLayers = [];
 
-  layerWater,
+americanaLayers.push(layerBackground);
 
-  layerTunnelMotorwayCasing,
-  layerTunnelMotorwayLinkCasing,
-  layerTunnelMotorway,
-  layerTunnelMotorwayLink,
-  layerTunnelOneway,
-  layerTunnelOnewayLink,
+americanaLayers.push(layerWater);
 
-  layerMotorwayCasing,
-  layerMotorwayLinkCasing,
-  layerMotorway,
-  layerMotorwayLink,
-  layerRoadOneway,
-  layerRoadOnewayLink,
+americanaLayers.push(layerTunnelMotorwayCasing);
+americanaLayers.push(layerTunnelMotorwayLinkCasing);
+americanaLayers.push(layerTunnelMotorway);
+americanaLayers.push(layerTunnelMotorwayLink);
+americanaLayers.push(layerTunnelOneway);
+americanaLayers.push(layerTunnelOnewayLink);
 
-  layerBridgeMotorwayCasing,
-  layerBridgeMotorwayLinkCasing,
-  layerBridgeMotorway,
-  layerBridgeMotorwayLink,
-  layerBridgeOneway,
-  layerBridgeOnewayLink,
+americanaLayers.push(layerMotorwayCasing);
 
-  layerMotorwayLabel,
+americanaLayers.push(layerMotorwayLinkCasing);
+americanaLayers.push(layerMotorway);
+americanaLayers.push(layerMotorwayLink);
+americanaLayers.push(layerRoadOneway);
+americanaLayers.push(layerRoadOnewayLink);
 
-  layerHighwayShieldInterstate,
+//One layer at a time to handle stacked bridges
+for (let i = 1; i <= 5; i++) {
+  [
+    layerBridgeMotorwayCasing,
+    layerBridgeMotorwayLinkCasing,
+    layerBridgeMotorway,
+    layerBridgeMotorwayLink,
+    layerBridgeOneway,
+    layerBridgeOnewayLink,
+  ].forEach((layer) => americanaLayers.push(restrictLayer(layer, i)));
+}
 
-  layerPlaceCity,
-  layerPlaceState,
-  layerPlaceCountryOther,
-  layerPlaceCountry3,
-  layerPlaceCountry2,
-  layerPlaceCountry1,
-  layerPlaceContinent,
-];
+americanaLayers.push(layerMotorwayLabel);
+
+americanaLayers.push(layerHighwayShieldInterstate);
+
+americanaLayers.push(layerPlaceCity);
+americanaLayers.push(layerPlaceState);
+americanaLayers.push(layerPlaceCountryOther);
+americanaLayers.push(layerPlaceCountry3);
+americanaLayers.push(layerPlaceCountry2);
+americanaLayers.push(layerPlaceCountry1);
+americanaLayers.push(layerPlaceContinent);
