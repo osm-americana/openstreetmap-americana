@@ -9,7 +9,7 @@ americanaLayers.push(
   layerWater,
 
   layerTunnelMotorwayCasing,
-  laerrTunnelMotorwayLinkCasing,
+  layerTunnelMotorwayLinkCasing,
   layerTunnelMotorway,
   layerTunnelMotorwayLink,
   layerTunnelOneway,
