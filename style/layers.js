@@ -1,7 +1,9 @@
 /*
  This is a list of the layers in the Americana style, from bottom to top.  They're defined in the layer/ folder
 */
-var americanaLayers = [
+var americanaLayers = [];
+
+americanaLayers.push(
   layerBackground,
 
   layerWater,
@@ -14,19 +16,27 @@ var americanaLayers = [
   layerTunnelOnewayLink,
 
   layerMotorwayCasing,
+
   layerMotorwayLinkCasing,
   layerMotorway,
   layerMotorwayLink,
   layerRoadOneway,
-  layerRoadOnewayLink,
+  layerRoadOnewayLink
+);
 
-  layerBridgeMotorwayCasing,
-  layerBridgeMotorwayLinkCasing,
-  layerBridgeMotorway,
-  layerBridgeMotorwayLink,
-  layerBridgeOneway,
-  layerBridgeOnewayLink,
+//One layer at a time to handle stacked bridges
+for (let i = 1; i <= 5; i++) {
+  [
+    layerBridgeMotorwayCasing,
+    layerBridgeMotorwayLinkCasing,
+    layerBridgeMotorway,
+    layerBridgeMotorwayLink,
+    layerBridgeOneway,
+    layerBridgeOnewayLink,
+  ].forEach((layer) => americanaLayers.push(restrictLayer(layer, i)));
+}
 
+americanaLayers.push(
   layerMotorwayLabel,
 
   layerHighwayShieldInterstate,
@@ -37,5 +47,5 @@ var americanaLayers = [
   layerPlaceCountry3,
   layerPlaceCountry2,
   layerPlaceCountry1,
-  layerPlaceContinent,
-];
+  layerPlaceContinent
+);
