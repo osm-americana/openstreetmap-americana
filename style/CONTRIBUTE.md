@@ -35,7 +35,6 @@ Pre-requisites:
 [2]: https://github.com/mapbox/spritezero
 [3]: https://prettier.io/
 
-
 Before submitting a PR
 
 - Please prettify all files prior to submission. Run `make code_format` to format all code files with js-prettifier.
