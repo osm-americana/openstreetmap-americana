@@ -24,5 +24,6 @@ jobs:
           # Setting only_changed to false picks up new files
           only_changed: false
           same_commit: true
+          commit_options: --allow-empty
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
