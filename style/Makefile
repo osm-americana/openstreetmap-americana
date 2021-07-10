@@ -18,4 +18,4 @@ code_format:
 	npx prettier --write .
 
 run: sprites
-	python3 -m http.server 1776
+	npx browser-sync -w --port 1776
