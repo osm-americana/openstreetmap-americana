@@ -6,7 +6,7 @@ var americanaLayers = [];
 americanaLayers.push(
   layerBackground,
 
-  layerWater,
+    layerWater,
 
   layerTunnelMotorwayCasing,
   layerTunnelMotorwayLinkCasing,
