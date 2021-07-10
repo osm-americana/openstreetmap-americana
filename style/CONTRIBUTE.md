@@ -24,11 +24,17 @@ Pre-requisites:
 - This guide is written for Ubuntu Linux. Users of Windows or other Linux distributions are encouraged to add OS-specific development guidelines.
 - On Ubuntu, the following development tools are required:
   - **npm** (`apt install npm`)
-  - **prettify** (`npm install --save-dev --save-exact prettier`)
-  - **python3**, to run a local web server (`apt install python3`)
   - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
   - **xmlstarlet**, to preprocess imported SVGs for map displays (`apt install xmlstarlet`)
-  - **spritezero**, to combine icons into a stylesheet (`npm install -g @beyondtracks/spritezero-cli`)
+  - **NPM dependencies** installed in one step from `package.json` (`npm install`)
+    - **[browser-sync][1]**, to run a local web server with live reloading
+    - **[spritezero][2]**, to combine icons into a sprite sheet
+    - **[prettier][3]**, to keep our code style consistent
+
+[1]: https://browsersync.io/
+[2]: https://github.com/mapbox/spritezero
+[3]: https://prettier.io/
+
 
 Before submitting a PR
 
