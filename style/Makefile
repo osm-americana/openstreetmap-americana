@@ -2,7 +2,7 @@ clean:
 	rm -rf sprites build icons/us_* rebusurance.zip
 
 rebusurance.zip:
-	wget -q -O rebusurance.zip https://github.com/1ec5/rebusurance/releases/download/v1.0.0/rebusurance-v1.0.0.zip 
+	curl -s -L https://github.com/1ec5/rebusurance/releases/download/v1.0.0/rebusurance-v1.0.0.zip --output rebusurance.zip
 
 
 build/rebusurance-v1.0.0: rebusurance.zip

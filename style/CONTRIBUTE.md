@@ -31,6 +31,15 @@ Pre-requisites:
     - **[spritezero][2]**, to combine icons into a sprite sheet
     - **[prettier][3]**, to keep our code style consistent
 
+- On MacOS (MacPorts):
+  - **npm** (`sudo port install npm6`)
+  - **python3** (`sudo port install python38`)
+  - **xmlstarlet** (`sudo port install xmlstarlet`)
+  - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
+  - **prettify** (`npm install --save-dev --save-exact prettier`)
+  - **spritezero** (`npm -g config set user $USER` and `sudo npm install -g @beyondtracks/spritezero-cli`)
+  - **browser-sync** (`npm install browser-sync`)
+
 [1]: https://browsersync.io/
 [2]: https://github.com/mapbox/spritezero
 [3]: https://prettier.io/
