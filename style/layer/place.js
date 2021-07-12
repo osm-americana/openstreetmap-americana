@@ -48,8 +48,8 @@ var layerPlaceState = {
   type: "symbol",
   paint: {
     "text-color": "rgba(74, 72, 66, 1)",
-    "text-halo-color": "rgba(255,255,255,0.7)",
-    "text-halo-width": 0.8,
+    "text-halo-color": "rgba(255,255,255,0.9)",
+    "text-halo-width": 2.0,
   },
   filter: ["all", ["==", "class", "state"]],
   layout: {
@@ -77,7 +77,7 @@ var layerPlaceCountryOther = {
     "text-color": "#334",
     "text-halo-blur": 1,
     "text-halo-color": "rgba(255,255,255,0.8)",
-    "text-halo-width": 0.8,
+    "text-halo-width": 2.0,
   },
   filter: ["all", ["==", "class", "country"], ["!has", "iso_a2"]],
   layout: {
@@ -102,7 +102,7 @@ var layerPlaceCountry3 = {
     "text-color": "#334",
     "text-halo-blur": 1,
     "text-halo-color": "rgba(255,255,255,0.8)",
-    "text-halo-width": 0.8,
+    "text-halo-width": 2.0,
   },
   filter: [
     "all",
@@ -131,8 +131,8 @@ var layerPlaceCountry2 = {
   paint: {
     "text-color": "#334",
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255,255,255,0.8)",
-    "text-halo-width": 0.8,
+    "text-halo-color": "rgba(255,255,255,1)",
+    "text-halo-width": 3.0,
   },
   filter: [
     "all",
@@ -161,8 +161,8 @@ var layerPlaceCountry1 = {
   paint: {
     "text-color": "#334",
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255,255,255,0.8)",
-    "text-halo-width": 0.8,
+    "text-halo-color": "rgba(255,255,255,1)",
+    "text-halo-width": 3.0,
   },
   filter: [
     "all",

@@ -41,6 +41,12 @@ americanaLayers.push(
 
   layerHighwayShieldInterstate,
 
+  layerBoundaryCountyBg,
+  layerBoundaryCounty,
+  layerBoundaryStateBg,
+  layerBoundaryState,
+  layerBoundaryCountryBg,
+  layerBoundaryCountry,
   layerPlaceCity,
   layerPlaceState,
   layerPlaceCountryOther,
