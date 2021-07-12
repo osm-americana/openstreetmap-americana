@@ -23,6 +23,7 @@ Pre-requisites:
 
 - This guide is written for Ubuntu Linux. Users of Windows or other Linux distributions are encouraged to add OS-specific development guidelines.
 - On Ubuntu, the following development tools are required:
+
   - **npm** (`apt install npm`)
   - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
   - **xmlstarlet**, to preprocess imported SVGs for map displays (`apt install xmlstarlet`)
@@ -33,12 +34,9 @@ Pre-requisites:
 
 - On MacOS (MacPorts):
   - **npm** (`sudo port install npm6`)
-  - **python3** (`sudo port install python38`)
   - **xmlstarlet** (`sudo port install xmlstarlet`)
   - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
-  - **prettify** (`npm install --save-dev --save-exact prettier`)
-  - **spritezero** (`npm -g config set user $USER` and `sudo npm install -g @beyondtracks/spritezero-cli`)
-  - **browser-sync** (`npm install browser-sync`)
+  - **NPM dependencies** installed in one step from `package.json` (`npm -g config set user $USER` and `npm install`)
 
 [1]: https://browsersync.io/
 [2]: https://github.com/mapbox/spritezero
