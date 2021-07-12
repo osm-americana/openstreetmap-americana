@@ -23,6 +23,7 @@ Pre-requisites:
 
 - This guide is written for Ubuntu Linux. Users of Windows or other Linux distributions are encouraged to add OS-specific development guidelines.
 - On Ubuntu, the following development tools are required:
+
   - **npm** (`apt install npm`)
   - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
   - **xmlstarlet**, to preprocess imported SVGs for map displays (`apt install xmlstarlet`)
@@ -30,6 +31,12 @@ Pre-requisites:
     - **[browser-sync][1]**, to run a local web server with live reloading
     - **[spritezero][2]**, to combine icons into a sprite sheet
     - **[prettier][3]**, to keep our code style consistent
+
+- On MacOS (MacPorts):
+  - **npm** (`sudo port install npm6`)
+  - **xmlstarlet** (`sudo port install xmlstarlet`)
+  - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
+  - **NPM dependencies** installed in one step from `package.json` (`npm -g config set user $USER` and `npm install`)
 
 [1]: https://browsersync.io/
 [2]: https://github.com/mapbox/spritezero
