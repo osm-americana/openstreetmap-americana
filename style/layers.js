@@ -24,17 +24,26 @@ americanaLayers.push(
   layerRoadOnewayLink
 );
 
-//One layer at a time to handle stacked bridges
-for (let i = 1; i <= 5; i++) {
-  [
+var bridgeLayers =  [
     layerBridgeMotorwayCasing,
     layerBridgeMotorwayLinkCasing,
     layerBridgeMotorway,
     layerBridgeMotorwayLink,
     layerBridgeOneway,
     layerBridgeOnewayLink,
-  ].forEach((layer) => americanaLayers.push(restrictLayer(layer, i)));
+  ];
+
+//Render bridge without layer on the lowest bridge layer
+bridgeLayers.forEach((layer) => americanaLayers.push(filteredClone(layer, ["!has", "layer"], "_layer_bottom")));
+
+//One layer at a time to handle stacked bridges
+for (let i = 1; i <= 4; i++) {
+  bridgeLayers.forEach((layer) => americanaLayers.push(restrictLayer(layer, i)));
 }
+
+//If layer is more than 5, just give up and render on a single layer.
+bridgeLayers.forEach((layer) => americanaLayers.push(filteredClone(layer, [">=", "layer", 5], "_layer_top")));
+
 
 americanaLayers.push(
   layerMotorwayLabel,
