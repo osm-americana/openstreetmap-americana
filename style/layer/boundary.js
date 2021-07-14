@@ -2,7 +2,7 @@ var layerBoundaryCountyBg = {
   id: "boundary_county-bg",
   type: "line",
   paint: {
-    "line-color": "rgba(250, 250, 250, 1)",
+    "line-color": colorBorderCasing,
     "line-dasharray": [1],
     "line-width": 2,
   },
@@ -25,7 +25,7 @@ var layerBoundaryCounty = {
   id: "boundary_county",
   type: "line",
   paint: {
-    "line-color": "rgba(123, 119, 119, 1)",
+    "line-color": colorBorder,
     "line-dasharray": [3, 3],
     "line-width": 1,
     "line-offset": 0,
@@ -49,9 +49,11 @@ var layerBoundaryStateBg = {
   id: "boundary_state-bg",
   type: "line",
   paint: {
-    "line-color": "rgba(250, 250, 250, 1)",
+    "line-color": colorBorderCasing,
     "line-dasharray": [1],
-    "line-width": 3,
+    "line-width": {
+      stops: [[7, 3], [10, 6]]
+    },
   },
   filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
   minzoom: 7,
@@ -67,7 +69,7 @@ var layerBoundaryState = {
   id: "boundary_state",
   type: "line",
   paint: {
-    "line-color": "rgba(123, 119, 119, 1)",
+    "line-color": colorBorder,
     "line-dasharray": {
       stops: [
         [3, [1]],
@@ -96,7 +98,7 @@ var layerBoundaryCountryBg = {
   id: "boundary_country-bg",
   type: "line",
   paint: {
-    "line-color": "rgba(250, 250, 250, 1)",
+    "line-color": colorBorderCasing,
     "line-opacity": {
       base: 1,
       stops: [
@@ -104,7 +106,9 @@ var layerBoundaryCountryBg = {
         [4, 1],
       ],
     },
-    "line-width": 4.5,
+    "line-width": {
+      stops: [[7, 8], [10, 10]]
+    },
     "line-dasharray": [1],
   },
   filter: [
@@ -126,7 +130,7 @@ var layerBoundaryCountry = {
   id: "boundary_country",
   type: "line",
   paint: {
-    "line-color": "rgba(123, 119, 119, 1)",
+    "line-color": colorBorder,
     "line-opacity": {
       base: 1,
       stops: [
