@@ -6,7 +6,16 @@ var americanaLayers = [];
 americanaLayers.push(
   layerBackground,
 
+  layerBoundaryCountyBg,
+  layerBoundaryStateBg,
+  layerBoundaryCountryBg,
+
   layerWater,
+
+  layerBoundaryCity,
+  layerBoundaryCounty,
+  layerBoundaryState,
+  layerBoundaryCountry,
 
   layerTunnelMotorwayCasing,
   layerTunnelMotorwayLinkCasing,
@@ -40,6 +49,7 @@ americanaLayers.push(
   layerMotorwayLabel,
 
   layerHighwayShieldInterstate,
+
 
   layerPlaceCity,
   layerPlaceState,
