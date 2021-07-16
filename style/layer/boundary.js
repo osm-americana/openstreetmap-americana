@@ -1,10 +1,36 @@
+var layerBoundaryCity = {
+  id: "boundary_city",
+  type: "line",
+  paint: {
+    "line-color": colorBorder,
+    "line-dasharray": [2, 4],
+    "line-width": 1,
+    "line-offset": 0,
+  },
+  filter: [
+    "all",
+    ["==", "admin_level", 8],
+    ["!has", "claimed_by"],
+    ["==", "maritime", 0],
+  ],
+  minzoom: 11,
+  layout: {
+    "line-join": "round",
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  "source-layer": "boundary",
+};
+
 var layerBoundaryCountyBg = {
   id: "boundary_county-bg",
   type: "line",
   paint: {
     "line-color": colorBorderCasing,
     "line-dasharray": [1],
-    "line-width": 2,
+    "line-width": {
+      stops: [[11, 5], [12, 6]]
+    },
   },
   filter: [
     "all",
@@ -12,7 +38,7 @@ var layerBoundaryCountyBg = {
     ["!has", "claimed_by"],
     ["==", "maritime", 0],
   ],
-  minzoom: 9,
+  minzoom: 11,
   layout: {
     "line-join": "round",
     visibility: "visible",
@@ -52,7 +78,7 @@ var layerBoundaryStateBg = {
     "line-color": colorBorderCasing,
     "line-dasharray": [1],
     "line-width": {
-      stops: [[7, 3], [10, 6]]
+      stops: [[7, 3], [10, 6], [12, 8], [16, 12]]
     },
   },
   filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
@@ -107,7 +133,7 @@ var layerBoundaryCountryBg = {
       ],
     },
     "line-width": {
-      stops: [[7, 8], [10, 10]]
+      stops: [[7, 8], [10, 10], [12, 20], [16, 25]]
     },
     "line-dasharray": [1],
   },

@@ -12,6 +12,7 @@ americanaLayers.push(
 
   layerWater,
 
+  layerBoundaryCity,
   layerBoundaryCounty,
   layerBoundaryState,
   layerBoundaryCountry,
