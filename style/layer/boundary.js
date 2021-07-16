@@ -99,7 +99,7 @@ var layerBoundaryState = {
     "line-dasharray": {
       stops: [
         [3, [1]],
-        [6, [3, 2, 1, 2]],
+        [7, [3, 2, 1, 2]],
       ],
     },
     "line-width": {
