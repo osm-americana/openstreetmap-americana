@@ -5,4 +5,4 @@ var colorMotorwayTunnelCasing = "hsla(354, 71%, 75%, 1)";
 var colorBridgeCasing = "black";
 
 var colorBorder = "rgba(123, 119, 119, 1)";
-var colorBorderCasing = "rgba(136, 85, 141, 0.5)";
+var colorBorderCasing = "rgba(224, 207, 232, 1)";
