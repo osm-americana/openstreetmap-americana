@@ -29,7 +29,10 @@ var layerBoundaryCountyBg = {
     "line-color": colorBorderCasing,
     "line-dasharray": [1],
     "line-width": {
-      stops: [[11, 5], [12, 6]]
+      stops: [
+        [11, 5],
+        [12, 6],
+      ],
     },
   },
   filter: [
@@ -78,7 +81,12 @@ var layerBoundaryStateBg = {
     "line-color": colorBorderCasing,
     "line-dasharray": [1],
     "line-width": {
-      stops: [[7, 3], [10, 6], [12, 8], [16, 12]]
+      stops: [
+        [7, 3],
+        [10, 6],
+        [12, 8],
+        [16, 12],
+      ],
     },
   },
   filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
@@ -133,7 +141,12 @@ var layerBoundaryCountryBg = {
       ],
     },
     "line-width": {
-      stops: [[7, 8], [10, 10], [12, 20], [16, 25]]
+      stops: [
+        [7, 8],
+        [10, 10],
+        [12, 20],
+        [16, 25],
+      ],
     },
     "line-dasharray": [1],
   },
