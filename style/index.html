@@ -24,6 +24,12 @@
         bottom: 0;
         width: 100%;
       }
+      #map-tiler-logo {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        z-index: 100;
+      }
     </style>
 
     <!-- This file needs to be modified with your MapTiler Cloud key -->
@@ -50,6 +56,11 @@
 
   <body>
     <div id="map"></div>
+    <a id="map-tiler-logo" href="https://www.maptiler.com/"
+      ><img
+        src="https://api.maptiler.com/resources/logo.svg"
+        alt="MapTiler logo"
+    /></a>
     <a href="https://github.com/ZeLonewolf/openstreetmap-americana/"
       ><img
         loading="lazy"
