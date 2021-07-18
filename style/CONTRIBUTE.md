@@ -52,7 +52,7 @@ Since MacOS doesn't include a package manager you'll need [Homebrew][50] or [Mac
   - _Or_ via MacPorts - `sudo port install npm7`
 - **Install xmlstarlet**
   - via Homebrew - `brew install xmlstarlet`
-  - via MacPorts - `sudo port install xmlstarlet`
+  - _Or_ via MacPorts - `sudo port install xmlstarlet`
 
 [50]: https://brew.sh/
 [51]: https://www.macports.org/
