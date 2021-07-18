@@ -24,6 +24,12 @@
         bottom: 0;
         width: 100%;
       }
+      #map-tiler-logo {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        z-index: 100;
+      }
     </style>
 
     <!-- This file needs to be modified with your MapTiler Cloud key -->
@@ -50,6 +56,11 @@
 
   <body>
     <div id="map"></div>
+    <a id="map-tiler-logo" href="https://www.maptiler.com/"
+      ><img
+        src="https://api.maptiler.com/resources/logo.svg"
+        alt="MapTiler logo"
+    /></a>
     <a href="https://github.com/ZeLonewolf/openstreetmap-americana/"
       ><img
         loading="lazy"
@@ -78,11 +89,6 @@
               "https://api.maptiler.com/tiles/v3/tiles.json?key=" + mapTilerKey,
             type: "vector",
           },
-          maptiler_attribution: {
-            type: "vector",
-            attribution:
-              '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-          },
         },
         version: 8,
         metadata: {
@@ -100,7 +106,14 @@
         style: style,
         center: [-74.5, 40], // starting position [lng, lat]
         zoom: 8, // starting zoom
+        attributionControl: false,
       });
+      map.addControl(
+        new maplibregl.AttributionControl({
+          customAttribution:
+            '<a href="https://openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+        })
+      );
     </script>
   </body>
 </html>
