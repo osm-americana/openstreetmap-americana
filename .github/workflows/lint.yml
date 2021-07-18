@@ -21,6 +21,7 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v3.3 # https://github.com/creyD/prettier_action
         with:
+          dry: true
           prettier_options: --write .
           # Setting only_changed to false picks up new files
           only_changed: false
