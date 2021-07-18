@@ -74,7 +74,7 @@ NPM dependencies are tracked in the `package.json` file and are installed with o
 
     npm install
 
-This step is the same on all platforms.  It installs the following packages locally to
+This step is the same on all platforms. It installs the following packages locally to
 the project:
 
 - **[browser-sync][70]** - to run a local web server with live reloading
