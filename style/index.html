@@ -67,11 +67,6 @@
               "https://api.maptiler.com/tiles/v3/tiles.json?key=" + mapTilerKey,
             type: "vector",
           },
-          maptiler_attribution: {
-            type: "vector",
-            attribution:
-              '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-          },
         },
         version: 8,
         metadata: {
@@ -89,7 +84,14 @@
         style: style,
         center: [-74.5, 40], // starting position [lng, lat]
         zoom: 8, // starting zoom
+        attributionControl: false,
       });
+      map.addControl(
+        new maplibregl.AttributionControl({
+          customAttribution:
+            '<a href="https://openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+        })
+      );
     </script>
   </body>
 </html>
