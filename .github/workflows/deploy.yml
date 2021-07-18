@@ -11,13 +11,14 @@ jobs:
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
       - name: Install and Build 🔧
         run: |
           sudo apt install -y xmlstarlet
+          cd style
           npm install
           npm install -g node-gyp
-          cd style && make sprites
+          make sprites
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
