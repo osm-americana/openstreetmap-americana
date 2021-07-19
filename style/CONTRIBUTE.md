@@ -13,41 +13,98 @@ The repository is organized as follows:
 
 ## MapTiler API Key
 
-- In order to run the style, you must create an account to obtain a free key from [MapTiler Cloud](https://cloud.maptiler.com/maps/). This key should be pasted into the `key.js` file.
+In order to run the style, you must create an account to obtain a free key from
+[MapTiler Cloud][20]. This key should be pasted into the `key.js` file.
 
-https://cloud.maptiler.com/maps/
+[20]: https://cloud.maptiler.com/maps/
 
-## Developer Notes
+## Install Pre-requisites
 
-Pre-requisites:
+These development tools are required and must be installed manually on your system:
 
-- This guide is written for Ubuntu Linux. Users of Windows or other Linux distributions are encouraged to add OS-specific development guidelines.
-- On Ubuntu, the following development tools are required:
+- **NodeJS 14** or newer with **NPM 7** or newer
+- **xmlstarlet** - to preprocess imported SVGs for map displays
 
-  - **npm** (`apt install npm`)
-  - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
-  - **xmlstarlet**, to preprocess imported SVGs for map displays (`apt install xmlstarlet`)
-  - **NPM dependencies** installed in one step from `package.json` (`npm install`)
-    - **[browser-sync][1]**, to run a local web server with live reloading
-    - **[spritezero][2]**, to combine icons into a sprite sheet
-    - **[prettier][3]**, to keep our code style consistent
+See platform specific installation instructions below. Users of other platforms are
+encouraged to contribute additional OS-specific instuctions. These instructions install
+NodeJS directly, but if you need multiple versions another option is to [use NVM][30].
 
-- On MacOS (MacPorts):
-  - **npm** (`sudo port install npm6`)
-  - **xmlstarlet** (`sudo port install xmlstarlet`)
-  - **nvm** (https://heynode.com/tutorial/install-nodejs-locally-nvm)
-  - **NPM dependencies** installed in one step from `package.json` (`npm -g config set user $USER` and `npm install`)
+[30]: https://heynode.com/tutorial/install-nodejs-locally-nvm
 
-[1]: https://browsersync.io/
-[2]: https://github.com/mapbox/spritezero
-[3]: https://prettier.io/
+### Ubuntu Linux
 
-Before submitting a PR
+The NodeJS & NPM packages available from the default Ubuntu repos are generally out of
+date. To get newer versions you'll need to add the [NodeSource][40] repo.
 
-- Please prettify all files prior to submission. Run `make code_format` to format all code files with js-prettifier.
+- **Add NodeSource repo** - `curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
+- **Install NodeJS & NPM** - `sudo apt install nodejs`
+- **Install xmlstarlet** - `sudo apt install xmlstarlet`
+
+[40]: https://github.com/nodesource/distributions/blob/master/README.md
+
+### MacOS
+
+Since MacOS doesn't include a package manager you'll need [Homebrew][50] or [MacPorts][51].
+
+- **Install NodeJS & NPM**
+  - Download and run the installer from [nodejs.org][52]
+  - _Or_ via Homebrew - `brew install node`
+  - _Or_ via MacPorts - `sudo port install npm7`
+- **Install xmlstarlet**
+  - via Homebrew - `brew install xmlstarlet`
+  - _Or_ via MacPorts - `sudo port install xmlstarlet`
+
+[50]: https://brew.sh/
+[51]: https://www.macports.org/
+[52]: https://nodejs.org
+
+### Windows
+
+Running Ubuntu via [Windows Subsystem for Linux][60] is recommended. Follow the
+instructions for [Ubuntu Linux](#ubuntu-linux) above.
+
+Running the project natively on Windows may also be possible but instructions have not
+been written.
+
+[60]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+## Install Project Level NPM Dependencies
+
+NPM dependencies are tracked in the `package.json` file and are installed with one command:
+
+    npm install
+
+This step is the same on all platforms. It installs the following packages locally to
+the project:
+
+- **[browser-sync][70]** - to run a local web server with live reloading
+- **[spritezero][71]** - to combine icons into a sprite sheet
+- **[prettier][72]** - to keep our code style consistent
+
+[70]: https://browsersync.io/
+[71]: https://github.com/mapbox/spritezero
+[72]: https://prettier.io/
+
+### NPM Troubleshooting
+
+If you run into permissions errors with NPM, setting the user with this command may
+help: `npm -g config set user $USER`. Issues like this this can usually be avoided by
+[not running `npm` with `root` or `sudo`][80]. Another good troubleshooting step is
+simply deleting the `node_modules` folder and re-running `npm install`.
+
+[80]: https://medium.com/@ExplosionPills/dont-use-sudo-with-npm-still-66e609f5f92
 
 ## Running the Americana style
 
-The simplest way to run the style is to run `make run`. This will generate the sprite sheet and launch a simple HTTP server on port 1776 with a document root at the current location. For a production installation, the .html and .js files, as well as the generated sprites folder need to be installed on a production web server.
+The simplest way to run the style is to run `make run`. This will generate the sprite
+sheet and launch a simple HTTP server on port 1776 with a document root at the current
+location. For a production installation, the .html and .js files, as well as the
+generated sprites folder need to be installed on a production web server.
 
-Running `make clean sprites` will re-generate the sprite sheets without needing to restart the web server.
+Running `make clean sprites` will re-generate the sprite sheets without needing to
+restart the web server.
+
+## Before submitting a PR
+
+Please prettify all files prior to submission. Run `make code_format` to format all
+code files with js-prettifier.
