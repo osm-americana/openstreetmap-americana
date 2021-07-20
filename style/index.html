@@ -73,6 +73,9 @@
         style="position: absolute; top: 0; right: 0; border: 0; z-index: 100"
     /></a>
     <script>
+      var getUrl = window.location;
+      var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
+
       var style = {
         id: "streets",
         name: "Americana",
@@ -81,7 +84,7 @@
         center: [0, 0],
         glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
         layers: americanaLayers,
-        sprite: new URL("sprites/sprite", window.location.origin).href,
+        sprite: new URL("sprites/sprite", baseUrl).href,
         bearing: 0,
         sources: {
           openmaptiles: {
