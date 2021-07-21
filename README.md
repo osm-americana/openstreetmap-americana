@@ -1,6 +1,6 @@
 # OpenStreetMap Americana Style
 
-_A quintessentially American map style_
+_A quintessentially American map style_ [🗺 View the map](https://zelonewolf.github.io/openstreetmap-americana/)
 
 <img src="doc-img/osm-americana-logo.png" alt="Americana map style logo" width="200"/>
 
