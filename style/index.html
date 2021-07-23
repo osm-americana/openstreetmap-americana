@@ -107,8 +107,8 @@
         hash: true,
         antialias: true,
         style: style,
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 8, // starting zoom
+        center: [-94, 40.5], // starting position [lng, lat]
+        zoom: 4, // starting zoom
         attributionControl: false,
       });
       map.addControl(
@@ -117,6 +117,7 @@
             '<a href="https://openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
         })
       );
+      map.addControl(new maplibregl.NavigationControl(), 'top-left');
     </script>
   </body>
 </html>
