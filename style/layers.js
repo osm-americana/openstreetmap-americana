@@ -72,8 +72,8 @@ americanaLayers.push(
 
   layerHighwayShieldInterstate,
 
-  layerPlaceCity,
   layerPlaceState,
+  layerPlaceCity,
   layerPlaceCountryOther,
   layerPlaceCountry3,
   layerPlaceCountry2,

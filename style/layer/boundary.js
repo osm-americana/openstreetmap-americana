@@ -78,21 +78,28 @@ var layerBoundaryStateBg = {
   id: "boundary_state-bg",
   type: "line",
   paint: {
-    "line-color": colorBorderCasing,
+    "line-color": {
+      base: 1.2,
+      stops: [
+        [3, `hsl(${hueBorderCasing - 30}, 25%, 94%)`],
+        [7, `hsl(${hueBorderCasing}, 30%, 90%)`],
+      ],
+    },
     "line-dasharray": [1],
     "line-width": {
+      base: 1.2,
       stops: [
-        [7, 3],
-        [10, 6],
-        [12, 8],
-        [16, 12],
+        [3, 4],
+        [12, 20],
+        [16, 30],
       ],
     },
   },
   filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
-  minzoom: 7,
+  minzoom: 3,
   layout: {
     "line-join": "round",
+    "line-cap": "round",
     visibility: "visible",
   },
   source: "openmaptiles",
@@ -103,12 +110,15 @@ var layerBoundaryState = {
   id: "boundary_state",
   type: "line",
   paint: {
-    "line-color": colorBorder,
-    "line-dasharray": {
+    "line-color": {
+      base: 1.2,
       stops: [
-        [3, [1]],
-        [7, [3, 2, 1, 2]],
+        [3, `hsl(${hueBorder}, 2%, 60%)`],
+        [7, `hsl(${hueBorder}, 2%, 48%)`],
       ],
+    },
+    "line-dasharray": {
+      stops: [[3, [20, 3, 5, 3, 5, 3]]],
     },
     "line-width": {
       stops: [
@@ -122,6 +132,7 @@ var layerBoundaryState = {
   minzoom: 3,
   layout: {
     "line-join": "round",
+    "line-cap": "round",
     visibility: "visible",
   },
   source: "openmaptiles",
@@ -132,7 +143,13 @@ var layerBoundaryCountryBg = {
   id: "boundary_country-bg",
   type: "line",
   paint: {
-    "line-color": colorBorderCasing,
+    "line-color": {
+      base: 1.2,
+      stops: [
+        [3, `hsl(${hueBorderCasing - 30}, 35%, 86%)`],
+        [7, `hsl(${hueBorderCasing}, 35%, 86%)`],
+      ],
+    },
     "line-opacity": {
       base: 1,
       stops: [
@@ -141,14 +158,13 @@ var layerBoundaryCountryBg = {
       ],
     },
     "line-width": {
+      base: 1.2,
       stops: [
-        [7, 8],
-        [10, 10],
-        [12, 20],
-        [16, 25],
+        [2, 4],
+        [12, 25],
+        [16, 50],
       ],
     },
-    "line-dasharray": [1],
   },
   filter: [
     "all",
@@ -156,7 +172,7 @@ var layerBoundaryCountryBg = {
     ["!has", "claimed_by"],
     ["==", "maritime", 0],
   ],
-  minzoom: 7,
+  minzoom: 2,
   layout: {
     "line-join": "round",
     visibility: "visible",
@@ -169,7 +185,13 @@ var layerBoundaryCountry = {
   id: "boundary_country",
   type: "line",
   paint: {
-    "line-color": colorBorder,
+    "line-color": {
+      base: 1.2,
+      stops: [
+        [3, `hsl(${hueBorder}, 2%, 47%)`],
+        [7, `hsl(${hueBorder}, 2%, 37%)`],
+      ],
+    },
     "line-opacity": {
       base: 1,
       stops: [
@@ -185,7 +207,9 @@ var layerBoundaryCountry = {
         [10, 2.25],
       ],
     },
-    "line-dasharray": [1],
+    "line-dasharray": {
+      stops: [[3, [10, 1, 3, 1]]],
+    },
     "line-blur": 0,
   },
   filter: [

@@ -30,15 +30,22 @@ var layerMotorway = {
   id: "road_motorway",
   type: "line",
   paint: {
-    "line-color": colorMotorway,
+    "line-color": {
+      base: 1.2,
+      stops: [
+        [4, `hsl(${hueMotorway}, 70%, 76%)`],
+        [6, `hsl(${hueMotorway}, 70%, 60%)`],
+      ],
+    },
     "line-width": {
       base: 1.2,
       stops: [
-        [4, 0],
-        [7, 1],
+        [4, 0.5],
+        [7, 1.5],
         [20, 18],
       ],
     },
+    "line-blur": 0.5,
   },
   filter: [
     "all",
@@ -48,7 +55,7 @@ var layerMotorway = {
   ],
   layout: layoutRoad,
   source: "openmaptiles",
-  minzoom: 5,
+  minzoom: 4,
   metadata: {},
   "source-layer": "transportation",
 };

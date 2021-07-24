@@ -2,16 +2,22 @@ var layerMotorwayCasing = {
   id: "road_motorway_casing",
   type: "line",
   paint: {
-    "line-color": colorMotorwayCasing,
+    "line-color": {
+      base: 1.2,
+      stops: [
+        [4, `hsl(${hueMotorway}, 10%, 85%)`],
+        [6, `hsl(${hueMotorway}, 71%, 40%)`],
+      ],
+    },
     "line-width": {
       base: 1.2,
       stops: [
-        [5, 0.4],
-        [6, 1.2],
-        [7, 1.75],
+        [4, 1.5],
+        [7, 3],
         [20, 22],
       ],
     },
+    "line-blur": 0.5,
   },
   filter: [
     "all",
@@ -21,7 +27,7 @@ var layerMotorwayCasing = {
   ],
   layout: layoutRoadCasing,
   source: "openmaptiles",
-  minzoom: 6,
+  minzoom: 4,
   metadata: {},
   "source-layer": "transportation",
 };
