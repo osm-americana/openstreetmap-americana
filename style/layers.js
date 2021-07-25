@@ -6,11 +6,15 @@ var americanaLayers = [];
 americanaLayers.push(
   layerBackground,
 
+  layerParkFill,
+
   layerBoundaryCountyBg,
   layerBoundaryStateBg,
   layerBoundaryCountryBg,
 
   layerWater,
+
+  layerParkOutline,
 
   layerBoundaryCity,
   layerBoundaryCounty,
@@ -60,7 +64,11 @@ bridgeLayers.forEach((layer) =>
 );
 
 americanaLayers.push(
+  //The labels at the end of the list have the highest priority.
+
   layerMotorwayLabel,
+
+  layerParkLabel,
 
   layerHighwayShieldInterstate,
 
