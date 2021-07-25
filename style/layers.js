@@ -6,13 +6,15 @@ var americanaLayers = [];
 americanaLayers.push(
   layerBackground,
 
+  layerParkFill,
+
   layerBoundaryCountyBg,
   layerBoundaryStateBg,
   layerBoundaryCountryBg,
 
   layerWater,
 
-  layerParkFill,
+  layerParkOutline,
 
   layerBoundaryCity,
   layerBoundaryCounty,

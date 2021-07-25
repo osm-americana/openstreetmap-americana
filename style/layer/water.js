@@ -2,7 +2,7 @@ var layerwaterwayTunnel = {
   id: "waterway_tunnel",
   type: "line",
   paint: {
-    "line-color": "#a0c8f0",
+    "line-color": colorWaterLine,
     "line-width": {
       base: 1.3,
       stops: [
@@ -26,7 +26,7 @@ var layerWaterwayRiver = {
   id: "waterway_river",
   type: "line",
   paint: {
-    "line-color": "#a0c8f0",
+    "line-color": colorWaterLine,
     "line-width": {
       base: 1.2,
       stops: [
@@ -53,7 +53,7 @@ var layerWaterwayRiverIntermittent = {
   id: "waterway_river_intermittent",
   type: "line",
   paint: {
-    "line-color": "#a0c8f0",
+    "line-color": colorWaterLine,
     "line-width": {
       base: 1.2,
       stops: [
@@ -80,7 +80,7 @@ var layerWaterwayOther = {
   id: "waterway_other",
   type: "line",
   paint: {
-    "line-color": "#a0c8f0",
+    "line-color": colorWaterLine,
     "line-width": {
       base: 1.3,
       stops: [
@@ -108,7 +108,7 @@ var layerWaterwayOtherIntermittent = {
   id: "waterway_other_intermittent",
   type: "line",
   paint: {
-    "line-color": "#a0c8f0",
+    "line-color": colorWaterLine,
     "line-width": {
       base: 1.3,
       stops: [
@@ -137,7 +137,7 @@ var layerWaterIntermittent = {
   id: "water_intermittent",
   type: "fill",
   paint: {
-    "fill-color": "rgba(172, 218, 251, 1)",
+    "fill-color": colorWaterIntermittent,
     "fill-opacity": 0.85,
   },
   filter: ["all", ["==", "intermittent", 1]],
@@ -153,7 +153,7 @@ var layerWater = {
   id: "water",
   type: "fill",
   paint: {
-    "fill-color": "rgba(134, 204, 250, 1)",
+    "fill-color": colorWaterFill,
   },
   filter: ["all", ["!=", "intermittent", 1], ["!=", "brunnel", "tunnel"]],
   layout: {

@@ -3,7 +3,20 @@ var layerParkFill = {
   type: "fill",
   paint: {
     "fill-color": colorParkFill,
-    "fill-outline-color": colorParkOutline,
+  },
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "park",
+};
+
+var layerParkOutline = {
+  id: "protected-area-outline",
+  type: "line",
+  paint: {
+    "line-color": colorParkOutline,
   },
   layout: {
     visibility: "visible",
