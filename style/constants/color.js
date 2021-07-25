@@ -6,3 +6,7 @@ var colorBridgeCasing = "black";
 
 var colorBorder = "rgba(123, 119, 119, 1)";
 var colorBorderCasing = "rgba(224, 207, 232, 1)";
+
+var colorParkFill = "hsla(136, 41%, 89%, 1)";
+var colorParkOutline = "hsla(136, 41%, 79%, 1)";
+var colorParkLabel = "hsla(136, 71%, 29%, 1)";

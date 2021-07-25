@@ -12,6 +12,8 @@ americanaLayers.push(
 
   layerWater,
 
+  layerParkFill,
+
   layerBoundaryCity,
   layerBoundaryCounty,
   layerBoundaryState,
@@ -60,7 +62,11 @@ bridgeLayers.forEach((layer) =>
 );
 
 americanaLayers.push(
+  //The labels at the end of the list have the highest priority.
+
   layerMotorwayLabel,
+
+  layerParkLabel,
 
   layerHighwayShieldInterstate,
 
