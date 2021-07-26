@@ -3,17 +3,9 @@ var layerTunnelMotorwayLinkCasing = {
   type: "line",
   paint: {
     "line-color": colorMotorwayTunnelCasing,
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [12, 1],
-        [13, 3],
-        [14, 4],
-        [20, 15],
-      ],
-    },
+    "line-width": widthMotorwayLinkCasing,
     "line-opacity": 1,
-    "line-dasharray": [0.5, 0.25],
+    "line-dasharray": tunnelDashArray,
   },
   filter: [
     "all",
@@ -25,6 +17,7 @@ var layerTunnelMotorwayLinkCasing = {
     "line-join": "round",
     visibility: "visible",
   },
+  minzoom: minzoomMotorwayLink,
   source: "openmaptiles",
   metadata: {},
   "source-layer": "transportation",
@@ -35,16 +28,8 @@ var layerTunnelMotorwayCasing = {
   type: "line",
   paint: {
     "line-color": colorMotorwayTunnelCasing,
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [5, 0.4],
-        [6, 0.7],
-        [7, 1.75],
-        [20, 22],
-      ],
-    },
-    "line-dasharray": [0.5, 0.25],
+    "line-width": widthMotorwayCasing,
+    "line-dasharray": tunnelDashArray,
   },
   filter: [
     "all",
@@ -56,6 +41,7 @@ var layerTunnelMotorwayCasing = {
     "line-join": "round",
     visibility: "visible",
   },
+  minzoom: minzoomMotorway,
   source: "openmaptiles",
   metadata: {},
   "source-layer": "transportation",
@@ -66,15 +52,7 @@ var layerTunnelMotorwayLink = {
   type: "line",
   paint: {
     "line-color": colorMotorwayTunnel,
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [12.5, 0],
-        [13, 1.5],
-        [14, 2.5],
-        [20, 11.5],
-      ],
-    },
+    "line-width": widthMotorwayLink,
   },
   filter: [
     "all",
@@ -86,6 +64,7 @@ var layerTunnelMotorwayLink = {
     "line-join": "round",
     visibility: "visible",
   },
+  minzoom: minzoomMotorwayLink,
   source: "openmaptiles",
   metadata: {},
   "source-layer": "transportation",
@@ -96,14 +75,7 @@ var layerTunnelMotorway = {
   type: "line",
   paint: {
     "line-color": colorMotorwayTunnel,
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [5, 0],
-        [7, 1],
-        [20, 18],
-      ],
-    },
+    "line-width": widthMotorway,
   },
   filter: [
     "all",
@@ -115,6 +87,7 @@ var layerTunnelMotorway = {
     "line-join": "round",
     visibility: "visible",
   },
+  minzoom: minzoomMotorway,
   source: "openmaptiles",
   metadata: {},
   "source-layer": "transportation",

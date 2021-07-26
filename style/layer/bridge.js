@@ -2,17 +2,12 @@ var layerBridgeMotorwayLinkCasing = {
   id: "bridge_motorway_link_casing",
   type: "line",
   paint: {
-    "line-color": "hsla(354, 71%, 10%, 1)",
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [12, 1],
-        [13, 3],
-        [14, 4],
-        [20, 15],
-      ],
-    },
-    "line-opacity": 1,
+    "line-color": colorMotorwayCasingLowZoom.concat(
+      minzoomBrunnel + 3,
+      `hsl(${hueMotorway}, 71%, 10%)`
+    ),
+    "line-width": widthMotorwayLinkCasing,
+    "line-blur": 0.5,
   },
 
   filter: [
@@ -21,7 +16,7 @@ var layerBridgeMotorwayLinkCasing = {
     ["==", "ramp", 1],
     ["==", "brunnel", "bridge"],
   ],
-  minzoom: 12,
+  minzoom: minzoomMotorwayLink,
   layout: {
     "line-join": "round",
   },
@@ -34,16 +29,9 @@ var layerBridgeMotorwayCasing = {
   id: "bridge_motorway_casing",
   type: "line",
   paint: {
-    "line-color": "hsla(354, 71%, 10%, 1)",
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [5, 0.4],
-        [6, 1.2],
-        [7, 1.75],
-        [20, 22],
-      ],
-    },
+    "line-color": colorMotorwayBridgeCasing,
+    "line-width": widthMotorwayCasing,
+    "line-blur": 0.5,
   },
   filter: [
     "all",
@@ -51,7 +39,7 @@ var layerBridgeMotorwayCasing = {
     ["==", "brunnel", "bridge"],
     ["!=", "ramp", 1],
   ],
-  minzoom: 5,
+  minzoom: minzoomMotorway,
   layout: {
     "line-join": "round",
   },
@@ -64,16 +52,9 @@ var layerBridgeMotorwayLink = {
   id: "bridge_motorway_link",
   type: "line",
   paint: {
-    "line-color": "hsla(354, 71%, 40%, 1)",
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [12.5, 0],
-        [13, 1.5],
-        [14, 2.5],
-        [20, 11.5],
-      ],
-    },
+    "line-color": colorMotorway,
+    "line-width": widthMotorwayLink,
+    "line-blur": 0.5,
   },
   filter: [
     "all",
@@ -84,6 +65,7 @@ var layerBridgeMotorwayLink = {
   layout: {
     "line-join": "round",
   },
+  minzoom: minzoomMotorwayLink,
   source: "openmaptiles",
   metadata: {},
   "source-layer": "transportation",
@@ -93,15 +75,9 @@ var layerBridgeMotorway = {
   id: "bridge_motorway",
   type: "line",
   paint: {
-    "line-color": "hsla(354, 71%, 40%, 1)",
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [5, 0],
-        [7, 1],
-        [20, 18],
-      ],
-    },
+    "line-color": colorMotorway,
+    "line-width": widthMotorway,
+    "line-blur": 0.5,
   },
   filter: [
     "all",
@@ -112,6 +88,7 @@ var layerBridgeMotorway = {
   layout: {
     "line-join": "round",
   },
+  minzoom: minzoomMotorway,
   source: "openmaptiles",
   metadata: {},
   "source-layer": "transportation",

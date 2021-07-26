@@ -1,3 +1,5 @@
+var minzoomBrunnel = 11;
+
 var colorTransparent = "hsla(0, 0%, 0%, 0)";
 
 var colorWaterFill = "hsl(211, 42%, 70%)";
@@ -6,10 +8,52 @@ var colorWaterIntermittent = "hsl(205, 89%, 83%)";
 
 var hueMotorway = 354;
 
-var colorMotorway = `hsla(${hueMotorway}, 71%, 40%, 1)`;
-var colorMotorwayCasing = `hsla(${hueMotorway}, 71%, 20%, 1)`;
-var colorMotorwayTunnel = `hsla(${hueMotorway}, 71%, 90%, 1)`;
-var colorMotorwayTunnelCasing = `hsla(${hueMotorway}, 71%, 75%, 1)`;
+var colorMotorwayLowZoom = [
+  "interpolate",
+  ["exponential", 1.2],
+  ["zoom"],
+  4,
+  `hsl(${hueMotorway}, 70%, 76%)`,
+  6,
+  `hsl(${hueMotorway}, 70%, 66%)`,
+  minzoomBrunnel - 0.5,
+  `hsl(${hueMotorway}, 70%, 60%)`,
+];
+var colorMotorway = colorMotorwayLowZoom;
+
+var colorMotorwayCasingLowZoom = [
+  "interpolate",
+  ["exponential", 1.2],
+  ["zoom"],
+  4,
+  `hsl(${hueMotorway}, 10%, 85%)`,
+  6,
+  `hsl(${hueMotorway}, 60%, 50%)`,
+  minzoomBrunnel - 0.5,
+  `hsl(${hueMotorway}, 71%, 40%)`,
+];
+var colorMotorwayCasing = colorMotorwayCasingLowZoom;
+
+var tunnelDashArray = [
+  "step",
+  ["zoom"],
+  ["literal", [1]],
+  minzoomBrunnel,
+  ["literal", [0.5, 0.25]],
+];
+
+var colorMotorwayBridgeCasing = colorMotorwayCasingLowZoom.concat(
+  minzoomBrunnel + 0.5,
+  `hsl(${hueMotorway}, 71%, 10%)`
+);
+var colorMotorwayTunnel = colorMotorwayLowZoom.concat(
+  minzoomBrunnel + 0.5,
+  `hsl(${hueMotorway}, 71%, 90%)`
+);
+var colorMotorwayTunnelCasing = colorMotorwayCasingLowZoom.concat(
+  minzoomBrunnel + 0.5,
+  `hsl(${hueMotorway}, 71%, 75%)`
+);
 
 var colorBridgeCasing = "black";
 
