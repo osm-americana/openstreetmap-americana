@@ -21,7 +21,7 @@ var colorMotorwayLowZoom = [
 ];
 var colorMotorway = colorMotorwayLowZoom.concat(
   14,
-  `hsl(${hueMotorway}, 71%, 45%)`,
+  `hsl(${hueMotorway}, 71%, 45%)`
 );
 
 var colorMotorwayCasingLowZoom = [
@@ -37,7 +37,7 @@ var colorMotorwayCasingLowZoom = [
 ];
 var colorMotorwayCasing = colorMotorwayCasingLowZoom.concat(
   14,
-  `hsl(${hueMotorway}, 71%, 23%)`,
+  `hsl(${hueMotorway}, 71%, 23%)`
 );
 
 var tunnelDashArray = [
