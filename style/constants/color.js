@@ -19,7 +19,10 @@ var colorMotorwayLowZoom = [
   minzoomBrunnel - 0.5,
   `hsl(${hueMotorway}, 70%, 60%)`,
 ];
-var colorMotorway = colorMotorwayLowZoom;
+var colorMotorway = colorMotorwayLowZoom.concat(
+  14,
+  `hsl(${hueMotorway}, 71%, 45%)`,
+);
 
 var colorMotorwayCasingLowZoom = [
   "interpolate",
@@ -32,7 +35,10 @@ var colorMotorwayCasingLowZoom = [
   minzoomBrunnel - 0.5,
   `hsl(${hueMotorway}, 71%, 40%)`,
 ];
-var colorMotorwayCasing = colorMotorwayCasingLowZoom;
+var colorMotorwayCasing = colorMotorwayCasingLowZoom.concat(
+  14,
+  `hsl(${hueMotorway}, 71%, 23%)`,
+);
 
 var tunnelDashArray = [
   "step",

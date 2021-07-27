@@ -12,7 +12,7 @@ var widthMotorway = {
   base: 1.2,
   stops: [
     [4, 0.5],
-    [7, 1.5],
+    [9, 1],
     [20, 18],
   ],
 };
@@ -20,7 +20,7 @@ var widthMotorwayCasing = {
   base: 1.2,
   stops: [
     [4, 1.5],
-    [7, 3],
+    [9, 3],
     [20, 22],
   ],
 };
