@@ -66,8 +66,8 @@ var colorBridgeCasing = "black";
 var hueBorder = 0;
 var hueBorderCasing = 281;
 
-var colorBorder = "rgba(123, 119, 119, 1)";
-var colorBorderCasing = "rgba(224, 207, 232, 1)";
+var colorBorder = "hsl(0, 2%, 47%)";
+var colorBorderCasing = "hsl(${hueBorderCasing}, 35%, 86%)";
 
 var colorParkFill = "hsl(136, 41%, 89%)";
 var colorParkOutline = "hsl(136, 41%, 79%)";
