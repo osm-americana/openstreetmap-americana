@@ -22,22 +22,32 @@ americanaLayers.push(
   layerBoundaryCountry,
 
   layerTunnelMotorwayCasing,
+  layerTunnelTrunkCasing,
   layerTunnelMotorwayLinkCasing,
+  layerTunnelTrunk,
   layerTunnelMotorway,
+  layerTunnelTrunkLink,
   layerTunnelMotorwayLink,
   layerTunnelOneway,
   layerTunnelOnewayLink,
 
+  layerTrunkCasing,
   layerMotorwayCasing,
 
   layerMotorwayLinkCasing,
+  layerTrunk,
   layerMotorway,
+  layerTrunkLink,
   layerMotorwayLink,
   layerRoadOneway,
   layerRoadOnewayLink
 );
 
 var bridgeLayers = [
+  layerBridgeTrunkCasing,
+  layerBridgeTrunkLinkCasing,
+  layerBridgeTrunk,
+  layerBridgeTrunkLink,
   layerBridgeMotorwayCasing,
   layerBridgeMotorwayLinkCasing,
   layerBridgeMotorway,
