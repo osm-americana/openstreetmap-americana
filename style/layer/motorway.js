@@ -1,47 +1,85 @@
-var layerMotorwayLink = {
-  id: "road_motorway_link",
-  type: "line",
-  paint: {
-    "line-color": colorMotorway,
-    "line-width": widthMotorwayLink,
-    "line-blur": 0.5,
-  },
-  filter: [
+// Naming conventions:
+// clr = color, wd = width, lyr = layer
+// moto = motorway
+// link = motorway_link
+// tun = tunnel, brg = bridge
+// case = casing
+
+function filterRoad(roadClass, ramp, brunnel) {
+  return [
     "all",
-    ["!in", "brunnel", "bridge", "tunnel"],
-    ["==", "class", "motorway"],
-    ["==", "ramp", 1],
-  ],
-  minzoom: 12,
+    brunnel == null
+      ? ["!in", "brunnel", "bridge", "tunnel"]
+      : ["==", "brunnel", brunnel],
+    ["==", "class", roadClass],
+    [ramp ? "==" : "!=", "ramp", 1],
+  ];
+}
+
+var defRoad = {
+  type: "line",
   layout: layoutRoad,
-  minzoom: minzoomMotorwayLink,
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "transportation",
 };
 
-var layerMotorway = {
-  id: "road_motorway",
-  type: "line",
-  paint: {
-    "line-color": colorMotorway,
-    "line-width": widthMotorway,
-    "line-blur": 0.5,
-  },
-  filter: [
-    "all",
-    ["!in", "brunnel", "bridge", "tunnel"],
-    ["==", "class", "motorway"],
-    ["!=", "ramp", 1],
-  ],
-  layout: layoutRoad,
-  source: "openmaptiles",
-  minzoom: minzoomMotorway,
-  metadata: {},
-  "source-layer": "transportation",
-};
+var lyrMoto = layerClone(defRoad, "moto");
+lyrMoto.paint = roadPaint(clrMoto, wdMoto);
+lyrMoto.filter = filterRoad("motorway", false, null);
+lyrMoto.minzoom = minzoomMoto;
 
-var layerMotorwayLabel = {
+var lyrMotoCase = layerClone(lyrMoto, "moto_case");
+lyrMotoCase.paint = roadPaint(clrMotoCase, wdMotoCase);
+
+var lyrMotoBrg = layerClone(defRoad, "moto_brg");
+lyrMotoBrg.paint = roadPaint(clrMoto, wdMoto);
+lyrMotoBrg.filter = filterRoad("motorway", false, "bridge");
+lyrMotoBrg.minzoom = minzoomMoto;
+
+var lyrMotoBrgCase = layerClone(lyrMotoBrg, "moto_brg_case");
+lyrMotoBrgCase.paint = roadPaint(clrMotoBridgeCase, wdMotoCase);
+
+var lyrMotoTun = layerClone(defRoad, "moto_tun");
+lyrMotoTun.paint = roadPaint(clrMotoTun, wdMoto);
+lyrMotoTun.filter = filterRoad("motorway", false, "tunnel");
+lyrMotoTun.minzoom = minzoomMoto;
+
+var lyrMotoTunCase = layerClone(lyrMotoTun, "moto_tun_case");
+lyrMotoTunCase.paint = tunCasePaint(clrMotoTunCase, wdMotoCase);
+
+var lyrMotoLink = layerClone(defRoad, "moto_link");
+lyrMotoLink.paint = roadPaint(clrMoto, wdMotoLink);
+lyrMotoLink.filter = filterRoad("motorway", true, null);
+lyrMotoLink.minzoom = minzoomMotoLink;
+
+var lyrMotoLinkCase = layerClone(lyrMotoLink, "moto_link_case");
+lyrMotoLinkCase.paint = roadPaint(clrMotoCase, wdMotoLinkCase);
+
+var lyrMotoLinkBrg = layerClone(defRoad, "moto_link_brg");
+lyrMotoLinkBrg.paint = roadPaint(clrMoto, wdMotoLink);
+lyrMotoLinkBrg.filter = filterRoad("motorway", true, "bridge");
+lyrMotoLinkBrg.minzoom = minzoomMotoLink;
+
+var lyrMotoLinkBrgCase = layerClone(lyrMotoLinkBrg, "moto_link_brg_case");
+lyrMotoLinkBrgCase.paint = {
+//TODO move to constants
+    "line-color": clrMotoCaseLowZoom.concat(
+      minzoomBrunnel + 3,
+      `hsl(${hueMoto}, 71%, 10%)`
+    ),
+    "line-width": wdMotoLinkCase,
+    "line-blur": 0.5,
+  };
+
+var lyrMotoLinkTun = layerClone(defRoad, "moto_link_tun");
+lyrMotoLinkTun.paint = roadPaint(clrMotoTun, wdMotoLink);
+lyrMotoLinkTun.filter = filterRoad("motorway", true, "tunnel");
+lyrMotoLinkTun.minzoom = minzoomMotoLink;
+
+var lyrMotoLinkTunCase = layerClone(lyrMotoLinkTun, "moto_link_tun_case");
+lyrMotoTunCase.paint = tunCasePaint(clrMotoTunCase, wdMotoLinkCase);
+
+var lyrMotoLabel = {
   id: "road_label",
   type: "symbol",
   paint: {
@@ -60,192 +98,5 @@ var layerMotorwayLabel = {
     "symbol-placement": "line",
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "transportation_name",
-};
-var layerTunnelMotorwayLinkCasing = {
-  id: "tunnel_motorway_link_casing",
-  type: "line",
-  paint: {
-    "line-color": colorMotorwayTunnelCasing,
-    "line-width": widthMotorwayLinkCasing,
-    "line-opacity": 1,
-    "line-dasharray": tunnelDashArray,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "ramp", 1],
-    ["==", "brunnel", "tunnel"],
-  ],
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  minzoom: minzoomMotorwayLink,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
-};
-
-var layerTunnelMotorwayCasing = {
-  id: "tunnel_motorway_casing",
-  type: "line",
-  paint: {
-    "line-color": colorMotorwayTunnelCasing,
-    "line-width": widthMotorwayCasing,
-    "line-dasharray": tunnelDashArray,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "brunnel", "tunnel"],
-    ["!=", "ramp", 1],
-  ],
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  minzoom: minzoomMotorway,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
-};
-
-var layerTunnelMotorwayLink = {
-  id: "tunnel_motorway_link",
-  type: "line",
-  paint: {
-    "line-color": colorMotorwayTunnel,
-    "line-width": widthMotorwayLink,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "ramp", 1],
-    ["==", "brunnel", "tunnel"],
-  ],
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  minzoom: minzoomMotorwayLink,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
-};
-
-var layerTunnelMotorway = {
-  id: "tunnel_motorway",
-  type: "line",
-  paint: {
-    "line-color": colorMotorwayTunnel,
-    "line-width": widthMotorway,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "brunnel", "tunnel"],
-    ["!=", "ramp", 1],
-  ],
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  minzoom: minzoomMotorway,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
-};
-
-var layerTunnelMotorwayLink = {
-  id: "tunnel_motorway_link",
-  type: "line",
-  paint: {
-    "line-color": colorMotorwayTunnel,
-    "line-width": widthMotorwayLink,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "ramp", 1],
-    ["==", "brunnel", "tunnel"],
-  ],
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  minzoom: minzoomMotorwayLink,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
-};
-
-var layerTunnelMotorway = {
-  id: "tunnel_motorway",
-  type: "line",
-  paint: {
-    "line-color": colorMotorwayTunnel,
-    "line-width": widthMotorway,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "brunnel", "tunnel"],
-    ["!=", "ramp", 1],
-  ],
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  minzoom: minzoomMotorway,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
-};
-
-var layerBridgeMotorwayLink = {
-  id: "bridge_motorway_link",
-  type: "line",
-  paint: {
-    "line-color": colorMotorway,
-    "line-width": widthMotorwayLink,
-    "line-blur": 0.5,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "ramp", 1],
-    ["==", "brunnel", "bridge"],
-  ],
-  layout: {
-    "line-join": "round",
-  },
-  minzoom: minzoomMotorwayLink,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
-};
-
-var layerBridgeMotorway = {
-  id: "bridge_motorway",
-  type: "line",
-  paint: {
-    "line-color": colorMotorway,
-    "line-width": widthMotorway,
-    "line-blur": 0.5,
-  },
-  filter: [
-    "all",
-    ["==", "class", "motorway"],
-    ["==", "brunnel", "bridge"],
-    ["!=", "ramp", 1],
-  ],
-  layout: {
-    "line-join": "round",
-  },
-  minzoom: minzoomMotorway,
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "transportation",
 };

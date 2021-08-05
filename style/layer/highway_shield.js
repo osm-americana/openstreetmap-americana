@@ -1,4 +1,4 @@
-var layerHighwayShieldInterstate = {
+var lyrHighwayShieldInterstate = {
   id: "highway-shield-us-interstate",
   type: "symbol",
   paint: {

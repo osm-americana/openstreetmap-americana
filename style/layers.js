@@ -4,64 +4,64 @@
 var americanaLayers = [];
 
 americanaLayers.push(
-  layerBackground,
+  lyrBackground,
 
-  layerParkFill,
+  lyrParkFill,
 
-  layerBoundaryCountyBg,
-  layerBoundaryStateBg,
-  layerBoundaryCountryBg,
+  lyrBoundaryCountyBg,
+  lyrBoundaryStateBg,
+  lyrBoundaryCountryBg,
 
-  layerWater,
+  lyrWater,
 
-  layerParkOutline,
+  lyrParkOutline,
 
-  layerBoundaryCity,
-  layerBoundaryCounty,
-  layerBoundaryState,
-  layerBoundaryCountry,
+  lyrBoundaryCity,
+  lyrBoundaryCounty,
+  lyrBoundaryState,
+  lyrBoundaryCountry,
 
-  layerTunnelMotorwayCasing,
-  layerTunnelTrunkCasing,
-  layerTunnelMotorwayLinkCasing,
-  layerTunnelTrunk,
-  layerTunnelMotorway,
-  layerTunnelTrunkLink,
-  layerTunnelMotorwayLink,
-  layerTunnelOneway,
-  layerTunnelOnewayLink,
+  lyrMotoTunCase,
+  lyrTrunkTunCase,
+  lyrMotoLinkTunCase,
+  lyrTrunkTun,
+  lyrMotoTun,
+  lyrTrunkLinkTun,
+  lyrMotoLinkTun,
+  lyrTunOneway,
+  lyrTunOnewayLink,
 
-  layerTrunkCasing,
-  layerMotorwayCasing,
+  lyrTrunkCase,
+  lyrMotoCase,
 
-  layerMotorwayLinkCasing,
-  layerTrunk,
-  layerMotorway,
-  layerTrunkLink,
-  layerMotorwayLink,
-  layerRoadOneway,
-  layerRoadOnewayLink
+  lyrMotoLinkCase,
+  lyrTrunk,
+  lyrMoto,
+  lyrTrunkLink,
+  lyrMotoLink,
+  lyrRoadOneway,
+  lyrRoadOnewayLink
 );
 
 var bridgeLayers = [
-  layerBridgeTrunkCasing,
-  layerBridgeTrunkLinkCasing,
-  layerBridgeTrunk,
-  layerBridgeTrunkLink,
-  layerBridgeMotorwayCasing,
-  layerBridgeMotorwayLinkCasing,
-  layerBridgeMotorway,
-  layerBridgeMotorwayLink,
-  layerBridgeOneway,
-  layerBridgeOnewayLink,
+  lyrTrunkBrgCase,
+  lyrTrunkLinkBrgCase,
+  lyrTrunkBrg,
+  lyrTrunkLinkBrg,
+  lyrMotoBrgCase,
+  lyrMotoLinkBrgCase,
+  lyrMotoBrg,
+  lyrMotoLinkBrg,
+  lyrBrgOneway,
+  lyrBrgOnewayLink,
 ];
 
-//Render bridge without layer on the lowest bridge layer
+//Render Brg without layer on the lowest Brg layer
 bridgeLayers.forEach((layer) =>
   americanaLayers.push(filteredClone(layer, ["!has", "layer"], "_layer_bottom"))
 );
 
-//One layer at a time to handle stacked bridges
+//One layer at a time to handle stacked Brgs
 for (let i = 1; i <= 4; i++) {
   bridgeLayers.forEach((layer) =>
     americanaLayers.push(restrictLayer(layer, i))
@@ -76,17 +76,17 @@ bridgeLayers.forEach((layer) =>
 americanaLayers.push(
   //The labels at the end of the list have the highest priority.
 
-  layerMotorwayLabel,
+  lyrMotoLabel,
 
-  layerParkLabel,
+  lyrParkLabel,
 
-  layerHighwayShieldInterstate,
+  lyrHighwayShieldInterstate,
 
-  layerPlaceState,
-  layerPlaceCity,
-  layerPlaceCountryOther,
-  layerPlaceCountry3,
-  layerPlaceCountry2,
-  layerPlaceCountry1,
-  layerPlaceContinent
+  lyrPlaceState,
+  lyrPlaceCity,
+  lyrPlaceCountryOther,
+  lyrPlaceCountry3,
+  lyrPlaceCountry2,
+  lyrPlaceCountry1,
+  lyrPlaceContinent
 );

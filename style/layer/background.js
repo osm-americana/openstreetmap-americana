@@ -3,7 +3,7 @@
 
   This is the base color of the map.
 */
-var layerBackground = {
+var lyrBackground = {
   id: "background",
   type: "background",
   paint: {

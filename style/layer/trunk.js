@@ -1,11 +1,7 @@
-var layerTrunkLink = {
+var lyrTrunkLink = {
   id: "road_trunk_link",
   type: "line",
-  paint: {
-    "line-color": colorTrunk,
-    "line-width": widthTrunkLink,
-    "line-blur": 0.5,
-  },
+  paint: roadPaint(clrTrunk, wdTrunkLink),
   filter: [
     "all",
     ["!in", "brunnel", "bridge", "tunnel"],
@@ -20,14 +16,10 @@ var layerTrunkLink = {
   "source-layer": "transportation",
 };
 
-var layerTrunk = {
+var lyrTrunk = {
   id: "road_trunk",
   type: "line",
-  paint: {
-    "line-color": colorTrunk,
-    "line-width": widthTrunk,
-    "line-blur": 0.5,
-  },
+  paint: roadPaint(clrTrunk, wdTrunk),
   filter: [
     "all",
     ["!in", "brunnel", "bridge", "tunnel"],
@@ -41,7 +33,7 @@ var layerTrunk = {
   "source-layer": "transportation",
 };
 
-var layerTrunkLabel = {
+var lyrTrunkLabel = {
   id: "road_label",
   type: "symbol",
   paint: {
@@ -63,15 +55,10 @@ var layerTrunkLabel = {
   metadata: {},
   "source-layer": "transportation_name",
 };
-var layerTunnelTrunkLinkCasing = {
+var lyrTrunkLinkTunCase = {
   id: "tunnel_trunk_link_casing",
   type: "line",
-  paint: {
-    "line-color": colorTrunkTunnelCasing,
-    "line-width": widthTrunkLinkCasing,
-    "line-opacity": 1,
-    "line-dasharray": tunnelDashArray,
-  },
+  paint: tunCasePaint(clrTrunkTunCase, wdTrunkLinkCase),
   filter: [
     "all",
     ["==", "class", "trunk"],
@@ -88,14 +75,10 @@ var layerTunnelTrunkLinkCasing = {
   "source-layer": "transportation",
 };
 
-var layerTunnelTrunkCasing = {
+var lyrTrunkTunCase = {
   id: "tunnel_trunk_casing",
   type: "line",
-  paint: {
-    "line-color": colorTrunkTunnelCasing,
-    "line-width": widthTrunkCasing,
-    "line-dasharray": tunnelDashArray,
-  },
+  paint: roadPaint(clrTrunkTunCase, wdTrunkCase),
   filter: [
     "all",
     ["==", "class", "trunk"],
@@ -112,13 +95,10 @@ var layerTunnelTrunkCasing = {
   "source-layer": "transportation",
 };
 
-var layerTunnelTrunkLink = {
+var lyrTrunkLinkTun = {
   id: "tunnel_trunk_link",
   type: "line",
-  paint: {
-    "line-color": colorTrunkTunnel,
-    "line-width": widthTrunkLink,
-  },
+  paint: roadPaint(clrTrunkTun, wdTrunkLink),
   filter: [
     "all",
     ["==", "class", "trunk"],
@@ -135,13 +115,10 @@ var layerTunnelTrunkLink = {
   "source-layer": "transportation",
 };
 
-var layerTunnelTrunk = {
+var lyrTrunkTun = {
   id: "tunnel_trunk",
   type: "line",
-  paint: {
-    "line-color": colorTrunkTunnel,
-    "line-width": widthTrunk,
-  },
+  paint: roadPaint(clrTrunkTun, wdTrunk),
   filter: [
     "all",
     ["==", "class", "trunk"],
@@ -158,14 +135,10 @@ var layerTunnelTrunk = {
   "source-layer": "transportation",
 };
 
-var layerBridgeTrunkLink = {
+var lyrTrunkLinkBrg = {
   id: "bridge_trunk_link",
   type: "line",
-  paint: {
-    "line-color": colorTrunk,
-    "line-width": widthTrunkLink,
-    "line-blur": 0.5,
-  },
+  paint: roadPaint(clrTrunk, wdTrunkLink),
   filter: [
     "all",
     ["==", "class", "trunk"],
@@ -181,14 +154,10 @@ var layerBridgeTrunkLink = {
   "source-layer": "transportation",
 };
 
-var layerBridgeTrunk = {
+var lyrTrunkBrg = {
   id: "bridge_trunk",
   type: "line",
-  paint: {
-    "line-color": colorTrunk,
-    "line-width": widthTrunk,
-    "line-blur": 0.5,
-  },
+  paint: roadPaint(clrTrunk, wdTrunk),
   filter: [
     "all",
     ["==", "class", "trunk"],

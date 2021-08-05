@@ -3,12 +3,12 @@ var layoutRoad = {
   "line-join": "round",
   visibility: "visible",
 };
-var layoutRoadCasing = {
+var layoutRoadCase = {
   "line-cap": "butt",
   "line-join": "round",
   visibility: "visible",
 };
-var widthMotorway = {
+var wdMoto = {
   base: 1.2,
   stops: [
     [4, 0.5],
@@ -16,8 +16,8 @@ var widthMotorway = {
     [20, 18],
   ],
 };
-var widthTrunk = widthMotorway;
-var widthMotorwayCasing = {
+var wdTrunk = wdMoto;
+var wdMotoCase = {
   base: 1.2,
   stops: [
     [4, 1.5],
@@ -25,7 +25,7 @@ var widthMotorwayCasing = {
     [20, 22],
   ],
 };
-var widthTrunkCasing = {
+var wdTrunkCase = {
   base: 1.2,
   stops: [
     [12, 0],
@@ -34,9 +34,9 @@ var widthTrunkCasing = {
   ],
 };
 
-var minzoomMotorway = 4;
+var minzoomMoto = 4;
 var minzoomTrunk = 8;
-var widthMotorwayLink = {
+var wdMotoLink = {
   base: 1.2,
   stops: [
     [7, 1],
@@ -45,8 +45,8 @@ var widthMotorwayLink = {
     [20, 11.5],
   ],
 };
-var widthTrunkLink = widthMotorwayLink;
-var widthMotorwayLinkCasing = {
+var wdTrunkLink = wdMotoLink;
+var wdMotoLinkCase = {
   base: 1.2,
   stops: [
     [7, 2],
@@ -55,7 +55,7 @@ var widthMotorwayLinkCasing = {
     [20, 15],
   ],
 };
-var widthTrunkLinkCasing = widthMotorwayLinkCasing;
-var minzoomMotorwayLink = 7;
+var wdTrunkLinkCase = wdMotoLinkCase;
+var minzoomMotoLink = 7;
 var minzoomTrunkLink = 10;
-var minzoomTrunkCasing = 11;
+var minzoomTrunkCase = 11;

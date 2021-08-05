@@ -1,4 +1,4 @@
-var layerRoadOneway = {
+var lyrRoadOneway = {
   id: "road_oneway",
   type: "symbol",
   paint: {
@@ -40,7 +40,7 @@ var layerRoadOneway = {
   "source-layer": "transportation",
 };
 
-var layerTunnelOneway = {
+var lyrTunOneway = {
   id: "tunnel_oneway",
   type: "symbol",
   paint: {
@@ -83,7 +83,7 @@ var layerTunnelOneway = {
   "source-layer": "transportation",
 };
 
-var layerBridgeOneway = {
+var lyrBrgOneway = {
   id: "bridge_oneway",
   type: "symbol",
   paint: {
@@ -125,7 +125,7 @@ var layerBridgeOneway = {
   "source-layer": "transportation",
 };
 
-var layerRoadOnewayLink = {
+var lyrRoadOnewayLink = {
   id: "road_oneway_link",
   type: "symbol",
   paint: {
@@ -167,7 +167,7 @@ var layerRoadOnewayLink = {
   "source-layer": "transportation",
 };
 
-var layerTunnelOnewayLink = {
+var lyrTunOnewayLink = {
   id: "tunnel_oneway_link",
   type: "symbol",
   paint: {
@@ -210,7 +210,7 @@ var layerTunnelOnewayLink = {
   "source-layer": "transportation",
 };
 
-var layerBridgeOnewayLink = {
+var lyrBrgOnewayLink = {
   id: "bridge_oneway_link",
   type: "symbol",
   paint: {

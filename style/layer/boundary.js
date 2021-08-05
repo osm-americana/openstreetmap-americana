@@ -1,8 +1,8 @@
-var layerBoundaryCity = {
+var lyrBoundaryCity = {
   id: "boundary_city",
   type: "line",
   paint: {
-    "line-color": colorBorder,
+    "line-color": clrBorder,
     "line-dasharray": [2, 4],
     "line-width": 1,
     "line-offset": 0,
@@ -22,11 +22,11 @@ var layerBoundaryCity = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCountyBg = {
+var lyrBoundaryCountyBg = {
   id: "boundary_county-bg",
   type: "line",
   paint: {
-    "line-color": colorBorderCasing,
+    "line-color": clrBorderCase,
     "line-dasharray": [1],
     "line-width": {
       stops: [
@@ -50,11 +50,11 @@ var layerBoundaryCountyBg = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCounty = {
+var lyrBoundaryCounty = {
   id: "boundary_county",
   type: "line",
   paint: {
-    "line-color": colorBorder,
+    "line-color": clrBorder,
     "line-dasharray": [3, 3],
     "line-width": 1,
     "line-offset": 0,
@@ -74,15 +74,15 @@ var layerBoundaryCounty = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryStateBg = {
+var lyrBoundaryStateBg = {
   id: "boundary_state-bg",
   type: "line",
   paint: {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorderCasing - 30}, 25%, 94%)`],
-        [7, `hsl(${hueBorderCasing}, 30%, 90%)`],
+        [3, `hsl(${hueBorderCase - 30}, 25%, 94%)`],
+        [7, `hsl(${hueBorderCase}, 30%, 90%)`],
       ],
     },
     "line-dasharray": [1],
@@ -106,7 +106,7 @@ var layerBoundaryStateBg = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryState = {
+var lyrBoundaryState = {
   id: "boundary_state",
   type: "line",
   paint: {
@@ -144,15 +144,15 @@ var layerBoundaryState = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCountryBg = {
+var lyrBoundaryCountryBg = {
   id: "boundary_country-bg",
   type: "line",
   paint: {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorderCasing - 30}, 35%, 86%)`],
-        [7, `hsl(${hueBorderCasing}, 35%, 86%)`],
+        [3, `hsl(${hueBorderCase - 30}, 35%, 86%)`],
+        [7, `hsl(${hueBorderCase}, 35%, 86%)`],
       ],
     },
     "line-opacity": {
@@ -186,7 +186,7 @@ var layerBoundaryCountryBg = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCountry = {
+var lyrBoundaryCountry = {
   id: "boundary_country",
   type: "line",
   paint: {

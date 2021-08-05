@@ -1,8 +1,8 @@
-var layerParkFill = {
+var lyrParkFill = {
   id: "protected-area-fill",
   type: "fill",
   paint: {
-    "fill-color": colorParkFill,
+    "fill-color": clrParkFill,
   },
   layout: {
     visibility: "visible",
@@ -12,11 +12,11 @@ var layerParkFill = {
   "source-layer": "park",
 };
 
-var layerParkOutline = {
+var lyrParkOutline = {
   id: "protected-area-outline",
   type: "line",
   paint: {
-    "line-color": colorParkOutline,
+    "line-color": clrParkOutline,
   },
   layout: {
     visibility: "visible",
@@ -26,12 +26,12 @@ var layerParkOutline = {
   "source-layer": "park",
 };
 
-var layerParkLabel = {
+var lyrParkLabel = {
   id: "protected-area-label",
   type: "symbol",
   filter: ["has", "rank"],
   paint: {
-    "text-color": colorParkLabel,
+    "text-color": clrParkLabel,
     "text-halo-blur": 1,
     "text-halo-color": "rgba(255, 255, 255, 1)",
     "text-halo-width": 1,

@@ -1,50 +1,44 @@
 var minzoomBrunnel = 11;
-var colorTransparent = "hsla(0, 0%, 0%, 0)";
+var clrTransparent = "hsla(0, 0%, 0%, 0)";
 
-var colorWaterFill = "hsl(211, 42%, 70%)";
-var colorWaterLine = "hsl(211, 73%, 78%)";
-var colorWaterIntermittent = "hsl(205, 89%, 83%)";
+var clrWaterFill = "hsl(211, 42%, 70%)";
+var clrWaterLine = "hsl(211, 73%, 78%)";
+var clrWaterIntermittent = "hsl(205, 89%, 83%)";
 
-var hueMotorway = 354;
+var hueMoto = 354;
 var hueTrunk = 0;
 
-var colorMotorwayLowZoom = [
+var clrMotoLowZoom = [
   "interpolate",
   ["exponential", 1.2],
   ["zoom"],
   4,
-  `hsl(${hueMotorway}, 70%, 76%)`,
+  `hsl(${hueMoto}, 70%, 76%)`,
   6,
-  `hsl(${hueMotorway}, 70%, 66%)`,
+  `hsl(${hueMoto}, 70%, 66%)`,
   minzoomBrunnel - 0.5,
-  `hsl(${hueMotorway}, 70%, 60%)`,
+  `hsl(${hueMoto}, 70%, 60%)`,
 ];
-var colorMotorway = colorMotorwayLowZoom.concat(
-  14,
-  `hsl(${hueMotorway}, 71%, 45%)`
-);
+var clrMoto = clrMotoLowZoom.concat(14, `hsl(${hueMoto}, 71%, 45%)`);
 
-var colorTrunk = `hsl(${hueTrunk}, 70%, 28%)`;
+var clrTrunk = `hsl(${hueTrunk}, 70%, 28%)`;
 
-var colorMotorwayCasingLowZoom = [
+var clrMotoCaseLowZoom = [
   "interpolate",
   ["exponential", 1.2],
   ["zoom"],
   4,
-  `hsl(${hueMotorway}, 10%, 85%)`,
+  `hsl(${hueMoto}, 10%, 85%)`,
   6,
-  `hsl(${hueMotorway}, 60%, 50%)`,
+  `hsl(${hueMoto}, 60%, 50%)`,
   minzoomBrunnel - 0.5,
-  `hsl(${hueMotorway}, 71%, 40%)`,
+  `hsl(${hueMoto}, 71%, 40%)`,
 ];
-var colorMotorwayCasing = colorMotorwayCasingLowZoom.concat(
-  14,
-  `hsl(${hueMotorway}, 71%, 23%)`
-);
+var clrMotoCase = clrMotoCaseLowZoom.concat(14, `hsl(${hueMoto}, 71%, 23%)`);
 
-var colorTrunkCasing = `hsl(${hueTrunk}, 70%, 18%)`;
+var clrTrunkCase = `hsl(${hueTrunk}, 70%, 18%)`;
 
-var tunnelDashArray = [
+var tunDashArray = [
   "step",
   ["zoom"],
   ["literal", [1]],
@@ -52,30 +46,30 @@ var tunnelDashArray = [
   ["literal", [0.5, 0.25]],
 ];
 
-var colorMotorwayBridgeCasing = colorMotorwayCasingLowZoom.concat(
+var clrMotoBridgeCase = clrMotoCaseLowZoom.concat(
   minzoomBrunnel + 0.5,
-  `hsl(${hueMotorway}, 71%, 10%)`
+  `hsl(${hueMoto}, 71%, 10%)`
 );
-var colorMotorwayTunnel = colorMotorwayLowZoom.concat(
+var clrMotoTun = clrMotoLowZoom.concat(
   minzoomBrunnel + 0.5,
-  `hsl(${hueMotorway}, 71%, 90%)`
+  `hsl(${hueMoto}, 71%, 90%)`
 );
-var colorTrunkTunnel = `hsl(${hueTrunk}, 41%, 90%)`;
+var clrTrunkTun = `hsl(${hueTrunk}, 41%, 90%)`;
 
-var colorMotorwayTunnelCasing = colorMotorwayCasingLowZoom.concat(
+var clrMotoTunCase = clrMotoCaseLowZoom.concat(
   minzoomBrunnel + 0.5,
-  `hsl(${hueMotorway}, 71%, 75%)`
+  `hsl(${hueMoto}, 71%, 75%)`
 );
-var colorTrunkTunnelCasing = colorTrunkCasing;
+var clrTrunkTunCase = clrTrunkCase;
 
-var colorBridgeCasing = "black";
+var clrBridgeCase = "black";
 
 var hueBorder = 0;
-var hueBorderCasing = 281;
+var hueBorderCase = 281;
 
-var colorBorder = "hsl(0, 2%, 47%)";
-var colorBorderCasing = `hsl(${hueBorderCasing}, 35%, 86%)`;
+var clrBorder = "hsl(0, 2%, 47%)";
+var clrBorderCase = `hsl(${hueBorderCase}, 35%, 86%)`;
 
-var colorParkFill = "hsl(136, 41%, 89%)";
-var colorParkOutline = "hsl(136, 41%, 79%)";
-var colorParkLabel = "hsl(136, 71%, 29%)";
+var clrParkFill = "hsl(136, 41%, 89%)";
+var clrParkOutline = "hsl(136, 41%, 79%)";
+var clrParkLabel = "hsl(136, 71%, 29%)";
