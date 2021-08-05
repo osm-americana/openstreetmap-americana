@@ -1,7 +1,7 @@
-// Naming conventions:
+// Variable Naming conventions:
 // clr = color, wd = width, lyr = layer
-// moto = motorway
-// link = motorway_link
+// moto = motorway, trunk = trunk, pri = primary, sec = secondary, ter = tertiary, uncl = unclassified, svc = service
+// link = (motorway/trunk/primary/secondary)_link
 // tun = tunnel, brg = bridge
 // case = casing
 
@@ -29,14 +29,14 @@ lyrMoto.filter = filterRoad("motorway", false, null);
 lyrMoto.minzoom = minzoomMoto;
 
 var lyrMotoCase = layerClone(lyrMoto, "moto_case");
+lyrMotoCase.layout = layoutRoadCase;
 lyrMotoCase.paint = roadPaint(clrMotoCase, wdMotoCase);
 
-var lyrMotoBrg = layerClone(defRoad, "moto_brg");
-lyrMotoBrg.paint = roadPaint(clrMoto, wdMoto);
+var lyrMotoBrg = layerClone(lyrMoto, "moto_brg");
 lyrMotoBrg.filter = filterRoad("motorway", false, "bridge");
-lyrMotoBrg.minzoom = minzoomMoto;
 
 var lyrMotoBrgCase = layerClone(lyrMotoBrg, "moto_brg_case");
+lyrMotoBrgCase.layout = layoutRoadCase;
 lyrMotoBrgCase.paint = roadPaint(clrMotoBridgeCase, wdMotoCase);
 
 var lyrMotoTun = layerClone(defRoad, "moto_tun");
@@ -45,6 +45,7 @@ lyrMotoTun.filter = filterRoad("motorway", false, "tunnel");
 lyrMotoTun.minzoom = minzoomMoto;
 
 var lyrMotoTunCase = layerClone(lyrMotoTun, "moto_tun_case");
+lyrMotoTunCase.layout = layoutRoadCase;
 lyrMotoTunCase.paint = tunCasePaint(clrMotoTunCase, wdMotoCase);
 
 var lyrMotoLink = layerClone(defRoad, "moto_link");
@@ -53,14 +54,14 @@ lyrMotoLink.filter = filterRoad("motorway", true, null);
 lyrMotoLink.minzoom = minzoomMotoLink;
 
 var lyrMotoLinkCase = layerClone(lyrMotoLink, "moto_link_case");
+lyrMotoLinkCase.layout = layoutRoadCase;
 lyrMotoLinkCase.paint = roadPaint(clrMotoCase, wdMotoLinkCase);
 
-var lyrMotoLinkBrg = layerClone(defRoad, "moto_link_brg");
-lyrMotoLinkBrg.paint = roadPaint(clrMoto, wdMotoLink);
+var lyrMotoLinkBrg = layerClone(lyrMotoLink, "moto_link_brg");
 lyrMotoLinkBrg.filter = filterRoad("motorway", true, "bridge");
-lyrMotoLinkBrg.minzoom = minzoomMotoLink;
 
 var lyrMotoLinkBrgCase = layerClone(lyrMotoLinkBrg, "moto_link_brg_case");
+lyrMotoLinkBrgCase.layout = layoutRoadCase;
 lyrMotoLinkBrgCase.paint = {
 //TODO move to constants
     "line-color": clrMotoCaseLowZoom.concat(
@@ -77,26 +78,5 @@ lyrMotoLinkTun.filter = filterRoad("motorway", true, "tunnel");
 lyrMotoLinkTun.minzoom = minzoomMotoLink;
 
 var lyrMotoLinkTunCase = layerClone(lyrMotoLinkTun, "moto_link_tun_case");
-lyrMotoTunCase.paint = tunCasePaint(clrMotoTunCase, wdMotoLinkCase);
-
-var lyrMotoLabel = {
-  id: "road_label",
-  type: "symbol",
-  paint: {
-    "text-color": "#333",
-    "text-halo-color": "#fff",
-    "text-halo-blur": 0.5,
-    "text-halo-width": 1,
-  },
-  filter: ["all", ["==", "class", "motorway"]],
-  layout: {
-    "text-font": ["Metropolis Light"],
-    "text-size": 12,
-    "text-field": "{name:latin} {name:nonlatin}",
-    "text-anchor": "bottom",
-    "text-offset": [0, 0.2],
-    "symbol-placement": "line",
-  },
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
-};
+lyrMotoLinkTunCase.layout = layoutRoadCase;
+lyrMotoLinkTunCase.paint = tunCasePaint(clrMotoTunCase, wdMotoLinkCase);

@@ -8,6 +8,7 @@ var layoutRoadCase = {
   "line-join": "round",
   visibility: "visible",
 };
+
 var wdMoto = {
   base: 1.2,
   stops: [
