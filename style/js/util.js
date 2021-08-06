@@ -5,8 +5,12 @@ function restrictLayer(def, layer) {
   return filteredClone(def, ["==", "layer", layer], "_layer_" + layer);
 }
 
+function cp(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 function layerClone(def, id) {
-  var clone = JSON.parse(JSON.stringify(def));
+  var clone = cp(def);
   clone.id = id;
   return clone;
 }
