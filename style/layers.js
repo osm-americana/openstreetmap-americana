@@ -3,13 +3,6 @@
 */
 var americanaLayers = [];
 
-/*
-function roadFill(hwyClass, brunnel) {
-function roadCasing(hwyClass, brunnel) {
-function roadLinkFill(hwyClass, brunnel) {
-function roadLinkCasing(hwyClass, brunnel) {
-*/
-
 americanaLayers.push(
   layerBackground,
 
