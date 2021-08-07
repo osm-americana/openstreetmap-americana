@@ -166,7 +166,8 @@ roadCasingColor["trunk_bridge"] = `hsl(${hueTrunk}, 70%, 5%)`;
 roadCasingColor["trunk_tunnel"] = roadCasingColor["trunk_surface"];
 
 /*
- The following code create road layer generation functions based on the style variables set above.
+ The following road layer generation functions are based on the style variables set above.
+ You should not modify this section unless you know what you're doing.
 */
 function filterRoad(roadClass, ramp, brunnel) {
   return [
