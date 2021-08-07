@@ -67,12 +67,12 @@ var bridgeLayers = [
   layerBrgOnewayLink,
 ];
 
-//Render Brg without layer on the lowest Brg layer
+//Render bridge without layer on the lowest bridge layer
 bridgeLayers.forEach((layer) =>
   americanaLayers.push(filteredClone(layer, ["!has", "layer"], "_layer_bottom"))
 );
 
-//One layer at a time to handle stacked Brgs
+//One layer at a time to handle stacked bridges
 for (let i = 1; i <= 4; i++) {
   bridgeLayers.forEach((layer) =>
     americanaLayers.push(restrictLayer(layer, i))
