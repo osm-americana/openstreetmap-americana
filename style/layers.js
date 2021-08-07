@@ -35,6 +35,7 @@ americanaLayers.push(
   lyrMotoCase,
 
   lyrMotoLinkCase,
+  lyrTrunkLinkCase,
   lyrTrunk,
   lyrMoto,
   lyrTrunkLink,
