@@ -1,7 +1,8 @@
-var layerBoundaryCity = {  id: "boundary_city",
+var layerBoundaryCity = {
+  id: "boundary_city",
   type: "line",
   paint: {
-    "line-color": clrBorder,
+    "line-color": colorBorder,
     "line-dasharray": [2, 4],
     "line-width": 1,
     "line-offset": 0,
@@ -25,7 +26,7 @@ var layerBoundaryCountyCasing = {
   id: "boundary_county_casing",
   type: "line",
   paint: {
-    "line-color": clrBorderCase,
+    "line-color": colorBorderCase,
     "line-dasharray": [1],
     "line-width": {
       stops: [
@@ -53,7 +54,7 @@ var layerBoundaryCounty = {
   id: "boundary_county",
   type: "line",
   paint: {
-    "line-color": clrBorder,
+    "line-color": colorBorder,
     "line-dasharray": [3, 3],
     "line-width": 1,
     "line-offset": 0,

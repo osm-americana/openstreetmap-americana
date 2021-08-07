@@ -2,7 +2,7 @@ var layerParkFill = {
   id: "protected-area-fill",
   type: "fill",
   paint: {
-    "fill-color": clrParkFill,
+    "fill-color": colorParkFill,
   },
   layout: {
     visibility: "visible",
@@ -16,7 +16,7 @@ var layerParkOutline = {
   id: "protected-area-outline",
   type: "line",
   paint: {
-    "line-color": clrParkOutline,
+    "line-color": colorParkOutline,
   },
   layout: {
     visibility: "visible",
@@ -31,7 +31,7 @@ var layerParkLabel = {
   type: "symbol",
   filter: ["has", "rank"],
   paint: {
-    "text-color": clrParkLabel,
+    "text-color": colorParkLabel,
     "text-halo-blur": 1,
     "text-halo-color": "rgba(255, 255, 255, 1)",
     "text-halo-width": 1,
