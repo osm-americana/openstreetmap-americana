@@ -45,82 +45,56 @@ roadMinzoom["trunk_road_casing"] = 11;
 roadMinzoom["trunk_link_casing"] = 11;
 
 /*
- Road widths
+ Road fill and casing widths
 */
 var roadWidth = {};
-roadWidth["motorway_road_fill"] = {
-  base: roadExp,
-  stops: [
-    [4, 0.5],
-    [9, 1],
-    [20, 18],
-  ],
-};
-roadWidth["motorway_link_fill"] = {
-  base: roadExp,
-  stops: [
-    [7, 1],
-    [13, 1.5],
-    [14, 2.5],
-    [20, 11.5],
-  ],
-};
-roadWidth["motorway_road_casing"] = {
-  base: roadExp,
-  stops: [
-    [4, 1.5],
-    [9, 3],
-    [20, 22],
-  ],
-};
-roadWidth["motorway_link_casing"] = {
-  base: roadExp,
-  stops: [
-    [7, 2],
-    [13, 3],
-    [14, 4],
-    [20, 15],
-  ],
-};
 
-roadWidth["trunk_road_fill"] = {
-  base: roadExp,
-  stops: [
-    [4, 0.5],
-    [9, 1],
-    [12, 4],
-    [20, 18],
-  ],
-};
+roadWidth["motorway_road_fill"] = [
+  [4, 0.5],
+  [9, 1],
+  [20, 18],
+];
+roadWidth["motorway_link_fill"] = [
+  [7, 1],
+  [13, 1.5],
+  [14, 2.5],
+  [20, 11.5],
+];
+roadWidth["motorway_road_casing"] = [
+  [4, 1.5],
+  [9, 3],
+  [20, 22],
+];
+roadWidth["motorway_link_casing"] = [
+  [7, 2],
+  [13, 3],
+  [14, 4],
+  [20, 15],
+];
 
-roadWidth["trunk_road_casing"] = {
-  base: roadExp,
-  stops: [
-    [12, 0],
-    [13, 5],
-    [20, 22],
-  ],
-};
-
-roadWidth["trunk_link_fill"] = {
-  base: roadExp,
-  stops: [
-    [7, 1],
-    [13, 1.5],
-    [14, 2.5],
-    [20, 11.5],
-  ],
-};
-
-roadWidth["trunk_link_casing"] = {
-  base: roadExp,
-  stops: [
-    [7, 2],
-    [13, 3],
-    [14, 4],
-    [20, 15],
-  ],
-};
+roadWidth["trunk_road_fill"] = [
+  [4, 0.5],
+  [9, 1],
+  [12, 4],
+  [20, 18],
+];
+roadWidth["trunk_road_casing"] = [
+  [12, 0],
+  [13, 5],
+  [20, 22],
+];
+roadWidth["trunk_link_fill"] = [
+  [7, 1],
+  [13, 1.5],
+  [14, 2.5],
+  [20, 11.5],
+];
+roadWidth["trunk_link_casing"] = [
+  [7, 2],
+  [13, 3],
+  [14, 4],
+  [20, 15],
+];
 
 /*
  Colors
@@ -197,7 +171,7 @@ roadCasingColor["trunk_bridge"] = `hsl(${hueTrunk}, 70%, 5%)`;
 roadCasingColor["trunk_tunnel"] = roadCasingColor["trunk_surface"];
 
 /*
- The following code populates the road layer array based on the style variables set above.
+ The following code create road layer generation functions based on the style variables set above.
 */
 function filterRoad(roadClass, ramp, brunnel) {
   return [
@@ -230,50 +204,37 @@ function roadLayer(hwyClass, link, brunnel, casing) {
 
   layer.layout = casing ? layoutRoadCase : layoutRoadFill;
 
+  var width = {
+    base: roadExp,
+    stops: roadWidth[widthAndZoomID],
+  };
+
   if (casing && brunnel === "tunnel") {
-    layer.paint = tunCasePaint(
-      roadCasingColor[classBrunnelID],
-      roadWidth[widthAndZoomID]
-    );
+    layer.paint = tunCasePaint(roadCasingColor[classBrunnelID], width);
   } else if (casing) {
-    layer.paint = roadPaint(
-      roadCasingColor[classBrunnelID],
-      roadWidth[widthAndZoomID]
-    );
+    layer.paint = roadPaint(roadCasingColor[classBrunnelID], width);
   } else {
     var fillColor =
       brunnel === "tunnel"
         ? tunnelFillColor[hwyClass]
         : roadFillColor[hwyClass];
-    layer.paint = roadPaint(fillColor, roadWidth[widthAndZoomID]);
+    layer.paint = roadPaint(fillColor, width);
   }
   return layer;
 }
 
-var layerRoad = {};
+function roadFill(hwyClass, brunnel) {
+  return roadLayer(hwyClass, false, brunnel, false);
+}
 
-var lyrMoto = roadLayer("motorway", false, "surface", false);
-var lyrMotoCase = roadLayer("motorway", false, "surface", true);
-var lyrMotoBrg = roadLayer("motorway", false, "bridge", false);
-var lyrMotoBrgCase = roadLayer("motorway", false, "bridge", true);
-var lyrMotoTun = roadLayer("motorway", false, "tunnel", false);
-var lyrMotoTunCase = roadLayer("motorway", false, "tunnel", true);
-var lyrMotoLink = roadLayer("motorway", true, "surface", false);
-var lyrMotoLinkCase = roadLayer("motorway", true, "surface", true);
-var lyrMotoLinkBrg = roadLayer("motorway", true, "bridge", false);
-var lyrMotoLinkBrgCase = roadLayer("motorway", true, "bridge", true);
-var lyrMotoLinkTun = roadLayer("motorway", true, "tunnel", false);
-var lyrMotoLinkTunCase = roadLayer("motorway", true, "tunnel", true);
+function roadCasing(hwyClass, brunnel) {
+  return roadLayer(hwyClass, false, brunnel, true);
+}
 
-var lyrTrunk = roadLayer("trunk", false, "surface", false);
-var lyrTrunkCase = roadLayer("trunk", false, "surface", true);
-var lyrTrunkBrg = roadLayer("trunk", false, "bridge", false);
-var lyrTrunkBrgCase = roadLayer("trunk", false, "bridge", true);
-var lyrTrunkTun = roadLayer("trunk", false, "tunnel", false);
-var lyrTrunkTunCase = roadLayer("trunk", false, "tunnel", true);
-var lyrTrunkLink = roadLayer("trunk", true, "surface", false);
-var lyrTrunkLinkCase = roadLayer("trunk", true, "surface", true);
-var lyrTrunkLinkBrg = roadLayer("trunk", true, "bridge", false);
-var lyrTrunkLinkBrgCase = roadLayer("trunk", true, "bridge", true);
-var lyrTrunkLinkTun = roadLayer("trunk", true, "tunnel", false);
-var lyrTrunkLinkTunCase = roadLayer("trunk", true, "tunnel", true);
+function roadLinkFill(hwyClass, brunnel) {
+  return roadLayer(hwyClass, true, brunnel, false);
+}
+
+function roadLinkCasing(hwyClass, brunnel) {
+  return roadLayer(hwyClass, true, brunnel, true);
+}

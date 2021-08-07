@@ -3,6 +3,13 @@
 */
 var americanaLayers = [];
 
+/*
+function roadFill(hwyClass, brunnel) {
+function roadCasing(hwyClass, brunnel) {
+function roadLinkFill(hwyClass, brunnel) {
+function roadLinkCasing(hwyClass, brunnel) {
+*/
+
 americanaLayers.push(
   lyrBackground,
 
@@ -21,38 +28,48 @@ americanaLayers.push(
   lyrBoundaryState,
   lyrBoundaryCountry,
 
-  lyrMotoTunCase,
-  lyrTrunkTunCase,
-  lyrMotoLinkTunCase,
-  lyrTrunkTun,
-  lyrMotoTun,
-  lyrTrunkLinkTun,
-  lyrMotoLinkTun,
+  roadCasing("motorway", "tunnel"),
+  roadCasing("trunk", "tunnel"),
+
+  roadLinkCasing("motorway", "tunnel"),
+  roadLinkCasing("trunk", "tunnel"),
+
+  roadFill("motorway", "tunnel"),
+  roadFill("trunk", "tunnel"),
+
+  roadLinkFill("motorway", "tunnel"),
+  roadLinkFill("trunk", "tunnel"),
+
   lyrTunOneway,
   lyrTunOnewayLink,
 
-  lyrTrunkCase,
-  lyrMotoCase,
+  roadCasing("motorway", "surface"),
+  roadCasing("trunk", "surface"),
 
-  lyrMotoLinkCase,
-  lyrTrunkLinkCase,
-  lyrTrunk,
-  lyrMoto,
-  lyrTrunkLink,
-  lyrMotoLink,
+  roadLinkCasing("motorway", "surface"),
+  roadLinkCasing("trunk", "surface"),
+
+  roadFill("motorway", "surface"),
+  roadFill("trunk", "surface"),
+
+  roadLinkFill("motorway", "surface"),
+  roadLinkFill("trunk", "surface"),
+
   lyrRoadOneway,
   lyrRoadOnewayLink
 );
 
 var bridgeLayers = [
-  lyrTrunkBrgCase,
-  lyrTrunkLinkBrgCase,
-  lyrTrunkBrg,
-  lyrTrunkLinkBrg,
-  lyrMotoBrgCase,
-  lyrMotoLinkBrgCase,
-  lyrMotoBrg,
-  lyrMotoLinkBrg,
+  roadCasing("motorway", "bridge"),
+  roadLinkCasing("motorway", "bridge"),
+  roadFill("motorway", "bridge"),
+  roadLinkFill("motorway", "bridge"),
+
+  roadCasing("trunk", "bridge"),
+  roadLinkCasing("trunk", "bridge"),
+  roadFill("trunk", "bridge"),
+  roadLinkFill("trunk", "bridge"),
+
   lyrBrgOneway,
   lyrBrgOnewayLink,
 ];
