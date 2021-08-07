@@ -25,11 +25,6 @@ var layoutRoadCase = {
   visibility: "visible",
 };
 
-var clrTrunk = `hsl(${hueTrunk}, 70%, 28%)`;
-var clrTrunkCase = `hsl(${hueTrunk}, 70%, 18%)`;
-var clrTrunkTun = `hsl(${hueTrunk}, 41%, 90%)`;
-var clrTrunkTunCase = clrTrunkCase;
-
 /*
  Minimum zooms
 */
