@@ -3,10 +3,10 @@ var colorWaterLine = "hsl(211, 73%, 78%)";
 var colorWaterIntermittent = "hsl(205, 89%, 83%)";
 
 var hueBorder = 0;
-var hueBorderCase = 281;
+var hueBorderCasing = 281;
 
 var colorBorder = "hsl(0, 2%, 47%)";
-var colorBorderCase = `hsl(${hueBorderCase}, 35%, 86%)`;
+var colorBorderCasing = `hsl(${hueBorderCasing}, 35%, 86%)`;
 
 var colorParkFill = "hsl(136, 41%, 89%)";
 var colorParkOutline = "hsl(136, 41%, 79%)";

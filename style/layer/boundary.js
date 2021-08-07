@@ -26,7 +26,7 @@ var layerBoundaryCountyCasing = {
   id: "boundary_county_casing",
   type: "line",
   paint: {
-    "line-color": colorBorderCase,
+    "line-color": colorBorderCasing,
     "line-dasharray": [1],
     "line-width": {
       stops: [
@@ -81,8 +81,8 @@ var layerBoundaryStateCasing = {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorderCase - 30}, 25%, 94%)`],
-        [7, `hsl(${hueBorderCase}, 30%, 90%)`],
+        [3, `hsl(${hueBorderCasing - 30}, 25%, 94%)`],
+        [7, `hsl(${hueBorderCasing}, 30%, 90%)`],
       ],
     },
     "line-dasharray": [1],
@@ -151,8 +151,8 @@ var layerBoundaryCountryCasing = {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorderCase - 30}, 35%, 86%)`],
-        [7, `hsl(${hueBorderCase}, 35%, 86%)`],
+        [3, `hsl(${hueBorderCasing - 30}, 35%, 86%)`],
+        [7, `hsl(${hueBorderCasing}, 35%, 86%)`],
       ],
     },
     "line-opacity": {
