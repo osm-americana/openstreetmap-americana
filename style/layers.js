@@ -40,8 +40,8 @@ americanaLayers.push(
   roadLinkFill("motorway", "tunnel"),
   roadLinkFill("trunk", "tunnel"),
 
-  layerTunOneway,
-  layerTunOnewayLink,
+  layerTunnelOneway,
+  layerTunnelOnewayLink,
 
   roadCasing("motorway", "surface"),
   roadCasing("trunk", "surface"),

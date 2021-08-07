@@ -40,7 +40,7 @@ var layerRoadOneway = {
   "source-layer": "transportation",
 };
 
-var layerTunOneway = {
+var layerTunnelOneway = {
   id: "tunnel_oneway",
   type: "symbol",
   paint: {
@@ -167,7 +167,7 @@ var layerRoadOnewayLink = {
   "source-layer": "transportation",
 };
 
-var layerTunOnewayLink = {
+var layerTunnelOnewayLink = {
   id: "tunnel_oneway_link",
   type: "symbol",
   paint: {
