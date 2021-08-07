@@ -63,8 +63,8 @@ var bridgeLayers = [
   roadFill("trunk", "bridge"),
   roadLinkFill("trunk", "bridge"),
 
-  layerBrgOneway,
-  layerBrgOnewayLink,
+  layerBridgeOneway,
+  layerBridgeOnewayLink,
 ];
 
 //Render bridge without layer on the lowest bridge layer

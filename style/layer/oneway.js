@@ -83,7 +83,7 @@ var layerTunnelOneway = {
   "source-layer": "transportation",
 };
 
-var layerBrgOneway = {
+var layerBridgeOneway = {
   id: "bridge_oneway",
   type: "symbol",
   paint: {
@@ -210,7 +210,7 @@ var layerTunnelOnewayLink = {
   "source-layer": "transportation",
 };
 
-var layerBrgOnewayLink = {
+var layerBridgeOnewayLink = {
   id: "bridge_oneway_link",
   type: "symbol",
   paint: {
