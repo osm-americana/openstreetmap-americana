@@ -1,4 +1,4 @@
-var lyrWaterwayTunnel = {
+var layerWaterwayTunnel = {
   id: "waterway_tunnel",
   type: "line",
   paint: {
@@ -22,7 +22,7 @@ var lyrWaterwayTunnel = {
   "source-layer": "waterway",
 };
 
-var lyrWaterwayRiver = {
+var layerWaterwayRiver = {
   id: "waterway_river",
   type: "line",
   paint: {
@@ -49,7 +49,7 @@ var lyrWaterwayRiver = {
   metadata: {},
   "source-layer": "waterway",
 };
-var lyrWaterwayRiverIntermittent = {
+var layerWaterwayRiverIntermittent = {
   id: "waterway_river_intermittent",
   type: "line",
   paint: {
@@ -76,7 +76,7 @@ var lyrWaterwayRiverIntermittent = {
   metadata: {},
   "source-layer": "waterway",
 };
-var lyrWaterwayOther = {
+var layerWaterwayOther = {
   id: "waterway_other",
   type: "line",
   paint: {
@@ -104,7 +104,7 @@ var lyrWaterwayOther = {
   "source-layer": "waterway",
 };
 
-var lyrWaterwayOtherIntermittent = {
+var layerWaterwayOtherIntermittent = {
   id: "waterway_other_intermittent",
   type: "line",
   paint: {
@@ -133,7 +133,7 @@ var lyrWaterwayOtherIntermittent = {
   "source-layer": "waterway",
 };
 
-var lyrWaterIntermittent = {
+var layerWaterIntermittent = {
   id: "water_intermittent",
   type: "fill",
   paint: {
@@ -149,7 +149,7 @@ var lyrWaterIntermittent = {
   "source-layer": "water",
 };
 
-var lyrWater = {
+var layerWater = {
   id: "water",
   type: "fill",
   paint: {

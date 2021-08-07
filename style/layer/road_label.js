@@ -1,5 +1,5 @@
-var lyrMotoLabel = {
-  id: "moto_label",
+var layerMotorwayLabel = {
+  id: "motorway_label",
   type: "symbol",
   paint: {
     "text-color": "#333",

@@ -1,5 +1,4 @@
-var lyrBoundaryCity = {
-  id: "boundary_city",
+var layerBoundaryCity = {  id: "boundary_city",
   type: "line",
   paint: {
     "line-color": clrBorder,
@@ -22,8 +21,8 @@ var lyrBoundaryCity = {
   "source-layer": "boundary",
 };
 
-var lyrBoundaryCountyBg = {
-  id: "boundary_county-bg",
+var layerBoundaryCountyCasing = {
+  id: "boundary_county_casing",
   type: "line",
   paint: {
     "line-color": clrBorderCase,
@@ -50,7 +49,7 @@ var lyrBoundaryCountyBg = {
   "source-layer": "boundary",
 };
 
-var lyrBoundaryCounty = {
+var layerBoundaryCounty = {
   id: "boundary_county",
   type: "line",
   paint: {
@@ -74,8 +73,8 @@ var lyrBoundaryCounty = {
   "source-layer": "boundary",
 };
 
-var lyrBoundaryStateBg = {
-  id: "boundary_state-bg",
+var layerBoundaryStateCasing = {
+  id: "boundary_state_casing",
   type: "line",
   paint: {
     "line-color": {
@@ -106,7 +105,7 @@ var lyrBoundaryStateBg = {
   "source-layer": "boundary",
 };
 
-var lyrBoundaryState = {
+var layerBoundaryState = {
   id: "boundary_state",
   type: "line",
   paint: {
@@ -144,8 +143,8 @@ var lyrBoundaryState = {
   "source-layer": "boundary",
 };
 
-var lyrBoundaryCountryBg = {
-  id: "boundary_country-bg",
+var layerBoundaryCountryCasing = {
+  id: "boundary_country_casing",
   type: "line",
   paint: {
     "line-color": {
@@ -186,7 +185,7 @@ var lyrBoundaryCountryBg = {
   "source-layer": "boundary",
 };
 
-var lyrBoundaryCountry = {
+var layerBoundaryCountry = {
   id: "boundary_country",
   type: "line",
   paint: {

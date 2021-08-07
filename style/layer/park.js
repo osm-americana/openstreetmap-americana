@@ -1,4 +1,4 @@
-var lyrParkFill = {
+var layerParkFill = {
   id: "protected-area-fill",
   type: "fill",
   paint: {
@@ -12,7 +12,7 @@ var lyrParkFill = {
   "source-layer": "park",
 };
 
-var lyrParkOutline = {
+var layerParkOutline = {
   id: "protected-area-outline",
   type: "line",
   paint: {
@@ -26,7 +26,7 @@ var lyrParkOutline = {
   "source-layer": "park",
 };
 
-var lyrParkLabel = {
+var layerParkLabel = {
   id: "protected-area-label",
   type: "symbol",
   filter: ["has", "rank"],

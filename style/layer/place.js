@@ -1,4 +1,4 @@
-var lyrPlaceCity = {
+var layerPlaceCity = {
   id: "place_city",
   type: "symbol",
   paint: {
@@ -68,7 +68,7 @@ var lyrPlaceCity = {
   minzoom: 4,
   "source-layer": "place",
 };
-var lyrPlaceState = {
+var layerPlaceState = {
   id: "place_state",
   type: "symbol",
   paint: {
@@ -108,7 +108,7 @@ var lyrPlaceState = {
   minzoom: 3,
   "source-layer": "place",
 };
-var lyrPlaceCountryOther = {
+var layerPlaceCountryOther = {
   id: "country_other",
   type: "symbol",
   paint: {
@@ -133,7 +133,7 @@ var lyrPlaceCountryOther = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var lyrPlaceCountry3 = {
+var layerPlaceCountry3 = {
   id: "country_3",
   type: "symbol",
   paint: {
@@ -163,7 +163,7 @@ var lyrPlaceCountry3 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var lyrPlaceCountry2 = {
+var layerPlaceCountry2 = {
   id: "country_2",
   type: "symbol",
   paint: {
@@ -193,7 +193,7 @@ var lyrPlaceCountry2 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var lyrPlaceCountry1 = {
+var layerPlaceCountry1 = {
   id: "country_1",
   type: "symbol",
   paint: {
@@ -231,7 +231,7 @@ var lyrPlaceCountry1 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var lyrPlaceContinent = {
+var layerPlaceContinent = {
   id: "continent",
   type: "symbol",
   paint: {

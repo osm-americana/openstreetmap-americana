@@ -11,22 +11,22 @@ function roadLinkCasing(hwyClass, brunnel) {
 */
 
 americanaLayers.push(
-  lyrBackground,
+  layerBackground,
 
-  lyrParkFill,
+  layerParkFill,
 
-  lyrBoundaryCountyBg,
-  lyrBoundaryStateBg,
-  lyrBoundaryCountryBg,
+  layerBoundaryCountyCasing,
+  layerBoundaryStateCasing,
+  layerBoundaryCountryCasing,
 
-  lyrWater,
+  layerWater,
 
-  lyrParkOutline,
+  layerParkOutline,
 
-  lyrBoundaryCity,
-  lyrBoundaryCounty,
-  lyrBoundaryState,
-  lyrBoundaryCountry,
+  layerBoundaryCity,
+  layerBoundaryCounty,
+  layerBoundaryState,
+  layerBoundaryCountry,
 
   roadCasing("motorway", "tunnel"),
   roadCasing("trunk", "tunnel"),
@@ -40,8 +40,8 @@ americanaLayers.push(
   roadLinkFill("motorway", "tunnel"),
   roadLinkFill("trunk", "tunnel"),
 
-  lyrTunOneway,
-  lyrTunOnewayLink,
+  layerTunOneway,
+  layerTunOnewayLink,
 
   roadCasing("motorway", "surface"),
   roadCasing("trunk", "surface"),
@@ -55,8 +55,8 @@ americanaLayers.push(
   roadLinkFill("motorway", "surface"),
   roadLinkFill("trunk", "surface"),
 
-  lyrRoadOneway,
-  lyrRoadOnewayLink
+  layerRoadOneway,
+  layerRoadOnewayLink
 );
 
 var bridgeLayers = [
@@ -70,8 +70,8 @@ var bridgeLayers = [
   roadFill("trunk", "bridge"),
   roadLinkFill("trunk", "bridge"),
 
-  lyrBrgOneway,
-  lyrBrgOnewayLink,
+  layerBrgOneway,
+  layerBrgOnewayLink,
 ];
 
 //Render Brg without layer on the lowest Brg layer
@@ -94,17 +94,17 @@ bridgeLayers.forEach((layer) =>
 americanaLayers.push(
   //The labels at the end of the list have the highest priority.
 
-  lyrMotoLabel,
+  layerMotorwayLabel,
 
-  lyrParkLabel,
+  layerParkLabel,
 
-  lyrHighwayShieldInterstate,
+  layerHighwayShieldInterstate,
 
-  lyrPlaceState,
-  lyrPlaceCity,
-  lyrPlaceCountryOther,
-  lyrPlaceCountry3,
-  lyrPlaceCountry2,
-  lyrPlaceCountry1,
-  lyrPlaceContinent
+  layerPlaceState,
+  layerPlaceCity,
+  layerPlaceCountryOther,
+  layerPlaceCountry3,
+  layerPlaceCountry2,
+  layerPlaceCountry1,
+  layerPlaceContinent
 );
