@@ -166,9 +166,12 @@ roadCasingColor["trunk_bridge"] = `hsl(${hueTrunk}, 70%, 5%)`;
 roadCasingColor["trunk_tunnel"] = roadCasingColor["trunk_surface"];
 
 /*
+ =========================================================================================
  The following road layer generation functions are based on the style variables set above.
- You should not modify this section unless you know what you're doing.
+ =========================================================================================
 */
+
+//Helper function to create a "filter" block for a particular road class.
 function filterRoad(roadClass, ramp, brunnel) {
   return [
     "all",
@@ -180,12 +183,22 @@ function filterRoad(roadClass, ramp, brunnel) {
   ];
 }
 
+//Base definition that applies to all roads (fill and casing).
 var defRoad = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
 };
 
+/*
+ Returns a style JSON for a road component.  Examples:
+
+ Return the casing style for a motorway_link tunnel:
+  roadLayer("motorway", true, "tunnel", true);
+
+ Return the fill style for a surface trunk road:
+  roadLayer("trunk", false, "surface", false);
+*/
 function roadLayer(hwyClass, link, brunnel, casing) {
   var linkStr = link ? "link" : "road";
   var casingStr = casing ? "casing" : "fill";
@@ -219,6 +232,7 @@ function roadLayer(hwyClass, link, brunnel, casing) {
   return layer;
 }
 
+//Helper functions to improve readability
 function roadFill(hwyClass, brunnel) {
   return roadLayer(hwyClass, false, brunnel, false);
 }
