@@ -77,10 +77,7 @@ class Motorway {
       `hsl(${hue}, 71%, 90%)`
     );
 
-    this.roadFillColor = colorFillLowZoom.concat(
-      14,
-      `hsl(${hue}, 71%, 45%)`
-    );
+    this.roadFillColor = colorFillLowZoom.concat(14, `hsl(${hue}, 71%, 45%)`);
 
     this.surfaceCasingColor = colorCasingLowZoom.concat(
       14,
