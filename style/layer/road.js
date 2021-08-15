@@ -1,11 +1,11 @@
 //At this zoom, render switches from unified to differentiated bridge/tunnel rendering
-var minzoomBrunnel = 11;
+let minzoomBrunnel = 11;
 
 //Exponent base for inter-zoom interpolation
-var roadExp = 1.2;
+let roadExp = 1.2;
 
 //Tunnel casing dash pattern
-var tunDashArray = [
+let tunDashArray = [
   "step",
   ["zoom"],
   ["literal", [1]],
@@ -14,162 +14,192 @@ var tunDashArray = [
 ];
 
 //Join styles for fill and casing
-var layoutRoadFill = {
+let layoutRoadFill = {
   "line-cap": "round",
   "line-join": "round",
   visibility: "visible",
 };
-var layoutRoadCase = {
+let layoutRoadCase = {
   "line-cap": "butt",
   "line-join": "round",
   visibility: "visible",
 };
 
+//Highway class styles
+class Motorway {
+  constructor(link) {
+    this.highwayClass = "motorway";
+    this.link = link;
+
+    let hue = 354;
+
+    this.minZoomFill = 4;
+    this.minZoomCasing = 4;
+
+    this.fillWidth = [
+      [4, 0.5],
+      [9, 1],
+      [20, 18],
+    ];
+    this.casingWidth = [
+      [4, 1.5],
+      [9, 3],
+      [20, 22],
+    ];
+
+    //Unified motorway bridge/tunnel/surface rendering at low zoom
+    let colorFillLowZoom = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      4,
+      `hsl(${hue}, 70%, 76%)`,
+      6,
+      `hsl(${hue}, 70%, 66%)`,
+      minzoomBrunnel - 0.5,
+      `hsl(${hue}, 70%, 60%)`,
+    ];
+
+    let colorCasingLowZoom = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      4,
+      `hsl(${hue}, 10%, 85%)`,
+      6,
+      `hsl(${hue}, 60%, 50%)`,
+      minzoomBrunnel - 0.5,
+      `hsl(${hue}, 71%, 40%)`,
+    ];
+
+    this.tunnelFillColor = colorFillLowZoom.concat(
+      minzoomBrunnel + 0.5,
+      `hsl(${hue}, 71%, 90%)`
+    );
+
+    this.roadFillColor = colorFillLowZoom.concat(
+      14,
+      `hsl(${hue}, 71%, 45%)`
+    );
+
+    this.surfaceCasingColor = colorCasingLowZoom.concat(
+      14,
+      `hsl(${hue}, 71%, 23%)`
+    );
+
+    this.bridgeCasingColor = colorCasingLowZoom.concat(
+      minzoomBrunnel + 0.5,
+      `hsl(${hue}, 71%, 10%)`
+    );
+
+    this.tunnelCasingColor = colorCasingLowZoom.concat(
+      minzoomBrunnel + 0.5,
+      `hsl(${hue}, 71%, 75%)`
+    );
+  }
+}
+
+class Trunk {
+  constructor(link) {
+    this.highwayClass = "trunk";
+    this.link = link;
+
+    let hue = 0;
+
+    this.minZoomFill = 8;
+    this.minZoomCasing = 10;
+
+    this.fillWidth = [
+      [4, 0.5],
+      [9, 1],
+      [12, 4],
+      [20, 18],
+    ];
+
+    this.casingWidth = [
+      [9, 1],
+      [12, 4],
+      [20, 22],
+    ];
+
+    this.tunnelFillColor = `hsl(${hue}, 41%, 90%)`;
+    this.roadFillColor = `hsl(${hue}, 70%, 28%)`;
+    this.surfaceCasingColor = `hsl(${hue}, 70%, 18%)`;
+    this.bridgeCasingColor = `hsl(${hue}, 70%, 5%)`;
+    this.tunnelCasingColor = this.surfaceCasingColor;
+  }
+}
+
+class MotorwayLink extends Motorway {
+  constructor() {
+    super(true);
+
+    this.minZoomFill = 7;
+    this.minZoomCasing = 7;
+
+    this.fillWidth = [
+      [7, 1],
+      [13, 1.5],
+      [14, 2.5],
+      [20, 11.5],
+    ];
+    this.casingWidth = [
+      [7, 2],
+      [13, 3],
+      [14, 4],
+      [20, 15],
+    ];
+  }
+}
+
+class TrunkLink extends Trunk {
+  constructor() {
+    super(true);
+
+    this.minZoomFill = 11;
+    this.minZoomCasing = 11;
+
+    this.fillWidth = [
+      [7, 1],
+      [13, 1.5],
+      [14, 2.5],
+      [20, 11.5],
+    ];
+    this.casingWidth = [
+      [7, 2],
+      [13, 3],
+      [14, 4.0],
+      [20, 15],
+    ];
+  }
+}
+
 /*
- Minimum zooms
-*/
-var roadMinzoom = {};
-roadMinzoom["motorway_road_fill"] = 4;
-roadMinzoom["motorway_link_fill"] = 7;
-roadMinzoom["motorway_road_casing"] = 4;
-roadMinzoom["motorway_link_casing"] = 7;
-
-roadMinzoom["trunk_road_fill"] = 8;
-roadMinzoom["trunk_link_fill"] = 10;
-roadMinzoom["trunk_road_casing"] = 11;
-roadMinzoom["trunk_link_casing"] = 11;
-
-/*
- Road fill and casing widths
-*/
-var roadWidth = {};
-
-roadWidth["motorway_road_fill"] = [
-  [4, 0.5],
-  [9, 1],
-  [20, 18],
-];
-roadWidth["motorway_link_fill"] = [
-  [7, 1],
-  [13, 1.5],
-  [14, 2.5],
-  [20, 11.5],
-];
-roadWidth["motorway_road_casing"] = [
-  [4, 1.5],
-  [9, 3],
-  [20, 22],
-];
-roadWidth["motorway_link_casing"] = [
-  [7, 2],
-  [13, 3],
-  [14, 4],
-  [20, 15],
-];
-
-roadWidth["trunk_road_fill"] = [
-  [4, 0.5],
-  [9, 1],
-  [12, 4],
-  [20, 18],
-];
-roadWidth["trunk_road_casing"] = [
-  [12, 0],
-  [13, 5],
-  [20, 22],
-];
-roadWidth["trunk_link_fill"] = [
-  [7, 1],
-  [13, 1.5],
-  [14, 2.5],
-  [20, 11.5],
-];
-roadWidth["trunk_link_casing"] = [
-  [7, 2],
-  [13, 3],
-  [14, 4],
-  [20, 15],
-];
-
-/*
- Colors
+ Road style generation helper functions
 */
 
-var hueMoto = 354;
-var hueTrunk = 0;
+function roadPaint(color, width) {
+  return {
+    "line-color": color,
+    "line-width": {
+      base: roadExp,
+      stops: width,
+    },
+    "line-blur": 0.5,
+  };
+}
 
-//Unified motorway bridge/tunnel/surface rendering at low zoom
-var colorMotorwayFillLowZoom = [
-  "interpolate",
-  ["exponential", roadExp],
-  ["zoom"],
-  4,
-  `hsl(${hueMoto}, 70%, 76%)`,
-  6,
-  `hsl(${hueMoto}, 70%, 66%)`,
-  minzoomBrunnel - 0.5,
-  `hsl(${hueMoto}, 70%, 60%)`,
-];
-
-var colorMotorwayCasingLowZoom = [
-  "interpolate",
-  ["exponential", roadExp],
-  ["zoom"],
-  4,
-  `hsl(${hueMoto}, 10%, 85%)`,
-  6,
-  `hsl(${hueMoto}, 60%, 50%)`,
-  minzoomBrunnel - 0.5,
-  `hsl(${hueMoto}, 71%, 40%)`,
-];
-
-//Fill for surface roads and bridges
-var roadFillColor = {};
-
-roadFillColor["motorway"] = colorMotorwayFillLowZoom.concat(
-  14,
-  `hsl(${hueMoto}, 71%, 45%)`
-);
-
-roadFillColor["trunk"] = `hsl(${hueTrunk}, 70%, 28%)`;
-
-//Fill for tunnels
-var tunnelFillColor = {};
-
-tunnelFillColor["motorway"] = colorMotorwayFillLowZoom.concat(
-  minzoomBrunnel + 0.5,
-  `hsl(${hueMoto}, 71%, 90%)`
-);
-
-tunnelFillColor["trunk"] = `hsl(${hueTrunk}, 41%, 90%)`;
-
-//Casing
-var roadCasingColor = {};
-
-roadCasingColor["motorway_surface"] = colorMotorwayCasingLowZoom.concat(
-  14,
-  `hsl(${hueMoto}, 71%, 23%)`
-);
-
-roadCasingColor["motorway_bridge"] = colorMotorwayCasingLowZoom.concat(
-  minzoomBrunnel + 0.5,
-  `hsl(${hueMoto}, 71%, 10%)`
-);
-
-roadCasingColor["motorway_tunnel"] = colorMotorwayCasingLowZoom.concat(
-  minzoomBrunnel + 0.5,
-  `hsl(${hueMoto}, 71%, 75%)`
-);
-
-roadCasingColor["trunk_surface"] = `hsl(${hueTrunk}, 70%, 18%)`;
-roadCasingColor["trunk_bridge"] = `hsl(${hueTrunk}, 70%, 5%)`;
-roadCasingColor["trunk_tunnel"] = roadCasingColor["trunk_surface"];
-
-/*
- =========================================================================================
- The following road layer generation functions are based on the style variables set above.
- =========================================================================================
-*/
+function tunnelCasePaint(color, width) {
+  return {
+    "line-color": color,
+    "line-width": {
+      base: roadExp,
+      stops: width,
+    },
+    "line-opacity": 1,
+    "line-dasharray": tunDashArray,
+  };
+}
 
 //Helper function to create a "filter" block for a particular road class.
 function filterRoad(roadClass, ramp, brunnel) {
@@ -190,61 +220,65 @@ var defRoad = {
   "source-layer": "transportation",
 };
 
-/*
- Returns a style JSON for a road component.  Examples:
+//Generate a unique layer ID
+function uniqueLayerID(hwyClass, link, part, brunnel) {
+  return [hwyClass, link ? "link" : "road", part, brunnel].join("_");
+}
 
- Return the casing style for a motorway_link tunnel:
-  roadLayer("motorway", true, "tunnel", true);
-
- Return the fill style for a surface trunk road:
-  roadLayer("trunk", false, "surface", false);
-*/
-function roadLayer(hwyClass, link, brunnel, casing) {
-  var linkStr = link ? "link" : "road";
-  var casingStr = casing ? "casing" : "fill";
-
-  var id = [hwyClass, linkStr, brunnel, casingStr].join("_");
-  var widthAndZoomID = [hwyClass, linkStr, casingStr].join("_");
-  var classBrunnelID = [hwyClass, brunnel].join("_");
-
-  var layer = layerClone(defRoad, id);
-  layer.filter = filterRoad(hwyClass, link, brunnel);
-  layer.minzoom = roadMinzoom[widthAndZoomID];
-
-  layer.layout = casing ? layoutRoadCase : layoutRoadFill;
-
-  var width = {
-    base: roadExp,
-    stops: roadWidth[widthAndZoomID],
-  };
-
-  if (casing && brunnel === "tunnel") {
-    layer.paint = tunCasePaint(roadCasingColor[classBrunnelID], width);
-  } else if (casing) {
-    layer.paint = roadPaint(roadCasingColor[classBrunnelID], width);
-  } else {
-    var fillColor =
-      brunnel === "tunnel"
-        ? tunnelFillColor[hwyClass]
-        : roadFillColor[hwyClass];
-    layer.paint = roadPaint(fillColor, width);
-  }
+function baseRoadLayer(highwayClass, id, brunnel, minzoom, link) {
+  var layer = layerClone(
+    defRoad,
+    uniqueLayerID(highwayClass, link, id, brunnel)
+  );
+  layer.filter = filterRoad(highwayClass, link, brunnel);
+  layer.minzoom = minzoom;
   return layer;
 }
 
-//Helper functions to improve readability
-function roadFill(hwyClass, brunnel) {
-  return roadLayer(hwyClass, false, brunnel, false);
-}
+const Road = {
+  fill: function (brunnel) {
+    var layer = baseRoadLayer(
+      this.highwayClass,
+      "fill",
+      brunnel,
+      this.minZoomFill,
+      this.link
+    );
+    layer.layout = layoutRoadFill;
+    layer.paint = roadPaint(
+      brunnel === "tunnel" ? this.tunnelFillColor : this.roadFillColor,
+      this.fillWidth
+    );
+    return layer;
+  },
+  casing: function (brunnel) {
+    var layer = baseRoadLayer(
+      this.highwayClass,
+      "casing",
+      brunnel,
+      this.minZoomCasing,
+      this.link
+    );
+    layer.layout = layoutRoadCase;
+    if (brunnel === "tunnel") {
+      layer.paint = tunnelCasePaint(this.tunnelCasingColor, this.casingWidth);
+    } else if (brunnel == "bridge") {
+      layer.paint = roadPaint(this.bridgeCasingColor, this.casingWidth);
+    } else {
+      layer.paint = roadPaint(this.surfaceCasingColor, this.casingWidth);
+    }
+    return layer;
+  },
+};
 
-function roadCasing(hwyClass, brunnel) {
-  return roadLayer(hwyClass, false, brunnel, true);
-}
+Object.setPrototypeOf(Motorway.prototype, Road);
+Object.setPrototypeOf(Trunk.prototype, Road);
 
-function roadLinkFill(hwyClass, brunnel) {
-  return roadLayer(hwyClass, true, brunnel, false);
-}
+Object.setPrototypeOf(MotorwayLink.prototype, Road);
+Object.setPrototypeOf(TrunkLink.prototype, Road);
 
-function roadLinkCasing(hwyClass, brunnel) {
-  return roadLayer(hwyClass, true, brunnel, true);
-}
+var roadMotorway = new Motorway(false);
+var roadTrunk = new Trunk(false);
+
+var roadMotorwayLink = new MotorwayLink();
+var roadTrunkLink = new TrunkLink();

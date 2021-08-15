@@ -21,20 +21,3 @@ function filteredClone(def, filterStep, idSuffix) {
   clone.filter.push(filterStep);
   return clone;
 }
-
-function roadPaint(color, width) {
-  return {
-    "line-color": color,
-    "line-width": width,
-    "line-blur": 0.5,
-  };
-}
-
-function tunCasePaint(color, width) {
-  return {
-    "line-color": color,
-    "line-width": width,
-    "line-opacity": 1,
-    "line-dasharray": tunDashArray,
-  };
-}

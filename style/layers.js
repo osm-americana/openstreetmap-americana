@@ -21,47 +21,47 @@ americanaLayers.push(
   layerBoundaryState,
   layerBoundaryCountry,
 
-  roadCasing("motorway", "tunnel"),
-  roadCasing("trunk", "tunnel"),
+  roadMotorway.casing("tunnel"),
+  roadTrunk.casing("tunnel"),
 
-  roadLinkCasing("motorway", "tunnel"),
-  roadLinkCasing("trunk", "tunnel"),
+  roadMotorwayLink.casing("tunnel"),
+  roadTrunkLink.casing("tunnel"),
 
-  roadFill("motorway", "tunnel"),
-  roadFill("trunk", "tunnel"),
+  roadMotorway.fill("tunnel"),
+  roadTrunk.fill("tunnel"),
 
-  roadLinkFill("motorway", "tunnel"),
-  roadLinkFill("trunk", "tunnel"),
+  roadMotorwayLink.fill("tunnel"),
+  roadTrunkLink.fill("tunnel"),
 
   layerTunnelOneway,
   layerTunnelOnewayLink,
 
-  roadCasing("motorway", "surface"),
-  roadCasing("trunk", "surface"),
+  roadMotorway.casing("surface"),
+  roadTrunk.casing("surface"),
 
-  roadLinkCasing("motorway", "surface"),
-  roadLinkCasing("trunk", "surface"),
+  roadMotorwayLink.casing("surface"),
+  roadTrunkLink.casing("surface"),
 
-  roadFill("motorway", "surface"),
-  roadFill("trunk", "surface"),
+  roadMotorway.fill("surface"),
+  roadTrunk.fill("surface"),
 
-  roadLinkFill("motorway", "surface"),
-  roadLinkFill("trunk", "surface"),
+  roadMotorwayLink.fill("surface"),
+  roadTrunkLink.fill("surface"),
 
   layerRoadOneway,
   layerRoadOnewayLink
 );
 
 var bridgeLayers = [
-  roadCasing("motorway", "bridge"),
-  roadLinkCasing("motorway", "bridge"),
-  roadFill("motorway", "bridge"),
-  roadLinkFill("motorway", "bridge"),
+  roadMotorway.casing("bridge"),
+  roadMotorwayLink.casing("bridge"),
+  roadMotorway.fill("bridge"),
+  roadMotorwayLink.fill("bridge"),
 
-  roadCasing("trunk", "bridge"),
-  roadLinkCasing("trunk", "bridge"),
-  roadFill("trunk", "bridge"),
-  roadLinkFill("trunk", "bridge"),
+  roadTrunk.casing("bridge"),
+  roadTrunkLink.casing("bridge"),
+  roadTrunk.fill("bridge"),
+  roadTrunkLink.fill("bridge"),
 
   layerBridgeOneway,
   layerBridgeOnewayLink,
