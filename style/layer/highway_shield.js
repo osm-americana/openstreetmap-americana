@@ -1,3 +1,4 @@
+"use strict";
 var layerHighwayShieldInterstate = {
   id: "highway-shield-us-interstate",
   type: "symbol",

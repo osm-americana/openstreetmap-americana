@@ -1,3 +1,4 @@
+"use strict";
 //Utility functions
 
 //Limit the specified definition to a single numbered layer

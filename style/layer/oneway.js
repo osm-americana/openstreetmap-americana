@@ -1,3 +1,4 @@
+"use strict";
 var layerRoadOneway = {
   id: "road_oneway",
   type: "symbol",

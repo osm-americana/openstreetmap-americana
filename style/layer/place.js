@@ -1,3 +1,4 @@
+"use strict";
 var layerPlaceCity = {
   id: "place_city",
   type: "symbol",

@@ -1,3 +1,4 @@
+"use strict";
 var layerWaterwayTunnel = {
   id: "waterway_tunnel",
   type: "line",

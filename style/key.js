@@ -1,3 +1,4 @@
+"use strict";
 /*
 This style requires a vector tile server to run, and is designed to work with the MapTiler service
 

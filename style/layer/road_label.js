@@ -1,3 +1,4 @@
+"use strict";
 var layerMotorwayLabel = {
   id: "motorway_label",
   type: "symbol",

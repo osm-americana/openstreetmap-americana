@@ -1,3 +1,4 @@
+"use strict";
 var layerParkFill = {
   id: "protected-area-fill",
   type: "fill",

@@ -1,3 +1,4 @@
+"use strict";
 /*
  This is a list of the layers in the Americana style, from bottom to top.  They're defined in the layer/ folder
 */

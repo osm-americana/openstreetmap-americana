@@ -1,3 +1,4 @@
+"use strict";
 var layerBoundaryCity = {
   id: "boundary_city",
   type: "line",

@@ -1,3 +1,4 @@
+"use strict";
 //At this zoom, render switches from unified to differentiated bridge/tunnel rendering
 let minzoomBrunnel = 11;
 
