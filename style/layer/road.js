@@ -73,14 +73,16 @@ class Motorway {
       `hsl(${this.hue}, 71%, 40%)`,
     ];
 
-    this.fillColor = this.colorFillLowZoom.concat(
+    this.fillColor = [
+      ...this.colorFillLowZoom,
       14,
       `hsl(${this.hue}, 71%, 45%)`
-    );
-    this.casingColor = this.colorCasingLowZoom.concat(
+    ];
+    this.casingColor = [
+      ...this.colorCasingLowZoom,
       14,
       `hsl(${this.hue}, 71%, 23%)`
-    );
+    ];
   }
 }
 
@@ -161,10 +163,11 @@ class MotorwayBridge extends Motorway {
   constructor() {
     super();
     this.brunnel = "bridge";
-    this.casingColor = this.colorCasingLowZoom.concat(
+    this.casingColor = [
+      ...this.colorCasingLowZoom,
       minzoomBrunnel + 0.5,
       `hsl(${this.hue}, 71%, 10%)`
-    );
+    ];
   }
 }
 
@@ -197,14 +200,16 @@ class MotorwayTunnel extends Motorway {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.casingColor = this.colorCasingLowZoom.concat(
+    this.casingColor = [
+      ...this.colorCasingLowZoom,
       minzoomBrunnel + 0.5,
       `hsl(${this.hue}, 71%, 75%)`
-    );
-    this.fillColor = this.colorFillLowZoom.concat(
+    ];
+    this.fillColor = [
+      ...this.colorFillLowZoom,
       minzoomBrunnel + 0.5,
       `hsl(${this.hue}, 71%, 90%)`
-    );
+    ];
   }
 }
 
@@ -220,14 +225,16 @@ class MotorwayLinkTunnel extends MotorwayLink {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.casingColor = this.colorCasingLowZoom.concat(
+    this.casingColor = [
+      ...this.colorCasingLowZoom,
       minzoomBrunnel + 0.5,
       `hsl(${this.hue}, 71%, 75%)`
-    );
-    this.fillColor = this.colorFillLowZoom.concat(
+    ];
+    this.fillColor = [
+      ...this.colorFillLowZoom,
       minzoomBrunnel + 0.5,
       `hsl(${this.hue}, 71%, 90%)`
-    );
+    ];
   }
 }
 
