@@ -26,12 +26,108 @@ let layoutRoadCase = {
   visibility: "visible",
 };
 
+
+/*
+ Road style generation helper functions
+*/
+
+function roadPaint(color, width) {
+  return {
+    "line-color": color,
+    "line-width": {
+      base: roadExp,
+      stops: width,
+    },
+    "line-blur": 0.5,
+  };
+}
+
+function tunnelCasePaint(color, width) {
+  return {
+    "line-color": color,
+    "line-width": {
+      base: roadExp,
+      stops: width,
+    },
+    "line-opacity": 1,
+    "line-dasharray": tunDashArray,
+  };
+}
+
+//Helper function to create a "filter" block for a particular road class.
+function filterRoad(roadClass, ramp, brunnel) {
+  return [
+    "all",
+    brunnel === "surface"
+      ? ["!in", "brunnel", "bridge", "tunnel"]
+      : ["==", "brunnel", brunnel],
+    ["==", "class", roadClass],
+    [ramp ? "==" : "!=", "ramp", 1],
+  ];
+}
+
+//Base definition that applies to all roads (fill and casing).
+var defRoad = {
+  type: "line",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+};
+
+//Generate a unique layer ID
+function uniqueLayerID(hwyClass, link, part, brunnel) {
+  return [hwyClass, link ? "link" : "road", part, brunnel].join("_");
+}
+
+function baseRoadLayer(highwayClass, id, brunnel, minzoom, link) {
+  var layer = layerClone(
+    defRoad,
+    uniqueLayerID(highwayClass, link, id, brunnel)
+  );
+  layer.filter = filterRoad(highwayClass, link, brunnel);
+  layer.minzoom = minzoom;
+  return layer;
+}
+
+//Base road class
+class Road {
+  fill = function() {
+    var layer = baseRoadLayer(
+      this.highwayClass,
+      "fill",
+      this.brunnel,
+      this.minZoomFill,
+      this.link
+    );
+    layer.layout = layoutRoadFill;
+    layer.paint = roadPaint(this.fillColor, this.fillWidth);
+    return layer;
+  }
+  casing = function() {
+    var layer = baseRoadLayer(
+      this.highwayClass,
+      "casing",
+      this.brunnel,
+      this.minZoomCasing,
+      this.link
+    );
+    layer.layout = layoutRoadCase;
+    if (this.brunnel === "tunnel") {
+      layer.paint = tunnelCasePaint(this.casingColor, this.casingWidth);
+    } else {
+      layer.paint = roadPaint(this.casingColor, this.casingWidth);
+    }
+    return layer;
+  }
+};
+
+
 //Highway class styles
-class Motorway {
-  constructor(link) {
+class Motorway extends Road {
+  constructor() {
+    super();
     this.highwayClass = "motorway";
     this.brunnel = "surface";
-    this.link = link;
+    this.link = false;
     this.hue = 354;
 
     this.minZoomFill = 4;
@@ -86,8 +182,9 @@ class Motorway {
   }
 }
 
-class Trunk {
+class Trunk extends Road {
   constructor() {
+    super();
     this.highwayClass = "trunk";
     this.brunnel = "surface";
     this.link = false;
@@ -246,99 +343,7 @@ class TrunkLinkTunnel extends TrunkLink {
   }
 }
 
-/*
- Road style generation helper functions
-*/
-
-function roadPaint(color, width) {
-  return {
-    "line-color": color,
-    "line-width": {
-      base: roadExp,
-      stops: width,
-    },
-    "line-blur": 0.5,
-  };
-}
-
-function tunnelCasePaint(color, width) {
-  return {
-    "line-color": color,
-    "line-width": {
-      base: roadExp,
-      stops: width,
-    },
-    "line-opacity": 1,
-    "line-dasharray": tunDashArray,
-  };
-}
-
-//Helper function to create a "filter" block for a particular road class.
-function filterRoad(roadClass, ramp, brunnel) {
-  return [
-    "all",
-    brunnel === "surface"
-      ? ["!in", "brunnel", "bridge", "tunnel"]
-      : ["==", "brunnel", brunnel],
-    ["==", "class", roadClass],
-    [ramp ? "==" : "!=", "ramp", 1],
-  ];
-}
-
-//Base definition that applies to all roads (fill and casing).
-var defRoad = {
-  type: "line",
-  source: "openmaptiles",
-  "source-layer": "transportation",
-};
-
-//Generate a unique layer ID
-function uniqueLayerID(hwyClass, link, part, brunnel) {
-  return [hwyClass, link ? "link" : "road", part, brunnel].join("_");
-}
-
-function baseRoadLayer(highwayClass, id, brunnel, minzoom, link) {
-  var layer = layerClone(
-    defRoad,
-    uniqueLayerID(highwayClass, link, id, brunnel)
-  );
-  layer.filter = filterRoad(highwayClass, link, brunnel);
-  layer.minzoom = minzoom;
-  return layer;
-}
-
-const Road = {
-  fill: function () {
-    var layer = baseRoadLayer(
-      this.highwayClass,
-      "fill",
-      this.brunnel,
-      this.minZoomFill,
-      this.link
-    );
-    layer.layout = layoutRoadFill;
-    layer.paint = roadPaint(this.fillColor, this.fillWidth);
-    return layer;
-  },
-  casing: function () {
-    var layer = baseRoadLayer(
-      this.highwayClass,
-      "casing",
-      this.brunnel,
-      this.minZoomCasing,
-      this.link
-    );
-    layer.layout = layoutRoadCase;
-    if (this.brunnel === "tunnel") {
-      layer.paint = tunnelCasePaint(this.casingColor, this.casingWidth);
-    } else {
-      layer.paint = roadPaint(this.casingColor, this.casingWidth);
-    }
-    return layer;
-  },
-};
-
-Object.setPrototypeOf(Motorway.prototype, Road);
+//Object.setPrototypeOf(Motorway.prototype, Road);
 Object.setPrototypeOf(Trunk.prototype, Road);
 
 Object.setPrototypeOf(MotorwayBridge.prototype, Road);
