@@ -344,26 +344,6 @@ class TrunkLinkTunnel extends TrunkLink {
   }
 }
 
-/*
-Object.setPrototypeOf(Motorway.prototype, Road);
-Object.setPrototypeOf(Trunk.prototype, Road);
-
-Object.setPrototypeOf(MotorwayBridge.prototype, Road);
-Object.setPrototypeOf(TrunkBridge.prototype, Road);
-
-Object.setPrototypeOf(MotorwayTunnel.prototype, Road);
-Object.setPrototypeOf(TrunkTunnel.prototype, Road);
-
-Object.setPrototypeOf(MotorwayLink.prototype, Road);
-Object.setPrototypeOf(TrunkLink.prototype, Road);
-
-Object.setPrototypeOf(MotorwayLinkBridge.prototype, Road);
-Object.setPrototypeOf(TrunkLinkBridge.prototype, Road);
-
-Object.setPrototypeOf(MotorwayLinkTunnel.prototype, Road);
-Object.setPrototypeOf(TrunkLinkTunnel.prototype, Road);
-*/
-
 export const motorway = new Motorway();
 export const trunk = new Trunk();
 
