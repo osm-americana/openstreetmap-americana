@@ -1,8 +1,12 @@
-var layerParkFill = {
+"use strict";
+
+import * as Color from "/constants/color.js";
+
+export const fill = {
   id: "protected-area-fill",
   type: "fill",
   paint: {
-    "fill-color": colorParkFill,
+    "fill-color": Color.parkFill,
   },
   layout: {
     visibility: "visible",
@@ -12,11 +16,11 @@ var layerParkFill = {
   "source-layer": "park",
 };
 
-var layerParkOutline = {
+export const outline = {
   id: "protected-area-outline",
   type: "line",
   paint: {
-    "line-color": colorParkOutline,
+    "line-color": Color.parkOutline,
   },
   layout: {
     visibility: "visible",
@@ -26,12 +30,12 @@ var layerParkOutline = {
   "source-layer": "park",
 };
 
-var layerParkLabel = {
+export const label = {
   id: "protected-area-label",
   type: "symbol",
   filter: ["has", "rank"],
   paint: {
-    "text-color": colorParkLabel,
+    "text-color": Color.parkLabel,
     "text-halo-blur": 1,
     "text-halo-color": "rgba(255, 255, 255, 1)",
     "text-halo-width": 1,

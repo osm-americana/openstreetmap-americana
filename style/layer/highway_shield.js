@@ -1,4 +1,6 @@
-var layerHighwayShieldInterstate = {
+"use strict";
+
+export const interstate = {
   id: "highway-shield-us-interstate",
   type: "symbol",
   paint: {

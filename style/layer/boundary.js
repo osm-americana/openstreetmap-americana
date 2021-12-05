@@ -1,8 +1,12 @@
-var layerBoundaryCity = {
+"use strict";
+
+import * as Color from "/constants/color.js";
+
+export const city = {
   id: "boundary_city",
   type: "line",
   paint: {
-    "line-color": colorBorder,
+    "line-color": Color.border,
     "line-dasharray": [2, 4],
     "line-width": 1,
     "line-offset": 0,
@@ -22,11 +26,11 @@ var layerBoundaryCity = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCountyBg = {
-  id: "boundary_county-bg",
+export const countyCasing = {
+  id: "boundary_county_casing",
   type: "line",
   paint: {
-    "line-color": colorBorderCasing,
+    "line-color": Color.borderCasing,
     "line-dasharray": [1],
     "line-width": {
       stops: [
@@ -50,11 +54,11 @@ var layerBoundaryCountyBg = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCounty = {
+export const county = {
   id: "boundary_county",
   type: "line",
   paint: {
-    "line-color": colorBorder,
+    "line-color": Color.border,
     "line-dasharray": [3, 3],
     "line-width": 1,
     "line-offset": 0,
@@ -74,15 +78,15 @@ var layerBoundaryCounty = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryStateBg = {
-  id: "boundary_state-bg",
+export const stateCasing = {
+  id: "boundary_state_casing",
   type: "line",
   paint: {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorderCasing - 30}, 25%, 94%)`],
-        [7, `hsl(${hueBorderCasing}, 30%, 90%)`],
+        [3, `hsl(${Color.hueBorderCasing - 30}, 25%, 94%)`],
+        [7, `hsl(${Color.hueBorderCasing}, 30%, 90%)`],
       ],
     },
     "line-dasharray": [1],
@@ -106,15 +110,15 @@ var layerBoundaryStateBg = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryState = {
+export const state = {
   id: "boundary_state",
   type: "line",
   paint: {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorder}, 2%, 60%)`],
-        [7, `hsl(${hueBorder}, 2%, 48%)`],
+        [3, `hsl(${Color.hueBorder}, 2%, 60%)`],
+        [7, `hsl(${Color.hueBorder}, 2%, 48%)`],
       ],
     },
     "line-dasharray": {
@@ -144,15 +148,15 @@ var layerBoundaryState = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCountryBg = {
-  id: "boundary_country-bg",
+export const countryCasing = {
+  id: "boundary_country_casing",
   type: "line",
   paint: {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorderCasing - 30}, 35%, 86%)`],
-        [7, `hsl(${hueBorderCasing}, 35%, 86%)`],
+        [3, `hsl(${Color.hueBorderCasing - 30}, 35%, 86%)`],
+        [7, `hsl(${Color.hueBorderCasing}, 35%, 86%)`],
       ],
     },
     "line-opacity": {
@@ -186,15 +190,15 @@ var layerBoundaryCountryBg = {
   "source-layer": "boundary",
 };
 
-var layerBoundaryCountry = {
+export const country = {
   id: "boundary_country",
   type: "line",
   paint: {
     "line-color": {
       base: 1.2,
       stops: [
-        [3, `hsl(${hueBorder}, 2%, 47%)`],
-        [7, `hsl(${hueBorder}, 2%, 37%)`],
+        [3, `hsl(${Color.hueBorder}, 2%, 47%)`],
+        [7, `hsl(${Color.hueBorder}, 2%, 37%)`],
       ],
     },
     "line-opacity": {

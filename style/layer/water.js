@@ -1,8 +1,12 @@
-var layerwaterwayTunnel = {
+"use strict";
+
+import * as Color from "/constants/color.js";
+
+export const waterwayTunnel = {
   id: "waterway_tunnel",
   type: "line",
   paint: {
-    "line-color": colorWaterLine,
+    "line-color": Color.waterLine,
     "line-width": {
       base: 1.3,
       stops: [
@@ -22,11 +26,11 @@ var layerwaterwayTunnel = {
   "source-layer": "waterway",
 };
 
-var layerWaterwayRiver = {
+export const waterwayRiver = {
   id: "waterway_river",
   type: "line",
   paint: {
-    "line-color": colorWaterLine,
+    "line-color": Color.waterLine,
     "line-width": {
       base: 1.2,
       stops: [
@@ -49,11 +53,11 @@ var layerWaterwayRiver = {
   metadata: {},
   "source-layer": "waterway",
 };
-var layerWaterwayRiverIntermittent = {
+export const waterwayRiverIntermittent = {
   id: "waterway_river_intermittent",
   type: "line",
   paint: {
-    "line-color": colorWaterLine,
+    "line-color": Color.waterLine,
     "line-width": {
       base: 1.2,
       stops: [
@@ -76,11 +80,11 @@ var layerWaterwayRiverIntermittent = {
   metadata: {},
   "source-layer": "waterway",
 };
-var layerWaterwayOther = {
+export const waterwayOther = {
   id: "waterway_other",
   type: "line",
   paint: {
-    "line-color": colorWaterLine,
+    "line-color": Color.waterLine,
     "line-width": {
       base: 1.3,
       stops: [
@@ -104,11 +108,11 @@ var layerWaterwayOther = {
   "source-layer": "waterway",
 };
 
-var layerWaterwayOtherIntermittent = {
+export const waterwayOtherIntermittent = {
   id: "waterway_other_intermittent",
   type: "line",
   paint: {
-    "line-color": colorWaterLine,
+    "line-color": Color.waterLine,
     "line-width": {
       base: 1.3,
       stops: [
@@ -133,11 +137,11 @@ var layerWaterwayOtherIntermittent = {
   "source-layer": "waterway",
 };
 
-var layerWaterIntermittent = {
+export const waterIntermittent = {
   id: "water_intermittent",
   type: "fill",
   paint: {
-    "fill-color": colorWaterIntermittent,
+    "fill-color": Color.waterIntermittent,
     "fill-opacity": 0.85,
   },
   filter: ["all", ["==", "intermittent", 1]],
@@ -149,11 +153,11 @@ var layerWaterIntermittent = {
   "source-layer": "water",
 };
 
-var layerWater = {
+export const water = {
   id: "water",
   type: "fill",
   paint: {
-    "fill-color": colorWaterFill,
+    "fill-color": Color.waterFill,
   },
   filter: ["all", ["!=", "intermittent", 1], ["!=", "brunnel", "tunnel"]],
   layout: {

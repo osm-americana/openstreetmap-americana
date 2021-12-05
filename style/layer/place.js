@@ -1,4 +1,6 @@
-var layerPlaceCity = {
+"use strict";
+
+export const city = {
   id: "place_city",
   type: "symbol",
   paint: {
@@ -68,7 +70,7 @@ var layerPlaceCity = {
   minzoom: 4,
   "source-layer": "place",
 };
-var layerPlaceState = {
+export const state = {
   id: "place_state",
   type: "symbol",
   paint: {
@@ -108,7 +110,7 @@ var layerPlaceState = {
   minzoom: 3,
   "source-layer": "place",
 };
-var layerPlaceCountryOther = {
+export const countryOther = {
   id: "country_other",
   type: "symbol",
   paint: {
@@ -133,7 +135,7 @@ var layerPlaceCountryOther = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var layerPlaceCountry3 = {
+export const country3 = {
   id: "country_3",
   type: "symbol",
   paint: {
@@ -163,7 +165,7 @@ var layerPlaceCountry3 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var layerPlaceCountry2 = {
+export const country2 = {
   id: "country_2",
   type: "symbol",
   paint: {
@@ -193,7 +195,7 @@ var layerPlaceCountry2 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var layerPlaceCountry1 = {
+export const country1 = {
   id: "country_1",
   type: "symbol",
   paint: {
@@ -231,7 +233,7 @@ var layerPlaceCountry1 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-var layerPlaceContinent = {
+export const continent = {
   id: "continent",
   type: "symbol",
   paint: {

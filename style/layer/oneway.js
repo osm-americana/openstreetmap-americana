@@ -1,4 +1,6 @@
-var layerRoadOneway = {
+"use strict";
+
+export const road = {
   id: "road_oneway",
   type: "symbol",
   paint: {
@@ -40,7 +42,7 @@ var layerRoadOneway = {
   "source-layer": "transportation",
 };
 
-var layerTunnelOneway = {
+export const tunnel = {
   id: "tunnel_oneway",
   type: "symbol",
   paint: {
@@ -83,7 +85,7 @@ var layerTunnelOneway = {
   "source-layer": "transportation",
 };
 
-var layerBridgeOneway = {
+export const bridge = {
   id: "bridge_oneway",
   type: "symbol",
   paint: {
@@ -125,7 +127,7 @@ var layerBridgeOneway = {
   "source-layer": "transportation",
 };
 
-var layerRoadOnewayLink = {
+export const link = {
   id: "road_oneway_link",
   type: "symbol",
   paint: {
@@ -167,7 +169,7 @@ var layerRoadOnewayLink = {
   "source-layer": "transportation",
 };
 
-var layerTunnelOnewayLink = {
+export const tunnelLink = {
   id: "tunnel_oneway_link",
   type: "symbol",
   paint: {
@@ -210,7 +212,7 @@ var layerTunnelOnewayLink = {
   "source-layer": "transportation",
 };
 
-var layerBridgeOnewayLink = {
+export const bridgeLink = {
   id: "bridge_oneway_link",
   type: "symbol",
   paint: {
