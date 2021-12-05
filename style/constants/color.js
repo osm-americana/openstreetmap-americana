@@ -1,13 +1,13 @@
-var colorWaterFill = "hsl(211, 42%, 70%)";
-var colorWaterLine = "hsl(211, 73%, 78%)";
-var colorWaterIntermittent = "hsl(205, 89%, 83%)";
+export const waterFill = "hsl(211, 42%, 70%)";
+export const waterLine = "hsl(211, 73%, 78%)";
+export const waterIntermittent = "hsl(205, 89%, 83%)";
 
-var hueBorder = 0;
-var hueBorderCasing = 281;
+export const hueBorder = 0;
+export const hueBorderCasing = 281;
 
-var colorBorder = "hsl(0, 2%, 47%)";
-var colorBorderCasing = `hsl(${hueBorderCasing}, 35%, 86%)`;
+export const border = "hsl(0, 2%, 47%)";
+export const borderCasing = `hsl(${hueBorderCasing}, 35%, 86%)`;
 
-var colorParkFill = "hsl(136, 41%, 89%)";
-var colorParkOutline = "hsl(136, 41%, 79%)";
-var colorParkLabel = "hsl(136, 71%, 29%)";
+export const parkFill = "hsl(136, 41%, 89%)";
+export const parkOutline = "hsl(136, 41%, 79%)";
+export const parkLabel = "hsl(136, 71%, 29%)";

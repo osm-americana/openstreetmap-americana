@@ -1,4 +1,7 @@
 "use strict";
+
+import * as Util from "/js/util.js";
+
 //At this zoom, render switches from unified to differentiated bridge/tunnel rendering
 let minzoomBrunnel = 11;
 
@@ -25,7 +28,6 @@ let layoutRoadCase = {
   "line-join": "round",
   visibility: "visible",
 };
-
 
 /*
  Road style generation helper functions
@@ -79,7 +81,7 @@ function uniqueLayerID(hwyClass, link, part, brunnel) {
 }
 
 function baseRoadLayer(highwayClass, id, brunnel, minzoom, link) {
-  var layer = layerClone(
+  var layer = Util.layerClone(
     defRoad,
     uniqueLayerID(highwayClass, link, id, brunnel)
   );
@@ -90,7 +92,7 @@ function baseRoadLayer(highwayClass, id, brunnel, minzoom, link) {
 
 //Base road class
 class Road {
-  fill = function() {
+  fill = function () {
     var layer = baseRoadLayer(
       this.highwayClass,
       "fill",
@@ -101,8 +103,8 @@ class Road {
     layer.layout = layoutRoadFill;
     layer.paint = roadPaint(this.fillColor, this.fillWidth);
     return layer;
-  }
-  casing = function() {
+  };
+  casing = function () {
     var layer = baseRoadLayer(
       this.highwayClass,
       "casing",
@@ -117,9 +119,8 @@ class Road {
       layer.paint = roadPaint(this.casingColor, this.casingWidth);
     }
     return layer;
-  }
-};
-
+  };
+}
 
 //Highway class styles
 class Motorway extends Road {
@@ -343,7 +344,8 @@ class TrunkLinkTunnel extends TrunkLink {
   }
 }
 
-//Object.setPrototypeOf(Motorway.prototype, Road);
+/*
+Object.setPrototypeOf(Motorway.prototype, Road);
 Object.setPrototypeOf(Trunk.prototype, Road);
 
 Object.setPrototypeOf(MotorwayBridge.prototype, Road);
@@ -360,21 +362,22 @@ Object.setPrototypeOf(TrunkLinkBridge.prototype, Road);
 
 Object.setPrototypeOf(MotorwayLinkTunnel.prototype, Road);
 Object.setPrototypeOf(TrunkLinkTunnel.prototype, Road);
+*/
 
-var roadMotorway = new Motorway();
-var roadTrunk = new Trunk();
+export const motorway = new Motorway();
+export const trunk = new Trunk();
 
-var roadMotorwayBridge = new MotorwayBridge();
-var roadTrunkBridge = new TrunkBridge();
+export const motorwayBridge = new MotorwayBridge();
+export const trunkBridge = new TrunkBridge();
 
-var roadMotorwayTunnel = new MotorwayTunnel();
-var roadTrunkTunnel = new TrunkTunnel();
+export const motorwayTunnel = new MotorwayTunnel();
+export const trunkTunnel = new TrunkTunnel();
 
-var roadMotorwayLink = new MotorwayLink();
-var roadTrunkLink = new TrunkLink();
+export const motorwayLink = new MotorwayLink();
+export const trunkLink = new TrunkLink();
 
-var roadMotorwayLinkBridge = new MotorwayLinkBridge();
-var roadTrunkLinkBridge = new TrunkLinkBridge();
+export const motorwayLinkBridge = new MotorwayLinkBridge();
+export const trunkLinkBridge = new TrunkLinkBridge();
 
-var roadMotorwayLinkTunnel = new MotorwayLinkTunnel();
-var roadTrunkLinkTunnel = new TrunkLinkTunnel();
+export const motorwayLinkTunnel = new MotorwayLinkTunnel();
+export const trunkLinkTunnel = new TrunkLinkTunnel();

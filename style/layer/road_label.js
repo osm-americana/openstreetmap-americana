@@ -1,5 +1,6 @@
 "use strict";
-var layerMotorwayLabel = {
+
+export const motorway = {
   id: "motorway_label",
   type: "symbol",
   paint: {

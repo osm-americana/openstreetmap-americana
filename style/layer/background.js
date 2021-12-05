@@ -4,7 +4,7 @@
 
   This is the base color of the map.
 */
-var layerBackground = {
+export const base = {
   id: "background",
   type: "background",
   paint: {
