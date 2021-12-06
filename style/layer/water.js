@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Color from "/constants/color.js";
+import * as Color from "../constants/color.js";
 
 export const waterwayTunnel = {
   id: "waterway_tunnel",

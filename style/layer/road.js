@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Util from "/js/util.js";
+import * as Util from "../js/util.js";
 
 //At this zoom, render switches from unified to differentiated bridge/tunnel rendering
 let minzoomBrunnel = 11;
