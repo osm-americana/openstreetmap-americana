@@ -1,16 +1,16 @@
 "use strict";
 
-import * as Util from "/js/util.js";
+import * as Util from "./js/util.js";
 
-import * as lyrBackground from "/layer/background.js";
-import * as lyrBoundary from "/layer/boundary.js";
-import * as lyrHighwayShield from "/layer/highway_shield.js";
-import * as lyrOneway from "/layer/oneway.js";
-import * as lyrPark from "/layer/park.js";
-import * as lyrPlace from "/layer/place.js";
-import * as lyrRoad from "/layer/road.js";
-import * as lyrRoadLabel from "/layer/road_label.js";
-import * as lyrWater from "/layer/water.js";
+import * as lyrBackground from "./layer/background.js";
+import * as lyrBoundary from "./layer/boundary.js";
+import * as lyrHighwayShield from "./layer/highway_shield.js";
+import * as lyrOneway from "./layer/oneway.js";
+import * as lyrPark from "./layer/park.js";
+import * as lyrPlace from "./layer/place.js";
+import * as lyrRoad from "./layer/road.js";
+import * as lyrRoadLabel from "./layer/road_label.js";
+import * as lyrWater from "./layer/water.js";
 
 /*
  This is a list of the layers in the Americana style, from bottom to top.
