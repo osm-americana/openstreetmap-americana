@@ -162,3 +162,4 @@ map.addControl(
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");
+document.querySelector("#map canvas").focus();
