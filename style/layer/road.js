@@ -33,6 +33,11 @@ let layoutBridgeCase = {
   "line-join": "bevel",
   visibility: "visible",
 };
+let layoutRoadSurface = {
+  "line-cap": "butt",
+  "line-join": "round",
+  visibility: "visible",
+};
 
 /*
  Road style generation helper functions
@@ -58,6 +63,18 @@ function tunnelCasePaint(color, width) {
     },
     "line-opacity": 1,
     "line-dasharray": tunDashArray,
+  };
+}
+
+function roadSurfacePaint(color, width) {
+  return {
+    "line-dasharray": [4, 4],
+    "line-color": color,
+    "line-width": {
+      base: roadExp,
+      stops: width,
+    },
+    "line-blur": 0.5,
   };
 }
 
@@ -125,6 +142,20 @@ class Road {
     }
     return layer;
   };
+  surface = function () {
+    var layer = baseRoadLayer(
+      this.highwayClass,
+      "surface",
+      this.brunnel,
+      Math.min(this.minZoomCasing, this.minZoomFill),
+      this.link
+    );
+    layer.filter.push(["==", "surface", "unpaved"]);
+    console.log(layer);
+    layer.layout = layoutRoadSurface;
+    layer.paint = roadSurfacePaint(this.surfaceColor, this.fillWidth);
+    return layer;
+  };
 }
 
 //Highway class styles
@@ -185,6 +216,8 @@ class Motorway extends Road {
       14,
       `hsl(${this.hue}, 51%, 9%)`,
     ];
+
+    this.surfaceColor = `hsl(${this.hue}, 50%, 80%)`;
   }
 }
 
@@ -214,6 +247,7 @@ class Trunk extends Road {
 
     this.fillColor = `hsl(${this.hue}, 95%, 50%)`;
     this.casingColor = `hsl(${this.hue}, 70%, 18%)`;
+    this.surfaceColor = `hsl(${this.hue}, 95%, 80%)`;
   }
 }
 
@@ -244,6 +278,7 @@ class Primary extends Road {
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
     this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
@@ -272,6 +307,7 @@ class Secondary extends Road {
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
     this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
@@ -298,6 +334,7 @@ class Tertiary extends Road {
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
     this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
