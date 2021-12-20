@@ -123,7 +123,7 @@ bridgeLayers.forEach((layer) =>
 );
 
 americanaLayers.push(
-  //The labels at the end of the list have the highest priority.
+  //The labels at the end of the list draw on top of the layers at the beginning.
   lyrRoadLabel.motorway,
   lyrRoadLabel.trunk,
   lyrRoadLabel.primary,
