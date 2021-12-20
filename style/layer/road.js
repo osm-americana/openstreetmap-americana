@@ -19,13 +19,18 @@ let tunDashArray = [
 
 //Join styles for fill and casing
 let layoutRoadFill = {
-  "line-cap": "round",
+  "line-cap": "butt",
   "line-join": "round",
   visibility: "visible",
 };
 let layoutRoadCase = {
   "line-cap": "butt",
   "line-join": "round",
+  visibility: "visible",
+};
+let layoutBridgeCase = {
+  "line-cap": "butt",
+  "line-join": "bevel",
   visibility: "visible",
 };
 
@@ -129,7 +134,7 @@ class Motorway extends Road {
     this.highwayClass = "motorway";
     this.brunnel = "surface";
     this.link = false;
-    this.hue = 354;
+    this.hue = 0;
 
     this.minZoomFill = 4;
     this.minZoomCasing = 4;
@@ -173,12 +178,12 @@ class Motorway extends Road {
     this.fillColor = [
       ...this.colorFillLowZoom,
       14,
-      `hsl(${this.hue}, 71%, 45%)`,
+      `hsl(${this.hue}, 71%, 35%)`,
     ];
     this.casingColor = [
       ...this.colorCasingLowZoom,
       14,
-      `hsl(${this.hue}, 71%, 23%)`,
+      `hsl(${this.hue}, 51%, 9%)`,
     ];
   }
 }
@@ -192,7 +197,7 @@ class Trunk extends Road {
     this.hue = 0;
 
     this.minZoomFill = 8;
-    this.minZoomCasing = 10;
+    this.minZoomCasing = 15;
 
     this.fillWidth = [
       [4, 0.5],
@@ -207,8 +212,92 @@ class Trunk extends Road {
       [20, 22],
     ];
 
-    this.fillColor = `hsl(${this.hue}, 70%, 28%)`;
+    this.fillColor = `hsl(${this.hue}, 95%, 50%)`;
     this.casingColor = `hsl(${this.hue}, 70%, 18%)`;
+  }
+}
+
+class Primary extends Road {
+  constructor() {
+    super();
+    this.highwayClass = "primary";
+    this.brunnel = "surface";
+    this.link = false;
+    this.hue = 0;
+
+    this.minZoomFill = 14;
+    this.minZoomCasing = 10;
+
+    this.fillWidth = [
+      [9, 1],
+      [12, 4],
+      [14, 10],
+      [20, 18],
+    ];
+
+    this.casingWidth = [
+      [9, 1],
+      [12, 4],
+      [14, 11.5],
+      [20, 22],
+    ];
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+  }
+}
+
+class Secondary extends Road {
+  constructor() {
+    super();
+    this.highwayClass = "secondary";
+    this.brunnel = "surface";
+    this.link = false;
+    this.hue = 0;
+
+    this.minZoomFill = 15;
+    this.minZoomCasing = 11;
+
+    this.fillWidth = [
+      [9, 0.5],
+      [12, 2],
+      [20, 9],
+    ];
+
+    this.casingWidth = [
+      [9, 0.5],
+      [12, 3],
+      [20, 11],
+    ];
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+  }
+}
+
+class Tertiary extends Road {
+  constructor() {
+    super();
+    this.highwayClass = "tertiary";
+    this.brunnel = "surface";
+    this.link = false;
+    this.hue = 0;
+
+    this.minZoomFill = 16;
+    this.minZoomCasing = 12;
+
+    this.fillWidth = [
+      [12, 1],
+      [20, 6],
+    ];
+
+    this.casingWidth = [
+      [12, 1],
+      [20, 8],
+    ];
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
   }
 }
 
@@ -239,7 +328,7 @@ class TrunkLink extends Trunk {
     super();
     this.link = true;
     this.minZoomFill = 11;
-    this.minZoomCasing = 11;
+    this.minZoomCasing = 15;
 
     this.fillWidth = [
       [7, 1],
@@ -253,6 +342,27 @@ class TrunkLink extends Trunk {
       [14, 4.0],
       [20, 15],
     ];
+  }
+}
+
+class PrimaryLink extends Primary {
+  constructor() {
+    super();
+    this.link=true;
+  }
+}
+
+class SecondaryLink extends Secondary {
+  constructor() {
+    super();
+    this.link=true;
+  }
+}
+
+class TertiaryLink extends Tertiary {
+  constructor() {
+    super();
+    this.link=true;
   }
 }
 
@@ -277,6 +387,30 @@ class TrunkBridge extends Trunk {
   }
 }
 
+class PrimaryBridge extends Primary {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class SecondaryBridge extends Secondary {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class TertiaryBridge extends Tertiary {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
 class MotorwayLinkBridge extends MotorwayLink {
   constructor() {
     super();
@@ -290,6 +424,30 @@ class TrunkLinkBridge extends TrunkLink {
     super();
     this.brunnel = "bridge";
     this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
+  }
+}
+
+class PrimaryLinkBridge extends PrimaryLink {
+  constructor() {
+    super();
+    //Undifferentiated
+    this.brunnel = "bridge";
+  }
+}
+
+class SecondaryLinkBridge extends SecondaryLink {
+  constructor() {
+    super();
+    //Undifferentiated
+    this.brunnel = "bridge";
+  }
+}
+
+class TertiaryLinkBridge extends TertiaryLink {
+  constructor() {
+    //Undifferentiated
+    super();
+    this.brunnel = "bridge";
   }
 }
 
@@ -346,9 +504,15 @@ class TrunkLinkTunnel extends TrunkLink {
 
 export const motorway = new Motorway();
 export const trunk = new Trunk();
+export const primary = new Primary();
+export const secondary = new Secondary();
+export const tertiary = new Tertiary();
 
 export const motorwayBridge = new MotorwayBridge();
 export const trunkBridge = new TrunkBridge();
+export const primaryBridge = new PrimaryBridge();
+export const secondaryBridge = new SecondaryBridge();
+export const tertiaryBridge = new TertiaryBridge();
 
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();
@@ -358,6 +522,9 @@ export const trunkLink = new TrunkLink();
 
 export const motorwayLinkBridge = new MotorwayLinkBridge();
 export const trunkLinkBridge = new TrunkLinkBridge();
+export const primaryLinkBridge = new PrimaryLinkBridge();
+export const secondaryLinkBridge = new SecondaryLinkBridge();
+export const tertiaryLinkBridge = new TertiaryLinkBridge();
 
 export const motorwayLinkTunnel = new MotorwayLinkTunnel();
 export const trunkLinkTunnel = new TrunkLinkTunnel();

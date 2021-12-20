@@ -51,30 +51,51 @@ americanaLayers.push(
 
   lyrRoad.motorway.casing(),
   lyrRoad.trunk.casing(),
+  lyrRoad.primary.casing(),
+  lyrRoad.secondary.casing(),
+  lyrRoad.tertiary.casing(),
 
   lyrRoad.motorwayLink.casing(),
   lyrRoad.trunkLink.casing(),
 
-  lyrRoad.motorway.fill(),
-  lyrRoad.trunk.fill(),
-
   lyrRoad.motorwayLink.fill(),
   lyrRoad.trunkLink.fill(),
+
+  lyrRoad.tertiary.fill(),
+  lyrRoad.secondary.fill(),
+  lyrRoad.primary.fill(),
+  lyrRoad.trunk.fill(),
+  lyrRoad.motorway.fill(),
 
   lyrOneway.road,
   lyrOneway.link
 );
 
 var bridgeLayers = [
-  lyrRoad.motorwayBridge.casing(),
-  lyrRoad.motorwayLinkBridge.casing(),
-  lyrRoad.motorwayBridge.fill(),
-  lyrRoad.motorwayLinkBridge.fill(),
+  lyrRoad.tertiaryBridge.casing(),
+  lyrRoad.tertiaryLinkBridge.casing(),
+  lyrRoad.tertiaryBridge.fill(),
+  lyrRoad.tertiaryLinkBridge.fill(),
+
+  lyrRoad.secondaryBridge.casing(),
+  lyrRoad.secondaryLinkBridge.casing(),
+  lyrRoad.secondaryBridge.fill(),
+  lyrRoad.secondaryLinkBridge.fill(),
+
+  lyrRoad.primaryBridge.casing(),
+  lyrRoad.primaryLinkBridge.casing(),
+  lyrRoad.primaryBridge.fill(),
+  lyrRoad.primaryLinkBridge.fill(),
 
   lyrRoad.trunkBridge.casing(),
   lyrRoad.trunkLinkBridge.casing(),
   lyrRoad.trunkBridge.fill(),
   lyrRoad.trunkLinkBridge.fill(),
+
+  lyrRoad.motorwayBridge.casing(),
+  lyrRoad.motorwayLinkBridge.casing(),
+  lyrRoad.motorwayBridge.fill(),
+  lyrRoad.motorwayLinkBridge.fill(),
 
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
@@ -104,6 +125,11 @@ bridgeLayers.forEach((layer) =>
 americanaLayers.push(
   //The labels at the end of the list have the highest priority.
   lyrRoadLabel.motorway,
+  lyrRoadLabel.trunk,
+  lyrRoadLabel.primary,
+  lyrRoadLabel.primaryHZ,
+  lyrRoadLabel.secondary,
+  lyrRoadLabel.tertiary,
 
   lyrPark.label,
 
@@ -133,7 +159,8 @@ var style = {
   bearing: 0,
   sources: {
     openmaptiles: {
-      url: "https://api.maptiler.com/tiles/v3/tiles.json?key=" + mapTilerKey,
+      url: "http://localhost:8080/data/v3.json",
+      //      url: "https://api.maptiler.com/tiles/v3/tiles.json?key=" + mapTilerKey,
       type: "vector",
     },
   },
@@ -155,6 +182,11 @@ var map = new maplibregl.Map({
   zoom: 4, // starting zoom
   attributionControl: false,
 });
+
+map.on("styleimagemissing", function (e) {
+  Shield.missingIconLoader(map, e);
+});
+
 map.addControl(
   new maplibregl.AttributionControl({
     customAttribution:
@@ -162,4 +194,3 @@ map.addControl(
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");
-document.querySelector("#map canvas").focus();
