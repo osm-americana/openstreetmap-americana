@@ -159,8 +159,8 @@ var style = {
   bearing: 0,
   sources: {
     openmaptiles: {
-      url: "http://localhost:8080/data/v3.json",
-      //      url: "https://api.maptiler.com/tiles/v3/tiles.json?key=" + mapTilerKey,
+      // url: "http://localhost:8080/data/v3.json",
+      url: "https://api.maptiler.com/tiles/v3/tiles.json?key=" + mapTilerKey,
       type: "vector",
     },
   },
