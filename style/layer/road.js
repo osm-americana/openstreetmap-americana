@@ -217,7 +217,7 @@ class Motorway extends Road {
       `hsl(${this.hue}, 51%, 9%)`,
     ];
 
-    this.surfaceColor = `hsl(${this.hue}, 50%, 80%)`;
+    this.surfaceColor = `hsl(${this.hue}, 50%, 70%)`;
   }
 }
 
