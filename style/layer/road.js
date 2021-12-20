@@ -348,21 +348,21 @@ class TrunkLink extends Trunk {
 class PrimaryLink extends Primary {
   constructor() {
     super();
-    this.link=true;
+    this.link = true;
   }
 }
 
 class SecondaryLink extends Secondary {
   constructor() {
     super();
-    this.link=true;
+    this.link = true;
   }
 }
 
 class TertiaryLink extends Tertiary {
   constructor() {
     super();
-    this.link=true;
+    this.link = true;
   }
 }
 
