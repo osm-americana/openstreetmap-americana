@@ -183,10 +183,6 @@ var map = new maplibregl.Map({
   attributionControl: false,
 });
 
-map.on("styleimagemissing", function (e) {
-  Shield.missingIconLoader(map, e);
-});
-
 map.addControl(
   new maplibregl.AttributionControl({
     customAttribution:
