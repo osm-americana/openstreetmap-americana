@@ -67,6 +67,15 @@ americanaLayers.push(
   lyrRoad.trunk.fill(),
   lyrRoad.motorway.fill(),
 
+  lyrRoad.motorwayLink.surface(),
+  lyrRoad.trunkLink.surface(),
+
+  lyrRoad.tertiary.surface(),
+  lyrRoad.secondary.surface(),
+  lyrRoad.primary.surface(),
+  lyrRoad.trunk.surface(),
+  lyrRoad.motorway.surface(),
+
   lyrOneway.road,
   lyrOneway.link
 );
@@ -76,26 +85,36 @@ var bridgeLayers = [
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.tertiaryBridge.fill(),
   lyrRoad.tertiaryLinkBridge.fill(),
+  lyrRoad.tertiaryBridge.surface(),
+  lyrRoad.tertiaryLinkBridge.surface(),
 
   lyrRoad.secondaryBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),
   lyrRoad.secondaryBridge.fill(),
   lyrRoad.secondaryLinkBridge.fill(),
+  lyrRoad.secondaryBridge.surface(),
+  lyrRoad.secondaryLinkBridge.surface(),
 
   lyrRoad.primaryBridge.casing(),
   lyrRoad.primaryLinkBridge.casing(),
   lyrRoad.primaryBridge.fill(),
   lyrRoad.primaryLinkBridge.fill(),
+  lyrRoad.primaryBridge.surface(),
+  lyrRoad.primaryLinkBridge.surface(),
 
   lyrRoad.trunkBridge.casing(),
   lyrRoad.trunkLinkBridge.casing(),
   lyrRoad.trunkBridge.fill(),
   lyrRoad.trunkLinkBridge.fill(),
+  lyrRoad.trunkBridge.surface(),
+  lyrRoad.trunkLinkBridge.surface(),
 
   lyrRoad.motorwayBridge.casing(),
   lyrRoad.motorwayLinkBridge.casing(),
   lyrRoad.motorwayBridge.fill(),
   lyrRoad.motorwayLinkBridge.fill(),
+  lyrRoad.motorwayBridge.surface(),
+  lyrRoad.motorwayLinkBridge.surface(),
 
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
