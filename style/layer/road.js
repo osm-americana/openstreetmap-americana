@@ -19,12 +19,12 @@ let tunDashArray = [
 
 //Join styles for fill and casing
 let layoutRoadFill = {
-  "line-cap": "butt",
+  "line-cap": "round",
   "line-join": "round",
   visibility: "visible",
 };
 let layoutRoadCase = {
-  "line-cap": "butt",
+  "line-cap": "round",
   "line-join": "round",
   visibility: "visible",
 };
@@ -135,6 +135,9 @@ class Road {
       this.link
     );
     layer.layout = layoutRoadCase;
+    if (this.brunnel === "bridge") {
+      layer.layout = layoutBridgeCase;
+    }
     if (this.brunnel === "tunnel") {
       layer.paint = tunnelCasePaint(this.casingColor, this.casingWidth);
     } else {
