@@ -232,8 +232,8 @@ class Trunk extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 8;
-    this.minZoomCasing = 15;
+    this.minZoomFill = 4;
+    this.minZoomCasing = 9;
 
     this.fillWidth = [
       [4, 0.5],
@@ -262,10 +262,11 @@ class Primary extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 14;
-    this.minZoomCasing = 10;
+    this.minZoomFill = 10;
+    this.minZoomCasing = 7;
 
     this.fillWidth = [
+      [4, 0.5],
       [9, 1],
       [12, 4],
       [14, 10],
@@ -294,7 +295,7 @@ class Secondary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 15;
-    this.minZoomCasing = 11;
+    this.minZoomCasing = 9;
 
     this.fillWidth = [
       [9, 0.5],
@@ -323,9 +324,10 @@ class Tertiary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 16;
-    this.minZoomCasing = 12;
+    this.minZoomCasing = 11;
 
     this.fillWidth = [
+      [9, 0.5],
       [12, 1],
       [20, 6],
     ];
