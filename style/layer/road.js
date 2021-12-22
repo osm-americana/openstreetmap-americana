@@ -237,14 +237,15 @@ class Trunk extends Road {
 
     this.fillWidth = [
       [4, 0.5],
-      [9, 1],
+      [7, 1],
+      [9, 1.5],
       [12, 4],
       [20, 18],
     ];
 
     this.casingWidth = [
-      [9, 1],
-      [12, 4],
+      [9, 1.5],
+      [12, 5],
       [20, 22],
     ];
 
@@ -266,7 +267,6 @@ class Primary extends Road {
     this.minZoomCasing = 7;
 
     this.fillWidth = [
-      [4, 0.5],
       [9, 1],
       [12, 4],
       [14, 10],
@@ -274,6 +274,7 @@ class Primary extends Road {
     ];
 
     this.casingWidth = [
+      [7, 0.5],
       [9, 1],
       [12, 4],
       [14, 11.5],
