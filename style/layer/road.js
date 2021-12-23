@@ -19,12 +19,12 @@ let tunDashArray = [
 
 //Join styles for fill and casing
 let layoutRoadFill = {
-  "line-cap": "round",
+  "line-cap": "butt",
   "line-join": "round",
   visibility: "visible",
 };
 let layoutRoadCase = {
-  "line-cap": "round",
+  "line-cap": "butt",
   "line-join": "round",
   visibility: "visible",
 };
