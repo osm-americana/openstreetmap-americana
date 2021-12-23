@@ -266,21 +266,20 @@ class Primary extends Road {
     this.minZoomCasing = 10;
 
     this.fillWidth = [
-      [9, 1],
-      [12, 4],
-      [14, 10],
-      [20, 18],
+      [14, 10], //First cased zoom
+      [16, 18],
     ];
 
     this.casingWidth = [
       [9, 1],
-      [12, 4],
-      [14, 11.5],
-      [20, 22],
+      [12, 5],
+      [13, 5.5], //Last stroked zoom
+      [14, 11], //First cased zoom
+      [16, 22],
     ];
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+    this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
@@ -297,19 +296,20 @@ class Secondary extends Road {
     this.minZoomCasing = 11;
 
     this.fillWidth = [
-      [9, 0.5],
-      [12, 2],
-      [20, 9],
+      [15, 4], //First cased zoom
+      [16, 16],
     ];
 
     this.casingWidth = [
-      [9, 0.5],
-      [12, 3],
-      [20, 11],
+      [11, 1],
+      [12, 2.5],
+      [14, 4.5], //Last stroked zoom
+      [15, 5], //First cased zoom
+      [16, 18],
     ];
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+    this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
@@ -326,17 +326,18 @@ class Tertiary extends Road {
     this.minZoomCasing = 12;
 
     this.fillWidth = [
-      [12, 1],
-      [20, 6],
+      [16, 4],
+      [17, 13],
     ];
 
     this.casingWidth = [
       [12, 1],
-      [20, 8],
+      [16, 5],
+      [17, 14],
     ];
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    this.casingColor = `hsl(${this.hue}, 0%, 20%)`;
+    this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }

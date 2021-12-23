@@ -148,7 +148,9 @@ americanaLayers.push(
   lyrRoadLabel.primary,
   lyrRoadLabel.primaryHZ,
   lyrRoadLabel.secondary,
+  lyrRoadLabel.secondaryHZ,
   lyrRoadLabel.tertiary,
+  lyrRoadLabel.tertiaryHZ,
 
   lyrPark.label,
 

@@ -75,7 +75,19 @@ export const secondary = {
   paint: textPaint,
   filter: ["all", ["==", "class", "secondary"]],
   minzoom: 12,
+  maxzoom: 16,
   layout: offsetLabelStyle,
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};
+
+export const secondaryHZ = {
+  id: "secondary_label_hz",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "secondary"]],
+  minzoom: 16,
+  layout: centerLabelStyle,
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -86,7 +98,19 @@ export const tertiary = {
   paint: textPaint,
   filter: ["all", ["==", "class", "tertiary"]],
   minzoom: 13,
+  maxzoom: 17,
   layout: offsetLabelStyle,
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};
+
+export const tertiaryHZ = {
+  id: "tertiary_label_hz",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "tertiary"]],
+  minzoom: 17,
+  layout: centerLabelStyle,
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
