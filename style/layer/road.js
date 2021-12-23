@@ -243,7 +243,7 @@ class Trunk extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 8;
+    this.minZoomFill = 7;
     this.minZoomCasing = 15;
 
     this.fillWidth = trunkFillWidth;
