@@ -19,12 +19,12 @@ let tunDashArray = [
 
 //Join styles for fill and casing
 let layoutRoadFill = {
-  "line-cap": "butt",
+  "line-cap": "round",
   "line-join": "round",
   visibility: "visible",
 };
 let layoutRoadCase = {
-  "line-cap": "butt",
+  "line-cap": "round",
   "line-join": "round",
   visibility: "visible",
 };
@@ -224,6 +224,18 @@ class Motorway extends Road {
   }
 }
 
+let trunkFillWidth = [
+  [4, 0.5],
+  [9, 1],
+  [12, 4],
+  [20, 18],
+];
+let trunkCasingWidth = [
+  [9, 1],
+  [12, 4],
+  [20, 22],
+];
+
 class Trunk extends Road {
   constructor() {
     super();
@@ -235,18 +247,8 @@ class Trunk extends Road {
     this.minZoomFill = 8;
     this.minZoomCasing = 15;
 
-    this.fillWidth = [
-      [4, 0.5],
-      [9, 1],
-      [12, 4],
-      [20, 18],
-    ];
-
-    this.casingWidth = [
-      [9, 1],
-      [12, 4],
-      [20, 22],
-    ];
+    this.fillWidth = trunkFillWidth;
+    this.casingWidth = trunkCasingWidth;
 
     this.fillColor = `hsl(${this.hue}, 95%, 50%)`;
     this.casingColor = `hsl(${this.hue}, 70%, 18%)`;
@@ -265,18 +267,8 @@ class Primary extends Road {
     this.minZoomFill = 14;
     this.minZoomCasing = 10;
 
-    this.fillWidth = [
-      [14, 10], //First cased zoom
-      [16, 18],
-    ];
-
-    this.casingWidth = [
-      [9, 1],
-      [12, 5],
-      [13, 5.5], //Last stroked zoom
-      [14, 11], //First cased zoom
-      [16, 22],
-    ];
+    this.fillWidth = trunkFillWidth;
+    this.casingWidth = trunkCasingWidth;
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
     this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
@@ -297,7 +289,7 @@ class Secondary extends Road {
 
     this.fillWidth = [
       [15, 4], //First cased zoom
-      [16, 16],
+      [20, 16],
     ];
 
     this.casingWidth = [
@@ -305,7 +297,7 @@ class Secondary extends Road {
       [12, 2.5],
       [14, 4.5], //Last stroked zoom
       [15, 5], //First cased zoom
-      [16, 18],
+      [20, 20],
     ];
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
