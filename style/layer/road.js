@@ -154,7 +154,6 @@ class Road {
       this.link
     );
     layer.filter.push(["==", "surface", "unpaved"]);
-    console.log(layer);
     layer.layout = layoutRoadSurface;
     layer.paint = roadSurfacePaint(this.surfaceColor, this.fillWidth);
     return layer;
