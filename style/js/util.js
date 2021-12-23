@@ -22,3 +22,12 @@ export function filteredClone(def, filterStep, idSuffix) {
   clone.filter.push(filterStep);
   return clone;
 }
+
+//Make a clone of a zoom-based value array
+export function zoomMultiply(arr, multiplier) {
+  var transformedArray = cp(arr);
+  for (var i = 0; i < transformedArray.length; i++) {
+    transformedArray[i][1] *= multiplier;
+  }
+  return transformedArray;
+}

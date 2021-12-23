@@ -266,8 +266,8 @@ class Primary extends Road {
     this.minZoomFill = 14;
     this.minZoomCasing = 10;
 
-    this.fillWidth = trunkFillWidth;
-    this.casingWidth = trunkCasingWidth;
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.9);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.9);
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
     this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
@@ -286,18 +286,8 @@ class Secondary extends Road {
     this.minZoomFill = 15;
     this.minZoomCasing = 11;
 
-    this.fillWidth = [
-      [15, 4], //First cased zoom
-      [20, 16],
-    ];
-
-    this.casingWidth = [
-      [11, 1],
-      [12, 2.5],
-      [14, 4.5], //Last stroked zoom
-      [15, 5], //First cased zoom
-      [20, 20],
-    ];
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.6);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.6);
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
     this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
@@ -316,16 +306,8 @@ class Tertiary extends Road {
     this.minZoomFill = 16;
     this.minZoomCasing = 12;
 
-    this.fillWidth = [
-      [16, 4],
-      [17, 13],
-    ];
-
-    this.casingWidth = [
-      [12, 1],
-      [16, 5],
-      [17, 14],
-    ];
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
     this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
@@ -362,18 +344,8 @@ class TrunkLink extends Trunk {
     this.minZoomFill = 11;
     this.minZoomCasing = 15;
 
-    this.fillWidth = [
-      [7, 1],
-      [13, 1.5],
-      [14, 2.5],
-      [20, 11.5],
-    ];
-    this.casingWidth = [
-      [7, 2],
-      [13, 3],
-      [14, 4.0],
-      [20, 15],
-    ];
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
   }
 }
 
@@ -381,6 +353,9 @@ class PrimaryLink extends Primary {
   constructor() {
     super();
     this.link = true;
+
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.45);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.45);
   }
 }
 
@@ -388,6 +363,9 @@ class SecondaryLink extends Secondary {
   constructor() {
     super();
     this.link = true;
+
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
   }
 }
 
@@ -395,6 +373,9 @@ class TertiaryLink extends Tertiary {
   constructor() {
     super();
     this.link = true;
+
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.25);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.25);
   }
 }
 
