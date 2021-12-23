@@ -250,7 +250,7 @@ class Trunk extends Road {
     this.fillWidth = trunkFillWidth;
     this.casingWidth = trunkCasingWidth;
 
-    this.fillColor = `hsl(${this.hue}, 95%, 50%)`;
+    this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
     this.casingColor = `hsl(${this.hue}, 70%, 18%)`;
     this.surfaceColor = `hsl(${this.hue}, 95%, 80%)`;
   }
