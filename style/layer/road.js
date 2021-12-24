@@ -243,7 +243,7 @@ class Trunk extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 7;
+    this.minZoomFill = 5;
     this.minZoomCasing = 15;
 
     this.fillWidth = trunkFillWidth;
@@ -264,7 +264,7 @@ class Primary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 14;
-    this.minZoomCasing = 10;
+    this.minZoomCasing = 7;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.9);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.9);
@@ -284,7 +284,7 @@ class Secondary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 15;
-    this.minZoomCasing = 11;
+    this.minZoomCasing = 9;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.6);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.6);
@@ -304,7 +304,7 @@ class Tertiary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 16;
-    this.minZoomCasing = 12;
+    this.minZoomCasing = 11;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
