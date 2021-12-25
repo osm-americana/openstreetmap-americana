@@ -243,7 +243,7 @@ class Trunk extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 7;
+    this.minZoomFill = 5;
     this.minZoomCasing = 15;
 
     this.fillWidth = trunkFillWidth;
@@ -264,13 +264,23 @@ class Primary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 14;
-    this.minZoomCasing = 10;
+    this.minZoomCasing = 7;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.9);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.9);
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
+    // Casing color gets interpolated as a fade from light to dark between this
+    // level's introduction and next road-level introduction.
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      7,
+      `hsl(${this.hue}, 0%, 75%)`,
+      9,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
@@ -284,13 +294,23 @@ class Secondary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 15;
-    this.minZoomCasing = 11;
+    this.minZoomCasing = 9;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.6);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.6);
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
+    // Casing color gets interpolated as a fade from light to dark between this
+    // level's introduction and next road-level introduction.
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      9,
+      `hsl(${this.hue}, 0%, 75%)`,
+      11,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
@@ -304,13 +324,23 @@ class Tertiary extends Road {
     this.hue = 0;
 
     this.minZoomFill = 16;
-    this.minZoomCasing = 12;
+    this.minZoomCasing = 11;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
 
     this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    this.casingColor = `hsl(${this.hue}, 0%, 23%)`;
+    // Casing color gets interpolated as a fade from light to dark between this
+    // level's introduction and next road-level introduction.
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      11,
+      `hsl(${this.hue}, 0%, 75%)`,
+      13,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
