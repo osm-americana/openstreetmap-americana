@@ -1,5 +1,7 @@
 "use strict";
 
+import config from "./config.js";
+
 import * as Util from "./js/util.js";
 
 import * as lyrBackground from "./layer/background.js";
@@ -180,8 +182,7 @@ var style = {
   bearing: 0,
   sources: {
     openmaptiles: {
-      // url: "http://localhost:8080/data/v3.json",
-      url: "https://api.maptiler.com/tiles/v3/tiles.json?key=" + mapTilerKey,
+      url: config.OPENMAPTILES_URL,
       type: "vector",
     },
   },

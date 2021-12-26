@@ -14,8 +14,11 @@ sprites: build/rebusurance-v1.0.0
 	npx spritezero sprites/sprite@2x icons/ --retina
 	npx spritezero sprites/sprite icons/
 
+config.js:
+	cp config.default.js config.js
+
 code_format:
 	npx prettier --write .
 
-run: sprites
+run: sprites config.js
 	npx browser-sync -w --port 1776
