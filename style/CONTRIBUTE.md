@@ -7,16 +7,32 @@ The repository is organized as follows:
 - **layer/** - Individual style layers, organized by subject area
 - **icons/** - SVG icons, which get converted into PNG stylesheets
 - **constants/** - Style elements that are frequently re-used
-- **key.js** - Put your MapTiler API key here (see below)
-- **layers.js** - OpenMapTiles loader with layer ordering
+- **config.js** - Configuration settings (MapTiler API key, OpenMapTiles URL, etc)
+- **americana.js** - OpenMapTiles loader with layer ordering
 - **index.html** - Demonstration map HTML page
 
-## MapTiler API Key
+## Config File
 
-In order to run the style, you must create an account to obtain a free key from
-[MapTiler Cloud][20]. This key should be pasted into the `key.js` file.
+Environment specific settings go in the untracked file `config.js`. Copy the template
+`config.default.js` and rename it `config.js`. The variables in this file can then
+be changed without the risk of accidentally comitting to the main repo.
+
+### MapTiler API Key
+
+By default this project is set up to use vector tiles provided by MapTiler.
+For this to work, you must create an account and obtain a free key from
+[MapTiler Cloud][20]. This key should be pasted into the `MAPTILER_KEY` variable of
+the `config.js` file.
+
+### Custom OpenMapTiles URL
+
+For testing upcoming features of the [OpenMapTiles schema][21] or for fresher data than
+MapTiler Cloud provides, a custom vector tile url can be set in the `OPENMAPTILES_URL`
+variable of the `config.js` file. However, this requires setting up a custom OpenMapTiles
+server which is beyond the scope of this guide.
 
 [20]: https://cloud.maptiler.com/maps/
+[21]: https://openmaptiles.org/schema/
 
 ## Install Pre-requisites
 

@@ -20,8 +20,9 @@ jobs:
           sudo apt install -y xmlstarlet
           cd style
           npm install
-          echo 'var mapTilerKey = "hJFMGrd2JszhwfJx5M2k"; //This key only allows requests from zelonewolf.github.io' > key.js
+          sed 's/<your MapTiler key>/53iZvB2drcamS0Ge0xiD/g' config.default.js > config.js
           make sprites
+        # MapTiler key 53iZvB2drcamS0Ge0xiD only allows requests from zelonewolf.github.io
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
