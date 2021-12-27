@@ -13,22 +13,22 @@ The repository is organized as follows:
 
 ## Config File
 
-Environment specific settings go in the untracked file `config.js`.  Copy the template
-`config.default.js` and rename it `config.js`.  The variables in this file can then 
+Environment specific settings go in the untracked file `config.js`. Copy the template
+`config.default.js` and rename it `config.js`. The variables in this file can then
 be changed without the risk of accidentally comitting to the main repo.
 
 ### MapTiler API Key
 
 By default this project is set up to use vector tiles provided by MapTiler.
-For this to work, you must create an account and obtain a free key from 
-[MapTiler Cloud][20]. This key should be pasted into the `MAPTILER_KEY` variable of 
+For this to work, you must create an account and obtain a free key from
+[MapTiler Cloud][20]. This key should be pasted into the `MAPTILER_KEY` variable of
 the `config.js` file.
 
 ### Custom OpenMapTiles URL
 
 For testing upcoming features of the [OpenMapTiles schema][21] or for fresher data than
 MapTiler Cloud provides, a custom vector tile url can be set in the `OPENMAPTILES_URL`
-variable of the `config.js` file.  However, this requires setting up a custom OpenMapTiles
+variable of the `config.js` file. However, this requires setting up a custom OpenMapTiles
 server which is beyond the scope of this guide.
 
 [20]: https://cloud.maptiler.com/maps/
