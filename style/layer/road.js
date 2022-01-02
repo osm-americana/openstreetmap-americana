@@ -98,14 +98,19 @@ var defRoad = {
 };
 
 //Generate a unique layer ID
-function uniqueLayerID(hwyClass, link, part, brunnel) {
-  return [hwyClass, link ? "link" : "road", part, brunnel].join("_");
+function uniqueLayerID(hwyClass, link, part, brunnel, constraints) {
+  var layerID = [hwyClass, link ? "link" : "road", part, brunnel].join("_");
+  if (constraints != null) {
+    layerID +=
+      "_" + constraints.join("_").replaceAll("=", "").replaceAll("-", "_");
+  }
+  return layerID;
 }
 
-function baseRoadLayer(highwayClass, id, brunnel, minzoom, link) {
+function baseRoadLayer(highwayClass, id, brunnel, minzoom, link, constraints) {
   var layer = Util.layerClone(
     defRoad,
-    uniqueLayerID(highwayClass, link, id, brunnel)
+    uniqueLayerID(highwayClass, link, id, brunnel, constraints)
   );
   layer.filter = filterRoad(highwayClass, link, brunnel);
   layer.minzoom = minzoom;
@@ -120,10 +125,14 @@ class Road {
       "fill",
       this.brunnel,
       this.minZoomFill,
-      this.link
+      this.link,
+      this.constraints
     );
     layer.layout = layoutRoadFill;
     layer.paint = roadPaint(this.fillColor, this.fillWidth);
+    if (this.constraints != null) {
+      layer.filter.push(this.constraints);
+    }
     return layer;
   };
   casing = function () {
@@ -132,7 +141,8 @@ class Road {
       "casing",
       this.brunnel,
       this.minZoomCasing,
-      this.link
+      this.link,
+      this.constraints
     );
     layer.layout = layoutRoadCase;
     if (this.brunnel === "bridge") {
@@ -142,6 +152,9 @@ class Road {
       layer.paint = tunnelCasePaint(this.casingColor, this.casingWidth);
     } else {
       layer.paint = roadPaint(this.casingColor, this.casingWidth);
+    }
+    if (this.constraints != null) {
+      layer.filter.push(this.constraints);
     }
     return layer;
   };
@@ -169,8 +182,8 @@ class Motorway extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 4;
-    this.minZoomCasing = 4;
+    this.minZoomFill = 5;
+    this.minZoomCasing = 5;
 
     this.fillWidth = [
       [4, 0.5],
@@ -220,6 +233,19 @@ class Motorway extends Road {
     ];
 
     this.surfaceColor = `hsl(${this.hue}, 50%, 70%)`;
+  }
+}
+
+class InterstateMotorway extends Motorway {
+  constructor() {
+    super();
+
+    this.minZoomFill = 4;
+    this.minZoomCasing = 4;
+    this.maxZoomFill = 5;
+    this.maxZoomCasing = 5;
+
+    this.constraints = ["==", "network", "us-interstate"];
   }
 }
 
@@ -545,6 +571,7 @@ class TrunkLinkTunnel extends TrunkLink {
   }
 }
 
+export const interstate = new InterstateMotorway();
 export const motorway = new Motorway();
 export const trunk = new Trunk();
 export const primary = new Primary();

@@ -1,0 +1,5 @@
+<svg width="40" height="32" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <rect width="40" height="32" rx="2" ry="2" fill="#003478"/>
+ <use transform="matrix(1.487 0 0 1.487 31963 -7665.2)" width="300" height="240" fill="#ffffff" stroke="#000000" stroke-linejoin="round" stroke-width="309" xlink:href="#state_outline"/>
+ <path x="1.3751483" y="4.3646407" width="37.443935" height="26.218338" d="m2.5101 4.3646h35.172a1.1368 1.1368 45 0 1 1.1368 1.1368v23.947a1.135 1.135 135 0 1-1.135 1.135h-35.172a1.1368 1.1368 45 0 1-1.1368-1.1368v-23.947a1.135 1.135 135 0 1 1.135-1.135z" fill="#fff"/>
+</svg>

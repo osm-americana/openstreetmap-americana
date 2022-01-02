@@ -3,6 +3,7 @@
 import config from "./config.js";
 
 import * as Util from "./js/util.js";
+import * as Shield from "./js/shield.js";
 
 import * as lyrBackground from "./layer/background.js";
 import * as lyrBoundary from "./layer/boundary.js";
@@ -68,6 +69,7 @@ americanaLayers.push(
   lyrRoad.primary.fill(),
   lyrRoad.trunk.fill(),
   lyrRoad.motorway.fill(),
+  lyrRoad.interstate.fill(),
 
   lyrRoad.motorwayLink.surface(),
   lyrRoad.trunkLink.surface(),
@@ -156,7 +158,11 @@ americanaLayers.push(
 
   lyrPark.label,
 
-  lyrHighwayShield.interstate,
+  lyrHighwayShield.motorway,
+  lyrHighwayShield.trunk,
+  lyrHighwayShield.primary,
+  lyrHighwayShield.secondary,
+  lyrHighwayShield.tertiary,
 
   lyrPlace.state,
   lyrPlace.city,
@@ -203,6 +209,10 @@ var map = new maplibregl.Map({
   center: [-94, 40.5], // starting position [lng, lat]
   zoom: 4, // starting zoom
   attributionControl: false,
+});
+
+map.on("styleimagemissing", function (e) {
+  Shield.missingIconLoader(map, e);
 });
 
 map.addControl(
