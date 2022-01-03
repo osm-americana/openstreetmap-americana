@@ -108,7 +108,14 @@ var colorLighten = null;
 
 function drawRasterShields(c, ctx, network, ref) {
   var shieldDef = shields[network];
-  var shield = shieldDef.backgroundImage;
+  var shield;
+
+  if(Array.isArray(shieldDef.backgroundImage)) {
+    shield = shieldDef.backgroundImage[0];
+  } else {
+    shield = shieldDef.backgroundImage;
+  }
+
   colorLighten = shieldDef.colorLighten;
 
   //Special cases

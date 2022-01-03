@@ -2,6 +2,8 @@
 
 export function loadShields(shieldImages) {
   
+    var shields = {};
+
     shields["US:US"] = {
       backgroundImage: shieldImages.shield40_us_us,
       textColor: "black",
@@ -14,7 +16,10 @@ export function loadShields(shieldImages) {
     };
   
     shields["US:I"] = {
-      backgroundImage: shieldImages.shield40_us_interstate_2,
+      backgroundImage: [
+        shieldImages.shield40_us_interstate_2,
+        shieldImages.shield40_us_interstate_3,
+      ],
       textColor: "white",
       padding: {
         left: 5,
