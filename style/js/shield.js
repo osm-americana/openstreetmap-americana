@@ -19,8 +19,17 @@ var shields = {};
 var shieldImages = [];
 var shieldsLoaded = false;
 
-function drawShieldText(c, ctx, ref, padding) {
+function drawShieldText(ctx, ref, textLayout) {
+
   //Text color is set by fillStyle
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  ctx.font = "bold " + textLayout.fontPx + "px sans-serif";
+
+  ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
+}
+
+function layoutShieldText(c, ctx, ref, padding) {
   var padding = padding || {};
   var padTop = padding.top || 0;
   var padBot = padding.bottom || 0;
@@ -54,7 +63,11 @@ function drawShieldText(c, ctx, ref, padding) {
   textHeight = metrics.actualBoundingBoxAscent;
   var marginY = (height - padTop - padBot - textHeight) / 2;
 
-  ctx.fillText(ref, xBaseline, c.height - padBot - marginY);
+  return {
+    xBaseline: xBaseline,
+    yBaseline: c.height - padBot - marginY,
+    fontPx: 48*scale
+  }
 }
 
 function drawBannerText(c, ctx, ref, bannerIndex) {
@@ -134,7 +147,8 @@ function drawRasterShields(c, ctx, network, ref) {
 
   if (shieldDef.notext != true) {
     ctx.fillStyle = shieldDef.textColor;
-    drawShieldText(c, ctx, ref, shieldDef.padding);
+    var textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
+    drawShieldText(ctx, ref, textLayout);
   }
   /*
   if (typeof shieldDef.modifiers !== "undefined") {
@@ -206,12 +220,13 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
 
       ctx.fillStyle = "black";
 
-      drawShieldText(c, ctx, ref, {
+      var textLayout = layoutShieldText(c, ctx, ref, {
         left: 8,
         right: 8,
-        top: 8, //TODO, bug in shield draw code
+        top: 8,
         bottom: 8,
       });
+      drawShieldText(ctx, ref, textLayout);
 
       return true;
   }
@@ -270,12 +285,14 @@ export function missingIconLoader(map, e) {
     ctx.strokeStyle = "black";
     ctx.strokeRect(0, 0, 80, 80);
     ctx.fillStyle = "black";
-    drawShieldText(c, ctx, ref, {
+    var textLayout = layoutShieldText(c, ctx, ref, {
       left: 7,
       right: 7,
       top: 10,
       bottom: 15,
     });
+    drawShieldText(ctx, ref, textLayout);
+
     drawComplete = true;
   }
 
