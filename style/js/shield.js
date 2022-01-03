@@ -122,6 +122,7 @@ var colorLighten = null;
 function drawRasterShields(c, ctx, network, ref) {
   var shieldDef = shields[network];
   var shield;
+  var textLayout;
 
   if(Array.isArray(shieldDef.backgroundImage)) {
     shield = shieldDef.backgroundImage[0];
@@ -132,12 +133,12 @@ function drawRasterShields(c, ctx, network, ref) {
   colorLighten = shieldDef.colorLighten;
 
   //Special cases
-  if (network == "US:PA:Turnpike" && ref == "") {
-    shield = shieldImages.shield40_us_pa_turnpike_noref;
-  }
-
-  if (ref == null || ref.length == 0) {
-    return false;
+  if(ref.length == 0) {
+    if (network == "US:PA:Turnpike") {
+      shield = shieldImages.shield40_us_pa_turnpike_noref;
+    } else {
+      return false;
+    } 
   }
 
   c.width = shield.data.width;
@@ -239,6 +240,8 @@ export function missingIconLoader(map, e) {
   if (id == "shield_") {
     return;
   }
+
+  shieldImages = map.style.imageManager.images;
 
   if (!shieldsLoaded) {
     shields = ShieldDef.loadShields(map.style.imageManager.images);
