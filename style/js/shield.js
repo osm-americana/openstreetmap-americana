@@ -129,7 +129,6 @@ function drawRasterShields(c, ctx, network, ref) {
       c.width = shield.data.width;
       c.height = shield.data.height;
       textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
-      console.log(i + ">" + textLayout.fontPx + "px");
       if (textLayout.fontPx > 48) {
         break;
       }
