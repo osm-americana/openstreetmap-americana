@@ -20,7 +20,6 @@ var shieldImages = [];
 var shieldsLoaded = false;
 
 function drawShieldText(ctx, ref, textLayout) {
-
   //Text color is set by fillStyle
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
@@ -66,8 +65,8 @@ function layoutShieldText(c, ctx, ref, padding) {
   return {
     xBaseline: xBaseline,
     yBaseline: c.height - padBot - marginY,
-    fontPx: 48*scale
-  }
+    fontPx: 48 * scale,
+  };
 }
 
 function drawBannerText(c, ctx, ref, bannerIndex) {
@@ -124,31 +123,41 @@ function drawRasterShields(c, ctx, network, ref) {
   var shield;
   var textLayout;
 
-  if(Array.isArray(shieldDef.backgroundImage)) {
-    shield = shieldDef.backgroundImage[0];
+  if (Array.isArray(shieldDef.backgroundImage)) {
+    for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
+      shield = shieldDef.backgroundImage[i];
+      c.width = shield.data.width;
+      c.height = shield.data.height;
+      textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
+      console.log(i + ">" + textLayout.fontPx + "px");
+      if (textLayout.fontPx > 48) {
+        break;
+      }
+    }
   } else {
     shield = shieldDef.backgroundImage;
+    c.width = shield.data.width;
+    c.height = shield.data.height;
+    textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
   }
 
   colorLighten = shieldDef.colorLighten;
 
   //Special cases
-  if(ref.length == 0) {
+  if (ref.length == 0) {
     if (network == "US:PA:Turnpike") {
       shield = shieldImages.shield40_us_pa_turnpike_noref;
+      c.width = shield.data.width;
+      c.height = shield.data.height;
     } else {
       return false;
-    } 
+    }
   }
-
-  c.width = shield.data.width;
-  c.height = shield.data.height;
 
   loadShield(ctx, shield);
 
   if (shieldDef.notext != true) {
     ctx.fillStyle = shieldDef.textColor;
-    var textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
     drawShieldText(ctx, ref, textLayout);
   }
   /*
