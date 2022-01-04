@@ -4,13 +4,16 @@ export function loadShields(shieldImages) {
   var shields = {};
 
   shields["US:US"] = {
-    backgroundImage: shieldImages.shield40_us_us,
+    backgroundImage: [
+      shieldImages.shield40_us_us_2,
+      shieldImages.shield40_us_us_3,
+    ],
     textColor: "black",
     padding: {
       left: 10,
       right: 10,
-      top: 14,
-      bottom: 15,
+      top: 17,
+      bottom: 20,
     },
   };
 
