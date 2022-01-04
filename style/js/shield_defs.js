@@ -130,6 +130,20 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:OH"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_oh_2,
+      shieldImages.shield40_us_oh_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 10,
+      right: 15,
+      top: 15,
+      bottom: 15,
+    },
+  };
+
   shields["US:PA"] = {
     backgroundImage: shieldImages.shield40_us_pa,
     textColor: "black",
