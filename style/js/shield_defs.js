@@ -3,20 +3,6 @@
 export function loadShields(shieldImages) {
   var shields = {};
 
-  shields["US:US"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_us_2,
-      shieldImages.shield40_us_us_3,
-    ],
-    textColor: "black",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 17,
-      bottom: 20,
-    },
-  };
-
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -31,27 +17,36 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:US:Truck"] = {
-    backgroundImage: shieldImages.shield40_us_us,
+  //US Highways
+  var shield_us_us = [
+    shieldImages.shield40_us_us_2,
+    shieldImages.shield40_us_us_3,
+  ]
+  var padding_us_us = {
+    left: 10,
+    right: 10,
+    top: 17,
+    bottom: 20,
+  }
+
+  shields["US:US"] = {
+    backgroundImage: shield_us_us,
     textColor: "black",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 10,
-      bottom: 20,
-    },
+    padding: padding_us_us,
+  };
+
+  shields["US:US:Truck"] = 
+  {
+    backgroundImage: shield_us_us,
+    textColor: "black",
+    padding: padding_us_us,
     modifiers: ["TRK"],
   };
 
   shields["US:US:Historic"] = {
-    backgroundImage: shieldImages.shield40_us_us,
+    backgroundImage: shield_us_us,
     textColor: "black",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 0,
-      bottom: 10,
-    },
+    padding: padding_us_us,
     colorLighten: "#613214",
   };
 

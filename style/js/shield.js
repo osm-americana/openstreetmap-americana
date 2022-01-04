@@ -116,8 +116,6 @@ function drawBanners(c, banners) {
   return canvas;
 }
 
-var colorLighten = null;
-
 function drawRasterShields(c, ctx, network, ref) {
   var shieldDef = shields[network];
   var shield;
@@ -139,8 +137,6 @@ function drawRasterShields(c, ctx, network, ref) {
     c.height = shield.data.height;
     textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
   }
-
-  colorLighten = shieldDef.colorLighten;
 
   //Special cases
   if (ref.length == 0) {
@@ -267,7 +263,7 @@ export function missingIconLoader(map, e) {
   var height = 40;
 
   var colorLighten = null;
-
+  
   var c = document.createElement("canvas");
 
   var ctx = c.getContext("2d");
@@ -286,6 +282,9 @@ export function missingIconLoader(map, e) {
     typeof shields[network].backgroundImage !== "undefined"
   ) {
     drawComplete |= drawRasterShields(c, ctx, network, ref);
+    if(drawComplete) {
+      colorLighten = shields[network].colorLighten;
+    }
   }
   if (!drawComplete) {
     drawComplete |= drawShieldsToCanvas(c, ctx, network, ref, 2);
@@ -328,7 +327,7 @@ export function missingIconLoader(map, e) {
   if (colorLighten != null) {
     scaleCtx.globalCompositeOperation = "lighten";
     scaleCtx.fillStyle = colorLighten;
-    scaleCtx.fillRect(0, 0, width * scaleW, height * scaleH);
+    scaleCtx.fillRect(0, 0, c.width, c.height);
     scaleCtx.globalCompositeOperation = "destination-atop";
     scaleCtx.drawImage(c, 0, 0);
   }
