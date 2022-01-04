@@ -211,8 +211,10 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
       return true;
 
     //Circle shields
-    case "US:NJ":
     case "US:DE":
+    case "US:IA":
+    case "US:MS":
+    case "US:NJ":
     case "US:VA:Secondary":
       if (ref == null || ref.length == 0) {
         return false;
