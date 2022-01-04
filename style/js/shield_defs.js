@@ -55,7 +55,21 @@ export function loadShields(shieldImages) {
     colorLighten: "#613214",
   };
 
-  //Diamon shields
+  shields["US:GA"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_ga_2,
+      shieldImages.shield40_us_ga_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 10,
+      right: 14,
+      top: 25,
+      bottom: 13,
+    },
+  };
+
+  //Diamond shields
   shields["US:MI"] = {
     backgroundImage: shieldImages.shield40_us_nc,
     textColor: "black",
