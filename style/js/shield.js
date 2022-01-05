@@ -2,6 +2,11 @@
 
 import * as ShieldDef from "./shield_defs.js";
 
+var textUpscale = window.devicePixelRatio > 1 ? 1: 2;
+
+const fontSizeType = "px";
+const fontSizeThreshold = 48;
+
 function loadShield(ctx, shield) {
   var scaleCanvas = document.createElement("canvas");
   var scaleCtx = scaleCanvas.getContext("2d");
@@ -23,7 +28,7 @@ function drawShieldText(ctx, ref, textLayout) {
   //Text color is set by fillStyle
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
-  ctx.font = "bold " + textLayout.fontPx + "px sans-serif";
+  ctx.font = "bold " + textLayout.fontPx + fontSizeType + " sans-serif";
 
   ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
 }
@@ -35,7 +40,7 @@ function layoutShieldText(c, ctx, ref, padding) {
   var padLeft = padding.left || 0;
   var padRight = padding.right || 0;
 
-  ctx.font = "bold 48px sans-serif";
+  ctx.font = "bold "+fontSizeThreshold+fontSizeType+" sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
@@ -57,7 +62,7 @@ function layoutShieldText(c, ctx, ref, padding) {
 
   var scale = Math.min(scaleWidth, scaleHeight);
 
-  ctx.font = "bold " + 48 * scale + "px sans-serif";
+  ctx.font = "bold " + fontSizeThreshold * scale + fontSizeType + " sans-serif";
   metrics = ctx.measureText(ref);
   textHeight = metrics.actualBoundingBoxAscent;
   var marginY = (height - padTop - padBot - textHeight) / 2;
@@ -65,7 +70,7 @@ function layoutShieldText(c, ctx, ref, padding) {
   return {
     xBaseline: xBaseline,
     yBaseline: c.height - padBot - marginY,
-    fontPx: 48 * scale,
+    fontPx: fontSizeThreshold * scale,
   };
 }
 
@@ -127,7 +132,7 @@ function drawRasterShields(c, ctx, network, ref) {
       c.width = shield.data.width;
       c.height = shield.data.height;
       textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
-      if (textLayout.fontPx > 48) {
+      if (textLayout.fontPx > fontSizeThreshold) {
         break;
       }
     }
