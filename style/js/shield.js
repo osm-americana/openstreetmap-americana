@@ -263,7 +263,7 @@ export function missingIconLoader(map, e) {
   var height = 40;
 
   var colorLighten = null;
-  
+
   var c = document.createElement("canvas");
 
   var ctx = c.getContext("2d");
@@ -282,8 +282,8 @@ export function missingIconLoader(map, e) {
     typeof shields[network].backgroundImage !== "undefined"
   ) {
     drawComplete |= drawRasterShields(c, ctx, network, ref);
-    if(drawComplete) {
-      colorLighten = shields[network].colorLighten;
+    if (drawComplete) {
+      colorLighten = ShieldDef.shieldLighten(shields[network], network, ref);
     }
   }
   if (!drawComplete) {
@@ -326,14 +326,15 @@ export function missingIconLoader(map, e) {
 
   if (colorLighten != null) {
     scaleCtx.globalCompositeOperation = "lighten";
+    scaleCtx.mozImageSmoothingEnabled = true;
+    scaleCtx.webkitImageSmoothingEnabled = true;
+    scaleCtx.msImageSmoothingEnabled = true;
+    scaleCtx.imageSmoothingEnabled = true;
     scaleCtx.fillStyle = colorLighten;
     scaleCtx.fillRect(0, 0, c.width, c.height);
     scaleCtx.globalCompositeOperation = "destination-atop";
     scaleCtx.drawImage(c, 0, 0);
   }
-
-  //Update height to add banners
-  //  height = scaleH * c.height;
 
   var imgData = scaleCtx.getImageData(
     0,

@@ -21,13 +21,13 @@ export function loadShields(shieldImages) {
   var shield_us_us = [
     shieldImages.shield40_us_us_2,
     shieldImages.shield40_us_us_3,
-  ]
+  ];
   var padding_us_us = {
     left: 10,
     right: 10,
     top: 17,
     bottom: 20,
-  }
+  };
 
   shields["US:US"] = {
     backgroundImage: shield_us_us,
@@ -35,8 +35,7 @@ export function loadShields(shieldImages) {
     padding: padding_us_us,
   };
 
-  shields["US:US:Truck"] = 
-  {
+  shields["US:US:Truck"] = {
     backgroundImage: shield_us_us,
     textColor: "black",
     padding: padding_us_us,
@@ -211,4 +210,32 @@ export function loadShields(shieldImages) {
   };
 
   return shields;
+}
+
+/**
+ * Determines whether a shield should be changed in color from the base color
+ * to another color via a "lighten" operation.  For example, Historic US 66
+ * should be converted from the standard black US route shield to the historic
+ * brown color.  This function is a comprehensive list of special cases.
+ *
+ * @param {*} shieldDef - Shield style definition defined in loadShields
+ * @param {*} network - Route network
+ * @param {*} ref - Route ref value
+ */
+export function shieldLighten(shieldDef, network, ref) {
+  //Ref-specific cases:
+  switch (network) {
+    case "US:GA":
+      switch (ref) {
+        case "515":
+          return "#003478";
+        case "520":
+          return "#006a4d";
+        default:
+          return null;
+      }
+    default:
+      //Network-specific cases are defined in shield definitions:
+      return shieldDef.colorLighten;
+  }
 }
