@@ -12,11 +12,17 @@ function loadShield(ctx, shield) {
   var scaleCtx = scaleCanvas.getContext("2d");
   var imgData = scaleCtx.createImageData(shield.data.width, shield.data.height);
 
+  scaleCtx.imageSmoothingQuality = "high";
+
   for (var i = 0; i < shield.data.data.length; i++) {
     imgData.data[i] = shield.data.data[i];
   }
 
-  ctx.putImageData(imgData, 0, 0);
+  scaleCtx.putImageData(imgData, 0, 0);
+
+  ctx.scale(textUpscale,textUpscale);
+  ctx.drawImage(scaleCanvas, 0, 0);
+  ctx.scale(1/textUpscale,1/textUpscale);
 }
 
 var shields = {};
@@ -128,8 +134,8 @@ function drawRasterShields(c, ctx, network, ref) {
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shield = shieldDef.backgroundImage[i];
-      c.width = shield.data.width;
-      c.height = shield.data.height;
+      c.width = shield.data.width*textUpscale;
+      c.height = shield.data.height*textUpscale;
       textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
       if (textLayout.fontPx > fontSizeThreshold) {
         break;
@@ -137,8 +143,8 @@ function drawRasterShields(c, ctx, network, ref) {
     }
   } else {
     shield = shieldDef.backgroundImage;
-    c.width = shield.data.width;
-    c.height = shield.data.height;
+    c.width = shield.data.width*textUpscale;
+    c.height = shield.data.height*textUpscale;
     textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
   }
 
@@ -146,8 +152,8 @@ function drawRasterShields(c, ctx, network, ref) {
   if (ref.length == 0) {
     if (network == "US:PA:Turnpike") {
       shield = shieldImages.shield40_us_pa_turnpike_noref;
-      c.width = shield.data.width;
-      c.height = shield.data.height;
+      c.width = shield.data.width*textUpscale;
+      c.height = shield.data.height*textUpscale;
     } else {
       return false;
     }
@@ -323,10 +329,7 @@ export function missingIconLoader(map, e) {
 
   if (colorLighten != null) {
     scaleCtx.globalCompositeOperation = "lighten";
-    scaleCtx.mozImageSmoothingEnabled = true;
-    scaleCtx.webkitImageSmoothingEnabled = true;
-    scaleCtx.msImageSmoothingEnabled = true;
-    scaleCtx.imageSmoothingEnabled = true;
+    scaleCtx.imageSmoothingQuality = "high";
     scaleCtx.fillStyle = colorLighten;
     scaleCtx.fillRect(0, 0, c.width, c.height);
     scaleCtx.globalCompositeOperation = "destination-atop";
