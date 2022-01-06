@@ -14,7 +14,6 @@ function routeConcurrency(num) {
 let shieldTextField = ["format"];
 for (var i = 1; i <= 5; i++) {
   shieldTextField.push(routeConcurrency(i));
-  shieldTextField.push(" ");
 }
 shieldTextField.push(routeConcurrency(6));
 
