@@ -191,19 +191,19 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
 
       switch (ref) {
         case "Red Belt":
-          ctx.fillStyle = "red";
+          ctx.fillStyle = "#b01c2e";
           break;
         case "Orange Belt":
-          ctx.fillStyle = "orange";
+          ctx.fillStyle = "#d97300";
           break;
         case "Yellow Belt":
-          ctx.fillStyle = "yellow";
+          ctx.fillStyle = "#f7d117";
           break;
         case "Green Belt":
-          ctx.fillStyle = "green";
+          ctx.fillStyle = "#006b54";
           break;
         case "Blue Belt":
-          ctx.fillStyle = "blue";
+          ctx.fillStyle = "#003882";
           break;
         default:
           return;
