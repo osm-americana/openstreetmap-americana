@@ -15,7 +15,6 @@ function loadShield(ctx, shield) {
   for (var i = 0; i < shield.data.data.length; i++) {
     imgData.data[i] = shield.data.data[i];
   }
-  scaleCtx.putImageData(imgData, 0, 0);
 
   ctx.putImageData(imgData, 0, 0);
 }
