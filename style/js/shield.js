@@ -272,10 +272,6 @@ export function missingIconLoader(map, e) {
 
   var ctx = c.getContext("2d");
   ctx.imageSmoothingQuality = "high";
-  ctx.mozImageSmoothingEnabled = true;
-  ctx.webkitImageSmoothingEnabled = true;
-  ctx.msImageSmoothingEnabled = true;
-  ctx.imageSmoothingEnabled = true;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
