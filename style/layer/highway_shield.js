@@ -36,7 +36,19 @@ let baseShield = {
 
 function shieldLayer(hwyClass, minzoom) {
   var layer = Util.cp(baseShield);
-  layer.filter = ["all", ["==", "class", hwyClass], ["has", "route_1"]];
+  layer.filter = [
+    "all",
+    ["==", "class", hwyClass],
+    [
+      "any",
+      ["has", "route_1"],
+      ["has", "route_2"],
+      ["has", "route_3"],
+      ["has", "route_4"],
+      ["has", "route_5"],
+      ["has", "route_6"],
+    ],
+  ];
   layer.id = "highway_shield_" + hwyClass;
   return layer;
 }
