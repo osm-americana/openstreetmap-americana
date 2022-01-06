@@ -2,7 +2,7 @@
 
 import * as ShieldDef from "./shield_defs.js";
 
-var textUpscale = window.devicePixelRatio > 1 ? 1: 2;
+var textUpscale = window.devicePixelRatio > 1 ? 1 : 2;
 
 const fontSizeType = "px";
 const fontSizeThreshold = 48;
@@ -39,7 +39,7 @@ function layoutShieldText(c, ctx, ref, padding) {
   var padLeft = padding.left || 0;
   var padRight = padding.right || 0;
 
-  ctx.font = "bold "+fontSizeThreshold+fontSizeType+" sans-serif";
+  ctx.font = "bold " + fontSizeThreshold + fontSizeType + " sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
@@ -262,9 +262,6 @@ export function missingIconLoader(map, e) {
   var network_ref_parts = network_ref.split("=");
   var network = network_ref_parts[0];
   var ref = network_ref_parts[1];
-
-  var width = 40;
-  var height = 40;
 
   var colorLighten = null;
 
