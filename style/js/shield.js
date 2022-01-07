@@ -300,9 +300,8 @@ export function missingIconLoader(map, e) {
   if (!drawComplete && ref != null && ref != "" && ref.length <= 4) {
     //Draw generic square shield
 
-    var width = window.devicePixelRatio > 1 ? 80 : 40;
-    c.width = width;
-    c.height = width;
+    c.width = 80;
+    c.height = 80;
 
     var textLayout = layoutShieldText(
       c,
