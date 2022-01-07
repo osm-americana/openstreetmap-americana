@@ -26,15 +26,6 @@ function loadShield(ctx, shield) {
   ctx.scale(1 / spriteUpscale, 1 / spriteUpscale);
 }
 
-function dummySquareShield(size) {
-  return {
-    data: {
-      width: size,
-      height: size,
-    },
-  };
-}
-
 function drawShieldText(ctx, ref, textLayout) {
   //Text color is set by fillStyle
   ctx.textAlign = "center";
@@ -51,8 +42,10 @@ function layoutShieldText(c, ctx, ref, shieldBlank, padding) {
   var padLeft = padding.left || 0;
   var padRight = padding.right || 0;
 
-  c.width = shieldBlank.data.width * spriteUpscale;
-  c.height = shieldBlank.data.height * spriteUpscale;
+  if(shieldBlank != null) {
+    c.width = shieldBlank.data.width * spriteUpscale;
+    c.height = shieldBlank.data.height * spriteUpscale;
+  }
 
   ctx.font = "bold " + fontSizeThreshold + fontSizeType + " sans-serif";
   ctx.textAlign = "center";
@@ -257,11 +250,11 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
 
       ctx.fillStyle = "black";
 
-      var textLayout = layoutShieldText(c, ctx, ref, dummySquareShield(40), {
-        left: 8,
-        right: 8,
-        top: 8,
-        bottom: 8,
+      var textLayout = layoutShieldText(c, ctx, ref, null, {
+        left: 11,
+        right: 11,
+        top: 11,
+        bottom: 11,
       });
       drawShieldText(ctx, ref, textLayout);
 
@@ -307,11 +300,15 @@ export function missingIconLoader(map, e) {
   if (!drawComplete && ref != null && ref != "" && ref.length <= 4) {
     //Draw generic square shield
 
+    var width = window.devicePixelRatio > 1 ? 80 : 40;
+    c.width = width;
+    c.height = width;
+
     var textLayout = layoutShieldText(
       c,
       ctx,
       ref,
-      dummySquareShield(window.devicePixelRatio > 1 ? 80 : 40),
+      null,
       {
         left: 7,
         right: 7,

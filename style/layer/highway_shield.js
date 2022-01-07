@@ -11,9 +11,19 @@ function routeConcurrency(num) {
   ];
 }
 
+function routeSpacer(num) {
+  return [
+    "case",
+    ["!=", ["get", "route_" + num], null],
+    ["literal", "  "],
+    ["literal", ""],
+  ];
+}
+
 let shieldTextField = ["format"];
 for (var i = 1; i <= 5; i++) {
   shieldTextField.push(routeConcurrency(i));
+  shieldTextField.push(routeSpacer(i+1));
 }
 shieldTextField.push(routeConcurrency(6));
 
