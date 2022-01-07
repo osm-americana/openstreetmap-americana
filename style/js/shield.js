@@ -42,7 +42,7 @@ function layoutShieldText(c, ctx, ref, shieldBlank, padding) {
   var padLeft = padding.left || 0;
   var padRight = padding.right || 0;
 
-  if(shieldBlank != null) {
+  if (shieldBlank != null) {
     c.width = shieldBlank.data.width * spriteUpscale;
     c.height = shieldBlank.data.height * spriteUpscale;
   }
@@ -303,18 +303,12 @@ export function missingIconLoader(map, e) {
     c.width = 80;
     c.height = 80;
 
-    var textLayout = layoutShieldText(
-      c,
-      ctx,
-      ref,
-      null,
-      {
-        left: 7,
-        right: 7,
-        top: 18,
-        bottom: 18,
-      }
-    );
+    var textLayout = layoutShieldText(c, ctx, ref, null, {
+      left: 7,
+      right: 7,
+      top: 18,
+      bottom: 18,
+    });
 
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, 80, 80);

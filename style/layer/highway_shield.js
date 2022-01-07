@@ -23,7 +23,7 @@ function routeSpacer(num) {
 let shieldTextField = ["format"];
 for (var i = 1; i <= 5; i++) {
   shieldTextField.push(routeConcurrency(i));
-  shieldTextField.push(routeSpacer(i+1));
+  shieldTextField.push(routeSpacer(i + 1));
 }
 shieldTextField.push(routeConcurrency(6));
 
