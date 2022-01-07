@@ -1,8 +1,9 @@
 "use strict";
 
-export function loadShields(shieldImages) {
-  var shields = {};
+export const shields = {};
+export const norefShields = {};
 
+export function loadShields(shieldImages) {
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -117,10 +118,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_ny,
     textColor: "black",
     padding: {
-      left: 10,
-      right: 10,
-      top: 15,
-      bottom: 15,
+      left: 5,
+      right: 5,
+      top: 20,
+      bottom: 20,
     },
   };
 
@@ -133,8 +134,8 @@ export function loadShields(shieldImages) {
     padding: {
       left: 10,
       right: 15,
-      top: 15,
-      bottom: 15,
+      top: 20,
+      bottom: 20,
     },
   };
 
@@ -142,10 +143,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_pa,
     textColor: "black",
     padding: {
-      left: 10,
-      right: 10,
-      top: 12,
-      bottom: 11,
+      left: 8,
+      right: 8,
+      top: 17,
+      bottom: 13,
     },
   };
 
@@ -171,6 +172,7 @@ export function loadShields(shieldImages) {
       bottom: 11,
     },
   };
+  norefShields["US:PA:Turnpike"] = shieldImages.shield40_us_pa_turnpike_noref;
 
   shields["US:PA:Belt"] = {
     notext: true,
@@ -191,9 +193,9 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_va,
     textColor: "black",
     padding: {
-      left: 10,
-      right: 10,
-      top: 10,
+      left: 8,
+      right: 8,
+      top: 18,
       bottom: 20,
     },
   };
@@ -213,16 +215,39 @@ export function loadShields(shieldImages) {
 }
 
 /**
+ * Returns artwork, if any, that should be used on a route when no ref is specified.
+ *
+ * @param {*} network - Route network
+ * @returns special case versions of route shields when there's no ref value
+ */
+export function getNoRefArtwork(network) {
+  return norefShields[network];
+}
+
+/**
+ * Determines whether there is a raster shield background for a particular network
+ *
+ * @param {*} network - Route network
+ * @returns true if a raster shield is available
+ */
+export function hasShieldArtwork(network) {
+  return (
+    shields[network] != null &&
+    typeof shields[network].backgroundImage !== "undefined"
+  );
+}
+
+/**
  * Determines whether a shield should be changed in color from the base color
  * to another color via a "lighten" operation.  For example, Historic US 66
  * should be converted from the standard black US route shield to the historic
  * brown color.  This function is a comprehensive list of special cases.
  *
- * @param {*} shieldDef - Shield style definition defined in loadShields
  * @param {*} network - Route network
  * @param {*} ref - Route ref value
  */
-export function shieldLighten(shieldDef, network, ref) {
+export function shieldLighten(network, ref) {
+  var shieldDef = shields[network];
   //Ref-specific cases:
   switch (network) {
     case "US:GA":

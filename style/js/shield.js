@@ -2,10 +2,11 @@
 
 import * as ShieldDef from "./shield_defs.js";
 
-var textUpscale = window.devicePixelRatio > 1 ? 1 : 2;
+const spriteUpscale = window.devicePixelRatio > 1 ? 1 : 2;
 
 const fontSizeType = "px";
 const fontSizeThreshold = 48;
+const fontSizeMax = 48;
 
 function loadShield(ctx, shield) {
   var scaleCanvas = document.createElement("canvas");
@@ -20,14 +21,19 @@ function loadShield(ctx, shield) {
 
   scaleCtx.putImageData(imgData, 0, 0);
 
-  ctx.scale(textUpscale, textUpscale);
+  ctx.scale(spriteUpscale, spriteUpscale);
   ctx.drawImage(scaleCanvas, 0, 0);
-  ctx.scale(1 / textUpscale, 1 / textUpscale);
+  ctx.scale(1 / spriteUpscale, 1 / spriteUpscale);
 }
 
-var shields = {};
-var shieldImages = [];
-var shieldsLoaded = false;
+function dummySquareShield(size) {
+  return {
+    data: {
+      width: size,
+      height: size,
+    },
+  };
+}
 
 function drawShieldText(ctx, ref, textLayout) {
   //Text color is set by fillStyle
@@ -38,12 +44,15 @@ function drawShieldText(ctx, ref, textLayout) {
   ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
 }
 
-function layoutShieldText(c, ctx, ref, padding) {
+function layoutShieldText(c, ctx, ref, shieldBlank, padding) {
   var padding = padding || {};
   var padTop = padding.top || 0;
   var padBot = padding.bottom || 0;
   var padLeft = padding.left || 0;
   var padRight = padding.right || 0;
+
+  c.width = shieldBlank.data.width * spriteUpscale;
+  c.height = shieldBlank.data.height * spriteUpscale;
 
   ctx.font = "bold " + fontSizeThreshold + fontSizeType + " sans-serif";
   ctx.textAlign = "center";
@@ -67,7 +76,9 @@ function layoutShieldText(c, ctx, ref, padding) {
 
   var scale = Math.min(scaleWidth, scaleHeight);
 
-  ctx.font = "bold " + fontSizeThreshold * scale + fontSizeType + " sans-serif";
+  var fontSize = Math.min(fontSizeMax, fontSizeThreshold * scale);
+
+  ctx.font = "bold " + fontSize + fontSizeType + " sans-serif";
   metrics = ctx.measureText(ref);
   textHeight = metrics.actualBoundingBoxAscent;
   var marginY = (height - padTop - padBot - textHeight) / 2;
@@ -75,7 +86,7 @@ function layoutShieldText(c, ctx, ref, padding) {
   return {
     xBaseline: xBaseline,
     yBaseline: c.height - padBot - marginY,
-    fontPx: fontSizeThreshold * scale,
+    fontPx: fontSize * scale,
   };
 }
 
@@ -127,39 +138,48 @@ function drawBanners(c, banners) {
 }
 
 function drawRasterShields(c, ctx, network, ref) {
-  var shieldDef = shields[network];
-  var shield;
+  var shieldDef = ShieldDef.shields[network];
+  var shieldArtwork;
   var textLayout;
 
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
-      shield = shieldDef.backgroundImage[i];
-      c.width = shield.data.width * textUpscale;
-      c.height = shield.data.height * textUpscale;
-      textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
+      shieldArtwork = shieldDef.backgroundImage[i];
+      textLayout = layoutShieldText(
+        c,
+        ctx,
+        ref,
+        shieldArtwork,
+        shieldDef.padding
+      );
       if (textLayout.fontPx > fontSizeThreshold) {
         break;
       }
     }
   } else {
-    shield = shieldDef.backgroundImage;
-    c.width = shield.data.width * textUpscale;
-    c.height = shield.data.height * textUpscale;
-    textLayout = layoutShieldText(c, ctx, ref, shieldDef.padding);
+    shieldArtwork = shieldDef.backgroundImage;
+    textLayout = layoutShieldText(
+      c,
+      ctx,
+      ref,
+      shieldArtwork,
+      shieldDef.padding
+    );
   }
 
   //Special cases
   if (ref.length == 0) {
-    if (network == "US:PA:Turnpike") {
-      shield = shieldImages.shield40_us_pa_turnpike_noref;
-      c.width = shield.data.width * textUpscale;
-      c.height = shield.data.height * textUpscale;
-    } else {
+    shieldArtwork = ShieldDef.getNoRefArtwork(network);
+
+    if (shieldArtwork == null) {
       return false;
     }
+
+    c.width = shieldArtwork.data.width * spriteUpscale;
+    c.height = shieldArtwork.data.height * spriteUpscale;
   }
 
-  loadShield(ctx, shield);
+  loadShield(ctx, shieldArtwork);
 
   if (shieldDef.notext != true) {
     ctx.fillStyle = shieldDef.textColor;
@@ -191,19 +211,19 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
 
       switch (ref) {
         case "Red Belt":
-          ctx.fillStyle = "#b01c2e";
+          ctx.fillStyle = "red";
           break;
         case "Orange Belt":
-          ctx.fillStyle = "#d97300";
+          ctx.fillStyle = "orange";
           break;
         case "Yellow Belt":
-          ctx.fillStyle = "#f7d117";
+          ctx.fillStyle = "yellow";
           break;
         case "Green Belt":
-          ctx.fillStyle = "#006b54";
+          ctx.fillStyle = "green";
           break;
         case "Blue Belt":
-          ctx.fillStyle = "#003882";
+          ctx.fillStyle = "blue";
           break;
         default:
           return;
@@ -237,7 +257,7 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
 
       ctx.fillStyle = "black";
 
-      var textLayout = layoutShieldText(c, ctx, ref, {
+      var textLayout = layoutShieldText(c, ctx, ref, dummySquareShield(40), {
         left: 8,
         right: 8,
         top: 8,
@@ -257,12 +277,7 @@ export function missingIconLoader(map, e) {
     return;
   }
 
-  shieldImages = map.style.imageManager.images;
-
-  if (!shieldsLoaded) {
-    shields = ShieldDef.loadShields(map.style.imageManager.images);
-    shieldsLoaded = true;
-  }
+  ShieldDef.loadShields(map.style.imageManager.images);
 
   var network_ref = id.split("_")[1];
   var network_ref_parts = network_ref.split("=");
@@ -280,13 +295,10 @@ export function missingIconLoader(map, e) {
 
   var drawComplete = false;
 
-  if (
-    shields[network] != null &&
-    typeof shields[network].backgroundImage !== "undefined"
-  ) {
+  if (ShieldDef.hasShieldArtwork(network)) {
     drawComplete |= drawRasterShields(c, ctx, network, ref);
     if (drawComplete) {
-      colorLighten = ShieldDef.shieldLighten(shields[network], network, ref);
+      colorLighten = ShieldDef.shieldLighten(network, ref);
     }
   }
   if (!drawComplete) {
@@ -294,18 +306,27 @@ export function missingIconLoader(map, e) {
   }
   if (!drawComplete && ref != null && ref != "" && ref.length <= 4) {
     //Draw generic square shield
+
+    var textLayout = layoutShieldText(
+      c,
+      ctx,
+      ref,
+      dummySquareShield(window.devicePixelRatio > 1 ? 80 : 40),
+      {
+        left: 7,
+        right: 7,
+        top: 18,
+        bottom: 18,
+      }
+    );
+
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, 80, 80);
     ctx.lineWidth = 8;
     ctx.strokeStyle = "black";
     ctx.strokeRect(0, 0, 80, 80);
     ctx.fillStyle = "black";
-    var textLayout = layoutShieldText(c, ctx, ref, {
-      left: 7,
-      right: 7,
-      top: 10,
-      bottom: 15,
-    });
+
     drawShieldText(ctx, ref, textLayout);
 
     drawComplete = true;
