@@ -270,8 +270,6 @@ export function missingIconLoader(map, e) {
     return;
   }
 
-  ShieldDef.loadShields(map.style.imageManager.images);
-
   var network_ref = id.split("_")[1];
   var network_ref_parts = network_ref.split("=");
   var network = network_ref_parts[0];

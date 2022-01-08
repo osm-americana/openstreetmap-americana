@@ -4,6 +4,7 @@ import config from "./config.js";
 
 import * as Util from "./js/util.js";
 import * as Shield from "./js/shield.js";
+import * as ShieldDef from "./js/shield_defs.js";
 
 import * as lyrBackground from "./layer/background.js";
 import * as lyrBoundary from "./layer/boundary.js";
@@ -209,6 +210,10 @@ var map = new maplibregl.Map({
   center: [-94, 40.5], // starting position [lng, lat]
   zoom: 4, // starting zoom
   attributionControl: false,
+});
+
+map.on('styledata', function() {
+  ShieldDef.loadShields(map.style.imageManager.images);
 });
 
 map.on("styleimagemissing", function (e) {
