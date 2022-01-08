@@ -35,7 +35,7 @@ function drawShieldText(ctx, ref, textLayout) {
   ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
 }
 
-function layoutShieldText(c, ctx, ref, shieldBlank, padding) {
+function layoutShieldText(ctx, ref, shieldBlank, padding) {
   var padding = padding || {};
   var padTop = padding.top || 0;
   var padBot = padding.bottom || 0;
@@ -43,8 +43,8 @@ function layoutShieldText(c, ctx, ref, shieldBlank, padding) {
   var padRight = padding.right || 0;
 
   if (shieldBlank != null) {
-    c.width = shieldBlank.data.width * spriteUpscale;
-    c.height = shieldBlank.data.height * spriteUpscale;
+    ctx.canvas.width = shieldBlank.data.width * spriteUpscale;
+    ctx.canvas.height = shieldBlank.data.height * spriteUpscale;
   }
 
   ctx.font = "bold " + fontSizeThreshold + fontSizeType + " sans-serif";
@@ -53,8 +53,8 @@ function layoutShieldText(c, ctx, ref, shieldBlank, padding) {
 
   var metrics = ctx.measureText(ref);
 
-  var width = c.width;
-  var height = c.height;
+  var width = ctx.canvas.width;
+  var height = ctx.canvas.height;
 
   var textWidth = metrics.width;
   var textHeight = metrics.actualBoundingBoxAscent;
@@ -78,12 +78,12 @@ function layoutShieldText(c, ctx, ref, shieldBlank, padding) {
 
   return {
     xBaseline: xBaseline,
-    yBaseline: c.height - padBot - marginY,
+    yBaseline: ctx.canvas.height - padBot - marginY,
     fontPx: fontSize * scale,
   };
 }
 
-function drawBannerText(c, ctx, ref, bannerIndex) {
+function drawBannerText(ctx, ref, bannerIndex) {
   //TODO copy code from shield ref drawing
 
   var metrics = ctx.measureText(ref);
@@ -91,12 +91,12 @@ function drawBannerText(c, ctx, ref, bannerIndex) {
 
   var textHeight = metrics.actualBoundingBoxAscent;
 
-  var desiredWidth = c.width;
+  var desiredWidth = ctx.canvas.width;
   var scaleWidth = desiredWidth / textWidth;
 
-  var desiredHeight = c.height;
+  var desiredHeight = ctx.canvas.height;
   var scaleHeight = desiredHeight / textHeight;
-  var desiredRenderHeight = c.height / scaleHeight;
+  var desiredRenderHeight = ctx.canvas.height / scaleHeight;
   scaleHeight = Math.min(scaleWidth, scaleHeight);
 
   var renderHeight = desiredHeight / scaleHeight;
@@ -113,24 +113,24 @@ function drawBannerText(c, ctx, ref, bannerIndex) {
 
 let bannerSizeH = 40;
 
-function drawBanners(c, banners) {
+function drawBanners(baseCanvas, banners) {
   var bannerHeight = banners.length * bannerSizeH;
   var canvas = document.createElement("canvas");
-  canvas.width = c.width;
-  canvas.height = c.height + bannerHeight;
+  canvas.width = ctx.canvas.width;
+  canvas.height = ctx.canvas.height + bannerHeight;
 
   var ctx = canvas.getContext("2d");
-  ctx.drawImage(c, 0, bannerHeight);
+  ctx.drawImage(baseCanvas, 0, bannerHeight);
 
   ctx.fillStyle = "black";
   for (var i = 0; i < banners.length; i++) {
-    drawBannerText(c, ctx, banners[i], i);
+    drawBannerText(ctx, banners[i], i);
   }
 
   return canvas;
 }
 
-function drawRasterShields(c, ctx, network, ref) {
+function drawRasterShields(ctx, network, ref) {
   var shieldDef = ShieldDef.shields[network];
   var shieldArtwork;
   var textLayout;
@@ -139,7 +139,6 @@ function drawRasterShields(c, ctx, network, ref) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shieldArtwork = shieldDef.backgroundImage[i];
       textLayout = layoutShieldText(
-        c,
         ctx,
         ref,
         shieldArtwork,
@@ -152,7 +151,6 @@ function drawRasterShields(c, ctx, network, ref) {
   } else {
     shieldArtwork = shieldDef.backgroundImage;
     textLayout = layoutShieldText(
-      c,
       ctx,
       ref,
       shieldArtwork,
@@ -168,8 +166,8 @@ function drawRasterShields(c, ctx, network, ref) {
       return false;
     }
 
-    c.width = shieldArtwork.data.width * spriteUpscale;
-    c.height = shieldArtwork.data.height * spriteUpscale;
+    ctx.canvas.width = shieldArtwork.data.width * spriteUpscale;
+    ctx.canvas.height = shieldArtwork.data.height * spriteUpscale;
   }
 
   loadShield(ctx, shieldArtwork);
@@ -186,10 +184,10 @@ function drawRasterShields(c, ctx, network, ref) {
   return true;
 }
 
-function drawShieldsToCanvas(c, ctx, network, ref) {
+function drawShieldsToCanvas(ctx, network, ref) {
   //Default draw size
-  c.width = 80;
-  c.height = 80;
+  ctx.canvas.width = 80;
+  ctx.canvas.height = 80;
 
   switch (network) {
     case "US:PA:Belt":
@@ -250,7 +248,7 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
 
       ctx.fillStyle = "black";
 
-      var textLayout = layoutShieldText(c, ctx, ref, null, {
+      var textLayout = layoutShieldText(ctx, ref, null, {
         left: 11,
         right: 11,
         top: 11,
@@ -305,21 +303,21 @@ export function missingIconLoader(map, e) {
   var drawComplete = false;
 
   if (ShieldDef.hasShieldArtwork(network)) {
-    drawComplete |= drawRasterShields(c, ctx, network, ref);
+    drawComplete |= drawRasterShields(ctx, network, ref);
     if (drawComplete) {
       colorLighten = ShieldDef.shieldLighten(network, ref);
     }
   }
   if (!drawComplete) {
-    drawComplete |= drawShieldsToCanvas(c, ctx, network, ref, 2);
+    drawComplete |= drawShieldsToCanvas(ctx, network, ref, 2);
   }
   if (!drawComplete && ref != null && ref != "" && ref.length <= 4) {
     //Draw generic square shield
 
-    c.width = 80;
-    c.height = 80;
+    ctx.canvas.width = 80;
+    ctx.canvas.height = 80;
 
-    var textLayout = layoutShieldText(c, ctx, ref, null, {
+    var textLayout = layoutShieldText(ctx, ref, null, {
       left: 7,
       right: 7,
       top: 18,
@@ -344,7 +342,7 @@ export function missingIconLoader(map, e) {
   }
 
   var desiredHeight = 20 * window.devicePixelRatio;
-  var scale = desiredHeight / c.height;
+  var scale = desiredHeight / ctx.canvas.height;
 
   var scaleCanvas = document.createElement("canvas");
   scaleCanvas.height = desiredHeight;
@@ -358,7 +356,7 @@ export function missingIconLoader(map, e) {
     scaleCtx.globalCompositeOperation = "lighten";
     scaleCtx.imageSmoothingQuality = "high";
     scaleCtx.fillStyle = colorLighten;
-    scaleCtx.fillRect(0, 0, c.width, c.height);
+    scaleCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     scaleCtx.globalCompositeOperation = "destination-atop";
     scaleCtx.drawImage(c, 0, 0);
   }
