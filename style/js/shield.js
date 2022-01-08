@@ -263,10 +263,28 @@ function drawShieldsToCanvas(c, ctx, network, ref) {
   return false;
 }
 
+//Space between concurrent shields
+const spacer_size = 15;
+
 export function missingIconLoader(map, e) {
   var id = e.id;
 
   if (id == "shield_") {
+    return;
+  }
+
+  if (id == "spacer") {
+    map.addImage(
+      id,
+      {
+        width: spacer_size,
+        height: spacer_size,
+        data: new Uint8Array(4 * spacer_size * spacer_size),
+      },
+      {
+        pixelRatio: window.devicePixelRatio,
+      }
+    );
     return;
   }
 

@@ -212,7 +212,7 @@ var map = new maplibregl.Map({
   attributionControl: false,
 });
 
-map.on('styledata', function() {
+map.on("styledata", function () {
   ShieldDef.loadShields(map.style.imageManager.images);
 });
 

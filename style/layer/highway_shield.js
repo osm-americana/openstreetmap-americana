@@ -15,7 +15,7 @@ function routeSpacer(num) {
   return [
     "case",
     ["!=", ["get", "route_" + num], null],
-    ["literal", "  "],
+    ["image", "spacer"],
     ["literal", ""],
   ];
 }
