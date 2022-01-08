@@ -138,24 +138,14 @@ function drawRasterShields(ctx, network, ref) {
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shieldArtwork = shieldDef.backgroundImage[i];
-      textLayout = layoutShieldText(
-        ctx,
-        ref,
-        shieldArtwork,
-        shieldDef.padding
-      );
+      textLayout = layoutShieldText(ctx, ref, shieldArtwork, shieldDef.padding);
       if (textLayout.fontPx > fontSizeThreshold) {
         break;
       }
     }
   } else {
     shieldArtwork = shieldDef.backgroundImage;
-    textLayout = layoutShieldText(
-      ctx,
-      ref,
-      shieldArtwork,
-      shieldDef.padding
-    );
+    textLayout = layoutShieldText(ctx, ref, shieldArtwork, shieldDef.padding);
   }
 
   //Special cases
