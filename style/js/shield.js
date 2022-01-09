@@ -22,33 +22,6 @@ function loadShield(ctx, shield) {
   ctx.scale(1 / Gfx.spriteUpscale, 1 / Gfx.spriteUpscale);
 }
 
-const bannerSizeH = 40;
-
-function drawBannerText(ctx, ref, textLayout, bannerIndex) {
-  ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
-  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
-  ctx.shadowColor = "white";
-  ctx.shadowBlur = 10;
-
-  //TODO figure out scaling issue
-
-  textLayout = ShieldText.layoutShieldTextBbox(
-    ctx,
-    ref,
-    {
-      left: 3,
-      right: 3,
-      top: 1,
-      bottom: 1,
-    },
-    { width: ctx.canvas.width, height: bannerSizeH }
-  );
-
-  //TODO draw text
-  // ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
-}
-
 function drawBanners(baseCtx, network) {
   var shieldDef = ShieldDef.shields[network];
 
@@ -59,7 +32,7 @@ function drawBanners(baseCtx, network) {
   console.log(network);
   var banners = shieldDef.modifiers;
 
-  var bannerHeight = banners.length * bannerSizeH;
+  var bannerHeight = banners.length * ShieldDef.bannerSizeH;
   var canvas = document.createElement("canvas");
   canvas.width = baseCtx.canvas.width;
   canvas.height = baseCtx.canvas.height + bannerHeight;
@@ -77,8 +50,10 @@ function drawBanners(baseCtx, network) {
   ctx.strokeStyle = "black";
   ctx.strokeRect(0, 0, canvas.width, bannerHeight);
 
+  ctx.fillStyle = "black";
+
   for (var i = 0; i < banners.length; i++) {
-    drawBannerText(ctx, banners[i], i);
+    ShieldText.drawBannerText(ctx, banners[i], i);
   }
 
   return ctx;

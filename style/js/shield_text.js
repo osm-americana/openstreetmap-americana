@@ -1,6 +1,7 @@
 "use strict";
 
 import * as Gfx from "./screen_gfx.js";
+import * as ShieldDef from "./shield_defs.js";
 
 /**
  * Determines the position and font size to draw text so that it fits within
@@ -50,7 +51,7 @@ export function layoutShieldTextBbox(ctx, text, padding, bounds) {
 
   return {
     xBaseline: xBaseline,
-    yBaseline: ctx.canvas.height - padBot - marginY,
+    yBaseline: bounds.height - padBot - marginY,
     fontPx: fontSize * scale,
   };
 }
@@ -73,6 +74,7 @@ export function layoutShieldText(ctx, text, padding) {
 }
 
 /**
+ * Draw text on a shield
  *
  * @param {*} ctx - graphics context to draw to
  * @param {*} text - text to draw
@@ -85,4 +87,39 @@ export function drawShieldText(ctx, text, textLayout) {
   ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
 
   ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
+}
+
+/**
+ * Draw text on a modifier plate above a shield
+ *
+ * @param {*} ctx - graphics context to draw to
+ * @param {*} text - text to draw
+ * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
+ */
+export function drawBannerText(ctx, text, bannerIndex) {
+  var textLayout = layoutShieldTextBbox(
+    ctx,
+    text,
+    {
+      left: 3,
+      right: 3,
+      top: 0,
+      bottom: 1,
+    },
+    { width: ctx.canvas.width, height: ShieldDef.bannerSizeH }
+  );
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
+  ctx.shadowColor = "white";
+  ctx.shadowBlur = 10;
+
+  console.log(text + "->" + textLayout.xBaseline + ":" + textLayout.yBaseline);
+
+  ctx.fillText(
+    text,
+    textLayout.xBaseline,
+    textLayout.yBaseline + bannerIndex * 40
+  );
 }

@@ -1,5 +1,8 @@
 "use strict";
 
+//Height of modifier banners
+export const bannerSizeH = 40;
+
 export const shields = {};
 export const norefShields = {};
 
