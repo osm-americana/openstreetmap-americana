@@ -22,15 +22,6 @@ function loadShield(ctx, shield) {
   ctx.scale(1 / Gfx.spriteUpscale, 1 / Gfx.spriteUpscale);
 }
 
-function drawShieldText(ctx, ref, textLayout) {
-  //Text color is set by fillStyle
-  ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
-  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
-
-  ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
-}
-
 const bannerSizeH = 40;
 
 function drawBannerText(ctx, ref, textLayout, bannerIndex) {
@@ -129,7 +120,7 @@ function drawRasterShields(ctx, network, ref) {
 
   if (shieldDef.notext != true) {
     ctx.fillStyle = shieldDef.textColor;
-    drawShieldText(ctx, ref, textLayout);
+    ShieldText.drawShieldText(ctx, ref, textLayout);
   }
 
   return true;
@@ -207,7 +198,7 @@ function drawShieldsToCanvas(ctx, network, ref) {
         top: 11,
         bottom: 11,
       });
-      drawShieldText(ctx, ref, textLayout);
+      ShieldText.drawShieldText(ctx, ref, textLayout);
 
       return true;
   }
@@ -277,7 +268,7 @@ export function missingIconLoader(map, e) {
     ctx.strokeRect(0, 0, 80, 80);
     ctx.fillStyle = "black";
 
-    drawShieldText(ctx, ref, textLayout);
+    ShieldText.drawShieldText(ctx, ref, textLayout);
 
     drawComplete = true;
   }

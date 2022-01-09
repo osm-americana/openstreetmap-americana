@@ -71,3 +71,18 @@ export function layoutShieldText(ctx, text, padding) {
     height: ctx.canvas.height,
   });
 }
+
+/**
+ *
+ * @param {*} ctx - graphics context to draw to
+ * @param {*} text - text to draw
+ * @param {*} textLayout - location to draw text
+ */
+export function drawShieldText(ctx, text, textLayout) {
+  //Text color is set by fillStyle
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
+
+  ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
+}
