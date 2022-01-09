@@ -1,12 +1,8 @@
 "use strict";
 
 import * as ShieldDef from "./shield_defs.js";
-
-const spriteUpscale = window.devicePixelRatio > 1 ? 1 : 2;
-
-const fontSizeType = "px";
-const fontSizeThreshold = 48;
-const fontSizeMax = 48;
+import * as ShieldText from "./shield_text.js";
+import * as Gfx from "./screen_gfx.js";
 
 function loadShield(ctx, shield) {
   var scaleCanvas = document.createElement("canvas");
@@ -21,113 +17,80 @@ function loadShield(ctx, shield) {
 
   scaleCtx.putImageData(imgData, 0, 0);
 
-  ctx.scale(spriteUpscale, spriteUpscale);
+  ctx.scale(Gfx.spriteUpscale, Gfx.spriteUpscale);
   ctx.drawImage(scaleCanvas, 0, 0);
-  ctx.scale(1 / spriteUpscale, 1 / spriteUpscale);
+  ctx.scale(1 / Gfx.spriteUpscale, 1 / Gfx.spriteUpscale);
 }
 
 function drawShieldText(ctx, ref, textLayout) {
   //Text color is set by fillStyle
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
-  ctx.font = "bold " + textLayout.fontPx + fontSizeType + " sans-serif";
+  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
 
   ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
 }
 
-function layoutShieldText(ctx, ref, shieldBlank, padding) {
-  var padding = padding || {};
-  var padTop = padding.top || 0;
-  var padBot = padding.bottom || 0;
-  var padLeft = padding.left || 0;
-  var padRight = padding.right || 0;
+const bannerSizeH = 40;
 
-  if (shieldBlank != null) {
-    ctx.canvas.width = shieldBlank.data.width * spriteUpscale;
-    ctx.canvas.height = shieldBlank.data.height * spriteUpscale;
-  }
-
-  ctx.font = "bold " + fontSizeThreshold + fontSizeType + " sans-serif";
+function drawBannerText(ctx, ref, textLayout, bannerIndex) {
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
-
-  var metrics = ctx.measureText(ref);
-
-  var width = ctx.canvas.width;
-  var height = ctx.canvas.height;
-
-  var textWidth = metrics.width;
-  var textHeight = metrics.actualBoundingBoxAscent;
-
-  var availHeight = height - padTop - padBot;
-  var availWidth = width - padLeft - padRight;
-
-  var xBaseline = padLeft + availWidth / 2;
-
-  var scaleHeight = availHeight / textHeight;
-  var scaleWidth = availWidth / textWidth;
-
-  var scale = Math.min(scaleWidth, scaleHeight);
-
-  var fontSize = Math.min(fontSizeMax, fontSizeThreshold * scale);
-
-  ctx.font = "bold " + fontSize + fontSizeType + " sans-serif";
-  metrics = ctx.measureText(ref);
-  textHeight = metrics.actualBoundingBoxAscent;
-  var marginY = (height - padTop - padBot - textHeight) / 2;
-
-  return {
-    xBaseline: xBaseline,
-    yBaseline: ctx.canvas.height - padBot - marginY,
-    fontPx: fontSize * scale,
-  };
-}
-
-function drawBannerText(ctx, ref, bannerIndex) {
-  //TODO copy code from shield ref drawing
-
-  var metrics = ctx.measureText(ref);
-  var textWidth = metrics.width;
-
-  var textHeight = metrics.actualBoundingBoxAscent;
-
-  var desiredWidth = ctx.canvas.width;
-  var scaleWidth = desiredWidth / textWidth;
-
-  var desiredHeight = ctx.canvas.height;
-  var scaleHeight = desiredHeight / textHeight;
-  var desiredRenderHeight = ctx.canvas.height / scaleHeight;
-  scaleHeight = Math.min(scaleWidth, scaleHeight);
-
-  var renderHeight = desiredHeight / scaleHeight;
-
-  var vBaselineOffset = (desiredRenderHeight - renderHeight) / 2;
-
-  ctx.scale(scaleWidth, scaleHeight);
+  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
   ctx.shadowColor = "white";
   ctx.shadowBlur = 10;
-  ctx.fillText(ref, bannerIndex * 40, -1.8 * vBaselineOffset, 80);
 
-  ctx.scale(1 / scaleWidth, 1 / scaleHeight);
+  //TODO figure out scaling issue
+
+  textLayout = ShieldText.layoutShieldTextBbox(
+    ctx,
+    ref,
+    {
+      left: 3,
+      right: 3,
+      top: 1,
+      bottom: 1,
+    },
+    { width: ctx.canvas.width, height: bannerSizeH }
+  );
+
+  //TODO draw text
+  // ctx.fillText(ref, textLayout.xBaseline, textLayout.yBaseline);
 }
 
-let bannerSizeH = 40;
+function drawBanners(baseCtx, network) {
+  var shieldDef = ShieldDef.shields[network];
 
-function drawBanners(baseCanvas, banners) {
+  if (shieldDef == null || typeof shieldDef.modifiers == "undefined") {
+    return baseCtx; //Unadorned shield
+  }
+
+  console.log(network);
+  var banners = shieldDef.modifiers;
+
   var bannerHeight = banners.length * bannerSizeH;
   var canvas = document.createElement("canvas");
-  canvas.width = ctx.canvas.width;
-  canvas.height = ctx.canvas.height + bannerHeight;
+  canvas.width = baseCtx.canvas.width;
+  canvas.height = baseCtx.canvas.height + bannerHeight;
 
   var ctx = canvas.getContext("2d");
-  ctx.drawImage(baseCanvas, 0, bannerHeight);
+  ctx.imageSmoothingQuality = "high";
 
-  ctx.fillStyle = "black";
+  ctx.scale(Gfx.spriteUpscale, Gfx.spriteUpscale);
+  ctx.drawImage(baseCtx.canvas, 0, bannerHeight);
+  ctx.scale(1 / Gfx.spriteUpscale, 1 / Gfx.spriteUpscale);
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, bannerHeight);
+  ctx.lineWidth = 8;
+  ctx.strokeStyle = "black";
+  ctx.strokeRect(0, 0, canvas.width, bannerHeight);
+
   for (var i = 0; i < banners.length; i++) {
     drawBannerText(ctx, banners[i], i);
   }
 
-  return canvas;
+  return ctx;
 }
 
 function drawRasterShields(ctx, network, ref) {
@@ -138,14 +101,17 @@ function drawRasterShields(ctx, network, ref) {
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shieldArtwork = shieldDef.backgroundImage[i];
-      textLayout = layoutShieldText(ctx, ref, shieldArtwork, shieldDef.padding);
-      if (textLayout.fontPx > fontSizeThreshold) {
+
+      Gfx.setCanvasWidth(ctx, shieldArtwork.data);
+      textLayout = ShieldText.layoutShieldText(ctx, ref, shieldDef.padding);
+      if (textLayout.fontPx > Gfx.fontSizeThreshold) {
         break;
       }
     }
   } else {
     shieldArtwork = shieldDef.backgroundImage;
-    textLayout = layoutShieldText(ctx, ref, shieldArtwork, shieldDef.padding);
+    Gfx.setCanvasWidth(ctx, shieldArtwork.data);
+    textLayout = ShieldText.layoutShieldText(ctx, ref, shieldDef.padding);
   }
 
   //Special cases
@@ -156,8 +122,7 @@ function drawRasterShields(ctx, network, ref) {
       return false;
     }
 
-    ctx.canvas.width = shieldArtwork.data.width * spriteUpscale;
-    ctx.canvas.height = shieldArtwork.data.height * spriteUpscale;
+    Gfx.setCanvasWidth(ctx, shieldArtwork.data);
   }
 
   loadShield(ctx, shieldArtwork);
@@ -166,11 +131,7 @@ function drawRasterShields(ctx, network, ref) {
     ctx.fillStyle = shieldDef.textColor;
     drawShieldText(ctx, ref, textLayout);
   }
-  /*
-  if (typeof shieldDef.modifiers !== "undefined") {
-    c = drawBanners(c, shieldDef.modifiers);
-  }
-  */
+
   return true;
 }
 
@@ -238,7 +199,9 @@ function drawShieldsToCanvas(ctx, network, ref) {
 
       ctx.fillStyle = "black";
 
-      var textLayout = layoutShieldText(ctx, ref, null, {
+      Gfx.setCanvasWidth(ctx, { height: 80, width: 80 });
+
+      var textLayout = ShieldText.layoutShieldTextBbox(ctx, ref, {
         left: 11,
         right: 11,
         top: 11,
@@ -262,17 +225,11 @@ export function missingIconLoader(map, e) {
   }
 
   if (id == "spacer") {
-    map.addImage(
-      id,
-      {
-        width: spacer_size,
-        height: spacer_size,
-        data: new Uint8Array(4 * spacer_size * spacer_size),
-      },
-      {
-        pixelRatio: window.devicePixelRatio,
-      }
-    );
+    map.addImage(id, {
+      width: spacer_size,
+      height: spacer_size,
+      data: new Uint8Array(4 * spacer_size * spacer_size),
+    });
     return;
   }
 
@@ -304,10 +261,9 @@ export function missingIconLoader(map, e) {
   if (!drawComplete && ref != null && ref != "" && ref.length <= 4) {
     //Draw generic square shield
 
-    ctx.canvas.width = 80;
-    ctx.canvas.height = 80;
+    Gfx.setCanvasWidth(ctx, { width: 80, height: 80 });
 
-    var textLayout = layoutShieldText(ctx, ref, null, {
+    var textLayout = ShieldText.layoutShieldText(ctx, ref, {
       left: 7,
       right: 7,
       top: 18,
@@ -331,24 +287,27 @@ export function missingIconLoader(map, e) {
     return;
   }
 
+  //Add modifier plaques above shields
+  ctx = drawBanners(ctx, network);
+
   var desiredHeight = 20 * window.devicePixelRatio;
   var scale = desiredHeight / ctx.canvas.height;
 
   var scaleCanvas = document.createElement("canvas");
   scaleCanvas.height = desiredHeight;
-  scaleCanvas.width = c.width * scale;
+  scaleCanvas.width = ctx.canvas.width * scale;
 
   var scaleCtx = scaleCanvas.getContext("2d");
+  scaleCtx.imageSmoothingQuality = "high";
   scaleCtx.scale(scale, scale);
-  scaleCtx.drawImage(c, 0, 0);
+  scaleCtx.drawImage(ctx.canvas, 0, 0);
 
   if (colorLighten != null) {
     scaleCtx.globalCompositeOperation = "lighten";
-    scaleCtx.imageSmoothingQuality = "high";
     scaleCtx.fillStyle = colorLighten;
     scaleCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     scaleCtx.globalCompositeOperation = "destination-atop";
-    scaleCtx.drawImage(c, 0, 0);
+    scaleCtx.drawImage(ctx.canvas, 0, 0);
   }
 
   var imgData = scaleCtx.getImageData(
