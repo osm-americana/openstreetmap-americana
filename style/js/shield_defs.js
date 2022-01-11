@@ -46,6 +46,13 @@ export function loadShields(shieldImages) {
     modifiers: ["TRK"],
   };
 
+  shields["US:US:Alternate:Truck:Business"] = {
+    backgroundImage: shield_us_us,
+    textColor: "black",
+    padding: padding_us_us,
+    modifiers: ["ALT", "TRK", "BUS"],
+  };
+
   shields["US:US:Historic"] = {
     backgroundImage: shield_us_us,
     textColor: "black",
