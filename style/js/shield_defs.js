@@ -251,6 +251,9 @@ export function hasShieldArtwork(network) {
  */
 export function shieldLighten(network, ref) {
   var shieldDef = shields[network];
+  if (shieldDef == null) {
+    return null;
+  }
   //Ref-specific cases:
   switch (network) {
     case "US:GA":
@@ -266,4 +269,17 @@ export function shieldLighten(network, ref) {
       //Network-specific cases are defined in shield definitions:
       return shieldDef.colorLighten;
   }
+}
+
+/**
+ * Get the number of banner placards associated with this shield
+ *
+ * @param {*} shield - Shield definition
+ * @returns the number of banner placards that need to be drawn
+ */
+export function getBannerCount(shield) {
+  if (shield == null || typeof shield.modifiers == "undefined") {
+    return 0; //Unadorned shield
+  }
+  return shield.modifiers.length;
 }

@@ -7,18 +7,22 @@ import * as ShieldDef from "./shield_defs.js";
  * Determines the position and font size to draw text so that it fits within
  * a bounding box.
  *
- * @param {*} ctx - graphics context to draw to
  * @param {*} text - text to draw
  * @param {*} padding - top/bottom/left/right padding around text
  * @param {*} bounds - size of the overall graphics area
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldTextBbox(ctx, text, padding, bounds) {
+export function layoutShieldText(text, padding, bounds) {
   var padding = padding || {};
   var padTop = padding.top || 0;
   var padBot = padding.bottom || 0;
   var padLeft = padding.left || 0;
   var padRight = padding.right || 0;
+
+  //Temporary canvas for text measurment
+  var ctx = document.createElement("canvas").getContext("2d");
+  ctx.canvas.width = bounds.width;
+  ctx.canvas.height = bounds.height;
 
   ctx.font = "bold " + Gfx.fontSizeThreshold + Gfx.fontSizeType + " sans-serif";
   ctx.textAlign = "center";
@@ -57,23 +61,6 @@ export function layoutShieldTextBbox(ctx, text, padding, bounds) {
 }
 
 /**
- * Determines the position and font size to draw text so that it fits within
- * a bounding box.  The bounding box is based on the height/width of the
- * graphics context and within the specified padding.
- *
- * @param {*} ctx - graphics context to draw to
- * @param {*} text - text to draw
- * @param {*} padding - top/bottom/left/right padding around text
- * @returns JOSN object containing (X,Y) draw position and font size
- */
-export function layoutShieldText(ctx, text, padding) {
-  return layoutShieldTextBbox(ctx, text, padding, {
-    width: ctx.canvas.width,
-    height: ctx.canvas.height,
-  });
-}
-
-/**
  * Draw text on a shield
  *
  * @param {*} ctx - graphics context to draw to
@@ -97,8 +84,7 @@ export function drawShieldText(ctx, text, textLayout) {
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
 export function drawBannerText(ctx, text, bannerIndex) {
-  var textLayout = layoutShieldTextBbox(
-    ctx,
+  var textLayout = layoutShieldText(
     text,
     {
       left: 3,
@@ -114,8 +100,6 @@ export function drawBannerText(ctx, text, bannerIndex) {
   ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
   ctx.shadowColor = "white";
   ctx.shadowBlur = 10;
-
-  console.log(text + "->" + textLayout.xBaseline + ":" + textLayout.yBaseline);
 
   ctx.fillText(
     text,

@@ -4,45 +4,32 @@ import * as ShieldDef from "./shield_defs.js";
 import * as ShieldText from "./shield_text.js";
 import * as Gfx from "./screen_gfx.js";
 
-function loadShield(ctx, shield) {
-  var scaleCanvas = document.createElement("canvas");
-  var scaleCtx = scaleCanvas.getContext("2d");
-  var imgData = scaleCtx.createImageData(shield.data.width, shield.data.height);
-
-  scaleCtx.imageSmoothingQuality = "high";
+function loadShield(ctx, shield, bannerCount) {
+  var drawCtx = Gfx.getGfxContext(shield.data);
+  var imgData = drawCtx.createImageData(shield.data.width, shield.data.height);
 
   for (var i = 0; i < shield.data.data.length; i++) {
     imgData.data[i] = shield.data.data[i];
   }
 
-  scaleCtx.putImageData(imgData, 0, 0);
+  drawCtx.putImageData(imgData, 0, 0);
 
-  ctx.scale(Gfx.spriteUpscale, Gfx.spriteUpscale);
-  ctx.drawImage(scaleCanvas, 0, 0);
-  ctx.scale(1 / Gfx.spriteUpscale, 1 / Gfx.spriteUpscale);
+  ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
 }
 
-function drawBanners(baseCtx, network) {
+function drawBanners(ctx, network) {
   var shieldDef = ShieldDef.shields[network];
 
   if (shieldDef == null || typeof shieldDef.modifiers == "undefined") {
-    return baseCtx; //Unadorned shield
+    return ctx; //Unadorned shield
   }
 
-  console.log(network);
   var banners = shieldDef.modifiers;
 
   var bannerHeight = banners.length * ShieldDef.bannerSizeH;
   var canvas = document.createElement("canvas");
-  canvas.width = baseCtx.canvas.width;
-  canvas.height = baseCtx.canvas.height + bannerHeight;
-
-  var ctx = canvas.getContext("2d");
-  ctx.imageSmoothingQuality = "high";
-
-  ctx.scale(Gfx.spriteUpscale, Gfx.spriteUpscale);
-  ctx.drawImage(baseCtx.canvas, 0, bannerHeight);
-  ctx.scale(1 / Gfx.spriteUpscale, 1 / Gfx.spriteUpscale);
+  canvas.width = ctx.canvas.width;
+  canvas.height = ctx.canvas.height + bannerHeight;
 
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, bannerHeight);
@@ -59,55 +46,110 @@ function drawBanners(baseCtx, network) {
   return ctx;
 }
 
-function drawRasterShields(ctx, network, ref) {
+function compoundShieldSize(dimension, bannerCount) {
+  return {
+    width: dimension.width,
+    height: dimension.height + bannerCount * ShieldDef.bannerSizeH,
+  };
+}
+
+/**
+ * Retrieve the shield blank that goes with a particular route.  If there are
+ * multiple shields for a route (different widths), it picks the best shield.
+ *
+ * @param {*} network - route network
+ * @param {*} ref - route number
+ * @returns shield blank or null if no shield exists
+ */
+function getRasterShieldBlank(network, ref) {
   var shieldDef = ShieldDef.shields[network];
-  var shieldArtwork;
+  var shieldArtwork = null;
   var textLayout;
+  var bannerCount = 0;
+  var bounds;
+
+  //Special cases
+  if (ref.length == 0) {
+    return ShieldDef.getNoRefArtwork(network);
+  }
 
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shieldArtwork = shieldDef.backgroundImage[i];
-
-      Gfx.setCanvasWidth(ctx, shieldArtwork.data);
-      textLayout = ShieldText.layoutShieldText(ctx, ref, shieldDef.padding);
+      bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
+      textLayout = ShieldText.layoutShieldText(ref, shieldDef.padding, bounds);
       if (textLayout.fontPx > Gfx.fontSizeThreshold) {
         break;
       }
     }
   } else {
     shieldArtwork = shieldDef.backgroundImage;
-    Gfx.setCanvasWidth(ctx, shieldArtwork.data);
-    textLayout = ShieldText.layoutShieldText(ctx, ref, shieldDef.padding);
   }
 
-  //Special cases
-  if (ref.length == 0) {
-    shieldArtwork = ShieldDef.getNoRefArtwork(network);
+  return shieldArtwork;
+}
 
-    if (shieldArtwork == null) {
-      return false;
-    }
-
-    Gfx.setCanvasWidth(ctx, shieldArtwork.data);
+function drawRasterShields(network, ref) {
+  var shieldDef = ShieldDef.shields[network];
+  if (shieldDef == null) {
+    return null;
   }
 
-  loadShield(ctx, shieldArtwork);
+  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+
+  var shieldArtwork = getRasterShieldBlank(network, ref);
+  if (shieldArtwork == null) {
+    return null;
+  }
+  var bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
+  var textLayout = ShieldText.layoutShieldText(
+    ref,
+    shieldDef.padding,
+    shieldArtwork.data
+  );
+
+  textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
+
+  var ctx = Gfx.getGfxContext(bounds);
+  loadShield(ctx, shieldArtwork, bannerCount);
 
   if (shieldDef.notext != true) {
     ctx.fillStyle = shieldDef.textColor;
     ShieldText.drawShieldText(ctx, ref, textLayout);
+
+    //Below: font size debugging (magenta padding)
+    /*
+    ctx.fillStyle = "#FF00FF80";
+    ctx.fillRect(0, 0, ctx.canvas.width, shieldDef.padding.top);
+    ctx.fillRect(0, 0, shieldDef.padding.left, ctx.canvas.width);
+    ctx.fillRect(
+      0,
+      ctx.canvas.height - shieldDef.padding.top,
+      ctx.canvas.width,
+      shieldDef.padding.top
+    );
+    ctx.fillRect(
+      ctx.canvas.width - shieldDef.padding.right,
+      0,
+      shieldDef.padding.right,
+      ctx.canvas.height
+    );
+    */
+    //Above: font size debugging
   }
 
-  return true;
+  return ctx;
 }
 
-function drawShieldsToCanvas(ctx, network, ref) {
-  //Default draw size
-  ctx.canvas.width = 80;
-  ctx.canvas.height = 80;
+function drawShieldsToCanvas(network, ref, bannerSize) {
+  //TODO implement banners
+
+  var ctx = null;
+  var squareBounds = { width: 80, height: 80 };
 
   switch (network) {
     case "US:PA:Belt":
+      ctx = Gfx.getGfxContext(squareBounds);
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, 80, 80);
       ctx.lineWidth = 8;
@@ -134,15 +176,16 @@ function drawShieldsToCanvas(ctx, network, ref) {
           ctx.fillStyle = "#003882";
           break;
         default:
-          return;
+          return null;
       }
 
+      ctx = Gfx.getGfxContext(squareBounds);
       ctx.fill();
 
       ctx.lineWidth = 4;
       ctx.strokeStyle = "black";
       ctx.stroke();
-      return true;
+      break;
 
     //Circle shields
     case "US:DE":
@@ -151,9 +194,10 @@ function drawShieldsToCanvas(ctx, network, ref) {
     case "US:NJ":
     case "US:VA:Secondary":
       if (ref == null || ref.length == 0) {
-        return false;
+        return null;
       }
 
+      ctx = Gfx.getGfxContext(squareBounds);
       ctx.beginPath();
       ctx.arc(40, 40, 37.5, 0, 2 * Math.PI, false);
       ctx.fillStyle = "white";
@@ -165,19 +209,20 @@ function drawShieldsToCanvas(ctx, network, ref) {
 
       ctx.fillStyle = "black";
 
-      Gfx.setCanvasWidth(ctx, { height: 80, width: 80 });
-
-      var textLayout = ShieldText.layoutShieldTextBbox(ctx, ref, {
-        left: 11,
-        right: 11,
-        top: 11,
-        bottom: 11,
-      });
+      var textLayout = ShieldText.layoutShieldText(
+        ref,
+        {
+          left: 11,
+          right: 11,
+          top: 11,
+          bottom: 11,
+        },
+        squareBounds
+      );
       ShieldText.drawShieldText(ctx, ref, textLayout);
-
-      return true;
+      break;
   }
-  return false;
+  return ctx;
 }
 
 //Space between concurrent shields
@@ -204,38 +249,31 @@ export function missingIconLoader(map, e) {
   var network = network_ref_parts[0];
   var ref = network_ref_parts[1];
 
-  var colorLighten = null;
+  var colorLighten = ShieldDef.shieldLighten(network, ref);
 
-  var c = document.createElement("canvas");
+  var ctx = drawRasterShields(network, ref);
 
-  var ctx = c.getContext("2d");
-  ctx.imageSmoothingQuality = "high";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
-
-  var drawComplete = false;
-
-  if (ShieldDef.hasShieldArtwork(network)) {
-    drawComplete |= drawRasterShields(ctx, network, ref);
-    if (drawComplete) {
-      colorLighten = ShieldDef.shieldLighten(network, ref);
-    }
+  if (ctx == null) {
+    ctx = drawShieldsToCanvas(network, ref, 0);
   }
-  if (!drawComplete) {
-    drawComplete |= drawShieldsToCanvas(ctx, network, ref, 2);
-  }
-  if (!drawComplete && ref != null && ref != "" && ref.length <= 4) {
+
+  if (ctx == null && ref != "" && ref.length <= 4) {
     //Draw generic square shield
 
-    Gfx.setCanvasWidth(ctx, { width: 80, height: 80 });
+    var squareBounds = { width: 80, height: 80 };
 
-    var textLayout = ShieldText.layoutShieldText(ctx, ref, {
-      left: 7,
-      right: 7,
-      top: 18,
-      bottom: 18,
-    });
+    var textLayout = ShieldText.layoutShieldText(
+      ref,
+      {
+        left: 7,
+        right: 7,
+        top: 18,
+        bottom: 18,
+      },
+      squareBounds
+    );
 
+    ctx = Gfx.getGfxContext(squareBounds);
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, 80, 80);
     ctx.lineWidth = 8;
@@ -244,27 +282,30 @@ export function missingIconLoader(map, e) {
     ctx.fillStyle = "black";
 
     ShieldText.drawShieldText(ctx, ref, textLayout);
-
-    drawComplete = true;
   }
 
-  if (!drawComplete) {
+  if (ctx == null) {
     //Does not meet the criteria to draw a shield
     return;
   }
 
   //Add modifier plaques above shields
-  ctx = drawBanners(ctx, network);
+  drawBanners(ctx, network);
 
-  var desiredHeight = 20 * window.devicePixelRatio;
-  var scale = desiredHeight / ctx.canvas.height;
+  if (ctx == null) {
+    console.log("OOPS A");
+  }
+  if (ctx.canvas == null) {
+    console.log("OOPS B " + network + "=" + ref);
+  }
 
-  var scaleCanvas = document.createElement("canvas");
-  scaleCanvas.height = desiredHeight;
-  scaleCanvas.width = ctx.canvas.width * scale;
+  var scale = window.devicePixelRatio / 4;
 
-  var scaleCtx = scaleCanvas.getContext("2d");
-  scaleCtx.imageSmoothingQuality = "high";
+  var scaleCtx = Gfx.getGfxContext({
+    width: ctx.canvas.width * scale,
+    height: ctx.canvas.height * scale,
+  });
+
   scaleCtx.scale(scale, scale);
   scaleCtx.drawImage(ctx.canvas, 0, 0);
 
@@ -279,15 +320,15 @@ export function missingIconLoader(map, e) {
   var imgData = scaleCtx.getImageData(
     0,
     0,
-    scaleCanvas.width,
-    scaleCanvas.height
+    scaleCtx.canvas.width,
+    scaleCtx.canvas.height
   );
 
   map.addImage(
     id,
     {
-      width: scaleCanvas.width,
-      height: scaleCanvas.height,
+      width: scaleCtx.canvas.width,
+      height: scaleCtx.canvas.height,
       data: imgData.data,
     },
     {
