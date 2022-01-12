@@ -292,13 +292,6 @@ export function missingIconLoader(map, e) {
   //Add modifier plaques above shields
   drawBanners(ctx, network);
 
-  if (ctx == null) {
-    console.log("OOPS A");
-  }
-  if (ctx.canvas == null) {
-    console.log("OOPS B " + network + "=" + ref);
-  }
-
   var scale = window.devicePixelRatio / 4;
 
   var scaleCtx = Gfx.getGfxContext({
