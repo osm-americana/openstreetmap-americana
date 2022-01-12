@@ -55,7 +55,7 @@ export function layoutShieldText(text, padding, bounds) {
 
   var scaledHeight = textHeight * scale;
 
-  var yBaseline = padTop + (availHeight-scaledHeight) / 2;
+  var yBaseline = padTop + (availHeight - scaledHeight) / 2;
 
   return {
     xBaseline: xBaseline,

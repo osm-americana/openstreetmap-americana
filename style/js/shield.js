@@ -24,23 +24,10 @@ function drawBanners(ctx, network) {
     return ctx; //Unadorned shield
   }
 
-  var banners = shieldDef.modifiers;
-
-  var bannerHeight = banners.length * ShieldDef.bannerSizeH;
-  var canvas = document.createElement("canvas");
-  canvas.width = ctx.canvas.width;
-  canvas.height = ctx.canvas.height + bannerHeight;
-
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, bannerHeight);
-  ctx.lineWidth = 8;
-  ctx.strokeStyle = "black";
-  ctx.strokeRect(0, 0, canvas.width, bannerHeight);
-
   ctx.fillStyle = "black";
 
-  for (var i = 0; i < banners.length; i++) {
-    ShieldText.drawBannerText(ctx, banners[i], i);
+  for (var i = 0; i < shieldDef.modifiers.length; i++) {
+    ShieldText.drawBannerText(ctx, shieldDef.modifiers[i], i);
   }
 
   return ctx;

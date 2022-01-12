@@ -176,10 +176,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_pa_turnpike,
     textColor: "white",
     padding: {
-      left: 10,
-      right: 10,
-      top: 12,
-      bottom: 11,
+      left: 8,
+      right: 8,
+      top: 22,
+      bottom: 22,
     },
   };
   norefShields["US:PA:Turnpike"] = shieldImages.shield40_us_pa_turnpike_noref;
@@ -205,7 +205,7 @@ export function loadShields(shieldImages) {
     padding: {
       left: 6,
       right: 6,
-      top: 7,
+      top: 6,
       bottom: 32,
     },
   };
