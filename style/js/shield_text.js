@@ -91,8 +91,8 @@ export function drawBannerText(ctx, text, bannerIndex) {
   var textLayout = layoutShieldText(
     text,
     {
-      left: 3,
-      right: 3,
+      left: 0,
+      right: 0,
       top: 0,
       bottom: 0,
     },
