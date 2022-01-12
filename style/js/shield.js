@@ -116,26 +116,6 @@ function drawRasterShields(network, ref) {
   if (shieldDef.notext != true) {
     ctx.fillStyle = shieldDef.textColor;
     ShieldText.drawShieldText(ctx, ref, textLayout);
-
-    //Below: font size debugging (magenta padding)
-    /*
-    ctx.fillStyle = "#FF00FF80";
-    ctx.fillRect(0, 0, ctx.canvas.width, shieldDef.padding.top);
-    ctx.fillRect(0, 0, shieldDef.padding.left, ctx.canvas.width);
-    ctx.fillRect(
-      0,
-      ctx.canvas.height - shieldDef.padding.top,
-      ctx.canvas.width,
-      shieldDef.padding.top
-    );
-    ctx.fillRect(
-      ctx.canvas.width - shieldDef.padding.right,
-      0,
-      shieldDef.padding.right,
-      ctx.canvas.height
-    );
-    */
-    //Above: font size debugging
   }
 
   return ctx;
@@ -257,7 +237,7 @@ export function missingIconLoader(map, e) {
     ctx = drawShieldsToCanvas(network, ref, 0);
   }
 
-  if (ctx == null && ref != "" && ref.length <= 4) {
+  if (ctx == null && ref != null && ref.length > 0 && ref.length <= 4) {
     //Draw generic square shield
 
     var squareBounds = { width: 80, height: 80 };
@@ -265,8 +245,8 @@ export function missingIconLoader(map, e) {
     var textLayout = ShieldText.layoutShieldText(
       ref,
       {
-        left: 7,
-        right: 7,
+        left: 4,
+        right: 4,
         top: 18,
         bottom: 18,
       },

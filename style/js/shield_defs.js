@@ -91,10 +91,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_nh,
     textColor: "black",
     padding: {
-      left: 14,
-      right: 8,
-      top: 12,
-      bottom: 12,
+      left: 9,
+      right: 5,
+      top: 16,
+      bottom: 16,
     },
   };
 
@@ -192,8 +192,8 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_sc,
     textColor: "#003478",
     padding: {
-      left: 10,
-      right: 10,
+      left: 2,
+      right: 2,
       top: 15,
       bottom: 12,
     },
@@ -203,10 +203,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_va,
     textColor: "black",
     padding: {
-      left: 8,
-      right: 8,
-      top: 18,
-      bottom: 20,
+      left: 6,
+      right: 6,
+      top: 7,
+      bottom: 32,
     },
   };
 
@@ -214,9 +214,9 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_vt,
     textColor: "#006b54",
     padding: {
-      left: 10,
-      right: 10,
-      top: 10,
+      left: 8,
+      right: 8,
+      top: 12,
       bottom: 12,
     },
   };

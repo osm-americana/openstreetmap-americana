@@ -20,13 +20,11 @@ export function layoutShieldText(text, padding, bounds) {
   var padRight = padding.right || 0;
 
   //Temporary canvas for text measurment
-  var ctx = document.createElement("canvas").getContext("2d");
-  ctx.canvas.width = bounds.width;
-  ctx.canvas.height = bounds.height;
+  var ctx = Gfx.getGfxContext(bounds);
 
   ctx.font = "bold " + Gfx.fontSizeThreshold + Gfx.fontSizeType + " sans-serif";
   ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
+  ctx.textBaseline = "top";
 
   var metrics = ctx.measureText(text);
 
@@ -34,7 +32,7 @@ export function layoutShieldText(text, padding, bounds) {
   var height = bounds.height;
 
   var textWidth = metrics.width;
-  var textHeight = metrics.actualBoundingBoxAscent;
+  var textHeight = metrics.actualBoundingBoxDescent;
 
   var availHeight = height - padTop - padBot;
   var availWidth = width - padLeft - padRight;
@@ -49,13 +47,19 @@ export function layoutShieldText(text, padding, bounds) {
   var fontSize = Math.min(Gfx.fontSizeMax, Gfx.fontSizeThreshold * scale);
 
   ctx.font = "bold " + fontSize + Gfx.fontSizeType + " sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+
   metrics = ctx.measureText(text);
-  textHeight = metrics.actualBoundingBoxAscent;
-  var marginY = (height - padTop - padBot - textHeight) / 2;
+  textHeight = metrics.actualBoundingBoxDescent;
+
+  var scaledHeight = textHeight * scale;
+
+  var yBaseline = padTop + (availHeight-scaledHeight) / 2;
 
   return {
     xBaseline: xBaseline,
-    yBaseline: bounds.height - padBot - marginY,
+    yBaseline: yBaseline,
     fontPx: fontSize * scale,
   };
 }
@@ -70,7 +74,7 @@ export function layoutShieldText(text, padding, bounds) {
 export function drawShieldText(ctx, text, textLayout) {
   //Text color is set by fillStyle
   ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
+  ctx.textBaseline = "top";
   ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
 
   ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
@@ -90,13 +94,12 @@ export function drawBannerText(ctx, text, bannerIndex) {
       left: 3,
       right: 3,
       top: 0,
-      bottom: 1,
+      bottom: 0,
     },
     { width: ctx.canvas.width, height: ShieldDef.bannerSizeH }
   );
 
-  ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
+  ctx.textBaseline = "top";
   ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
   ctx.shadowColor = "white";
   ctx.shadowBlur = 10;
@@ -104,6 +107,6 @@ export function drawBannerText(ctx, text, bannerIndex) {
   ctx.fillText(
     text,
     textLayout.xBaseline,
-    textLayout.yBaseline + bannerIndex * 40
+    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
   );
 }
