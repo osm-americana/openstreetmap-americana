@@ -179,7 +179,6 @@ function drawShieldsToCanvas(network, ref, bannerSize) {
           return null;
       }
 
-      ctx = Gfx.getGfxContext(squareBounds);
       ctx.fill();
 
       ctx.lineWidth = 4;
@@ -222,6 +221,7 @@ function drawShieldsToCanvas(network, ref, bannerSize) {
       ShieldText.drawShieldText(ctx, ref, textLayout);
       break;
   }
+
   return ctx;
 }
 
