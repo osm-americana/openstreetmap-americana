@@ -21,6 +21,22 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:I:Business:Loop"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_interstate_business_2,
+      shieldImages.shield40_us_interstate_business_3,
+    ],
+    textColor: "white",
+    padding: {
+      left: 12,
+      right: 12,
+      top: 12,
+      bottom: 20,
+    },
+  };
+
+  shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
+
   //US Highways
   var shield_us_us = [
     shieldImages.shield40_us_us_2,
