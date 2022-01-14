@@ -1,5 +1,7 @@
 "use strict";
 
+import * as ShieldDraw from "./shield_canvas_draw.js";
+
 //Height of modifier banners
 export const bannerSizeH = 40;
 
@@ -7,6 +9,31 @@ export const shields = {};
 export const norefShields = {};
 
 export function loadShields(shieldImages) {
+  // Multi-use shields
+
+  //Circle shield
+  var circleShield = {
+    backgroundDraw: ShieldDraw.circle,
+    padding: {
+      left: 11,
+      right: 11,
+      top: 11,
+      bottom: 11,
+    },
+  };
+
+  //Diamond shields
+  var diamondShield = {
+    backgroundImage: shieldImages.shield40_us_nc,
+    textColor: "black",
+    padding: {
+      left: 17,
+      right: 17,
+      top: 17,
+      bottom: 17,
+    },
+  };
+
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -30,7 +57,7 @@ export function loadShields(shieldImages) {
     padding: {
       left: 12,
       right: 12,
-      top: 12,
+      top: 20,
       bottom: 20,
     },
   };
@@ -76,6 +103,8 @@ export function loadShields(shieldImages) {
     colorLighten: "#613214",
   };
 
+  shields["US:DE"] = circleShield;
+
   shields["US:GA"] = {
     backgroundImage: [
       shieldImages.shield40_us_ga_2,
@@ -90,18 +119,10 @@ export function loadShields(shieldImages) {
     },
   };
 
-  //Diamond shields
-  shields["US:MI"] = {
-    backgroundImage: shieldImages.shield40_us_nc,
-    textColor: "black",
-    padding: {
-      left: 17,
-      right: 17,
-      top: 17,
-      bottom: 17,
-    },
-  };
-  shields["US:NC"] = shields["US:MI"];
+  shields["US:IA"] = circleShield;
+  shields["US:MI"] = diamondShield;
+  shields["US:MS"] = circleShield;
+  shields["US:NC"] = diamondShield;
 
   shields["US:NH"] = {
     backgroundImage: shieldImages.shield40_us_nh,
@@ -113,6 +134,8 @@ export function loadShields(shieldImages) {
       bottom: 16,
     },
   };
+
+  shields["US:NJ"] = circleShield;
 
   shields["US:NJ:ACE"] = {
     backgroundImage: shieldImages.shield40_us_nj_ace_noref,
@@ -202,6 +225,7 @@ export function loadShields(shieldImages) {
 
   shields["US:PA:Belt"] = {
     notext: true,
+    backgroundDraw: ShieldDraw.paBelt,
   };
 
   shields["US:SC"] = {
@@ -225,6 +249,8 @@ export function loadShields(shieldImages) {
       bottom: 32,
     },
   };
+
+  shields["US:VA:Secondary"] = circleShield;
 
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,

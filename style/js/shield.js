@@ -2,6 +2,7 @@
 
 import * as ShieldDef from "./shield_defs.js";
 import * as ShieldText from "./shield_text.js";
+import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
 
 function loadShield(ctx, shield, bannerCount) {
@@ -60,6 +61,10 @@ function getRasterShieldBlank(network, ref) {
     return ShieldDef.getNoRefArtwork(network);
   }
 
+  if (typeof shieldDef == "undefined") {
+    return null;
+  }
+
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shieldArtwork = shieldDef.backgroundImage[i];
@@ -76,117 +81,71 @@ function getRasterShieldBlank(network, ref) {
   return shieldArtwork;
 }
 
-function drawRasterShields(network, ref) {
+function drawShield(network, ref) {
   var shieldDef = ShieldDef.shields[network];
-  if (shieldDef == null) {
-    return null;
-  }
-
-  var bannerCount = ShieldDef.getBannerCount(shieldDef);
-
-  var shieldArtwork = getRasterShieldBlank(network, ref);
-  if (shieldArtwork == null) {
-    return null;
-  }
-  var bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-  var textLayout = ShieldText.layoutShieldText(
-    ref,
-    shieldDef.padding,
-    shieldArtwork.data
-  );
-
-  textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
-
-  var ctx = Gfx.getGfxContext(bounds);
-  loadShield(ctx, shieldArtwork, bannerCount);
-
-  if (shieldDef.notext != true) {
-    ctx.fillStyle = shieldDef.textColor;
-    ShieldText.drawShieldText(ctx, ref, textLayout);
-  }
-
-  return ctx;
-}
-
-function drawShieldsToCanvas(network, ref, bannerSize) {
-  //TODO implement banners
-
   var ctx = null;
-  var squareBounds = { width: 80, height: 80 };
+  var textColor = "black";
+  var bannerCount = 0;
+  var padding = null;
 
-  switch (network) {
-    case "US:PA:Belt":
-      ctx = Gfx.getGfxContext(squareBounds);
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, 80, 80);
-      ctx.lineWidth = 8;
-      ctx.strokeStyle = "black";
-      ctx.strokeRect(0, 0, 80, 80);
+  if (shieldDef == null) {
+    if (ref == "") {
+      return null;
+    }
 
-      ctx.beginPath();
-      ctx.arc(40, 40, 22, 0, 2 * Math.PI, false);
+    //Generic shield
+    ctx = ShieldDraw.square();
+    shieldBounds = {
+      width: ctx.canvas.width,
+      height: ctx.canvas.height,
+    };
+    padding = {
+      left: 4,
+      right: 4,
+      top: 18,
+      bottom: 18,
+    };
+  } else {
+    bannerCount = ShieldDef.getBannerCount(shieldDef);
+    padding = shieldDef.padding;
 
-      switch (ref) {
-        case "Red Belt":
-          ctx.fillStyle = "#b01c2e";
-          break;
-        case "Orange Belt":
-          ctx.fillStyle = "#d97300";
-          break;
-        case "Yellow Belt":
-          ctx.fillStyle = "#f7d117";
-          break;
-        case "Green Belt":
-          ctx.fillStyle = "#006b54";
-          break;
-        case "Blue Belt":
-          ctx.fillStyle = "#003882";
-          break;
-        default:
-          return null;
-      }
+    var shieldArtwork = getRasterShieldBlank(network, ref);
+    var compoundBounds = null;
+    var shieldBounds = null;
 
-      ctx.fill();
-
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = "black";
-      ctx.stroke();
-      break;
-
-    //Circle shields
-    case "US:DE":
-    case "US:IA":
-    case "US:MS":
-    case "US:NJ":
-    case "US:VA:Secondary":
-      if (ref == null || ref.length == 0) {
+    if (shieldArtwork == null) {
+      if (typeof shieldDef.backgroundDraw != "undefined") {
+        ctx = shieldDef.backgroundDraw(ref);
+        compoundBounds = compoundShieldSize(ctx, bannerCount);
+        shieldBounds = {
+          width: ctx.canvas.width,
+          height: ctx.canvas.height,
+        };
+      } else {
         return null;
       }
+    } else {
+      compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
+      ctx = Gfx.getGfxContext(compoundBounds);
+      loadShield(ctx, shieldArtwork, bannerCount);
+      shieldBounds = {
+        width: shieldArtwork.data.width,
+        height: shieldArtwork.data.height,
+      };
+    }
+  }
 
-      ctx = Gfx.getGfxContext(squareBounds);
-      ctx.beginPath();
-      ctx.arc(40, 40, 37.5, 0, 2 * Math.PI, false);
-      ctx.fillStyle = "white";
-      ctx.fill();
+  if (shieldDef != null && typeof shieldDef.textColor != "undefined") {
+    textColor = shieldDef.textColor;
+  }
 
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = "black";
-      ctx.stroke();
+  if (shieldDef == null || shieldDef.notext != true) {
+    var textLayout = ShieldText.layoutShieldText(ref, padding, shieldBounds);
 
-      ctx.fillStyle = "black";
+    textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 
-      var textLayout = ShieldText.layoutShieldText(
-        ref,
-        {
-          left: 11,
-          right: 11,
-          top: 11,
-          bottom: 11,
-        },
-        squareBounds
-      );
-      ShieldText.drawShieldText(ctx, ref, textLayout);
-      break;
+    ctx.fillStyle = textColor;
+    ShieldText.drawShieldText(ctx, ref, textLayout);
   }
 
   return ctx;
@@ -218,38 +177,7 @@ export function missingIconLoader(map, e) {
 
   var colorLighten = ShieldDef.shieldLighten(network, ref);
 
-  var ctx = drawRasterShields(network, ref);
-
-  if (ctx == null) {
-    ctx = drawShieldsToCanvas(network, ref, 0);
-  }
-
-  if (ctx == null && ref != null && ref.length > 0 && ref.length <= 4) {
-    //Draw generic square shield
-
-    var squareBounds = { width: 80, height: 80 };
-
-    var textLayout = ShieldText.layoutShieldText(
-      ref,
-      {
-        left: 4,
-        right: 4,
-        top: 18,
-        bottom: 18,
-      },
-      squareBounds
-    );
-
-    ctx = Gfx.getGfxContext(squareBounds);
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, 80, 80);
-    ctx.lineWidth = 8;
-    ctx.strokeStyle = "black";
-    ctx.strokeRect(0, 0, 80, 80);
-    ctx.fillStyle = "black";
-
-    ShieldText.drawShieldText(ctx, ref, textLayout);
-  }
+  var ctx = drawShield(network, ref);
 
   if (ctx == null) {
     //Does not meet the criteria to draw a shield
