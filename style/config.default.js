@@ -13,6 +13,5 @@ const MAPTILER_KEY = "<your MapTiler key>";
 const OPENMAPTILES_URL = `https://api.maptiler.com/tiles/v3/tiles.json?key=${MAPTILER_KEY}`;
 
 export default {
-  MAPTILER_KEY,
   OPENMAPTILES_URL,
 };
