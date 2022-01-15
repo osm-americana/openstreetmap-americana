@@ -2,7 +2,8 @@
 
 export const spriteUpscale = window.devicePixelRatio > 1 ? 1 : 2;
 
-export const fontSizeType = "px";
+const fontFamily = '"sans-serif-condensed", "Arial Narrow", sans-serif';
+export const shieldFont = size => `bold ${size}px ${fontFamily}`;
 export const fontSizeThreshold = 48;
 export const fontSizeMax = 48;
 
