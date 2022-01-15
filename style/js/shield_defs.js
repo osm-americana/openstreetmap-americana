@@ -120,6 +120,21 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:IA"] = circleShield;
+
+  shields["US:KS"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_ks_2,
+      shieldImages.shield40_us_ks_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 13,
+      right: 13,
+      top: 13,
+      bottom: 13,
+    },
+  };
+
   shields["US:MI"] = diamondShield;
   shields["US:MS"] = circleShield;
   shields["US:NC"] = diamondShield;
