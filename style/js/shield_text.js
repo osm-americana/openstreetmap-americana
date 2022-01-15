@@ -22,7 +22,7 @@ export function layoutShieldText(text, padding, bounds) {
   //Temporary canvas for text measurment
   var ctx = Gfx.getGfxContext(bounds);
 
-  ctx.font = "bold " + Gfx.fontSizeThreshold + Gfx.fontSizeType + " sans-serif";
+  ctx.font = Gfx.shieldFont(Gfx.fontSizeThreshold);
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
@@ -46,7 +46,7 @@ export function layoutShieldText(text, padding, bounds) {
 
   var fontSize = Math.min(Gfx.fontSizeMax, Gfx.fontSizeThreshold * scale);
 
-  ctx.font = "bold " + fontSize + Gfx.fontSizeType + " sans-serif";
+  ctx.font = Gfx.shieldFont(fontSize);
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
@@ -75,7 +75,7 @@ export function drawShieldText(ctx, text, textLayout) {
   //Text color is set by fillStyle
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
+  ctx.font = Gfx.shieldFont(textLayout.fontPx);
 
   ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
 }
@@ -100,7 +100,7 @@ export function drawBannerText(ctx, text, bannerIndex) {
   );
 
   ctx.textBaseline = "top";
-  ctx.font = "bold " + textLayout.fontPx + Gfx.fontSizeType + " sans-serif";
+  ctx.font = Gfx.shieldFont(textLayout.fontPx);
   ctx.shadowColor = "white";
   ctx.shadowBlur = 10;
 
