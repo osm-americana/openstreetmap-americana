@@ -321,6 +321,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["HU:national"] = {
+    backgroundImage: shieldImages.shield40_eu_hu_2,
+    textColor: "white",
+    padding: {
+      left: 13,
+      right: 13,
+      top: 13,
+      bottom: 23,
+    },
+  };
+  
   return shields;
 }
 
