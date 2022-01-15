@@ -34,6 +34,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  var usMUTCDCountyShield = {
+    backgroundImage: shieldImages.shield40_us_county,
+    textColor: "#f7d117",
+    padding: {
+      left: 10,
+      right: 10,
+      top: 14,
+      bottom: 15,
+    },
+  };
+
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -117,6 +128,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:CA:CR"] = usMUTCDCountyShield;
   shields["US:DE"] = circleShield;
 
   shields["US:GA"] = {
@@ -196,16 +208,7 @@ export function loadShields(shieldImages) {
     notext: true,
   };
 
-  shields["US:NJ:CR"] = {
-    backgroundImage: shieldImages.shield40_us_county,
-    textColor: "#f7d117",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 14,
-      bottom: 15,
-    },
-  };
+  shields["US:NJ:CR"] = usMUTCDCountyShield;
 
   shields["US:NY"] = {
     backgroundImage: shieldImages.shield40_us_ny,
@@ -331,7 +334,7 @@ export function loadShields(shieldImages) {
       bottom: 23,
     },
   };
-  
+
   return shields;
 }
 
