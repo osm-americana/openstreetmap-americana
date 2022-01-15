@@ -103,6 +103,20 @@ export function loadShields(shieldImages) {
     colorLighten: "#613214",
   };
 
+  shields["US:CA"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_ca_2,
+      shieldImages.shield40_us_ca_3,
+    ],
+    textColor: "white",
+    padding: {
+      left: 13,
+      right: 13,
+      top: 25,
+      bottom: 10,
+    },
+  };
+
   shields["US:DE"] = circleShield;
 
   shields["US:GA"] = {
