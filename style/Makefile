@@ -23,7 +23,7 @@ code_format:
 
 build/maplibre-js:
 	mkdir -p build/maplibre-js
-	git clone git@github.com:wipfli/maplibre-gl-js.git build/maplibre-js
+	git clone https://github.com/wipfli/maplibre-gl-js build/maplibre-js
 
 build/maplibre-js/dist/maplibre-gl.js: build/maplibre-js
 	cd build/maplibre-js; git checkout 270a47f473ba51375a7df4076ee271777cc04467; \
