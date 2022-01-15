@@ -13,9 +13,21 @@ function loadShield(ctx, shield, bannerCount) {
     imgData.data[i] = shield.data.data[i];
   }
 
+  var scale = 1;
+
+  //Scaling for 1x devices
+  if (shield.data.width < 50 || shield.data.height < 50) {
+    scale = 2;
+  }
+
+  ctx.canvas.width *= scale;
+  ctx.canvas.height *= scale;
+
   drawCtx.putImageData(imgData, 0, 0);
 
+  ctx.scale(scale, scale);
   ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
+  ctx.scale(1 / scale, 1 / scale);
 }
 
 function drawBanners(ctx, network) {
@@ -129,8 +141,8 @@ function drawShield(network, ref) {
       ctx = Gfx.getGfxContext(compoundBounds);
       loadShield(ctx, shieldArtwork, bannerCount);
       shieldBounds = {
-        width: shieldArtwork.data.width,
-        height: shieldArtwork.data.height,
+        width: ctx.canvas.width,
+        height: ctx.canvas.height,
       };
     }
   }
