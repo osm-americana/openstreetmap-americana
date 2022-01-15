@@ -307,6 +307,20 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["e-road"] = {
+    backgroundImage: [
+      shieldImages.shield40_eu_hw_2,
+      shieldImages.shield40_eu_hw_3,
+    ],
+    textColor: "white",
+    padding: {
+      left: 15,
+      right: 15,
+      top: 10,
+      bottom: 10,
+    },
+  };
+
   return shields;
 }
 
