@@ -21,16 +21,5 @@ config.js:
 code_format:
 	npx prettier --write .
 
-build/maplibre-js:
-	mkdir -p build/maplibre-js
-	git clone https://github.com/wipfli/maplibre-gl-js build/maplibre-js
-
-build/maplibre-js/dist/maplibre-gl.js: build/maplibre-js
-	cd build/maplibre-js; git checkout 270a47f473ba51375a7df4076ee271777cc04467; \
-          npm ci && npm run build-prod-min;
-
-js/maplibre-gl.js: build/maplibre-js/dist/maplibre-gl.js
-	cp build/maplibre-js/dist/maplibre-gl.js js/maplibre-gl.js
-
 run: sprites config.js js/maplibre-gl.js
 	npx browser-sync -w --port 1776
