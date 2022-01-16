@@ -330,6 +330,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Europe
   shields["e-road"] = {
     backgroundImage: [
       shieldImages.shield40_eu_hw_2,
@@ -341,6 +342,18 @@ export function loadShields(shieldImages) {
       right: 15,
       top: 10,
       bottom: 10,
+    },
+  };
+
+  // Switzerland
+  shields["motorway"] = {
+    backgroundImage: shieldImages.shield40_eu_ch_2,
+    textColor: "white",
+    padding: {
+      left: 10,
+      right: 10,
+      top: 18,
+      bottom: 20,
     },
   };
 
