@@ -152,6 +152,10 @@ function drawShield(network, ref) {
   }
 
   if (shieldDef == null || shieldDef.notext != true) {
+    if (ref.length == 0) {
+      return null;
+    }
+
     var textLayout = ShieldText.layoutShieldText(ref, padding, shieldBounds);
 
     textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
