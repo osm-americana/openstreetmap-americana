@@ -19,7 +19,11 @@ function loadShield(ctx, shield, bannerCount, scale) {
   drawCtx.putImageData(imgData, 0, 0);
 
   ctx.scale(scale, scale);
-  ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
+  ctx.drawImage(
+    drawCtx.canvas,
+    0,
+    (bannerCount * ShieldDef.bannerSizeH) / scale
+  );
   ctx.scale(1 / scale, 1 / scale);
 }
 
@@ -33,14 +37,6 @@ function drawBanners(ctx, network) {
   ctx.fillStyle = "black";
 
   for (var i = 0; i < shieldDef.modifiers.length; i++) {
-    ctx.fillStyle = "magenta"; //debug
-    ctx.fillRect(
-      0,
-      i * ShieldDef.bannerSizeH,
-      ctx.canvas.width,
-      ShieldDef.bannerSizeH
-    );
-    ctx.fillStyle = "black"; //debug
     ShieldText.drawBannerText(ctx, shieldDef.modifiers[i], i);
   }
 
