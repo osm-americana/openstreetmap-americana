@@ -5,19 +5,12 @@ import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
 
-function loadShield(ctx, shield, bannerCount) {
+function loadShield(ctx, shield, bannerCount, scale) {
   var drawCtx = Gfx.getGfxContext(shield.data);
   var imgData = drawCtx.createImageData(shield.data.width, shield.data.height);
 
   for (var i = 0; i < shield.data.data.length; i++) {
     imgData.data[i] = shield.data.data[i];
-  }
-
-  var scale = 1;
-
-  //Scaling for 1x devices
-  if (shield.data.width < 50 || shield.data.height < 50) {
-    scale = 2;
   }
 
   ctx.canvas.width *= scale;
@@ -40,6 +33,14 @@ function drawBanners(ctx, network) {
   ctx.fillStyle = "black";
 
   for (var i = 0; i < shieldDef.modifiers.length; i++) {
+    ctx.fillStyle = "magenta"; //debug
+    ctx.fillRect(
+      0,
+      i * ShieldDef.bannerSizeH,
+      ctx.canvas.width,
+      ShieldDef.bannerSizeH
+    );
+    ctx.fillStyle = "black"; //debug
     ShieldText.drawBannerText(ctx, shieldDef.modifiers[i], i);
   }
 
@@ -137,12 +138,22 @@ function drawShield(network, ref) {
         return null;
       }
     } else {
-      compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
+      let scale = 1;
+
+      //Scaling for 1x devices
+      if (shieldArtwork.data.width < 50 || shieldArtwork.data.height < 50) {
+        scale = 2;
+      }
+
+      compoundBounds = compoundShieldSize(
+        shieldArtwork.data,
+        bannerCount * scale
+      );
       ctx = Gfx.getGfxContext(compoundBounds);
-      loadShield(ctx, shieldArtwork, bannerCount);
+      loadShield(ctx, shieldArtwork, bannerCount, scale);
       shieldBounds = {
-        width: ctx.canvas.width,
-        height: ctx.canvas.height,
+        width: shieldArtwork.data.width * scale,
+        height: shieldArtwork.data.height * scale,
       };
     }
   }
@@ -157,7 +168,6 @@ function drawShield(network, ref) {
     }
 
     var textLayout = ShieldText.layoutShieldText(ref, padding, shieldBounds);
-
     textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 
     ctx.fillStyle = textColor;
