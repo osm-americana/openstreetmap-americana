@@ -65,12 +65,15 @@ function getRasterShieldBlank(network, ref) {
   var bannerCount = 0;
   var bounds;
 
-  //Special cases
-  if (ref.length == 0) {
-    return ShieldDef.getNoRefArtwork(network);
+  if (typeof shieldDef == "undefined") {
+    return null;
   }
 
-  if (typeof shieldDef == "undefined") {
+  //Special cases
+  if (ref.length == 0) {
+    if (typeof shieldDef.norefImage != "undefined") {
+      return shieldDef.norefImage;
+    }
     return null;
   }
 
@@ -159,7 +162,7 @@ function drawShield(network, ref) {
   }
 
   if (shieldDef == null || shieldDef.notext != true) {
-    if (ref.length == 0) {
+    if (ref.length == 0 && typeof shieldDef.norefImage == "undefined") {
       return null;
     }
 

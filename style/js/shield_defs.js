@@ -6,7 +6,6 @@ import * as ShieldDraw from "./shield_canvas_draw.js";
 export const bannerSizeH = 40;
 
 export const shields = {};
-export const norefShields = {};
 
 export function loadShields(shieldImages) {
   // Multi-use shields
@@ -281,6 +280,7 @@ export function loadShields(shieldImages) {
 
   shields["US:PA:Turnpike"] = {
     backgroundImage: shieldImages.shield40_us_pa_turnpike,
+    norefImage: shieldImages.shield40_us_pa_turnpike_noref,
     textColor: "white",
     padding: {
       left: 8,
@@ -289,7 +289,6 @@ export function loadShields(shieldImages) {
       bottom: 22,
     },
   };
-  norefShields["US:PA:Turnpike"] = shieldImages.shield40_us_pa_turnpike_noref;
 
   shields["US:PA:Belt"] = {
     notext: true,
@@ -357,16 +356,6 @@ export function loadShields(shieldImages) {
   };
 
   return shields;
-}
-
-/**
- * Returns artwork, if any, that should be used on a route when no ref is specified.
- *
- * @param {*} network - Route network
- * @returns special case versions of route shields when there's no ref value
- */
-export function getNoRefArtwork(network) {
-  return norefShields[network];
 }
 
 /**
