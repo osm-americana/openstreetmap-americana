@@ -47,18 +47,16 @@ export function paBelt(ref) {
   return ctx;
 }
 
-export function circle() {
+export function circle(fill, outline) {
   var ctx = Gfx.getGfxContext(squareBounds);
   ctx.beginPath();
   ctx.arc(40, 40, 37.5, 0, 2 * Math.PI, false);
-  ctx.fillStyle = "white";
+  ctx.fillStyle = fill;
   ctx.fill();
 
   ctx.lineWidth = 5;
-  ctx.strokeStyle = "black";
+  ctx.strokeStyle = outline;
   ctx.stroke();
-
-  ctx.fillStyle = "black";
   return ctx;
 }
 

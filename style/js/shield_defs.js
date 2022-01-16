@@ -7,12 +7,9 @@ export const bannerSizeH = 40;
 
 export const shields = {};
 
-export function loadShields(shieldImages) {
-  // Multi-use shields
-
-  //Circle shield
-  var circleShield = {
-    backgroundDraw: ShieldDraw.circle,
+function circleShield(fillColor, strokeColor) {
+  return {
+    backgroundDraw: () => ShieldDraw.circle(fillColor, strokeColor),
     padding: {
       left: 11,
       right: 11,
@@ -20,6 +17,10 @@ export function loadShields(shieldImages) {
       bottom: 11,
     },
   };
+}
+
+export function loadShields(shieldImages) {
+  // Multi-use shields
 
   //Diamond shields
   var diamondShield = {
@@ -128,7 +129,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:CA:CR"] = usMUTCDCountyShield;
-  shields["US:DE"] = circleShield;
+  shields["US:DE"] = circleShield("white", "black");
 
   shields["US:GA"] = {
     backgroundImage: [
@@ -144,7 +145,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:IA"] = circleShield;
+  shields["US:IA"] = circleShield("white", "black");
 
   shields["US:KS"] = {
     backgroundImage: [
@@ -176,7 +177,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:MS"] = circleShield;
+  shields["US:MS"] = circleShield("white", "black");
   shields["US:NC"] = diamondShield;
 
   shields["US:NH"] = {
@@ -190,7 +191,8 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:NJ"] = circleShield;
+  shields["US:NM"] = circleShield("white", "red");
+  shields["US:NJ"] = circleShield("white", "black");
 
   shields["US:NJ:ACE"] = {
     backgroundImage: shieldImages.shield40_us_nj_ace_noref,
@@ -317,7 +319,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:VA:Secondary"] = circleShield;
+  shields["US:VA:Secondary"] = circleShield("white", "black");
 
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,
