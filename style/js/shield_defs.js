@@ -41,7 +41,7 @@ export function loadShields(shieldImages) {
       left: 10,
       right: 10,
       top: 14,
-      bottom: 15,
+      bottom: 23,
     },
   };
 
@@ -208,7 +208,28 @@ export function loadShields(shieldImages) {
     notext: true,
   };
 
-  shields["US:NJ:CR"] = usMUTCDCountyShield;
+  //New Jersey county routes with standard shields
+  [
+    "CR",
+    "Camden",
+    "Cumberland",
+    "Passaic",
+    "Burlington",
+    "Essex",
+    "Atlantic",
+    "Somerset",
+    "Sussex",
+    "Morris",
+    "Monmouth",
+    "Ocean",
+    "Middlesex",
+    "Mercer",
+    "Union",
+    "Warren",
+    "Hudson",
+    "Salem",
+    "Gloucester",
+  ].forEach((county) => (shields["US:NJ:" + county] = usMUTCDCountyShield));
 
   shields["US:NY"] = {
     backgroundImage: shieldImages.shield40_us_ny,
