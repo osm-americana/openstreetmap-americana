@@ -10,7 +10,7 @@ The purpose of the Americana style is to:
 - Challenge the status quo by showcasing innovation and invention
 - Promote collaboration and common purpose in the American mapping community
 
-The Americana style is the first digital map to achieve concurrent, state-specific highway shields arranged along the path of road.  Representative highway shield rendering is of considerable cartographic importance to the American community.  We do this proudly in an open source project using vector tile technology.
+The Americana style is the first digital map to achieve concurrent, state-specific highway shields arranged along the path of road. Representative highway shield rendering is of considerable cartographic importance to the American community. We do this proudly in an open source project using vector tile technology.
 
 ## Contributor's Guide
 
