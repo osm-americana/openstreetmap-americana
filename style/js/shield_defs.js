@@ -254,6 +254,11 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:NY:Thruway"] = {
+    norefImage: shieldImages.shield40_us_ny_thruway,
+    notext: true,
+  };
+
   shields["US:OH"] = {
     backgroundImage: [
       shieldImages.shield40_us_oh_2,
