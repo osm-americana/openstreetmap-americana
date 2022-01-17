@@ -259,6 +259,7 @@ export function loadShields(shieldImages) {
       shieldImages.shield40_us_oh_2,
       shieldImages.shield40_us_oh_3,
     ],
+    norefImage: shieldImages.shield40_us_oh_turnpike,
     textColor: "black",
     padding: {
       left: 10,
