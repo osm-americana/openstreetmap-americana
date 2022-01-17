@@ -145,6 +145,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:HI"] = {
+    backgroundImage: shieldImages.shield40_us_hi,
+    textColor: "black",
+    padding: {
+      left: 13,
+      right: 13,
+      top: 25,
+      bottom: 13,
+    },
+  };
+
   shields["US:IA"] = circleShield("white", "black");
 
   shields["US:KS"] = {
