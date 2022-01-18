@@ -339,6 +339,21 @@ class Primary extends Road {
       `hsl(${this.hue}, 0%, 23%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+
+    this.constraints = ["!=", "expressway", 1];
+  }
+}
+
+class PrimaryExpressway extends Primary {
+  constructor() {
+    super();
+
+    this.minZoomFill = 7;
+
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.7);
+    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.9);
+
+    this.constraints = ["==", "expressway", 1];
   }
 }
 
@@ -447,6 +462,10 @@ class PrimaryLink extends Primary {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.45);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.45);
+
+    // For now, don't differentiate on Expressway/not for trunk-link.
+    // Not sure if this is desirable or not.
+    this.constraints = null;
   }
 }
 
@@ -500,6 +519,14 @@ class TrunkExpresswayBridge extends TrunkExpressway {
 }
 
 class PrimaryBridge extends Primary {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class PrimaryExpresswayBridge extends PrimaryExpressway {
   constructor() {
     //undifferentiated
     super();
@@ -627,6 +654,7 @@ export const motorway = new Motorway();
 export const trunk = new Trunk();
 export const trunkExpressway = new TrunkExpressway();
 export const primary = new Primary();
+export const primaryExpressway = new PrimaryExpressway();
 export const secondary = new Secondary();
 export const tertiary = new Tertiary();
 
@@ -634,6 +662,7 @@ export const motorwayBridge = new MotorwayBridge();
 export const trunkBridge = new TrunkBridge();
 export const trunkExpresswayBridge = new TrunkExpresswayBridge();
 export const primaryBridge = new PrimaryBridge();
+export const primaryExpresswayBridge = new PrimaryExpresswayBridge();
 export const secondaryBridge = new SecondaryBridge();
 export const tertiaryBridge = new TertiaryBridge();
 
