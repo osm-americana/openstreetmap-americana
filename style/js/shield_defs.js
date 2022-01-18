@@ -364,6 +364,28 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["CZ:national"] = {
+    backgroundImage: shieldImages.shield40_eu_cz_2,
+    textColor: "white",
+    padding: {
+      left: 10,
+      right: 10,
+      top: 15,
+      bottom: 17,
+    },
+  };
+
+  shields["cz:national"] = {
+    backgroundImage: shieldImages.shield40_eu_cz_prim_2,
+    textColor: "white",
+    padding: {
+      left: 10,
+      right: 10,
+      top: 15,
+      bottom: 17,
+    },
+  };
+
   shields["IT:A-road"] = {
     backgroundImage: [
       shieldImages.shield40_eu_it_2,
