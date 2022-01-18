@@ -364,6 +364,21 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["IT:A-road"] = {
+    backgroundImage: [
+      shieldImages.shield40_eu_it_2,
+      shieldImages.shield40_eu_it_3,
+      shieldImages.shield40_eu_it_4,
+    ],
+    textColor: "white",
+    padding: {
+      left: 6,
+      right: 6,
+      top: 20,
+      bottom: 20,
+    },
+  }; 
+
   // Switzerland
   shields["motorway"] = {
     backgroundImage: shieldImages.shield40_eu_ch_2,
