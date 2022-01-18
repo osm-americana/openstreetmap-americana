@@ -164,7 +164,8 @@ class Road {
       "surface",
       this.brunnel,
       Math.min(this.minZoomCasing, this.minZoomFill),
-      this.link
+      this.link,
+      this.constraints
     );
     layer.filter.push(["==", "surface", "unpaved"]);
     layer.layout = layoutRoadSurface;
@@ -278,6 +279,36 @@ class Trunk extends Road {
     this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
     this.casingColor = `hsl(${this.hue}, 70%, 18%)`;
     this.surfaceColor = `hsl(${this.hue}, 95%, 80%)`;
+
+    this.constraints = ["!=", "expressway", 1];
+  }
+}
+
+let trunkExpresswayFillWidth = [
+  [7, 0.8],
+  [9, 1],
+  [20, 16],
+];
+let trunkExpresswayCasingWidth = [
+  [7, 1.5],
+  [9, 3],
+  [20, 22],
+];
+
+class TrunkExpressway extends Trunk {
+  constructor() {
+    super();
+
+    this.minZoomFill = 5;
+    this.minZoomCasing = 5;
+
+    this.fillWidth = trunkExpresswayFillWidth;
+    this.casingWidth = trunkExpresswayCasingWidth;
+
+    this.fillColor = `hsl(${this.hue}, 95%, 95%)`;
+    this.casingColor = `hsl(${this.hue}, 77%, 50%)`;
+
+    this.constraints = ["==", "expressway", 1];
   }
 }
 
@@ -402,6 +433,10 @@ class TrunkLink extends Trunk {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
+
+    // For now, don't differentiate on Expressway/not for trunk-link.
+    // Not sure if this is desirable or not.
+    this.constraints = null;
   }
 }
 
@@ -453,6 +488,14 @@ class TrunkBridge extends Trunk {
     super();
     this.brunnel = "bridge";
     this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
+  }
+}
+
+class TrunkExpresswayBridge extends TrunkExpressway {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    // this.casingColor = `hsl(${this.hue}, 70%, 25%)`;
   }
 }
 
@@ -546,6 +589,14 @@ class TrunkTunnel extends Trunk {
   }
 }
 
+class TrunkExpresswayTunnel extends TrunkExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 41%, 85%)`;
+  }
+}
+
 class MotorwayLinkTunnel extends MotorwayLink {
   constructor() {
     super();
@@ -574,18 +625,21 @@ class TrunkLinkTunnel extends TrunkLink {
 export const interstate = new InterstateMotorway();
 export const motorway = new Motorway();
 export const trunk = new Trunk();
+export const trunkExpressway = new TrunkExpressway();
 export const primary = new Primary();
 export const secondary = new Secondary();
 export const tertiary = new Tertiary();
 
 export const motorwayBridge = new MotorwayBridge();
 export const trunkBridge = new TrunkBridge();
+export const trunkExpresswayBridge = new TrunkExpresswayBridge();
 export const primaryBridge = new PrimaryBridge();
 export const secondaryBridge = new SecondaryBridge();
 export const tertiaryBridge = new TertiaryBridge();
 
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();
+export const trunkExpresswayTunnel = new TrunkExpresswayTunnel();
 
 export const motorwayLink = new MotorwayLink();
 export const trunkLink = new TrunkLink();
