@@ -377,7 +377,7 @@ export function loadShields(shieldImages) {
       top: 20,
       bottom: 20,
     },
-  }; 
+  };
 
   // Switzerland
   shields["motorway"] = {
@@ -399,6 +399,17 @@ export function loadShields(shieldImages) {
       right: 13,
       top: 13,
       bottom: 23,
+    },
+  };
+
+  shields["sk:national"] = {
+    backgroundImage: shieldImages.shield40_eu_sk_2,
+    textColor: "white",
+    padding: {
+      left: 10,
+      right: 10,
+      top: 15,
+      bottom: 17,
     },
   };
 
