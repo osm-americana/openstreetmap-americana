@@ -356,7 +356,7 @@ export function loadShields(shieldImages) {
       left: 8,
       right: 9,
       top: 10,
-      bottom: 15,
+      bottom: 16,
     },
   };
 
