@@ -12,7 +12,7 @@ import * as ShieldDef from "./shield_defs.js";
  * @param {*} bounds - size of the overall graphics area
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldText(text, padding, bounds) {
+export function layoutShieldText(text, padding, bounds, retina) {
   var padding = padding || {};
   var padTop = padding.top || 0;
   var padBot = padding.bottom || 0;
@@ -28,8 +28,8 @@ export function layoutShieldText(text, padding, bounds) {
 
   var metrics = ctx.measureText(text);
 
-  var width = bounds.width;
-  var height = bounds.height;
+  var width = bounds.width * (retina ? 2 : 1);
+  var height = bounds.height * (retina ? 2 : 1);
 
   var textWidth = metrics.width;
   var textHeight = metrics.actualBoundingBoxDescent;
