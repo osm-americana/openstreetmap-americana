@@ -287,11 +287,13 @@ class Trunk extends Road {
 let trunkExpresswayFillWidth = [
   [7, 0.8],
   [9, 1],
+  [12, 3.5],
   [20, 16],
 ];
 let trunkExpresswayCasingWidth = [
   [7, 1.5],
   [9, 3],
+  [12, 6],
   [20, 22],
 ];
 
