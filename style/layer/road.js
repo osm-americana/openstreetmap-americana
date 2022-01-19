@@ -429,6 +429,21 @@ class Tertiary extends Road {
       `hsl(${this.hue}, 0%, 23%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+
+    this.constraints = ["!=", "expressway", 1];
+  }
+}
+
+class TertiaryExpressway extends Tertiary {
+  constructor() {
+    super();
+
+    this.minZoomFill = 11;
+
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.3);
+    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.5);
+
+    this.constraints = ["==", "expressway", 1];
   }
 }
 
@@ -505,6 +520,10 @@ class TertiaryLink extends Tertiary {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.25);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.25);
+
+    // For now, don't differentiate on Expressway/not for trunk-link.
+    // Not sure if this is desirable or not.
+    this.constraints = null;
   }
 }
 
@@ -570,6 +589,14 @@ class SecondaryExpresswayBridge extends SecondaryExpressway {
 }
 
 class TertiaryBridge extends Tertiary {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class TertiaryExpresswayBridge extends TertiaryExpressway {
   constructor() {
     //undifferentiated
     super();
@@ -685,6 +712,7 @@ export const primaryExpressway = new PrimaryExpressway();
 export const secondary = new Secondary();
 export const secondaryExpressway = new SecondaryExpressway();
 export const tertiary = new Tertiary();
+export const tertiaryExpressway = new TertiaryExpressway();
 
 export const motorwayBridge = new MotorwayBridge();
 export const trunkBridge = new TrunkBridge();
@@ -694,6 +722,7 @@ export const primaryExpresswayBridge = new PrimaryExpresswayBridge();
 export const secondaryBridge = new SecondaryBridge();
 export const secondaryExpresswayBridge = new SecondaryExpresswayBridge();
 export const tertiaryBridge = new TertiaryBridge();
+export const tertiaryExpresswayBridge = new TertiaryExpresswayBridge();
 
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();

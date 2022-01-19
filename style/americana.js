@@ -62,6 +62,7 @@ americanaLayers.push(
   lyrRoad.primary.casing(),
   lyrRoad.secondaryExpressway.casing(),
   lyrRoad.secondary.casing(),
+  lyrRoad.tertiaryExpressway.casing(),
   lyrRoad.tertiary.casing(),
 
   lyrRoad.motorwayLink.casing(),
@@ -71,6 +72,7 @@ americanaLayers.push(
   lyrRoad.trunkLink.fill(),
 
   lyrRoad.tertiary.fill(),
+  lyrRoad.tertiaryExpressway.fill(),
   lyrRoad.secondary.fill(),
   lyrRoad.secondaryExpressway.fill(),
   lyrRoad.primary.fill(),
@@ -84,6 +86,7 @@ americanaLayers.push(
   lyrRoad.trunkLink.surface(),
 
   lyrRoad.tertiary.surface(),
+  lyrRoad.tertiaryExpressway.surface(),
   lyrRoad.secondary.surface(),
   lyrRoad.secondaryExpressway.surface(),
   lyrRoad.primary.surface(),
@@ -98,8 +101,10 @@ americanaLayers.push(
 
 var bridgeLayers = [
   lyrRoad.tertiaryBridge.casing(),
+  lyrRoad.tertiaryExpresswayBridge.casing(),
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.tertiaryBridge.fill(),
+  lyrRoad.tertiaryExpresswayBridge.fill(),
   lyrRoad.tertiaryLinkBridge.fill(),
   lyrRoad.tertiaryBridge.surface(),
   lyrRoad.tertiaryLinkBridge.surface(),
