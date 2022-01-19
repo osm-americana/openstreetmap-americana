@@ -64,6 +64,7 @@ function getRasterShieldBlank(network, ref) {
   var textLayout;
   var bannerCount = 0;
   var bounds;
+  var retina = true;
 
   if (typeof shieldDef == "undefined") {
     return null;
@@ -80,8 +81,16 @@ function getRasterShieldBlank(network, ref) {
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shieldArtwork = shieldDef.backgroundImage[i];
+      if (Math.min(shieldArtwork.height, shieldArtwork.width) < 50) {
+        retina = false;
+      }
       bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-      textLayout = ShieldText.layoutShieldText(ref, shieldDef.padding, bounds);
+      textLayout = ShieldText.layoutShieldText(
+        ref,
+        shieldDef.padding,
+        bounds,
+        retina
+      );
       if (textLayout.fontPx > Gfx.fontSizeThreshold) {
         break;
       }
@@ -166,7 +175,12 @@ function drawShield(network, ref) {
       return null;
     }
 
-    var textLayout = ShieldText.layoutShieldText(ref, padding, shieldBounds);
+    var textLayout = ShieldText.layoutShieldText(
+      ref,
+      padding,
+      shieldBounds,
+      false
+    );
     textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 
     ctx.fillStyle = textColor;
