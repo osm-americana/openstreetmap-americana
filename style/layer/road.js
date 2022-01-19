@@ -293,8 +293,8 @@ let trunkExpresswayFillWidth = [
 let trunkExpresswayCasingWidth = [
   [7, 1.5],
   [9, 3],
-  [12, 6],
-  [20, 22],
+  [12, 7],
+  [20, 28],
 ];
 
 class TrunkExpressway extends Trunk {
@@ -352,7 +352,7 @@ class PrimaryExpressway extends Primary {
 
     this.minZoomFill = 7;
 
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.7);
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 1.0);
     this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.9);
 
     this.constraints = ["==", "expressway", 1];
@@ -397,8 +397,8 @@ class SecondaryExpressway extends Secondary {
 
     this.minZoomFill = 9;
 
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.4);
-    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.6);
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.7);
+    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.7);
 
     this.constraints = ["==", "expressway", 1];
   }
@@ -442,7 +442,7 @@ class TertiaryExpressway extends Tertiary {
 
     this.minZoomFill = 11;
 
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.3);
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.5);
 
     this.constraints = ["==", "expressway", 1];
