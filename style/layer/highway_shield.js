@@ -11,27 +11,17 @@ function routeConcurrency(num) {
   ];
 }
 
-function routeSpacer(num) {
-  return [
-    "case",
-    ["!=", ["get", "route_" + num], null],
-    ["image", "spacer"],
-    ["literal", ""],
-  ];
-}
-
 let shieldTextField = ["format"];
-for (var i = 1; i <= 5; i++) {
+for (var i = 1; i <= 6; i++) {
   shieldTextField.push(routeConcurrency(i));
-  shieldTextField.push(routeSpacer(i + 1));
 }
-shieldTextField.push(routeConcurrency(6));
 
 let shieldLayout = {
   "text-rotate-to-line": false,
   "text-font": ["Metropolis Light"],
   "text-field": shieldTextField,
   "text-anchor": "center",
+  "text-letter-spacing": 0.7,
   "symbol-placement": "line",
 };
 
