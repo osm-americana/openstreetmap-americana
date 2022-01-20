@@ -50,6 +50,13 @@ function compoundShieldSize(dimension, bannerCount) {
   };
 }
 
+function isValidRef(ref) {
+  if (ref == null || ref.length == 0 || ref.length > 5) {
+    return false;
+  }
+  return true;
+}
+
 /**
  * Retrieve the shield blank that goes with a particular route.  If there are
  * multiple shields for a route (different widths), it picks the best shield.
@@ -71,7 +78,7 @@ function getRasterShieldBlank(network, ref) {
   }
 
   //Special cases
-  if (ref.length == 0) {
+  if (!isValidRef(ref)) {
     if (typeof shieldDef.norefImage != "undefined") {
       return shieldDef.norefImage;
     }
@@ -102,10 +109,16 @@ function getRasterShieldBlank(network, ref) {
   return shieldArtwork;
 }
 
+function textColor(shieldDef) {
+  if (shieldDef != null && typeof shieldDef.textColor != "undefined") {
+    return shieldDef.textColor;
+  }
+  return "black";
+}
+
 function drawShield(network, ref) {
   var shieldDef = ShieldDef.shields[network];
   var ctx = null;
-  var textColor = "black";
   var bannerCount = 0;
   var padding = null;
 
@@ -166,26 +179,32 @@ function drawShield(network, ref) {
     }
   }
 
-  if (shieldDef != null && typeof shieldDef.textColor != "undefined") {
-    textColor = shieldDef.textColor;
-  }
-
-  if (shieldDef == null || shieldDef.notext != true) {
-    if (ref.length == 0 && typeof shieldDef.norefImage == "undefined") {
-      return null;
+  if (!isValidRef(ref)) {
+    if (shieldDef != null && typeof shieldDef.norefImage == "undefined") {
+      //Valid shield with no ref to draw
+      return ctx;
     }
-
-    var textLayout = ShieldText.layoutShieldText(
-      ref,
-      padding,
-      shieldBounds,
-      false
-    );
-    textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
-
-    ctx.fillStyle = textColor;
-    ShieldText.drawShieldText(ctx, ref, textLayout);
+    //No ref to draw, therefore draw nothing
+    return null;
   }
+
+  if (shieldDef != null && shieldDef.notext == true) {
+    //If the shield definition says not to draw a ref, ignore ref
+    return ctx;
+  }
+
+  //The ref is valid and we're supposed to draw it
+
+  var textLayout = ShieldText.layoutShieldText(
+    ref,
+    padding,
+    shieldBounds,
+    false
+  );
+  textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
+
+  ctx.fillStyle = textColor(shieldDef);
+  ShieldText.drawShieldText(ctx, ref, textLayout);
 
   return ctx;
 }
