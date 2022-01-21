@@ -351,6 +351,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:WA"] = {
+    backgroundImage: shieldImages.shield40_us_wa,
+    textColor: "black",
+    padding: {
+      left: 15,
+      right: 18,
+      top: 12,
+      bottom: 26,
+    },
+  };
+
   // Europe
   shields["e-road"] = {
     backgroundImage: [
