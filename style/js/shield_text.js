@@ -3,6 +3,23 @@
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldDef from "./shield_defs.js";
 
+export function ellipseTextConstraint(spaceBounds, textBounds) {
+  var a = spaceBounds.height;
+  var b = spaceBounds.width;
+
+  var x0 = textBounds.width;
+  var y0 = textBounds.height;
+
+  return (a * b) / Math.sqrt(a * a * y0 * y0 + b * b * x0 * x0);
+}
+
+export function rectTextConstraint(spaceBounds, textBounds) {
+  var scaleHeight = spaceBounds.height / textBounds.height;
+  var scaleWidth = spaceBounds.width / textBounds.width;
+
+  return Math.min(scaleWidth, scaleHeight);
+}
+
 /**
  * Determines the position and font size to draw text so that it fits within
  * a bounding box.
@@ -10,9 +27,17 @@ import * as ShieldDef from "./shield_defs.js";
  * @param {*} text - text to draw
  * @param {*} padding - top/bottom/left/right padding around text
  * @param {*} bounds - size of the overall graphics area
+ * @param {*} retina - if true, use retina-scaled graphics
+ * @param {*} textLayoutFunc - algorithm for text scaling
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldText(text, padding, bounds, retina) {
+export function layoutShieldText(
+  text,
+  padding,
+  bounds,
+  retina,
+  textLayoutFunc
+) {
   var padding = padding || {};
   var padTop = padding.top || 0;
   var padBot = padding.bottom || 0;
@@ -39,10 +64,10 @@ export function layoutShieldText(text, padding, bounds, retina) {
 
   var xBaseline = padLeft + availWidth / 2;
 
-  var scaleHeight = availHeight / textHeight;
-  var scaleWidth = availWidth / textWidth;
-
-  var scale = Math.min(scaleWidth, scaleHeight);
+  var scale = textLayoutFunc(
+    { height: availHeight, width: availWidth },
+    { height: textHeight, width: textWidth }
+  );
 
   var fontSize = Math.min(Gfx.fontSizeMax, Gfx.fontSizeThreshold * scale);
 
