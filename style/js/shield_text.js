@@ -69,7 +69,7 @@ export function layoutShieldText(
     { height: textHeight, width: textWidth }
   );
 
-  var fontSize = Math.min(Gfx.fontSizeMax, Gfx.fontSizeThreshold * scale);
+  var fontSize = Gfx.fontSizeThreshold * scale;
 
   ctx.font = Gfx.shieldFont(fontSize);
   ctx.textAlign = "center";
@@ -78,14 +78,12 @@ export function layoutShieldText(
   metrics = ctx.measureText(text);
   textHeight = metrics.actualBoundingBoxDescent;
 
-  var scaledHeight = textHeight * scale;
-
-  var yBaseline = padTop + (availHeight - scaledHeight) / 2;
+  var yBaseline = padTop + (availHeight - textHeight) / 2;
 
   return {
     xBaseline: xBaseline,
     yBaseline: yBaseline,
-    fontPx: fontSize * scale,
+    fontPx: fontSize,
   };
 }
 
