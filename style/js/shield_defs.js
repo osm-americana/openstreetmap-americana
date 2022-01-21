@@ -355,10 +355,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_wa,
     textColor: "black",
     padding: {
-      left: 8,
-      right: 9,
+      left: 13,
+      right: 17,
       top: 10,
-      bottom: 16,
+      bottom: 20,
     },
   };
 
