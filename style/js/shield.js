@@ -203,7 +203,10 @@ function drawShield(network, ref) {
 
   var textLayoutFunc = ShieldText.rectTextConstraint;
 
-  if (typeof shieldDef.textLayoutConstraint != "undefined") {
+  if (
+    shieldDef != null &&
+    typeof shieldDef.textLayoutConstraint != "undefined"
+  ) {
     textLayoutFunc = shieldDef.textLayoutConstraint;
   }
 
