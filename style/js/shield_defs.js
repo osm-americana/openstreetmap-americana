@@ -1,6 +1,7 @@
 "use strict";
 
 import * as ShieldDraw from "./shield_canvas_draw.js";
+import * as ShieldText from "./shield_text.js";
 
 //Height of modifier banners
 export const bannerSizeH = 40;
@@ -10,11 +11,12 @@ export const shields = {};
 function circleShield(fillColor, strokeColor) {
   return {
     backgroundDraw: () => ShieldDraw.circle(fillColor, strokeColor),
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
-      left: 11,
-      right: 11,
-      top: 11,
-      bottom: 11,
+      left: 2,
+      right: 2,
+      top: 10,
+      bottom: 10,
     },
   };
 }

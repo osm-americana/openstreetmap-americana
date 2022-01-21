@@ -72,9 +72,14 @@ function getRasterShieldBlank(network, ref) {
   var bannerCount = 0;
   var bounds;
   var retina = true;
+  var textLayoutFunc = ShieldText.rectTextConstraint;
 
   if (typeof shieldDef == "undefined") {
     return null;
+  }
+
+  if (typeof shieldDef.textLayoutConstraint != "undefined") {
+    textLayoutFunc = shieldDef.textLayoutConstraint;
   }
 
   //Special cases
@@ -96,7 +101,8 @@ function getRasterShieldBlank(network, ref) {
         ref,
         shieldDef.padding,
         bounds,
-        retina
+        retina,
+        textLayoutFunc
       );
       if (textLayout.fontPx > Gfx.fontSizeThreshold) {
         break;
@@ -195,11 +201,21 @@ function drawShield(network, ref) {
 
   //The ref is valid and we're supposed to draw it
 
+  var textLayoutFunc = ShieldText.rectTextConstraint;
+
+  if (
+    shieldDef != null &&
+    typeof shieldDef.textLayoutConstraint != "undefined"
+  ) {
+    textLayoutFunc = shieldDef.textLayoutConstraint;
+  }
+
   var textLayout = ShieldText.layoutShieldText(
     ref,
     padding,
     shieldBounds,
-    false
+    false,
+    textLayoutFunc
   );
   textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 
