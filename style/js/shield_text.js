@@ -119,7 +119,9 @@ export function drawBannerText(ctx, text, bannerIndex) {
       top: 0,
       bottom: 0,
     },
-    { width: ctx.canvas.width, height: ShieldDef.bannerSizeH }
+    { width: ctx.canvas.width, height: ShieldDef.bannerSizeH },
+    false, //Might be a problem at 1X but seems to work
+    rectTextConstraint
   );
 
   ctx.textBaseline = "top";
