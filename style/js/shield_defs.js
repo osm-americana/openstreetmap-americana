@@ -29,10 +29,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_nc,
     textColor: "black",
     padding: {
-      left: 17,
-      right: 17,
-      top: 17,
-      bottom: 17,
+      left: 5,
+      right: 5,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -40,10 +40,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_county,
     textColor: "#f7d117",
     padding: {
-      left: 10,
-      right: 10,
-      top: 14,
-      bottom: 23,
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 6,
     },
   };
 
@@ -68,10 +68,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 12,
-      right: 12,
-      top: 20,
-      bottom: 20,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -123,10 +123,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 13,
-      right: 13,
-      top: 25,
-      bottom: 10,
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 4,
     },
   };
 
@@ -197,10 +197,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_nh,
     textColor: "black",
     padding: {
-      left: 9,
-      right: 5,
-      top: 16,
-      bottom: 16,
+      left: 3,
+      right: 2,
+      top: 4,
+      bottom: 5,
     },
   };
 
@@ -344,10 +344,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_vt,
     textColor: "#006b54",
     padding: {
-      left: 8,
-      right: 8,
-      top: 12,
-      bottom: 12,
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 5,
     },
   };
 
