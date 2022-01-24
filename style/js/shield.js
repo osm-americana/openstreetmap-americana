@@ -5,7 +5,7 @@ import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
 
-function loadShield(ctx, shield, bannerCount, scale) {
+function loadShield(ctx, shield, bannerCount) {
   var drawCtx = Gfx.getGfxContext(shield.data);
   var imgData = drawCtx.createImageData(shield.data.width, shield.data.height);
 
@@ -13,18 +13,13 @@ function loadShield(ctx, shield, bannerCount, scale) {
     imgData.data[i] = shield.data.data[i];
   }
 
-  ctx.canvas.width *= scale;
-  ctx.canvas.height *= scale;
-
   drawCtx.putImageData(imgData, 0, 0);
 
-  ctx.scale(scale, scale);
   ctx.drawImage(
     drawCtx.canvas,
     0,
-    (bannerCount * ShieldDef.bannerSizeH) / scale
+    (bannerCount * ShieldDef.bannerSizeH)
   );
-  ctx.scale(1 / scale, 1 / scale);
 }
 
 function drawBanners(ctx, network) {
@@ -71,7 +66,6 @@ function getRasterShieldBlank(network, ref) {
   var textLayout;
   var bannerCount = 0;
   var bounds;
-  var retina = true;
   var textLayoutFunc = ShieldText.rectTextConstraint;
 
   if (typeof shieldDef == "undefined") {
@@ -93,18 +87,15 @@ function getRasterShieldBlank(network, ref) {
   if (Array.isArray(shieldDef.backgroundImage)) {
     for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
       shieldArtwork = shieldDef.backgroundImage[i];
-      if (Math.min(shieldArtwork.height, shieldArtwork.width) < 50) {
-        retina = false;
-      }
+
       bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
       textLayout = ShieldText.layoutShieldText(
         ref,
         shieldDef.padding,
         bounds,
-        retina,
         textLayoutFunc
       );
-      if (textLayout.fontPx > Gfx.fontSizeThreshold) {
+      if (textLayout.fontPx > Gfx.fontSizeThreshold * Gfx.getPixelRatio()) {
         break;
       }
     }
@@ -127,6 +118,7 @@ function drawShield(network, ref) {
   var ctx = null;
   var bannerCount = 0;
   var padding = null;
+  const PXR = ShieldDraw.PXR;
 
   if (shieldDef == null) {
     if (ref == "") {
@@ -140,10 +132,10 @@ function drawShield(network, ref) {
       height: ctx.canvas.height,
     };
     padding = {
-      left: 4,
-      right: 4,
-      top: 18,
-      bottom: 18,
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 5,
     };
   } else {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
@@ -165,22 +157,15 @@ function drawShield(network, ref) {
         return null;
       }
     } else {
-      let scale = 1;
-
-      //Scaling for 1x devices
-      if (shieldArtwork.data.width < 50 || shieldArtwork.data.height < 50) {
-        scale = 2;
-      }
-
       compoundBounds = compoundShieldSize(
         shieldArtwork.data,
-        bannerCount * scale
+        bannerCount
       );
       ctx = Gfx.getGfxContext(compoundBounds);
-      loadShield(ctx, shieldArtwork, bannerCount, scale);
+      loadShield(ctx, shieldArtwork, bannerCount);
       shieldBounds = {
-        width: shieldArtwork.data.width * scale,
-        height: shieldArtwork.data.height * scale,
+        width: shieldArtwork.data.width,
+        height: shieldArtwork.data.height,
       };
     }
   }
@@ -214,7 +199,6 @@ function drawShield(network, ref) {
     ref,
     padding,
     shieldBounds,
-    false,
     textLayoutFunc
   );
   textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
@@ -261,40 +245,25 @@ export function missingIconLoader(map, e) {
   //Add modifier plaques above shields
   drawBanners(ctx, network);
 
-  var scale = window.devicePixelRatio / 4;
-
-  var scaleCtx = Gfx.getGfxContext({
-    width: ctx.canvas.width * scale,
-    height: ctx.canvas.height * scale,
-  });
-
-  scaleCtx.scale(scale, scale);
-  scaleCtx.drawImage(ctx.canvas, 0, 0);
-
   if (colorLighten != null) {
-    scaleCtx.globalCompositeOperation = "lighten";
-    scaleCtx.fillStyle = colorLighten;
-    scaleCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    scaleCtx.globalCompositeOperation = "destination-atop";
-    scaleCtx.drawImage(ctx.canvas, 0, 0);
+    ctx.globalCompositeOperation = "lighten";
+    ctx.fillStyle = colorLighten;
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.globalCompositeOperation = "destination-atop";
+    ctx.drawImage(ctx.canvas, 0, 0);
   }
 
-  var imgData = scaleCtx.getImageData(
-    0,
-    0,
-    scaleCtx.canvas.width,
-    scaleCtx.canvas.height
-  );
+  var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   map.addImage(
     id,
     {
-      width: scaleCtx.canvas.width,
-      height: scaleCtx.canvas.height,
+      width: ctx.canvas.width,
+      height: ctx.canvas.height,
       data: imgData.data,
     },
     {
-      pixelRatio: window.devicePixelRatio,
+      pixelRatio: ShieldDraw.PXR,
     }
   );
 }

@@ -15,8 +15,8 @@ function circleShield(fillColor, strokeColor) {
     padding: {
       left: 2,
       right: 2,
-      top: 10,
-      bottom: 10,
+      top: 4,
+      bottom: 5,
     },
   };
 }
@@ -54,10 +54,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 12,
-      right: 12,
-      top: 20,
-      bottom: 20,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -83,10 +83,10 @@ export function loadShields(shieldImages) {
     shieldImages.shield40_us_us_3,
   ];
   var padding_us_us = {
-    left: 10,
-    right: 10,
-    top: 17,
-    bottom: 20,
+    left: 2,
+    right: 2,
+    top: 4,
+    bottom: 5,
   };
 
   shields["US:US"] = {
