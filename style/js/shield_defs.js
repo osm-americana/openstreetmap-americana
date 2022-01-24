@@ -473,6 +473,10 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Croatia
+  shields["Autoceste"] = shields["SI:AC"];
+  shields["Državne ceste"] = shields["cz:national"];
+
   return shields;
 }
 
