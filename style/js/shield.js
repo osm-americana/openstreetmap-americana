@@ -15,11 +15,7 @@ function loadShield(ctx, shield, bannerCount) {
 
   drawCtx.putImageData(imgData, 0, 0);
 
-  ctx.drawImage(
-    drawCtx.canvas,
-    0,
-    (bannerCount * ShieldDef.bannerSizeH)
-  );
+  ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
 }
 
 function drawBanners(ctx, network) {
@@ -157,10 +153,7 @@ function drawShield(network, ref) {
         return null;
       }
     } else {
-      compoundBounds = compoundShieldSize(
-        shieldArtwork.data,
-        bannerCount
-      );
+      compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
       ctx = Gfx.getGfxContext(compoundBounds);
       loadShield(ctx, shieldArtwork, bannerCount);
       shieldBounds = {
@@ -171,7 +164,10 @@ function drawShield(network, ref) {
   }
 
   if (!isValidRef(ref)) {
-    if (shieldDef != null && ('norefImage' in shieldDef || 'backgroundDraw' in shieldDef)) {
+    if (
+      shieldDef != null &&
+      ("norefImage" in shieldDef || "backgroundDraw" in shieldDef)
+    ) {
       //Valid shield with no ref to draw
       return ctx;
     }

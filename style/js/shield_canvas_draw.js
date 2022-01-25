@@ -9,18 +9,17 @@ import * as Gfx from "./screen_gfx.js";
 export const PXR = Gfx.getPixelRatio();
 
 // Canvas size in pixels.  Used for width and height of square canvas.
-const CS = 20 * PXR
+const CS = 20 * PXR;
 
 var squareBounds = { width: CS, height: CS };
-
 
 export function paBelt(ref) {
   var ctx = square();
 
-  let lineWidth = 1 * PXR
-  let diameter = CS/3 - lineWidth
+  let lineWidth = 1 * PXR;
+  let diameter = CS / 3 - lineWidth;
   ctx.beginPath();
-  ctx.arc(CS/2, CS/2, diameter, 0, 2 * Math.PI, false);
+  ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
 
   switch (ref) {
     case "Red Belt":
@@ -51,27 +50,27 @@ export function paBelt(ref) {
 
 export function circle(fill, outline) {
   var ctx = Gfx.getGfxContext(squareBounds);
-  let lineWidth = 1 * PXR
-  let diameter = CS/2 - lineWidth
+  let lineWidth = 1 * PXR;
+  let diameter = CS / 2 - lineWidth;
   ctx.beginPath();
-  ctx.arc(CS/2, CS/2, diameter, 0, 2 * Math.PI, false);
+  ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
   ctx.fillStyle = fill;
   ctx.fill();
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = outline;
-  ctx.stroke(); 
+  ctx.stroke();
   return ctx;
 }
 
 export function square() {
   var ctx = Gfx.getGfxContext(squareBounds);
-  let lineWidth = 1 * PXR
-  let rectSize = CS - lineWidth
+  let lineWidth = 1 * PXR;
+  let rectSize = CS - lineWidth;
   ctx.fillStyle = "white";
-  ctx.fillRect(lineWidth/2, lineWidth/2, rectSize, rectSize);
+  ctx.fillRect(lineWidth / 2, lineWidth / 2, rectSize, rectSize);
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = "black";
-  ctx.strokeRect(lineWidth/2, lineWidth/2, rectSize, rectSize);
+  ctx.strokeRect(lineWidth / 2, lineWidth / 2, rectSize, rectSize);
   ctx.fillStyle = "black";
   return ctx;
 }

@@ -30,18 +30,13 @@ export function rectTextConstraint(spaceBounds, textBounds) {
  * @param {*} textLayoutFunc - algorithm for text scaling
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldText(
-  text,
-  padding,
-  bounds,
-  textLayoutFunc
-) {
+export function layoutShieldText(text, padding, bounds, textLayoutFunc) {
   const PXR = Gfx.getPixelRatio();
   var padding = padding || {};
   var padTop = padding.top * PXR || 0;
-  var padBot = padding.bottom * PXR  || 0;
-  var padLeft = padding.left * PXR  || 0;
-  var padRight = padding.right * PXR  || 0;
+  var padBot = padding.bottom * PXR || 0;
+  var padLeft = padding.left * PXR || 0;
+  var padRight = padding.right * PXR || 0;
 
   //Temporary canvas for text measurment
   var ctx = Gfx.getGfxContext(bounds);

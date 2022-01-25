@@ -20,5 +20,5 @@ export function getGfxContext(bounds) {
  * So this function will always return 1 or 2 as appropriate based on DPR.
  */
 export function getPixelRatio() {
-  return (window.devicePixelRatio > 1) ? 2 : 1;
+  return window.devicePixelRatio > 1 ? 2 : 1;
 }
