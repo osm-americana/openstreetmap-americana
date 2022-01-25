@@ -225,7 +225,7 @@ var style = {
   },
 };
 
-var map = new maplibregl.Map({
+var map = (window.map = new maplibregl.Map({
   container: "map", // container id
   hash: true,
   antialias: true,
@@ -233,7 +233,7 @@ var map = new maplibregl.Map({
   center: [-94, 40.5], // starting position [lng, lat]
   zoom: 4, // starting zoom
   attributionControl: false,
-});
+}));
 
 map.on("styledata", function () {
   ShieldDef.loadShields(map.style.imageManager.images);
@@ -250,4 +250,4 @@ map.addControl(
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");
-document.querySelector("#map canvas").focus();
+map.getCanvas().focus();
