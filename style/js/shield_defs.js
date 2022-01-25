@@ -2,9 +2,10 @@
 
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as ShieldText from "./shield_text.js";
+import * as Gfx from "./screen_gfx.js";
 
 //Height of modifier banners
-export const bannerSizeH = 40;
+export const bannerSizeH = 8 * Gfx.getPixelRatio();
 
 export const shields = {};
 
