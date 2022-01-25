@@ -140,10 +140,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "black",
     padding: {
-      left: 10,
-      right: 14,
-      top: 25,
-      bottom: 13,
+      left: 3,
+      right: 4,
+      top: 5,
+      bottom: 4,
     },
   };
 
@@ -151,10 +151,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_hi,
     textColor: "black",
     padding: {
-      left: 13,
-      right: 13,
-      top: 25,
-      bottom: 13,
+      left: 3,
+      right: 3,
+      top: 5.5,
+      bottom: 4.5,
     },
   };
 
@@ -167,10 +167,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "black",
     padding: {
-      left: 13,
-      right: 13,
-      top: 13,
-      bottom: 13,
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
     },
   };
 
@@ -183,10 +183,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 13,
-      right: 13,
-      top: 25,
-      bottom: 10,
+      left: 4,
+      right: 4,
+      top: 7,
+      bottom: 3,
     },
   };
 
@@ -269,10 +269,10 @@ export function loadShields(shieldImages) {
     norefImage: shieldImages.shield40_us_oh_turnpike,
     textColor: "black",
     padding: {
-      left: 10,
-      right: 15,
-      top: 20,
-      bottom: 20,
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 6,
     },
   };
 
@@ -322,8 +322,8 @@ export function loadShields(shieldImages) {
     padding: {
       left: 2,
       right: 2,
-      top: 15,
-      bottom: 12,
+      top: 5,
+      bottom: 4,
     },
   };
 
@@ -331,10 +331,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_va,
     textColor: "black",
     padding: {
-      left: 6,
-      right: 6,
-      top: 6,
-      bottom: 32,
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 8,
     },
   };
 
@@ -355,10 +355,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_wa,
     textColor: "black",
     padding: {
-      left: 15,
-      right: 18,
-      top: 12,
-      bottom: 26,
+      left: 3,
+      right: 4,
+      top: 3,
+      bottom: 7,
     },
   };
 
