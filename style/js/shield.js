@@ -171,7 +171,7 @@ function drawShield(network, ref) {
   }
 
   if (!isValidRef(ref)) {
-    if (shieldDef != null && typeof shieldDef.norefImage == "undefined") {
+    if (shieldDef != null && typeof shieldDef.norefImage != "undefined") {
       //Valid shield with no ref to draw
       return ctx;
     }
