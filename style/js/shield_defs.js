@@ -249,10 +249,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_ny,
     textColor: "black",
     padding: {
-      left: 5,
-      right: 5,
-      top: 20,
-      bottom: 20,
+      left: 2,
+      right: 2,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -280,10 +280,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_pa,
     textColor: "black",
     padding: {
-      left: 8,
-      right: 8,
-      top: 17,
-      bottom: 13,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -304,10 +304,10 @@ export function loadShields(shieldImages) {
     norefImage: shieldImages.shield40_us_pa_turnpike_noref,
     textColor: "white",
     padding: {
-      left: 8,
-      right: 8,
-      top: 22,
-      bottom: 22,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
