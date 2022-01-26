@@ -16,8 +16,8 @@ function circleShield(fillColor, strokeColor) {
     padding: {
       left: 2,
       right: 2,
-      top: 4,
-      bottom: 5,
+      top: 2,
+      bottom: 2,
     },
   };
 }
