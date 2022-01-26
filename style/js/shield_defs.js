@@ -2,9 +2,10 @@
 
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as ShieldText from "./shield_text.js";
+import * as Gfx from "./screen_gfx.js";
 
 //Height of modifier banners
-export const bannerSizeH = 40;
+export const bannerSizeH = 8 * Gfx.getPixelRatio();
 
 export const shields = {};
 
@@ -15,8 +16,8 @@ function circleShield(fillColor, strokeColor) {
     padding: {
       left: 2,
       right: 2,
-      top: 10,
-      bottom: 10,
+      top: 4,
+      bottom: 5,
     },
   };
 }
@@ -29,10 +30,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_nc,
     textColor: "black",
     padding: {
-      left: 17,
-      right: 17,
-      top: 17,
-      bottom: 17,
+      left: 5,
+      right: 5,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -40,10 +41,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_county,
     textColor: "#f7d117",
     padding: {
-      left: 10,
-      right: 10,
-      top: 14,
-      bottom: 23,
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 6,
     },
   };
 
@@ -54,10 +55,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 12,
-      right: 12,
-      top: 20,
-      bottom: 20,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -68,10 +69,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 12,
-      right: 12,
-      top: 20,
-      bottom: 20,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -83,10 +84,10 @@ export function loadShields(shieldImages) {
     shieldImages.shield40_us_us_3,
   ];
   var padding_us_us = {
-    left: 10,
-    right: 10,
-    top: 17,
-    bottom: 20,
+    left: 2,
+    right: 2,
+    top: 4,
+    bottom: 5,
   };
 
   shields["US:US"] = {
@@ -123,10 +124,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 13,
-      right: 13,
-      top: 25,
-      bottom: 10,
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 4,
     },
   };
 
@@ -140,10 +141,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "black",
     padding: {
-      left: 10,
-      right: 14,
-      top: 25,
-      bottom: 13,
+      left: 3,
+      right: 4,
+      top: 5,
+      bottom: 4,
     },
   };
 
@@ -151,10 +152,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_hi,
     textColor: "black",
     padding: {
-      left: 13,
-      right: 13,
-      top: 25,
-      bottom: 13,
+      left: 3,
+      right: 3,
+      top: 5.5,
+      bottom: 4.5,
     },
   };
 
@@ -167,10 +168,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "black",
     padding: {
-      left: 13,
-      right: 13,
-      top: 13,
-      bottom: 13,
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
     },
   };
 
@@ -183,10 +184,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 13,
-      right: 13,
-      top: 25,
-      bottom: 10,
+      left: 4,
+      right: 4,
+      top: 7,
+      bottom: 3,
     },
   };
 
@@ -197,10 +198,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_nh,
     textColor: "black",
     padding: {
-      left: 9,
-      right: 5,
-      top: 16,
-      bottom: 16,
+      left: 3,
+      right: 2,
+      top: 4,
+      bottom: 5,
     },
   };
 
@@ -249,10 +250,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_ny,
     textColor: "black",
     padding: {
-      left: 5,
-      right: 5,
-      top: 20,
-      bottom: 20,
+      left: 2,
+      right: 2,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -269,10 +270,10 @@ export function loadShields(shieldImages) {
     norefImage: shieldImages.shield40_us_oh_turnpike,
     textColor: "black",
     padding: {
-      left: 10,
-      right: 15,
-      top: 20,
-      bottom: 20,
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 6,
     },
   };
 
@@ -280,10 +281,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_pa,
     textColor: "black",
     padding: {
-      left: 8,
-      right: 8,
-      top: 17,
-      bottom: 13,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -304,10 +305,10 @@ export function loadShields(shieldImages) {
     norefImage: shieldImages.shield40_us_pa_turnpike_noref,
     textColor: "white",
     padding: {
-      left: 8,
-      right: 8,
-      top: 22,
-      bottom: 22,
+      left: 3,
+      right: 3,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -322,8 +323,8 @@ export function loadShields(shieldImages) {
     padding: {
       left: 2,
       right: 2,
-      top: 15,
-      bottom: 12,
+      top: 5,
+      bottom: 4,
     },
   };
 
@@ -331,10 +332,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_va,
     textColor: "black",
     padding: {
-      left: 6,
-      right: 6,
-      top: 6,
-      bottom: 32,
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 8,
     },
   };
 
@@ -344,10 +345,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_vt,
     textColor: "#006b54",
     padding: {
-      left: 8,
-      right: 8,
-      top: 12,
-      bottom: 12,
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 5,
     },
   };
 
@@ -355,10 +356,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_wa,
     textColor: "black",
     padding: {
-      left: 15,
-      right: 18,
-      top: 12,
-      bottom: 26,
+      left: 3,
+      right: 4,
+      top: 3,
+      bottom: 7,
     },
   };
 
@@ -370,24 +371,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 15,
-      right: 15,
-      top: 10,
-      bottom: 10,
-    },
-  };
-
-  shields["AT:A-road"] = {
-    backgroundImage: [
-      shieldImages.shield40_eu_at_2,
-      shieldImages.shield40_eu_at_3,
-    ],
-    textColor: "white",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 16,
-      bottom: 16,
+      left: 3,
+      right: 3,
+      top: 2,
+      bottom: 2,
     },
   };
 
@@ -395,10 +382,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_eu_cz_2,
     textColor: "white",
     padding: {
-      left: 10,
-      right: 10,
-      top: 15,
-      bottom: 17,
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 4,
     },
   };
 
@@ -406,10 +393,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_eu_cz_prim_2,
     textColor: "white",
     padding: {
-      left: 10,
-      right: 10,
-      top: 15,
-      bottom: 17,
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 4,
     },
   };
 
@@ -421,10 +408,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 6,
-      right: 6,
-      top: 20,
-      bottom: 20,
+      left: 2,
+      right: 2,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -433,10 +420,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_eu_ch_2,
     textColor: "white",
     padding: {
-      left: 10,
-      right: 10,
-      top: 18,
-      bottom: 20,
+      left: 2,
+      right: 2,
+      top: 5,
+      bottom: 5,
     },
   };
 
@@ -444,10 +431,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_eu_hu_2,
     textColor: "white",
     padding: {
-      left: 13,
-      right: 13,
-      top: 13,
-      bottom: 23,
+      left: 3,
+      right: 3,
+      top: 2,
+      bottom: 6,
     },
   };
 
@@ -455,27 +442,12 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_eu_sk_2,
     textColor: "white",
     padding: {
-      left: 10,
-      right: 10,
-      top: 15,
-      bottom: 17,
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
     },
   };
-
-  shields["SI:AC"] = {
-    backgroundImage: shieldImages.shield40_eu_sl_2,
-    textColor: "white",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 17,
-      bottom: 19,
-    },
-  };
-
-  // Croatia
-  shields["Autoceste"] = shields["SI:AC"];
-  shields["Državne ceste"] = shields["cz:national"];
 
   return shields;
 }

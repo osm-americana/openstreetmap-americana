@@ -27,22 +27,16 @@ export function rectTextConstraint(spaceBounds, textBounds) {
  * @param {*} text - text to draw
  * @param {*} padding - top/bottom/left/right padding around text
  * @param {*} bounds - size of the overall graphics area
- * @param {*} retina - if true, use retina-scaled graphics
  * @param {*} textLayoutFunc - algorithm for text scaling
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldText(
-  text,
-  padding,
-  bounds,
-  retina,
-  textLayoutFunc
-) {
+export function layoutShieldText(text, padding, bounds, textLayoutFunc) {
+  const PXR = Gfx.getPixelRatio();
   var padding = padding || {};
-  var padTop = padding.top || 0;
-  var padBot = padding.bottom || 0;
-  var padLeft = padding.left || 0;
-  var padRight = padding.right || 0;
+  var padTop = padding.top * PXR || 0;
+  var padBot = padding.bottom * PXR || 0;
+  var padLeft = padding.left * PXR || 0;
+  var padRight = padding.right * PXR || 0;
 
   //Temporary canvas for text measurment
   var ctx = Gfx.getGfxContext(bounds);
@@ -53,14 +47,11 @@ export function layoutShieldText(
 
   var metrics = ctx.measureText(text);
 
-  var width = bounds.width * (retina ? 2 : 1);
-  var height = bounds.height * (retina ? 2 : 1);
-
   var textWidth = metrics.width;
   var textHeight = metrics.actualBoundingBoxDescent;
 
-  var availHeight = height - padTop - padBot;
-  var availWidth = width - padLeft - padRight;
+  var availHeight = bounds.height - padTop - padBot;
+  var availWidth = bounds.width - padLeft - padRight;
 
   var xBaseline = padLeft + availWidth / 2;
 
@@ -120,7 +111,6 @@ export function drawBannerText(ctx, text, bannerIndex) {
       bottom: 0,
     },
     { width: ctx.canvas.width, height: ShieldDef.bannerSizeH },
-    false, //Might be a problem at 1X but seems to work
     rectTextConstraint
   );
 
