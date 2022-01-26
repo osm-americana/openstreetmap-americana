@@ -19,6 +19,7 @@ function circleShield(fillColor, strokeColor) {
       top: 2,
       bottom: 2,
     },
+    maxFontSize: 32,
   };
 }
 
