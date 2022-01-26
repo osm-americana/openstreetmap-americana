@@ -4,11 +4,11 @@ import * as Color from "../constants/color.js";
 
 // Name fields in order of preference
 const name_en = [
-  "coalesce", 
-  ["get", "name:en"], 
-  ["get", "name:latin"], 
+  "coalesce",
+  ["get", "name:en"],
+  ["get", "name:latin"],
   ["get", "name"],
-]
+];
 
 export const fill = {
   id: "protected-area-fill",

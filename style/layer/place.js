@@ -2,11 +2,11 @@
 
 // Name fields in order of preference
 const name_en = [
-  "coalesce", 
-  ["get", "name:en"], 
-  ["get", "name:latin"], 
+  "coalesce",
+  ["get", "name:en"],
+  ["get", "name:latin"],
   ["get", "name"],
-]
+];
 
 export const city = {
   id: "place_city",
