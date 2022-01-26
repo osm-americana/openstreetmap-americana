@@ -103,6 +103,13 @@ export function loadShields(shieldImages) {
     modifiers: ["TRK"],
   };
 
+  shields["US:US:Business"] = {
+    backgroundImage: shield_us_us,
+    textColor: "black",
+    padding: padding_us_us,
+    modifiers: ["BUS"],
+  };
+
   shields["US:US:Alternate:Truck:Business"] = {
     backgroundImage: shield_us_us,
     textColor: "black",
@@ -298,6 +305,18 @@ export function loadShields(shieldImages) {
       bottom: 10,
     },
     modifiers: ["BUS"],
+  };
+
+  shields["US:PA:Truck"] = {
+    backgroundImage: shieldImages.shield40_us_pa,
+    textColor: "black",
+    padding: {
+      left: 10,
+      right: 10,
+      top: 0,
+      bottom: 10,
+    },
+    modifiers: ["TRK"],
   };
 
   shields["US:PA:Turnpike"] = {
