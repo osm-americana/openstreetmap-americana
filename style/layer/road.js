@@ -98,14 +98,19 @@ var defRoad = {
 };
 
 //Generate a unique layer ID
-function uniqueLayerID(hwyClass, link, part, brunnel) {
-  return [hwyClass, link ? "link" : "road", part, brunnel].join("_");
+function uniqueLayerID(hwyClass, link, part, brunnel, constraints) {
+  var layerID = [hwyClass, link ? "link" : "road", part, brunnel].join("_");
+  if (constraints != null) {
+    layerID +=
+      "_" + constraints.join("_").replaceAll("=", "").replaceAll("-", "_");
+  }
+  return layerID;
 }
 
-function baseRoadLayer(highwayClass, id, brunnel, minzoom, link) {
+function baseRoadLayer(highwayClass, id, brunnel, minzoom, link, constraints) {
   var layer = Util.layerClone(
     defRoad,
-    uniqueLayerID(highwayClass, link, id, brunnel)
+    uniqueLayerID(highwayClass, link, id, brunnel, constraints)
   );
   layer.filter = filterRoad(highwayClass, link, brunnel);
   layer.minzoom = minzoom;
@@ -120,10 +125,14 @@ class Road {
       "fill",
       this.brunnel,
       this.minZoomFill,
-      this.link
+      this.link,
+      this.constraints
     );
     layer.layout = layoutRoadFill;
     layer.paint = roadPaint(this.fillColor, this.fillWidth);
+    if (this.constraints != null) {
+      layer.filter.push(this.constraints);
+    }
     return layer;
   };
   casing = function () {
@@ -132,7 +141,8 @@ class Road {
       "casing",
       this.brunnel,
       this.minZoomCasing,
-      this.link
+      this.link,
+      this.constraints
     );
     layer.layout = layoutRoadCase;
     if (this.brunnel === "bridge") {
@@ -143,6 +153,9 @@ class Road {
     } else {
       layer.paint = roadPaint(this.casingColor, this.casingWidth);
     }
+    if (this.constraints != null) {
+      layer.filter.push(this.constraints);
+    }
     return layer;
   };
   surface = function () {
@@ -151,7 +164,8 @@ class Road {
       "surface",
       this.brunnel,
       Math.min(this.minZoomCasing, this.minZoomFill),
-      this.link
+      this.link,
+      this.constraints
     );
     layer.filter.push(["==", "surface", "unpaved"]);
     layer.layout = layoutRoadSurface;
@@ -169,8 +183,8 @@ class Motorway extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 4;
-    this.minZoomCasing = 4;
+    this.minZoomFill = 5;
+    this.minZoomCasing = 5;
 
     this.fillWidth = [
       [4, 0.5],
@@ -223,6 +237,19 @@ class Motorway extends Road {
   }
 }
 
+class InterstateMotorway extends Motorway {
+  constructor() {
+    super();
+
+    this.minZoomFill = 4;
+    this.minZoomCasing = 4;
+    this.maxZoomFill = 5;
+    this.maxZoomCasing = 5;
+
+    this.constraints = ["==", "network", "us-interstate"];
+  }
+}
+
 let trunkFillWidth = [
   [4, 0.5],
   [9, 1],
@@ -252,6 +279,38 @@ class Trunk extends Road {
     this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
     this.casingColor = `hsl(${this.hue}, 70%, 18%)`;
     this.surfaceColor = `hsl(${this.hue}, 95%, 80%)`;
+
+    this.constraints = ["!=", "expressway", 1];
+  }
+}
+
+let trunkExpresswayFillWidth = [
+  [7, 0.8],
+  [9, 1],
+  [12, 3.5],
+  [20, 16],
+];
+let trunkExpresswayCasingWidth = [
+  [7, 1.5],
+  [9, 3],
+  [12, 7],
+  [20, 28],
+];
+
+class TrunkExpressway extends Trunk {
+  constructor() {
+    super();
+
+    this.minZoomFill = 5;
+    this.minZoomCasing = 5;
+
+    this.fillWidth = trunkExpresswayFillWidth;
+    this.casingWidth = trunkExpresswayCasingWidth;
+
+    this.fillColor = `hsl(${this.hue}, 95%, 95%)`;
+    this.casingColor = `hsl(${this.hue}, 77%, 50%)`;
+
+    this.constraints = ["==", "expressway", 1];
   }
 }
 
@@ -282,6 +341,21 @@ class Primary extends Road {
       `hsl(${this.hue}, 0%, 23%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+
+    this.constraints = ["!=", "expressway", 1];
+  }
+}
+
+class PrimaryExpressway extends Primary {
+  constructor() {
+    super();
+
+    this.minZoomFill = 7;
+
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 1.0);
+    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.9);
+
+    this.constraints = ["==", "expressway", 1];
   }
 }
 
@@ -312,6 +386,21 @@ class Secondary extends Road {
       `hsl(${this.hue}, 0%, 23%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+
+    this.constraints = ["!=", "expressway", 1];
+  }
+}
+
+class SecondaryExpressway extends Secondary {
+  constructor() {
+    super();
+
+    this.minZoomFill = 9;
+
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.7);
+    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.7);
+
+    this.constraints = ["==", "expressway", 1];
   }
 }
 
@@ -342,6 +431,21 @@ class Tertiary extends Road {
       `hsl(${this.hue}, 0%, 23%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+
+    this.constraints = ["!=", "expressway", 1];
+  }
+}
+
+class TertiaryExpressway extends Tertiary {
+  constructor() {
+    super();
+
+    this.minZoomFill = 11;
+
+    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.5);
+    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.5);
+
+    this.constraints = ["==", "expressway", 1];
   }
 }
 
@@ -376,6 +480,10 @@ class TrunkLink extends Trunk {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
+
+    // For now, don't differentiate on Expressway/not for trunk-link.
+    // Not sure if this is desirable or not.
+    this.constraints = null;
   }
 }
 
@@ -386,6 +494,10 @@ class PrimaryLink extends Primary {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.45);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.45);
+
+    // For now, don't differentiate on Expressway/not for trunk-link.
+    // Not sure if this is desirable or not.
+    this.constraints = null;
   }
 }
 
@@ -396,6 +508,10 @@ class SecondaryLink extends Secondary {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
+
+    // For now, don't differentiate on Expressway/not for trunk-link.
+    // Not sure if this is desirable or not.
+    this.constraints = null;
   }
 }
 
@@ -406,6 +522,10 @@ class TertiaryLink extends Tertiary {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.25);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.25);
+
+    // For now, don't differentiate on Expressway/not for trunk-link.
+    // Not sure if this is desirable or not.
+    this.constraints = null;
   }
 }
 
@@ -430,7 +550,23 @@ class TrunkBridge extends Trunk {
   }
 }
 
+class TrunkExpresswayBridge extends TrunkExpressway {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    // this.casingColor = `hsl(${this.hue}, 70%, 25%)`;
+  }
+}
+
 class PrimaryBridge extends Primary {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class PrimaryExpresswayBridge extends PrimaryExpressway {
   constructor() {
     //undifferentiated
     super();
@@ -446,7 +582,23 @@ class SecondaryBridge extends Secondary {
   }
 }
 
+class SecondaryExpresswayBridge extends SecondaryExpressway {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
 class TertiaryBridge extends Tertiary {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class TertiaryExpresswayBridge extends TertiaryExpressway {
   constructor() {
     //undifferentiated
     super();
@@ -520,6 +672,14 @@ class TrunkTunnel extends Trunk {
   }
 }
 
+class TrunkExpresswayTunnel extends TrunkExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 41%, 85%)`;
+  }
+}
+
 class MotorwayLinkTunnel extends MotorwayLink {
   constructor() {
     super();
@@ -545,20 +705,30 @@ class TrunkLinkTunnel extends TrunkLink {
   }
 }
 
+export const interstate = new InterstateMotorway();
 export const motorway = new Motorway();
 export const trunk = new Trunk();
+export const trunkExpressway = new TrunkExpressway();
 export const primary = new Primary();
+export const primaryExpressway = new PrimaryExpressway();
 export const secondary = new Secondary();
+export const secondaryExpressway = new SecondaryExpressway();
 export const tertiary = new Tertiary();
+export const tertiaryExpressway = new TertiaryExpressway();
 
 export const motorwayBridge = new MotorwayBridge();
 export const trunkBridge = new TrunkBridge();
+export const trunkExpresswayBridge = new TrunkExpresswayBridge();
 export const primaryBridge = new PrimaryBridge();
+export const primaryExpresswayBridge = new PrimaryExpresswayBridge();
 export const secondaryBridge = new SecondaryBridge();
+export const secondaryExpresswayBridge = new SecondaryExpresswayBridge();
 export const tertiaryBridge = new TertiaryBridge();
+export const tertiaryExpresswayBridge = new TertiaryExpresswayBridge();
 
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();
+export const trunkExpresswayTunnel = new TrunkExpresswayTunnel();
 
 export const motorwayLink = new MotorwayLink();
 export const trunkLink = new TrunkLink();

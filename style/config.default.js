@@ -10,7 +10,7 @@ Go to Account->Keys and create a key to paste here:
 */
 const MAPTILER_KEY = "<your MapTiler key>";
 
-const OPENMAPTILES_URL = `https://api.maptiler.com/tiles/v3/tiles.json?key=${MAPTILER_KEY}`;
+const OPENMAPTILES_URL = `https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=${MAPTILER_KEY}`;
 
 export default {
   OPENMAPTILES_URL,

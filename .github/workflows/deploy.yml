@@ -17,11 +17,9 @@ jobs:
           node-version: 16.x
       - name: Install and Build 🔧
         run: |
-          sudo apt install -y xmlstarlet
           cd style
-          npm install
           sed 's/<your MapTiler key>/53iZvB2drcamS0Ge0xiD/g' config.default.js > config.js
-          make sprites js/maplibre-gl.js
+          make sprites
         # MapTiler key 53iZvB2drcamS0Ge0xiD only allows requests from zelonewolf.github.io
 
       - name: Deploy 🚀

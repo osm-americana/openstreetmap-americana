@@ -1,49 +1,59 @@
 "use strict";
 
-export const interstate = {
-  id: "highway-shield-us-interstate",
-  type: "symbol",
-  paint: {
-    "text-color": "rgba(255, 255, 255, 1)",
-  },
-  filter: [
-    "all",
-    ["<=", "ref_length", 6],
-    ["==", "$type", "LineString"],
-    ["in", "network", "us-interstate"],
-  ],
-  layout: {
-    "icon-size": 2.0,
-    "text-font": ["Open Sans Bold"],
-    "text-size": 10.5,
-    "text-anchor": "center",
-    "text-field": "{ref}",
-    "text-offset": [0, 0],
-    "icon-image": "us_interstate",
-    "icon-text-fit": "both",
-    "icon-padding": 0,
-    "icon-text-fit-padding": [2.5, 0.6, 0, 0.5],
-    "symbol-spacing": {
-      stops: [
-        [7, 150],
-        [13, 300],
-        [16, 800],
-      ],
-    },
+import * as Util from "../js/util.js";
 
-    "symbol-placement": {
-      base: 1,
-      stops: [
-        [7, "point"],
-        [7, "line"],
-        [8, "line"],
-      ],
-    },
-    "symbol-avoid-edges": true,
-    "icon-rotation-alignment": "viewport",
-    "text-rotation-alignment": "viewport",
-  },
+function routeConcurrency(num) {
+  return [
+    "case",
+    ["!=", ["get", "route_" + num], null],
+    ["image", ["concat", "shield_", ["get", "route_" + num]]],
+    ["literal", ""],
+  ];
+}
+
+let shieldTextField = ["format"];
+for (var i = 1; i <= 6; i++) {
+  shieldTextField.push(routeConcurrency(i));
+}
+
+let shieldLayout = {
+  "text-rotate-to-line": false,
+  "text-font": ["Metropolis Light"],
+  "text-field": shieldTextField,
+  "text-anchor": "center",
+  "text-letter-spacing": 0.7,
+  "symbol-placement": "line",
+};
+
+let baseShield = {
+  type: "symbol",
+  layout: shieldLayout,
   source: "openmaptiles",
-  minzoom: 7,
+  metadata: {},
   "source-layer": "transportation_name",
 };
+
+function shieldLayer(hwyClass, minzoom) {
+  var layer = Util.cp(baseShield);
+  layer.filter = [
+    "all",
+    ["==", "class", hwyClass],
+    [
+      "any",
+      ["has", "route_1"],
+      ["has", "route_2"],
+      ["has", "route_3"],
+      ["has", "route_4"],
+      ["has", "route_5"],
+      ["has", "route_6"],
+    ],
+  ];
+  layer.id = "highway_shield_" + hwyClass;
+  return layer;
+}
+
+export const motorway = shieldLayer("motorway", 6);
+export const trunk = shieldLayer("trunk", 8);
+export const primary = shieldLayer("primary", 10);
+export const secondary = shieldLayer("secondary", 11);
+export const tertiary = shieldLayer("tertiary", 12);

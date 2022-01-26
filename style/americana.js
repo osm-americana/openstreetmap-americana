@@ -3,6 +3,8 @@
 import config from "./config.js";
 
 import * as Util from "./js/util.js";
+import * as Shield from "./js/shield.js";
+import * as ShieldDef from "./js/shield_defs.js";
 
 import * as lyrBackground from "./layer/background.js";
 import * as lyrBoundary from "./layer/boundary.js";
@@ -37,12 +39,14 @@ americanaLayers.push(
   lyrBoundary.country,
 
   lyrRoad.motorwayTunnel.casing(),
+  lyrRoad.trunkExpresswayTunnel.casing(),
   lyrRoad.trunkTunnel.casing(),
 
   lyrRoad.motorwayLinkTunnel.casing(),
   lyrRoad.trunkLinkTunnel.casing(),
 
   lyrRoad.motorwayTunnel.fill(),
+  lyrRoad.trunkExpresswayTunnel.fill(),
   lyrRoad.trunkTunnel.fill(),
 
   lyrRoad.motorwayLinkTunnel.fill(),
@@ -52,9 +56,13 @@ americanaLayers.push(
   lyrOneway.tunnelLink,
 
   lyrRoad.motorway.casing(),
+  lyrRoad.trunkExpressway.casing(),
   lyrRoad.trunk.casing(),
+  lyrRoad.primaryExpressway.casing(),
   lyrRoad.primary.casing(),
+  lyrRoad.secondaryExpressway.casing(),
   lyrRoad.secondary.casing(),
+  lyrRoad.tertiaryExpressway.casing(),
   lyrRoad.tertiary.casing(),
 
   lyrRoad.motorwayLink.casing(),
@@ -64,18 +72,27 @@ americanaLayers.push(
   lyrRoad.trunkLink.fill(),
 
   lyrRoad.tertiary.fill(),
+  lyrRoad.tertiaryExpressway.fill(),
   lyrRoad.secondary.fill(),
+  lyrRoad.secondaryExpressway.fill(),
   lyrRoad.primary.fill(),
+  lyrRoad.primaryExpressway.fill(),
   lyrRoad.trunk.fill(),
+  lyrRoad.trunkExpressway.fill(),
   lyrRoad.motorway.fill(),
+  lyrRoad.interstate.fill(),
 
   lyrRoad.motorwayLink.surface(),
   lyrRoad.trunkLink.surface(),
 
   lyrRoad.tertiary.surface(),
+  lyrRoad.tertiaryExpressway.surface(),
   lyrRoad.secondary.surface(),
+  lyrRoad.secondaryExpressway.surface(),
   lyrRoad.primary.surface(),
+  lyrRoad.primaryExpressway.surface(),
   lyrRoad.trunk.surface(),
+  lyrRoad.trunkExpressway.surface(),
   lyrRoad.motorway.surface(),
 
   lyrOneway.road,
@@ -84,31 +101,40 @@ americanaLayers.push(
 
 var bridgeLayers = [
   lyrRoad.tertiaryBridge.casing(),
+  lyrRoad.tertiaryExpresswayBridge.casing(),
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.tertiaryBridge.fill(),
+  lyrRoad.tertiaryExpresswayBridge.fill(),
   lyrRoad.tertiaryLinkBridge.fill(),
   lyrRoad.tertiaryBridge.surface(),
   lyrRoad.tertiaryLinkBridge.surface(),
 
   lyrRoad.secondaryBridge.casing(),
+  lyrRoad.secondaryExpresswayBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),
   lyrRoad.secondaryBridge.fill(),
+  lyrRoad.secondaryExpresswayBridge.fill(),
   lyrRoad.secondaryLinkBridge.fill(),
   lyrRoad.secondaryBridge.surface(),
   lyrRoad.secondaryLinkBridge.surface(),
 
   lyrRoad.primaryBridge.casing(),
+  lyrRoad.primaryExpresswayBridge.casing(),
   lyrRoad.primaryLinkBridge.casing(),
   lyrRoad.primaryBridge.fill(),
+  lyrRoad.primaryExpresswayBridge.fill(),
   lyrRoad.primaryLinkBridge.fill(),
   lyrRoad.primaryBridge.surface(),
   lyrRoad.primaryLinkBridge.surface(),
 
   lyrRoad.trunkBridge.casing(),
+  lyrRoad.trunkExpresswayBridge.casing(),
   lyrRoad.trunkLinkBridge.casing(),
-  lyrRoad.trunkBridge.fill(),
   lyrRoad.trunkLinkBridge.fill(),
+  lyrRoad.trunkBridge.fill(),
+  lyrRoad.trunkExpresswayBridge.fill(),
   lyrRoad.trunkBridge.surface(),
+  lyrRoad.trunkExpresswayBridge.surface(),
   lyrRoad.trunkLinkBridge.surface(),
 
   lyrRoad.motorwayBridge.casing(),
@@ -156,7 +182,11 @@ americanaLayers.push(
 
   lyrPark.label,
 
-  lyrHighwayShield.interstate,
+  lyrHighwayShield.motorway,
+  lyrHighwayShield.trunk,
+  lyrHighwayShield.primary,
+  lyrHighwayShield.secondary,
+  lyrHighwayShield.tertiary,
 
   lyrPlace.state,
   lyrPlace.city,
@@ -195,7 +225,7 @@ var style = {
   },
 };
 
-var map = new maplibregl.Map({
+var map = (window.map = new maplibregl.Map({
   container: "map", // container id
   hash: true,
   antialias: true,
@@ -203,6 +233,14 @@ var map = new maplibregl.Map({
   center: [-94, 40.5], // starting position [lng, lat]
   zoom: 4, // starting zoom
   attributionControl: false,
+}));
+
+map.on("styledata", function () {
+  ShieldDef.loadShields(map.style.imageManager.images);
+});
+
+map.on("styleimagemissing", function (e) {
+  Shield.missingIconLoader(map, e);
 });
 
 map.addControl(
@@ -212,4 +250,4 @@ map.addControl(
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");
-document.querySelector("#map canvas").focus();
+map.getCanvas().focus();
