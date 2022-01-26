@@ -482,6 +482,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["SI:AC"] = {
+    backgroundImage: shieldImages.shield40_eu_sl_2,
+    textColor: "white",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 5,
+    },
+  };
+
   return shields;
 }
 
