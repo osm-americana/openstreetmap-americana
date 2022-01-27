@@ -1,5 +1,13 @@
 "use strict";
 
+// Name fields in order of preference
+const name_en = [
+  "coalesce",
+  ["get", "name:en"],
+  ["get", "name:latin"],
+  ["get", "name"],
+];
+
 export const city = {
   id: "place_city",
   type: "symbol",
@@ -49,7 +57,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": "{name}",
+    "text-field": name_en,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -89,7 +97,7 @@ export const state = {
         [6, 14],
       ],
     },
-    "text-field": "{name}",
+    "text-field": name_en,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": 0.04,
@@ -128,7 +136,7 @@ export const countryOther = {
         [7, 15],
       ],
     },
-    "text-field": "{name}",
+    "text-field": name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -158,7 +166,7 @@ export const country3 = {
         [7, 17],
       ],
     },
-    "text-field": "{name}",
+    "text-field": name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -188,7 +196,7 @@ export const country2 = {
         [5, 17],
       ],
     },
-    "text-field": "{name}",
+    "text-field": name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -219,7 +227,7 @@ export const country1 = {
         [6, 19],
       ],
     },
-    "text-field": "{name}",
+    "text-field": name_en,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
     "text-offset": [
@@ -245,7 +253,7 @@ export const continent = {
   layout: {
     "text-font": ["Metropolis Light"],
     "text-size": 13,
-    "text-field": "{name}",
+    "text-field": name_en,
     "text-justify": "center",
     "text-transform": "uppercase",
   },
