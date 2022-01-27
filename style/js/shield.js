@@ -201,13 +201,14 @@ function drawShield(network, ref) {
   //If size-to-fill shield text is too big, shrink it
   if (shieldDef != null && typeof shieldDef.maxFontSize != "undefined") {
     if (textLayout.fontPx > shieldDef.maxFontSize) {
-      var shrinkFactor = shieldDef.maxFontSize / textLayout.fontPx;
+      let maxFontSize = shieldDef.maxFontSize * PXR
+      var shrinkFactor = maxFontSize / textLayout.fontPx;
       var y0 = shieldBounds.height - padding.top - padding.bottom;
       var gap = y0 - textLayout.yBaseline + padding.top;
       var tx = y0 - 2 * gap;
       var txNew = shrinkFactor * tx;
       textLayout.yBaseline -= (tx - txNew) / 2;
-      textLayout.fontPx = shieldDef.maxFontSize;
+      textLayout.fontPx = maxFontSize;
     }
   }
 
