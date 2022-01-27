@@ -200,8 +200,8 @@ function drawShield(network, ref) {
 
   //If size-to-fill shield text is too big, shrink it
   if (shieldDef != null && typeof shieldDef.maxFontSize != "undefined") {
-    if (textLayout.fontPx > shieldDef.maxFontSize) {
-      let maxFontSize = shieldDef.maxFontSize * PXR;
+    let maxFontSize = shieldDef.maxFontSize * PXR;
+    if (textLayout.fontPx > maxFontSize) {
       var shrinkFactor = maxFontSize / textLayout.fontPx;
       var y0 = shieldBounds.height - padding.top - padding.bottom;
       var gap = y0 - textLayout.yBaseline + padding.top;
