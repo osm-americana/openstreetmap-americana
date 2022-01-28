@@ -233,7 +233,13 @@ var map = (window.map = new maplibregl.Map({
   center: [-94, 40.5], // starting position [lng, lat]
   zoom: 4, // starting zoom
   attributionControl: false,
+  pitchWithRotate: false,
+  dragRotate: false,
+  touchPitch: false,
 }));
+
+map.touchZoomRotate.disableRotation();
+map.keyboard.disableRotation();
 
 map.on("styledata", function () {
   ShieldDef.loadShields(map.style.imageManager.images);
