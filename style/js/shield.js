@@ -244,12 +244,18 @@ export function missingIconLoader(map, e) {
   //Add modifier plaques above shields
   drawBanners(ctx, network);
 
+  // Swap black with a different color for certain shields.
+  // The secondary canvas is necessary here for some reason. Without it,
+  // the recolored shield gets an opaque instead of transparent background.
   if (colorLighten != null) {
-    ctx.globalCompositeOperation = "lighten";
-    ctx.fillStyle = colorLighten;
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.globalCompositeOperation = "destination-atop";
-    ctx.drawImage(ctx.canvas, 0, 0);
+    let colorCtx = Gfx.getGfxContext(ctx.canvas);
+    colorCtx.drawImage(ctx.canvas, 0, 0);
+    colorCtx.globalCompositeOperation = "lighten";
+    colorCtx.fillStyle = colorLighten;
+    colorCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    colorCtx.globalCompositeOperation = "destination-atop";
+    colorCtx.drawImage(ctx.canvas, 0, 0);
+    ctx = colorCtx;
   }
 
   var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
