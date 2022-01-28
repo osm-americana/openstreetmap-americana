@@ -501,7 +501,6 @@ export function loadShields(shieldImages) {
   // Netherlands
   shields["NL:A"] = shields["sk:national"];
   shields["NL:N"] = {
-    //backgroundImage: shieldImages.shield40_eu_nl_n_2,
     backgroundImage: [
       shieldImages.shield40_eu_nl_n_2,
       shieldImages.shield40_eu_nl_n_3,
