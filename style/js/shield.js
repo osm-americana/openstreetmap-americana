@@ -126,9 +126,10 @@ function drawShield(network, ref) {
       padding: {
         left: 2,
         right: 2,
-        top: 4,
-        bottom: 5,
+        top: 1,
+        bottom: 2,
       },
+      maxFontSize: 16,
     };
   } else {
     bannerCount = ShieldDef.getBannerCount(shieldDef);

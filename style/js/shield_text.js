@@ -87,7 +87,21 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   metrics = ctx.measureText(text);
   textHeight = metrics.actualBoundingBoxDescent;
 
-  var yBaseline = padTop + (availHeight - textHeight) / 2;
+  var yBaseline;
+
+  switch (textConstraint.valign) {
+    case VerticalAlignment.Middle:
+      yBaseline = padTop + (availHeight - textHeight) / 2;
+      break;
+    case VerticalAlignment.Top:
+      yBaseline = padTop;
+      break;
+    case VerticalAlignment.Bottom:
+      yBaseline = padTop + availHeight - textHeight;
+      break;
+    default:
+      return null; //Code error, should never happen
+  }
 
   return {
     xBaseline: xBaseline,
