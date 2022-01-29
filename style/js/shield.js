@@ -122,11 +122,13 @@ function drawShield(network, ref) {
       width: ctx.canvas.width,
       height: ctx.canvas.height,
     };
-    padding = {
-      left: 2,
-      right: 2,
-      top: 4,
-      bottom: 5,
+    shieldDef = {
+      padding: {
+        left: 2,
+        right: 2,
+        top: 4,
+        bottom: 5,
+      },
     };
   } else {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
@@ -159,10 +161,7 @@ function drawShield(network, ref) {
   }
 
   if (!isValidRef(ref)) {
-    if (
-      shieldDef != null &&
-      ("norefImage" in shieldDef || "backgroundDraw" in shieldDef)
-    ) {
+    if ("norefImage" in shieldDef || "backgroundDraw" in shieldDef) {
       //Valid shield with no ref to draw
       return ctx;
     }
@@ -170,7 +169,7 @@ function drawShield(network, ref) {
     return null;
   }
 
-  if (shieldDef != null && shieldDef.notext == true) {
+  if (shieldDef.notext == true) {
     //If the shield definition says not to draw a ref, ignore ref
     return ctx;
   }

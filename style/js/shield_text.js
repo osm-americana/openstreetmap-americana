@@ -3,6 +3,12 @@
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldDef from "./shield_defs.js";
 
+const VerticalAlignment = {
+  Middle: "middle",
+  Top: "top",
+  Bottom: "bottom",
+};
+
 export function ellipseTextConstraint(spaceBounds, textBounds) {
   var a = spaceBounds.height;
   var b = spaceBounds.width;
@@ -10,14 +16,20 @@ export function ellipseTextConstraint(spaceBounds, textBounds) {
   var x0 = textBounds.width;
   var y0 = textBounds.height;
 
-  return (a * b) / Math.sqrt(a * a * y0 * y0 + b * b * x0 * x0);
+  return {
+    scale: (a * b) / Math.sqrt(a * a * y0 * y0 + b * b * x0 * x0),
+    valign: VerticalAlignment.Middle,
+  };
 }
 
 export function rectTextConstraint(spaceBounds, textBounds) {
   var scaleHeight = spaceBounds.height / textBounds.height;
   var scaleWidth = spaceBounds.width / textBounds.width;
 
-  return Math.min(scaleWidth, scaleHeight);
+  return {
+    scale: Math.min(scaleWidth, scaleHeight),
+    valign: VerticalAlignment.Middle,
+  };
 }
 
 /**
@@ -31,13 +43,7 @@ export function rectTextConstraint(spaceBounds, textBounds) {
  * @param {*} maxFontSize - maximum font size
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldText(
-  text,
-  padding,
-  bounds,
-  textLayoutFunc,
-  maxFontSize
-) {
+function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   const PXR = Gfx.getPixelRatio();
 
   var padTop = padding.top * PXR || 0;
@@ -63,13 +69,16 @@ export function layoutShieldText(
 
   var xBaseline = padLeft + availWidth / 2;
 
-  var scale = textLayoutFunc(
+  var textConstraint = textLayoutFunc(
     { height: availHeight, width: availWidth },
     { height: textHeight, width: textWidth }
   );
 
   //If size-to-fill shield text is too big, shrink it
-  var fontSize = Math.min(maxFont, Gfx.fontSizeThreshold * scale);
+  var fontSize = Math.min(
+    maxFont,
+    Gfx.fontSizeThreshold * textConstraint.scale
+  );
 
   ctx.font = Gfx.shieldFont(fontSize);
   ctx.textAlign = "center";
@@ -150,18 +159,10 @@ export function drawShieldText(ctx, text, textLayout) {
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
 export function drawBannerText(ctx, text, bannerIndex) {
-  var textLayout = layoutShieldText(
-    text,
-    {
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
-    },
-    { width: ctx.canvas.width, height: ShieldDef.bannerSizeH },
-    rectTextConstraint,
-    100
-  );
+  var textLayout = layoutShieldTextFromDef(text, null, {
+    width: ctx.canvas.width,
+    height: ShieldDef.bannerSizeH,
+  });
 
   ctx.textBaseline = "top";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
