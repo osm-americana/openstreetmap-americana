@@ -85,12 +85,7 @@ function getRasterShieldBlank(network, ref) {
       shieldArtwork = shieldDef.backgroundImage[i];
 
       bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-      textLayout = ShieldText.layoutShieldText(
-        ref,
-        shieldDef.padding,
-        bounds,
-        textLayoutFunc
-      );
+      textLayout = ShieldText.layoutShieldTextFromDef(ref, shieldDef, bounds);
       if (textLayout.fontPx > Gfx.fontSizeThreshold * Gfx.getPixelRatio()) {
         break;
       }
@@ -181,36 +176,11 @@ function drawShield(network, ref) {
   }
 
   //The ref is valid and we're supposed to draw it
-
-  var textLayoutFunc = ShieldText.rectTextConstraint;
-
-  if (
-    shieldDef != null &&
-    typeof shieldDef.textLayoutConstraint != "undefined"
-  ) {
-    textLayoutFunc = shieldDef.textLayoutConstraint;
-  }
-
-  var textLayout = ShieldText.layoutShieldText(
+  var textLayout = ShieldText.layoutShieldTextFromDef(
     ref,
-    padding,
-    shieldBounds,
-    textLayoutFunc
+    shieldDef,
+    shieldBounds
   );
-
-  //If size-to-fill shield text is too big, shrink it
-  if (shieldDef != null && typeof shieldDef.maxFontSize != "undefined") {
-    let maxFontSize = shieldDef.maxFontSize * PXR;
-    if (textLayout.fontPx > maxFontSize) {
-      var shrinkFactor = maxFontSize / textLayout.fontPx;
-      var y0 = shieldBounds.height - padding.top - padding.bottom;
-      var gap = y0 - textLayout.yBaseline + padding.top;
-      var tx = y0 - 2 * gap;
-      var txNew = shrinkFactor * tx;
-      textLayout.yBaseline -= (tx - txNew) / 2;
-      textLayout.fontPx = maxFontSize;
-    }
-  }
 
   textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 

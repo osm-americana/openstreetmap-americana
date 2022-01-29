@@ -28,16 +28,24 @@ export function rectTextConstraint(spaceBounds, textBounds) {
  * @param {*} padding - top/bottom/left/right padding around text
  * @param {*} bounds - size of the overall graphics area
  * @param {*} textLayoutFunc - algorithm for text scaling
+ * @param {*} maxFontSize - maximum font size
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldText(text, padding, bounds, textLayoutFunc) {
+export function layoutShieldText(
+  text,
+  padding,
+  bounds,
+  textLayoutFunc,
+  maxFontSize
+) {
   const PXR = Gfx.getPixelRatio();
-  var padding = padding || {};
+
   var padTop = padding.top * PXR || 0;
   var padBot = padding.bottom * PXR || 0;
   var padLeft = padding.left * PXR || 0;
   var padRight = padding.right * PXR || 0;
 
+  var maxFont = maxFontSize * PXR;
   //Temporary canvas for text measurment
   var ctx = Gfx.getGfxContext(bounds);
 
@@ -60,7 +68,8 @@ export function layoutShieldText(text, padding, bounds, textLayoutFunc) {
     { height: textHeight, width: textWidth }
   );
 
-  var fontSize = Gfx.fontSizeThreshold * scale;
+  //If size-to-fill shield text is too big, shrink it
+  var fontSize = Math.min(maxFont, Gfx.fontSizeThreshold * scale);
 
   ctx.font = Gfx.shieldFont(fontSize);
   ctx.textAlign = "center";
@@ -76,6 +85,36 @@ export function layoutShieldText(text, padding, bounds, textLayoutFunc) {
     yBaseline: yBaseline,
     fontPx: fontSize,
   };
+}
+
+const defaultDefForLayout = {
+  padding: {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+};
+
+export function layoutShieldTextFromDef(text, def, bounds) {
+  if (def == null) {
+    def = defaultDefForLayout;
+  }
+
+  var padding = def.padding || {};
+
+  var textLayoutFunc = rectTextConstraint;
+  var maxFontSize = 100; //By default, no max size
+
+  if (typeof def.textLayoutConstraint != "undefined") {
+    textLayoutFunc = def.textLayoutConstraint;
+  }
+
+  if (typeof def.maxFontSize != "undefined") {
+    maxFontSize = def.maxFontSize;
+  }
+
+  return layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize);
 }
 
 /**
@@ -111,7 +150,8 @@ export function drawBannerText(ctx, text, bannerIndex) {
       bottom: 0,
     },
     { width: ctx.canvas.width, height: ShieldDef.bannerSizeH },
-    rectTextConstraint
+    rectTextConstraint,
+    100
   );
 
   ctx.textBaseline = "top";
