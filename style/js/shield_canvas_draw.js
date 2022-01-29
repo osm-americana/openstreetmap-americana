@@ -62,15 +62,16 @@ export function circle(fill, outline) {
   return ctx;
 }
 
-export function square() {
-  var ctx = Gfx.getGfxContext(squareBounds);
+export function rectangle(width) {
+  var ctx = Gfx.getGfxContext({ width: width * PXR, height: CS });
   let lineWidth = 1 * PXR;
-  let rectSize = CS - lineWidth;
+  let rectHt = CS - lineWidth;
+  let rectWd = width * PXR - lineWidth;
   ctx.fillStyle = "white";
-  ctx.fillRect(lineWidth / 2, lineWidth / 2, rectSize, rectSize);
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = "black";
-  ctx.strokeRect(lineWidth / 2, lineWidth / 2, rectSize, rectSize);
+  ctx.strokeRect(lineWidth / 2, lineWidth / 2, rectWd, rectHt);
   ctx.fillStyle = "black";
   return ctx;
 }

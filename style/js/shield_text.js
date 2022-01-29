@@ -204,3 +204,9 @@ export function drawBannerText(ctx, text, bannerIndex) {
     textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
   );
 }
+
+export function calculateTextWidth(text, fontSize) {
+  var ctx = Gfx.getGfxContext({ width: 1, height: 1 }); //dummy canvas
+  ctx.font = Gfx.shieldFont(fontSize);
+  return ctx.measureText(text).width;
+}
