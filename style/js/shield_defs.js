@@ -493,7 +493,7 @@ export function loadShields(shieldImages) {
       left: 4,
       right: 4,
       top: 4,
-      bottom: 4,
+      bottom: 5,
     },
   };
 
@@ -511,6 +511,22 @@ export function loadShields(shieldImages) {
   // Croatia
   shields["Autoceste"] = shields["SI:AC"];
   shields["Državne ceste"] = shields["cz:national"];
+
+  // Netherlands
+  shields["NL:A"] = shields["sk:national"];
+  shields["NL:N"] = {
+    backgroundImage: [
+      shieldImages.shield40_eu_nl_n_2,
+      shieldImages.shield40_eu_nl_n_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 4,
+    },
+  };
 
   return shields;
 }
