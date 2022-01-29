@@ -9,16 +9,31 @@ const VerticalAlignment = {
   Bottom: "bottom",
 };
 
-export function ellipseTextConstraint(spaceBounds, textBounds) {
+function ellipseScale(spaceBounds, textBounds) {
+  //Math derived from https://mathworld.wolfram.com/Ellipse-LineIntersection.html
   var a = spaceBounds.height;
   var b = spaceBounds.width;
 
   var x0 = textBounds.width;
   var y0 = textBounds.height;
 
+  return (a * b) / Math.sqrt(a * a * y0 * y0 + b * b * x0 * x0);
+}
+
+export function ellipseTextConstraint(spaceBounds, textBounds) {
   return {
-    scale: (a * b) / Math.sqrt(a * a * y0 * y0 + b * b * x0 * x0),
+    scale: ellipseScale(spaceBounds, textBounds),
     valign: VerticalAlignment.Middle,
+  };
+}
+
+export function southHalfellipseTextConstraint(spaceBounds, textBounds) {
+  return {
+    scale: ellipseScale(spaceBounds, {
+      width: textBounds.width / 2,
+      height: textBounds.height,
+    }),
+    valign: VerticalAlignment.Top,
   };
 }
 
