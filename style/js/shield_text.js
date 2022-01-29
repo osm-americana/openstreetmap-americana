@@ -96,6 +96,15 @@ const defaultDefForLayout = {
   },
 };
 
+/**
+ * Determines the position and font size to draw text so that it fits within
+ * a bounding box.
+ *
+ * @param {*} text - text to draw
+ * @param {*} def - shield definition
+ * @param {*} bounds - size of the overall graphics area
+ * @returns JOSN object containing (X,Y) draw position and font size
+ */
 export function layoutShieldTextFromDef(text, def, bounds) {
   if (def == null) {
     def = defaultDefForLayout;
