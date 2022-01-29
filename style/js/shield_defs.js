@@ -525,6 +525,32 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["RO:A"] = {
+    backgroundImage: shieldImages.shield40_ro_2,
+    textColor: "white",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 5,
+    },
+  };
+
+  shields["RO:DN"] = {
+    backgroundImage: [
+      shieldImages.shield40_ro_trunk_2,
+      shieldImages.shield40_ro_trunk_3,
+    ],
+    textColor: "white",
+    padding: {
+      left: 5,
+      right: 5,
+      top: 5,
+      bottom: 5,
+    },
+  };
+
+
   return shields;
 }
 
