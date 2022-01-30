@@ -8,7 +8,18 @@ function routeConcurrency(num) {
     ["!=", ["get", "route_" + num], null],
     [
       "image",
-      ["concat", "shield\n", ["get", "route_" + num], "\n", ["get", "name"]],
+      [
+        "concat",
+        "shield\n",
+        ["get", "route_" + num],
+        [
+          "match",
+          ["get", "route_" + num],
+          "US:KY:Parkway=",
+          ["concat", "\n", ["get", "name"]],
+          "",
+        ],
+      ],
     ],
     ["literal", ""],
   ];
