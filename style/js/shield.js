@@ -85,12 +85,7 @@ function getRasterShieldBlank(network, ref) {
       shieldArtwork = shieldDef.backgroundImage[i];
 
       bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-      textLayout = ShieldText.layoutShieldText(
-        ref,
-        shieldDef.padding,
-        bounds,
-        textLayoutFunc
-      );
+      textLayout = ShieldText.layoutShieldTextFromDef(ref, shieldDef, bounds);
       if (textLayout.fontPx > Gfx.fontSizeThreshold * Gfx.getPixelRatio()) {
         break;
       }
@@ -127,11 +122,14 @@ function drawShield(network, ref) {
       width: ctx.canvas.width,
       height: ctx.canvas.height,
     };
-    padding = {
-      left: 2,
-      right: 2,
-      top: 4,
-      bottom: 5,
+    shieldDef = {
+      padding: {
+        left: 2,
+        right: 2,
+        top: 1,
+        bottom: 2,
+      },
+      maxFontSize: 16,
     };
   } else {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
@@ -164,10 +162,7 @@ function drawShield(network, ref) {
   }
 
   if (!isValidRef(ref)) {
-    if (
-      shieldDef != null &&
-      ("norefImage" in shieldDef || "backgroundDraw" in shieldDef)
-    ) {
+    if ("norefImage" in shieldDef || "backgroundDraw" in shieldDef) {
       //Valid shield with no ref to draw
       return ctx;
     }
@@ -175,42 +170,17 @@ function drawShield(network, ref) {
     return null;
   }
 
-  if (shieldDef != null && shieldDef.notext == true) {
+  if (shieldDef.notext == true) {
     //If the shield definition says not to draw a ref, ignore ref
     return ctx;
   }
 
   //The ref is valid and we're supposed to draw it
-
-  var textLayoutFunc = ShieldText.rectTextConstraint;
-
-  if (
-    shieldDef != null &&
-    typeof shieldDef.textLayoutConstraint != "undefined"
-  ) {
-    textLayoutFunc = shieldDef.textLayoutConstraint;
-  }
-
-  var textLayout = ShieldText.layoutShieldText(
+  var textLayout = ShieldText.layoutShieldTextFromDef(
     ref,
-    padding,
-    shieldBounds,
-    textLayoutFunc
+    shieldDef,
+    shieldBounds
   );
-
-  //If size-to-fill shield text is too big, shrink it
-  if (shieldDef != null && typeof shieldDef.maxFontSize != "undefined") {
-    let maxFontSize = shieldDef.maxFontSize * PXR;
-    if (textLayout.fontPx > maxFontSize) {
-      var shrinkFactor = maxFontSize / textLayout.fontPx;
-      var y0 = shieldBounds.height - padding.top - padding.bottom;
-      var gap = y0 - textLayout.yBaseline + padding.top;
-      var tx = y0 - 2 * gap;
-      var txNew = shrinkFactor * tx;
-      textLayout.yBaseline -= (tx - txNew) / 2;
-      textLayout.fontPx = maxFontSize;
-    }
-  }
 
   textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 
