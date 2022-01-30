@@ -184,6 +184,16 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:KY"] = circleShield("white", "black");
+  shields["US:KY:AA"] = {
+    backgroundImage: shieldImages.shield40_us_ky_parkway,
+    textColor: "#003f87",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 6,
+    },
+  };
 
   shields["US:MI"] = diamondShield;
 
