@@ -109,7 +109,7 @@ function textColor(shieldDef) {
   return "black";
 }
 
-function drawShield(network, ref) {
+function drawShield(network, ref, wayName) {
   var shieldDef = ShieldDef.shields[network];
   var ctx = null;
   var bannerCount = 0;
@@ -136,6 +136,10 @@ function drawShield(network, ref) {
   } else {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
     padding = shieldDef.padding;
+
+    if (shieldDef.refsByWayName) {
+      ref = shieldDef.refsByWayName[wayName];
+    }
 
     var shieldArtwork = getRasterShieldBlank(network, ref);
     var compoundBounds = null;
@@ -231,10 +235,11 @@ export function missingIconLoader(map, e) {
   var network_ref_parts = network_ref.split("=");
   var network = network_ref_parts[0];
   var ref = network_ref_parts[1];
+  var wayName = id.split("\n")[2];
 
   var colorLighten = ShieldDef.shieldLighten(network, ref);
 
-  var ctx = drawShield(network, ref);
+  var ctx = drawShield(network, ref, wayName);
 
   if (ctx == null) {
     //Does not meet the criteria to draw a shield

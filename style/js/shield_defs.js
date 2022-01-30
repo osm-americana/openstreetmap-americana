@@ -194,6 +194,20 @@ export function loadShields(shieldImages) {
       bottom: 6,
     },
   };
+  shields["US:KY:Parkway"] = Object.assign(
+    {
+      refsByWayName: {
+        "Audobon Parkway": "AU",
+        "Bluegrass Pkwy": "BG",
+        "Cumberland Pkwy": "LN",
+        "Hal Rogers Pkwy": "HR",
+        "Mountain Pkwy": "MP",
+        "Purchase Pkwy": "JC",
+        "Western Kentucky Pkwy": "WK",
+      },
+    },
+    shields["US:KY:AA"]
+  );
 
   shields["US:MI"] = diamondShield;
 
