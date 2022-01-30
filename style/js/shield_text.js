@@ -111,8 +111,8 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
     case VerticalAlignment.Bottom:
       yBaseline = padTop + availHeight - textHeight;
       break;
-    default:
     case VerticalAlignment.Middle:
+    default:
       yBaseline = padTop + (availHeight - textHeight) / 2;
       break;
   }
