@@ -99,13 +99,13 @@ export function rectangle(ref) {
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
   let lineWidth = 1 * PXR;
-  let rectHt = CS - lineWidth;
-  let rectWd = width - lineWidth;
+  let rectHt = CS - 2 * lineWidth;
+  let rectWd = width - 2 * lineWidth;
   ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.fillRect(lineWidth, lineWidth, rectWd, rectHt);
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = "black";
-  ctx.strokeRect(lineWidth / 2, lineWidth / 2, rectWd, rectHt);
+  ctx.strokeRect(lineWidth, lineWidth, rectWd, rectHt);
   ctx.fillStyle = "black";
   return ctx;
 }
