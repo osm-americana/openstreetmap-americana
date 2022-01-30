@@ -9,12 +9,12 @@ import * as ShieldText from "./shield_text.js";
 
 export const PXR = Gfx.getPixelRatio();
 
-// Canvas size in pixels.  Used for width and height of square canvas.
+// Canvas size in pixels. Length of smallest dimension (typically height)
 const CS = 20 * PXR;
 
-const minGenericShieldWidth = 20;
-const maxGenericShieldWidth = 30;
-const genericShieldFontSize = 18;
+const minGenericShieldWidth = 20 * PXR;
+const maxGenericShieldWidth = 30 * PXR;
+const genericShieldFontSize = 18 * PXR;
 
 export function paBelt(ref) {
   var ctx = square();
@@ -53,16 +53,16 @@ export function paBelt(ref) {
 
 export function ellipse(fill, outline, ref) {
   let shieldWidth =
-    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 4;
+    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
 
   let width = Math.max(
     minGenericShieldWidth,
     Math.min(maxGenericShieldWidth, shieldWidth)
   );
 
-  let ctx = Gfx.getGfxContext({ width: width * PXR, height: CS });
-  let lineWidth = 1 * PXR;
-  let radiusX = (width * PXR) / 2 - lineWidth;
+  let ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let lineWidth = PXR;
+  let radiusX = width / 2 - lineWidth;
   let radiusY = CS / 2 - lineWidth;
 
   ctx.beginPath();
@@ -93,10 +93,10 @@ export function rectangle(ref) {
     Math.min(maxGenericShieldWidth, shieldWidth)
   );
 
-  var ctx = Gfx.getGfxContext({ width: width * PXR, height: CS });
-  let lineWidth = 1 * PXR;
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let lineWidth = 1;
   let rectHt = CS - lineWidth;
-  let rectWd = width * PXR - lineWidth;
+  let rectWd = width - lineWidth;
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx.lineWidth = lineWidth;
