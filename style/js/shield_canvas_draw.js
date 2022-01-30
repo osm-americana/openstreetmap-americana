@@ -12,8 +12,6 @@ export const PXR = Gfx.getPixelRatio();
 // Canvas size in pixels.  Used for width and height of square canvas.
 const CS = 20 * PXR;
 
-var squareBounds = { width: CS, height: CS };
-
 export function paBelt(ref) {
   var ctx = square();
 
