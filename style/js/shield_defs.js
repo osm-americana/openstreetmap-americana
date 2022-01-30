@@ -183,6 +183,8 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:KY"] = circleShield("white", "black");
+
   shields["US:MI"] = diamondShield;
 
   shields["US:MN"] = {
