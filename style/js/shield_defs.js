@@ -403,8 +403,8 @@ export function loadShields(shieldImages) {
   // Europe
   shields["e-road"] = {
     backgroundImage: [
-      shieldImages.shield40_eu_hw_2,
-      shieldImages.shield40_eu_hw_3,
+      shieldImages.shield40_un_e_2,
+      shieldImages.shield40_un_e_3,
     ],
     textColor: "white",
     padding: {
@@ -416,10 +416,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["AT:A-road"] = {
-    backgroundImage: [
-      shieldImages.shield40_eu_at_2,
-      shieldImages.shield40_eu_at_3,
-    ],
+    backgroundImage: [shieldImages.shield40_at_2, shieldImages.shield40_at_3],
     textColor: "white",
     padding: {
       left: 3,
@@ -430,7 +427,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["CZ:national"] = {
-    backgroundImage: shieldImages.shield40_eu_cz_2,
+    backgroundImage: shieldImages.shield40_cz_2,
     textColor: "white",
     padding: {
       left: 2,
@@ -441,7 +438,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["cz:national"] = {
-    backgroundImage: shieldImages.shield40_eu_cz_prim_2,
+    backgroundImage: shieldImages.shield40_cz_prim_2,
     textColor: "white",
     padding: {
       left: 2,
@@ -453,9 +450,9 @@ export function loadShields(shieldImages) {
 
   shields["IT:A-road"] = {
     backgroundImage: [
-      shieldImages.shield40_eu_it_2,
-      shieldImages.shield40_eu_it_3,
-      shieldImages.shield40_eu_it_4,
+      shieldImages.shield40_it_2,
+      shieldImages.shield40_it_3,
+      shieldImages.shield40_it_4,
     ],
     textColor: "white",
     padding: {
@@ -468,7 +465,7 @@ export function loadShields(shieldImages) {
 
   // Switzerland
   shields["motorway"] = {
-    backgroundImage: shieldImages.shield40_eu_ch_2,
+    backgroundImage: shieldImages.shield40_ch_2,
     textColor: "white",
     padding: {
       left: 2,
@@ -479,7 +476,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["HU:national"] = {
-    backgroundImage: shieldImages.shield40_eu_hu_2,
+    backgroundImage: shieldImages.shield40_hu_2,
     textColor: "white",
     padding: {
       left: 3,
@@ -490,7 +487,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["sk:national"] = {
-    backgroundImage: shieldImages.shield40_eu_sk_2,
+    backgroundImage: shieldImages.shield40_sk_2,
     textColor: "white",
     padding: {
       left: 4,
@@ -501,7 +498,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["SI:AC"] = {
-    backgroundImage: shieldImages.shield40_eu_sl_2,
+    backgroundImage: shieldImages.shield40_si_2,
     textColor: "white",
     padding: {
       left: 3,
@@ -519,8 +516,8 @@ export function loadShields(shieldImages) {
   shields["NL:A"] = shields["sk:national"];
   shields["NL:N"] = {
     backgroundImage: [
-      shieldImages.shield40_eu_nl_n_2,
-      shieldImages.shield40_eu_nl_n_3,
+      shieldImages.shield40_nl_n_2,
+      shieldImages.shield40_nl_n_3,
     ],
     textColor: "black",
     padding: {
