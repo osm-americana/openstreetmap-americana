@@ -98,7 +98,7 @@ export function rectangle(ref) {
   );
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
-  let lineWidth = 1;
+  let lineWidth = 1 * PXR;
   let rectHt = CS - lineWidth;
   let rectWd = width - lineWidth;
   ctx.fillStyle = "white";
