@@ -109,15 +109,15 @@ function drawShield(network, ref) {
   var ctx = null;
   var bannerCount = 0;
   var padding = null;
-  const PXR = ShieldDraw.PXR;
 
   if (shieldDef == null) {
     if (ref == "") {
       return null;
     }
 
-    //Generic shield
-    ctx = ShieldDraw.square();
+    //Draw generic rectangular shield
+    ctx = ShieldDraw.rectangle(ref);
+
     shieldBounds = {
       width: ctx.canvas.width,
       height: ctx.canvas.height,

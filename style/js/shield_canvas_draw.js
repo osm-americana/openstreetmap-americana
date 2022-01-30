@@ -5,13 +5,16 @@
  */
 
 import * as Gfx from "./screen_gfx.js";
+import * as ShieldText from "./shield_text.js";
 
 export const PXR = Gfx.getPixelRatio();
 
-// Canvas size in pixels.  Used for width and height of square canvas.
+// Canvas size in pixels. Length of smallest dimension (typically height)
 const CS = 20 * PXR;
 
-var squareBounds = { width: CS, height: CS };
+const minGenericShieldWidth = 20 * PXR;
+const maxGenericShieldWidth = 30 * PXR;
+const genericShieldFontSize = 18 * PXR;
 
 export function paBelt(ref) {
   var ctx = square();
@@ -48,12 +51,32 @@ export function paBelt(ref) {
   return ctx;
 }
 
-export function circle(fill, outline) {
-  var ctx = Gfx.getGfxContext(squareBounds);
-  let lineWidth = 1 * PXR;
-  let diameter = CS / 2 - lineWidth;
+export function ellipse(fill, outline, ref) {
+  let shieldWidth =
+    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+
+  let width = Math.max(
+    minGenericShieldWidth,
+    Math.min(maxGenericShieldWidth, shieldWidth)
+  );
+
+  let ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let lineWidth = PXR;
+  let radiusX = width / 2 - lineWidth;
+  let radiusY = CS / 2 - lineWidth;
+
   ctx.beginPath();
-  ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
+
+  ctx.ellipse(
+    ctx.canvas.width / 2,
+    ctx.canvas.height / 2,
+    radiusX,
+    radiusY,
+    0,
+    2 * Math.PI,
+    false
+  );
+
   ctx.fillStyle = fill;
   ctx.fill();
   ctx.lineWidth = lineWidth;
@@ -62,15 +85,27 @@ export function circle(fill, outline) {
   return ctx;
 }
 
-export function square() {
-  var ctx = Gfx.getGfxContext(squareBounds);
+function square() {
+  return rectangle("");
+}
+
+export function rectangle(ref) {
+  var shieldWidth =
+    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 4;
+  var width = Math.max(
+    minGenericShieldWidth,
+    Math.min(maxGenericShieldWidth, shieldWidth)
+  );
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
   let lineWidth = 1 * PXR;
-  let rectSize = CS - lineWidth;
+  let rectHt = CS - 2 * lineWidth;
+  let rectWd = width - 2 * lineWidth;
   ctx.fillStyle = "white";
-  ctx.fillRect(lineWidth / 2, lineWidth / 2, rectSize, rectSize);
+  ctx.fillRect(lineWidth, lineWidth, rectWd, rectHt);
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = "black";
-  ctx.strokeRect(lineWidth / 2, lineWidth / 2, rectSize, rectSize);
+  ctx.strokeRect(lineWidth, lineWidth, rectWd, rectHt);
   ctx.fillStyle = "black";
   return ctx;
 }

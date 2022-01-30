@@ -11,8 +11,8 @@ const VerticalAlignment = {
 
 function ellipseScale(spaceBounds, textBounds) {
   //Math derived from https://mathworld.wolfram.com/Ellipse-LineIntersection.html
-  var a = spaceBounds.height;
-  var b = spaceBounds.width;
+  var a = spaceBounds.width;
+  var b = spaceBounds.height;
 
   var x0 = textBounds.width;
   var y0 = textBounds.height;
@@ -105,17 +105,16 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   var yBaseline;
 
   switch (textConstraint.valign) {
-    case VerticalAlignment.Middle:
-      yBaseline = padTop + (availHeight - textHeight) / 2;
-      break;
     case VerticalAlignment.Top:
       yBaseline = padTop;
       break;
     case VerticalAlignment.Bottom:
       yBaseline = padTop + availHeight - textHeight;
       break;
+    case VerticalAlignment.Middle:
     default:
-      return null; //Code error, should never happen
+      yBaseline = padTop + (availHeight - textHeight) / 2;
+      break;
   }
 
   return {
@@ -203,4 +202,10 @@ export function drawBannerText(ctx, text, bannerIndex) {
     textLayout.xBaseline,
     textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
   );
+}
+
+export function calculateTextWidth(text, fontSize) {
+  var ctx = Gfx.getGfxContext({ width: 1, height: 1 }); //dummy canvas
+  ctx.font = Gfx.shieldFont(fontSize);
+  return ctx.measureText(text).width;
 }
