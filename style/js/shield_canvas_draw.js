@@ -12,6 +12,10 @@ export const PXR = Gfx.getPixelRatio();
 // Canvas size in pixels.  Used for width and height of square canvas.
 const CS = 20 * PXR;
 
+const minGenericShieldWidth = 20;
+const maxGenericShieldWidth = 30;
+const genericShieldFontSize = 18;
+
 export function paBelt(ref) {
   var ctx = square();
 
@@ -46,10 +50,6 @@ export function paBelt(ref) {
   ctx.stroke();
   return ctx;
 }
-
-const minGenericShieldWidth = 20;
-const maxGenericShieldWidth = 30;
-const genericShieldFontSize = 18;
 
 export function ellipse(fill, outline, ref) {
   let shieldWidth =
