@@ -11,7 +11,7 @@ export const shields = {};
 
 function circleShield(fillColor, strokeColor) {
   return {
-    backgroundDraw: () => ShieldDraw.circle(fillColor, strokeColor),
+    backgroundDraw: (ref) => ShieldDraw.ellipse(fillColor, strokeColor, ref),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -185,6 +185,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:KY"] = circleShield("white", "black");
   shields["US:MI"] = diamondShield;
 
   shields["US:MN"] = {

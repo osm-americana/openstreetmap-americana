@@ -11,8 +11,8 @@ const VerticalAlignment = {
 
 function ellipseScale(spaceBounds, textBounds) {
   //Math derived from https://mathworld.wolfram.com/Ellipse-LineIntersection.html
-  var a = spaceBounds.height;
-  var b = spaceBounds.width;
+  var a = spaceBounds.width;
+  var b = spaceBounds.height;
 
   var x0 = textBounds.width;
   var y0 = textBounds.height;
@@ -105,9 +105,6 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   var yBaseline;
 
   switch (textConstraint.valign) {
-    case VerticalAlignment.Middle:
-      yBaseline = padTop + (availHeight - textHeight) / 2;
-      break;
     case VerticalAlignment.Top:
       yBaseline = padTop;
       break;
@@ -115,7 +112,9 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
       yBaseline = padTop + availHeight - textHeight;
       break;
     default:
-      return null; //Code error, should never happen
+    case VerticalAlignment.Middle:
+      yBaseline = padTop + (availHeight - textHeight) / 2;
+      break;
   }
 
   return {

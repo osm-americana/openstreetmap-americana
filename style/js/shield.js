@@ -104,15 +104,11 @@ function textColor(shieldDef) {
   return "black";
 }
 
-const minGenericShieldWidth = 20;
-const maxGenericShieldWidth = 24;
-
 function drawShield(network, ref) {
   var shieldDef = ShieldDef.shields[network];
   var ctx = null;
   var bannerCount = 0;
   var padding = null;
-  const PXR = ShieldDraw.PXR;
 
   if (shieldDef == null) {
     if (ref == "") {
@@ -120,13 +116,8 @@ function drawShield(network, ref) {
     }
 
     //Draw generic rectangular shield
-    var shieldWidth = ShieldText.calculateTextWidth(ref, 18) + 4;
-    ctx = ShieldDraw.rectangle(
-      Math.max(
-        minGenericShieldWidth,
-        Math.min(maxGenericShieldWidth, shieldWidth)
-      )
-    );
+    ctx = ShieldDraw.rectangle(ref);
+
     shieldBounds = {
       width: ctx.canvas.width,
       height: ctx.canvas.height,
