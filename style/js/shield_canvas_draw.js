@@ -85,6 +85,10 @@ export function ellipse(fill, outline, ref) {
   return ctx;
 }
 
+function square() {
+  return rectangle("");
+}
+
 export function rectangle(ref) {
   var shieldWidth =
     ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 4;
