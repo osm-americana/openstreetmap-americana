@@ -6,7 +6,7 @@ function routeConcurrency(num) {
   return [
     "case",
     ["!=", ["get", "route_" + num], null],
-    ["image", ["concat", "shield_", ["get", "route_" + num]]],
+    ["image", ["concat", "shield\n", ["get", "route_" + num]]],
     ["literal", ""],
   ];
 }

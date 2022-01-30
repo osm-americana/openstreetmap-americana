@@ -227,7 +227,7 @@ export function missingIconLoader(map, e) {
     return;
   }
 
-  var network_ref = id.split("_")[1];
+  var network_ref = id.split("\n")[1];
   var network_ref_parts = network_ref.split("=");
   var network = network_ref_parts[0];
   var ref = network_ref_parts[1];
