@@ -90,6 +90,10 @@ function square() {
 }
 
 export function rectangle(ref) {
+  return roundedRectangle("white", "black", ref, 1.3);
+}
+
+export function roundedRectangle(fill, outline, ref, radius) {
   var shieldWidth =
     ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 4;
   var width = Math.max(
@@ -98,14 +102,32 @@ export function rectangle(ref) {
   );
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
   let lineWidth = 1 * PXR;
-  let rectHt = CS - 2 * lineWidth;
-  let rectWd = width - 2 * lineWidth;
-  ctx.fillStyle = "white";
-  ctx.fillRect(lineWidth, lineWidth, rectWd, rectHt);
+  let drawRadius = radius * PXR;
+
+  let x0 = lineWidth;
+  let x1 = lineWidth + drawRadius;
+  let x2 = width - lineWidth - drawRadius;
+  let x3 = width - lineWidth;
+
+  let y0 = lineWidth;
+  let y1 = lineWidth + radius;
+  let y2 = CS - lineWidth - drawRadius;
+  let y3 = CS - lineWidth;
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y0);
+  ctx.arcTo(x3, y0, x3, y1, drawRadius);
+  ctx.arcTo(x3, y3, x2, y3, drawRadius);
+  ctx.arcTo(x0, y3, x0, y2, drawRadius);
+  ctx.arcTo(x0, y0, x1, y0, drawRadius);
+  ctx.closePath();
+
   ctx.lineWidth = lineWidth;
-  ctx.strokeStyle = "black";
-  ctx.strokeRect(lineWidth, lineWidth, rectWd, rectHt);
-  ctx.fillStyle = "black";
+  ctx.strokeStyle = outline;
+  ctx.fillStyle = fill;
+  ctx.fill();
+  ctx.stroke();
   return ctx;
 }

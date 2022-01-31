@@ -23,6 +23,22 @@ function circleShield(fillColor, strokeColor) {
   };
 }
 
+function roundedRectShield(fillColor, strokeColor, radius) {
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.roundedRectangle(fillColor, strokeColor, ref, radius),
+    textLayoutConstraint: (spaceBounds, textBounds) =>
+      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 2,
+    },
+    maxFontSize: 16,
+  };
+}
+
 export function loadShields(shieldImages) {
   // Multi-use shields
 
@@ -169,7 +185,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:IA"] = circleShield("white", "black");
+  shields["US:IA"] = roundedRectShield("white", "black", 8);
 
   shields["US:KS"] = {
     backgroundImage: [
@@ -185,7 +201,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:KY"] = circleShield("white", "black");
+  shields["US:KY"] = roundedRectShield("white", "black", 8);
   shields["US:MI"] = diamondShield;
 
   shields["US:MN"] = {
@@ -216,7 +232,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:NM"] = circleShield("white", "red");
+  shields["US:NM"] = roundedRectShield("white", "red", 8);
   shields["US:NJ"] = circleShield("white", "black");
 
   shields["US:NJ:ACE"] = {
@@ -377,7 +393,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:VA:Secondary"] = circleShield("white", "black");
+  shields["US:VA:Secondary"] = roundedRectShield("white", "black", 8);
 
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,
