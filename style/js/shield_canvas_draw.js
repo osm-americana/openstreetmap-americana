@@ -40,6 +40,9 @@ export function paBelt(ref) {
     case "Blue Belt":
       ctx.fillStyle = "#003882";
       break;
+    case "Purple Belt":
+      ctx.fillStyle = "#bd0063";
+      break;
     default:
       return null;
   }
