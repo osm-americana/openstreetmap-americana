@@ -30,8 +30,9 @@ export function ellipseTextConstraint(spaceBounds, textBounds) {
 export function southHalfellipseTextConstraint(spaceBounds, textBounds) {
   return {
     scale: ellipseScale(spaceBounds, {
-      width: textBounds.width / 2,
-      height: textBounds.height,
+      //Turn ellipse 90 degrees
+      height: textBounds.width / 2,
+      width: textBounds.height,
     }),
     valign: VerticalAlignment.Top,
   };
