@@ -1,64 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="20"
-   height="20"
-   version="1.0"
-   viewBox="0 0 19.966 19.967"
-   id="svg10"
-   sodipodi:docname="shield40_us_interstate_2.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview8"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     showgrid="false"
-     inkscape:zoom="25.95"
-     inkscape:cx="10"
-     inkscape:cy="10.019268"
-     inkscape:window-width="1366"
-     inkscape:window-height="705"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg10" />
-  <defs
-     id="defs14" />
-  <g
-     transform="matrix(0.03306343,0,0,0.03298482,0.10263245,0.03730642)"
-     fill="#003f87"
-     stroke="#003f87"
-     stroke-width="15.935"
-     id="g4"
-     style="stroke:#ffffff;stroke-width:34.3911;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-    <path
-       d="m 15,232.5 c 0,-31.979 4.1694,-62.984 11.995,-92.501 h 546.01 c 7.8242,29.517 11.994,60.522 11.994,92.501 0,173.11 -122.17,317.67 -285,352.18 -162.83,-34.505 -285,-179.07 -285,-352.18 z"
-       fill="#003f87"
-       stroke="#003f87"
-       stroke-width="15.935"
-       id="path2"
-       style="stroke:#ffffff;stroke-width:34.3911;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-  </g>
-  <g
-     transform="matrix(0.03324294,0,0,0.03353552,0.04892718,0.05581403)"
-     fill="#af1e2d"
-     stroke="#af1e2d"
-     stroke-width="14.072"
-     id="g8"
-     style="stroke:#ffffff;stroke-width:34.0154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-    <path
-       d="M 31.324,125 C 43.579,85.779 62.363,49.441 86.403,17.26 c 33.102,9.1328 67.968,14.013 103.97,14.013 38.061,0 74.848,-5.4517 109.62,-15.618 34.775,10.166 71.562,15.618 109.62,15.618 36.006,0 70.873,-4.8799 103.97,-14.013 24.039,32.181 42.823,68.519 55.078,107.74 z"
-       fill="#af1e2d"
-       stroke="#af1e2d"
-       stroke-width="14.072"
-       id="path6"
-       style="stroke:#ffffff;stroke-width:34.0154;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-  </g>
+<svg width="20" height="20" version="1.0" viewBox="0 0 19.966 19.967" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(.033063 0 0 .032969 .10263 .046517)" fill="#003f87" stroke="#fff" stroke-width="34.391">
+  <path d="m15 232.5c0-31.979 4.1694-62.984 11.995-92.501h546.01c7.8242 29.517 11.994 60.522 11.994 92.501 0 173.11-122.17 317.67-285 352.18-162.83-34.505-285-179.07-285-352.18z" fill="#003f87" stroke="#fff" stroke-width="34.391"/>
+ </g>
+ <g transform="matrix(.033243 0 0 .03352 .048927 .065016)" fill="#af1e2d" stroke="#fff" stroke-width="34.015">
+  <path d="m31.324 125c12.255-39.221 31.039-75.559 55.079-107.74 33.102 9.1328 67.968 14.013 103.97 14.013 38.061 0 74.848-5.4517 109.62-15.618 34.775 10.166 71.562 15.618 109.62 15.618 36.006 0 70.873-4.8799 103.97-14.013 24.039 32.181 42.823 68.519 55.078 107.74z" fill="#af1e2d" stroke="#fff" stroke-width="34.015"/>
+ </g>
 </svg>
