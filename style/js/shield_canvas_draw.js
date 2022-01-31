@@ -125,9 +125,13 @@ export function roundedRectangle(fill, outline, ref, radius) {
   ctx.closePath();
 
   ctx.lineWidth = lineWidth;
-  ctx.strokeStyle = outline;
   ctx.fillStyle = fill;
   ctx.fill();
-  ctx.stroke();
+
+  if(outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
   return ctx;
 }

@@ -23,19 +23,20 @@ function circleShield(fillColor, strokeColor) {
   };
 }
 
-function roundedRectShield(fillColor, strokeColor, radius) {
+function roundedRectShield(fillColor, strokeColor, textColor, radius) {
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(fillColor, strokeColor, ref, radius),
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 2,
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 3,
     },
     maxFontSize: 16,
+    textColor: textColor,
   };
 }
 
@@ -185,7 +186,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:IA"] = roundedRectShield("white", "black", 8);
+  shields["US:IA"] = roundedRectShield("white", "black", "black", 8);
 
   shields["US:KS"] = {
     backgroundImage: [
@@ -201,7 +202,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:KY"] = roundedRectShield("white", "black", 8);
+  shields["US:KY"] = roundedRectShield("white", "black", "black", 8);
   shields["US:MI"] = diamondShield;
 
   shields["US:MN"] = {
@@ -232,7 +233,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:NM"] = roundedRectShield("white", "red", 8);
+  shields["US:NM"] = roundedRectShield("white", "red", "black", 8);
   shields["US:NJ"] = circleShield("white", "black");
 
   shields["US:NJ:ACE"] = {
@@ -393,7 +394,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:VA:Secondary"] = roundedRectShield("white", "black", 8);
+  shields["US:VA:Secondary"] = roundedRectShield("white", "black", "black", 8);
 
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,
@@ -432,16 +433,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["AT:A-road"] = {
-    backgroundImage: [shieldImages.shield40_at_2, shieldImages.shield40_at_3],
-    textColor: "white",
-    padding: {
-      left: 3,
-      right: 3,
-      top: 4,
-      bottom: 4,
-    },
-  };
+  shields["AT:A-road"] = roundedRectShield("#276fb7", "#276fb7", "white", 2);
 
   shields["CZ:national"] = {
     backgroundImage: shieldImages.shield40_cz_2,
@@ -503,16 +495,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["sk:national"] = {
-    backgroundImage: shieldImages.shield40_sk_2,
-    textColor: "white",
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 5,
-    },
-  };
+  shields["sk:national"] = roundedRectShield("#ba1e10", "white", "white", 2);
 
   shields["SI:AC"] = {
     backgroundImage: shieldImages.shield40_si_2,
@@ -530,20 +513,8 @@ export function loadShields(shieldImages) {
   shields["Državne ceste"] = shields["cz:national"];
 
   // Netherlands
-  shields["NL:A"] = shields["sk:national"];
-  shields["NL:N"] = {
-    backgroundImage: [
-      shieldImages.shield40_nl_n_2,
-      shieldImages.shield40_nl_n_3,
-    ],
-    textColor: "black",
-    padding: {
-      left: 3,
-      right: 3,
-      top: 4,
-      bottom: 4,
-    },
-  };
+  shields["NL:A"] = roundedRectShield("#ba1e10", "white", "white", 2);
+  shields["NL:N"] = roundedRectShield("#eacb44", null, "black", 2);
 
   return shields;
 }
