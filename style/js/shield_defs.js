@@ -171,6 +171,20 @@ export function loadShields(shieldImages) {
 
   shields["US:IA"] = circleShield("white", "black");
 
+  shields["US:ID"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_id_2,
+      shieldImages.shield40_us_id_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 7,
+      right: 2,
+      top: 2,
+      bottom: 10,
+    },
+  };
+
   shields["US:KS"] = {
     backgroundImage: [
       shieldImages.shield40_us_ks_2,
