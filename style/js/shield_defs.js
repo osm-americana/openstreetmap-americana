@@ -11,7 +11,7 @@ export const shields = {};
 
 function circleShield(fillColor, strokeColor) {
   return {
-    backgroundDraw: () => ShieldDraw.circle(fillColor, strokeColor),
+    backgroundDraw: (ref) => ShieldDraw.ellipse(fillColor, strokeColor, ref),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -54,11 +54,12 @@ export function loadShields(shieldImages) {
       shieldImages.shield40_us_interstate_2,
       shieldImages.shield40_us_interstate_3,
     ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: "white",
     padding: {
       left: 3,
       right: 3,
-      top: 5,
+      top: 4.5,
       bottom: 5,
     },
   };
@@ -68,6 +69,7 @@ export function loadShields(shieldImages) {
       shieldImages.shield40_us_interstate_business_2,
       shieldImages.shield40_us_interstate_business_3,
     ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: "white",
     padding: {
       left: 3,
@@ -390,6 +392,7 @@ export function loadShields(shieldImages) {
 
   shields["US:VA"] = {
     backgroundImage: shieldImages.shield40_us_va,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: "black",
     padding: {
       left: 2,

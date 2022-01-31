@@ -38,6 +38,7 @@ let shieldLayout = {
   "text-letter-spacing": 0.7,
   "symbol-placement": "line",
   "text-max-angle": 180,
+  "text-pitch-alignment": "viewport",
 };
 
 let baseShield = {
