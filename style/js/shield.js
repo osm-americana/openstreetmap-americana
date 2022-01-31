@@ -190,6 +190,14 @@ function drawShield(network, ref) {
   return ctx;
 }
 
+export function missingIconHandler(map, e) {
+  try {
+    missingIconLoader(map, e);
+  } catch (err) {
+    console.error(`Exception while loading image ‘${e?.id}’:\n`, err);
+  }
+}
+
 export function missingIconLoader(map, e) {
   var id = e.id;
 
