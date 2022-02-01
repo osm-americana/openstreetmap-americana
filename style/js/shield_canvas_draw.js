@@ -13,7 +13,7 @@ export const PXR = Gfx.getPixelRatio();
 const CS = 20 * PXR;
 
 const minGenericShieldWidth = 20 * PXR;
-const maxGenericShieldWidth = 30 * PXR;
+const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
 export function paBelt(ref) {
@@ -90,20 +90,32 @@ function square() {
 }
 
 export function rectangle(ref) {
-  return roundedRectangle("white", "black", ref, 1.3);
+  return roundedRectangle("white", "black", ref, 1.3, 1, null);
 }
 
-export function roundedRectangle(fill, outline, ref, radius) {
-  var shieldWidth =
-    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 4;
-  var width = Math.max(
-    minGenericShieldWidth,
-    Math.min(maxGenericShieldWidth, shieldWidth)
-  );
+export function roundedRectangle(
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 5 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
 
-  let lineWidth = 1 * PXR;
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
   let drawRadius = radius * PXR;
 
   let x0 = lineWidth;
@@ -124,7 +136,7 @@ export function roundedRectangle(fill, outline, ref, radius) {
   ctx.arcTo(x0, y0, x1, y0, drawRadius);
   ctx.closePath();
 
-  ctx.lineWidth = lineWidth;
+  ctx.lineWidth = lineThick;
   ctx.fillStyle = fill;
   ctx.fill();
 
