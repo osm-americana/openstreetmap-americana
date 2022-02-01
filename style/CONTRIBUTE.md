@@ -127,7 +127,7 @@ code files with js-prettifier.
 
 ## Highway Shield Contributor's Guide
 
-Highway shields are a key feature of the OpenStreetMap Americana style.  This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields.  The required elements are as follows:
+Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
 
 1. Shields are in .svg format, saved in "Optimized SVG" format in Inkscape
 2. Shields are 20px on the smallest dimension (this will be rasterized to 20px or 40x depending on display resolution)
@@ -140,11 +140,11 @@ In addition, the following style guidelines are recommended:
 3. Background shading should be removed
 4. Route numbers should be large enough to be legible
 
-In general, this style is not trying to exactly replicate highway shields as seen on signage.  Instead, we are trying to extract the key stylistic elements so that the graphics are recognizable as simplifications of their real-world counterparts.  Here are some examples of Americana's simplified shields for small-size readability:
+In general, this style is not trying to exactly replicate highway shields as seen on signage. Instead, we are trying to extract the key stylistic elements so that the graphics are recognizable as simplifications of their real-world counterparts. Here are some examples of Americana's simplified shields for small-size readability:
 
-|Network|Real-world Shield|Americana Representation  |
-|--|--|--|
-|NJ Turnpike|<img src="https://upload.wikimedia.org/wikipedia/commons/a/af/New_Jersey_Turnpike_Shield.svg" width="40"/>|<img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/shield40_us_nj_njtp_noref.svg" width="40"/>|
-|Washington State Route|<img src="https://upload.wikimedia.org/wikipedia/commons/5/52/WA-blank.svg" width="40"/>|<img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/shield40_us_wa.svg" width="40"/>
+| Network                | Real-world Shield                                                                                          | Americana Representation                                                                                                                    |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| NJ Turnpike            | <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/New_Jersey_Turnpike_Shield.svg" width="40"/> | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/shield40_us_nj_njtp_noref.svg" width="40"/> |
+| Washington State Route | <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/WA-blank.svg" width="40"/>                   | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/shield40_us_wa.svg" width="40"/>            |
 
-More complicated shields may be more challenging to simplify.  Consider taking some inspiration from the [rebusurance](https//github.com/1ec5/rebusurance) project, which effectivly simplifies a number of complex state shield designs by stretching, compressing, omitting, or simplifying graphic elements.
+More complicated shields may be more challenging to simplify. Consider taking some inspiration from the [rebusurance](https//github.com/1ec5/rebusurance) project, which effectivly simplifies a number of complex state shield designs by stretching, compressing, omitting, or simplifying graphic elements.
