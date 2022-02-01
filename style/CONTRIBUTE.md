@@ -130,7 +130,7 @@ code files with js-prettifier.
 Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
 
 1. Shields are in .svg format, saved in "Optimized SVG" format in Inkscape
-2. Shields are 20px on the smallest dimension (this will be rasterized to 20px or 40x depending on display resolution)
+2. Shields are 20px on the smallest dimension (this will be rasterized to 20px or 40px depending on display resolution)
 3. Shields are license-compatible (public domain or CC0)
 
 In addition, the following style guidelines are recommended:
