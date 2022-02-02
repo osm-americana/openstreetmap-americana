@@ -149,3 +149,23 @@ In general, this style is not trying to exactly replicate highway shields as see
 | Washington State Route | <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/WA-blank.svg" width="40"/>                   | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/shield40_us_wa.svg" width="40"/>            |
 
 More complicated shields may be more challenging to simplify. Consider taking some inspiration from the [rebusurance](https://github.com/1ec5/rebusurance) project, which effectivly simplifies a number of complex state shield designs by stretching, compressing, omitting, or simplifying graphic elements.
+
+### Color Scheme
+
+For consistency, shields should use the following color palette:
+
+| color                                                                    | Pantone | RGB         | Hex triplet |
+| ------------------------------------------------------------------------ | ------- | ----------- | ----------- |
+| <img src="../doc-img/pantone_294.svg" height=18 width=50 /> Blue         | 294     | 0 63 135    | #003f87     |
+| <img src="../doc-img/pantone_469.svg" height=18 width=50 /> Brown        | 469     | 105 63 35   | #693f23     |
+| <img src="../doc-img/pantone_342.svg" height=18 width=50 /> Green        | 342     | 0 103 71    | #006747     |
+| <img src="../doc-img/pantone_152.svg" height=18 width=50 /> Orange       | 152     | 243 143 0   | #f38f00     |
+| <img src="../doc-img/pantone_198.svg" height=18 width=50 /> Pink         | 198     | 223 70 97   | #df4661     |
+| <img src="../doc-img/pantone_259.svg" height=18 width=50 /> Purple       | 259     | 109 32 119  | #6d2077     |
+| <img src="../doc-img/pantone_187.svg" height=18 width=50 /> Red          | 187     | 191 32 51   | #bf2033     |
+| <img src="../doc-img/pantone_116.svg" height=18 width=50 /> Yellow       | 116     | 255 205 0   | #ffcd00     |
+| <img src="../doc-img/pantone_382.svg" height=18 width=50 /> Yellow-Green | 382     | 196 214 0   | #c4d600     |
+| <img src="../doc-img/white.svg" height=18 width=50 /> White              | N/A     | 255 255 255 | #ffffff     |
+| <img src="../doc-img/black.svg" height=18 width=50 /> Black              | N/A     | 0 0 0       | #000000     |
+
+Base data from MUTCD Color Specifications, Federal Highway Administration
