@@ -240,7 +240,7 @@ map.on("styledata", function () {
 });
 
 map.on("styleimagemissing", function (e) {
-  Shield.missingIconLoader(map, e);
+  Shield.missingIconHandler(map, e);
 });
 
 map.addControl(
