@@ -576,6 +576,19 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Greece
+  shields["GR:national"] = {
+    backgroundImage: shieldImages.shield40_gr_2,
+    textColor: "white",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 5,
+    },
+  };
+  shields["GR:motorway"] = shields["GR:national"]
+
   shields["FR:A-road"] = roundedRectShield(
     "#ba1e10",
     null,
