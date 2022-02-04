@@ -570,6 +570,15 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["FR:A-road"] = roundedRectShield(
+    "#ba1e10",
+    null,
+    "white",
+    2,
+    2,
+    null
+  );
+
   return shields;
 }
 
