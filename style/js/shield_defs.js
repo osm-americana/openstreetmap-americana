@@ -88,10 +88,10 @@ export function loadShields(shieldImages) {
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: "white",
     padding: {
-      left: 3,
-      right: 3,
-      top: 4.5,
-      bottom: 5,
+      left: 3.5,
+      right: 3.5,
+      top: 5,
+      bottom: 4,
     },
   };
 
