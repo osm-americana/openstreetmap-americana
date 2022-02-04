@@ -112,15 +112,15 @@ simply deleting the `node_modules` folder and re-running `npm install`.
 
 ## Running the Americana style
 
-The simplest way to run the style is to run `make run`. This will generate the sprite
+The simplest way to run the style is to run `npm start`. This will generate the sprite
 sheet and launch a simple HTTP server on port 1776 with a document root at the current
 location. For a production installation, the .html and .js files, as well as the
 generated sprites folder need to be installed on a production web server.
 
-Running `make clean sprites` will re-generate the sprite sheets without needing to
+Running `npm run sprites` will re-generate the sprite sheets without needing to
 restart the web server.
 
 ## Before submitting a PR
 
-Please prettify all files prior to submission. Run `make code_format` to format all
+Please prettify all files prior to submission. Run `npm run code_format` to format all
 code files with js-prettifier.
