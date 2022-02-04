@@ -550,6 +550,9 @@ export function loadShields(shieldImages) {
   // Serbia
   shields["RS:national"] = shields["SI:AC"];
 
+  // North Macedonia
+  shields["mk:national"] = shields["SI:AC"];
+
   // Netherlands
   shields["NL:A"] = roundedRectShield(
     "#ba1e10",
