@@ -20,7 +20,7 @@ jobs:
           cd style
           npm install
           sed 's/<your MapTiler key>/53iZvB2drcamS0Ge0xiD/g' config.default.js > config.js
-          make sprites
+          npm run sprites
         # MapTiler key 53iZvB2drcamS0Ge0xiD only allows requests from zelonewolf.github.io
 
       - name: Deploy 🚀

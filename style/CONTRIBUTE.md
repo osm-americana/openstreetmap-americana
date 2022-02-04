@@ -39,7 +39,6 @@ server which is beyond the scope of this guide.
 These development tools are required and must be installed manually on your system:
 
 - **NodeJS 14** or newer with **NPM 7** or newer
-- **xmlstarlet** - to preprocess imported SVGs for map displays
 
 See platform specific installation instructions below. Users of other platforms are
 encouraged to contribute additional OS-specific instuctions. These instructions install
@@ -54,7 +53,6 @@ date. To get newer versions you'll need to add the [NodeSource][40] repo.
 
 - **Add NodeSource repo** - `curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
 - **Install NodeJS & NPM** - `sudo apt install nodejs`
-- **Install xmlstarlet** - `sudo apt install xmlstarlet`
 
 [40]: https://github.com/nodesource/distributions/blob/master/README.md
 
@@ -66,9 +64,6 @@ Since MacOS doesn't include a package manager you'll need [Homebrew][50] or [Mac
   - Download and run the installer from [nodejs.org][52]
   - _Or_ via Homebrew - `brew install node`
   - _Or_ via MacPorts - `sudo port install npm7`
-- **Install xmlstarlet**
-  - via Homebrew - `brew install xmlstarlet`
-  - _Or_ via MacPorts - `sudo port install xmlstarlet`
 
 [50]: https://brew.sh/
 [51]: https://www.macports.org/
@@ -88,7 +83,7 @@ been written.
 
 NPM dependencies are tracked in the `package.json` file and are installed with one command:
 
-    npm install
+    npm install --include=dev
 
 This step is the same on all platforms. It installs the following packages locally to
 the project:
@@ -112,15 +107,15 @@ simply deleting the `node_modules` folder and re-running `npm install`.
 
 ## Running the Americana style
 
-The simplest way to run the style is to run `make run`. This will generate the sprite
+The simplest way to run the style is to run `npm start`. This will generate the sprite
 sheet and launch a simple HTTP server on port 1776 with a document root at the current
 location. For a production installation, the .html and .js files, as well as the
 generated sprites folder need to be installed on a production web server.
 
-Running `make clean sprites` will re-generate the sprite sheets without needing to
+Running `npm run sprites` will re-generate the sprite sheets without needing to
 restart the web server.
 
 ## Before submitting a PR
 
-Please prettify all files prior to submission. Run `make code_format` to format all
+Please prettify all files prior to submission. Run `npm run code_format` to format all
 code files with js-prettifier.
