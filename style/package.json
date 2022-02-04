@@ -1,4 +1,12 @@
 {
+  "name": "openstreetmap-americana",
+  "version": "0.1.0",
+  "description": " A quintessentially American map style.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zelonewolf/openstreetmap-americana.git"
+  },
   "scripts": {
     "config": "cp config.default.js config.js",
     "code_format": "npx prettier --write .",
