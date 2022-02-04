@@ -507,7 +507,7 @@ export function loadShields(shieldImages) {
     padding: {
       left: 2,
       right: 2,
-      top: 5,
+      top: 4,
       bottom: 5,
     },
   };
@@ -557,6 +557,18 @@ export function loadShields(shieldImages) {
     null
   );
   shields["NL:N"] = roundedRectShield("#eacb44", null, "black", 2, 0, null);
+
+  // Germany
+  shields["BAB"] = {
+    backgroundImage: shieldImages.shield40_de_2,
+    textColor: "white",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 5,
+    },
+  };
 
   return shields;
 }
