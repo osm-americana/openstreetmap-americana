@@ -598,6 +598,16 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Bulgaria
+  shields["bg:national"] = roundedRectShield(
+    "#026254",
+    "white",
+    "white",
+    3,
+    2,
+    33
+  );
+
   return shields;
 }
 
