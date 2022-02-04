@@ -88,7 +88,7 @@ been written.
 
 NPM dependencies are tracked in the `package.json` file and are installed with one command:
 
-    npm install
+    npm install --include=dev
 
 This step is the same on all platforms. It installs the following packages locally to
 the project:
