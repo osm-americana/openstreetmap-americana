@@ -547,6 +547,9 @@ export function loadShields(shieldImages) {
   shields["Autoceste"] = shields["SI:AC"];
   shields["Državne ceste"] = shields["cz:national"];
 
+  // Serbia
+  shields["RS:national"] = shields["SI:AC"];
+
   // Netherlands
   shields["NL:A"] = roundedRectShield(
     "#ba1e10",
