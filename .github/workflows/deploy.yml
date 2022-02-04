@@ -18,9 +18,9 @@ jobs:
       - name: Install and Build 🔧
         run: |
           cd style
-          npm install
+          npm install --include=dev
           sed 's/<your MapTiler key>/53iZvB2drcamS0Ge0xiD/g' config.default.js > config.js
-          npm run sprites
+          npm run build
         # MapTiler key 53iZvB2drcamS0Ge0xiD only allows requests from zelonewolf.github.io
 
       - name: Deploy 🚀
