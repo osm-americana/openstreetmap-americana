@@ -681,7 +681,7 @@ export function loadShields(shieldImages) {
     1.5,
     33
   );
-  shields["pl:pl:expressways"] = shields["pl:motorways"];
+  shields["pl:expressways"] = shields["pl:motorways"];
   shields["pl:national"] = roundedRectShield(
     "#ed2224",
     "white",
