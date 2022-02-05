@@ -11,4 +11,3 @@ The highway shield [color palette](americana.gpl) can be imported into Inkscape 
 3. Import [americana.gpl](americana.gpl).
 4. Restart Inkscape.
 5. Click the ◀ button to the right of the color palette strip at the bottom of the window (or in the top-right corner of the Color Palette panel), then choose americana.gpl from the menu.
-
