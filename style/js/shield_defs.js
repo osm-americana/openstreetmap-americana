@@ -702,6 +702,9 @@ export function loadShields(shieldImages) {
   // Belarus
   shields["by:national"] = shields["pl:national"];
 
+  // Russia
+  shields["ru:national"] = shields["ua:international"];
+
   return shields;
 }
 
