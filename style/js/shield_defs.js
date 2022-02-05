@@ -748,6 +748,16 @@ export function loadShields(shieldImages) {
   // Russia
   shields["ru:national"] = shields["ua:international"];
 
+  // Montenegro
+  shields["ME:Magistralni putevi"] = roundedRectShield(
+    "#006699",
+    "white",
+    "white",
+    2,
+    1.5,
+    33
+  ); 
+
   return shields;
 }
 
