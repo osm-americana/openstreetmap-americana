@@ -686,6 +686,10 @@ export function loadShields(shieldImages) {
   // Estonia
   shields["ee:national"] = shields["pl:national"];
 
+  // Finland
+  shields["fi:national"] = shields["pl:national"];
+  shields["trunk"] = shields["fi:national"];
+
   return shields;
 }
 
