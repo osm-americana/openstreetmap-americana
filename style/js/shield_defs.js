@@ -454,6 +454,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Austria
   shields["AT:A-road"] = roundedRectShield(
     "#276fb7",
     null,
@@ -463,6 +464,7 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Czechia
   shields["CZ:national"] = {
     backgroundImage: shieldImages.shield40_cz_2,
     textColor: "white",
@@ -485,6 +487,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Italy
   shields["IT:A-road"] = {
     backgroundImage: [
       shieldImages.shield40_it_2,
@@ -512,6 +515,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Hungary
   shields["HU:national"] = {
     backgroundImage: shieldImages.shield40_hu_2,
     textColor: "white",
@@ -523,6 +527,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Slovakia
   shields["sk:national"] = roundedRectShield(
     "#ba1e10",
     "white",
@@ -532,6 +537,7 @@ export function loadShields(shieldImages) {
     33
   );
 
+  // Slovenia
   shields["SI:AC"] = {
     backgroundImage: shieldImages.shield40_si_2,
     textColor: "white",
@@ -610,6 +616,7 @@ export function loadShields(shieldImages) {
   };
   shields["GR:motorway"] = shields["GR:national"];
 
+  // France
   shields["FR:A-road"] = roundedRectShield(
     "#ba1e10",
     null,
