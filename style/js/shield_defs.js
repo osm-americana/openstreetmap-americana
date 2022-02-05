@@ -683,6 +683,8 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Estonia
+  shields["ee:national"] = shields["pl:national"];
 
   return shields;
 }
