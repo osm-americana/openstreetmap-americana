@@ -608,6 +608,21 @@ export function loadShields(shieldImages) {
     33
   );
 
+  // Kosovo
+  shields["XK:motorway"] = shields["SI:AC"];
+
+  // Bosnia and Herzegovina
+  shields["ba:Autoceste"] = roundedRectShield(
+    "#0B8F4B",
+    "white",
+    "white",
+    3,
+    2,
+    33
+  );
+
+  shields["ba:Magistralne ceste"] = shields["cz:national"];
+
   return shields;
 }
 
