@@ -563,7 +563,7 @@ export function loadShields(shieldImages) {
     null
   );
   shields["NL:N"] = roundedRectShield("#eacb44", null, "black", 2, 0, null);
-  
+
   [
     "Amsterdam",
     "Den Haag",
@@ -571,16 +571,19 @@ export function loadShields(shieldImages) {
     "Nijmegen",
     "Parkstad",
     "Zaanstad",
-  ].forEach((city) => (shields["NL:S:" + city] = {
-    backgroundImage: shieldImages.shield40_nl_city_2,
-    textColor: "black",
-    padding: {
-      left: 3,
-      right: 3,
-      top: 4,
-      bottom: 5,
-    },
-  }));
+  ].forEach(
+    (city) =>
+      (shields["NL:S:" + city] = {
+        backgroundImage: shieldImages.shield40_nl_city_2,
+        textColor: "black",
+        padding: {
+          left: 3,
+          right: 3,
+          top: 4,
+          bottom: 5,
+        },
+      })
+  );
 
   // Germany
   shields["BAB"] = {
@@ -605,7 +608,7 @@ export function loadShields(shieldImages) {
       bottom: 5,
     },
   };
-  shields["GR:motorway"] = shields["GR:national"]
+  shields["GR:motorway"] = shields["GR:national"];
 
   shields["FR:A-road"] = roundedRectShield(
     "#ba1e10",
@@ -710,13 +713,27 @@ export function loadShields(shieldImages) {
   shields["trunk"] = shields["fi:national"];
 
   // Denmark
-  shields["dk:national"] = roundedRectShield("#eacb44", "black", "black", 2, 1.5, 33);
+  shields["dk:national"] = roundedRectShield(
+    "#eacb44",
+    "black",
+    "black",
+    2,
+    1.5,
+    33
+  );
 
   // Iceland
   shields["S"] = roundedRectShield("white", "black", "black", 2, 1.5, 33);
 
   // Ukraine
-  shields["ua:international"] = roundedRectShield("#006699", "white", "white", 2, 1.5, null);
+  shields["ua:international"] = roundedRectShield(
+    "#006699",
+    "white",
+    "white",
+    2,
+    1.5,
+    null
+  );
 
   // Belarus
   shields["by:national"] = shields["pl:national"];
