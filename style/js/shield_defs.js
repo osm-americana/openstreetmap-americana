@@ -662,6 +662,16 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Lithuania
+  shields["lt:national"] = roundedRectShield(
+    "#ed2224",
+    "white",
+    "white",
+    2,
+    1.5,
+    null
+  );
+
   return shields;
 }
 
