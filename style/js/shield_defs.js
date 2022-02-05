@@ -690,6 +690,9 @@ export function loadShields(shieldImages) {
   shields["fi:national"] = shields["pl:national"];
   shields["trunk"] = shields["fi:national"];
 
+  // Denmark
+  shields["dk:national"] = roundedRectShield("#eacb44", "black", "black", 2, 1.5, 33);
+
   return shields;
 }
 
