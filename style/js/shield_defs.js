@@ -563,6 +563,24 @@ export function loadShields(shieldImages) {
     null
   );
   shields["NL:N"] = roundedRectShield("#eacb44", null, "black", 2, 0, null);
+  
+  [
+    "Amsterdam",
+    "Den Haag",
+    "Rotterdam",
+    "Nijmegen",
+    "Parkstad",
+    "Zaanstad",
+  ].forEach((city) => (shields["NL:S:" + city] = {
+    backgroundImage: shieldImages.shield40_nl_city_2,
+    textColor: "black",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 5,
+    },
+  }));
 
   // Germany
   shields["BAB"] = {
