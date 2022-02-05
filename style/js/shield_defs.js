@@ -642,6 +642,7 @@ export function loadShields(shieldImages) {
     0,
     null
   );
+  shields["PT:regional"] = shields["PT:national"];
 
   // Poland
   shields["pl:motorways"] = roundedRectShield(
