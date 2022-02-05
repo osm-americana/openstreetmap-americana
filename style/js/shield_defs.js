@@ -632,6 +632,16 @@ export function loadShields(shieldImages) {
     0,
     null
   );
+  
+  // Portugal
+  shields["PT:national"] = roundedRectShield(
+    "#19408b",
+    null,
+    "white",
+    2,
+    0,
+    null
+  );
 
   return shields;
 }
