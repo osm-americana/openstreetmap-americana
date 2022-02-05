@@ -623,6 +623,16 @@ export function loadShields(shieldImages) {
 
   shields["ba:Magistralne ceste"] = shields["cz:national"];
 
+  // Spain
+  shields["ES:A-road"] = roundedRectShield(
+    "#19408b",
+    null,
+    "white",
+    2,
+    0,
+    null
+  );
+
   return shields;
 }
 
