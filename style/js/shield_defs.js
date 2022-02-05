@@ -632,7 +632,7 @@ export function loadShields(shieldImages) {
     0,
     null
   );
-  
+
   // Portugal
   shields["PT:national"] = roundedRectShield(
     "#19408b",
@@ -640,6 +640,25 @@ export function loadShields(shieldImages) {
     "white",
     2,
     0,
+    null
+  );
+
+  // Poland
+  shields["pl:motorways"] = roundedRectShield(
+    "#ed2224",
+    "white",
+    "white",
+    2,
+    1.5,
+    33
+  );
+  shields["pl:pl:expressways"] = shields["pl:motorways"];
+  shields["pl:national"] = roundedRectShield(
+    "#ed2224",
+    "white",
+    "white",
+    2,
+    1.5,
     null
   );
 
