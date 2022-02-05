@@ -169,3 +169,5 @@ For consistency, shields should use the following color palette:
 | <img src="../doc-img/black.svg" height=18 width=50 /> Black              | N/A     | 0 0 0       | #000000     |
 
 Base data from MUTCD Color Specifications, Federal Highway Administration
+
+See the [developer tools](../dev/README.md) for an importable, Inkscape-compatible palette file.
