@@ -158,20 +158,20 @@ export function loadShields(shieldImages) {
     colorLighten: "#613214",
   };
 
-	shields["US:AZ"] = {
-		backgroundImage: [
-			shieldImages.shield40_us_az_2,
-			shieldImages.shield40_us_az_3,
-		],
-		textColor: "black",
-		padding: {
-			left: 4,
-			right: 3,
-			top: 3,
-			bottom: 4,
-		},
-	};
-	shields["US:AZ:Loop"] = shields["US:AZ"];
+  shields["US:AZ"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_az_2,
+      shieldImages.shield40_us_az_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 3,
+      top: 3,
+      bottom: 4,
+    },
+  };
+  shields["US:AZ:Loop"] = shields["US:AZ"];
 	
   shields["US:CA"] = {
     backgroundImage: [
