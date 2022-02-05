@@ -699,6 +699,9 @@ export function loadShields(shieldImages) {
   // Ukraine
   shields["ua:international"] = roundedRectShield("#006699", "white", "white", 2, 1.5, null);
 
+  // Belarus
+  shields["by:national"] = shields["pl:national"];
+
   return shields;
 }
 
