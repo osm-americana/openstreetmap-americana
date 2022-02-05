@@ -672,6 +672,18 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Latvia
+  shields["lv:national"] = shields["lt:national"];
+  shields["lv:regional"] = roundedRectShield(
+    "#263894",
+    "white",
+    "white",
+    2,
+    1.5,
+    null
+  );
+
+
   return shields;
 }
 
