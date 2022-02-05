@@ -696,6 +696,9 @@ export function loadShields(shieldImages) {
   // Iceland
   shields["S"] = roundedRectShield("white", "black", "black", 2, 1.5, 33);
 
+  // Ukraine
+  shields["ua:international"] = roundedRectShield("#006699", "white", "white", 2, 1.5, null);
+
   return shields;
 }
 
