@@ -19,6 +19,9 @@ import * as lyrWater from "./layer/water.js";
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/maplibre-gl.css";
 
+import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl";
+import highwayAttributesSample from "openmapsamples/samples/OpenMapTiles/HighwayAttributes";
+
 /*
  This is a list of the layers in the Americana style, from bottom to top.
 */
@@ -253,4 +256,10 @@ map.addControl(
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");
+
+// Add our sample data.
+let sampleControl = new SampleControl();
+sampleControl.addSample(highwayAttributesSample);
+map.addControl(sampleControl, "bottom-left");
+
 map.getCanvas().focus();

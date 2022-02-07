@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "maplibre-gl": "gist:32f9d377bc8fe383eba7dd79aa136f48",
+    "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "parcel": "^2.2.1",
     "prettier": "2.3.2"
   }
