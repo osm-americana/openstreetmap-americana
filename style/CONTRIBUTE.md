@@ -166,3 +166,16 @@ For consistency, shields should use the following color palette:
 Base data from MUTCD Color Specifications, Federal Highway Administration
 
 See the [developer tools](../dev/README.md) for an importable, Inkscape-compatible palette file.
+
+### Font Sizes
+
+Shields should target 10-14px text sizes for readability:
+
+| Example                                                    | Font Size |
+| ---------------------------------------------------------- | --------- |
+| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 16px      |
+| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 14px      |
+| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 12px      |
+| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 10px      |
+| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 8px       |
+| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 6px       |
