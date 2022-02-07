@@ -203,13 +203,9 @@ var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
 var style = {
   id: "streets",
   name: "Americana",
-  zoom: 1,
-  pitch: 0,
-  center: [0, 0],
   glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   layers: americanaLayers,
   sprite: new URL("sprites/sprite", baseUrl).href,
-  bearing: 0,
   sources: {
     openmaptiles: {
       url: config.OPENMAPTILES_URL,
@@ -217,12 +213,6 @@ var style = {
     },
   },
   version: 8,
-  metadata: {
-    "mapbox:type": "template",
-    "maptiler:copyright":
-      "This style was generated on MapTiler Cloud. Usage outside of MapTiler Cloud requires valid OpenMapTiles Production Package: https://openmaptiles.com/production-package/ -- please contact us.",
-    "openmaptiles:version": "3.x",
-  },
 };
 
 var map = (window.map = new maplibregl.Map({
@@ -246,7 +236,7 @@ map.on("styleimagemissing", function (e) {
 map.addControl(
   new maplibregl.AttributionControl({
     customAttribution:
-      '<a href="https://openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+      '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");
