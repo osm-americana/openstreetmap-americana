@@ -174,8 +174,8 @@ Shields should target 10-14px text sizes for readability:
 | Example                                                    | Font Size |
 | ---------------------------------------------------------- | --------- |
 | <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 16px      |
-| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 14px      |
-| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 12px      |
-| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 10px      |
-| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 8px       |
-| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 6px       |
+| <img src="../doc-img/14_px_text.svg" height=20 width=20 /> | 14px      |
+| <img src="../doc-img/12_px_text.svg" height=20 width=20 /> | 12px      |
+| <img src="../doc-img/10_px_text.svg" height=20 width=20 /> | 10px      |
+| <img src="../doc-img/8_px_text.svg" height=20 width=20 />  | 8px       |
+| <img src="../doc-img/6_px_text.svg" height=20 width=20 />  | 6px       |
