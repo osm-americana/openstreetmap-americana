@@ -529,7 +529,7 @@ export function loadShields(shieldImages) {
 
   // Slovakia
   shields["sk:national"] = roundedRectShield(
-    "#ba1e10",
+    "#cd151d",
     "white",
     "white",
     3,
@@ -618,7 +618,7 @@ export function loadShields(shieldImages) {
 
   // France
   shields["FR:A-road"] = roundedRectShield(
-    "#ba1e10",
+    "#cd151d",
     null,
     "white",
     2,
