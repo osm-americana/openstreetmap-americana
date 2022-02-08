@@ -258,7 +258,7 @@ map.addControl(
 map.addControl(new maplibregl.NavigationControl(), "top-left");
 
 // Add our sample data.
-let sampleControl = new SampleControl();
+let sampleControl = new SampleControl({ permalinks: true });
 OpenMapTilesSamples.forEach((sample, i) => {
   sampleControl.addSample(sample);
 });
