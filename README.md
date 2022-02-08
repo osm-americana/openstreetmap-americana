@@ -33,7 +33,7 @@ Some general guidelines:
 
 The technology stack for this style can be summarized below:
 
-<img src="doc-img/osm-americana-tech-stack.png" alt="Americana technology stack" />
+<img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
 
 Some notes:
 
