@@ -447,10 +447,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "white",
     padding: {
-      left: 3,
-      right: 3,
-      top: 2,
-      bottom: 2,
+      left: 4,
+      right: 4,
+      top: 3,
+      bottom: 3,
     },
   };
 
