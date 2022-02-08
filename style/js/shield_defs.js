@@ -756,17 +756,22 @@ export function loadShields(shieldImages) {
     2,
     1.5,
     33
-  ); 
+  );
 
   // Romania
-  shields["RO:A"] = roundedRectShield(
-    "#008033",
-    "white",
-    "white",
-    3,
-    1.5,
-    33
-  ); 
+  shields["RO:A"] = roundedRectShield("#008033", "white", "white", 3, 1.5, 33);
+
+  // Moldova
+  shields["md:national"] = {
+    backgroundImage: shieldImages.shield40_ro_trunk_2,
+    textColor: "white",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
+    },
+  };
 
   return shields;
 }
