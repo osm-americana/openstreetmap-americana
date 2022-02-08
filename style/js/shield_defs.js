@@ -758,6 +758,16 @@ export function loadShields(shieldImages) {
     33
   ); 
 
+  // Romania
+  shields["RO:A"] = roundedRectShield(
+    "#008033",
+    "white",
+    "white",
+    3,
+    1.5,
+    33
+  ); 
+
   return shields;
 }
 
