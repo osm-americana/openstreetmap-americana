@@ -114,3 +114,26 @@ export const tertiaryHZ = {
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
+
+export const minor = {
+  id: "minor_label",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "minor"]],
+  minzoom: 13,
+  maxzoom: 17,
+  layout: offsetLabelStyle,
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};
+
+export const minorHZ = {
+  id: "minor_label_hz",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "minor"]],
+  minzoom: 17,
+  layout: centerLabelStyle,
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};

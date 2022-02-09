@@ -449,6 +449,36 @@ class TertiaryExpressway extends Tertiary {
   }
 }
 
+class Minor extends Road {
+  constructor() {
+    super();
+    this.highwayClass = "minor";
+    this.brunnel = "surface";
+    this.link = false;
+    this.hue = 0;
+
+    this.minZoomFill = 16;
+    this.minZoomCasing = 12;
+
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    // Casing color gets interpolated as a fade from light to dark between this
+    // level's introduction and next road-level introduction.
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      11,
+      `hsl(${this.hue}, 0%, 75%)`,
+      13,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
+    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+  }
+}
+
 class MotorwayLink extends Motorway {
   constructor() {
     super();
@@ -606,6 +636,14 @@ class TertiaryExpresswayBridge extends TertiaryExpressway {
   }
 }
 
+class MinorBridge extends Minor {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
 class MotorwayLinkBridge extends MotorwayLink {
   constructor() {
     super();
@@ -715,6 +753,7 @@ export const secondary = new Secondary();
 export const secondaryExpressway = new SecondaryExpressway();
 export const tertiary = new Tertiary();
 export const tertiaryExpressway = new TertiaryExpressway();
+export const minor = new Minor();
 
 export const motorwayBridge = new MotorwayBridge();
 export const trunkBridge = new TrunkBridge();
@@ -725,6 +764,7 @@ export const secondaryBridge = new SecondaryBridge();
 export const secondaryExpresswayBridge = new SecondaryExpresswayBridge();
 export const tertiaryBridge = new TertiaryBridge();
 export const tertiaryExpresswayBridge = new TertiaryExpresswayBridge();
+export const minorBridge = new MinorBridge();
 
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();
