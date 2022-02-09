@@ -137,3 +137,39 @@ export const minorHZ = {
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
+
+export const service = {
+  id: "service_label",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "service"], ["!in", "service", "parking_aisle", "driveway"]],
+  minzoom: 14,
+  maxzoom: 17,
+  layout: offsetLabelStyle,
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};
+
+
+export const serviceHZ = {
+  id: "service_label_hz",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "service"]],
+  minzoom: 17,
+  layout: centerLabelStyle,
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};
+
+export const smallService = {
+  id: "small_service_label",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "service"], ["in", "service", "parking_aisle", "driveway"]],
+  minzoom: 15,
+  maxzoom: 17,
+  layout: offsetLabelStyle,
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};

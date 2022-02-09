@@ -479,6 +479,52 @@ class Minor extends Road {
   }
 }
 
+class Service extends Road {
+  constructor() {
+    super();
+    this.highwayClass = "service";
+    this.brunnel = "surface";
+    this.link = false;
+    this.hue = 0;
+
+    this.minZoomFill = 16;
+    this.minZoomCasing = 13;
+
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.2);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.2);
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    // Casing color gets interpolated as a fade from light to dark between this
+    // level's introduction and next road-level introduction.
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      11,
+      `hsl(${this.hue}, 0%, 75%)`,
+      13,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
+    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+
+    this.constraints = ["!in", "service", "parking_aisle", "driveway"];
+  }
+}
+
+class SmallService extends Service {
+  constructor() {
+    super();
+
+    this.minZoomFill = 16;
+    this.minZoomCasing = 15;
+
+    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.15);
+    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.15);
+
+    this.constraints = ["in", "service", "parking_aisle", "driveway"];
+  }
+}
+
 class MotorwayLink extends Motorway {
   constructor() {
     super();
@@ -644,6 +690,22 @@ class MinorBridge extends Minor {
   }
 }
 
+class ServiceBridge extends Service {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class SmallServiceBridge extends SmallService {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
 class MotorwayLinkBridge extends MotorwayLink {
   constructor() {
     super();
@@ -754,6 +816,8 @@ export const secondaryExpressway = new SecondaryExpressway();
 export const tertiary = new Tertiary();
 export const tertiaryExpressway = new TertiaryExpressway();
 export const minor = new Minor();
+export const service = new Service();
+export const smallService = new SmallService();
 
 export const motorwayBridge = new MotorwayBridge();
 export const trunkBridge = new TrunkBridge();
@@ -765,6 +829,8 @@ export const secondaryExpresswayBridge = new SecondaryExpresswayBridge();
 export const tertiaryBridge = new TertiaryBridge();
 export const tertiaryExpresswayBridge = new TertiaryExpresswayBridge();
 export const minorBridge = new MinorBridge();
+export const serviceBridge = new ServiceBridge();
+export const smallServiceBridge = new SmallServiceBridge();
 
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();

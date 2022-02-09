@@ -65,6 +65,8 @@ americanaLayers.push(
   lyrRoad.tertiaryExpressway.casing(),
   lyrRoad.tertiary.casing(),
   lyrRoad.minor.casing(),
+  lyrRoad.service.casing(),
+  lyrRoad.smallService.casing(),
 
   lyrRoad.motorwayLink.casing(),
   lyrRoad.trunkLink.casing(),
@@ -72,6 +74,8 @@ americanaLayers.push(
   lyrRoad.motorwayLink.fill(),
   lyrRoad.trunkLink.fill(),
 
+  lyrRoad.smallService.fill(),
+  lyrRoad.service.fill(),
   lyrRoad.minor.fill(),
   lyrRoad.tertiary.fill(),
   lyrRoad.tertiaryExpressway.fill(),
@@ -87,6 +91,8 @@ americanaLayers.push(
   lyrRoad.motorwayLink.surface(),
   lyrRoad.trunkLink.surface(),
 
+  lyrRoad.smallService.surface(),
+  lyrRoad.service.surface(),
   lyrRoad.minor.surface(),
   lyrRoad.tertiary.surface(),
   lyrRoad.tertiaryExpressway.surface(),
@@ -103,6 +109,12 @@ americanaLayers.push(
 );
 
 var bridgeLayers = [
+  lyrRoad.smallServiceBridge.casing(),
+  lyrRoad.smallServiceBridge.fill(),
+
+  lyrRoad.serviceBridge.casing(),
+  lyrRoad.serviceBridge.fill(),
+
   lyrRoad.minorBridge.casing(),
   lyrRoad.minorBridge.fill(),
 
@@ -187,6 +199,9 @@ americanaLayers.push(
   lyrRoadLabel.tertiaryHZ,
   lyrRoadLabel.minor,
   lyrRoadLabel.minorHZ,
+  lyrRoadLabel.service,
+  lyrRoadLabel.smallService,
+  lyrRoadLabel.serviceHZ,
 
   lyrPark.label,
 
