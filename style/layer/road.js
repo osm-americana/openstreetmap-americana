@@ -168,6 +168,9 @@ class Road {
       this.constraints
     );
     layer.filter.push(["==", "surface", "unpaved"]);
+    if (this.constraints != null) {
+      layer.filter.push(this.constraints);
+    }
     layer.layout = layoutRoadSurface;
     layer.paint = roadSurfacePaint(this.surfaceColor, this.fillWidth);
     return layer;
