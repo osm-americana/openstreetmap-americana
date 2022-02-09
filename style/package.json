@@ -20,8 +20,8 @@
     "@beyondtracks/spritezero-cli": "^2.3.0"
   },
   "devDependencies": {
-    "maplibre-gl": "gist:32f9d377bc8fe383eba7dd79aa136f48",
-    "parcel": "^2.2.1",
+    "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5/maplibre-gl.tar.gz",
+    "parcel": "^2.3.0",
     "prettier": "2.3.2"
   }
 }
