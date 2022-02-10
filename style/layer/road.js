@@ -473,9 +473,9 @@ class Minor extends Road {
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
-      11,
-      `hsl(${this.hue}, 0%, 75%)`,
-      13,
+      12,
+      `hsl(${this.hue}, 0%, 65%)`,
+      15,
       `hsl(${this.hue}, 0%, 23%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
@@ -503,9 +503,9 @@ class Service extends Road {
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
-      11,
-      `hsl(${this.hue}, 0%, 75%)`,
       13,
+      `hsl(${this.hue}, 0%, 65%)`,
+      18,
       `hsl(${this.hue}, 0%, 23%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
@@ -523,6 +523,18 @@ class SmallService extends Service {
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.15);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.15);
+
+    // Casing color gets interpolated as a fade from light to dark between this
+    // level's introduction and next road-level introduction.
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      15,
+      `hsl(${this.hue}, 0%, 65%)`,
+      19,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
 
     this.constraints = ["in", "service", "parking_aisle", "driveway"];
   }
