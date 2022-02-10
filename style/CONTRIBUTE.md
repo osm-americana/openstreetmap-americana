@@ -17,6 +17,8 @@ Environment specific settings go in the untracked file `config.js`. Copy the tem
 `config.default.js` and rename it `config.js`. The variables in this file can then
 be changed without the risk of accidentally comitting to the main repo.
 
+You can create a new copy of the config file by running `npm run config`
+
 ### MapTiler API Key
 
 By default this project is set up to use vector tiles provided by MapTiler.
@@ -38,7 +40,7 @@ server which is beyond the scope of this guide.
 
 These development tools are required and must be installed manually on your system:
 
-- **NodeJS 14** or newer with **NPM 7** or newer
+- **NodeJS Node.js 17.3** or newer with **NPM 8.3.0** or newer
 
 See platform specific installation instructions below. Users of other platforms are
 encouraged to contribute additional OS-specific instuctions. These instructions install
@@ -83,7 +85,7 @@ been written.
 
 NPM dependencies are tracked in the `package.json` file and are installed with one command:
 
-    npm install --include=dev
+`npm install --include=dev`
 
 This step is the same on all platforms. It installs the following packages locally to
 the project:
@@ -107,6 +109,14 @@ simply deleting the `node_modules` folder and re-running `npm install`.
 
 ## Running the Americana style
 
+### In development...
+
+```
+cd style/
+npm i --include=dev
+npm start
+```
+
 The simplest way to run the style is to run `npm start`. This will generate the sprite
 sheet and launch a simple HTTP server on port 1776 with a document root at the current
 location. For a production installation, the .html and .js files, as well as the
@@ -114,6 +124,18 @@ generated sprites folder need to be installed on a production web server.
 
 Running `npm run sprites` will re-generate the sprite sheets without needing to
 restart the web server.
+
+### Production builds
+
+```
+cd style/
+npm i --include=dev
+npm run build
+```
+
+These commands will build a minified/bundled version of the Americana demo with
+all assets in `dist/`. The contents of `dist/` can then be copied to a webserver
+for distribution.
 
 ## Before submitting a PR
 
