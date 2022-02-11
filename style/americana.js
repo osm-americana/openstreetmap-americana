@@ -16,6 +16,9 @@ import * as lyrRoad from "./layer/road.js";
 import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
 
+import * as maplibregl from "maplibre-gl";
+import "maplibre-gl/maplibre-gl.css";
+
 /*
  This is a list of the layers in the Americana style, from bottom to top.
 */
