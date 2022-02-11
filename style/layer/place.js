@@ -1,5 +1,83 @@
-import * as L from "../constants/label.js";
+"use strict";
 
+// Name fields in order of preference
+const name_en = [
+  "coalesce",
+  ["get", "name:en"],
+  ["get", "name:latin"],
+  ["get", "name"],
+];
+
+export const city = {
+  id: "place_city",
+  type: "symbol",
+  paint: {
+    "text-color": "#444",
+    "text-halo-color": "rgb(255,255,255)",
+    "text-halo-width": 2,
+    "text-halo-blur": 0.5,
+  },
+  filter: [
+    "all",
+    ["==", ["get", "class"], "city"],
+    [
+      "step",
+      ["zoom"],
+      ["<=", ["get", "rank"], 2],
+      5,
+      ["<=", ["get", "rank"], 4],
+      6,
+      [">=", ["get", "rank"], 1],
+    ],
+  ],
+  layout: {
+    "text-font": ["Metropolis Bold"],
+    "text-size": {
+      base: 1.2,
+      stops: [
+        [4, 11],
+        [7, 14],
+        [11, 24],
+      ],
+    },
+    "icon-image": [
+      "match",
+      ["get", "capital"],
+      2,
+      "star_nation_capital",
+      4,
+      "star_state_capital",
+      "dot_city",
+    ],
+    "icon-size": {
+      base: 1.2,
+      stops: [
+        [4, 0.4],
+        [7, 0.5],
+        [11, 0.9],
+      ],
+    },
+    "text-field": name_en,
+    "text-anchor": "bottom",
+    "text-variable-anchor": [
+      "bottom",
+      "bottom-right",
+      "bottom-left",
+      "right",
+      "left",
+    ],
+    "text-justify": "auto",
+    "text-radial-offset": ["match", ["get", "capital"], 2, 0.7, 0.5],
+    "icon-optional": false,
+    "text-max-width": 8,
+    "icon-padding": 0,
+    "text-padding": 1,
+    "icon-allow-overlap": false,
+  },
+  source: "openmaptiles",
+  minzoom: 4,
+  "source-layer": "place",
+};
 export const state = {
   id: "place_state",
   type: "symbol",
@@ -19,7 +97,7 @@ export const state = {
         [6, 14],
       ],
     },
-    "text-field": L.name_en,
+    "text-field": name_en,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": 0.04,
@@ -58,7 +136,7 @@ export const countryOther = {
         [7, 15],
       ],
     },
-    "text-field": L.name_en,
+    "text-field": name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -88,7 +166,7 @@ export const country3 = {
         [7, 17],
       ],
     },
-    "text-field": L.name_en,
+    "text-field": name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -118,7 +196,7 @@ export const country2 = {
         [5, 17],
       ],
     },
-    "text-field": L.name_en,
+    "text-field": name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -149,7 +227,7 @@ export const country1 = {
         [6, 19],
       ],
     },
-    "text-field": L.name_en,
+    "text-field": name_en,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
     "text-offset": [
@@ -175,7 +253,7 @@ export const continent = {
   layout: {
     "text-font": ["Metropolis Light"],
     "text-size": 13,
-    "text-field": L.name_en,
+    "text-field": name_en,
     "text-justify": "center",
     "text-transform": "uppercase",
   },
