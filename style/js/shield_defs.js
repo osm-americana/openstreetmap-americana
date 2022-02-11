@@ -57,8 +57,12 @@ function roundedRectShield(
 
 function banneredShield(baseDef, modifiers) {
   let newShield = Util.cp(baseDef);
-  newShield.backgroundImage = baseDef.backgroundImage;
   newShield.modifiers = modifiers;
+
+  //Restore clobbered pointers
+  newShield.backgroundImage = baseDef.backgroundImage;
+  newShield.textLayoutConstraint = baseDef.textLayoutConstraint;
+
   return newShield;
 }
 
