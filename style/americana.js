@@ -11,7 +11,8 @@ import * as lyrBoundary from "./layer/boundary.js";
 import * as lyrHighwayShield from "./layer/highway_shield.js";
 import * as lyrOneway from "./layer/oneway.js";
 import * as lyrPark from "./layer/park.js";
-import * as lyrPlace from "./layer/place.js";
+import * as lyrPlaceArea from "./layer/place_area.js";
+import * as lyrPlacePoint from "./layer/place_point.js";
 import * as lyrRoad from "./layer/road.js";
 import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
@@ -214,13 +215,14 @@ americanaLayers.push(
   lyrHighwayShield.secondary,
   lyrHighwayShield.tertiary,
 
-  lyrPlace.state,
-  lyrPlace.city,
-  lyrPlace.countryOther,
-  lyrPlace.country3,
-  lyrPlace.country2,
-  lyrPlace.country1,
-  lyrPlace.continent
+  lyrPlaceArea.state,
+  lyrPlacePoint.town,
+  lyrPlacePoint.city,
+  lyrPlaceArea.countryOther,
+  lyrPlaceArea.country3,
+  lyrPlaceArea.country2,
+  lyrPlaceArea.country1,
+  lyrPlaceArea.continent
 );
 
 var getUrl = window.location;
