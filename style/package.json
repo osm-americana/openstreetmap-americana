@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5/maplibre-gl.tar.gz",
+    "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "parcel": "^2.3.0",
     "prettier": "2.3.2"
   },
