@@ -171,7 +171,7 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["US:AZ:Loop"] = shields["US:AZ"];
+  shields["US:AZ:Loop"] = banneredShield(shields["US:AZ"], ["LOOP"]);
 
   shields["US:CA"] = {
     backgroundImage: [
