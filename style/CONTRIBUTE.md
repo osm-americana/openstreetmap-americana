@@ -110,7 +110,7 @@ You can create a new copy of the config file by running `npm run config`
 
 ### MapTiler API Key
 
-By default this project is set up to use vector tiles provided by MapTiler.
+This project can use vector tiles provided by MapTiler.
 For this to work, you must create an account and obtain a free key from
 [MapTiler Cloud][20]. This key should be pasted into the `MAPTILER_KEY` variable of
 the `config.js` file.
