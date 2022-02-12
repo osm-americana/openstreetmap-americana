@@ -172,7 +172,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:AZ:Loop"] = shields["US:AZ"];
-	
+
   shields["US:CA"] = {
     backgroundImage: [
       shieldImages.shield40_us_ca_2,
