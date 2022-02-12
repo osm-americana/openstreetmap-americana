@@ -137,11 +137,32 @@ export function loadShields(shieldImages) {
     modifiers: ["TRK"],
   };
 
+  shields["US:US:Spur"] = {
+    backgroundImage: shield_us_us,
+    textColor: "black",
+    padding: padding_us_us,
+    modifiers: ["SPUR"],
+  };
+
+  shields["US:US:Bypass"] = {
+    backgroundImage: shield_us_us,
+    textColor: "black",
+    padding: padding_us_us,
+    modifiers: ["BYP"],
+  };
+
   shields["US:US:Business"] = {
     backgroundImage: shield_us_us,
     textColor: "black",
     padding: padding_us_us,
     modifiers: ["BUS"],
+  };
+
+  shields["US:US:Alternate"] = {
+    backgroundImage: shield_us_us,
+    textColor: "black",
+    padding: padding_us_us,
+    modifiers: ["ALT"],
   };
 
   shields["US:US:Alternate:Truck:Business"] = {
