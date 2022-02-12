@@ -24,17 +24,17 @@ release is recommended. Installation options:
 
 NPM is included with the Node.js install, but as **NPM version 8.3** or newer is required
 for this project, you may need to update it. To [update NPM to the latest version][32],
-run:
+run either of these commands:
 
 ```
 npm update -g npm
 ```
 
-or
-
 ```
 npm install -g npm@latest
 ```
+
+It may be necessary to prefix these with `sudo` depending where NPM is installed on your system.
 
 [30]: https://heynode.com/tutorial/install-nodejs-locally-nvm
 [31]: https://nodejs.org/en/about/releases/
