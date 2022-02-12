@@ -19,6 +19,7 @@ _Contributors welcome!_
 The repository is organized as follows:
 
 - **style/** - The map style. See [Style Contributor's Guide](style/CONTRIBUTE.md)
+- **dev/** - Development tools used for style development. See [Style Developer Tools](dev/README.md)
 - _Coming soon! Other customized parts of the tech stack._
 
 Some general guidelines:
@@ -33,9 +34,4 @@ Some general guidelines:
 
 The technology stack for this style can be summarized below:
 
-<img src="doc-img/osm-americana-tech-stack.png" alt="Americana technology stack" />
-
-Some notes:
-
-- This style currently consists of the stylesheets alone, and relies on the MapTiler Cloud service, however, we hope to migrate to a self-hosted vector tile server that would allow us to customize the tiles, integrate other technologies, and optimize the size of served vector tiles.
-- SVG icons are converted into a png sprite sheet which is parsed by the mapLibre front-end.
+<img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
