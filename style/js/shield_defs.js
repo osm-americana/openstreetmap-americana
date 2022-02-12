@@ -3,6 +3,7 @@
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as ShieldText from "./shield_text.js";
 import * as Gfx from "./screen_gfx.js";
+import * as Util from "./util.js";
 
 //Height of modifier banners
 export const bannerSizeH = 8 * Gfx.getPixelRatio();
@@ -51,6 +52,13 @@ function roundedRectShield(
     },
     maxFontSize: 16,
     textColor: textColor,
+  };
+}
+
+function banneredShield(baseDef, modifiers) {
+  return {
+    ...baseDef,
+    modifiers: modifiers,
   };
 }
 
@@ -130,47 +138,16 @@ export function loadShields(shieldImages) {
     padding: padding_us_us,
   };
 
-  shields["US:US:Truck"] = {
-    backgroundImage: shield_us_us,
-    textColor: "black",
-    padding: padding_us_us,
-    modifiers: ["TRK"],
-  };
-
-  shields["US:US:Spur"] = {
-    backgroundImage: shield_us_us,
-    textColor: "black",
-    padding: padding_us_us,
-    modifiers: ["SPUR"],
-  };
-
-  shields["US:US:Bypass"] = {
-    backgroundImage: shield_us_us,
-    textColor: "black",
-    padding: padding_us_us,
-    modifiers: ["BYP"],
-  };
-
-  shields["US:US:Business"] = {
-    backgroundImage: shield_us_us,
-    textColor: "black",
-    padding: padding_us_us,
-    modifiers: ["BUS"],
-  };
-
-  shields["US:US:Alternate"] = {
-    backgroundImage: shield_us_us,
-    textColor: "black",
-    padding: padding_us_us,
-    modifiers: ["ALT"],
-  };
-
-  shields["US:US:Alternate:Truck:Business"] = {
-    backgroundImage: shield_us_us,
-    textColor: "black",
-    padding: padding_us_us,
-    modifiers: ["ALT", "TRK", "BUS"],
-  };
+  shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
+  shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
+  shields["US:US:Bypass"] = banneredShield(shields["US:US"], ["BYP"]);
+  shields["US:US:Business"] = banneredShield(shields["US:US"], ["BUS"]);
+  shields["US:US:Alternate"] = banneredShield(shields["US:US"], ["ALT"]);
+  shields["US:US:Alternate:Truck:Business"] = banneredShield(shields["US:US"], [
+    "ALT",
+    "TRK",
+    "BUS",
+  ]);
 
   shields["US:US:Historic"] = {
     backgroundImage: shield_us_us,
@@ -365,29 +342,8 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:PA:Business"] = {
-    backgroundImage: shieldImages.shield40_us_pa,
-    textColor: "black",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 0,
-      bottom: 10,
-    },
-    modifiers: ["BUS"],
-  };
-
-  shields["US:PA:Truck"] = {
-    backgroundImage: shieldImages.shield40_us_pa,
-    textColor: "black",
-    padding: {
-      left: 10,
-      right: 10,
-      top: 0,
-      bottom: 10,
-    },
-    modifiers: ["TRK"],
-  };
+  shields["US:PA:Business"] = banneredShield(shields["US:PA"], ["BUS"]);
+  shields["US:PA:Truck"] = banneredShield(shields["US:PA"], ["TRK"]);
 
   shields["US:PA:Turnpike"] = {
     backgroundImage: shieldImages.shield40_us_pa_turnpike,
