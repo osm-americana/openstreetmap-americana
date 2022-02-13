@@ -16,6 +16,9 @@ import * as lyrRoad from "./layer/road.js";
 import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
 
+import * as maplibregl from "maplibre-gl";
+import "maplibre-gl/maplibre-gl.css";
+
 /*
  This is a list of the layers in the Americana style, from bottom to top.
 */
@@ -64,6 +67,9 @@ americanaLayers.push(
   lyrRoad.secondary.casing(),
   lyrRoad.tertiaryExpressway.casing(),
   lyrRoad.tertiary.casing(),
+  lyrRoad.minor.casing(),
+  lyrRoad.service.casing(),
+  lyrRoad.smallService.casing(),
 
   lyrRoad.motorwayLink.casing(),
   lyrRoad.trunkLink.casing(),
@@ -71,6 +77,9 @@ americanaLayers.push(
   lyrRoad.motorwayLink.fill(),
   lyrRoad.trunkLink.fill(),
 
+  lyrRoad.smallService.fill(),
+  lyrRoad.service.fill(),
+  lyrRoad.minor.fill(),
   lyrRoad.tertiary.fill(),
   lyrRoad.tertiaryExpressway.fill(),
   lyrRoad.secondary.fill(),
@@ -85,6 +94,9 @@ americanaLayers.push(
   lyrRoad.motorwayLink.surface(),
   lyrRoad.trunkLink.surface(),
 
+  lyrRoad.smallService.surface(),
+  lyrRoad.service.surface(),
+  lyrRoad.minor.surface(),
   lyrRoad.tertiary.surface(),
   lyrRoad.tertiaryExpressway.surface(),
   lyrRoad.secondary.surface(),
@@ -100,6 +112,15 @@ americanaLayers.push(
 );
 
 var bridgeLayers = [
+  lyrRoad.smallServiceBridge.casing(),
+  lyrRoad.smallServiceBridge.fill(),
+
+  lyrRoad.serviceBridge.casing(),
+  lyrRoad.serviceBridge.fill(),
+
+  lyrRoad.minorBridge.casing(),
+  lyrRoad.minorBridge.fill(),
+
   lyrRoad.tertiaryBridge.casing(),
   lyrRoad.tertiaryExpresswayBridge.casing(),
   lyrRoad.tertiaryLinkBridge.casing(),
@@ -179,6 +200,11 @@ americanaLayers.push(
   lyrRoadLabel.secondaryHZ,
   lyrRoadLabel.tertiary,
   lyrRoadLabel.tertiaryHZ,
+  lyrRoadLabel.minor,
+  lyrRoadLabel.minorHZ,
+  lyrRoadLabel.service,
+  lyrRoadLabel.smallService,
+  lyrRoadLabel.serviceHZ,
 
   lyrPark.label,
 
@@ -203,13 +229,9 @@ var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
 var style = {
   id: "streets",
   name: "Americana",
-  zoom: 1,
-  pitch: 0,
-  center: [0, 0],
   glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   layers: americanaLayers,
   sprite: new URL("sprites/sprite", baseUrl).href,
-  bearing: 0,
   sources: {
     openmaptiles: {
       url: config.OPENMAPTILES_URL,
@@ -217,12 +239,6 @@ var style = {
     },
   },
   version: 8,
-  metadata: {
-    "mapbox:type": "template",
-    "maptiler:copyright":
-      "This style was generated on MapTiler Cloud. Usage outside of MapTiler Cloud requires valid OpenMapTiles Production Package: https://openmaptiles.com/production-package/ -- please contact us.",
-    "openmaptiles:version": "3.x",
-  },
 };
 
 var map = (window.map = new maplibregl.Map({
@@ -240,13 +256,13 @@ map.on("styledata", function () {
 });
 
 map.on("styleimagemissing", function (e) {
-  Shield.missingIconLoader(map, e);
+  Shield.missingIconHandler(map, e);
 });
 
 map.addControl(
   new maplibregl.AttributionControl({
     customAttribution:
-      '<a href="https://openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+      '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");

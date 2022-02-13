@@ -48,6 +48,17 @@ export function rectTextConstraint(spaceBounds, textBounds) {
   };
 }
 
+export function roundedRectTextConstraint(spaceBounds, textBounds, radius) {
+  //Shrink space bounds so that corners hit the arcs
+  return rectTextConstraint(
+    {
+      width: spaceBounds.width - radius * (2 - 2 / Math.sqrt(2)),
+      height: spaceBounds.height - radius * (2 - 2 / Math.sqrt(2)),
+    },
+    textBounds
+  );
+}
+
 /**
  * Determines the position and font size to draw text so that it fits within
  * a bounding box.

@@ -13,7 +13,7 @@ export const PXR = Gfx.getPixelRatio();
 const CS = 20 * PXR;
 
 const minGenericShieldWidth = 20 * PXR;
-const maxGenericShieldWidth = 30 * PXR;
+const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
 export function paBelt(ref) {
@@ -39,6 +39,9 @@ export function paBelt(ref) {
       break;
     case "Blue Belt":
       ctx.fillStyle = "#003882";
+      break;
+    case "Purple Belt":
+      ctx.fillStyle = "#bd0063";
       break;
     default:
       return null;
@@ -90,22 +93,60 @@ function square() {
 }
 
 export function rectangle(ref) {
-  var shieldWidth =
-    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 4;
-  var width = Math.max(
-    minGenericShieldWidth,
-    Math.min(maxGenericShieldWidth, shieldWidth)
-  );
+  return roundedRectangle("white", "black", ref, 1.3, 1, null);
+}
+
+export function roundedRectangle(
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 5 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
-  let lineWidth = 1 * PXR;
-  let rectHt = CS - 2 * lineWidth;
-  let rectWd = width - 2 * lineWidth;
-  ctx.fillStyle = "white";
-  ctx.fillRect(lineWidth, lineWidth, rectWd, rectHt);
-  ctx.lineWidth = lineWidth;
-  ctx.strokeStyle = "black";
-  ctx.strokeRect(lineWidth, lineWidth, rectWd, rectHt);
-  ctx.fillStyle = "black";
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+
+  let x0 = lineWidth;
+  let x1 = lineWidth + drawRadius;
+  let x2 = width - lineWidth - drawRadius;
+  let x3 = width - lineWidth;
+
+  let y0 = lineWidth;
+  let y1 = lineWidth + radius;
+  let y2 = CS - lineWidth - drawRadius;
+  let y3 = CS - lineWidth;
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y0);
+  ctx.arcTo(x3, y0, x3, y1, drawRadius);
+  ctx.arcTo(x3, y3, x2, y3, drawRadius);
+  ctx.arcTo(x0, y3, x0, y2, drawRadius);
+  ctx.arcTo(x0, y0, x1, y0, drawRadius);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
   return ctx;
 }
