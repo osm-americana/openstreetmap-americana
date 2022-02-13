@@ -17,12 +17,6 @@ const cityIcon = [
   "dot_city",
 ];
 
-function rankRange(min, max) {
-  let lowerBound = [">=", ["get", "rank"], min];
-  let upperBound = ["<=", ["get", "rank"], max];
-  return ["all", lowerBound, upperBound];
-}
-
 /**
  *
  * @param {*} placeClass - class of place tag (city, town etc)
