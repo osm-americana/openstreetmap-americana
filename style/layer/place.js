@@ -17,34 +17,27 @@ const cityIcon = [
   "dot_city",
 ];
 
-/**
- *
- * @param {*} placeClass - class of place tag (city, town etc)
- * @param {*} stops - pairs of [rank,zoom] stops
- * @returns - filter for drawing that place class
- */
-function zoomRankFilter(placeClass, stops) {
-  rankStops = ["step", ["zoom"]];
-  for (var i = 0; i < stops.length; i++) {
-    rankStops.push(["<=", ["get", "rank"], stops[i][0]]);
-    rankStops.push(stops[i][1]);
-  }
-  //Catch-all to show everything at higher zooms
-  rankStops.push([">=", ["get", "rank"], 1]);
-
-  return ["all", ["==", ["get", "class"], placeClass], rankStops];
-}
-
 export const town = {
   id: "place_town",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: zoomRankFilter("town", [
-    [2, 6],
-    [4, 7],
-    [5, 8],
-    [9, 10],
-  ]),
+  filter: [
+    "all",
+    ["==", ["get", "class"], "town"],
+    [
+      "step",
+      ["zoom"],
+      ["<=", ["get", "rank"], 2],
+      6,
+      ["<=", ["get", "rank"], 4],
+      7,
+      ["<=", ["get", "rank"], 5],
+      8,
+      ["<=", ["get", "rank"], 9],
+      10,
+      [">=", ["get", "rank"], 1],
+    ],
+  ],
   layout: {
     "text-font": ["Metropolis Bold"],
     "text-size": {
@@ -91,10 +84,19 @@ export const city = {
   id: "place_city",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: zoomRankFilter("city", [
-    [2, 5],
-    [4, 6],
-  ]),
+  filter: [
+    "all",
+    ["==", ["get", "class"], "city"],
+    [
+      "step",
+      ["zoom"],
+      ["<=", ["get", "rank"], 2],
+      5,
+      ["<=", ["get", "rank"], 4],
+      6,
+      [">=", ["get", "rank"], 1],
+    ],
+  ],
   layout: {
     "text-font": ["Metropolis Bold"],
     "text-size": {
