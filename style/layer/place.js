@@ -1,22 +1,89 @@
-"use strict";
+import * as label from "../constants/label.js";
 
-// Name fields in order of preference
-const name_en = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name:latin"],
-  ["get", "name"],
+const cityLabelPaint = {
+  "text-color": "#444",
+  "text-halo-color": "rgb(255,255,255)",
+  "text-halo-width": 2,
+  "text-halo-blur": 0.5,
+};
+
+const cityIcon = [
+  "match",
+  ["get", "capital"],
+  2,
+  "star_nation_capital",
+  4,
+  "star_state_capital",
+  "dot_city",
 ];
+
+export const town = {
+  id: "place_town",
+  type: "symbol",
+  paint: cityLabelPaint,
+  filter: [
+    "all",
+    ["==", ["get", "class"], "town"],
+    [
+      "step",
+      ["zoom"],
+      ["<=", ["get", "rank"], 2],
+      6,
+      ["<=", ["get", "rank"], 4],
+      7,
+      ["<=", ["get", "rank"], 5],
+      8,
+      ["<=", ["get", "rank"], 9],
+      10,
+      [">=", ["get", "rank"], 1],
+    ],
+  ],
+  layout: {
+    "text-font": ["Metropolis Bold"],
+    "text-size": {
+      base: 1.2,
+      stops: [
+        [5, 8],
+        [8, 10],
+        [12, 18],
+      ],
+    },
+    "icon-image": cityIcon,
+    "icon-size": {
+      base: 1.2,
+      stops: [
+        [4, 0.25],
+        [7, 0.35],
+        [11, 0.7],
+      ],
+    },
+    "text-field": label.name_en,
+    "text-anchor": "bottom",
+    "text-variable-anchor": [
+      "bottom",
+      "bottom-right",
+      "bottom-left",
+      "right",
+      "left",
+    ],
+    "text-justify": "auto",
+    "text-radial-offset": 0.5,
+    "icon-optional": false,
+    "text-max-width": 8,
+    "icon-padding": 0,
+    "text-padding": 1,
+    "icon-allow-overlap": false,
+  },
+  source: "openmaptiles",
+  minzoom: 4,
+  maxzoom: 13,
+  "source-layer": "place",
+};
 
 export const city = {
   id: "place_city",
   type: "symbol",
-  paint: {
-    "text-color": "#444",
-    "text-halo-color": "rgb(255,255,255)",
-    "text-halo-width": 2,
-    "text-halo-blur": 0.5,
-  },
+  paint: cityLabelPaint,
   filter: [
     "all",
     ["==", ["get", "class"], "city"],
@@ -40,15 +107,7 @@ export const city = {
         [11, 24],
       ],
     },
-    "icon-image": [
-      "match",
-      ["get", "capital"],
-      2,
-      "star_nation_capital",
-      4,
-      "star_state_capital",
-      "dot_city",
-    ],
+    "icon-image": cityIcon,
     "icon-size": {
       base: 1.2,
       stops: [
@@ -57,7 +116,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": name_en,
+    "text-field": label.name_en,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -76,8 +135,10 @@ export const city = {
   },
   source: "openmaptiles",
   minzoom: 4,
+  maxzoom: 12,
   "source-layer": "place",
 };
+
 export const state = {
   id: "place_state",
   type: "symbol",
@@ -97,7 +158,7 @@ export const state = {
         [6, 14],
       ],
     },
-    "text-field": name_en,
+    "text-field": label.name_en,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": 0.04,
@@ -136,7 +197,7 @@ export const countryOther = {
         [7, 15],
       ],
     },
-    "text-field": name_en,
+    "text-field": label.name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -166,7 +227,7 @@ export const country3 = {
         [7, 17],
       ],
     },
-    "text-field": name_en,
+    "text-field": label.name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -196,7 +257,7 @@ export const country2 = {
         [5, 17],
       ],
     },
-    "text-field": name_en,
+    "text-field": label.name_en,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -227,7 +288,7 @@ export const country1 = {
         [6, 19],
       ],
     },
-    "text-field": name_en,
+    "text-field": label.name_en,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
     "text-offset": [
@@ -253,7 +314,7 @@ export const continent = {
   layout: {
     "text-font": ["Metropolis Light"],
     "text-size": 13,
-    "text-field": name_en,
+    "text-field": label.name_en,
     "text-justify": "center",
     "text-transform": "uppercase",
   },
