@@ -1,0 +1,51 @@
+#geocoder-search-panel {
+  position: absolute;
+  top: 8px;
+  left: 48px;
+  z-index: 100;
+  padding: 3px;
+}
+#geocoder-search-input {
+  border: 1px solid lightgray;
+  font-size: 1em;
+  padding: 3px;
+}
+#geocoder-live-results {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.gc-result-item {
+  border: 1px solid lightgray;
+  border-color: lightgray;
+  border-width: 1px 1px 0px 1px;
+  background-color: white;
+  padding: 2px;
+}
+.gc-result-item:last-child {
+  border: 1px solid lightgray;
+  background-color: white;
+  padding: 2px;
+}
+.gc-result-item-selected {
+  border: 1px solid lightgray;
+  border-color: lightgray;
+  border-width: 1px 1px 0px 1px;
+  background-color: lightgrey;
+  padding: 2px;
+}
+.gc-result-item-selected:last-child {
+  border: 1px solid lightgray;
+  background-color: lightgrey;
+  padding: 2px;
+}
+.gc-result-category {
+  color: blue;
+  font-size: 0.65em;
+}
+.gc-result-name {
+  color: darkslategray;
+  font-size: 1.2em;
+}
+.gc-result-description {
+  color: slategray;
+  font-size: 0.75em;
+}

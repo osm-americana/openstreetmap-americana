@@ -26,6 +26,8 @@
       }
     </style>
     <script type="module" src="americana.js"></script>
+    <script type="module" src="search.js"></script>
+    <link rel="stylesheet" href="search.css" />
   </head>
 
   <body>
@@ -46,5 +48,16 @@
         data-recalc-dims="1"
         style="position: absolute; top: 0; right: 0; border: 0; z-index: 100"
     /></a>
+    <div id="geocoder-search-panel">
+      <form>
+        <input
+          id="geocoder-search-input"
+          type="text"
+          placeholder="Search"
+          autocomplete="off"
+        />
+      </form>
+      <div id="geocoder-live-results" />
+    </div>
   </body>
 </html>
