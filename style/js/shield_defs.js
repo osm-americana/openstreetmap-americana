@@ -140,9 +140,22 @@ export function loadShields(shieldImages) {
 
   shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
   shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
+  shields["US:US:Connector"] = banneredShield(shields["US:US"], ["CONN"]);
   shields["US:US:Bypass"] = banneredShield(shields["US:US"], ["BYP"]);
   shields["US:US:Business"] = banneredShield(shields["US:US"], ["BUS"]);
+  shields["US:US:Business:Alternate"] = banneredShield(shields["US:US"], [
+    "BUS",
+    "ALT",
+  ]);
+  shields["US:US:Business:Truck"] = banneredShield(shields["US:US"], [
+    "BUS",
+    "TRK",
+  ]);
   shields["US:US:Alternate"] = banneredShield(shields["US:US"], ["ALT"]);
+  shields["US:US:Alternate:Business"] = banneredShield(shields["US:US"], [
+    "ALT",
+    "BUS",
+  ]);
   shields["US:US:Alternate:Truck:Business"] = banneredShield(shields["US:US"], [
     "ALT",
     "TRK",
@@ -169,7 +182,10 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
+
+  shields["US:AZ:Spur"] = banneredShield(shields["US:AZ"], ["SPUR"]);
   shields["US:AZ:Loop"] = banneredShield(shields["US:AZ"], ["LOOP"]);
+  shields["US:AZ:Business"] = banneredShield(shields["US:AZ"], ["BUS"]);
 
   shields["US:CA"] = {
     backgroundImage: [
@@ -187,6 +203,8 @@ export function loadShields(shieldImages) {
 
   shields["US:CA:CR"] = usMUTCDCountyShield;
   shields["US:DE"] = circleShield("white", "black");
+  shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
+  shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
 
   shields["US:GA"] = {
     backgroundImage: [
@@ -201,6 +219,14 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
+
+  shields["US:GA:Truck"] = banneredShield(shields["US:GA"], ["TRK"]);
+  shields["US:GA:Spur"] = banneredShield(shields["US:GA"], ["SPUR"]);
+  shields["US:GA:Loop"] = banneredShield(shields["US:GA"], ["LOOP"]);
+  shields["US:GA:Connector"] = banneredShield(shields["US:GA"], ["CONN"]);
+  shields["US:GA:Bypass"] = banneredShield(shields["US:GA"], ["BYP"]);
+  shields["US:GA:Business"] = banneredShield(shields["US:GA"], ["BUS"]);
+  shields["US:GA:Alternate"] = banneredShield(shields["US:GA"], ["ALT"]);
 
   shields["US:HI"] = {
     backgroundImage: shieldImages.shield40_us_hi,
@@ -230,6 +256,9 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:KY"] = roundedRectShield("white", "black", "black", 8, 1, null);
+
+  shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
+
   shields["US:MI"] = diamondShield;
 
   shields["US:MN"] = {
@@ -248,6 +277,8 @@ export function loadShields(shieldImages) {
 
   shields["US:MS"] = circleShield("white", "black");
   shields["US:NC"] = diamondShield;
+  shields["US:NC:Bypass"] = banneredShield(shields["US:NC"], ["BYP"]);
+  shields["US:NC:Business"] = banneredShield(shields["US:NC"], ["BUS"]);
 
   shields["US:NH"] = {
     backgroundImage: shieldImages.shield40_us_nh,
@@ -260,7 +291,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:NM"] = roundedRectShield("white", "red", "black", 8, 1, null);
+  shields["US:NH:Bypass"] = banneredShield(shields["US:NH"], ["BYP"]);
   shields["US:NJ"] = circleShield("white", "black");
 
   shields["US:NJ:ACE"] = {
@@ -301,6 +332,8 @@ export function loadShields(shieldImages) {
     "Gloucester",
   ].forEach((county) => (shields["US:NJ:" + county] = usMUTCDCountyShield));
 
+  shields["US:NM"] = roundedRectShield("white", "red", "black", 8, 1, null);
+
   shields["US:NY"] = {
     backgroundImage: shieldImages.shield40_us_ny,
     textColor: "black",
@@ -332,6 +365,9 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:OH:Bypass"] = banneredShield(shields["US:OH"], ["BYP"]);
+  shields["US:OH:Business"] = banneredShield(shields["US:OH"], ["BUS"]);
+
   shields["US:OR"] = {
     backgroundImage: [
       shieldImages.shield40_us_or_2,
@@ -346,6 +382,8 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:OR:Business"] = banneredShield(shields["US:OR"], ["BUS"]);
+
   shields["US:PA"] = {
     backgroundImage: shieldImages.shield40_us_pa,
     textColor: "black",
@@ -357,8 +395,9 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:PA:Business"] = banneredShield(shields["US:PA"], ["BUS"]);
   shields["US:PA:Truck"] = banneredShield(shields["US:PA"], ["TRK"]);
+  shields["US:PA:Business"] = banneredShield(shields["US:PA"], ["BUS"]);
+  shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
 
   shields["US:PA:Turnpike"] = {
     backgroundImage: shieldImages.shield40_us_pa_turnpike,
@@ -388,6 +427,10 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:SC:Truck"] = banneredShield(shields["US:SC"], ["TRK"]);
+  shields["US:SC:Business"] = banneredShield(shields["US:SC"], ["BUS"]);
+  shields["US:SC:Alternate"] = banneredShield(shields["US:SC"], ["ALT"]);
+
   shields["US:VA"] = {
     backgroundImage: shieldImages.shield40_us_va,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
@@ -399,6 +442,9 @@ export function loadShields(shieldImages) {
       bottom: 8,
     },
   };
+
+  shields["US:VA:Business"] = banneredShield(shields["US:VA"], ["BUS"]);
+  shields["US:VA:Alternate"] = banneredShield(shields["US:VA"], ["ALT"]);
 
   shields["US:VA:Secondary"] = roundedRectShield(
     "white",
@@ -430,6 +476,10 @@ export function loadShields(shieldImages) {
       bottom: 7,
     },
   };
+
+  shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
+  shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
+  shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
 
   // Europe
   shields["e-road"] = {
