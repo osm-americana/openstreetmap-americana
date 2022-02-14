@@ -222,10 +222,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "black",
     padding: {
-      left: 7,
-      right: 2,
-      top: 2,
-      bottom: 10,
+      left: 5,
+      right: 1,
+      top: 1,
+      bottom: 8,
     },
   };
 
