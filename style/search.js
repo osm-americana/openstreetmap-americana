@@ -19,7 +19,32 @@ function collapseArray(arr, delimiter) {
     .join(delimiter);
 }
 
-function geocoderResultEntry(result) {
+function goToResult(index) {
+  console.log("RESULT!");
+  let bbox = resultGeometry[index];
+  let center = resultPoint[index];
+  resultSelectIndex = -1;
+  resultGeometry = [];
+  resultPoint = [];
+  liveResults.innerHTML = "";
+
+  //Clear search box
+  searchInput.value = "";
+  searchInput.blur();
+  map.getCanvas().focus();
+
+  console.log(bbox);
+  console.log(center);
+
+  //Zoom map to search result
+  if (bbox != undefined) {
+    map.fitBounds(bbox);
+  } else {
+    map.setCenter({ lat: center[1], lon: center[0] });
+  }
+}
+
+function geocoderResultEntry(result, index) {
   let p = result.properties;
 
   let addr = collapseArray([p.housenumber, p.street], " ");
@@ -36,7 +61,7 @@ function geocoderResultEntry(result) {
   );
 
   return `
-      <div class="gc-result-item">
+      <div class="gc-result-item" id="gc-result-item-${index}">
         <div class="gc-result-category">${p.type}</div>
         <div class="gc-result-name">${name}</div>
         <div class="gc-result-description">${description}</div>
@@ -50,8 +75,10 @@ function geocoderResponse(data) {
   for (var i = 0; i < data.features.length; i++) {
     resultGeometry[i] = data.features[i].properties.extent;
     resultPoint[i] = data.features[i].geometry.coordinates;
-    console.log(resultGeometry[i]);
-    liveResults.innerHTML += geocoderResultEntry(data.features[i]);
+    liveResults.innerHTML += geocoderResultEntry(data.features[i], i);
+    document.getElementById(`gc-result-item-${i}`).onclick = function () {
+      goToResult(i);
+    };
   }
 }
 
@@ -94,28 +121,8 @@ function arrowNavigate(e) {
       break;
     case 13:
       let navIndex = resultSelectIndex < 0 ? 0 : resultSelectIndex;
-      let bbox = resultGeometry[navIndex];
-      let center = resultPoint[navIndex];
-      resultSelectIndex = -1;
-      resultGeometry = [];
-      resultPoint = [];
-      liveResults.innerHTML = "";
 
-      //Clear search box
-      searchInput.value = "";
-      searchInput.blur();
-      map.getCanvas().focus();
-      
-      console.log(bbox);
-      console.log(center);
-
-      //Zoom map to search result
-      if (bbox != undefined) {
-        map.fitBounds(bbox);
-      } else {
-        map.setCenter({ lat: center[1], lon: center[0] });
-      }
-
+      goToResult(navIndex);
       return;
     default:
       return;
