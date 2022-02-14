@@ -104,7 +104,8 @@ function arrowNavigate(e) {
       //Clear search box
       searchInput.value = "";
       searchInput.blur();
-
+      map.getCanvas().focus();
+      
       console.log(bbox);
       console.log(center);
 
