@@ -20,7 +20,6 @@ function collapseArray(arr, delimiter) {
 }
 
 function goToResult(index) {
-  console.log("RESULT!");
   let bbox = resultGeometry[index];
   let center = resultPoint[index];
   resultSelectIndex = -1;
@@ -44,7 +43,7 @@ function goToResult(index) {
   }
 }
 
-function geocoderResultEntry(result, index) {
+function geocoderResultEntry(result) {
   let p = result.properties;
 
   let addr = collapseArray([p.housenumber, p.street], " ");
@@ -60,25 +59,35 @@ function geocoderResultEntry(result, index) {
     ", "
   );
 
-  return `
-      <div class="gc-result-item" id="gc-result-item-${index}">
-        <div class="gc-result-category">${p.type}</div>
-        <div class="gc-result-name">${name}</div>
-        <div class="gc-result-description">${description}</div>
-      </div>
-    `;
+  let item = document.createElement("div");
+  item.className = "gc-result-item";
+
+  let itemCategory = document.createElement("div");
+  itemCategory.className = "gc-result-category";
+  itemCategory.innerText = p.type;
+  let itemName = document.createElement("div");
+  itemName.className = "gc-result-name";
+  itemName.innerText = name;
+  let itemDescription = document.createElement("div");
+  itemDescription.className = "gc-result-description";
+  itemDescription.innerText = description;
+
+  item.appendChild(itemCategory);
+  item.appendChild(itemName);
+  item.appendChild(itemDescription);
+
+  return item;
 }
 
 function geocoderResponse(data) {
   liveResults.innerHTML = "";
 
-  for (var i = 0; i < data.features.length; i++) {
+  for (let i = 0; i < data.features.length; i++) {
     resultGeometry[i] = data.features[i].properties.extent;
     resultPoint[i] = data.features[i].geometry.coordinates;
-    liveResults.innerHTML += geocoderResultEntry(data.features[i], i);
-    document.getElementById(`gc-result-item-${i}`).onclick = function () {
-      goToResult(i);
-    };
+    let result = geocoderResultEntry(data.features[i]);
+    liveResults.appendChild(result);
+    result.onclick = (e) => goToResult(i);
   }
 }
 
