@@ -218,6 +218,7 @@ americanaLayers.push(
   lyrHighwayShield.tertiary,
 
   lyrPlace.state,
+  lyrPlace.town,
   lyrPlace.city,
   lyrPlace.countryOther,
   lyrPlace.country3,
