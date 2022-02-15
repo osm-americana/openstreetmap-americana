@@ -215,6 +215,20 @@ export function loadShields(shieldImages) {
 
   shields["US:IA"] = roundedRectShield("white", "black", "black", 8, 1, null);
 
+  shields["US:ID"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_id_2,
+      shieldImages.shield40_us_id_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 5,
+      right: 1,
+      top: 1,
+      bottom: 8,
+    },
+  };
+
   shields["US:KS"] = {
     backgroundImage: [
       shieldImages.shield40_us_ks_2,
