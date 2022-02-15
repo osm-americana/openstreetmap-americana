@@ -152,10 +152,6 @@ export function loadShields(shieldImages) {
     "TRK",
   ]);
   shields["US:US:Alternate"] = banneredShield(shields["US:US"], ["ALT"]);
-  shields["US:US:Alternate:Business"] = banneredShield(shields["US:US"], [
-    "ALT",
-    "BUS",
-  ]);
   shields["US:US:Alternate:Truck:Business"] = banneredShield(shields["US:US"], [
     "ALT",
     "TRK",
