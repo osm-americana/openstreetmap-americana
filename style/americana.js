@@ -76,9 +76,15 @@ americanaLayers.push(
 
   lyrRoad.motorwayLink.casing(),
   lyrRoad.trunkLink.casing(),
+  lyrRoad.primaryLink.casing(),
+  lyrRoad.secondaryLink.casing(),
+  lyrRoad.tertiaryLink.casing(),
 
   lyrRoad.motorwayLink.fill(),
   lyrRoad.trunkLink.fill(),
+  lyrRoad.primaryLink.fill(),
+  lyrRoad.secondaryLink.fill(),
+  lyrRoad.tertiaryLink.fill(),
 
   lyrRoad.smallService.fill(),
   lyrRoad.service.fill(),
@@ -96,6 +102,9 @@ americanaLayers.push(
 
   lyrRoad.motorwayLink.surface(),
   lyrRoad.trunkLink.surface(),
+  lyrRoad.primaryLink.surface(),
+  lyrRoad.secondaryLink.surface(),
+  lyrRoad.tertiaryLink.surface(),
 
   lyrRoad.smallService.surface(),
   lyrRoad.service.surface(),

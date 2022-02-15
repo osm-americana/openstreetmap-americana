@@ -783,7 +783,8 @@ class TrunkTunnel extends Trunk {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 41%, 90%)`;
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 70%, 90%)`;
   }
 }
 
@@ -853,6 +854,9 @@ export const trunkExpresswayTunnel = new TrunkExpresswayTunnel();
 
 export const motorwayLink = new MotorwayLink();
 export const trunkLink = new TrunkLink();
+export const primaryLink = new PrimaryLink();
+export const secondaryLink = new SecondaryLink();
+export const tertiaryLink = new TertiaryLink();
 
 export const motorwayLinkBridge = new MotorwayLinkBridge();
 export const trunkLinkBridge = new TrunkLinkBridge();
