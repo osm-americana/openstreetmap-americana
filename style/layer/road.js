@@ -766,16 +766,8 @@ class MotorwayTunnel extends Motorway {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.casingColor = [
-      ...this.colorCasingLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 75%)`,
-    ];
-    this.fillColor = [
-      ...this.colorFillLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 90%)`,
-    ];
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
   }
 }
 
@@ -784,7 +776,7 @@ class TrunkTunnel extends Trunk {
     super();
     this.brunnel = "tunnel";
     this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 70%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
   }
 }
 
@@ -793,6 +785,7 @@ class TrunkExpresswayTunnel extends TrunkExpressway {
     super();
     this.brunnel = "tunnel";
     this.casingColor = `hsl(${this.hue}, 41%, 85%)`;
+    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
   }
 }
 
@@ -881,16 +874,8 @@ class MotorwayLinkTunnel extends MotorwayLink {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.casingColor = [
-      ...this.colorCasingLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 75%)`,
-    ];
-    this.fillColor = [
-      ...this.colorFillLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 90%)`,
-    ];
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
   }
 }
 
@@ -899,7 +884,7 @@ class TrunkLinkTunnel extends TrunkLink {
     super();
     this.brunnel = "tunnel";
     this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 70%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
   }
 }
 
