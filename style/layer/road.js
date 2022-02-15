@@ -796,6 +796,87 @@ class TrunkExpresswayTunnel extends TrunkExpressway {
   }
 }
 
+class PrimaryTunnel extends Primary {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class PrimaryExpresswayTunnel extends PrimaryExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SecondaryTunnel extends Secondary {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SecondaryExpresswayTunnel extends SecondaryExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class TertiaryTunnel extends Tertiary {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class TertiaryExpresswayTunnel extends TertiaryExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class MinorTunnel extends Minor {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class ServiceTunnel extends Service {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SmallServiceTunnel extends SmallService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
 class MotorwayLinkTunnel extends MotorwayLink {
   constructor() {
     super();
@@ -817,7 +898,35 @@ class TrunkLinkTunnel extends TrunkLink {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 41%, 90%)`;
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 70%, 90%)`;
+  }
+}
+
+class PrimaryLinkTunnel extends PrimaryLink {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SecondaryLinkTunnel extends SecondaryLink {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class TertiaryLinkTunnel extends TertiaryLink {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
   }
 }
 
@@ -851,6 +960,15 @@ export const smallServiceBridge = new SmallServiceBridge();
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();
 export const trunkExpresswayTunnel = new TrunkExpresswayTunnel();
+export const primaryTunnel = new PrimaryTunnel();
+export const primaryExpresswayTunnel = new PrimaryExpresswayTunnel();
+export const secondaryTunnel = new SecondaryTunnel();
+export const secondaryExpresswayTunnel = new SecondaryExpresswayTunnel();
+export const tertiaryTunnel = new TertiaryTunnel();
+export const tertiaryExpresswayTunnel = new TertiaryExpresswayTunnel();
+export const minorTunnel = new MinorTunnel();
+export const serviceTunnel = new ServiceTunnel();
+export const smallServiceTunnel = new SmallServiceTunnel();
 
 export const motorwayLink = new MotorwayLink();
 export const trunkLink = new TrunkLink();
@@ -866,3 +984,6 @@ export const tertiaryLinkBridge = new TertiaryLinkBridge();
 
 export const motorwayLinkTunnel = new MotorwayLinkTunnel();
 export const trunkLinkTunnel = new TrunkLinkTunnel();
+export const primaryLinkTunnel = new PrimaryLinkTunnel();
+export const secondaryLinkTunnel = new SecondaryLinkTunnel();
+export const tertiaryLinkTunnel = new TertiaryLinkTunnel();
