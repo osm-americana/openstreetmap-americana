@@ -625,11 +625,6 @@ class MotorwayBridge extends Motorway {
   constructor() {
     super();
     this.brunnel = "bridge";
-    this.casingColor = [
-      ...this.colorCasingLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 10%)`,
-    ];
   }
 }
 
@@ -637,7 +632,6 @@ class TrunkBridge extends Trunk {
   constructor() {
     super();
     this.brunnel = "bridge";
-    this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
   }
 }
 
@@ -724,16 +718,16 @@ class SmallServiceBridge extends SmallService {
 class MotorwayLinkBridge extends MotorwayLink {
   constructor() {
     super();
+    //Undifferentiated
     this.brunnel = "bridge";
-    this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
   }
 }
 
 class TrunkLinkBridge extends TrunkLink {
   constructor() {
     super();
+    //Undifferentiated
     this.brunnel = "bridge";
-    this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
   }
 }
 
