@@ -566,8 +566,8 @@ class TrunkLink extends Trunk {
   constructor() {
     super();
     this.link = true;
-    this.minZoomFill = 11;
-    this.minZoomCasing = 15;
+    this.minZoomFill = 7;
+    this.minZoomCasing = 7;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
