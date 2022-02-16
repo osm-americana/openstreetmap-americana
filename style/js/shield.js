@@ -152,8 +152,8 @@ function drawShield(network, ref) {
         );
 
         shieldBounds = {
-          width: ctx.canvas.width,
-          height: ctx.canvas.height,
+          width: drawnShieldCtx.canvas.width,
+          height: drawnShieldCtx.canvas.height,
         };
       } else {
         return null;
