@@ -109,6 +109,7 @@ function drawShield(network, ref, wayName) {
   var ctx = null;
   var bannerCount = 0;
   var padding = null;
+  var shieldBounds = null;
 
   if (shieldDef == null) {
     if (ref == "") {
@@ -135,13 +136,12 @@ function drawShield(network, ref, wayName) {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
     padding = shieldDef.padding;
 
-    if (shieldDef.refsByWayName) {
+    if (ref === "" && shieldDef.refsByWayName) {
       ref = shieldDef.refsByWayName[wayName];
     }
 
     var shieldArtwork = getRasterShieldBlank(network, ref);
     var compoundBounds = null;
-    var shieldBounds = null;
 
     if (shieldArtwork == null) {
       if (typeof shieldDef.backgroundDraw != "undefined") {
