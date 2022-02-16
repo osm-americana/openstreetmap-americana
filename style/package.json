@@ -1,9 +1,34 @@
 {
+  "name": "openstreetmap-americana",
+  "version": "0.1.0",
+  "description": " A quintessentially American map style.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zelonewolf/openstreetmap-americana.git"
+  },
+  "scripts": {
+    "config": "cp config.default.js config.js",
+    "code_format": "npx prettier --write .",
+    "clean": "rm -rf dist .parcel-cache",
+    "presprites": "rm -rf dist/sprites",
+    "sprites": "mkdir -p dist/sprites && npx spritezero dist/sprites/sprite@2x icons/ --retina && npx spritezero dist/sprites/sprite icons/",
+    "start": "npm run clean && npm run sprites && npx parcel index.html --open --port 1776",
+    "build": "npm run clean && npm run sprites && npx parcel build index.html --public-url ./"
+  },
   "dependencies": {
-    "@beyondtracks/spritezero-cli": "^2.3.0",
-    "browser-sync": "^2.27.4"
+    "@beyondtracks/spritezero-cli": "^2.3.0"
   },
   "devDependencies": {
+    "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5/maplibre-gl.tar.gz",
+    "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
+    "parcel": "^2.3.0",
     "prettier": "2.3.2"
+  },
+  "engines": {
+    "npm": ">=8.3.0"
+  },
+  "overrides": {
+    "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5/maplibre-gl.tar.gz"
   }
 }
