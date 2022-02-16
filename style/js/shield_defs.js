@@ -258,11 +258,17 @@ export function loadShields(shieldImages) {
     {
       refsByWayName: {
         "Audobon Parkway": "AU",
+        "Bluegrass Parkway": "BG",
         "Bluegrass Pkwy": "BG",
+        "Cumberland Parkway": "LN",
         "Cumberland Pkwy": "LN",
+        "Hal Rogers Parkway": "HR",
         "Hal Rogers Pkwy": "HR",
+        "Mountain Parkway": "MP",
         "Mountain Pkwy": "MP",
+        "Purchase Parkway": "JC",
         "Purchase Pkwy": "JC",
+        "Western Kentucky Parkway": "WK",
         "Western Kentucky Pkwy": "WK",
       },
     },
