@@ -197,6 +197,7 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
   shields["US:CA:CR"] = usMUTCDCountyShield;
   shields["US:DE"] = circleShield("white", "black");
   shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
@@ -267,9 +268,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:KY"] = roundedRectShield("white", "black", "black", 8, 1, null);
-
   shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
-
   shields["US:MI"] = diamondShield;
 
   shields["US:MN"] = {
