@@ -257,7 +257,7 @@ export function loadShields(shieldImages) {
   shields["US:KY:Parkway"] = Object.assign(
     {
       refsByWayName: {
-        "Audobon Parkway": "AU",
+        "Audubon Parkway": "AU",
         "Bluegrass Parkway": "BG",
         "Bluegrass Pkwy": "BG",
         "Cumberland Parkway": "LN",
