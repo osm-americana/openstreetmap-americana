@@ -199,9 +199,9 @@ export function loadShields(shieldImages) {
 
   shields["US:CA:CR"] = usMUTCDCountyShield;
   shields["US:DE"] = circleShield("white", "black");
-  shields["US:DE:Truck"] = banneredShield(shields["US:DE"], ["TRK"]);
-  shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
   shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
+  shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
+  shields["US:DE:Truck"] = banneredShield(shields["US:DE"], ["TRK"]);
 
   shields["US:GA"] = {
     backgroundImage: [
@@ -237,6 +237,20 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:IA"] = roundedRectShield("white", "black", "black", 8, 1, null);
+
+  shields["US:ID"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_id_2,
+      shieldImages.shield40_us_id_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 5,
+      right: 1,
+      top: 1,
+      bottom: 8,
+    },
+  };
 
   shields["US:KS"] = {
     backgroundImage: [
