@@ -256,6 +256,10 @@ export function loadShields(shieldImages) {
   };
   shields["US:KY:Parkway"] = Object.assign(
     {
+      // FIXME: This object contains both spelled-out and abbreviated road
+      // names to accommodate both the abbreviated names from OpenMapTiles and
+      // the spelled-out names from Planetiler.
+      // https://github.com/onthegomap/planetiler/issues/14
       refsByWayName: {
         "Audubon Parkway": "AU",
         "Bluegrass Parkway": "BG",
