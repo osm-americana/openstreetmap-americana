@@ -141,11 +141,19 @@ function drawShield(network, ref) {
 
     if (shieldArtwork == null) {
       if (typeof shieldDef.backgroundDraw != "undefined") {
-        ctx = shieldDef.backgroundDraw(ref);
-        compoundBounds = compoundShieldSize(ctx, bannerCount);
+        let drawnShieldCtx = shieldDef.backgroundDraw(ref);
+        compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
+        ctx = Gfx.getGfxContext(compoundBounds);
+
+        ctx.drawImage(
+          drawnShieldCtx.canvas,
+          0,
+          bannerCount * ShieldDef.bannerSizeH
+        );
+
         shieldBounds = {
-          width: ctx.canvas.width,
-          height: ctx.canvas.height,
+          width: drawnShieldCtx.canvas.width,
+          height: drawnShieldCtx.canvas.height,
         };
       } else {
         return null;

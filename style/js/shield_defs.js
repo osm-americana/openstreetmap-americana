@@ -187,6 +187,8 @@ export function loadShields(shieldImages) {
 
   shields["US:CA:CR"] = usMUTCDCountyShield;
   shields["US:DE"] = circleShield("white", "black");
+  shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
+  shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
 
   shields["US:GA"] = {
     backgroundImage: [
