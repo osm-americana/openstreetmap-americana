@@ -246,6 +246,41 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:KY"] = roundedRectShield("white", "black", "black", 8, 1, null);
+  shields["US:KY:AA"] = {
+    backgroundImage: shieldImages.shield40_us_ky_parkway,
+    textColor: "#003f87",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 6,
+    },
+  };
+  shields["US:KY:Parkway"] = Object.assign(
+    {
+      // FIXME: This object contains both spelled-out and abbreviated road
+      // names to accommodate both the abbreviated names from OpenMapTiles and
+      // the spelled-out names from Planetiler.
+      // https://github.com/onthegomap/planetiler/issues/14
+      refsByWayName: {
+        "Audubon Parkway": "AU",
+        "Bluegrass Parkway": "BG",
+        "Bluegrass Pkwy": "BG",
+        "Cumberland Parkway": "LN",
+        "Cumberland Pkwy": "LN",
+        "Hal Rogers Parkway": "HR",
+        "Hal Rogers Pkwy": "HR",
+        "Mountain Parkway": "MP",
+        "Mountain Pkwy": "MP",
+        "Purchase Parkway": "JC",
+        "Purchase Pkwy": "JC",
+        "Western Kentucky Parkway": "WK",
+        "Western Kentucky Pkwy": "WK",
+      },
+    },
+    shields["US:KY:AA"]
+  );
+
   shields["US:MI"] = diamondShield;
 
   shields["US:MN"] = {
