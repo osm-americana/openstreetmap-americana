@@ -282,6 +282,7 @@ export function loadShields(shieldImages) {
   );
 
   shields["US:MI"] = diamondShield;
+  shields["US:MI:CR"] = usMUTCDCountyShield;
 
   shields["US:MN"] = {
     backgroundImage: [
