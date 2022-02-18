@@ -4,14 +4,9 @@ export const exits = {
   filter: ["all", ["==", "subclass", "junction"], ["!=", "ref", ""]],
   source: "openmaptiles",
   "source-layer": "transportation_name",
+  minzoom: 14,
   layout: {
-    "text-field": [
-      "step",
-      ["zoom"],
-      ["format", ["image", "small_white_diamond"]],
-      13,
-      ["get", "ref"],
-    ],
+    "text-field": ["get", "ref"],
     "text-font": ["Metropolis Black"],
     "text-size": 9,
     "text-line-height": 1,
