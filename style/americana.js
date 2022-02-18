@@ -15,6 +15,7 @@ import * as lyrPlace from "./layer/place.js";
 import * as lyrRoad from "./layer/road.js";
 import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
+import * as lyrHighwayExit from "./layer/highway_exit.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/maplibre-gl.css";
@@ -246,6 +247,8 @@ americanaLayers.push(
   lyrHighwayShield.primary,
   lyrHighwayShield.secondary,
   lyrHighwayShield.tertiary,
+
+  lyrHighwayExit.exits,
 
   lyrPlace.state,
   lyrPlace.town,
