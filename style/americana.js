@@ -15,9 +15,14 @@ import * as lyrPlace from "./layer/place.js";
 import * as lyrRoad from "./layer/road.js";
 import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
+import * as lyrBuilding from "./layer/building.js";
+import * as lyrHighwayExit from "./layer/highway_exit.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/maplibre-gl.css";
+
+import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl";
+import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles";
 
 /*
  This is a list of the layers in the Americana style, from bottom to top.
@@ -44,16 +49,37 @@ americanaLayers.push(
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
   lyrRoad.trunkTunnel.casing(),
+  lyrRoad.primaryExpresswayTunnel.casing(),
+  lyrRoad.primaryTunnel.casing(),
+  lyrRoad.secondaryExpresswayTunnel.casing(),
+  lyrRoad.secondaryTunnel.casing(),
+  lyrRoad.tertiaryExpresswayTunnel.casing(),
+  lyrRoad.tertiaryTunnel.casing(),
+  lyrRoad.minorTunnel.casing(),
+  lyrRoad.serviceTunnel.casing(),
+  lyrRoad.smallServiceTunnel.casing(),
 
   lyrRoad.motorwayLinkTunnel.casing(),
   lyrRoad.trunkLinkTunnel.casing(),
+  lyrRoad.primaryLinkTunnel.casing(),
+  lyrRoad.secondaryLinkTunnel.casing(),
+  lyrRoad.tertiaryLinkTunnel.casing(),
 
   lyrRoad.motorwayTunnel.fill(),
   lyrRoad.trunkExpresswayTunnel.fill(),
   lyrRoad.trunkTunnel.fill(),
-
+  lyrRoad.primaryExpresswayTunnel.fill(),
+  lyrRoad.primaryTunnel.fill(),
+  lyrRoad.secondaryExpresswayTunnel.fill(),
+  lyrRoad.secondaryTunnel.fill(),
+  lyrRoad.tertiaryExpresswayTunnel.fill(),
+  lyrRoad.tertiaryTunnel.fill(),
+  lyrRoad.minorTunnel.fill(),
+  lyrRoad.serviceTunnel.fill(),
+  lyrRoad.smallServiceTunnel.fill(),
   lyrRoad.motorwayLinkTunnel.fill(),
   lyrRoad.trunkLinkTunnel.fill(),
+  lyrRoad.primaryLinkTunnel.fill(),
 
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
@@ -73,9 +99,15 @@ americanaLayers.push(
 
   lyrRoad.motorwayLink.casing(),
   lyrRoad.trunkLink.casing(),
+  lyrRoad.primaryLink.casing(),
+  lyrRoad.secondaryLink.casing(),
+  lyrRoad.tertiaryLink.casing(),
 
   lyrRoad.motorwayLink.fill(),
   lyrRoad.trunkLink.fill(),
+  lyrRoad.primaryLink.fill(),
+  lyrRoad.secondaryLink.fill(),
+  lyrRoad.tertiaryLink.fill(),
 
   lyrRoad.smallService.fill(),
   lyrRoad.service.fill(),
@@ -93,6 +125,9 @@ americanaLayers.push(
 
   lyrRoad.motorwayLink.surface(),
   lyrRoad.trunkLink.surface(),
+  lyrRoad.primaryLink.surface(),
+  lyrRoad.secondaryLink.surface(),
+  lyrRoad.tertiaryLink.surface(),
 
   lyrRoad.smallService.surface(),
   lyrRoad.service.surface(),
@@ -110,6 +145,8 @@ americanaLayers.push(
   lyrOneway.road,
   lyrOneway.link
 );
+
+americanaLayers.push(lyrBuilding.building);
 
 var bridgeLayers = [
   lyrRoad.smallServiceBridge.casing(),
@@ -214,6 +251,8 @@ americanaLayers.push(
   lyrHighwayShield.secondary,
   lyrHighwayShield.tertiary,
 
+  lyrHighwayExit.exits,
+
   lyrPlace.state,
   lyrPlace.town,
   lyrPlace.city,
@@ -238,6 +277,11 @@ var style = {
       url: config.OPENMAPTILES_URL,
       type: "vector",
     },
+  },
+  light: {
+    anchor: "viewport",
+    color: "white",
+    intensity: 0.12,
   },
   version: 8,
 };
@@ -267,4 +311,12 @@ map.addControl(
   })
 );
 map.addControl(new maplibregl.NavigationControl(), "top-left");
+
+// Add our sample data.
+let sampleControl = new SampleControl({ permalinks: true });
+OpenMapTilesSamples.forEach((sample, i) => {
+  sampleControl.addSample(sample);
+});
+map.addControl(sampleControl, "bottom-left");
+
 map.getCanvas().focus();
