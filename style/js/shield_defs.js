@@ -104,6 +104,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
+  shields["US:I:Truck"] = banneredShield(shields["US:I"], ["TRK"]);
 
   shields["US:I:Business:Loop"] = {
     backgroundImage: [
