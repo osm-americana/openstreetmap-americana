@@ -351,7 +351,7 @@ export function loadShields(shieldImages) {
     "Hudson",
     "Salem",
     "Gloucester",
-  ].forEach((county) => (shields["US:NJ:" + county] = usMUTCDCountyShield));
+  ].forEach((county) => (shields[`US:NJ:${county}`] = usMUTCDCountyShield));
 
   shields["US:NY"] = {
     backgroundImage: shieldImages.shield40_us_ny,
@@ -386,7 +386,7 @@ export function loadShields(shieldImages) {
 
   ["COL", "JEF", "MAH", "OTT", "SEN", "STA", "SUM", "TUS"].forEach(
     // Yellow on blue pentagon
-    (county) => (shields["US:OH:" + county] = usMUTCDCountyShield)
+    (county) => (shields[`US:OH:${county}`] = usMUTCDCountyShield)
   );
   [
     "ATH",
@@ -402,7 +402,7 @@ export function loadShields(shieldImages) {
   ].forEach(
     // White on green rectangle
     (county) =>
-      (shields["US:OH:" + county] = roundedRectShield(
+      (shields[`US:OH:${county}`] = roundedRectShield(
         "#006747",
         "white",
         "white",
@@ -414,7 +414,7 @@ export function loadShields(shieldImages) {
   ["MED", "NOB"].forEach(
     // White on blue rectangle
     (county) =>
-      (shields["US:OH:" + county] = roundedRectShield(
+      (shields[`US:OH:${county}`] = roundedRectShield(
         "#003f87",
         "white",
         "white",
@@ -426,7 +426,7 @@ export function loadShields(shieldImages) {
   ["TRU", "VIN"].forEach(
     // Black on yellow rectangle
     (county) =>
-      (shields["US:OH:" + county] = roundedRectShield(
+      (shields[`US:OH:${county}`] = roundedRectShield(
         "#ffcd00",
         "black",
         "black",
