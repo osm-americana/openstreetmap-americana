@@ -103,6 +103,8 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
+
   shields["US:I:Business:Loop"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_business_2,
