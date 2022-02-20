@@ -15,6 +15,8 @@ import * as lyrPlace from "./layer/place.js";
 import * as lyrRoad from "./layer/road.js";
 import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
+import * as lyrBuilding from "./layer/building.js";
+import * as lyrHighwayExit from "./layer/highway_exit.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/maplibre-gl.css";
@@ -144,6 +146,8 @@ americanaLayers.push(
   lyrOneway.link
 );
 
+americanaLayers.push(lyrBuilding.building);
+
 var bridgeLayers = [
   lyrRoad.smallServiceBridge.casing(),
   lyrRoad.smallServiceBridge.fill(),
@@ -247,6 +251,8 @@ americanaLayers.push(
   lyrHighwayShield.secondary,
   lyrHighwayShield.tertiary,
 
+  lyrHighwayExit.exits,
+
   lyrPlace.state,
   lyrPlace.town,
   lyrPlace.city,
@@ -271,6 +277,11 @@ var style = {
       url: config.OPENMAPTILES_URL,
       type: "vector",
     },
+  },
+  light: {
+    anchor: "viewport",
+    color: "white",
+    intensity: 0.12,
   },
   version: 8,
 };
