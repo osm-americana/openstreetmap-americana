@@ -351,7 +351,7 @@ export function loadShields(shieldImages) {
     "Hudson",
     "Salem",
     "Gloucester",
-  ].forEach((county) => (shields["US:NJ:" + county] = usMUTCDCountyShield));
+  ].forEach((county) => (shields[`US:NJ:${county}`] = usMUTCDCountyShield));
 
   shields["US:NY"] = {
     backgroundImage: shieldImages.shield40_us_ny,
@@ -375,6 +375,81 @@ export function loadShields(shieldImages) {
       shieldImages.shield40_us_oh_3,
     ],
     norefImage: shieldImages.shield40_us_oh_turnpike,
+    textColor: "black",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 6,
+    },
+  };
+
+  ["COL", "JEF", "MAH", "OTT", "SEN", "STA", "SUM", "TUS"].forEach(
+    // Yellow on blue pentagon
+    (county) => (shields[`US:OH:${county}`] = usMUTCDCountyShield)
+  );
+  [
+    "ATH",
+    "BEL",
+    "GUE",
+    "HAR",
+    "HEN",
+    "MOE",
+    "PAU",
+    "WAS",
+    "WIL",
+    "WYA",
+  ].forEach(
+    // White on green rectangle
+    (county) =>
+      (shields[`US:OH:${county}`] = roundedRectShield(
+        "#006747",
+        "white",
+        "white",
+        2,
+        1,
+        null
+      ))
+  );
+  ["MED", "NOB"].forEach(
+    // White on blue rectangle
+    (county) =>
+      (shields[`US:OH:${county}`] = roundedRectShield(
+        "#003f87",
+        "white",
+        "white",
+        2,
+        1,
+        null
+      ))
+  );
+  ["TRU", "VIN"].forEach(
+    // Black on yellow rectangle
+    (county) =>
+      (shields[`US:OH:${county}`] = roundedRectShield(
+        "#ffcd00",
+        "black",
+        "black",
+        2,
+        1,
+        null
+      ))
+  );
+  shields["US:OH:ASD"] = {
+    backgroundImage: [shieldImages.shield40_us_oh_asd],
+    textColor: "#006747",
+    padding: {
+      left: 6,
+      right: 3,
+      top: 4,
+      bottom: 7,
+    },
+  };
+  shields["US:OH:SCI"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_oh_sci_2,
+      shieldImages.shield40_us_oh_sci_3,
+    ],
     textColor: "black",
     padding: {
       left: 3,
