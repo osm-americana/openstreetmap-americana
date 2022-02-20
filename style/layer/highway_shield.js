@@ -73,3 +73,4 @@ export const trunk = shieldLayer("trunk", 8);
 export const primary = shieldLayer("primary", 10);
 export const secondary = shieldLayer("secondary", 11);
 export const tertiary = shieldLayer("tertiary", 12);
+export const minor = shieldLayer("minor", 14);
