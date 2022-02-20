@@ -619,17 +619,24 @@ export function loadShields(shieldImages) {
     },
   };
 
+  /**
+   * The top-level Swiss highway network is currently tagged with the oddly generic network=motorway.
+   * Given the general lack of data consumer support for road route relations in Europe, this code is
+   * temporarily disabled until we can be assured that supporting such a generic value for a national
+   * network is appropriate mapper feedback.
+   */
+
   // Switzerland
-  shields["motorway"] = {
-    backgroundImage: shieldImages.shield40_ch_2,
-    textColor: "white",
-    padding: {
-      left: 2,
-      right: 2,
-      top: 5,
-      bottom: 5,
-    },
-  };
+  // shields["motorway"] = {
+  //   backgroundImage: shieldImages.shield40_ch_2,
+  //   textColor: "white",
+  //   padding: {
+  //     left: 2,
+  //     right: 2,
+  //     top: 5,
+  //     bottom: 5,
+  //   },
+  // };
 
   shields["HU:national"] = {
     backgroundImage: shieldImages.shield40_hu_2,
