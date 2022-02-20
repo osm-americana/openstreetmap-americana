@@ -221,7 +221,10 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:GA:Truck:Bypass"] = banneredShield(shields["US:GA"], ["TRK", "BYP"]);
+  shields["US:GA:Truck:Bypass"] = banneredShield(shields["US:GA"], [
+    "TRK",
+    "BYP",
+  ]);
   shields["US:GA:Spur"] = banneredShield(shields["US:GA"], ["SPUR"]);
   shields["US:GA:Loop"] = banneredShield(shields["US:GA"], ["LOOP"]);
   shields["US:GA:Connector"] = banneredShield(shields["US:GA"], ["CONN"]);
