@@ -50,7 +50,7 @@ let project = JSON.parse(
   fs.readFileSync(`${process.cwd()}/scripts/taginfo_template.json`)
 );
 let sprites = JSON.parse(
-  fs.readFileSync(`${process.cwd()}/sprites/sprite.json`)
+  fs.readFileSync(`${process.cwd()}/dist/sprites/sprite.json`)
 );
 addNetworkTags(project, sprites);
 fs.writeFileSync(
