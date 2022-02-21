@@ -272,12 +272,6 @@ var style = {
   glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   layers: americanaLayers,
   sprite: new URL("sprites/sprite", baseUrl).href,
-  sources: {
-    openmaptiles: {
-      url: config.OPENMAPTILES_URL,
-      type: "vector",
-    },
-  },
   light: {
     anchor: "viewport",
     color: "white",
@@ -285,6 +279,24 @@ var style = {
   },
   version: 8,
 };
+
+if (config.OPENMAPTILES_URL != undefined) {
+  style.sources = {
+    openmaptiles: {
+      url: config.OPENMAPTILES_URL,
+      type: "vector",
+    },
+  };
+}
+
+if (config.TILESOURCE != undefined) {
+  style.sources = {
+    openmaptiles: {
+      tiles: config.TILESOURCE,
+      type: "vector",
+    },
+  };
+}
 
 var map = (window.map = new maplibregl.Map({
   container: "map", // container id
@@ -304,12 +316,23 @@ map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
 });
 
-map.addControl(
-  new maplibregl.AttributionControl({
-    customAttribution:
-      '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
-  })
-);
+let attributionConfig = {
+  customAttribution: "&copy; OpenStreetMap Contributors",
+};
+
+if (config.ATTRIBUTION_TEXT != undefined) {
+  attributionConfig = {
+    customAttribution: config.ATTRIBUTION_TEXT,
+  };
+}
+
+map.addControl(new maplibregl.AttributionControl(attributionConfig));
+
+if (config.ATTRIBUTION_LOGO != undefined) {
+  document.getElementById("attribution-logo").innerHTML =
+    config.ATTRIBUTION_LOGO;
+}
+
 map.addControl(new maplibregl.NavigationControl(), "top-left");
 
 // Add our sample data.

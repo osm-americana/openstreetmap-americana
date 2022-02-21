@@ -8,7 +8,7 @@
     "url": "git+https://github.com/zelonewolf/openstreetmap-americana.git"
   },
   "scripts": {
-    "config": "cp config.default.js config.js",
+    "config": "cp configs/config.maptiler.js config.js",
     "code_format": "npx prettier --write .",
     "clean": "rm -rf dist .parcel-cache",
     "presprites": "rm -rf dist/sprites",
