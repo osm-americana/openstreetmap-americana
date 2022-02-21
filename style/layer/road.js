@@ -260,8 +260,9 @@ let trunkFillWidth = [
   [20, 18],
 ];
 let trunkCasingWidth = [
-  [9, 1],
-  [12, 4],
+  [4, 0.5],
+  [9, 1.2],
+  [12, 5],
   [20, 22],
 ];
 
@@ -274,13 +275,24 @@ class Trunk extends Road {
     this.hue = 0;
 
     this.minZoomFill = 5;
-    this.minZoomCasing = 15;
+    this.minZoomCasing = 5;
 
     this.fillWidth = trunkFillWidth;
     this.casingWidth = trunkCasingWidth;
 
     this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
-    this.casingColor = `hsl(${this.hue}, 70%, 18%)`;
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      5,
+      `hsl(${this.hue}, 77%, 50%)`,
+      9,
+      `hsl(${this.hue}, 77%, 50%)`,
+      15,
+      `hsl(${this.hue}, 70%, 18%)`,
+    ];
+
     this.surfaceColor = `hsl(${this.hue}, 95%, 80%)`;
 
     this.constraints = ["!=", "expressway", 1];
@@ -325,16 +337,17 @@ class Primary extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 15;
+    this.minZoomFill = 7;
     this.minZoomCasing = 7;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.9);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.9);
 
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    // Casing color gets interpolated as a fade from light to dark between this
+    // Fill color gets interpolated as a fade from light to dark between this
     // level's introduction and next road-level introduction.
-    this.casingColor = [
+    // It then switches at z15 from dark to light with the casing switching as
+    // well.
+    this.fillColor = [
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
@@ -342,7 +355,23 @@ class Primary extends Road {
       `hsl(${this.hue}, 0%, 75%)`,
       9,
       `hsl(${this.hue}, 0%, 23%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 23%)`,
+      15,
+      `hsl(${this.hue}, 100%, 100%)`,
     ];
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      7,
+      `hsl(${this.hue}, 0%, 90%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 90%)`,
+      15,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
+
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
 
     this.constraints = ["!=", "expressway", 1];
@@ -353,10 +382,19 @@ class PrimaryExpressway extends Primary {
   constructor() {
     super();
 
-    this.minZoomFill = 7;
-
     this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 1.0);
     this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.9);
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      7,
+      `hsl(${this.hue}, 0%, 75%)`,
+      9,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
 
     this.constraints = ["==", "expressway", 1];
   }
@@ -370,16 +408,17 @@ class Secondary extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 15;
+    this.minZoomFill = 9;
     this.minZoomCasing = 9;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.6);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.6);
 
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    // Casing color gets interpolated as a fade from light to dark between this
+    // Fill color gets interpolated as a fade from light to dark between this
     // level's introduction and next road-level introduction.
-    this.casingColor = [
+    // It then switches at z15 from dark to light with the casing switching as
+    // well.
+    this.fillColor = [
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
@@ -387,7 +426,23 @@ class Secondary extends Road {
       `hsl(${this.hue}, 0%, 75%)`,
       11,
       `hsl(${this.hue}, 0%, 23%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 23%)`,
+      15,
+      `hsl(${this.hue}, 100%, 100%)`,
     ];
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      9,
+      `hsl(${this.hue}, 0%, 90%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 90%)`,
+      15,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
+
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
 
     this.constraints = ["!=", "expressway", 1];
@@ -398,10 +453,19 @@ class SecondaryExpressway extends Secondary {
   constructor() {
     super();
 
-    this.minZoomFill = 9;
-
     this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.7);
     this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.7);
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      9,
+      `hsl(${this.hue}, 0%, 75%)`,
+      11,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
 
     this.constraints = ["==", "expressway", 1];
   }
@@ -415,16 +479,17 @@ class Tertiary extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 15;
+    this.minZoomFill = 11;
     this.minZoomCasing = 11;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
 
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    // Casing color gets interpolated as a fade from light to dark between this
+    // Fill color gets interpolated as a fade from light to dark between this
     // level's introduction and next road-level introduction.
-    this.casingColor = [
+    // It then switches at z15 from dark to light with the casing switching as
+    // well.
+    this.fillColor = [
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
@@ -432,7 +497,23 @@ class Tertiary extends Road {
       `hsl(${this.hue}, 0%, 75%)`,
       13,
       `hsl(${this.hue}, 0%, 23%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 23%)`,
+      15,
+      `hsl(${this.hue}, 100%, 100%)`,
     ];
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      11,
+      `hsl(${this.hue}, 0%, 90%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 90%)`,
+      15,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
+
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
 
     this.constraints = ["!=", "expressway", 1];
@@ -443,10 +524,19 @@ class TertiaryExpressway extends Tertiary {
   constructor() {
     super();
 
-    this.minZoomFill = 11;
-
     this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.5);
+
+    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      11,
+      `hsl(${this.hue}, 0%, 75%)`,
+      13,
+      `hsl(${this.hue}, 0%, 23%)`,
+    ];
 
     this.constraints = ["==", "expressway", 1];
   }
@@ -460,24 +550,39 @@ class Minor extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 15;
+    this.minZoomFill = 12;
     this.minZoomCasing = 12;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
 
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    // Casing color gets interpolated as a fade from light to dark between this
+    // Fill color gets interpolated as a fade from light to dark between this
     // level's introduction and next road-level introduction.
+    // It then switches at z15 from dark to light with the casing switching as
+    // well.
+    this.fillColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      12,
+      `hsl(${this.hue}, 0%, 75%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 23%)`,
+      15,
+      `hsl(${this.hue}, 100%, 100%)`,
+    ];
     this.casingColor = [
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
       12,
-      `hsl(${this.hue}, 0%, 65%)`,
+      `hsl(${this.hue}, 0%, 90%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 90%)`,
       15,
       `hsl(${this.hue}, 0%, 23%)`,
     ];
+
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
@@ -490,24 +595,39 @@ class Service extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 15;
+    this.minZoomFill = 13;
     this.minZoomCasing = 13;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.2);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.2);
 
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
-    // Casing color gets interpolated as a fade from light to dark between this
+    // Fill color gets interpolated as a fade from light to dark between this
     // level's introduction and next road-level introduction.
-    this.casingColor = [
+    // It then switches at z15 from dark to light with the casing switching as
+    // well.
+    this.fillColor = [
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
       13,
       `hsl(${this.hue}, 0%, 65%)`,
-      18,
+      14.9999,
+      `hsl(${this.hue}, 0%, 23%)`,
+      15,
+      `hsl(${this.hue}, 100%, 100%)`,
+    ];
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      13,
+      `hsl(${this.hue}, 0%, 90%)`,
+      14.9999,
+      `hsl(${this.hue}, 0%, 90%)`,
+      15,
       `hsl(${this.hue}, 0%, 23%)`,
     ];
+
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
 
     this.constraints = ["!in", "service", "parking_aisle", "driveway"];
