@@ -317,7 +317,7 @@ map.on("styleimagemissing", function (e) {
 });
 
 let attributionConfig = {
-  customAttribution: "&copy; OpenStreetMap Contributors",
+  customAttribution: "&copy; OpenMapTiles | &copy; OpenStreetMap Contributors ",
 };
 
 if (config.ATTRIBUTION_TEXT != undefined) {
