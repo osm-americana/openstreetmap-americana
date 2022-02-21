@@ -1,0 +1,19 @@
+{
+  "data_format": 1,
+  "project": {
+    "name": "OpenStreetMap Americana",
+    "description": "A quintessentially American map style.",
+    "project_url": "https://github.com/ZeLonewolf/openstreetmap-americana/",
+    "doc_url": "https://wiki.openstreetmap.org/wiki/OpenStreetMap_Americana",
+    "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/doc-img/osm-americana-logo.png",
+    "contact_name": "Brian Sperlongano",
+    "contact_email": "zelonewolf@gmail.com"
+  },
+  "tags": [
+    {
+      "key": "ref",
+      "object_types": ["relation"],
+      "description": "Populates shields that mark roads carrying the route relation."
+    }
+  ]
+}

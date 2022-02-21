@@ -154,7 +154,10 @@ npm run build
 
 These commands will build a minified/bundled version of the Americana demo with
 all assets in `dist/`. The contents of `dist/` can then be copied to a webserver
-for distribution.
+for distribution. A [taginfo project file][taginfo] will also be generated based on the
+boilerplate in `scripts/taginfo_template.json`.
+
+[taginfo]: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
 
 ## Before submitting a PR
 
