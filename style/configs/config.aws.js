@@ -1,12 +1,11 @@
 "use strict";
 
 /*
-Planetiler tile server, hosted by StreetFerret
+Planetiler tile server, hosted at AWS
 */
-const TILESOURCE = [
-  "https://6ug7hetxl9.execute-api.us-east-2.amazonaws.com/data/v3/{z}/{x}/{y}.pbf",
-];
+const OPENMAPTILES_URL =
+  "https://6ug7hetxl9.execute-api.us-east-2.amazonaws.com/data/v3.json";
 
 export default {
-  TILESOURCE,
+  OPENMAPTILES_URL,
 };

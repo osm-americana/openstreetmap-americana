@@ -271,6 +271,12 @@ var style = {
   name: "Americana",
   glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   layers: americanaLayers,
+  sources: {
+    openmaptiles: {
+      url: config.OPENMAPTILES_URL,
+      type: "vector",
+    },
+  },
   sprite: new URL("sprites/sprite", baseUrl).href,
   light: {
     anchor: "viewport",
@@ -279,24 +285,6 @@ var style = {
   },
   version: 8,
 };
-
-if (config.OPENMAPTILES_URL != undefined) {
-  style.sources = {
-    openmaptiles: {
-      url: config.OPENMAPTILES_URL,
-      type: "vector",
-    },
-  };
-}
-
-if (config.TILESOURCE != undefined) {
-  style.sources = {
-    openmaptiles: {
-      tiles: config.TILESOURCE,
-      type: "vector",
-    },
-  };
-}
 
 var map = (window.map = new maplibregl.Map({
   container: "map", // container id
