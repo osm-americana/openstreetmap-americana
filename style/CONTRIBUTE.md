@@ -153,7 +153,10 @@ npm run build
 
 These commands will build a minified/bundled version of the Americana demo with
 all assets in `dist/`. The contents of `dist/` can then be copied to a webserver
-for distribution.
+for distribution. A [taginfo project file][taginfo] will also be generated based on the
+boilerplate in `scripts/taginfo_template.json`.
+
+[taginfo]: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
 
 ## Before submitting a PR
 
@@ -221,3 +224,23 @@ Shields should target 8-12px text actual-size character heights for readability:
 | <img src="../doc-img/10_px_text.svg" height=20 width=20 /> | 10px        |
 | <img src="../doc-img/8_px_text.svg" height=20 width=20 />  | 8px         |
 | <img src="../doc-img/6_px_text.svg" height=20 width=20 />  | 6px         |
+
+### Shield Definitions
+
+The `loadShields` function in style/js/shield_defs.js contains a definition object for each shield displayed on the map. A definition object can contain the following properties:
+
+- **`backgroundImage`** – A reference to the image file used as the shield background, based on the name of the file in style/icons/. To use a different image depending on the length of the inscribed text, specify an array of images.
+- **`colorLighten`** – Replace the black portions of the specified background image with this color via a "lighten" operation.
+- **`norefImage`** – A reference to an alternative image file used when there is no `ref`. This is appropriate if some routes in the network have a `ref` tag and others do not, and the routes with no ref need a special shield.
+- **`notext`** – By default, a relation missing a `ref` tag will not appear as a shield. Set this property to `true` to display a shield even if it has no `ref`. This is appropriate for one-off shield networks, which are common for toll roads and touristic routes.
+- **`padding`** – An object that specifies the amount of padding on each side of the inscribed text relative to the background image.
+- **`textColor`** – The color of the inscribed text to superimpose on the background.
+- **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
+
+Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks) that meet each of the following criteria:
+
+- Each route in a network has a distinct shield that is dominated by the road name as opposed to a glyph or logo.
+- Each shield in the network has a common thematic design, and differs by only the road name, not a number, initialism, or color.
+- Each route would be recognizable by an initialism, even though it is not signposted.
+
+`refsByWayName` only works if there is no `ref` tag and the expression in the `routeConcurrency` function in style/layer/highway_shield.js includes the `name` property in the image name. The network needs to be listed as an input value that causes the `match` expression to append `name` to the image name.

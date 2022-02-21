@@ -566,8 +566,8 @@ class TrunkLink extends Trunk {
   constructor() {
     super();
     this.link = true;
-    this.minZoomFill = 11;
-    this.minZoomCasing = 15;
+    this.minZoomFill = 7;
+    this.minZoomCasing = 7;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
@@ -625,11 +625,6 @@ class MotorwayBridge extends Motorway {
   constructor() {
     super();
     this.brunnel = "bridge";
-    this.casingColor = [
-      ...this.colorCasingLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 10%)`,
-    ];
   }
 }
 
@@ -637,7 +632,6 @@ class TrunkBridge extends Trunk {
   constructor() {
     super();
     this.brunnel = "bridge";
-    this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
   }
 }
 
@@ -724,16 +718,16 @@ class SmallServiceBridge extends SmallService {
 class MotorwayLinkBridge extends MotorwayLink {
   constructor() {
     super();
+    //Undifferentiated
     this.brunnel = "bridge";
-    this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
   }
 }
 
 class TrunkLinkBridge extends TrunkLink {
   constructor() {
     super();
+    //Undifferentiated
     this.brunnel = "bridge";
-    this.casingColor = `hsl(${this.hue}, 70%, 5%)`;
   }
 }
 
@@ -766,16 +760,8 @@ class MotorwayTunnel extends Motorway {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.casingColor = [
-      ...this.colorCasingLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 75%)`,
-    ];
-    this.fillColor = [
-      ...this.colorFillLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 90%)`,
-    ];
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
   }
 }
 
@@ -783,7 +769,8 @@ class TrunkTunnel extends Trunk {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 41%, 90%)`;
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
   }
 }
 
@@ -792,6 +779,88 @@ class TrunkExpresswayTunnel extends TrunkExpressway {
     super();
     this.brunnel = "tunnel";
     this.casingColor = `hsl(${this.hue}, 41%, 85%)`;
+    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
+  }
+}
+
+class PrimaryTunnel extends Primary {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class PrimaryExpresswayTunnel extends PrimaryExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SecondaryTunnel extends Secondary {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SecondaryExpresswayTunnel extends SecondaryExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class TertiaryTunnel extends Tertiary {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class TertiaryExpresswayTunnel extends TertiaryExpressway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class MinorTunnel extends Minor {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class ServiceTunnel extends Service {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SmallServiceTunnel extends SmallService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
   }
 }
 
@@ -799,16 +868,8 @@ class MotorwayLinkTunnel extends MotorwayLink {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.casingColor = [
-      ...this.colorCasingLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 75%)`,
-    ];
-    this.fillColor = [
-      ...this.colorFillLowZoom,
-      minzoomBrunnel + 0.5,
-      `hsl(${this.hue}, 71%, 90%)`,
-    ];
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
   }
 }
 
@@ -816,7 +877,35 @@ class TrunkLinkTunnel extends TrunkLink {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 41%, 90%)`;
+    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
+  }
+}
+
+class PrimaryLinkTunnel extends PrimaryLink {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class SecondaryLinkTunnel extends SecondaryLink {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
+  }
+}
+
+class TertiaryLinkTunnel extends TertiaryLink {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
   }
 }
 
@@ -850,9 +939,21 @@ export const smallServiceBridge = new SmallServiceBridge();
 export const motorwayTunnel = new MotorwayTunnel();
 export const trunkTunnel = new TrunkTunnel();
 export const trunkExpresswayTunnel = new TrunkExpresswayTunnel();
+export const primaryTunnel = new PrimaryTunnel();
+export const primaryExpresswayTunnel = new PrimaryExpresswayTunnel();
+export const secondaryTunnel = new SecondaryTunnel();
+export const secondaryExpresswayTunnel = new SecondaryExpresswayTunnel();
+export const tertiaryTunnel = new TertiaryTunnel();
+export const tertiaryExpresswayTunnel = new TertiaryExpresswayTunnel();
+export const minorTunnel = new MinorTunnel();
+export const serviceTunnel = new ServiceTunnel();
+export const smallServiceTunnel = new SmallServiceTunnel();
 
 export const motorwayLink = new MotorwayLink();
 export const trunkLink = new TrunkLink();
+export const primaryLink = new PrimaryLink();
+export const secondaryLink = new SecondaryLink();
+export const tertiaryLink = new TertiaryLink();
 
 export const motorwayLinkBridge = new MotorwayLinkBridge();
 export const trunkLinkBridge = new TrunkLinkBridge();
@@ -862,3 +963,6 @@ export const tertiaryLinkBridge = new TertiaryLinkBridge();
 
 export const motorwayLinkTunnel = new MotorwayLinkTunnel();
 export const trunkLinkTunnel = new TrunkLinkTunnel();
+export const primaryLinkTunnel = new PrimaryLinkTunnel();
+export const secondaryLinkTunnel = new SecondaryLinkTunnel();
+export const tertiaryLinkTunnel = new TertiaryLinkTunnel();
