@@ -13,7 +13,7 @@ export const building = {
       16,
       `hsl(0, 0%, 80%)`,
     ],
-    "fill-extrusion-base": 3,
+    "fill-extrusion-height": 3,
     "fill-extrusion-opacity": 0.85,
   },
   // filter: ["all", ["!=", "intermittent", 1], ["!=", "brunnel", "tunnel"]],

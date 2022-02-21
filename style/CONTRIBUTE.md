@@ -102,9 +102,10 @@ and re-running `npm install`.
 
 ## Config File
 
-Environment specific settings go in the untracked file `config.js`. Copy the template
-`config.default.js` and rename it `config.js`. The variables in this file can then
-be changed without the risk of accidentally comitting to the main repo.
+Environment specific settings go in the untracked file `config.js`. Copy from one of
+the templates in the style/configs/ folder `config.*.js` and rename it `config.js` in
+the style/ folder. The variables in this file can then be changed without the risk of
+accidentally comitting to the main repo.
 
 You can create a new copy of the config file by running `npm run config`
 
@@ -153,7 +154,10 @@ npm run build
 
 These commands will build a minified/bundled version of the Americana demo with
 all assets in `dist/`. The contents of `dist/` can then be copied to a webserver
-for distribution.
+for distribution. A [taginfo project file][taginfo] will also be generated based on the
+boilerplate in `scripts/taginfo_template.json`.
+
+[taginfo]: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
 
 ## Before submitting a PR
 

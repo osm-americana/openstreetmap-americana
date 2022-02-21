@@ -271,13 +271,13 @@ var style = {
   name: "Americana",
   glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   layers: americanaLayers,
-  sprite: new URL("sprites/sprite", baseUrl).href,
   sources: {
     openmaptiles: {
       url: config.OPENMAPTILES_URL,
       type: "vector",
     },
   },
+  sprite: new URL("sprites/sprite", baseUrl).href,
   light: {
     anchor: "viewport",
     color: "white",
@@ -304,12 +304,23 @@ map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
 });
 
-map.addControl(
-  new maplibregl.AttributionControl({
-    customAttribution:
-      '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
-  })
-);
+let attributionConfig = {
+  customAttribution: "",
+};
+
+if (config.ATTRIBUTION_TEXT != undefined) {
+  attributionConfig = {
+    customAttribution: config.ATTRIBUTION_TEXT,
+  };
+}
+
+map.addControl(new maplibregl.AttributionControl(attributionConfig));
+
+if (config.ATTRIBUTION_LOGO != undefined) {
+  document.getElementById("attribution-logo").innerHTML =
+    config.ATTRIBUTION_LOGO;
+}
+
 map.addControl(new maplibregl.NavigationControl(), "top-left");
 
 // Add our sample data.
