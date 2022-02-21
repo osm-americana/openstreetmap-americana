@@ -325,7 +325,7 @@ class Primary extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 14;
+    this.minZoomFill = 15;
     this.minZoomCasing = 7;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.9);
@@ -415,7 +415,7 @@ class Tertiary extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 16;
+    this.minZoomFill = 15;
     this.minZoomCasing = 11;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
@@ -460,7 +460,7 @@ class Minor extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 16;
+    this.minZoomFill = 15;
     this.minZoomCasing = 12;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
@@ -490,7 +490,7 @@ class Service extends Road {
     this.link = false;
     this.hue = 0;
 
-    this.minZoomFill = 16;
+    this.minZoomFill = 15;
     this.minZoomCasing = 13;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.2);
@@ -518,7 +518,7 @@ class SmallService extends Service {
   constructor() {
     super();
 
-    this.minZoomFill = 16;
+    this.minZoomFill = 15;
     this.minZoomCasing = 15;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.15);
