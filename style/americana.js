@@ -298,14 +298,14 @@ var map = (window.map = new maplibregl.Map({
 
 map.on("styledata", function () {
   ShieldDef.loadShields(map.style.imageManager.images);
-});
+ });
 
 map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
 });
 
 let attributionConfig = {
-  customAttribution: "&copy; OpenMapTiles | &copy; OpenStreetMap Contributors ",
+  customAttribution: "",
 };
 
 if (config.ATTRIBUTION_TEXT != undefined) {
