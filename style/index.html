@@ -7,11 +7,6 @@
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
-    <script src="https://zelonewolf.github.io/maplibre-gl-js/maplibre-gl.js"></script>
-    <link
-      href="https://zelonewolf.github.io/maplibre-gl-js/maplibre-gl.css"
-      rel="stylesheet"
-    />
     <style>
       body {
         margin: 0;
@@ -24,10 +19,13 @@
         bottom: 0;
         width: 100%;
       }
-      #map-tiler-logo {
+      #attribution-logo {
         position: absolute;
         bottom: 10px;
         z-index: 100;
+      }
+      .openmapsamples-control-container {
+        margin-left: 70px !important;
       }
     </style>
     <script type="module" src="americana.js"></script>
@@ -35,11 +33,7 @@
 
   <body>
     <div id="map"></div>
-    <a id="map-tiler-logo" href="https://www.maptiler.com/"
-      ><img
-        src="https://api.maptiler.com/resources/logo.svg"
-        alt="MapTiler logo"
-    /></a>
+    <div id="attribution-logo"></div>
     <a href="https://github.com/ZeLonewolf/openstreetmap-americana/"
       ><img
         loading="lazy"

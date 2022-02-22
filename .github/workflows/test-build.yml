@@ -1,12 +1,11 @@
-# Taken from https://github.com/marketplace/actions/deploy-to-github-pages
+name: Test Build
 
-name: Build and Deploy
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [main]
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -22,9 +21,3 @@ jobs:
           sed 's/<your MapTiler key>/53iZvB2drcamS0Ge0xiD/g' configs/config.maptiler.js > config.js
           npm run build
         # MapTiler key 53iZvB2drcamS0Ge0xiD only allows requests from zelonewolf.github.io
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: style/dist/ # The folder the action should deploy.

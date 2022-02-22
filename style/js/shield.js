@@ -104,11 +104,12 @@ function textColor(shieldDef) {
   return "black";
 }
 
-function drawShield(network, ref) {
+function drawShield(network, ref, wayName) {
   var shieldDef = ShieldDef.shields[network];
   var ctx = null;
   var bannerCount = 0;
   var padding = null;
+  var shieldBounds = null;
 
   if (shieldDef == null) {
     if (ref == "") {
@@ -135,17 +136,28 @@ function drawShield(network, ref) {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
     padding = shieldDef.padding;
 
+    if (ref === "" && shieldDef.refsByWayName) {
+      ref = shieldDef.refsByWayName[wayName];
+    }
+
     var shieldArtwork = getRasterShieldBlank(network, ref);
     var compoundBounds = null;
-    var shieldBounds = null;
 
     if (shieldArtwork == null) {
       if (typeof shieldDef.backgroundDraw != "undefined") {
-        ctx = shieldDef.backgroundDraw(ref);
-        compoundBounds = compoundShieldSize(ctx, bannerCount);
+        let drawnShieldCtx = shieldDef.backgroundDraw(ref);
+        compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
+        ctx = Gfx.getGfxContext(compoundBounds);
+
+        ctx.drawImage(
+          drawnShieldCtx.canvas,
+          0,
+          bannerCount * ShieldDef.bannerSizeH
+        );
+
         shieldBounds = {
-          width: ctx.canvas.width,
-          height: ctx.canvas.height,
+          width: drawnShieldCtx.canvas.width,
+          height: drawnShieldCtx.canvas.height,
         };
       } else {
         return null;
@@ -205,14 +217,15 @@ export function missingIconLoader(map, e) {
     return;
   }
 
-  var network_ref = id.split("_")[1];
+  var network_ref = id.split("\n")[1];
   var network_ref_parts = network_ref.split("=");
   var network = network_ref_parts[0];
   var ref = network_ref_parts[1];
+  var wayName = id.split("\n")[2];
 
   var colorLighten = ShieldDef.shieldLighten(network, ref);
 
-  var ctx = drawShield(network, ref);
+  var ctx = drawShield(network, ref, wayName);
 
   if (ctx == null) {
     //Does not meet the criteria to draw a shield
