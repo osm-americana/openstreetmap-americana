@@ -102,9 +102,10 @@ and re-running `npm install`.
 
 ## Config File
 
-Environment specific settings go in the untracked file `config.js`. Copy the template
-`config.default.js` and rename it `config.js`. The variables in this file can then
-be changed without the risk of accidentally comitting to the main repo.
+Environment specific settings go in the untracked file `config.js`. Copy from one of
+the templates in the style/configs/ folder `config.*.js` and rename it `config.js` in
+the style/ folder. The variables in this file can then be changed without the risk of
+accidentally comitting to the main repo.
 
 You can create a new copy of the config file by running `npm run config`
 
@@ -160,8 +161,11 @@ boilerplate in `scripts/taginfo_template.json`.
 
 ## Before submitting a PR
 
-Please prettify all files prior to submission. Run `npm run code_format` to format all
-code files with [prettier][90].
+1. Please prettify all files prior to submission. Run `npm run code_format` to
+   format all code files with [prettier][90].
+2. If you are introducing a novel approach to depicting a layer or feature
+   property from the OpenMapTiles schema, document how the corresponding
+   OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
 
 [90]: https://prettier.io/
 
