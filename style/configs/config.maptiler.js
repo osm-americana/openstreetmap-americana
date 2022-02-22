@@ -13,7 +13,7 @@ const MAPTILER_KEY = "<your MapTiler key>";
 
 const OPENMAPTILES_URL = `https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key=${MAPTILER_KEY}`;
 const ATTRIBUTION_LOGO = `
-<a id="attribution-logo" href="https://www.maptiler.com/">
+<a href="https://www.maptiler.com/">
   <img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"/>
 </a>`;
 const ATTRIBUTION_TEXT =
