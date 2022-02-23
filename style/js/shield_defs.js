@@ -689,6 +689,18 @@ export function loadShields(shieldImages) {
     };
   });
 
+  shields["HK"] = {
+    backgroundImage: shieldImages.shield40_hk,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: "black",
+    padding: {
+      left: 1,
+      right: 1,
+      top: 1,
+      bottom: 12,
+    },
+  };
+
   shields["TW:freeway"] = {
     backgroundImage: shieldImages.shield40_tw_freeway,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
