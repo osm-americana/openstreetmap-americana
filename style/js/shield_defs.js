@@ -644,6 +644,15 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["vn:expressway"] = roundedRectShield(
+    "#ffcd00",
+    "black",
+    "black",
+    2,
+    1,
+    null
+  );
+
   // Europe
   shields["e-road"] = {
     backgroundImage: [
