@@ -16,6 +16,7 @@ const minGenericShieldWidth = 20 * PXR;
 const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
+// Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
 export function paBelt(ref) {
   var ctx = square();
 
