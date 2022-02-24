@@ -43,8 +43,54 @@ function goToResult(index) {
   }
 }
 
+//Re-map silly results from photon
+function mapResultToDescription(type, key, value) {
+  switch (type) {
+    case 'house':
+      switch (key) {
+        case 'highway':
+          switch (value) {
+            case 'bus_stop':
+              return value;
+            default:
+              return 'road';
+          }
+        case 'aeroway':
+          switch (value) {
+            case 'aerodrome':
+              return 'airport';
+            default:
+              return value;
+          }
+        case 'railway':
+          return `train ${value}`;
+        case 'man_made':
+        case 'tourism':
+        case 'amenity':
+        case 'leisure':
+          return value;
+        case 'office':
+        default:
+          return key;
+      }
+    case 'district':
+    case 'locality':
+      switch (key) {
+        case 'landuse':
+          return `${value} area`;
+        default:
+          return value;
+      }
+    case 'tunnel':
+      return key;
+  }
+  return type;
+}
+
 function geocoderResultEntry(result) {
   let p = result.properties;
+  console.log(p);
+  let type = mapResultToDescription(p.type, p.osm_key, p.osm_value).replaceAll('_', ' ');
 
   let addr = collapseArray([p.housenumber, p.street], " ");
   let name = p.name;
@@ -64,7 +110,7 @@ function geocoderResultEntry(result) {
 
   let itemCategory = document.createElement("div");
   itemCategory.className = "gc-result-category";
-  itemCategory.innerText = p.type;
+  itemCategory.innerText = type;
   let itemName = document.createElement("div");
   itemName.className = "gc-result-name";
   itemName.innerText = name;
