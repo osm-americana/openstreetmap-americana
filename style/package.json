@@ -21,7 +21,7 @@
     "@beyondtracks/spritezero-cli": "^2.3.0"
   },
   "devDependencies": {
-    "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5/maplibre-gl.tar.gz",
+    "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5-americana-1/maplibre-gl-2.0.5-americana-1.tar.gz",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "parcel": "^2.3.0",
     "prettier": "2.3.2"
@@ -30,6 +30,6 @@
     "npm": ">=8.3.0"
   },
   "overrides": {
-    "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5/maplibre-gl.tar.gz"
+    "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5-americana-1/maplibre-gl-2.0.5-americana-1.tar.gz"
   }
 }
