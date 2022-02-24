@@ -19,6 +19,7 @@
   border-width: 1px 1px 0px 1px;
   background-color: white;
   padding: 2px;
+  cursor: pointer;
 }
 .gc-result-item:last-child {
   border: 1px solid lightgray;
@@ -31,6 +32,7 @@
   border-width: 1px 1px 0px 1px;
   background-color: lightgrey;
   padding: 2px;
+  cursor: pointer;
 }
 .gc-result-item-selected:last-child {
   border: 1px solid lightgray;
