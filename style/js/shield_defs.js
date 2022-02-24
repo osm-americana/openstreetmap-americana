@@ -609,6 +609,41 @@ export function loadShields(shieldImages) {
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
 
+  // Asia
+  shields["TW:freeway"] = {
+    backgroundImage: shieldImages.shield40_tw_freeway,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
+    },
+  };
+  shields["TW:provincial"] = {
+    backgroundImage: shieldImages.shield40_tw_provincial,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 10,
+    },
+  };
+  shields["TW:expressway"] = {
+    backgroundImage: shieldImages.shield40_tw_expressway,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 10,
+    },
+  };
+
   // Europe
   shields["e-road"] = {
     backgroundImage: [

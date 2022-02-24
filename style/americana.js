@@ -232,16 +232,11 @@ americanaLayers.push(
   lyrRoadLabel.motorway,
   lyrRoadLabel.trunk,
   lyrRoadLabel.primary,
-  lyrRoadLabel.primaryHZ,
   lyrRoadLabel.secondary,
-  lyrRoadLabel.secondaryHZ,
   lyrRoadLabel.tertiary,
-  lyrRoadLabel.tertiaryHZ,
   lyrRoadLabel.minor,
-  lyrRoadLabel.minorHZ,
   lyrRoadLabel.service,
   lyrRoadLabel.smallService,
-  lyrRoadLabel.serviceHZ,
 
   lyrPark.label,
 
