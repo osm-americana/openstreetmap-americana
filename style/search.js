@@ -46,42 +46,42 @@ function goToResult(index) {
 //Re-map silly results from photon
 function mapResultToDescription(type, key, value) {
   switch (type) {
-    case 'house':
+    case "house":
       switch (key) {
-        case 'highway':
+        case "highway":
           switch (value) {
-            case 'bus_stop':
+            case "bus_stop":
               return value;
             default:
-              return 'road';
+              return "road";
           }
-        case 'aeroway':
+        case "aeroway":
           switch (value) {
-            case 'aerodrome':
-              return 'airport';
+            case "aerodrome":
+              return "airport";
             default:
               return value;
           }
-        case 'railway':
+        case "railway":
           return `train ${value}`;
-        case 'man_made':
-        case 'tourism':
-        case 'amenity':
-        case 'leisure':
+        case "man_made":
+        case "tourism":
+        case "amenity":
+        case "leisure":
           return value;
-        case 'office':
+        case "office":
         default:
           return key;
       }
-    case 'district':
-    case 'locality':
+    case "district":
+    case "locality":
       switch (key) {
-        case 'landuse':
+        case "landuse":
           return `${value} area`;
         default:
           return value;
       }
-    case 'tunnel':
+    case "tunnel":
       return key;
   }
   return type;
@@ -90,7 +90,10 @@ function mapResultToDescription(type, key, value) {
 function geocoderResultEntry(result) {
   let p = result.properties;
   console.log(p);
-  let type = mapResultToDescription(p.type, p.osm_key, p.osm_value).replaceAll('_', ' ');
+  let type = mapResultToDescription(p.type, p.osm_key, p.osm_value).replaceAll(
+    "_",
+    " "
+  );
 
   let addr = collapseArray([p.housenumber, p.street], " ");
   let name = p.name;
