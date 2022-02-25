@@ -801,7 +801,6 @@ export function loadShields(shieldImages) {
   shields["PH:N"] =
     shields["PH:N:primary"] =
     shields["PH:N:secondary"] =
-    shields["ph:nhn"] =
       {
         backgroundImage: [
           shieldImages.shield40_ph_national_2,
