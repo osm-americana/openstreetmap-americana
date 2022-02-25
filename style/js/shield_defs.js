@@ -610,6 +610,97 @@ export function loadShields(shieldImages) {
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
 
   // Asia
+  shields["CN:national"] = roundedRectShield(
+    "#bf2033",
+    "white",
+    "white",
+    2,
+    1,
+    null
+  );
+  shields["CN:expressway"] = {
+    backgroundImage: [
+      shieldImages.shield40_cn_national_expressway_2,
+      shieldImages.shield40_cn_national_expressway_3,
+      shieldImages.shield40_cn_national_expressway_4,
+    ],
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 6,
+      bottom: 2,
+    },
+  };
+  [
+    "AH",
+    "BJ",
+    "CQ",
+    "FJ",
+    "GD",
+    "GS",
+    "GX",
+    "GZ",
+    "HA",
+    "HB",
+    "HE",
+    "HI",
+    "HL",
+    "HN",
+    "JL",
+    "JS",
+    "JX",
+    "LN",
+    "NM",
+    "NX",
+    "QH",
+    "SC",
+    "SD",
+    "SH",
+    "SN",
+    "SX",
+    "TJ",
+    "XJ",
+    "XZ",
+    "YN",
+    "ZJ",
+  ].forEach((province) => {
+    shields[`CN:${province}`] = roundedRectShield(
+      "#ffcd00",
+      "black",
+      "black",
+      2,
+      1,
+      null
+    );
+    shields[`CN:${province}:expressway`] = {
+      backgroundImage: [
+        shieldImages.shield40_cn_regional_expressway_2,
+        shieldImages.shield40_cn_regional_expressway_3,
+        shieldImages.shield40_cn_regional_expressway_4,
+      ],
+      textColor: "white",
+      padding: {
+        left: 2,
+        right: 2,
+        top: 6,
+        bottom: 2,
+      },
+    };
+  });
+
+  shields["HK"] = {
+    backgroundImage: shieldImages.shield40_hk,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: "black",
+    padding: {
+      left: 1,
+      right: 1,
+      top: 1,
+      bottom: 12,
+    },
+  };
+
   shields["TW:freeway"] = {
     backgroundImage: shieldImages.shield40_tw_freeway,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
