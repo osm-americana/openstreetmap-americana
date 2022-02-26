@@ -207,6 +207,8 @@ var bridgeLayers = [
   lyrRoad.motorwayBridge.surface(),
   lyrRoad.motorwayLinkBridge.surface(),
 
+  lyrRoadLabel.bridgeSpacer,
+
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
 ];
