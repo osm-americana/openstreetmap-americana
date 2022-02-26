@@ -559,6 +559,58 @@ export function loadShields(shieldImages) {
   shields["US:SC:Business"] = banneredShield(shields["US:SC"], ["BUS"]);
   shields["US:SC:Alternate"] = banneredShield(shields["US:SC"], ["ALT"]);
 
+  shields["US:TX"] = roundedRectShield("white", "black", "black", 1, 1, null);
+  shields["US:TX:Loop"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["LOOP"]
+  );
+  shields["US:TX:Spur"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["SPUR"]
+  );
+  shields["US:TX:Business"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["BUS"]
+  );
+  shields["US:TX:Park"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["PARK"]
+  );
+  shields["US:TX:Beltway"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["BELT"]
+  );
+  shields["US:TX:FM"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["F.M."]
+  );
+  shields["US:TX:RM"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["R.M."]
+  );
+  shields["US:TX:Recreational"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["R"]
+  );
+  shields["US:TX:NASA"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1, null),
+    ["NASA"]
+  );
+
+  shields["US:TX:Toll"] = banneredShield(
+    roundedRectShield("#003f87", "white", "white", 1, 1, null),
+    ["TOLL"]
+  );
+  shields["US:TX:CTRMA"] = banneredshield(
+    roundedrectshield("#003f87", "white", "white", 1, 1, null),
+    ["TOLL"]
+  );
+  shields["US:TX:NTTA"] = banneredShield(
+    roundedRectShield("#003f87", "white", "white", 1, 1, null),
+    ["TOLL"]
+  );
+
+
   shields["US:VA"] = {
     backgroundImage: shieldImages.shield40_us_va,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
