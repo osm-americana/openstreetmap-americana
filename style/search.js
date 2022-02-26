@@ -11,6 +11,9 @@ var resultSelectIndex = -1;
 var resultGeometry = [];
 var resultPoint = [];
 
+var currentSearchID = 0;
+var lastSearchRequest;
+
 function collapseArray(arr, delimiter) {
   return arr
     .filter(function (x) {
@@ -153,9 +156,25 @@ function search(e) {
   searchQuery.searchParams.set("lon", position.lng);
   searchQuery.searchParams.set("q", e.target.value);
 
-  fetch(searchQuery)
+  doSearch(searchQuery, ++currentSearchID);
+}
+
+function doSearch(searchQuery, searchID) {
+  //Abort prior search in progress
+  const controller = new AbortController();
+  if (lastSearchRequest != undefined) {
+    lastSearchRequest.abort();
+  }
+  lastSearchRequest = controller;
+
+  fetch(searchQuery, { controller })
     .then((response) => response.json())
-    .then((data) => geocoderResponse(data));
+    .then((data) => {
+      //Ensure that stale search results are ignored
+      if (searchID == currentSearchID) {
+        geocoderResponse(data);
+      }
+    });
 }
 
 function arrowNavigate(e) {
