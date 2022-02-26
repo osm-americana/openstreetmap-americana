@@ -191,9 +191,13 @@ function arrowNavigate(e) {
   }
 
   if (priorIndex >= 0) {
-    liveResults.children[priorIndex].classList.remove("gc-result-item-selected");
+    liveResults.children[priorIndex].classList.remove(
+      "gc-result-item-selected"
+    );
   }
   if (resultSelectIndex >= 0) {
-    liveResults.children[resultSelectIndex].classList.add("gc-result-item-selected");
+    liveResults.children[resultSelectIndex].classList.add(
+      "gc-result-item-selected"
+    );
   }
 }
