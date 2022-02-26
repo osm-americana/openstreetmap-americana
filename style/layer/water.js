@@ -144,10 +144,8 @@ export const waterPointLabel = {
   source: "openmaptiles",
   "source-layer": "water_name",
   layout: {
-    //  "symbol-placement": "line",
     "text-field": ["get", "name"],
     "text-font": ["Metropolis Bold Italic"],
-    // "text-max-angle": 55,
     "text-size": [
       "interpolate",
       ["exponential", 2],
