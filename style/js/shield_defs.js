@@ -601,14 +601,8 @@ export function loadShields(shieldImages) {
     roundedRectShield("#003f87", "white", "white", 1, 1, null),
     ["TOLL"]
   );
-  shields["US:TX:CTRMA"] = banneredshield(
-    roundedrectshield("#003f87", "white", "white", 1, 1, null),
-    ["TOLL"]
-  );
-  shields["US:TX:NTTA"] = banneredShield(
-    roundedRectShield("#003f87", "white", "white", 1, 1, null),
-    ["TOLL"]
-  );
+  shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
+  shields["US:TX:NTTA"] = shields["US:TX:Toll"];
 
 
   shields["US:VA"] = {
