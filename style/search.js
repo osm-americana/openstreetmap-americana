@@ -159,8 +159,6 @@ function search(e) {
 }
 
 function arrowNavigate(e) {
-  e = e || window.event;
-
   let priorIndex = resultSelectIndex;
 
   switch (e.keyCode) {
