@@ -129,3 +129,24 @@ export const smallService = {
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
+
+export const bridgeSpacer = {
+  id: "bridge_spacer",
+  type: "symbol",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  filter: [
+    "all",
+    ["==", "brunnel", "bridge"],
+    ["in", "class", "motorway", "trunk", "primary"],
+  ],
+  paint: {
+    "icon-opacity": 0,
+  },
+  layout: {
+    "symbol-placement": "line-center",
+    "icon-image": "dot_city",
+    "icon-allow-overlap": true,
+    "icon-size": 0.1,
+  },
+};
