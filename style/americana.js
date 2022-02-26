@@ -207,6 +207,8 @@ var bridgeLayers = [
   lyrRoad.motorwayBridge.surface(),
   lyrRoad.motorwayLinkBridge.surface(),
 
+  lyrRoadLabel.bridgeSpacer,
+
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
 ];
@@ -234,7 +236,6 @@ bridgeLayers.forEach((layer) =>
 
 americanaLayers.push(
   //The labels at the end of the list draw on top of the layers at the beginning.
-  lyrRoadLabel.bridgeSpacer,
   lyrRoadLabel.motorway,
   lyrRoadLabel.trunk,
   lyrRoadLabel.primary,
