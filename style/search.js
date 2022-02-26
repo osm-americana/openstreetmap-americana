@@ -1,5 +1,7 @@
 "use strict";
 
+import * as maplibregl from "maplibre-gl";
+
 let searchInput = document.getElementById("geocoder-search-input");
 
 searchInput.addEventListener("input", search);
@@ -218,5 +220,23 @@ function arrowNavigate(e) {
     liveResults.children[resultSelectIndex].classList.add(
       "gc-result-item-selected"
     );
+  }
+}
+
+export class PhotonSearchControl extends maplibregl.Evented {
+  constructor() {
+    super();
+  }
+
+  onAdd(map) {
+    this._map = map;
+    this._container = document.getElementById("geocoder-search-panel");
+    this._container.className = "maplibregl-ctrl";
+    return this._container;
+  }
+
+  onRemove() {
+    this._container.parentNode.removeChild(this._container);
+    this._map = undefined;
   }
 }
