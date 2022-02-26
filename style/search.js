@@ -29,7 +29,6 @@ function goToResult(index) {
 
   //Clear search box
   searchInput.value = "";
-  searchInput.blur();
   map.getCanvas().focus();
 
   console.log(bbox);
