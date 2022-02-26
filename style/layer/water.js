@@ -117,6 +117,7 @@ export const waterwayLabel = {
 export const waterLabel = {
   id: "water_label",
   type: "symbol",
+  filter: ["all", ["==", "$type", "LineString"]],
   source: "openmaptiles",
   "source-layer": "water_name",
   layout: {
@@ -143,6 +144,7 @@ export const waterPointLabel = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "water_name",
+  filter: ["all", ["==", "$type", "Point"]],
   layout: {
     "text-field": ["get", "name"],
     "text-font": ["Metropolis Bold Italic"],
