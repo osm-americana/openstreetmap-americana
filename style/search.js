@@ -191,10 +191,9 @@ function arrowNavigate(e) {
   }
 
   if (priorIndex >= 0) {
-    liveResults.children.item(priorIndex).className = "gc-result-item";
+    liveResults.children[priorIndex].classList.remove("gc-result-item-selected");
   }
   if (resultSelectIndex >= 0) {
-    liveResults.children.item(resultSelectIndex).className =
-      "gc-result-item-selected";
+    liveResults.children[resultSelectIndex].classList.add("gc-result-item-selected");
   }
 }
