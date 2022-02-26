@@ -129,3 +129,23 @@ export const smallService = {
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
+
+// A spacer label on each bridge to push any waterway label away from the bridge.
+// https://github.com/ZeLonewolf/openstreetmap-americana/issues/198
+export const bridgeSpacer = {
+  id: "bridge_spacer",
+  type: "symbol",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  filter: ["all", ["==", "brunnel", "bridge"], ["in", "$type", "LineString"]],
+  paint: {
+    "icon-opacity": 0,
+  },
+  layout: {
+    "symbol-placement": "line",
+    "symbol-spacing": 2,
+    "icon-image": "dot_city",
+    "icon-allow-overlap": true,
+    "icon-size": 0.1,
+  },
+};
