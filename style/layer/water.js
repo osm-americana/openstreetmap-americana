@@ -113,6 +113,7 @@ export const waterwayLabel = {
   paint: labelPaintProperties,
 };
 
+//Lake labels rendered as a linear feature
 export const waterLabel = {
   id: "water_label",
   type: "symbol",
@@ -125,9 +126,36 @@ export const waterLabel = {
       ["exponential", 2],
       ["zoom"],
       3,
+      11,
+      12,
+      18,
+      20,
+      40,
+    ],
+    "text-letter-spacing": 0.25,
+  },
+  paint: labelPaintProperties,
+};
+
+//Lake labels rendered as a point feature
+export const waterPointLabel = {
+  id: "water_point_label",
+  type: "symbol",
+  source: "openmaptiles",
+  "source-layer": "water_name",
+  layout: {
+    //  "symbol-placement": "line",
+    "text-field": ["get", "name"],
+    "text-font": ["Metropolis Bold Italic"],
+    // "text-max-angle": 55,
+    "text-size": [
+      "interpolate",
+      ["exponential", 2],
+      ["zoom"],
+      3,
       8,
       12,
-      10,
+      14,
       20,
       40,
     ],
