@@ -38,6 +38,8 @@ americanaLayers.push(
   lyrBoundary.countryCasing,
 
   lyrWater.water,
+  lyrWater.waterway,
+  lyrWater.waterwayIntermittent,
 
   lyrPark.outline,
 
@@ -45,6 +47,9 @@ americanaLayers.push(
   lyrBoundary.county,
   lyrBoundary.state,
   lyrBoundary.country,
+
+  lyrWater.waterwayLabel,
+  lyrWater.waterLabel,
 
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
@@ -232,16 +237,11 @@ americanaLayers.push(
   lyrRoadLabel.motorway,
   lyrRoadLabel.trunk,
   lyrRoadLabel.primary,
-  lyrRoadLabel.primaryHZ,
   lyrRoadLabel.secondary,
-  lyrRoadLabel.secondaryHZ,
   lyrRoadLabel.tertiary,
-  lyrRoadLabel.tertiaryHZ,
   lyrRoadLabel.minor,
-  lyrRoadLabel.minorHZ,
   lyrRoadLabel.service,
   lyrRoadLabel.smallService,
-  lyrRoadLabel.serviceHZ,
 
   lyrPark.label,
 

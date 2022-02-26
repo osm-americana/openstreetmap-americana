@@ -1,24 +1,34 @@
 "use strict";
 
-var offsetLabelStyle = {
+const textLayout = {
   "text-font": ["Metropolis Light"],
-  "text-size": 12,
   "text-field": "{name:latin} {name:nonlatin}",
-  "text-anchor": "bottom",
   "text-max-angle": 20,
   "symbol-placement": "line",
 };
 
-var centerLabelStyle = {
-  "text-font": ["Metropolis Light"],
-  "text-size": 10,
-  "text-field": "{name:latin} {name:nonlatin}",
-  "text-anchor": "center",
-  "text-max-angle": 20,
-  "symbol-placement": "line",
-};
+/**
+ * Returns layout properties that differ between an offset treatment at lower
+ * zoom levels versus an in-road treatment at higher zoom levels.
+ *
+ * @param {*} minHighZoom Lowest zoom level at which to apply the in-road
+ *  treatment. Omit this parameter to always apply the offset treatment and
+ *  never the in-road treatment.
+ */
+function zoomDependentLayout(minHighZoom) {
+  return {
+    "text-size":
+      typeof minHighZoom === "undefined"
+        ? 12
+        : ["step", ["zoom"], 12, minHighZoom, 10],
+    "text-anchor":
+      typeof minHighZoom === "undefined"
+        ? "bottom"
+        : ["step", ["zoom"], "bottom", minHighZoom, "center"],
+  };
+}
 
-var textPaint = {
+const textPaint = {
   "text-color": "#333",
   "text-halo-color": "#fff",
   "text-halo-blur": 0.5,
@@ -30,7 +40,7 @@ export const motorway = {
   type: "symbol",
   paint: textPaint,
   filter: ["all", ["==", "class", "motorway"]],
-  layout: offsetLabelStyle,
+  layout: Object.assign(zoomDependentLayout(), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -41,7 +51,7 @@ export const trunk = {
   paint: textPaint,
   filter: ["all", ["==", "class", "trunk"]],
   minzoom: 10,
-  layout: offsetLabelStyle,
+  layout: Object.assign(zoomDependentLayout(), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -52,19 +62,7 @@ export const primary = {
   paint: textPaint,
   filter: ["all", ["==", "class", "primary"]],
   minzoom: 11,
-  maxzoom: 14,
-  layout: offsetLabelStyle,
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
-};
-
-export const primaryHZ = {
-  id: "primary_label_hz",
-  type: "symbol",
-  paint: textPaint,
-  filter: ["all", ["==", "class", "primary"]],
-  minzoom: 14,
-  layout: centerLabelStyle,
+  layout: Object.assign(zoomDependentLayout(16), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -75,19 +73,7 @@ export const secondary = {
   paint: textPaint,
   filter: ["all", ["==", "class", "secondary"]],
   minzoom: 12,
-  maxzoom: 16,
-  layout: offsetLabelStyle,
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
-};
-
-export const secondaryHZ = {
-  id: "secondary_label_hz",
-  type: "symbol",
-  paint: textPaint,
-  filter: ["all", ["==", "class", "secondary"]],
-  minzoom: 16,
-  layout: centerLabelStyle,
+  layout: Object.assign(zoomDependentLayout(16), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -98,19 +84,7 @@ export const tertiary = {
   paint: textPaint,
   filter: ["all", ["==", "class", "tertiary"]],
   minzoom: 13,
-  maxzoom: 17,
-  layout: offsetLabelStyle,
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
-};
-
-export const tertiaryHZ = {
-  id: "tertiary_label_hz",
-  type: "symbol",
-  paint: textPaint,
-  filter: ["all", ["==", "class", "tertiary"]],
-  minzoom: 17,
-  layout: centerLabelStyle,
+  layout: Object.assign(zoomDependentLayout(17), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -121,19 +95,7 @@ export const minor = {
   paint: textPaint,
   filter: ["all", ["==", "class", "minor"]],
   minzoom: 13,
-  maxzoom: 17,
-  layout: offsetLabelStyle,
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
-};
-
-export const minorHZ = {
-  id: "minor_label_hz",
-  type: "symbol",
-  paint: textPaint,
-  filter: ["all", ["==", "class", "minor"]],
-  minzoom: 17,
-  layout: centerLabelStyle,
+  layout: Object.assign(zoomDependentLayout(17), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -148,19 +110,7 @@ export const service = {
     ["!in", "service", "parking_aisle", "driveway"],
   ],
   minzoom: 14,
-  maxzoom: 17,
-  layout: offsetLabelStyle,
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
-};
-
-export const serviceHZ = {
-  id: "service_label_hz",
-  type: "symbol",
-  paint: textPaint,
-  filter: ["all", ["==", "class", "service"]],
-  minzoom: 17,
-  layout: centerLabelStyle,
+  layout: Object.assign(zoomDependentLayout(17), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };
@@ -175,8 +125,7 @@ export const smallService = {
     ["in", "service", "parking_aisle", "driveway"],
   ],
   minzoom: 15,
-  maxzoom: 17,
-  layout: offsetLabelStyle,
+  layout: Object.assign(zoomDependentLayout(), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
 };

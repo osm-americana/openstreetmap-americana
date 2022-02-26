@@ -161,8 +161,11 @@ boilerplate in `scripts/taginfo_template.json`.
 
 ## Before submitting a PR
 
-Please prettify all files prior to submission. Run `npm run code_format` to format all
-code files with [prettier][90].
+1. Please prettify all files prior to submission. Run `npm run code_format` to
+   format all code files with [prettier][90].
+2. If you are introducing a novel approach to depicting a layer or feature
+   property from the OpenMapTiles schema, document how the corresponding
+   OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
 
 [90]: https://prettier.io/
 
