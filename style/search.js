@@ -159,18 +159,22 @@ function search(e) {
 }
 
 function arrowNavigate(e) {
+  if (e.defaultPrevented) {
+    return; // Do nothing if event already handled
+  }
+
   let priorIndex = resultSelectIndex;
 
-  switch (e.keyCode) {
-    case 38:
+  switch (e.code) {
+    case "ArrowUp":
       // up arrow
       resultSelectIndex--;
       break;
-    case 40:
+    case "ArrowDown":
       // down arrow
       resultSelectIndex++;
       break;
-    case 13:
+    case "Enter":
       let navIndex = resultSelectIndex < 0 ? 0 : resultSelectIndex;
 
       goToResult(navIndex);
