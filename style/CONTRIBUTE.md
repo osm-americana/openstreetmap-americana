@@ -162,18 +162,19 @@ boilerplate in `scripts/taginfo_template.json`.
 ## Before submitting a PR
 
 1. Please prettify all files prior to submission. Run `npm run code_format` to
-   format all code files with [prettier][90].
+   format code files with [prettier][90] and SVG files with [SVGO][svgo].
 2. If you are introducing a novel approach to depicting a layer or feature
    property from the OpenMapTiles schema, document how the corresponding
    OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
 
 [90]: https://prettier.io/
+[svgo]: https://github.com/svg/svgo/
 
 ## Highway Shield Contributor's Guide
 
 Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
 
-1. Shields are in .svg format, saved in "Optimized SVG" format in Inkscape
+1. Shields are in .svg format
 2. Shields are 20px on the smallest dimension (this will be rasterized to 20px or 40px depending on display resolution)
 3. Shields are license-compatible (public domain or CC0)
 
