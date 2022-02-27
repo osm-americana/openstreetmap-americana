@@ -161,22 +161,18 @@ function search(e) {
   doSearch(searchQuery, ++currentSearchID);
 }
 
-function doSearch(searchQuery, searchID) {
+async function doSearch(searchQuery) {
   //Abort prior search in progress
+  lastSearchRequest?.abort();
   const controller = new AbortController();
-  if (lastSearchRequest != undefined) {
-    lastSearchRequest.abort();
-  }
   lastSearchRequest = controller;
 
-  fetch(searchQuery, { controller })
-    .then((response) => response.json())
-    .then((data) => {
-      //Ensure that stale search results are ignored
-      if (searchID == currentSearchID) {
-        geocoderResponse(data);
-      }
-    });
+  const response = await fetch(searchQuery, { signal: controller.signal });
+  const data = await response.json();
+  if (controller.signal.aborted) {
+    return;
+  }
+  geocoderResponse(data);
 }
 
 function arrowNavigate(e) {
