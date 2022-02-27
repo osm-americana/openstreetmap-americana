@@ -1,8 +1,7 @@
 #geocoder-search-panel {
-  top: 8px;
-  left: 48px;
-  z-index: 100;
+  z-index: 10;
   padding: 3px;
+  position: relative;
 }
 #geocoder-search-input {
   border: 1px solid lightgray;
@@ -11,9 +10,10 @@
 }
 #geocoder-live-results {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: absolute;
 }
 .gc-result-item {
-  border: 1px solid lightgray;
+  border-style: solid;
   border-color: lightgray;
   border-width: 1px 1px 0px 1px;
   background-color: white;
@@ -21,17 +21,10 @@
   cursor: pointer;
 }
 .gc-result-item:last-child {
-  border: 1px solid lightgray;
-  background-color: white;
-  padding: 2px;
+  border-width: 1px;
 }
 .gc-result-item-selected {
   background-color: lightgrey;
-}
-.gc-result-item-selected:last-child {
-  border: 1px solid lightgray;
-  background-color: lightgrey;
-  padding: 2px;
 }
 .gc-result-category {
   color: blue;
