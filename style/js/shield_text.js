@@ -207,41 +207,18 @@ export function drawBannerText(ctx, text, bannerIndex) {
   ctx.textBaseline = "top";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
   ctx.shadowColor = "rgba(250, 246, 242, 1)";
-  ctx.shadowOffsetX = -2;
-  ctx.shadowOffsetY = -2;
+  [-2, 2].forEach((offsetX) => {
+    [-2, 2].forEach((offsetY) => {
+      ctx.shadowOffsetX = offsetX;
+      ctx.shadowOffsetY = offsetY;
 
-  ctx.fillText(
-    text,
-    textLayout.xBaseline,
-    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
-  );
-
-  ctx.shadowOffsetX = -2;
-  ctx.shadowOffsetY = 2;
-
-  ctx.fillText(
-    text,
-    textLayout.xBaseline,
-    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
-  );
-
-  ctx.shadowOffsetX = 2;
-  ctx.shadowOffsetY = -2;
-
-  ctx.fillText(
-    text,
-    textLayout.xBaseline,
-    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
-  );
-
-  ctx.shadowOffsetX = 2;
-  ctx.shadowOffsetY = 2;
-
-  ctx.fillText(
-    text,
-    textLayout.xBaseline,
-    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
-  );
+      ctx.fillText(
+        text,
+        textLayout.xBaseline,
+        textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+      );
+    });
+  });
 }
 
 export function calculateTextWidth(text, fontSize) {
