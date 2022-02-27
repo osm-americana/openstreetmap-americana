@@ -12,7 +12,6 @@ var resultSelectIndex = -1;
 var resultGeometry = [];
 var resultPoint = [];
 
-var currentSearchID = 0;
 var lastSearchRequest;
 
 function collapseArray(arr, delimiter) {
