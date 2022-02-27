@@ -8,7 +8,6 @@ searchInput.addEventListener("input", search);
 searchInput.addEventListener("keydown", arrowNavigate);
 
 var liveResults = document.getElementById("geocoder-live-results");
-var divMap = document.getElementById("map");
 var resultSelectIndex = -1;
 var resultGeometry = [];
 var resultPoint = [];
