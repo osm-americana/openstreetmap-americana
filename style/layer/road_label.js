@@ -30,9 +30,9 @@ function zoomDependentLayout(minHighZoom) {
 
 const textPaint = {
   "text-color": "#333",
-  "text-halo-color": "#fff",
+  "text-halo-color": "rgba(250, 246, 242, 1)",
   "text-halo-blur": 0.5,
-  "text-halo-width": 1,
+  "text-halo-width": 2,
 };
 
 export const motorway = {
