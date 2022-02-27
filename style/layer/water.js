@@ -2,155 +2,50 @@
 
 import * as Color from "../constants/color.js";
 
-export const waterwayTunnel = {
-  id: "waterway_tunnel",
+const bigRivers = ["river", "canal"];
+const mediumRivers = ["stream"];
+// drain, ditch
+
+export const waterway = {
+  id: "waterway",
   type: "line",
-  paint: {
-    "line-color": Color.waterLine,
-    "line-width": {
-      base: 1.3,
-      stops: [
-        [13, 0.5],
-        [20, 6],
-      ],
-    },
-    "line-dasharray": [2, 4],
-  },
-  filter: ["all", ["==", "brunnel", "tunnel"]],
-  layout: {
-    "line-cap": "round",
-    visibility: "visible",
-  },
   source: "openmaptiles",
-  minzoom: 14,
   "source-layer": "waterway",
+  layout: {
+    "line-join": "round",
+    "line-cap": "round",
+  },
+  filter: ["!=", ["get", "intermittent"], 1],
+  paint: {
+    "line-color": Color.waterFill,
+    "line-width": [
+      "interpolate",
+      ["exponential", 2],
+      ["zoom"],
+      3,
+      0.5,
+      16,
+      [
+        "case",
+        ["in", ["get", "class"], ["literal", bigRivers]],
+        10,
+        ["in", ["get", "class"], ["literal", mediumRivers]],
+        6,
+        2,
+      ],
+    ],
+    "line-opacity": ["case", ["==", ["get", "brunnel"], "tunnel"], 0.3, 1],
+  },
 };
 
-export const waterwayRiver = {
-  id: "waterway_river",
-  type: "line",
+export const waterwayIntermittent = {
+  ...waterway,
+  id: "waterway_intermittent",
+  filter: ["==", ["get", "intermittent"], 1],
   paint: {
-    "line-color": Color.waterLine,
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [11, 0.5],
-        [20, 6],
-      ],
-    },
+    ...waterway.paint,
+    "line-dasharray": [2, 3],
   },
-  filter: [
-    "all",
-    ["==", "class", "river"],
-    ["!=", "brunnel", "tunnel"],
-    ["!=", "intermittent", 1],
-  ],
-  layout: {
-    "line-cap": "round",
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "waterway",
-};
-export const waterwayRiverIntermittent = {
-  id: "waterway_river_intermittent",
-  type: "line",
-  paint: {
-    "line-color": Color.waterLine,
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [11, 0.5],
-        [20, 6],
-      ],
-    },
-    "line-dasharray": [3, 2],
-  },
-  filter: [
-    "all",
-    ["==", "class", "river"],
-    ["!=", "brunnel", "tunnel"],
-    ["==", "intermittent", 1],
-  ],
-  layout: {
-    "line-cap": "round",
-  },
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "waterway",
-};
-export const waterwayOther = {
-  id: "waterway_other",
-  type: "line",
-  paint: {
-    "line-color": Color.waterLine,
-    "line-width": {
-      base: 1.3,
-      stops: [
-        [13, 0.5],
-        [20, 6],
-      ],
-    },
-  },
-  filter: [
-    "all",
-    ["!=", "class", "river"],
-    ["!=", "brunnel", "tunnel"],
-    ["!=", "intermittent", 1],
-  ],
-  layout: {
-    "line-cap": "round",
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "waterway",
-};
-
-export const waterwayOtherIntermittent = {
-  id: "waterway_other_intermittent",
-  type: "line",
-  paint: {
-    "line-color": Color.waterLine,
-    "line-width": {
-      base: 1.3,
-      stops: [
-        [13, 0.5],
-        [20, 6],
-      ],
-    },
-    "line-dasharray": [4, 3],
-  },
-  filter: [
-    "all",
-    ["!=", "class", "river"],
-    ["!=", "brunnel", "tunnel"],
-    ["==", "intermittent", 1],
-  ],
-  layout: {
-    "line-cap": "round",
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "waterway",
-};
-
-export const waterIntermittent = {
-  id: "water_intermittent",
-  type: "fill",
-  paint: {
-    "fill-color": Color.waterIntermittent,
-    "fill-opacity": 0.85,
-  },
-  filter: ["all", ["==", "intermittent", 1]],
-  layout: {
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  metadata: {},
-  "source-layer": "water",
 };
 
 export const water = {
@@ -158,12 +53,113 @@ export const water = {
   type: "fill",
   paint: {
     "fill-color": Color.waterFill,
-  },
-  filter: ["all", ["!=", "intermittent", 1], ["!=", "brunnel", "tunnel"]],
-  layout: {
-    visibility: "visible",
+    "fill-opacity": [
+      "case",
+      [
+        "any",
+        ["==", ["get", "intermittent"], 1],
+        ["==", ["get", "brunnel"], "tunnel"],
+      ],
+      0.3,
+      1,
+    ],
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "water",
+};
+
+const labelPaintProperties = {
+  "text-halo-color": "#fff",
+  "text-color": Color.waterLabel,
+  "text-halo-width": 0.75,
+  "text-halo-blur": 0.25,
+};
+
+const labelLayoutProperties = {
+  "symbol-placement": "line",
+  "text-field": ["get", "name"],
+  "text-font": ["Metropolis Bold Italic"],
+  "text-max-angle": 55,
+};
+
+export const waterwayLabel = {
+  id: "waterway_label",
+  type: "symbol",
+  source: "openmaptiles",
+  "source-layer": "waterway",
+  filter: ["!=", "brunnel", "tunnel"],
+  layout: {
+    ...labelLayoutProperties,
+    "text-size": [
+      "interpolate",
+      ["exponential", 2],
+      ["zoom"],
+      3,
+      8,
+      12,
+      ["case", ["in", ["get", "class"], ["literal", bigRivers]], 14, 10],
+      20,
+      [
+        "case",
+        ["in", ["get", "class"], ["literal", bigRivers]],
+        40,
+        ["in", ["get", "class"], ["literal", mediumRivers]],
+        20,
+        15,
+      ],
+    ],
+    "text-letter-spacing": 0.15,
+  },
+  paint: labelPaintProperties,
+};
+
+//Lake labels rendered as a linear feature
+export const waterLabel = {
+  id: "water_label",
+  type: "symbol",
+  filter: ["all", ["==", "$type", "LineString"]],
+  source: "openmaptiles",
+  "source-layer": "water_name",
+  layout: {
+    ...labelLayoutProperties,
+    "text-size": [
+      "interpolate",
+      ["exponential", 2],
+      ["zoom"],
+      3,
+      11,
+      12,
+      18,
+      20,
+      40,
+    ],
+    "text-letter-spacing": 0.25,
+  },
+  paint: labelPaintProperties,
+};
+
+//Lake labels rendered as a point feature
+export const waterPointLabel = {
+  id: "water_point_label",
+  type: "symbol",
+  source: "openmaptiles",
+  "source-layer": "water_name",
+  filter: ["all", ["==", "$type", "Point"]],
+  layout: {
+    "text-field": ["get", "name"],
+    "text-font": ["Metropolis Bold Italic"],
+    "text-size": [
+      "interpolate",
+      ["exponential", 2],
+      ["zoom"],
+      3,
+      8,
+      12,
+      14,
+      20,
+      40,
+    ],
+    "text-letter-spacing": 0.25,
+  },
+  paint: labelPaintProperties,
 };

@@ -38,6 +38,8 @@ americanaLayers.push(
   lyrBoundary.countryCasing,
 
   lyrWater.water,
+  lyrWater.waterway,
+  lyrWater.waterwayIntermittent,
 
   lyrPark.outline,
 
@@ -45,6 +47,10 @@ americanaLayers.push(
   lyrBoundary.county,
   lyrBoundary.state,
   lyrBoundary.country,
+
+  lyrWater.waterwayLabel,
+  lyrWater.waterLabel,
+  lyrWater.waterPointLabel,
 
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
@@ -201,6 +207,8 @@ var bridgeLayers = [
   lyrRoad.motorwayLinkBridge.fill(),
   lyrRoad.motorwayBridge.surface(),
   lyrRoad.motorwayLinkBridge.surface(),
+
+  lyrRoadLabel.bridgeSpacer,
 
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
