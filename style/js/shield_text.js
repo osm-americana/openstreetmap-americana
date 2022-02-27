@@ -206,8 +206,36 @@ export function drawBannerText(ctx, text, bannerIndex) {
 
   ctx.textBaseline = "top";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
-  ctx.shadowColor = "white";
-  ctx.shadowBlur = 10;
+  ctx.shadowColor = "rgba(250, 246, 242, 1)";
+  ctx.shadowOffsetX = -2;
+  ctx.shadowOffsetY = -2;
+
+  ctx.fillText(
+    text,
+    textLayout.xBaseline,
+    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+  );
+
+  ctx.shadowOffsetX = -2;
+  ctx.shadowOffsetY = 2;
+
+  ctx.fillText(
+    text,
+    textLayout.xBaseline,
+    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+  );
+
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = -2;
+
+  ctx.fillText(
+    text,
+    textLayout.xBaseline,
+    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+  );
+
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
 
   ctx.fillText(
     text,
