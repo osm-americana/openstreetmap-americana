@@ -1,5 +1,5 @@
 <svg width="20" height="20" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <use transform="matrix(.92938 0 0 -.92938 19977 4810.8)" width="300" height="240" fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="309" xlink:href="#state_outline"/>
  <rect width="20" height="20" rx="1.25" ry="1.25" fill="#bf2033"/>
- <path fill="#006747" d="M1 19h18V5H1z"/>
+ <path transform="scale(1 -1)" fill="#006747" d="M1-19H19V-5H1z"/>
 </svg>

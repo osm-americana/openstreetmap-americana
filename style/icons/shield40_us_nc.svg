@@ -1,3 +1,3 @@
 <svg width="20" height="20" version="1.0" xmlns="http://www.w3.org/2000/svg">
- <path d="m10.868.972 8.16 8.16c.48.48.48 1.255 0 1.736l-8.16 8.16c-.48.48-1.255.48-1.736 0l-8.16-8.16a1.225 1.225 0 0 1 0-1.736l8.16-8.16a1.225 1.225 0 0 1 1.736 0z" fill="#fff" stroke="#000" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="1.232"/>
+ <path d="m29.069 9.2773 16.32 16.32c0.96185 0.96185 0.96185 2.5105 0 3.4724l-16.32 16.32c-0.96185 0.96185-2.5105 0.96185-3.4724 0l-16.32-16.32c-0.96185-0.96185-0.96185-2.5105 0-3.4724l16.32-16.32c0.96185-0.96185 2.5105-0.96185 3.4724 0z" fill="#fff" stroke="#000" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="2.465" transform="matrix(.5 0 0 .5 -3.667 -3.667)"/>
 </svg>
