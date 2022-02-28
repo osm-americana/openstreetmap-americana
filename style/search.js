@@ -34,9 +34,6 @@ function goToResult(index) {
   searchInput.value = "";
   map.getCanvas().focus();
 
-  console.log(bbox);
-  console.log(center);
-
   //Zoom map to search result
   if (bbox != undefined) {
     map.fitBounds(bbox);
@@ -91,7 +88,6 @@ function mapResultToDescription(type, key, value) {
 
 function geocoderResultEntry(result) {
   let p = result.properties;
-  console.log(p);
   let type = mapResultToDescription(p.type, p.osm_key, p.osm_value).replaceAll(
     "_",
     " "
@@ -156,7 +152,7 @@ function search(e) {
   searchQuery.searchParams.set("lon", position.lng);
   searchQuery.searchParams.set("q", e.target.value);
 
-  doSearch(searchQuery, ++currentSearchID);
+  doSearch(searchQuery);
 }
 
 async function doSearch(searchQuery) {
