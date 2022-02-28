@@ -9,7 +9,7 @@
   },
   "scripts": {
     "config": "cp configs/config.maptiler.js config.js",
-    "code_format": "npx prettier --write .",
+    "code_format": "npx prettier --write . && npx svgo -f icons/ --config configs/config.svgo.cjs",
     "clean": "rm -rf dist .parcel-cache",
     "presprites": "rm -rf dist/sprites",
     "sprites": "mkdir -p dist/sprites && npx spritezero dist/sprites/sprite@2x icons/ --retina && npx spritezero dist/sprites/sprite icons/",
@@ -24,7 +24,8 @@
     "maplibre-gl": "https://github.com/ZeLonewolf/maplibre-gl-js/releases/download/v2.0.5-americana-1/maplibre-gl-2.0.5-americana-1.tar.gz",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "parcel": "^2.3.0",
-    "prettier": "2.3.2"
+    "prettier": "2.3.2",
+    "svgo": "^2.8.0"
   },
   "engines": {
     "npm": ">=8.3.0"
