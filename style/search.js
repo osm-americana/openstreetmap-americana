@@ -192,10 +192,12 @@ function arrowNavigate(e) {
     case "ArrowUp":
       // up arrow
       resultSelectIndex--;
+      e.preventDefault();
       break;
     case "ArrowDown":
       // down arrow
       resultSelectIndex++;
+      e.preventDefault();
       break;
     case "Enter":
       let navIndex = resultSelectIndex < 0 ? 0 : resultSelectIndex;
