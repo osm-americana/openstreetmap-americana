@@ -51,6 +51,7 @@ americanaLayers.push(
 
   lyrWater.waterwayLabel,
   lyrWater.waterLabel,
+  lyrWater.waterPointLabel,
 
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
@@ -207,6 +208,8 @@ var bridgeLayers = [
   lyrRoad.motorwayLinkBridge.fill(),
   lyrRoad.motorwayBridge.surface(),
   lyrRoad.motorwayLinkBridge.surface(),
+
+  lyrRoadLabel.bridgeSpacer,
 
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
