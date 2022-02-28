@@ -145,8 +145,15 @@ function search(e) {
 
   let position = map.getCenter();
   let searchQuery = new URL("https://photon.komoot.io/api/?limit=3");
-  searchQuery.searchParams.set("lat", position.lat);
-  searchQuery.searchParams.set("lon", position.lng);
+  console.log(map.getZoom());
+
+  //Low zoom: generate "generic" search results
+  //High zoom: generate location-specific search results
+  if (map.getZoom() > 5) {
+    searchQuery.searchParams.set("lat", position.lat);
+    searchQuery.searchParams.set("lon", position.lng);
+  }
+
   searchQuery.searchParams.set("q", e.target.value);
 
   doSearch(searchQuery);
