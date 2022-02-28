@@ -4,8 +4,8 @@
   position: relative;
 }
 #geocoder-search-input {
-  border: 1px solid lightgray;
-  font-size: 1em;
+  border: 1.2px solid lightgray;
+  font-size: 1.2em;
   padding: 3px;
 }
 #geocoder-live-results {
@@ -28,13 +28,14 @@
 }
 .gc-result-category {
   color: blue;
-  font-size: 0.65em;
+  font-size: 0.9em;
 }
 .gc-result-name {
   color: darkslategray;
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 .gc-result-description {
   color: slategray;
-  font-size: 0.75em;
+  font-size: 1em;
+  font-style: italic;
 }

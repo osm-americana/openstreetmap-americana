@@ -2,12 +2,9 @@
 
 import * as maplibregl from "maplibre-gl";
 
-let searchInput = document.getElementById("geocoder-search-input");
+var searchInput;
+var liveResults;
 
-searchInput.addEventListener("input", search);
-searchInput.addEventListener("keydown", arrowNavigate);
-
-var liveResults = document.getElementById("geocoder-live-results");
 var resultSelectIndex = -1;
 var resultGeometry = [];
 var resultPoint = [];
@@ -161,12 +158,20 @@ async function doSearch(searchQuery) {
   const controller = new AbortController();
   lastSearchRequest = controller;
 
-  const response = await fetch(searchQuery, { signal: controller.signal });
-  const data = await response.json();
-  if (controller.signal.aborted) {
-    return;
+  try {
+    const response = await fetch(searchQuery, { signal: controller.signal });
+    const data = await response.json();
+
+    if (controller.signal.aborted) {
+      return;
+    }
+    geocoderResponse(data);
+  } catch (e) {
+    if (e instanceof DOMException) {
+      //Do nothing; this is normal when search result is aborted by an
+      //additional keystroke
+    }
   }
-  geocoderResponse(data);
 }
 
 function arrowNavigate(e) {
@@ -220,8 +225,27 @@ export class PhotonSearchControl extends maplibregl.Evented {
 
   onAdd(map) {
     this._map = map;
-    this._container = document.getElementById("geocoder-search-panel");
+
+    searchInput = document.createElement("input");
+    searchInput.id = "geocoder-search-input";
+    searchInput.type = "search";
+    searchInput.placeholder = "Search";
+    searchInput.autocomplete = "off";
+    searchInput.addEventListener("input", search);
+    searchInput.addEventListener("keydown", arrowNavigate);
+
+    var form = document.createElement("form");
+    form.appendChild(searchInput);
+
+    liveResults = document.createElement("div");
+    liveResults.id = "geocoder-live-results";
+
+    this._container = document.createElement("div");
+    this._container.id = "geocoder-search-panel";
     this._container.className = "maplibregl-ctrl";
+    this._container.appendChild(form);
+    this._container.appendChild(liveResults);
+
     return this._container;
   }
 
