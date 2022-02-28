@@ -21,7 +21,7 @@ jobs:
           npm install --include=dev
           sed 's/<your MapTiler key>/hJFMGrd2JszhwfJx5M2k/g' configs/config.maptiler.js > config.js
           npm run build
-        # MapTiler key 53iZvB2drcamS0Ge0xiD only allows requests from zelonewolf.github.io
+        # MapTiler key hJFMGrd2JszhwfJx5M2k only allows requests from zelonewolf.github.io
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
