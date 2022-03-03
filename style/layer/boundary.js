@@ -178,6 +178,7 @@ export const countryCasing = {
   filter: ["all", ["in", "admin_level", 2], ["==", "maritime", 0]],
   minzoom: 2,
   layout: {
+    "line-cap": "round",
     "line-join": "round",
     visibility: "visible",
   },
