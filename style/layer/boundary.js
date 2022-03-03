@@ -14,7 +14,7 @@ export const city = {
   filter: [
     "all",
     ["==", "admin_level", 8],
-    ["!has", "claimed_by"],
+    ["==", "disputed", 0],
     ["==", "maritime", 0],
   ],
   minzoom: 11,
@@ -42,7 +42,7 @@ export const countyCasing = {
   filter: [
     "all",
     ["==", "admin_level", 6],
-    ["!has", "claimed_by"],
+    ["==", "disputed", 0],
     ["==", "maritime", 0],
   ],
   minzoom: 11,
@@ -66,7 +66,7 @@ export const county = {
   filter: [
     "all",
     ["==", "admin_level", 6],
-    ["!has", "claimed_by"],
+    ["==", "disputed", 0],
     ["==", "maritime", 0],
   ],
   minzoom: 9,
@@ -175,14 +175,10 @@ export const countryCasing = {
       ],
     },
   },
-  filter: [
-    "all",
-    ["in", "admin_level", 2],
-    ["!has", "claimed_by"],
-    ["==", "maritime", 0],
-  ],
+  filter: ["all", ["in", "admin_level", 2], ["==", "maritime", 0]],
   minzoom: 2,
   layout: {
+    "line-cap": "round",
     "line-join": "round",
     visibility: "visible",
   },
@@ -224,7 +220,7 @@ export const country = {
   filter: [
     "all",
     ["in", "admin_level", 2],
-    ["!has", "claimed_by"],
+    ["==", "disputed", 0],
     ["==", "maritime", 0],
   ],
   maxzoom: 24,
