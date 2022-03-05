@@ -422,6 +422,8 @@ export function loadShields(shieldImages) {
   shields["US:OH:Bypass"] = banneredShield(shields["US:OH"], ["BYP"]);
   shields["US:OH:Business"] = banneredShield(shields["US:OH"], ["BUS"]);
 
+  // Ohio county and township roads
+
   ["COL", "JEF", "MAH", "OTT", "SEN", "STA", "SUM", "TUS"].forEach(
     // Yellow on blue pentagon
     (county) => (shields[`US:OH:${county}`] = usMUTCDCountyShield)
@@ -437,10 +439,24 @@ export function loadShields(shieldImages) {
     "WAS",
     "WIL",
     "WYA",
+    "COS:Jackson",
+    "FAI:Greenfield",
+    "JEF:Knox",
+    "LOG:Bokescreek",
+    "LOG:Pleasant",
+    "LOG:Washington",
+    "MED:Sharon",
+    "MRG:York",
+    "MRW:Bennington",
+    "MRW:Chester",
+    "MRW:Franklin",
+    "PER:Bearfield",
+    "PER:Hopewell",
+    "WAY:East_Union",
   ].forEach(
     // White on green rectangle
-    (county) =>
-      (shields[`US:OH:${county}`] = roundedRectShield(
+    (countyOrTownship) =>
+      (shields[`US:OH:${countyOrTownship}`] = roundedRectShield(
         "#006747",
         "white",
         "white",
@@ -449,10 +465,10 @@ export function loadShields(shieldImages) {
         null
       ))
   );
-  ["MED", "NOB"].forEach(
+  ["MED", "NOB", "WAY:Paint", "WAY:Salt_Creek"].forEach(
     // White on blue rectangle
-    (county) =>
-      (shields[`US:OH:${county}`] = roundedRectShield(
+    (countyOrTownship) =>
+      (shields[`US:OH:${countyOrTownship}`] = roundedRectShield(
         "#003f87",
         "white",
         "white",
@@ -461,10 +477,10 @@ export function loadShields(shieldImages) {
         null
       ))
   );
-  ["TRU", "VIN"].forEach(
+  ["TRU", "VIN", "COS:Adams"].forEach(
     // Black on yellow rectangle
-    (county) =>
-      (shields[`US:OH:${county}`] = roundedRectShield(
+    (countyOrTownship) =>
+      (shields[`US:OH:${countyOrTownship}`] = roundedRectShield(
         "#ffcd00",
         "black",
         "black",
@@ -496,6 +512,86 @@ export function loadShields(shieldImages) {
       bottom: 6,
     },
   };
+  shields["US:OH:HOC:Falls"] = roundedRectShield(
+    "white",
+    "#006747",
+    "black",
+    2,
+    1,
+    null
+  );
+  shields["US:OH:PER:Monday_Creek"] = roundedRectShield(
+    "#006747",
+    "black",
+    "black",
+    2,
+    1,
+    null
+  );
+  shields["US:OH:TUS:Salem"] = {
+    backgroundImage: [shieldImages.shield40_us_oh_tus_salem],
+    textColor: "black",
+    padding: {
+      left: 1,
+      right: 4,
+      top: 1,
+      bottom: 4,
+    },
+  };
+
+  // If a township's road shields have the same shape and colors as the surrounding county's road shields,
+  // add a banner to distinguish the township road shields from the more prominent county road shields.
+
+  [
+    ["ASD", "TWP"],
+    ["ATH", "Trimble"],
+    ["MED", "York"],
+    ["PAU", "Latty"],
+    ["PAU", "Washington"],
+    ["WAS", "Aurelius"],
+    ["WAS", "Salem"],
+  ].forEach(
+    (countyAndTownship) =>
+      (shields[`US:OH:${countyAndTownship[0]}:${countyAndTownship[1]}`] =
+        banneredShield(shields[`US:OH:${countyAndTownship[0]}`], ["TWP"]))
+  );
+  [
+    ["FAI", "Violet"],
+    ["HOL", "Berlin"],
+    ["HOL", "Clark"],
+    ["HOL", "Knox"],
+    ["HOL", "Monroe"], // No black border in reality, but a border is needed for contrast.
+    ["HOL", "Paint"],
+    ["HOL", "Salt_Creek"],
+    ["KNO", "Liberty"],
+    ["KNO", "Milford"],
+    ["LIC", "Jersey"],
+    ["LOG", "Harrison"],
+    ["LOG", "Jefferson"],
+    ["LOG", "Lake"],
+    ["LOG", "Liberty"],
+    ["LOG", "McArthur"],
+    ["LOG", "Miami"],
+    ["LOG", "Monroe"],
+    ["LOG", "Perry"],
+    ["LOG", "Richland"],
+    ["LOG", "Rushcreek"],
+    ["LOG", "Stokes"],
+    ["LOG", "Union"],
+    ["MRW", "Canaan"],
+    ["MRW", "Harmony"],
+    ["MRW", "South_Bloomfield"],
+    ["MRW", "Westfield"],
+    ["PER", "Coal"],
+  ].forEach(
+    // Black on white rectangle, not defined for the county since it is normally a fallback
+    (countyAndTownship) =>
+      (shields[`US:OH:${countyAndTownship[0]}:${countyAndTownship[1]}`] =
+        banneredShield(
+          roundedRectShield("white", "black", "black", 2, 1, null),
+          ["TWP"]
+        ))
+  );
 
   shields["US:OR"] = {
     backgroundImage: [

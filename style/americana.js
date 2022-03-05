@@ -254,6 +254,7 @@ americanaLayers.push(
   lyrHighwayShield.primary,
   lyrHighwayShield.secondary,
   lyrHighwayShield.tertiary,
+  lyrHighwayShield.minor,
 
   lyrHighwayExit.exits,
 
