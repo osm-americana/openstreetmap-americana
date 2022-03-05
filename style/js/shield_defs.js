@@ -292,6 +292,7 @@ export function loadShields(shieldImages) {
       // names to accommodate both the abbreviated names from OpenMapTiles and
       // the spelled-out names from Planetiler.
       // https://github.com/onthegomap/planetiler/issues/14
+      // This is a special case, as documented in CONTRIBUTE.md
       refsByWayName: {
         "Audubon Parkway": "AU",
         "Bluegrass Parkway": "BG",
@@ -900,7 +901,7 @@ export function shieldLighten(network, ref) {
   if (shieldDef == null) {
     return null;
   }
-  //Ref-specific cases:
+  //Ref-specific cases.  Additional entries should be documented in CONTRIBUTE.md
   switch (network) {
     case "US:GA":
       switch (ref) {
