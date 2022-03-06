@@ -1,5 +1,7 @@
 "use strict";
 
+import * as labelUtils from "../constants/label.js";
+
 const textLayout = {
   "text-font": ["Metropolis Light"],
   "text-field": [
@@ -10,7 +12,7 @@ const textLayout = {
     [
       "case",
       ["in", "_construction", ["get", "class"]],
-      " (UNDER CONSTRUCTION)",
+      labelUtils.t("under_construction_suffix").toLocaleUpperCase(),
       "",
     ],
     {
