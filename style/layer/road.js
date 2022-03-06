@@ -43,8 +43,8 @@ let layoutRoadSurface = {
  Road style generation helper functions
 */
 
-function roadPaint(color, width) {
-  return {
+function roadPaint(color, width, construction) {
+  let paint = {
     "line-color": color,
     "line-width": {
       base: roadExp,
@@ -52,6 +52,18 @@ function roadPaint(color, width) {
     },
     "line-blur": 0.5,
   };
+  if (construction) {
+    paint["line-dasharray"] = {
+      base: roadExp,
+      stops: [
+        [6, [2, 6]],
+        [8, [3, 6]],
+        [12, [4, 3]],
+        [14, [4, 2]],
+      ],
+    };
+  }
+  return paint;
 }
 
 function tunnelCasePaint(color, width) {
@@ -79,15 +91,20 @@ function roadSurfacePaint(color, width) {
 }
 
 //Helper function to create a "filter" block for a particular road class.
-function filterRoad(roadClass, ramp, brunnel) {
-  return [
+function filterRoad(roadClass, ramp, brunnel, construction) {
+  let filter = [
     "all",
-    brunnel === "surface"
-      ? ["!in", "brunnel", "bridge", "tunnel"]
-      : ["==", "brunnel", brunnel],
     ["==", "class", roadClass],
     [ramp ? "==" : "!=", "ramp", 1],
   ];
+  if (!construction) {
+    if (brunnel === "surface") {
+      filter.push(["!in", "brunnel", "bridge", "tunnel"]);
+    } else {
+      filter.push(["==", "brunnel", brunnel]);
+    }
+  }
+  return filter;
 }
 
 //Base definition that applies to all roads (fill and casing).
@@ -107,18 +124,19 @@ function uniqueLayerID(hwyClass, link, part, brunnel, constraints) {
   return layerID;
 }
 
-function baseRoadLayer(highwayClass, id, brunnel, minzoom, link, constraints) {
+function baseRoadLayer(highwayClass, id, brunnel, minzoom, link, constraints, construction) {
   var layer = Util.layerClone(
     defRoad,
-    uniqueLayerID(highwayClass, link, id, brunnel, constraints)
+    uniqueLayerID(construction ? `${highwayClass}_construction` : highwayClass, link, id, brunnel, constraints)
   );
-  layer.filter = filterRoad(highwayClass, link, brunnel);
+  layer.filter = filterRoad(construction ? `${highwayClass}_construction` : highwayClass, link, brunnel, construction);
   layer.minzoom = minzoom;
   return layer;
 }
 
 //Base road class
 class Road {
+  construction = false;
   fill = function () {
     var layer = baseRoadLayer(
       this.highwayClass,
@@ -126,12 +144,16 @@ class Road {
       this.brunnel,
       this.minZoomFill,
       this.link,
-      this.constraints
+      this.constraints,
+      this.construction
     );
     layer.layout = layoutRoadFill;
-    layer.paint = roadPaint(this.fillColor, this.fillWidth);
+    layer.paint = roadPaint(this.fillColor, this.fillWidth, this.construction);
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
+    }
+    if (this.construction) {
+      layer.layout["line-cap"] = "butt";
     }
     return layer;
   };
@@ -142,7 +164,8 @@ class Road {
       this.brunnel,
       this.minZoomCasing,
       this.link,
-      this.constraints
+      this.constraints,
+      this.construction
     );
     layer.layout = layoutRoadCase;
     if (this.brunnel === "bridge") {
@@ -151,10 +174,20 @@ class Road {
     if (this.brunnel === "tunnel") {
       layer.paint = tunnelCasePaint(this.casingColor, this.casingWidth);
     } else {
-      layer.paint = roadPaint(this.casingColor, this.casingWidth);
+      layer.paint = roadPaint(
+        this.casingColor,
+        this.construction ? this.fillWidth : this.casingWidth,
+        this.construction
+      );
+      if (this.construction) {
+        layer.paint["line-gap-width"] = 1;
+      }
     }
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
+    }
+    if (this.construction) {
+      layer.layout["line-cap"] = "butt";
     }
     return layer;
   };
@@ -165,7 +198,8 @@ class Road {
       this.brunnel,
       Math.min(this.minZoomCasing, this.minZoomFill),
       this.link,
-      this.constraints
+      this.constraints,
+      this.construction
     );
     layer.filter.push(["==", "surface", "unpaved"]);
     if (this.constraints != null) {
@@ -278,7 +312,7 @@ class Trunk extends Road {
     this.minZoomCasing = 5;
 
     this.fillWidth = trunkFillWidth;
-    this.casingWidth = trunkCasingWidth;
+    this.casingWidth = this.constructions ? trunkFillWidth : trunkCasingWidth;
 
     this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
     this.casingColor = [
@@ -984,6 +1018,69 @@ class SmallServiceTunnel extends SmallService {
   }
 }
 
+class MotorwayConstruction extends Motorway {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class TrunkConstruction extends Trunk {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class TrunkExpresswayConstruction extends TrunkExpressway {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class PrimaryConstruction extends Primary {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class SecondaryConstruction extends Secondary {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class TertiaryConstruction extends Tertiary {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class MinorConstruction extends Minor {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class ServiceConstruction extends Service {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
+class SmallServiceConstruction extends SmallService {
+  constructor() {
+    super();
+    this.construction = true;
+  }
+}
+
 class MotorwayLinkTunnel extends MotorwayLink {
   constructor() {
     super();
@@ -1068,6 +1165,16 @@ export const tertiaryExpresswayTunnel = new TertiaryExpresswayTunnel();
 export const minorTunnel = new MinorTunnel();
 export const serviceTunnel = new ServiceTunnel();
 export const smallServiceTunnel = new SmallServiceTunnel();
+
+export const motorwayConstruction = new MotorwayConstruction();
+export const trunkConstruction = new TrunkConstruction();
+export const trunkExpresswayConstruction = new TrunkExpresswayConstruction();
+export const primaryConstruction = new PrimaryConstruction();
+export const secondaryConstruction = new SecondaryConstruction();
+export const tertiaryConstruction = new TertiaryConstruction();
+export const minorConstruction = new MinorConstruction();
+export const serviceConstruction = new ServiceConstruction();
+export const smallServiceConstruction = new SmallServiceConstruction();
 
 export const motorwayLink = new MotorwayLink();
 export const trunkLink = new TrunkLink();

@@ -47,6 +47,12 @@
       "doc_url": "https://openmaptiles.org/schema/#expressway"
     },
     {
+      "key": "highway",
+      "value": "construction",
+      "object_types": ["way"],
+      "description": "Shows the road as a broken line and appends “Under Construction” to its label."
+    },
+    {
       "key": "maritime",
       "value": "yes",
       "object_types": ["way"],

@@ -91,6 +91,16 @@ americanaLayers.push(
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
 
+  lyrRoad.motorwayConstruction.casing(),
+  lyrRoad.trunkConstruction.casing(),
+  lyrRoad.trunkExpresswayConstruction.casing(),
+  lyrRoad.primaryConstruction.casing(),
+  lyrRoad.secondaryConstruction.casing(),
+  lyrRoad.tertiaryConstruction.casing(),
+  lyrRoad.minorConstruction.casing(),
+  lyrRoad.serviceConstruction.casing(),
+  lyrRoad.smallServiceConstruction.casing(),
+
   lyrRoad.motorway.casing(),
   lyrRoad.trunkExpressway.casing(),
   lyrRoad.trunk.casing(),
@@ -129,6 +139,16 @@ americanaLayers.push(
   lyrRoad.trunkExpressway.fill(),
   lyrRoad.motorway.fill(),
   lyrRoad.interstate.fill(),
+
+  lyrRoad.motorwayConstruction.fill(),
+  lyrRoad.trunkConstruction.fill(),
+  lyrRoad.trunkExpresswayConstruction.fill(),
+  lyrRoad.primaryConstruction.fill(),
+  lyrRoad.secondaryConstruction.fill(),
+  lyrRoad.tertiaryConstruction.fill(),
+  lyrRoad.minorConstruction.fill(),
+  lyrRoad.serviceConstruction.fill(),
+  lyrRoad.smallServiceConstruction.fill(),
 
   lyrRoad.motorwayLink.surface(),
   lyrRoad.trunkLink.surface(),
