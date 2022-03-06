@@ -823,6 +823,29 @@ export function loadShields(shieldImages) {
       },
     };
   });
+  [
+    "FJ:Ningde",
+    "GD:Gaozhou",
+    "GD:Dianbai",
+    "GD:Huazhou",
+    "GD:Maoming",
+    "GD:Maonan",
+    "GD:Xinyi",
+    "HA:Luoyang",
+    "HA:Mengjin",
+    "JS:Liyang",
+    "JS:Xuzhou",
+    "JS:Wuzhong",
+  ].forEach(
+    (county) =>
+      (shields[`CN:${county}`] = roundedRectShield(
+        "white",
+        "black",
+        "black",
+        2,
+        1
+      ))
+  );
 
   shields["HK"] = {
     backgroundImage: shieldImages.shield40_hk,
