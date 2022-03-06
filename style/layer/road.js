@@ -124,12 +124,31 @@ function uniqueLayerID(hwyClass, link, part, brunnel, constraints) {
   return layerID;
 }
 
-function baseRoadLayer(highwayClass, id, brunnel, minzoom, link, constraints, construction) {
+function baseRoadLayer(
+  highwayClass,
+  id,
+  brunnel,
+  minzoom,
+  link,
+  constraints,
+  construction
+) {
   var layer = Util.layerClone(
     defRoad,
-    uniqueLayerID(construction ? `${highwayClass}_construction` : highwayClass, link, id, brunnel, constraints)
+    uniqueLayerID(
+      construction ? `${highwayClass}_construction` : highwayClass,
+      link,
+      id,
+      brunnel,
+      constraints
+    )
   );
-  layer.filter = filterRoad(construction ? `${highwayClass}_construction` : highwayClass, link, brunnel, construction);
+  layer.filter = filterRoad(
+    construction ? `${highwayClass}_construction` : highwayClass,
+    link,
+    brunnel,
+    construction
+  );
   layer.minzoom = minzoom;
   return layer;
 }
