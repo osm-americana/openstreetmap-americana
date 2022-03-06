@@ -878,6 +878,7 @@ export function loadShields(shieldImages) {
     1,
     null
   );
+  shields["vn:national"] = roundedRectShield("white", "black", "black", 2, 1);
 
   // Europe
   shields["e-road"] = {
