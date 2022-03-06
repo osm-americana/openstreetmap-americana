@@ -202,6 +202,7 @@ export function loadShields(shieldImages) {
 
   shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
   shields["US:CA:CR"] = usMUTCDCountyShield;
+  shields["US:CT"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:DE"] = circleShield("white", "black");
   shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
   shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
@@ -259,6 +260,9 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:IL"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:IN"] = roundedRectShield("white", "black", "black", 1, 1);
+
   shields["US:KS"] = {
     backgroundImage: [
       shieldImages.shield40_us_ks_2,
@@ -312,8 +316,10 @@ export function loadShields(shieldImages) {
     shields["US:KY:AA"]
   );
 
+  shields["US:MA"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:MI"] = diamondShield;
   shields["US:MI:CR"] = usMUTCDCountyShield;
+  shields["US:ME"] = roundedRectShield("white", "black", "black", 1, 1);
 
   shields["US:MN"] = {
     backgroundImage: [
@@ -641,6 +647,8 @@ export function loadShields(shieldImages) {
     backgroundDraw: ShieldDraw.paBelt,
   };
 
+  shields["US:RI"] = roundedRectShield("white", "black", "black", 1, 1);
+
   shields["US:SC"] = {
     backgroundImage: shieldImages.shield40_us_sc,
     textColor: "#003478",
@@ -705,6 +713,7 @@ export function loadShields(shieldImages) {
   shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
+  shields["US:WV"] = roundedRectShield("white", "black", "black", 1, 1);
 
   // Asia
   shields["CN:national"] = roundedRectShield(
