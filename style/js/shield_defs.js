@@ -892,6 +892,16 @@ export function loadShields(shieldImages) {
       bottom: 10,
     },
   };
+  ["city", "county", "district", "township"].forEach(
+    (type) =>
+      (shields[`TW:${type}`] = roundedRectShield(
+        "white",
+        "black",
+        "black",
+        2,
+        1
+      ))
+  );
 
   shields["vn:expressway"] = roundedRectShield(
     "#ffcd00",
