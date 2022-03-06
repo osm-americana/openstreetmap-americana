@@ -435,6 +435,45 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:OH:${county}`] = usMUTCDCountyShield)
   );
   [
+    "CAR",
+    "COS",
+    "FAI",
+    "FUL",
+    "GAL",
+    "HAS",
+    "HOC",
+    "HOL",
+    "KNO",
+    "LAW",
+    "LIC",
+    "LOG",
+    "MAD",
+    "MRG",
+    "MRW",
+    "PER",
+    "UNI",
+    "WAY",
+    "BEL:Kirkwood",
+    "HAR:Dudley",
+    "JEF:Springfield",
+    "MED:Harrisville",
+    "MED:Wadsworth",
+    "SAN:Fremont",
+    "TRU:Kinsman",
+    "WYA:township",
+  ].forEach(
+    // Black on white rectangle
+    (countyTownshipOrCity) =>
+      (shields[`US:OH:${countyTownshipOrCity}`] = roundedRectShield(
+        "white",
+        "black",
+        "black",
+        2,
+        1,
+        null
+      ))
+  );
+  [
     "ATH",
     "BEL",
     "GUE",
@@ -551,17 +590,6 @@ export function loadShields(shieldImages) {
   [
     ["ASD", "TWP"],
     ["ATH", "Trimble"],
-    ["MED", "York"],
-    ["PAU", "Latty"],
-    ["PAU", "Washington"],
-    ["WAS", "Aurelius"],
-    ["WAS", "Salem"],
-  ].forEach(
-    (countyAndTownship) =>
-      (shields[`US:OH:${countyAndTownship[0]}:${countyAndTownship[1]}`] =
-        banneredShield(shields[`US:OH:${countyAndTownship[0]}`], ["TWP"]))
-  );
-  [
     ["FAI", "Violet"],
     ["HOL", "Berlin"],
     ["HOL", "Clark"],
@@ -584,19 +612,20 @@ export function loadShields(shieldImages) {
     ["LOG", "Rushcreek"],
     ["LOG", "Stokes"],
     ["LOG", "Union"],
+    ["MED", "York"],
     ["MRW", "Canaan"],
     ["MRW", "Harmony"],
     ["MRW", "South_Bloomfield"],
     ["MRW", "Westfield"],
+    ["PAU", "Latty"],
+    ["PAU", "Washington"],
     ["PER", "Coal"],
+    ["WAS", "Aurelius"],
+    ["WAS", "Salem"],
   ].forEach(
-    // Black on white rectangle, not defined for the county since it is normally a fallback
     (countyAndTownship) =>
       (shields[`US:OH:${countyAndTownship[0]}:${countyAndTownship[1]}`] =
-        banneredShield(
-          roundedRectShield("white", "black", "black", 2, 1, null),
-          ["TWP"]
-        ))
+        banneredShield(shields[`US:OH:${countyAndTownship[0]}`], ["TWP"]))
   );
 
   shields["US:OR"] = {
