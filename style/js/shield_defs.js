@@ -900,6 +900,40 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["KR:expressway"] = {
+    backgroundImage: [
+      shieldImages.shield40_kr_expressway_2,
+      shieldImages.shield40_kr_expressway_3,
+    ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 8,
+      bottom: 4,
+    },
+  };
+  shields["KR:national"] = {
+    backgroundImage: shieldImages.shield40_kr_national,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 2,
+    },
+  };
+  shields["KR:local"] = roundedRectShield(
+    "#ffcd00",
+    "white",
+    "#003f87",
+    2,
+    1,
+    null
+  );
+
   shields["TW:freeway"] = {
     backgroundImage: shieldImages.shield40_tw_freeway,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
