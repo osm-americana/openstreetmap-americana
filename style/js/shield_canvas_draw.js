@@ -55,14 +55,16 @@ export function paBelt(ref) {
   return ctx;
 }
 
-export function ellipse(fill, outline, ref) {
+export function ellipse(fill, outline, ref, rectWidth) {
   let shieldWidth =
     ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
 
-  let width = Math.max(
-    minGenericShieldWidth,
-    Math.min(maxGenericShieldWidth, shieldWidth)
-  );
+  let width = rectWidth
+    ? rectWidth * PXR
+    : Math.max(
+        minGenericShieldWidth,
+        Math.min(maxGenericShieldWidth, shieldWidth)
+      );
 
   let ctx = Gfx.getGfxContext({ width: width, height: CS });
   let lineWidth = PXR;

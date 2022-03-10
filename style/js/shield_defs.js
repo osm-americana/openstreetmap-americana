@@ -10,9 +10,10 @@ export const bannerSizeH = 8 * Gfx.getPixelRatio();
 
 export const shields = {};
 
-function circleShield(fillColor, strokeColor) {
+function circleShield(fillColor, strokeColor, textColor, rectWidth) {
   return {
-    backgroundDraw: (ref) => ShieldDraw.ellipse(fillColor, strokeColor, ref),
+    backgroundDraw: (ref) =>
+      ShieldDraw.ellipse(fillColor, strokeColor, ref, rectWidth),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -21,6 +22,7 @@ function circleShield(fillColor, strokeColor) {
       bottom: 2,
     },
     maxFontSize: 16,
+    textColor: textColor,
   };
 }
 
@@ -914,17 +916,7 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["KR:national"] = {
-    backgroundImage: shieldImages.shield40_kr_national,
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    textColor: "white",
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 2,
-    },
-  };
+  shields["KR:national"] = circleShield("#003f87", "white", "white", 30);
   shields["KR:local"] = roundedRectShield(
     "#ffcd00",
     "white",
