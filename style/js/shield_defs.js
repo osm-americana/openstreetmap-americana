@@ -798,22 +798,19 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["PH:N"] =
-    shields["PH:N:primary"] =
-    shields["PH:N:secondary"] =
-      {
-        backgroundImage: [
-          shieldImages.shield40_ph_national_2,
-          shieldImages.shield40_ph_national_3,
-        ],
-        textColor: "black",
-        padding: {
-          left: 2,
-          right: 2,
-          top: 2,
-          bottom: 6,
-        },
-      };
+  shields["PH:N"] = {
+    backgroundImage: [
+      shieldImages.shield40_ph_national_2,
+      shieldImages.shield40_ph_national_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 6,
+    },
+  };
   shields["PH:E"] = {
     backgroundImage: shieldImages.shield40_ph_expressway_2,
     textColor: "black",
