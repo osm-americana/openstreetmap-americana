@@ -174,7 +174,10 @@ function drawShield(network, ref, wayName) {
   }
 
   if (!isValidRef(ref)) {
-    if ("norefImage" in shieldDef || "backgroundDraw" in shieldDef) {
+    if (
+      "norefImage" in shieldDef ||
+      ("backgroundDraw" in shieldDef && shieldDef.notext)
+    ) {
       //Valid shield with no ref to draw
       return ctx;
     }
