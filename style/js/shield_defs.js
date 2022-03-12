@@ -798,6 +798,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["MY:E"] = shields["my:federal"] = {
+    backgroundImage: shieldImages.shield40_my,
+    textColor: "black",
+    padding: {
+      left: 1,
+      right: 1,
+      top: 5,
+      bottom: 5,
+    },
+  };
+
   shields["PH:N"] = {
     backgroundImage: [
       shieldImages.shield40_ph_national_2,
