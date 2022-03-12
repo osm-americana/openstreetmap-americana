@@ -707,6 +707,9 @@ export function loadShields(shieldImages) {
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
 
   // Asia
+  shields["BD:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
+  shields["BD:regional"] = roundedRectShield("#ffcd00", "black", "black", 2, 1);
+
   shields["CN:national"] = roundedRectShield(
     "#bf2033",
     "white",
