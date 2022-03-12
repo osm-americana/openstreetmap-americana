@@ -202,6 +202,7 @@ export function loadShields(shieldImages) {
 
   shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
   shields["US:CA:CR"] = usMUTCDCountyShield;
+  shields["US:CT"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:DE"] = circleShield("white", "black");
   shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
   shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
@@ -259,6 +260,9 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:IL"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:IN"] = roundedRectShield("white", "black", "black", 1, 1);
+
   shields["US:KS"] = {
     backgroundImage: [
       shieldImages.shield40_us_ks_2,
@@ -312,8 +316,10 @@ export function loadShields(shieldImages) {
     shields["US:KY:AA"]
   );
 
+  shields["US:MA"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:MI"] = diamondShield;
   shields["US:MI:CR"] = usMUTCDCountyShield;
+  shields["US:ME"] = roundedRectShield("white", "black", "black", 1, 1);
 
   shields["US:MN"] = {
     backgroundImage: [
@@ -427,6 +433,45 @@ export function loadShields(shieldImages) {
   ["COL", "JEF", "MAH", "OTT", "SEN", "STA", "SUM", "TUS"].forEach(
     // Yellow on blue pentagon
     (county) => (shields[`US:OH:${county}`] = usMUTCDCountyShield)
+  );
+  [
+    "CAR",
+    "COS",
+    "FAI",
+    "FUL",
+    "GAL",
+    "HAS",
+    "HOC",
+    "HOL",
+    "KNO",
+    "LAW",
+    "LIC",
+    "LOG",
+    "MAD",
+    "MRG",
+    "MRW",
+    "PER",
+    "UNI",
+    "WAY",
+    "BEL:Kirkwood",
+    "HAR:Dudley",
+    "JEF:Springfield",
+    "MED:Harrisville",
+    "MED:Wadsworth",
+    "SAN:Fremont",
+    "TRU:Kinsman",
+    "WYA:township",
+  ].forEach(
+    // Black on white rectangle
+    (countyTownshipOrCity) =>
+      (shields[`US:OH:${countyTownshipOrCity}`] = roundedRectShield(
+        "white",
+        "black",
+        "black",
+        2,
+        1,
+        null
+      ))
   );
   [
     "ATH",
@@ -545,17 +590,6 @@ export function loadShields(shieldImages) {
   [
     ["ASD", "TWP"],
     ["ATH", "Trimble"],
-    ["MED", "York"],
-    ["PAU", "Latty"],
-    ["PAU", "Washington"],
-    ["WAS", "Aurelius"],
-    ["WAS", "Salem"],
-  ].forEach(
-    (countyAndTownship) =>
-      (shields[`US:OH:${countyAndTownship[0]}:${countyAndTownship[1]}`] =
-        banneredShield(shields[`US:OH:${countyAndTownship[0]}`], ["TWP"]))
-  );
-  [
     ["FAI", "Violet"],
     ["HOL", "Berlin"],
     ["HOL", "Clark"],
@@ -578,19 +612,20 @@ export function loadShields(shieldImages) {
     ["LOG", "Rushcreek"],
     ["LOG", "Stokes"],
     ["LOG", "Union"],
+    ["MED", "York"],
     ["MRW", "Canaan"],
     ["MRW", "Harmony"],
     ["MRW", "South_Bloomfield"],
     ["MRW", "Westfield"],
+    ["PAU", "Latty"],
+    ["PAU", "Washington"],
     ["PER", "Coal"],
+    ["WAS", "Aurelius"],
+    ["WAS", "Salem"],
   ].forEach(
-    // Black on white rectangle, not defined for the county since it is normally a fallback
     (countyAndTownship) =>
       (shields[`US:OH:${countyAndTownship[0]}:${countyAndTownship[1]}`] =
-        banneredShield(
-          roundedRectShield("white", "black", "black", 2, 1, null),
-          ["TWP"]
-        ))
+        banneredShield(shields[`US:OH:${countyAndTownship[0]}`], ["TWP"]))
   );
 
   shields["US:OR"] = {
@@ -640,6 +675,8 @@ export function loadShields(shieldImages) {
     notext: true,
     backgroundDraw: ShieldDraw.paBelt,
   };
+
+  shields["US:RI"] = roundedRectShield("white", "black", "black", 1, 1);
 
   shields["US:SC"] = {
     backgroundImage: shieldImages.shield40_us_sc,
@@ -705,6 +742,7 @@ export function loadShields(shieldImages) {
   shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
+  shields["US:WV"] = roundedRectShield("white", "black", "black", 1, 1);
 
   // Asia
   shields["BD:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
@@ -788,6 +826,29 @@ export function loadShields(shieldImages) {
       },
     };
   });
+  [
+    "FJ:Ningde",
+    "GD:Gaozhou",
+    "GD:Dianbai",
+    "GD:Huazhou",
+    "GD:Maoming",
+    "GD:Maonan",
+    "GD:Xinyi",
+    "HA:Luoyang",
+    "HA:Mengjin",
+    "JS:Liyang",
+    "JS:Xuzhou",
+    "JS:Wuzhong",
+  ].forEach(
+    (county) =>
+      (shields[`CN:${county}`] = roundedRectShield(
+        "white",
+        "black",
+        "black",
+        2,
+        1
+      ))
+  );
 
   shields["HK"] = {
     backgroundImage: shieldImages.shield40_hk,
@@ -869,6 +930,16 @@ export function loadShields(shieldImages) {
       bottom: 10,
     },
   };
+  ["city", "county", "district", "township"].forEach(
+    (type) =>
+      (shields[`TW:${type}`] = roundedRectShield(
+        "white",
+        "black",
+        "black",
+        2,
+        1
+      ))
+  );
 
   shields["vn:expressway"] = roundedRectShield(
     "#ffcd00",
@@ -878,6 +949,7 @@ export function loadShields(shieldImages) {
     1,
     null
   );
+  shields["vn:national"] = roundedRectShield("white", "black", "black", 2, 1);
 
   // Europe
   shields["e-road"] = {
