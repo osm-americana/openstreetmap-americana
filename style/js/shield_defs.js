@@ -873,6 +873,9 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["np:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
+  shields["np:regional"] = roundedRectShield("white", "black", "black", 2, 1);
+
   shields["PH:N"] = {
     backgroundImage: [
       shieldImages.shield40_ph_national_2,
