@@ -114,7 +114,7 @@ The lines may be combined if desired:
 .gh,.sg {fill:#0000FF; visibility:visible}
 See the end of this file for a list of available jurisdictions and their codes. */
 
-.us, .bd, .cn, .hk, .my, .np, .ph, .kr, .tw, .vn, .at, .cz, .it, .hu, .sk, .si, .nl { fill: #8250df; }
+.ca, .us, .bd, .cn, .hk, .my, .np, .ph, .kr, .tw, .vn, .at, .cz, .it, .hu, .sk, .si, .nl { fill: #8250df; }
 
 /* Color individual borders
 For example, to color the border between Angola and Namibia in green, add this line in the space below:

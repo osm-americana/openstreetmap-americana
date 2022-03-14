@@ -90,6 +90,24 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // North America
+
+  shields["CA:transcanada"] = {
+    backgroundImage: shieldImages.shield40_ca_tch,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: "#006747",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 5,
+      bottom: 4,
+    },
+  };
+  shields["CA:transcanada:namedRoute"] = {
+    norefImage: shieldImages.shield40_ca_tch,
+    notext: true,
+  };
+
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
