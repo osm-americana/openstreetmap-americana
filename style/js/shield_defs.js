@@ -265,6 +265,11 @@ export function loadShields(shieldImages) {
   shields["US:IL"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:IN"] = roundedRectShield("white", "black", "black", 1, 1);
 
+  shields["US:IN:Toll"] = {
+    norefImage: shieldImages.shield40_us_in_toll,
+    notext: true,
+  };
+
   shields["US:KS"] = {
     backgroundImage: [
       shieldImages.shield40_us_ks_2,
