@@ -90,6 +90,21 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Home plate, flipped vertically, white fill, black stroke
+  let homeDownWhiteShield = {
+    backgroundImage: [
+      shieldImages.shield40_home_down_white_2,
+      shieldImages.shield40_home_down_white_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 6,
+    },
+  };
+
   // North America
 
   shields["CA:transcanada"] = {
@@ -107,6 +122,9 @@ export function loadShields(shieldImages) {
     norefImage: shieldImages.shield40_ca_tch,
     notext: true,
   };
+
+  shields["CA:AB:primary"] = homeDownWhiteShield;
+  shields["CA:AB:secondary"] = circleShield("white", "black");
 
   shields["US:I"] = {
     backgroundImage: [
@@ -901,19 +919,7 @@ export function loadShields(shieldImages) {
   shields["np:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
   shields["np:regional"] = roundedRectShield("white", "black", "black", 2, 1);
 
-  shields["PH:N"] = {
-    backgroundImage: [
-      shieldImages.shield40_ph_national_2,
-      shieldImages.shield40_ph_national_3,
-    ],
-    textColor: "black",
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 6,
-    },
-  };
+  shields["PH:N"] = homeDownWhiteShield;
   shields["PH:E"] = {
     backgroundImage: shieldImages.shield40_ph_expressway_2,
     textColor: "black",
