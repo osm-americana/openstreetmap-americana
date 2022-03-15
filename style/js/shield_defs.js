@@ -763,7 +763,6 @@ export function loadShields(shieldImages) {
   shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
   shields["US:TX:NTTA"] = shields["US:TX:Toll"];
 
-
   shields["US:VA"] = {
     backgroundImage: shieldImages.shield40_us_va,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
