@@ -162,18 +162,19 @@ boilerplate in `scripts/taginfo_template.json`.
 ## Before submitting a PR
 
 1. Please prettify all files prior to submission. Run `npm run code_format` to
-   format all code files with [prettier][90].
+   format code files with [prettier][90] and SVG files with [SVGO][svgo].
 2. If you are introducing a novel approach to depicting a layer or feature
    property from the OpenMapTiles schema, document how the corresponding
    OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
 
 [90]: https://prettier.io/
+[svgo]: https://github.com/svg/svgo/
 
 ## Highway Shield Contributor's Guide
 
 Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
 
-1. Shields are in .svg format, saved in "Optimized SVG" format in Inkscape
+1. Shields are in .svg format
 2. Shields are 20px on the smallest dimension (this will be rasterized to 20px or 40px depending on display resolution)
 3. Shields are license-compatible (public domain or CC0)
 
@@ -241,10 +242,30 @@ The `loadShields` function in style/js/shield_defs.js contains a definition obje
 - **`textColor`** – The color of the inscribed text to superimpose on the background.
 - **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
 
-Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks) that meet each of the following criteria:
-
-- Each route in a network has a distinct shield that is dominated by the road name as opposed to a glyph or logo.
-- Each shield in the network has a common thematic design, and differs by only the road name, not a number, initialism, or color.
-- Each route would be recognizable by an initialism, even though it is not signposted.
+Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks). In the future, it is expected that these initialisms will be encoded on the server side by processing appropriate tagging which holds the initialism in the database.
 
 `refsByWayName` only works if there is no `ref` tag and the expression in the `routeConcurrency` function in style/layer/highway_shield.js includes the `name` property in the image name. The network needs to be listed as an input value that causes the `match` expression to append `name` to the image name.
+
+### Banners
+
+The shield definition supports a property **`modifiers`** which accepts an array of text strings which will be drawn atop each shield, in 10px height increments. This is used in cases where additional text is needed to differentiate shields with a common symbology, for example for [special routes of the US Numbered Highway System](https://en.wikipedia.org/wiki/List_of_special_routes_of_the_United_States_Numbered_Highway_System):
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Business-alternate-truck_plate.svg" width=40 /><br/><img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/US_30.svg" width=40 />
+
+Banners should be specified in the following cases:
+
+- When a route represents a variant of a main route with which it shares a common shield design. The banner ensures that the variant route information, which is an important component of the route, is visually displayed.
+- When two or more routes from different networks share a common symbology in the map within a common geographical area. Shields which are very similar may be drawn using common graphics for simplicity and readability, for example, when the networks differ only by a difference in text. In these cases, the most significant network should be drawn with no banner, and each of the less significant networks should be drawn with a banner.
+- To indicate toll road networks on non-motorway roads, because such roads are not colored differently from non-toll roads.
+- When a short text of up to 4 characters is a significant stylistic element of a shield that can't reasonably be incorporated into the main shield graphic for aesthetic reasons.
+
+In all cases, banner text should be no more than **4** characters in length.
+
+### Special Cases
+
+This style strives to draw representative highway shields wherever they are tagged on road route relations consistently with international norms. This style operates on the expectation that the `network` value on a route relation corresponds to the shield design that will be drawn, and the `ref` value will contain the text which is drawn on the shield. In order to give appropriate mapper feedback, this style will add support for special cases only when the complexity of the route network and shield styling cannot be adequately expressed via `network` and `ref` alone. These special cases should be exceptionally rare and documented in the list below. PRs to add special case code should also add an entry below justifying its inclusion. For all other `network` and `ref` combinations, the style will draw a "generic" shield displaying the `ref` value.
+
+- **Georgia State Routes**. Highway shields for Georgia State Routes 515 and 520 are colored in blue and green respectively, rather than the usual black, for their entire length. This is done because these roads are part of the Appalachian Development Highway System. Because these roads are clearly part of the Georgia state highway system designated by `network=US:GA`, special code is needed to apply the special coloring to these two routes.
+- **Italy "Diramazione" (branch) motorways**. Between their main autostrade "A" roads, the Italian motorway network has branch motorways which carry the name of both highways that they connect. For example, the A7 and A26 motorways have a branch motorway named A7/A26, which is correctly tagged `ref=A7/A26` and drawn on shields with the two motorway numbers stacked vertically. This requires special code to split ref values at the `/` and draw the two text strings in a stacked configuration.
+- **Kentucky Parkways**. Kentucky signs a network of state highways which use a common shield styling, but with full-text names of the parkways on the shields. In addition, these routes are locally known by initialisms. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
+- **Pittsburgh Belt System**. Shields for this system use colors, with a colored circle and the words "<COLOR> BELT". These shields are drawn as squares with colored circles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (white shield with colored circle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
