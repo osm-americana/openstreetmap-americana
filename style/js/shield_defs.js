@@ -379,6 +379,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:MS"] = circleShield("white", "black");
+  shields["US:MT"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:NC"] = diamondShield;
   shields["US:NC:Bypass"] = banneredShield(shields["US:NC"], ["BYP"]);
   shields["US:NC:Business"] = banneredShield(shields["US:NC"], ["BUS"]);
