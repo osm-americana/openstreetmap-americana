@@ -5,7 +5,7 @@ import * as ShieldDef from "../js/shield_defs.js";
 
 function fillPaths(svg, codes) {
   let selectors = new Set(codes.map((code) => `.${code.toLowerCase()}`));
-  return svg.replace(".supported", new Array(...selectors).join(", "));
+  return svg.replace(".supported", new Array(...selectors).join(",\n"));
 }
 
 // Inject a map of each sprite ID to an absolute image URL instead of the usual sprite metadata.
