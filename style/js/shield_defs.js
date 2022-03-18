@@ -382,7 +382,7 @@ export function loadShields(shieldImages) {
 
   shields["US:MT"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:MT:secondary"] = {
-    backgroundImage: shieldImages.shield40_us_mt_taller,
+    backgroundImage: shieldImages.shield40_us_mt_secondary,
     textColor: "black",
     padding: {
       left: 2,
