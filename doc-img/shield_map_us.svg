@@ -43,6 +43,7 @@ Place this code in the empty space below. */
 .pa,
 .ri,
 .sc,
+.tx,
 .va,
 .vt,
 .wa,
