@@ -27,10 +27,17 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/star_state_capital.svg"
     },
     {
-      "key": "claimed_by",
-      "object_types": ["way", "relation"],
-      "description": "Hides the boundary.",
-      "doc_url": "https://openmaptiles.org/schema/#claimed_by"
+      "key": "disputed",
+      "value": "yes",
+      "object_types": ["way"],
+      "description": "Deemphasizes the second-level administrative boundary, showing the line casing but hiding the usual line.",
+      "doc_url": "https://openmaptiles.org/schema/#disputed"
+    },
+    {
+      "key": "disputed_by",
+      "object_types": ["way"],
+      "description": "Deemphasizes the second-level administrative boundary, showing the line casing but hiding the usual line.",
+      "doc_url": "https://openmaptiles.org/schema/#disputed"
     },
     {
       "key": "expressway",

@@ -20,6 +20,7 @@ import * as lyrHighwayExit from "./layer/highway_exit.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/maplibre-gl.css";
+import * as search from "./search.js";
 
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles";
@@ -50,6 +51,7 @@ americanaLayers.push(
 
   lyrWater.waterwayLabel,
   lyrWater.waterLabel,
+  lyrWater.waterPointLabel,
 
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
@@ -252,6 +254,7 @@ americanaLayers.push(
   lyrHighwayShield.primary,
   lyrHighwayShield.secondary,
   lyrHighwayShield.tertiary,
+  lyrHighwayShield.minor,
 
   lyrHighwayExit.exits,
 
@@ -323,6 +326,7 @@ if (config.ATTRIBUTION_LOGO != undefined) {
     config.ATTRIBUTION_LOGO;
 }
 
+map.addControl(new search.PhotonSearchControl(), "top-left");
 map.addControl(new maplibregl.NavigationControl(), "top-left");
 
 // Add our sample data.

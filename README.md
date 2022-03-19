@@ -35,3 +35,15 @@ Some general guidelines:
 The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
+
+## Coverage
+
+Americana is compatible with vector tiles covering the entire world.
+
+Americana displays custom route shields for routes in the following U.S. states:
+
+<img src="doc-img/shield_map_us.svg" width="500" alt="U.S. states">
+
+and for routes in the following countries:
+
+<img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
