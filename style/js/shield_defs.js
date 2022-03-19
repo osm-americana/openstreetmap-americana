@@ -799,7 +799,7 @@ export function loadShields(shieldImages) {
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
   shields["US:WV"] = roundedRectShield("white", "black", "black", 1, 1);
-  
+
   shields["US:WY"] = {
     backgroundImage: shieldImages.shield40_us_wy,
     textColor: "black",
