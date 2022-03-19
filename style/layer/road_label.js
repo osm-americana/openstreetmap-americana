@@ -30,9 +30,9 @@ function zoomDependentLayout(minHighZoom) {
 
 const textPaint = {
   "text-color": "#333",
-  "text-halo-color": "#fff",
+  "text-halo-color": "rgba(250, 246, 242, 1)",
   "text-halo-blur": 0.5,
-  "text-halo-width": 1,
+  "text-halo-width": 2,
 };
 
 export const motorway = {
@@ -128,4 +128,24 @@ export const smallService = {
   layout: Object.assign(zoomDependentLayout(), textLayout),
   source: "openmaptiles",
   "source-layer": "transportation_name",
+};
+
+// A spacer label on each bridge to push any waterway label away from the bridge.
+// https://github.com/ZeLonewolf/openstreetmap-americana/issues/198
+export const bridgeSpacer = {
+  id: "bridge_spacer",
+  type: "symbol",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  filter: ["all", ["==", "brunnel", "bridge"], ["in", "$type", "LineString"]],
+  paint: {
+    "icon-opacity": 0,
+  },
+  layout: {
+    "symbol-placement": "line",
+    "symbol-spacing": 2,
+    "icon-image": "dot_city",
+    "icon-allow-overlap": true,
+    "icon-size": 0.1,
+  },
 };

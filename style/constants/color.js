@@ -1,6 +1,7 @@
 export const waterFill = "hsl(211, 42%, 70%)";
 export const waterLine = "hsl(211, 73%, 78%)";
 export const waterIntermittent = "hsl(205, 89%, 83%)";
+export const waterLabel = "hsl(211, 43%, 28%)";
 
 export const hueBorder = 0;
 export const hueBorderCasing = 281;
