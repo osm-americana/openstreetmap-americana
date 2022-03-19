@@ -766,7 +766,7 @@ export function loadShields(shieldImages) {
   shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
   shields["US:TX:RM"] = banneredShield(shields["US:TX"], ["R.M."]);
   shields["US:TX:Recreational"] = banneredShield(
-    roundedRectShield("white", "black", "black", 1, 1, null),
+    roundedRectShield("white", "#693f23", "#693f23", 1, 1, null),
     ["R"]
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
@@ -779,16 +779,16 @@ export function loadShields(shieldImages) {
   shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
   shields["US:TX:NTTA"] = shields["US:TX:Toll"];
   shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
-    "TOLL",
     "EXPR",
+    "TOLL",
   ]);
   shields["US:TX:Loop:Toll"] = banneredShield(shields["US:TX:Toll"], [
     "TOLL",
     "LOOP",
   ]);
   shields["US:TX:Loop:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
-    "TOLL",
     "EXPR",
+    "TOLL",
     "LOOP",
   ]);
 
