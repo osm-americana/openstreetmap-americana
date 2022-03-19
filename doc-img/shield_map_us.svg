@@ -14,7 +14,7 @@
 .ca,.gu {fill:#FF0000}
 In this example, Kansas, Montana and Pennsylvania are colored blue, and California and Guam are colored red.
 Place this code in the empty space below. */
-.us, .az, .ca, .ct, .de, .ga, .hi, .ia, .id, .il, .in, .ks, .ky, .ma, .mi, .me, .mn, .ms, .mt, .nc, .nh, .nj, .nm, .ny, .oh, .or, .pa, .ri, .sc, .va, .vt, .wa, .wv { fill: #8250df; }
+.us, .az, .ca, .ct, .de, .ga, .hi, .ia, .id, .il, .in, .ks, .ky, .ma, .mi, .me, .mn, .ms, .mt, .nc, .nh, .nj, .nm, .ny, .oh, .or, .pa, .ri, .sc, .va, .vt, .wa, .wv, .wy { fill: #8250df; }
 
 
 </style>
