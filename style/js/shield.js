@@ -217,6 +217,7 @@ export function missingIconLoader(map, e) {
   var id = e.id;
 
   if (id == "shield_") {
+    uploadShieldToSpriteSheet(map, id, ShieldDraw.blank());
     return;
   }
 
@@ -232,6 +233,7 @@ export function missingIconLoader(map, e) {
 
   if (ctx == null) {
     //Does not meet the criteria to draw a shield
+    uploadShieldToSpriteSheet(map, id, ShieldDraw.blank());
     return;
   }
 
@@ -252,8 +254,11 @@ export function missingIconLoader(map, e) {
     ctx = colorCtx;
   }
 
-  var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+  uploadShieldToSpriteSheet(map, id, ctx);
+}
 
+function uploadShieldToSpriteSheet(map, id, ctx) {
+  var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   map.addImage(
     id,
     {
