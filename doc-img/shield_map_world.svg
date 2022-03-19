@@ -131,7 +131,28 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .hu,
 .sk,
 .si,
-.nl { fill: #8250df; }
+.rs,
+.mk,
+.nl,
+.gr,
+.fr,
+.bg,
+.xk,
+.ba,
+.es,
+.pt,
+.pl,
+.lt,
+.lv,
+.ee,
+.fi,
+.dk,
+.ua,
+.by,
+.ru,
+.me,
+.ro,
+.md { fill: #8250df; }
 
 /* Color individual borders
 For example, to color the border between Angola and Namibia in green, add this line in the space below:
