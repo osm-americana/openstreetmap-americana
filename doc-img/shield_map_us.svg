@@ -45,6 +45,7 @@ Place this code in the empty space below. */
 .sc,
 .tx,
 .va,
+.vi,
 .vt,
 .wa,
 .wv { fill: #8250df; }

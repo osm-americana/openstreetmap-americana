@@ -821,6 +821,8 @@ export function loadShields(shieldImages) {
     null
   );
 
+  shields["US:VI"] = circleShield("white", "black");
+
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,
     textColor: "#006b54",
