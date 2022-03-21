@@ -466,6 +466,11 @@ export function loadShields(shieldImages) {
     notext: true,
   };
 
+  shields["US:NY:STE"] = {
+    norefImage: shieldImages.shield40_us_ny_ste,
+    notext: true,
+  };
+
   shields["US:OH"] = {
     backgroundImage: [
       shieldImages.shield40_us_oh_2,
