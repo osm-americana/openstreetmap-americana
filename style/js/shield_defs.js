@@ -206,6 +206,17 @@ export function loadShields(shieldImages) {
     colorLighten: "#613214",
   };
 
+  shields["US:AK"] = {
+    backgroundImage: shieldImages.shield40_us_ak,
+    textColor: "black",
+    padding: {
+      left: 5,
+      right: 1,
+      top: 1,
+      bottom: 8,
+    },
+  };
+
   shields["US:AZ"] = {
     backgroundImage: [
       shieldImages.shield40_us_az_2,
