@@ -207,7 +207,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:AK"] = {
-    backgroundImage: shieldImages.shield40_us_ak_2,
+    backgroundImage: shieldImages.shield40_us_ak,
     textColor: "black",
     padding: {
       left: 5,
