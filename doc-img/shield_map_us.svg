@@ -49,7 +49,8 @@ Place this code in the empty space below. */
 .vi,
 .vt,
 .wa,
-.wv { fill: #8250df; }
+.wv,
+.wy { fill: #8250df; }
 
 
 </style>
