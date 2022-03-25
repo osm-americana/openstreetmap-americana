@@ -15,8 +15,10 @@
 In this example, Kansas, Montana and Pennsylvania are colored blue, and California and Guam are colored red.
 Place this code in the empty space below. */
 .us,
+.ak,
 .az,
 .ca,
+.co,
 .ct,
 .de,
 .ga,
@@ -43,7 +45,9 @@ Place this code in the empty space below. */
 .pa,
 .ri,
 .sc,
+.tx,
 .va,
+.vi,
 .vt,
 .wa,
 .wv { fill: #8250df; }
