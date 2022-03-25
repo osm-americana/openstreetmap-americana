@@ -1271,11 +1271,11 @@ export function shieldLighten(network, ref) {
           return "#ce9d00";
         case "5":
         case "11":
-          return "#0609a6";
+          return "#003f87";
         case "6":
-          return "#006a4d";
+          return "#006747";
         default:
-          return "#a6293b";
+          return "#bf2033";
       }
     default:
       //Network-specific cases are defined in shield definitions:
