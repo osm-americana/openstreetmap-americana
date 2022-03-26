@@ -307,6 +307,21 @@ export function loadShields(shieldImages) {
   shields["US:GA:Business"] = banneredShield(shields["US:GA"], ["BUS"]);
   shields["US:GA:Alternate"] = banneredShield(shields["US:GA"], ["ALT"]);
 
+  shields["US:GU"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_gu_1,
+      shieldImages.shield40_us_gu_2,
+    ],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 1,
+      right: 1,
+      top: 4,
+      bottom: 4,
+    },
+  };
+
   shields["US:HI"] = {
     backgroundImage: shieldImages.shield40_us_hi,
     textColor: "black",
@@ -411,6 +426,20 @@ export function loadShields(shieldImages) {
       right: 4,
       top: 7,
       bottom: 3,
+    },
+  };
+
+  shields["US:MP"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_mp_2,
+      shieldImages.shield40_us_mp_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 2,
+      bottom: 2,
     },
   };
 
