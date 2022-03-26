@@ -126,8 +126,6 @@ export function loadShields(shieldImages) {
   shields["CA:AB:primary"] = homeDownWhiteShield;
   shields["CA:AB:secondary"] = circleShield("white", "black");
 
-  shields["CA:YT"] = roundedRectShield("white", "black", "black", 1, 1);
-
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
     textColor: "white",
@@ -138,6 +136,8 @@ export function loadShields(shieldImages) {
       bottom: 2,
     },
   };
+
+  shields["CA:YT"] = roundedRectShield("white", "black", "black", 1, 1);
 
   shields["US:I"] = {
     backgroundImage: [
