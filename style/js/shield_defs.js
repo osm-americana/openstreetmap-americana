@@ -137,6 +137,8 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["CA:YT"] = roundedRectShield("white", "black", "black", 1, 1);
+
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -1287,6 +1289,19 @@ export function shieldLighten(network, ref) {
           return "#006a4d";
         default:
           return null;
+      }
+    case "CA:YT":
+      switch (ref) {
+        case "2":
+        case "3":
+          return "#ce9d00";
+        case "5":
+        case "11":
+          return "#003f87";
+        case "6":
+          return "#006747";
+        default:
+          return "#bf2033";
       }
     default:
       //Network-specific cases are defined in shield definitions:
