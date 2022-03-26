@@ -126,6 +126,17 @@ export function loadShields(shieldImages) {
   shields["CA:AB:primary"] = homeDownWhiteShield;
   shields["CA:AB:secondary"] = circleShield("white", "black");
 
+  shields["CA:NT"] = {
+    backgroundImage: shieldImages.shield40_ca_nt,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 8.5,
+      bottom: 2,
+    },
+  };
+
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -206,6 +217,17 @@ export function loadShields(shieldImages) {
     colorLighten: "#613214",
   };
 
+  shields["US:AK"] = {
+    backgroundImage: shieldImages.shield40_us_ak,
+    textColor: "black",
+    padding: {
+      left: 5,
+      right: 1,
+      top: 1,
+      bottom: 8,
+    },
+  };
+
   shields["US:AZ"] = {
     backgroundImage: [
       shieldImages.shield40_us_az_2,
@@ -240,6 +262,18 @@ export function loadShields(shieldImages) {
 
   shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
   shields["US:CA:CR"] = usMUTCDCountyShield;
+
+  shields["US:CO"] = {
+    backgroundImage: shieldImages.shield40_us_co,
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 9.5,
+      bottom: 2,
+    },
+  };
+
   shields["US:CT"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:DE"] = circleShield("white", "black");
   shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
@@ -463,6 +497,11 @@ export function loadShields(shieldImages) {
 
   shields["US:NY:Thruway"] = {
     norefImage: shieldImages.shield40_us_ny_thruway,
+    notext: true,
+  };
+
+  shields["US:NY:STE"] = {
+    norefImage: shieldImages.shield40_us_ny_ste,
     notext: true,
   };
 
@@ -816,6 +855,8 @@ export function loadShields(shieldImages) {
     null
   );
 
+  shields["US:VI"] = circleShield("white", "black");
+
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,
     textColor: "#006b54",
@@ -842,6 +883,7 @@ export function loadShields(shieldImages) {
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
   shields["US:WV"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:WY"] = roundedRectShield("#ffcd00", "black", "black", 1, 1);
 
   // Asia
   shields["BD:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
