@@ -126,6 +126,17 @@ export function loadShields(shieldImages) {
   shields["CA:AB:primary"] = homeDownWhiteShield;
   shields["CA:AB:secondary"] = circleShield("white", "black");
 
+  shields["CA:NT"] = {
+    backgroundImage: shieldImages.shield40_ca_nt,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 8.5,
+      bottom: 2,
+    },
+  };
+
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
