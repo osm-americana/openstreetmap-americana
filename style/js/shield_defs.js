@@ -230,6 +230,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:AS"] = {
+    backgroundImage: shieldImages.shield40_us_as,
+    textColor: "white",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 9.5,
+      bottom: 2,
+    },
+  };
+
   shields["US:AZ"] = {
     backgroundImage: [
       shieldImages.shield40_us_az_2,

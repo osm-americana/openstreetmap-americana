@@ -16,6 +16,7 @@ In this example, Kansas, Montana and Pennsylvania are colored blue, and Californ
 Place this code in the empty space below. */
 .us,
 .ak,
+.as,
 .az,
 .ca,
 .co,
