@@ -309,8 +309,8 @@ export function loadShields(shieldImages) {
 
   shields["US:GU"] = {
     backgroundImage: [
-      shieldImages.shield40_us_gu_1,
       shieldImages.shield40_us_gu_2,
+      shieldImages.shield40_us_gu_3,
     ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: "white",
