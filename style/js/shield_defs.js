@@ -873,6 +873,20 @@ export function loadShields(shieldImages) {
     "LOOP",
   ]);
 
+  shields["US:UT"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_ut_2,
+      shieldImages.shield40_us_ut_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 5.5,
+      bottom: 5,
+    },
+  };
+
   shields["US:VA"] = {
     backgroundImage: shieldImages.shield40_us_va,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
