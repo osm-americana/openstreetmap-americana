@@ -137,6 +137,8 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["CA:YT"] = roundedRectShield("white", "black", "black", 1, 1);
+
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -228,6 +230,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:AS"] = {
+    backgroundImage: shieldImages.shield40_us_as,
+    textColor: "white",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 9.5,
+      bottom: 2,
+    },
+  };
+
   shields["US:AZ"] = {
     backgroundImage: [
       shieldImages.shield40_us_az_2,
@@ -304,6 +317,21 @@ export function loadShields(shieldImages) {
   shields["US:GA:Bypass"] = banneredShield(shields["US:GA"], ["BYP"]);
   shields["US:GA:Business"] = banneredShield(shields["US:GA"], ["BUS"]);
   shields["US:GA:Alternate"] = banneredShield(shields["US:GA"], ["ALT"]);
+
+  shields["US:GU"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_gu_2,
+      shieldImages.shield40_us_gu_3,
+    ],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 1,
+      right: 1,
+      top: 4,
+      bottom: 4,
+    },
+  };
 
   shields["US:HI"] = {
     backgroundImage: shieldImages.shield40_us_hi,
@@ -409,6 +437,20 @@ export function loadShields(shieldImages) {
       right: 4,
       top: 7,
       bottom: 3,
+    },
+  };
+
+  shields["US:MP"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_mp_2,
+      shieldImages.shield40_us_mp_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 2,
+      bottom: 2,
     },
   };
 
@@ -787,6 +829,20 @@ export function loadShields(shieldImages) {
   shields["US:SC:Truck"] = banneredShield(shields["US:SC"], ["TRK"]);
   shields["US:SC:Business"] = banneredShield(shields["US:SC"], ["BUS"]);
   shields["US:SC:Alternate"] = banneredShield(shields["US:SC"], ["ALT"]);
+
+  shields["US:SD"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_sd_2,
+      shieldImages.shield40_us_sd_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 3,
+      top: 2,
+      bottom: 4,
+    },
+  };
 
   shields["US:TX"] = roundedRectShield("white", "black", "black", 1, 1, null);
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
@@ -1273,6 +1329,19 @@ export function shieldLighten(network, ref) {
           return "#006a4d";
         default:
           return null;
+      }
+    case "CA:YT":
+      switch (ref) {
+        case "2":
+        case "3":
+          return "#ce9d00";
+        case "5":
+        case "11":
+          return "#003f87";
+        case "6":
+          return "#006747";
+        default:
+          return "#bf2033";
       }
     default:
       //Network-specific cases are defined in shield definitions:
