@@ -924,6 +924,120 @@ export function loadShields(shieldImages) {
   shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
+
+  shields["US:WI"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_wi_2,
+      shieldImages.shield40_us_wi_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 5,
+    },
+  };
+  shields["US:WI:Business"] = banneredShield(shields["US:WI"], ["BUS"]);
+  shields["US:WI:Spur"] = banneredShield(shields["US:WI"], ["SPUR"]);
+  [
+    "Adams",
+    "Ashland",
+    "Barron",
+    "Bayfield",
+    "Brown",
+    "Buffalo",
+    "Burnett",
+    "Calumet",
+    "Chippewa",
+    "Clark",
+    "Columbia",
+    "Crawford",
+    "Dane",
+    "Dodge",
+    "Door",
+    "Douglas",
+    "Dunn",
+    "Eau Claire",
+    "Florence",
+    "Fond du Lac",
+    "Forest",
+    "Grant",
+    "Green",
+    "Green Lake",
+    "Iowa",
+    "Iron",
+    "Jackson",
+    "Jefferson",
+    "Juneau",
+    "Kenosha",
+    "Kewaunee",
+    "La Crosse",
+    "Lafayette",
+    "Langlade",
+    "Lincoln",
+    "Manitowoc",
+    "Marathon",
+    "Marinette",
+    "Marquette",
+    "Menominee",
+    "Milwaukee",
+    "Monroe",
+    "Oconto",
+    "Oneida",
+    "Outagamie",
+    "Ozaukee",
+    "Pepin",
+    "Pierce",
+    "Polk",
+    "Portage",
+    "Price",
+    "Racine",
+    "Richland",
+    "Rock",
+    "Rusk",
+    "Saint Croix",
+    "Sauk",
+    "Sawyer",
+    "Shawano",
+    "Sheboygan",
+    "Taylor",
+    "Trempealeau",
+    "Vernon",
+    "Vilas",
+    "Walworth",
+    "Washburn",
+    "Washington",
+    "Waukesha",
+    "Waupaca",
+    "Waushara",
+    "Winnebago",
+    "Wood",
+  ].forEach(
+    (county) =>
+      (shields[`US:WI:${county}`] = roundedRectShield(
+        "white",
+        "black",
+        "black",
+        1,
+        1
+      ))
+  );
+  shields["US:WI:Marquette:Truck"] = banneredShield(
+    shields["US:WI:Marquette"],
+    ["TRK"]
+  );
+  shields["US:WI:Rustic"] = {
+    backgroundImage: shieldImages.shield40_us_wi_rustic,
+    textColor: "#ffcd00",
+    padding: {
+      left: 2,
+      right: 5,
+      top: 8.5,
+      bottom: 3,
+    },
+  };
+
   shields["US:WV"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:WY"] = roundedRectShield("#ffcd00", "black", "black", 1, 1);
 
