@@ -830,6 +830,20 @@ export function loadShields(shieldImages) {
   shields["US:SC:Business"] = banneredShield(shields["US:SC"], ["BUS"]);
   shields["US:SC:Alternate"] = banneredShield(shields["US:SC"], ["ALT"]);
 
+  shields["US:SD"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_sd_2,
+      shieldImages.shield40_us_sd_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 3,
+      top: 2,
+      bottom: 4,
+    },
+  };
+
   shields["US:TX"] = roundedRectShield("white", "black", "black", 1, 1, null);
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
     roundedRectShield("white", "#003f87", "#003f87", 1, 1, null),
