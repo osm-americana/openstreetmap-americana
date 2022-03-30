@@ -949,7 +949,7 @@ export function loadShields(shieldImages) {
       left: 3,
       right: 3,
       top: 3,
-      bottom: 5,
+      bottom: 6,
     },
   };
   shields["US:WI:Business"] = banneredShield(shields["US:WI"], ["BUS"]);
