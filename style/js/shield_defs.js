@@ -1045,10 +1045,10 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_us_wi_rustic,
     textColor: "#ffcd00",
     padding: {
-      left: 2,
-      right: 5,
-      top: 8.5,
-      bottom: 3,
+      left: 1.5,
+      right: 4,
+      top: 9,
+      bottom: 4,
     },
   };
 
