@@ -56,6 +56,7 @@ Place this code in the empty space below. */
 .vi,
 .vt,
 .wa,
+.wi,
 .wv,
 .wy { fill: #8250df; }
 
