@@ -554,6 +554,18 @@ export function loadShields(shieldImages) {
 
   shields["US:NM"] = roundedRectShield("white", "red", "black", 8, 1, null);
 
+  shields["US:NV"] = {
+    backgroundImage: shieldImages.shield40_us_nv,
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 12,
+    },
+  };
+  shields["US:NV:Clark"] = usMUTCDCountyShield;
+
   shields["US:NY"] = {
     backgroundImage: shieldImages.shield40_us_ny,
     textColor: "black",
