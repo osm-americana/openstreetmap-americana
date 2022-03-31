@@ -471,6 +471,16 @@ export function loadShields(shieldImages) {
   shields["US:NC"] = diamondShield;
   shields["US:NC:Bypass"] = banneredShield(shields["US:NC"], ["BYP"]);
   shields["US:NC:Business"] = banneredShield(shields["US:NC"], ["BUS"]);
+  shields["US:NC:Charlotte"] = {
+    backgroundImage: shieldImages.shield40_us_nc_charlotte,
+    textColor: "white",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 6,
+    },
+  };
 
   shields["US:ND"] = {
     backgroundImage: [
