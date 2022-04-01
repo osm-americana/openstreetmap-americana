@@ -500,6 +500,25 @@ export function loadShields(shieldImages) {
   shields["US:ND:Business"] = banneredShield(shields["US:ND"], ["BUS"]);
   shields["US:ND:Truck"] = banneredShield(shields["US:ND"], ["TRK"]);
 
+  shields["US:NE"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_ne_2,
+      shieldImages.shield40_us_ne_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
+    },
+  };
+
+  shields["US:NE:Business"] = banneredShield(shields["US:NE"], ["BUS"]);
+  shields["US:NE:Link"] = banneredShield(shields["US:NE"], ["LINK"]);
+  shields["US:NE:Rec"] = banneredShield(shields["US:NE"], ["REC"]);
+  shields["US:NE:Spur"] = banneredShield(shields["US:NE"], ["SPUR"]);
+
   shields["US:NH"] = {
     backgroundImage: shieldImages.shield40_us_nh,
     textColor: "black",
