@@ -428,10 +428,10 @@ export function loadShields(shieldImages) {
     ],
     textColor: "black",
     padding: {
-      left: 2,
+      left: 2.5,
       right: 2.5,
       top: 7,
-      bottom: 3.5,
+      bottom: 3,
     },
   };
   shields["US:LA:Business"] = banneredShield(shields["US:LA"], ["BUS"]);
