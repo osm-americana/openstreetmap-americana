@@ -421,6 +421,23 @@ export function loadShields(shieldImages) {
     shields["US:KY:AA"]
   );
 
+  shields["US:LA"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_la_2,
+      shieldImages.shield40_us_la_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 2.5,
+      top: 7,
+      bottom: 3.5,
+    },
+  };
+  shields["US:LA:Business"] = banneredShield(shields["US:LA"], ["BUS"]);
+  shields["US:LA:Spur"] = banneredShield(shields["US:LA"], ["SPUR"]);
+  shields["US:LA:Truck"] = banneredShield(shields["US:LA"], ["TRK"]);
+
   shields["US:MA"] = roundedRectShield("white", "black", "black", 1, 1);
   shields["US:MI"] = diamondShield;
   shields["US:MI:CR"] = usMUTCDCountyShield;
