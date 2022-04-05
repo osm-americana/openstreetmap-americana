@@ -42,7 +42,7 @@ function compoundShieldSize(dimension, bannerCount) {
 }
 
 function isValidRef(ref) {
-  if (ref == null || ref.length == 0 || ref.length > 5) {
+  if (ref == null || ref.length == 0 || ref.length > 6) {
     return false;
   }
   return true;
