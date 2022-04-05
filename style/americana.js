@@ -55,6 +55,7 @@ americanaLayers.push(
   lyrWater.waterPointLabel,
 
   lyrFerry.ferry,
+  lyrFerry.ferryLabel,
 
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
