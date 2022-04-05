@@ -230,6 +230,21 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:AL"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_al_2,
+      shieldImages.shield40_us_al_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 6,
+    },
+  };
+  shields["US:AL:Truck"] = banneredShield(shields["US:AL"], ["TRK"]);
+
   shields["US:AS"] = {
     backgroundImage: shieldImages.shield40_us_as,
     textColor: "white",
