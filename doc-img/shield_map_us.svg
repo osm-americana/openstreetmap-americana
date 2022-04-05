@@ -31,6 +31,7 @@ Place this code in the empty space below. */
 .in,
 .ks,
 .ky,
+.la,
 .ma,
 .mi,
 .me,
