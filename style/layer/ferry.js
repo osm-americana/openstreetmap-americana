@@ -1,5 +1,8 @@
 "use strict";
 
+// Filter properties in this layer should be updated to reflect consensus once
+// https://github.com/openmaptiles/openmaptiles/issues/1373 is closed
+
 export const ferry = {
   id: "ferry",
   type: "line",
@@ -8,7 +11,7 @@ export const ferry = {
     "line-dasharray": [7, 5],
     "line-width": 1.5,
   },
-  filter: ["all", ["==", "class", "ferry"]],
+  filter: ["any", ["==", "class", "ferry"], ["==", "subclass", "ferry"]],
   layout: {
     visibility: "visible",
   },
@@ -19,7 +22,7 @@ export const ferry = {
 export const ferryLabel = {
   id: "ferry_label",
   type: "symbol",
-  filter: ["all", ["==", "subclass", "ferry"]],
+  filter: ["any", ["==", "class", "ferry"], ["==", "subclass", "ferry"]],
   paint: {
     "text-color": "hsl(211, 53%, 15%)",
     "text-halo-color": "hsl(211, 70%, 90%)",
