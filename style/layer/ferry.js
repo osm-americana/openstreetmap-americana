@@ -33,6 +33,7 @@ export const ferryLabel = {
     "text-font": ["Metropolis Regular Italic"],
     "text-max-angle": 20,
     "symbol-placement": "line",
+    "symbol-spacing": 500,
     "text-size": 12,
     "text-anchor": "bottom",
   },
