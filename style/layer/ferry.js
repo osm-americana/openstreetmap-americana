@@ -1,7 +1,5 @@
 "use strict";
 
-import { waterLabel } from "../constants/color";
-
 export const ferry = {
   id: "ferry",
   type: "line",
