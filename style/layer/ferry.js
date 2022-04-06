@@ -6,7 +6,7 @@ export const ferry = {
   id: "ferry",
   type: "line",
   paint: {
-    "line-color": waterLabel,
+    "line-color": "hsl(211, 30%, 38%)",
     "line-dasharray": [7, 5],
     "line-width": 1.5,
   },
@@ -23,8 +23,8 @@ export const ferryLabel = {
   type: "symbol",
   filter: ["all", ["==", "subclass", "ferry"]],
   paint: {
-    "text-color": "hsl(211, 43%, 20%)",
-    "text-halo-color": "#eee",
+    "text-color": "hsl(211, 53%, 15%)",
+    "text-halo-color": "hsl(211, 70%, 90%)",
     "text-halo-blur": 0.5,
     "text-halo-width": 1.5,
   },
