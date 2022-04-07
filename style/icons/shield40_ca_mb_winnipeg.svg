@@ -1,0 +1,5 @@
+<svg width="26" height="20" xmlns="http://www.w3.org/2000/svg">
+ <path d="m 0.5,0.5 0.6315789,3 H 24.868421 L 25.5,0.5 Z" fill="#fff" stroke="#000" style="fill:#006747;fill-opacity:1;stroke:#006747;stroke-opacity:1"/>
+ <path d="M 1.1315789,3.5 4.5,19.5 h 17 l 3.368421,-16 z" fill="#fff" stroke="#000"/>
+ <path style="fill:none;fill-rule:evenodd;stroke:#000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 25.5,0.5 v 0"/>
+</svg>
