@@ -105,6 +105,34 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let homeDownBlueShield = {
+    backgroundImage: [
+      shieldImages.shield40_home_down_blue_2,
+      shieldImages.shield40_home_down_blue_3,
+    ],
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 6,
+    },
+  };
+
+  let homeDownBlueInvertedShield = {
+    backgroundImage: [
+      shieldImages.shield40_home_down_blue_inverted_2,
+      shieldImages.shield40_home_down_blue_inverted_3,
+    ],
+    textColor: "#003f87",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 6,
+    },
+  };
+
   // North America
 
   shields["CA:transcanada"] = {
@@ -136,6 +164,19 @@ export function loadShields(shieldImages) {
       bottom: 2,
     },
   };
+
+  shields["CA:SK:primary"] = homeDownBlueShield;
+  shields["CA:SK:secondary"] = {
+    backgroundImage: shieldImages.shield40_ca_sk_secondary,
+    textColor: "#006747",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 9,
+      bottom: 2,
+    },
+  };
+  shields["CA:SK:tertiary"] = homeDownBlueInvertedShield;
 
   shields["CA:YT"] = roundedRectShield("white", "black", "black", 1, 1);
 
