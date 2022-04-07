@@ -126,6 +126,21 @@ export function loadShields(shieldImages) {
   shields["CA:AB:primary"] = homeDownWhiteShield;
   shields["CA:AB:secondary"] = circleShield("white", "black");
 
+  shields["CA:BC"] = {
+    backgroundImage: [
+      shieldImages.shield40_ca_bc_2,
+      shieldImages.shield40_ca_bc_3,
+    ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: "#003f87",
+    padding: {
+      left: 3.5,
+      right: 3.5,
+      top: 4,
+      bottom: 5,
+    },
+  };
+
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
     textColor: "white",
