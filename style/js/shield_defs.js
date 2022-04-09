@@ -90,6 +90,22 @@ export function loadShields(shieldImages) {
     },
   };
 
+  var shield_us_us = [
+    shieldImages.shield40_us_us_2,
+    shieldImages.shield40_us_us_3,
+  ];
+  var padding_us_us = {
+    left: 2,
+    right: 2,
+    top: 4,
+    bottom: 5,
+  };
+  var usMUTCDNationalShield = {
+    backgroundImage: shield_us_us,
+    textColor: "black",
+    padding: padding_us_us,
+  };
+
   // Home plate, flipped vertically, white fill, black stroke
   let homeDownWhiteShield = {
     backgroundImage: [
@@ -168,6 +184,19 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["CA:NS:H"] = {
+    backgroundImage: shieldImages.shield40_ca_ns_h,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 6.5,
+      bottom: 4,
+    },
+  };
+  shields["CA:NS:T"] = usMUTCDNationalShield;
+  shields["CA:NS:R"] = roundedRectShield("#693f23", "white", "white", 1, 1);
+
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
     textColor: "white",
@@ -230,23 +259,7 @@ export function loadShields(shieldImages) {
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
 
   //US Highways
-  var shield_us_us = [
-    shieldImages.shield40_us_us_2,
-    shieldImages.shield40_us_us_3,
-  ];
-  var padding_us_us = {
-    left: 2,
-    right: 2,
-    top: 4,
-    bottom: 5,
-  };
-
-  shields["US:US"] = {
-    backgroundImage: shield_us_us,
-    textColor: "black",
-    padding: padding_us_us,
-  };
-
+  shields["US:US"] = usMUTCDNationalShield;
   shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
   shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
   shields["US:US:Connector"] = banneredShield(shields["US:US"], ["CONN"]);
