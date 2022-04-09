@@ -168,6 +168,28 @@ export function loadShields(shieldImages) {
     },
   };
 
+  var padding_ca_nb = {
+    left: 4,
+    right: 4,
+    top: 5,
+    bottom: 5,
+  };
+  shields["CA:NB:primary"] = {
+    backgroundImage: shieldImages.shield40_ca_nb_primary,
+    textColor: "black",
+    padding: padding_ca_nb,
+  };
+  shields["CA:NB:secondary"] = {
+    backgroundImage: shieldImages.shield40_ca_nb_secondary,
+    textColor: "black",
+    padding: padding_ca_nb,
+  };
+  shields["CA:NB:tertiary"] = {
+    backgroundImage: shieldImages.shield40_ca_nb_tertiary,
+    textColor: "black",
+    padding: padding_ca_nb,
+  };
+
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
     textColor: "white",
