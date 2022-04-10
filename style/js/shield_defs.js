@@ -90,20 +90,20 @@ export function loadShields(shieldImages) {
     },
   };
 
-  var shield_us_us = [
-    shieldImages.shield40_us_us_2,
-    shieldImages.shield40_us_us_3,
+  var shield_badge = [
+    shieldImages.shield40_badge_2,
+    shieldImages.shield40_badge_3,
   ];
-  var padding_us_us = {
+  var padding_badge = {
     left: 2,
     right: 2,
     top: 4,
     bottom: 5,
   };
-  var usMUTCDNationalShield = {
-    backgroundImage: shield_us_us,
+  var badgeShield = {
+    backgroundImage: shield_badge,
     textColor: "black",
-    padding: padding_us_us,
+    padding: padding_badge,
   };
 
   // Home plate, flipped vertically, white fill, black stroke
@@ -194,7 +194,7 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["CA:NS:T"] = usMUTCDNationalShield;
+  shields["CA:NS:T"] = badgeShield;
   shields["CA:NS:R"] = roundedRectShield("#693f23", "white", "white", 1, 1);
 
   shields["CA:NT"] = {
@@ -270,7 +270,7 @@ export function loadShields(shieldImages) {
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
 
   //US Highways
-  shields["US:US"] = usMUTCDNationalShield;
+  shields["US:US"] = badgeShield;
   shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
   shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
   shields["US:US:Connector"] = banneredShield(shields["US:US"], ["CONN"]);
@@ -292,9 +292,9 @@ export function loadShields(shieldImages) {
   ]);
 
   shields["US:US:Historic"] = {
-    backgroundImage: shield_us_us,
+    backgroundImage: shield_badge,
     textColor: "black",
-    padding: padding_us_us,
+    padding: padding_badge,
     colorLighten: "#613214",
   };
 
