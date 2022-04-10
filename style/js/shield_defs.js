@@ -168,6 +168,19 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["CA:MB:PTH"] = homeDownWhiteShield;
+  shields["CA:MB:PR"] = circleShield("black", "white", "white", 30);
+  shields["CA:MB:Winnipeg"] = {
+    backgroundImage: shieldImages.shield40_ca_mb_winnipeg,
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 3,
+    },
+  };
+
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
     textColor: "white",
