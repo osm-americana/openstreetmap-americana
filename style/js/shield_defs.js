@@ -208,6 +208,17 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["CA:PE"] = {
+    backgroundImage: shieldImages.shield40_ca_pe,
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 5,
+      bottom: 5,
+    },
+  };
+
   shields["CA:SK:primary"] = homeDownBlueShield;
   shields["CA:SK:secondary"] = {
     backgroundImage: shieldImages.shield40_ca_sk_secondary,
