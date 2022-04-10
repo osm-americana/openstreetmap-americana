@@ -232,6 +232,30 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["CA:QC:A"] = {
+    backgroundImage: [
+      shieldImages.shield40_ca_qc_a_2,
+      shieldImages.shield40_ca_qc_a_3,
+    ],
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 5.5,
+      bottom: 4,
+    },
+  };
+  shields["CA:QC:R"] = {
+    backgroundImage: shieldImages.shield40_ca_qc_r,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 5,
+    },
+  };
+
   shields["CA:SK:primary"] = homeDownBlueShield;
   shields["CA:SK:secondary"] = {
     backgroundImage: shieldImages.shield40_ca_sk_secondary,
