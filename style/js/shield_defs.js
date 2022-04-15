@@ -149,6 +149,75 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let padding_trapezoid_up = {
+    left: 4,
+    right: 4,
+    top: 2,
+    bottom: 5,
+  };
+
+  let shield_trapezoid_up = [
+    shieldImages.shield40_trapezoid_up_2,
+    shieldImages.shield40_trapezoid_up_3,
+  ];
+  let trapezoidUpShield = {
+    backgroundImage: shield_trapezoid_up,
+    textColor: "black",
+    padding: padding_trapezoid_up,
+  };
+  let trapezoidUpShieldWhiteBlue = {
+    backgroundImage: shield_trapezoid_up,
+    textColor: "black",
+    padding: padding_trapezoid_up,
+    colorLighten: "#003f87",
+  };
+
+  let shield_trapezoid_up_black_yellow = [
+    shieldImages.shield40_trapezoid_up_black_yellow_2,
+    shieldImages.shield40_trapezoid_up_black_yellow_3,
+  ];
+  let trapezoidUpShieldBlackYellow = {
+    backgroundImage: shield_trapezoid_up_black_yellow,
+    textColor: "#ffcd00",
+    padding: padding_trapezoid_up,
+  };
+
+  let shield_trapezoid_up_blue_white = [
+    shieldImages.shield40_trapezoid_up_blue_white_2,
+    shieldImages.shield40_trapezoid_up_blue_white_3,
+  ];
+  let trapezoidUpShieldBlueWhite = {
+    backgroundImage: shield_trapezoid_up_blue_white,
+    textColor: "white",
+    padding: padding_trapezoid_up,
+  };
+
+  let shield_trapezoid_up_green_yellow = [
+    shieldImages.shield40_trapezoid_up_green_yellow_2,
+    shieldImages.shield40_trapezoid_up_green_yellow_3,
+  ];
+  let trapezoidUpShieldGreenYellow = {
+    backgroundImage: shield_trapezoid_up_green_yellow,
+    textColor: "#ffcd00",
+    padding: padding_trapezoid_up,
+  };
+
+  let shield_trapezoid_down = [
+    shieldImages.shield40_trapezoid_down_2,
+    shieldImages.shield40_trapezoid_down_3,
+  ];
+  let padding_trapezoid_down = {
+    left: 4,
+    right: 4,
+    top: 5,
+    bottom: 2,
+  };
+  let trapezoidDownShield = {
+    backgroundImage: shield_trapezoid_down,
+    textColor: "black",
+    padding: padding_trapezoid_down,
+  };
+
   // North America
 
   shields["CA:transcanada"] = {
@@ -242,6 +311,111 @@ export function loadShields(shieldImages) {
       bottom: 2,
     },
   };
+
+  let padding_on_primary = {
+    left: 3,
+    right: 3,
+    top: 6,
+    bottom: 2,
+  };
+  shields["CA:ON:primary"] = {
+    backgroundImage: shieldImages.shield40_ca_on_primary,
+    textColor: "black",
+    padding: padding_on_primary,
+  };
+  shields["CA:ON:primary:Toll"] = {
+    backgroundImage: shieldImages.shield40_ca_on_primary_toll,
+    textColor: "white",
+    padding: padding_on_primary,
+  };
+  shields["CA:ON:private_toll"] = banneredShield(
+    roundedRectShield("white", "#003f87", "black", 8, 1, null),
+    ["ETR"]
+  );
+  shields["CA:ON:secondary"] = trapezoidDownShield;
+  shields["CA:ON:tertiary"] = roundedRectShield(
+    "white",
+    "black",
+    "black",
+    1,
+    1
+  );
+  shields["CA:ON:Halton"] = trapezoidUpShieldGreenYellow;
+  shields["CA:ON:Peel"] = trapezoidUpShieldBlackYellow;
+  shields["CA:ON:Simcoe"] = trapezoidUpShieldWhiteBlue;
+  ["Grey", "Hamilton", "Niagara"].forEach(
+    (county) => (shields[`CA:ON:${county}`] = trapezoidUpShieldBlueWhite)
+  );
+  [
+    "Brant",
+    "Bruce",
+    "Chatham-Kent",
+    "Cornwall",
+    "Dufferin",
+    "Durham",
+    "Elgin",
+    "Essex",
+    "Frontenac:Central Frontenac",
+    "Frontenac:Frontenac Islands",
+    "Frontenac:North Frontenac",
+    "Frontenac:South Frontenac",
+    "Greater Sudbury",
+    "Haldimand",
+    "Haliburton",
+    "Hastings:Carlow/Mayo",
+    "Hastings:Hastings Highlands",
+    "Hastings:Limerick",
+    "Hastings:Tyendinaga",
+    "Huron",
+    "Kawartha Lakes",
+    "Kingston",
+    "Lambton",
+    "Lanark",
+    "Leeds and Grenville",
+    "Lennox and Addington",
+    "Middlesex",
+    "Muskoka",
+    "Norfolk",
+    "Northumberland",
+    "Ottawa",
+    "Oxford",
+    "Perth",
+    "Peterborough",
+    "Prescott and Russell",
+    "Prince Edward",
+    "Quinte West",
+    "Renfrew",
+    "Stormont, Dundas and Glengarry",
+    "Waterloo",
+    "Wellington",
+    "York",
+  ].forEach(
+    (countyTownshipOrCity) =>
+      (shields[`CA:ON:${countyTownshipOrCity}`] = trapezoidUpShield)
+  );
+  shields["CA:ON:Hastings:Wollaston"] = banneredShield(
+    roundedRectShield("white", "black", "black", 1, 1),
+    ["TWP"]
+  );
+  shields["CA:ON:Waterloo:Wellesley"] = circleShield("white", "black");
+  shields["CA:ON:Waterloo:Woolwich"] = circleShield("white", "black");
+  ["North Dumfries", "Wilmot"].forEach(
+    (township) =>
+      (shields[`CA:ON:Waterloo:${township}`] = banneredShield(
+        shields["CA:ON:Waterloo"],
+        ["TWP"]
+      ))
+  );
+  ["Brant", "Durham", "Haldimand", "Norfolk"].forEach(
+    (county) =>
+      (shields[`CA:ON:${county}:Highway`] = banneredShield(
+        shields[`CA:ON:${county}`],
+        ["HWY"]
+      ))
+  );
+  shields["CA:ON:Muskoka:West"] = banneredShield(shields["CA:ON:Muskoka"], [
+    "WEST",
+  ]);
 
   shields["CA:PE"] = {
     backgroundImage: shieldImages.shield40_ca_pe,
@@ -670,20 +844,7 @@ export function loadShields(shieldImages) {
   shields["US:ND:Business"] = banneredShield(shields["US:ND"], ["BUS"]);
   shields["US:ND:Truck"] = banneredShield(shields["US:ND"], ["TRK"]);
 
-  shields["US:NE"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ne_2,
-      shieldImages.shield40_us_ne_3,
-    ],
-    textColor: "black",
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
-    },
-  };
-
+  shields["US:NE"] = trapezoidUpShield;
   shields["US:NE:Business"] = banneredShield(shields["US:NE"], ["BUS"]);
   shields["US:NE:Link"] = banneredShield(shields["US:NE"], ["LINK"]);
   shields["US:NE:Rec"] = banneredShield(shields["US:NE"], ["REC"]);
