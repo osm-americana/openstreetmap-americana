@@ -78,7 +78,7 @@ export const village = {
   minzoom: 11,
   maxzoom: 14,
   "source-layer": "place",
-}
+};
 
 export const town = {
   id: "place_town",
