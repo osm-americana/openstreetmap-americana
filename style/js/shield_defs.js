@@ -106,6 +106,12 @@ export function loadShields(shieldImages) {
     padding: padding_badge,
   };
 
+  let padding_home_down = {
+    left: 2,
+    right: 2,
+    top: 2,
+    bottom: 6,
+  };
   // Home plate, flipped vertically, white fill, black stroke
   let homeDownWhiteShield = {
     backgroundImage: [
@@ -113,40 +119,28 @@ export function loadShields(shieldImages) {
       shieldImages.shield40_home_down_white_3,
     ],
     textColor: "black",
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 6,
-    },
+    padding: padding_home_down,
   };
 
-  let homeDownBlueShield = {
+  // Home plate, flipped vertically, blue fill, white stroke
+  let homeDownBlueWhiteShield = {
     backgroundImage: [
       shieldImages.shield40_home_down_blue_2,
       shieldImages.shield40_home_down_blue_3,
     ],
     textColor: "white",
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 6,
-    },
+    padding: padding_home_down,
   };
 
-  let homeDownBlueInvertedShield = {
+  // Home plate, flipped vertically, white fill, blue stroke
+  let homeDownWhiteBlueShield = {
     backgroundImage: [
-      shieldImages.shield40_home_down_blue_inverted_2,
-      shieldImages.shield40_home_down_blue_inverted_3,
+      shieldImages.shield40_home_down_white_2,
+      shieldImages.shield40_home_down_white_3,
     ],
-    textColor: "#003f87",
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 6,
-    },
+    textColor: "black",
+    padding: padding_home_down,
+    colorLighten: "#003f87",
   };
 
   // North America
@@ -278,7 +272,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["CA:SK:primary"] = homeDownBlueShield;
+  shields["CA:SK:primary"] = homeDownBlueWhiteShield;
   shields["CA:SK:secondary"] = {
     backgroundImage: shieldImages.shield40_ca_sk_secondary,
     textColor: "#006747",
@@ -289,7 +283,7 @@ export function loadShields(shieldImages) {
       bottom: 2,
     },
   };
-  shields["CA:SK:tertiary"] = homeDownBlueInvertedShield;
+  shields["CA:SK:tertiary"] = homeDownWhiteBlueShield;
 
   shields["CA:YT"] = roundedRectShield("white", "black", "black", 1, 1);
 
