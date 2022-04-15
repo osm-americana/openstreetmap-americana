@@ -316,7 +316,7 @@ export function loadShields(shieldImages) {
     left: 3,
     right: 3,
     top: 6,
-    bottom: 2,
+    bottom: 3,
   };
   shields["CA:ON:primary"] = {
     backgroundImage: shieldImages.shield40_ca_on_primary,
