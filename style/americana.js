@@ -263,6 +263,7 @@ americanaLayers.push(
   lyrHighwayExit.exits,
 
   lyrPlace.state,
+  lyrPlace.village,
   lyrPlace.town,
   lyrPlace.city,
   lyrPlace.countryOther,
