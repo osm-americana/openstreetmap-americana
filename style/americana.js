@@ -20,7 +20,7 @@ import * as lyrHighwayExit from "./layer/highway_exit.js";
 import * as lyrFerry from "./layer/ferry.js";
 
 import * as maplibregl from "maplibre-gl";
-import "maplibre-gl/maplibre-gl.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl";
