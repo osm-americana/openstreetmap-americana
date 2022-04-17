@@ -377,6 +377,20 @@ export function loadShields(shieldImages) {
   };
   shields["US:AL:Truck"] = banneredShield(shields["US:AL"], ["TRK"]);
 
+  shields["US:AR"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_ar_2,
+      shieldImages.shield40_us_ar_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 3,
+      right: 6,
+      top: 4,
+      bottom: 5,
+    },
+  };
+
   shields["US:AS"] = {
     backgroundImage: shieldImages.shield40_us_as,
     textColor: "white",
