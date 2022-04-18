@@ -62,14 +62,9 @@ function getRasterShieldBlank(network, ref) {
   var textLayout;
   var bannerCount = 0;
   var bounds;
-  var textLayoutFunc = ShieldText.rectTextConstraint;
 
   if (typeof shieldDef == "undefined") {
     return null;
-  }
-
-  if (typeof shieldDef.textLayoutConstraint != "undefined") {
-    textLayoutFunc = shieldDef.textLayoutConstraint;
   }
 
   //Special cases
@@ -108,7 +103,6 @@ function drawShield(network, ref, wayName) {
   var shieldDef = ShieldDef.shields[network];
   var ctx = null;
   var bannerCount = 0;
-  var padding = null;
   var shieldBounds = null;
 
   if (shieldDef == null) {
@@ -134,7 +128,6 @@ function drawShield(network, ref, wayName) {
     };
   } else {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
-    padding = shieldDef.padding;
 
     if (ref === "" && shieldDef.refsByWayName) {
       ref = shieldDef.refsByWayName[wayName];
