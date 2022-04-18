@@ -385,7 +385,7 @@ export function loadShields(shieldImages) {
     textColor: "black",
     padding: {
       left: 3,
-      right: 6,
+      right: 4,
       top: 4,
       bottom: 5,
     },
