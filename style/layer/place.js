@@ -17,6 +17,69 @@ const cityIcon = [
   "dot_city",
 ];
 
+export const village = {
+  id: "place_village",
+  type: "symbol",
+  paint: cityLabelPaint,
+  filter: [
+    "all",
+    ["==", ["get", "class"], "village"],
+    [
+      "step",
+      ["zoom"],
+      ["<=", ["get", "rank"], 2],
+      6,
+      ["<=", ["get", "rank"], 4],
+      7,
+      ["<=", ["get", "rank"], 5],
+      8,
+      ["<=", ["get", "rank"], 9],
+      10,
+      [">=", ["get", "rank"], 1],
+    ],
+  ],
+  layout: {
+    "text-font": ["Metropolis Bold"],
+    "text-size": {
+      base: 1.0,
+      stops: [
+        [5, 8],
+        [8, 10],
+        [12, 12],
+      ],
+    },
+    "icon-image": cityIcon,
+    "icon-size": {
+      base: 1.0,
+      stops: [
+        [4, 0.12],
+        [7, 0.25],
+        [11, 0.5],
+      ],
+    },
+    "text-field": label.name_en,
+    "text-anchor": "bottom",
+    "text-variable-anchor": [
+      "bottom",
+      "bottom-right",
+      "bottom-left",
+      "right",
+      "left",
+    ],
+    "text-justify": "auto",
+    "text-radial-offset": 0.5,
+    "icon-optional": false,
+    "text-max-width": 8,
+    "icon-padding": 0,
+    "text-padding": 1,
+    "icon-allow-overlap": false,
+  },
+  source: "openmaptiles",
+  minzoom: 11,
+  maxzoom: 14,
+  "source-layer": "place",
+};
+
 export const town = {
   id: "place_town",
   type: "symbol",
