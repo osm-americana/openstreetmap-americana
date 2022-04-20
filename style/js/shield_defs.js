@@ -617,6 +617,35 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:MO"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_mo_2,
+      shieldImages.shield40_us_mo_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 4,
+      right: 4.5,
+      top: 3,
+      bottom: 5.5,
+    },
+  };
+  shields["US:MO:Alternate"] = banneredShield(shields["US:MO"], ["ALT"]);
+  shields["US:MO:Business"] = banneredShield(shields["US:MO"], ["BUS"]);
+  shields["US:MO:Spur"] = banneredShield(shields["US:MO"], ["SPUR"]);
+  shields["US:MO:Supplemental"] = roundedRectShield(
+    "white",
+    "black",
+    "black",
+    1,
+    1
+  );
+  shields["US:MO:Supplemental:Spur"] = banneredShield(
+    shields["US:MO:Supplemental"],
+    ["SPUR"]
+  );
+  shields["US:MO:Taney"] = usMUTCDCountyShield;
+
   shields["US:MP"] = {
     backgroundImage: [
       shieldImages.shield40_us_mp_2,
