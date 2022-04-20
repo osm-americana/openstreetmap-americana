@@ -466,16 +466,19 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["US:FL:Toll"] = {
-    backgroundImage: shieldImages.shield40_us_fl_toll,
-    textColor: "black",
-    padding: {
-      left: 2,
-      right: 5,
-      top: 7.5,
-      bottom: 4.5,
+  shields["US:FL:Toll"] = banneredShield(
+    {
+      backgroundImage: shieldImages.shield40_us_fl_toll,
+      textColor: "black",
+      padding: {
+        left: 2,
+        right: 5,
+        top: 7.5,
+        bottom: 4.5,
+      },
     },
-  };
+    ["TOLL"]
+  );
   [
     "Alachua",
     "Baker",
