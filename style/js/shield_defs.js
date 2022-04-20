@@ -519,7 +519,6 @@ export function loadShields(shieldImages) {
     "Manatee",
     "Marion",
     "Martin",
-    "Miami-Dade",
     "Monroe",
     "Nassau",
     "Okaloosa",
