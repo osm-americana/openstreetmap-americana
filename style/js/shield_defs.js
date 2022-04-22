@@ -79,13 +79,17 @@ export function loadShields(shieldImages) {
   };
 
   var usMUTCDCountyShield = {
-    backgroundImage: shieldImages.shield40_us_county,
+    backgroundImage: [
+      shieldImages.shield40_us_county_2,
+      shieldImages.shield40_us_county_3,
+    ],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: "#f7d117",
     padding: {
-      left: 3,
-      right: 3,
-      top: 3,
-      bottom: 6,
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 5,
     },
   };
 
