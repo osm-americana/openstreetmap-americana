@@ -448,6 +448,16 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:CT"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:DC"] = {
+    backgroundImage: shieldImages.shield40_us_dc,
+    textColor: "black",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 10,
+      bottom: 4,
+    },
+  };
   shields["US:DE"] = circleShield("white", "black");
   shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
   shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
