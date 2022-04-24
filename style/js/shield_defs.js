@@ -894,25 +894,28 @@ export function loadShields(shieldImages) {
   //New Jersey county routes with standard shields
   [
     "CR",
-    "Camden",
-    "Cumberland",
-    "Passaic",
-    "Burlington",
-    "Essex",
     "Atlantic",
+    "Burlington",
+    "Camden",
+    "Cape_May",
+    "Cumberland",
+    "Essex",
+    "Gloucester",
+    "Hudson",
+    "Hunterdon",
+    "Mercer",
+    "Middlesex",
+    "Monmouth",
+    "Morris",
+    "Ocean",
+    "Passaic",
+    "Salem",
     "Somerset",
     "Sussex",
-    "Morris",
-    "Monmouth",
-    "Ocean",
-    "Middlesex",
-    "Mercer",
     "Union",
     "Warren",
-    "Hudson",
-    "Salem",
-    "Gloucester",
   ].forEach((county) => (shields[`US:NJ:${county}`] = usMUTCDCountyShield));
+  shields["US:NJ:Bergen"] = roundedRectShield("white", "black", "black", 1, 1);
 
   shields["US:NM"] = roundedRectShield("white", "red", "black", 8, 1, null);
 
