@@ -1303,6 +1303,25 @@ export function loadShields(shieldImages) {
         banneredShield(shields[`US:OH:${countyAndTownship[0]}`], ["TWP"]))
   );
 
+  shields["US:OK"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_ok_2,
+      shieldImages.shield40_us_ok_3,
+    ],
+    textColor: "black",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 7,
+      bottom: 3,
+    },
+  };
+  shields["US:OK:Toll"] = shields["US:OK"];
+  shields["US:OK:Business"] = banneredShield(shields["US:OK"], ["BUS"]);
+  shields["US:OK:Loop"] = banneredShield(shields["US:OK"], ["LOOP"]);
+  shields["US:OK:Spur"] = banneredShield(shields["US:OK"], ["SPUR"]);
+  shields["US:OK:Truck"] = banneredShield(shields["US:OK"], ["TRK"]);
+
   shields["US:OR"] = {
     backgroundImage: [
       shieldImages.shield40_us_or_2,
