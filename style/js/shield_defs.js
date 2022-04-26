@@ -1102,16 +1102,60 @@ export function loadShields(shieldImages) {
       bottom: 5,
     },
   };
-
   shields["US:NY:Thruway"] = {
     norefImage: shieldImages.shield40_us_ny_thruway,
     notext: true,
   };
-
   shields["US:NY:STE"] = {
     norefImage: shieldImages.shield40_us_ny_ste,
     notext: true,
   };
+  [
+    "Albany",
+    "Allegany",
+    "Bronx",
+    "Broome",
+    "Cattaraugus",
+    "Chautauqua",
+    "Chemung",
+    "Chenango",
+    "Clinton",
+    "Columbia",
+    "Delaware",
+    "Dutchess",
+    "Essex",
+    "Franklin",
+    "Fulton",
+    "Greene",
+    "Hamilton",
+    "Herkimer",
+    "Jefferson",
+    "Lewis",
+    "Livingston",
+    "Madison",
+    "Montgomery",
+    "Nassau",
+    "Oneida",
+    "Orange",
+    "Oswego",
+    "Otsego",
+    "Putnam",
+    "Rensselaer",
+    "Rockland",
+    "Saint Lawrence",
+    "Saratoga",
+    "Schoharie",
+    "Schuyler",
+    "Steuben",
+    "Suffolk",
+    "Sullivan",
+    "Tioga",
+    "Tompkins",
+    "Ulster",
+    "Warren",
+    "Washington",
+    "Yates",
+  ].forEach((county) => (shields[`US:NY:${county}`] = usMUTCDCountyShield));
 
   shields["US:OH"] = {
     backgroundImage: [
