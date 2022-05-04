@@ -68,13 +68,14 @@ export function loadShields(shieldImages) {
 
   //Diamond shields
   var diamondShield = {
-    backgroundImage: shieldImages.shield40_us_nc,
+    backgroundImage: shieldImages.shield40_diamond_white,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: "black",
     padding: {
-      left: 5,
-      right: 5,
-      top: 5,
-      bottom: 5,
+      left: 2,
+      right: 2,
+      top: 4.5,
+      bottom: 4.5,
     },
   };
 
