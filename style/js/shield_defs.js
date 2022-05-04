@@ -72,8 +72,8 @@ export function loadShields(shieldImages) {
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: "black",
     padding: {
-      left: 2,
-      right: 2,
+      left: 2.5,
+      right: 2.5,
       top: 4.5,
       bottom: 4.5,
     },
