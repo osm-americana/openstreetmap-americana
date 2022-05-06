@@ -31,7 +31,7 @@ for (var i = 1; i <= 6; i++) {
 }
 
 let shieldLayout = {
-  "text-rotate-to-line": false,
+  "text-rotation-alignment": "viewport-glyph",
   "text-font": ["Metropolis Light"],
   "text-field": shieldTextField,
   "text-anchor": "center",
