@@ -1,0 +1,4 @@
+<svg width="20" height="20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <path style="fill:#fff;stroke:#006747;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter" d="M 0.5,3.5 V 13 c 0,3.836955 5.6630452,6.5 9.5,6.5 3.836955,0 9.5,-2.663045 9.5,-6.5 V 3.5 Z"/>
+ <path style="fill:#006747;stroke:#006747;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4" d="m 0.5,1.5 c 0,-0.4714045 0.5285955,-1 1,-1 h 17 c 0.471405,0 1,0.5285955 1,1 v 2 h -19 z"/>
+</svg>
