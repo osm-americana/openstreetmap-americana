@@ -3,7 +3,6 @@
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as ShieldText from "./shield_text.js";
 import * as Gfx from "./screen_gfx.js";
-import * as Util from "./util.js";
 
 //Height of modifier banners
 export const bannerSizeH = 8 * Gfx.getPixelRatio();
@@ -962,22 +961,6 @@ export function loadShields(shieldImages) {
   };
 
   shields["JP:E"] = roundedRectShield("#006747", "white", "white", 2, 1);
-  [
-    "首都高速道路", // Shuto
-    "名古屋高速道路", // Nagoya
-  ].forEach((network) => {
-    shields[network] = {
-      backgroundImage: shieldImages.shield40_jp_urban_expressway,
-      textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-      textColor: "white",
-      padding: {
-        left: 3,
-        right: 3,
-        top: 2,
-        bottom: 6,
-      },
-    };
-  });
   shields["JP:national"] = {
     backgroundImage: [
       shieldImages.shield40_jp_national_2,
