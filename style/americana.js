@@ -17,9 +17,10 @@ import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
 import * as lyrBuilding from "./layer/building.js";
 import * as lyrHighwayExit from "./layer/highway_exit.js";
+import * as lyrFerry from "./layer/ferry.js";
 
 import * as maplibregl from "maplibre-gl";
-import "maplibre-gl/maplibre-gl.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl";
@@ -48,6 +49,9 @@ americanaLayers.push(
   lyrBoundary.county,
   lyrBoundary.state,
   lyrBoundary.country,
+
+  lyrFerry.ferry,
+  lyrFerry.ferryLabel,
 
   lyrWater.waterwayLabel,
   lyrWater.waterLabel,
@@ -259,6 +263,7 @@ americanaLayers.push(
   lyrHighwayExit.exits,
 
   lyrPlace.state,
+  lyrPlace.village,
   lyrPlace.town,
   lyrPlace.city,
   lyrPlace.countryOther,
