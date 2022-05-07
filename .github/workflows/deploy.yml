@@ -19,7 +19,7 @@ jobs:
         run: |
           cd style
           npm install --include=dev
-          sed 's/<your MapTiler key>/hJFMGrd2JszhwfJx5M2k/g' configs/config.maptiler.js > config.js
+          cp configs/config.aws.js > config.js
           npm run build
         # MapTiler key hJFMGrd2JszhwfJx5M2k only allows requests from zelonewolf.github.io
 
