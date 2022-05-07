@@ -2066,10 +2066,6 @@ export function loadShields(shieldImages) {
     },
   };
 
-  // Croatia
-  shields["Autoceste"] = shields["SI:AC"];
-  shields["Državne ceste"] = shields["cz:national"];
-
   // Netherlands
   shields["NL:A"] = roundedRectShield(
     "#ba1e10",
