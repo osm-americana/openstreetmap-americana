@@ -207,10 +207,24 @@ export function missingIconHandler(map, e) {
 }
 
 export function missingIconLoader(map, e) {
-  var id = e.id;
+  var ctx = generateShieldCtx(e.id);
+  var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+  map.addImage(
+    e.id,
+    {
+      width: ctx.canvas.width,
+      height: ctx.canvas.height,
+      data: imgData.data,
+    },
+    {
+      pixelRatio: ShieldDraw.PXR,
+    }
+  );
+}
 
+function generateShieldCtx(id) {
   if (id == "shield_") {
-    return;
+    return ShieldDraw.blank();
   }
 
   var network_ref = id.split("\n")[1];
@@ -219,13 +233,11 @@ export function missingIconLoader(map, e) {
   var ref = network_ref_parts[1];
   var wayName = id.split("\n")[2];
 
-  var colorLighten = ShieldDef.shieldLighten(network, ref);
-
   var ctx = drawShield(network, ref, wayName);
 
   if (ctx == null) {
     //Does not meet the criteria to draw a shield
-    return;
+    return ShieldDraw.blank();
   }
 
   //Add modifier plaques above shields
@@ -234,7 +246,9 @@ export function missingIconLoader(map, e) {
   // Swap black with a different color for certain shields.
   // The secondary canvas is necessary here for some reason. Without it,
   // the recolored shield gets an opaque instead of transparent background.
-  if (colorLighten != null) {
+  var colorLighten = ShieldDef.shieldLighten(network, ref);
+
+  if (colorLighten) {
     let colorCtx = Gfx.getGfxContext(ctx.canvas);
     colorCtx.drawImage(ctx.canvas, 0, 0);
     colorCtx.globalCompositeOperation = "lighten";
@@ -245,17 +259,5 @@ export function missingIconLoader(map, e) {
     ctx = colorCtx;
   }
 
-  var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-  map.addImage(
-    id,
-    {
-      width: ctx.canvas.width,
-      height: ctx.canvas.height,
-      data: imgData.data,
-    },
-    {
-      pixelRatio: ShieldDraw.PXR,
-    }
-  );
+  return ctx;
 }
