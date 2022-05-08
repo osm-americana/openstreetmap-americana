@@ -59,3 +59,55 @@ export const label = {
   metadata: {},
   "source-layer": "park",
 };
+
+export const parkFill = {
+  id: "park-fill",
+  type: "fill",
+  filter: ["==", "subclass", "park"],
+  paint: {
+    "fill-color": Color.parkFill,
+  },
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "landcover",
+};
+
+export const parkOutline = {
+  id: "park-outline",
+  type: "line",
+  filter: ["==", "subclass", "park"],
+  paint: {
+    "line-color": Color.parkOutline,
+  },
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "landcover",
+};
+
+export const parkLabel = {
+  id: "park-label",
+  type: "symbol",
+  filter: ["==", "class", "park"],
+  paint: {
+    "text-color": Color.parkLabel,
+    "text-halo-blur": 1,
+    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-width": 1,
+  },
+  layout: {
+    visibility: "visible",
+    "text-field": name_en,
+    "text-font": ["Metropolis Bold"],
+    "text-size": 10,
+    "symbol-sort-key": ["get", "rank"],
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "poi",
+};
