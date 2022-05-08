@@ -248,7 +248,7 @@ function generateShieldCtx(id) {
   // the recolored shield gets an opaque instead of transparent background.
   var colorLighten = ShieldDef.shieldLighten(network, ref);
 
-  if (colorLighten != null) {
+  if (colorLighten) {
     let colorCtx = Gfx.getGfxContext(ctx.canvas);
     colorCtx.drawImage(ctx.canvas, 0, 0);
     colorCtx.globalCompositeOperation = "lighten";
