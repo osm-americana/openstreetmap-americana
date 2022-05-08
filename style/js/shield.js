@@ -110,21 +110,14 @@ function drawShield(network, ref, wayName) {
       return null;
     }
 
+    shieldDef = ShieldDef.shields["default"];
+
     //Draw generic rectangular shield
     ctx = ShieldDraw.rectangle(ref);
 
     shieldBounds = {
       width: ctx.canvas.width,
       height: ctx.canvas.height,
-    };
-    shieldDef = {
-      padding: {
-        left: 2,
-        right: 2,
-        top: 1,
-        bottom: 2,
-      },
-      maxFontSize: 16,
     };
   } else {
     bannerCount = ShieldDef.getBannerCount(shieldDef);
