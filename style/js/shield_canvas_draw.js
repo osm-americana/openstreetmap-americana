@@ -99,6 +99,10 @@ export function rectangle(ref) {
   return roundedRectangle("white", "black", ref, 1.3, 1, null);
 }
 
+export function blank() {
+  return Gfx.getGfxContext({ width: 1, height: 1 });
+}
+
 export function roundedRectangle(
   fill,
   outline,
