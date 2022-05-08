@@ -1773,6 +1773,84 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["JP:E"] = roundedRectShield("#006747", "white", "white", 2, 1);
+  shields["JP:national"] = {
+    backgroundImage: [
+      shieldImages.shield40_jp_national_2,
+      shieldImages.shield40_jp_national_3,
+    ],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 1,
+      bottom: 5,
+    },
+  };
+  shields["JP:prefectural"] = {
+    backgroundImage: shieldImages.shield40_jp_prefectural,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: "white",
+    padding: {
+      left: 3,
+      right: 3,
+      top: 2,
+      bottom: 2,
+    },
+  };
+  [
+    "aichi",
+    "akita",
+    "aomori",
+    "chiba",
+    "ehime",
+    "fukui",
+    "fukuoka",
+    "fukushima",
+    "gifu",
+    "gunma",
+    "hiroshima",
+    "hokkaido",
+    "hyogo",
+    "ibaraki",
+    "ishikawa",
+    "iwate",
+    "kagawa",
+    "kagoshima",
+    "kanagawa",
+    "kochi",
+    "kumamoto",
+    "kyoto",
+    "mie",
+    "miyagi",
+    "miyazaki",
+    "nagano",
+    "nagasaki",
+    "nara",
+    "niigata",
+    "oita",
+    "okayama",
+    "okinawa",
+    "osaka",
+    "saga",
+    "saitama",
+    "shiga",
+    "shimane",
+    "shizuoka",
+    "tochigi",
+    "tokushima",
+    "tokyo",
+    "tottori",
+    "toyama",
+    "wakayama",
+    "yamagata",
+    "yamaguchi",
+    "yamanashi",
+  ].forEach((prefecture) => {
+    shields[`JP:prefectural:${prefecture}`] = shields["JP:prefectural"];
+  });
+
   shields["MY:E"] = shields["my:federal"] = {
     backgroundImage: shieldImages.shield40_my,
     textColor: "black",
