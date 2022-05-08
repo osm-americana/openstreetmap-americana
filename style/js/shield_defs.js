@@ -301,7 +301,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["CA:NS:T"] = badgeShield;
-  shields["CA:NS:R"] = roundedRectShield("#693f23", "white", "white", 1, 1);
+  shields["CA:NS:R"] = roundedRectShield("#693f23", "white", "white", 2, 1);
 
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
@@ -1416,7 +1416,7 @@ export function loadShields(shieldImages) {
 
   shields["US:TX"] = shields["default"];
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
-    roundedRectShield("white", "#003f87", "#003f87", 1, 1, null),
+    roundedRectShield("white", "#003f87", "#003f87", 2, 1, null),
     ["LOOP"]
   );
   shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
@@ -1431,13 +1431,13 @@ export function loadShields(shieldImages) {
   shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
   shields["US:TX:RM"] = banneredShield(shields["US:TX"], ["R.M."]);
   shields["US:TX:Recreational"] = banneredShield(
-    roundedRectShield("white", "#693f23", "#693f23", 1, 1, null),
+    roundedRectShield("white", "#693f23", "#693f23", 2, 1, null),
     ["R"]
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
 
   shields["US:TX:Toll"] = banneredShield(
-    roundedRectShield("#003f87", "white", "white", 1, 1, null),
+    roundedRectShield("#003f87", "white", "white", 2, 1, null),
     ["TOLL"]
   );
   shields["US:TX:BCTRA"] = shields["US:TX:Toll"];
@@ -1628,7 +1628,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:WV"] = shields["default"];
-  shields["US:WY"] = roundedRectShield("#ffcd00", "black", "black", 1, 1);
+  shields["US:WY"] = roundedRectShield("#ffcd00", "black", "black", 2, 1);
 
   // Asia
   shields["BD:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
