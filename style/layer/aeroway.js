@@ -1,7 +1,6 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
-import { minor } from "./highway_shield.js";
 
 const name_en = [
   "coalesce",
@@ -14,8 +13,28 @@ const minorAirport = [
   "any",
   ["!", ["has", "iata"]],
   ["!", ["has", "icao"]],
-  ["in", ["get", "class"], ["literal", ["private", "military"]]],
+  ["in", ["get", "class"], ["literal", ["private"]]],
 ];
+
+const iconLayout = {
+  "icon-image": [
+    "match",
+    ["get", "class"],
+    "military",
+    "military_airport",
+    "airport",
+  ],
+  "text-anchor": "bottom",
+  "text-variable-anchor": [
+    "bottom",
+    "bottom-right",
+    "bottom-left",
+    "right",
+    "left",
+  ],
+  "text-padding": 8,
+  "icon-allow-overlap": false,
+};
 
 export const fill = {
   id: "airport_fill",
@@ -127,6 +146,7 @@ export const airportRefLabel = {
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
+    ...iconLayout,
   },
   source: "openmaptiles",
   metadata: {},
@@ -175,6 +195,7 @@ export const airportLabel = {
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
+    ...iconLayout,
   },
   source: "openmaptiles",
   metadata: {},
