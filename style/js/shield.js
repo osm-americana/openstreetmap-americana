@@ -101,12 +101,6 @@ function drawShield(shieldDef, routeDef) {
   var bannerCount = ShieldDef.getBannerCount(shieldDef);
   var shieldBounds = null;
 
-  var drawnRef = routeDef.ref;
-
-  if (drawnRef === "" && shieldDef.refsByWayName) {
-    drawnRef = shieldDef.refsByWayName[wayName];
-  }
-
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
   var compoundBounds = null;
 
@@ -116,7 +110,7 @@ function drawShield(shieldDef, routeDef) {
       shieldDef.backgroundDraw = ShieldDraw.rectangle;
     }
 
-    let drawnShieldCtx = shieldDef.backgroundDraw(drawnRef);
+    let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
     compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
     ctx = Gfx.getGfxContext(compoundBounds);
 
@@ -208,7 +202,8 @@ function getShieldDef(routeDef) {
   if (
     !isValidRef(routeDef.ref) &&
     !shieldDef.notext &&
-    !("norefImage" in shieldDef)
+    !("norefImage" in shieldDef) &&
+    !(shieldDef.refsByWayName && routeDef.wayName)
   ) {
     return null;
   }
@@ -242,9 +237,14 @@ function generateShieldCtx(id) {
     return ShieldDraw.blank();
   }
 
+  // Handle special case for Kentucky
+  if (routeDef.ref === "" && shieldDef.refsByWayName) {
+    routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
+  }
+
   var ctx = drawShield(shieldDef, routeDef);
 
-  //Add modifier plaques above shields
+  // Add modifier plaques above shields
   drawBanners(ctx, routeDef.network);
 
   // Swap black with a different color for certain shields.
