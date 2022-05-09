@@ -264,7 +264,9 @@ americanaLayers.push(
   lyrPark.parkLabel,
   /* The ref label shows up at lower zoom levels and when the long name doesn't fit */
   lyrAeroway.airportRefLabel,
+  lyrAeroway.minorAirportRefLabel,
   lyrAeroway.airportLabel,
+  lyrAeroway.minorAirportLabel,
   lyrAeroway.airportGate,
 
   lyrHighwayShield.motorway,

@@ -1,12 +1,20 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
+import { minor } from "./highway_shield.js";
 
 const name_en = [
   "coalesce",
   ["get", "name:en"],
   ["get", "name:latin"],
   ["get", "name"],
+];
+
+const minorAirport = [
+  "any",
+  ["!", ["has", "iata"]],
+  ["!", ["has", "icao"]],
+  ["in", ["get", "class"], ["literal", ["private", "military"]]],
 ];
 
 export const fill = {
@@ -106,6 +114,31 @@ export const airportRefLabel = {
   id: "airport_ref_label",
   type: "symbol",
   maxzoom: 15,
+  filter: ["!", minorAirport],
+  paint: {
+    "text-color": Color.airportLabel,
+    "text-halo-blur": 1,
+    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-width": 1,
+  },
+  layout: {
+    visibility: "visible",
+    "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
+    "text-font": ["Metropolis Bold"],
+    "text-size": 10,
+    "symbol-sort-key": ["get", "rank"],
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "aerodrome_label",
+};
+
+export const minorAirportRefLabel = {
+  id: "minor_airport_ref_label",
+  type: "symbol",
+  minzoom: 13,
+  maxzoom: 15,
+  filter: minorAirport,
   paint: {
     "text-color": Color.airportLabel,
     "text-halo-blur": 1,
@@ -129,6 +162,31 @@ export const airportLabel = {
   type: "symbol",
   minzoom: 11,
   maxzoom: 15,
+  filter: ["!", minorAirport],
+  paint: {
+    "text-color": Color.airportLabel,
+    "text-halo-blur": 1,
+    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-width": 1,
+  },
+  layout: {
+    visibility: "visible",
+    "text-field": name_en,
+    "text-font": ["Metropolis Bold"],
+    "text-size": 10,
+    "symbol-sort-key": ["get", "rank"],
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "aerodrome_label",
+};
+
+export const minorAirportLabel = {
+  id: "minor_airport_label",
+  type: "symbol",
+  minzoom: 13,
+  maxzoom: 15,
+  filter: minorAirport,
   paint: {
     "text-color": Color.airportLabel,
     "text-halo-blur": 1,
