@@ -1514,7 +1514,7 @@ export function loadShields(shieldImages) {
 
   shields["US:VI"] = circleShield("white", "black");
 
-  // Vermont routes - green and white 
+  // Vermont routes - green and white
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,
     textColor: "#006b54",
