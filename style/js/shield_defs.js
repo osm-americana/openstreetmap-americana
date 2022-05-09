@@ -2058,18 +2058,13 @@ export function hasShieldArtwork(network) {
  * should be converted from the standard black US route shield to the historic
  * brown color.  This function is a comprehensive list of special cases.
  *
- * @param {*} network - Route network
- * @param {*} ref - Route ref value
+ * @param {*} shieldDef - Shield definition
  */
-export function shieldLighten(network, ref) {
-  var shieldDef = shields[network];
-  if (shieldDef == null) {
-    return null;
-  }
+export function shieldLighten(shieldDef, routeDef) {
   //Ref-specific cases.  Additional entries should be documented in CONTRIBUTE.md
-  switch (network) {
+  switch (routeDef.network) {
     case "US:GA":
-      switch (ref) {
+      switch (routeDef.ref) {
         case "515":
           return "#003478";
         case "520":
@@ -2078,7 +2073,7 @@ export function shieldLighten(network, ref) {
           return null;
       }
     case "CA:YT":
-      switch (ref) {
+      switch (routeDef.ref) {
         case "2":
         case "3":
           return "#ce9d00";

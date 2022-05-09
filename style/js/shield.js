@@ -250,7 +250,7 @@ function generateShieldCtx(id) {
   // Swap black with a different color for certain shields.
   // The secondary canvas is necessary here for some reason. Without it,
   // the recolored shield gets an opaque instead of transparent background.
-  var colorLighten = ShieldDef.shieldLighten(routeDef);
+  var colorLighten = ShieldDef.shieldLighten(shieldDef, routeDef);
 
   if (colorLighten) {
     let colorCtx = Gfx.getGfxContext(ctx.canvas);
