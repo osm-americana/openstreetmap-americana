@@ -1116,6 +1116,7 @@ export function loadShields(shieldImages) {
     "Columbia",
     "Delaware",
     "Dutchess",
+    "Erie", // fallback for missing county-shaped shield
     "Essex",
     "Franklin",
     "Fulton",
