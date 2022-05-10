@@ -216,6 +216,10 @@ export function loadShields(shieldImages) {
     padding: padding_trapezoid_down,
   };
 
+  // Default
+
+  shields["default"] = roundedRectShield("white", "black", "black", 2, 1);
+
   // North America
 
   shields["CA:transcanada"] = {
@@ -297,7 +301,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["CA:NS:T"] = badgeShield;
-  shields["CA:NS:R"] = roundedRectShield("#693f23", "white", "white", 1, 1);
+  shields["CA:NS:R"] = roundedRectShield("#693f23", "white", "white", 2, 1);
 
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
@@ -331,13 +335,7 @@ export function loadShields(shieldImages) {
     ["ETR"]
   );
   shields["CA:ON:secondary"] = trapezoidDownShield;
-  shields["CA:ON:tertiary"] = roundedRectShield(
-    "white",
-    "black",
-    "black",
-    1,
-    1
-  );
+  shields["CA:ON:tertiary"] = shields["default"];
   shields["CA:ON:Halton"] = trapezoidUpShieldGreenYellow;
   shields["CA:ON:Peel"] = trapezoidUpShieldBlackYellow;
   shields["CA:ON:Simcoe"] = trapezoidUpShieldWhiteBlue;
@@ -391,10 +389,9 @@ export function loadShields(shieldImages) {
     (countyTownshipOrCity) =>
       (shields[`CA:ON:${countyTownshipOrCity}`] = trapezoidUpShield)
   );
-  shields["CA:ON:Hastings:Wollaston"] = banneredShield(
-    roundedRectShield("white", "black", "black", 1, 1),
-    ["TWP"]
-  );
+  shields["CA:ON:Hastings:Wollaston"] = banneredShield(shields["default"], [
+    "TWP",
+  ]);
   shields["CA:ON:Waterloo:Wellesley"] = circleShield("white", "black");
   shields["CA:ON:Waterloo:Woolwich"] = circleShield("white", "black");
   ["North Dumfries", "Wilmot"].forEach(
@@ -463,7 +460,7 @@ export function loadShields(shieldImages) {
   };
   shields["CA:SK:tertiary"] = homeDownWhiteBlueShield;
 
-  shields["CA:YT"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["CA:YT"] = shields["default"];
 
   shields["US:I"] = {
     backgroundImage: [
@@ -626,7 +623,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:CT"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:CT"] = shields["default"];
   shields["US:DC"] = {
     backgroundImage: shieldImages.shield40_us_dc,
     textColor: "black",
@@ -804,8 +801,8 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:IL"] = roundedRectShield("white", "black", "black", 1, 1);
-  shields["US:IN"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:IL"] = shields["default"];
+  shields["US:IN"] = shields["default"];
 
   shields["US:IN:Toll"] = {
     norefImage: shieldImages.shield40_us_in_toll,
@@ -882,7 +879,7 @@ export function loadShields(shieldImages) {
   shields["US:LA:Spur"] = banneredShield(shields["US:LA"], ["SPUR"]);
   shields["US:LA:Truck"] = banneredShield(shields["US:LA"], ["TRK"]);
 
-  shields["US:MA"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:MA"] = shields["default"];
 
   let padding_us_md = {
     left: 4,
@@ -911,7 +908,7 @@ export function loadShields(shieldImages) {
     ["BUS"]
   );
 
-  shields["US:ME"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:ME"] = shields["default"];
   shields["US:MI"] = diamondShield;
   shields["US:MI:CR"] = usMUTCDCountyShield;
 
@@ -945,13 +942,7 @@ export function loadShields(shieldImages) {
   shields["US:MO:Alternate"] = banneredShield(shields["US:MO"], ["ALT"]);
   shields["US:MO:Business"] = banneredShield(shields["US:MO"], ["BUS"]);
   shields["US:MO:Spur"] = banneredShield(shields["US:MO"], ["SPUR"]);
-  shields["US:MO:Supplemental"] = roundedRectShield(
-    "white",
-    "black",
-    "black",
-    1,
-    1
-  );
+  shields["US:MO:Supplemental"] = shields["default"];
   shields["US:MO:Supplemental:Spur"] = banneredShield(
     shields["US:MO:Supplemental"],
     ["SPUR"]
@@ -974,7 +965,7 @@ export function loadShields(shieldImages) {
 
   shields["US:MS"] = circleShield("white", "black");
 
-  shields["US:MT"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:MT"] = shields["default"];
   shields["US:MT:secondary"] = {
     backgroundImage: shieldImages.shield40_us_mt_secondary,
     textColor: "black",
@@ -989,6 +980,7 @@ export function loadShields(shieldImages) {
   shields["US:NC"] = diamondShield;
   shields["US:NC:Bypass"] = banneredShield(shields["US:NC"], ["BYP"]);
   shields["US:NC:Business"] = banneredShield(shields["US:NC"], ["BUS"]);
+  shields["US:NC:Truck"] = banneredShield(shields["US:NC"], ["TRK"]);
   shields["US:NC:Charlotte"] = {
     backgroundImage: shieldImages.shield40_us_nc_charlotte,
     textColor: "white",
@@ -1077,7 +1069,7 @@ export function loadShields(shieldImages) {
     "Union",
     "Warren",
   ].forEach((county) => (shields[`US:NJ:${county}`] = usMUTCDCountyShield));
-  shields["US:NJ:Bergen"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:NJ:Bergen"] = shields["default"];
 
   shields["US:NM"] = roundedRectShield("white", "red", "black", 8, 1, null);
 
@@ -1210,16 +1202,8 @@ export function loadShields(shieldImages) {
     "TRU:Kinsman",
     "WYA:township",
   ].forEach(
-    // Black on white rectangle
     (countyTownshipOrCity) =>
-      (shields[`US:OH:${countyTownshipOrCity}`] = roundedRectShield(
-        "white",
-        "black",
-        "black",
-        2,
-        1,
-        null
-      ))
+      (shields[`US:OH:${countyTownshipOrCity}`] = shields["default"])
   );
   [
     "ATH",
@@ -1443,7 +1427,7 @@ export function loadShields(shieldImages) {
     backgroundDraw: ShieldDraw.paBelt,
   };
 
-  shields["US:RI"] = roundedRectShield("white", "black", "black", 1, 1);
+  shields["US:RI"] = shields["default"];
 
   shields["US:SC"] = {
     backgroundImage: shieldImages.shield40_us_sc,
@@ -1474,9 +1458,9 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:TX"] = roundedRectShield("white", "black", "black", 1, 1, null);
+  shields["US:TX"] = shields["default"];
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
-    roundedRectShield("white", "#003f87", "#003f87", 1, 1, null),
+    roundedRectShield("white", "#003f87", "#003f87", 2, 1, null),
     ["LOOP"]
   );
   shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
@@ -1491,13 +1475,13 @@ export function loadShields(shieldImages) {
   shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
   shields["US:TX:RM"] = banneredShield(shields["US:TX"], ["R.M."]);
   shields["US:TX:Recreational"] = banneredShield(
-    roundedRectShield("white", "#693f23", "#693f23", 1, 1, null),
+    roundedRectShield("white", "#693f23", "#693f23", 2, 1, null),
     ["R"]
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
 
   shields["US:TX:Toll"] = banneredShield(
-    roundedRectShield("#003f87", "white", "white", 1, 1, null),
+    roundedRectShield("#003f87", "white", "white", 2, 1, null),
     ["TOLL"]
   );
   shields["US:TX:BCTRA"] = shields["US:TX:Toll"];
@@ -1671,16 +1655,7 @@ export function loadShields(shieldImages) {
     "Waushara",
     "Winnebago",
     "Wood",
-  ].forEach(
-    (county) =>
-      (shields[`US:WI:${county}`] = roundedRectShield(
-        "white",
-        "black",
-        "black",
-        1,
-        1
-      ))
-  );
+  ].forEach((county) => (shields[`US:WI:${county}`] = shields["default"]));
   shields["US:WI:Marquette:Truck"] = banneredShield(
     shields["US:WI:Marquette"],
     ["TRK"]
@@ -1696,8 +1671,8 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:WV"] = roundedRectShield("white", "black", "black", 1, 1);
-  shields["US:WY"] = roundedRectShield("#ffcd00", "black", "black", 1, 1);
+  shields["US:WV"] = shields["default"];
+  shields["US:WY"] = roundedRectShield("#ffcd00", "black", "black", 2, 1);
 
   // Asia
   shields["BD:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
@@ -1794,16 +1769,7 @@ export function loadShields(shieldImages) {
     "JS:Liyang",
     "JS:Xuzhou",
     "JS:Wuzhong",
-  ].forEach(
-    (county) =>
-      (shields[`CN:${county}`] = roundedRectShield(
-        "white",
-        "black",
-        "black",
-        2,
-        1
-      ))
-  );
+  ].forEach((county) => (shields[`CN:${county}`] = shields["default"]));
 
   shields["HK"] = {
     backgroundImage: shieldImages.shield40_hk,
@@ -1907,7 +1873,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["np:national"] = roundedRectShield("#006747", "white", "white", 2, 1);
-  shields["np:regional"] = roundedRectShield("white", "black", "black", 2, 1);
+  shields["np:regional"] = shields["default"];
 
   shields["PH:N"] = homeDownWhiteShield;
   shields["PH:E"] = {
@@ -1979,14 +1945,7 @@ export function loadShields(shieldImages) {
     },
   };
   ["city", "county", "district", "township"].forEach(
-    (type) =>
-      (shields[`TW:${type}`] = roundedRectShield(
-        "white",
-        "black",
-        "black",
-        2,
-        1
-      ))
+    (type) => (shields[`TW:${type}`] = shields["default"])
   );
 
   shields["vn:expressway"] = roundedRectShield(
@@ -1997,7 +1956,7 @@ export function loadShields(shieldImages) {
     1,
     null
   );
-  shields["vn:national"] = roundedRectShield("white", "black", "black", 2, 1);
+  shields["vn:national"] = shields["default"];
 
   // Europe
   shields["e-road"] = {
@@ -2110,10 +2069,6 @@ export function loadShields(shieldImages) {
     },
   };
 
-  // Croatia
-  shields["Autoceste"] = shields["SI:AC"];
-  shields["Državne ceste"] = shields["cz:national"];
-
   // Netherlands
   shields["NL:A"] = roundedRectShield(
     "#ba1e10",
@@ -2147,18 +2102,13 @@ export function hasShieldArtwork(network) {
  * should be converted from the standard black US route shield to the historic
  * brown color.  This function is a comprehensive list of special cases.
  *
- * @param {*} network - Route network
- * @param {*} ref - Route ref value
+ * @param {*} shieldDef - Shield definition
  */
-export function shieldLighten(network, ref) {
-  var shieldDef = shields[network];
-  if (shieldDef == null) {
-    return null;
-  }
+export function shieldLighten(shieldDef, routeDef) {
   //Ref-specific cases.  Additional entries should be documented in CONTRIBUTE.md
-  switch (network) {
+  switch (routeDef.network) {
     case "US:GA":
-      switch (ref) {
+      switch (routeDef.ref) {
         case "515":
           return "#003478";
         case "520":
@@ -2167,7 +2117,7 @@ export function shieldLighten(network, ref) {
           return null;
       }
     case "CA:YT":
-      switch (ref) {
+      switch (routeDef.ref) {
         case "2":
         case "3":
           return "#ce9d00";

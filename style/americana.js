@@ -34,6 +34,7 @@ var americanaLayers = [];
 americanaLayers.push(
   lyrBackground.base,
   lyrPark.fill,
+  lyrPark.parkFill,
 
   lyrBoundary.countyCasing,
   lyrBoundary.stateCasing,
@@ -44,6 +45,7 @@ americanaLayers.push(
   lyrWater.waterwayIntermittent,
 
   lyrPark.outline,
+  lyrPark.parkOutline,
 
   lyrBoundary.city,
   lyrBoundary.county,
@@ -252,6 +254,7 @@ americanaLayers.push(
   lyrRoadLabel.smallService,
 
   lyrPark.label,
+  lyrPark.parkLabel,
 
   lyrHighwayShield.motorway,
   lyrHighwayShield.trunk,
