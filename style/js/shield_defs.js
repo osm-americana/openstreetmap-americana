@@ -1391,8 +1391,8 @@ export function loadShields(shieldImages) {
     padding: {
       left: 2,
       right: 2,
-      top: 5,
-      bottom: 4,
+      top: 6,
+      bottom: 3,
     },
   };
 
@@ -1472,14 +1472,16 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:VA"] = {
-    backgroundImage: shieldImages.shield40_us_va,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    backgroundImage: [
+      shieldImages.shield40_us_va_2,
+      shieldImages.shield40_us_va_3,
+    ],
     textColor: "black",
     padding: {
       left: 2,
       right: 2,
       top: 2,
-      bottom: 8,
+      bottom: 7,
     },
   };
 

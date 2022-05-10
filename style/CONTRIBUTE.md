@@ -180,11 +180,12 @@ Highway shields are a key feature of the OpenStreetMap Americana style. This gui
 
 In addition, the following style guidelines are recommended:
 
-1. Use a 1px stroke size for line elements. Horizontal/vertical lines should be aligned to the pixel grid. In Inkscape, use Shift+Ctrl+D, and create a rectangular grid in the "Grids" tab and enable the "snap to grid" option.
+1. Use a 1px stroke size for line elements. Horizontal/vertical lines should be aligned to the pixel grid.
+   - In Inkscape, press `Ctrl+Shift+D`, and create a rectangular grid in the "Grids" tab. Set Spacing X and Spacing Y to `0.5`, and Major grid line every `2`. You can turn snapping to the grid on and off by pressing `%`.
 2. Complex or intricate graphic elements should be simplified.
 3. Background shading should be removed.
 4. Route numbers should be large enough to be legible.
-5. Shields should consistently use squared or rounded corners, but not a mix of both.
+5. Shields should consistently use squared or rounded corners, but not a mix of both. Rounded corners should have a 2px radius.
 
 In general, this style is not trying to exactly replicate highway shields as seen on signage. Instead, we are trying to extract the key stylistic elements so that the graphics are recognizable as simplifications of their real-world counterparts. Here are some examples of Americana's simplified shields for small-size readability:
 
