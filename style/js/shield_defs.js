@@ -1017,7 +1017,10 @@ export function loadShields(shieldImages) {
   shields["US:NE:Spur"] = banneredShield(shields["US:NE"], ["SPUR"]);
 
   shields["US:NH"] = {
-    backgroundImage: shieldImages.shield40_us_nh,
+    backgroundImage: [
+      shieldImages.shield40_us_nh_2,
+      shieldImages.shield40_us_nh_3,
+    ],
     textColor: "black",
     padding: {
       left: 3,
