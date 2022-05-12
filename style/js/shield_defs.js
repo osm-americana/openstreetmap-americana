@@ -1124,7 +1124,7 @@ export function loadShields(shieldImages) {
 
   shields["US:NM"] = roundedRectShield(
     colors.white,
-    "red",
+    colors.red,
     colors.black,
     8,
     1,
@@ -1144,7 +1144,10 @@ export function loadShields(shieldImages) {
   shields["US:NV:Clark"] = usMUTCDCountyShield;
 
   shields["US:NY"] = {
-    backgroundImage: shieldImages.shield40_us_ny,
+    backgroundImage: [
+      shieldImages.shield40_us_ny_2,
+      shieldImages.shield40_us_ny_3,
+    ],
     textColor: colors.black,
     padding: {
       left: 2,
@@ -1410,7 +1413,10 @@ export function loadShields(shieldImages) {
   shields["US:OR:Business"] = banneredShield(shields["US:OR"], ["BUS"]);
 
   shields["US:PA"] = {
-    backgroundImage: shieldImages.shield40_us_pa,
+    backgroundImage: [
+      shieldImages.shield40_us_pa_2,
+      shieldImages.shield40_us_pa_3,
+    ],
     textColor: colors.black,
     padding: {
       left: 3,
@@ -1425,7 +1431,10 @@ export function loadShields(shieldImages) {
   shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
 
   shields["US:PA:Turnpike"] = {
-    backgroundImage: shieldImages.shield40_us_pa_turnpike,
+    backgroundImage: [
+      shieldImages.shield40_us_pa_turnpike_2,
+      shieldImages.shield40_us_pa_turnpike_3,
+    ],
     norefImage: shieldImages.shield40_us_pa_turnpike_noref,
     textColor: colors.white,
     padding: {
