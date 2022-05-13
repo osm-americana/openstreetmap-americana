@@ -1571,13 +1571,16 @@ export function loadShields(shieldImages) {
 
   // Vermont routes - green and white
   shields["US:VT"] = {
-    backgroundImage: shieldImages.shield40_us_vt,
+    backgroundImage: [
+      shieldImages.shield40_us_vt_2,
+      shieldImages.shield40_us_vt_3,
+    ],
     textColor: colors.green,
     padding: {
       left: 4,
       right: 4,
-      top: 4,
-      bottom: 5,
+      top: 7,
+      bottom: 3,
     },
   };
   // Vermont routes town maintained sections - black and white ovals
