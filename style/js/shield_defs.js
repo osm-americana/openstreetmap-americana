@@ -1497,6 +1497,7 @@ export function loadShields(shieldImages) {
 
   shields["US:VI"] = circleShield("white", "black");
 
+  // Vermont routes - green and white
   shields["US:VT"] = {
     backgroundImage: shieldImages.shield40_us_vt,
     textColor: "#006b54",
@@ -1507,6 +1508,8 @@ export function loadShields(shieldImages) {
       bottom: 5,
     },
   };
+  // Vermont routes town maintained sections - black and white ovals
+  shields["US:VT:Town"] = circleShield("white", "black");
 
   shields["US:WA"] = {
     backgroundImage: shieldImages.shield40_us_wa,
