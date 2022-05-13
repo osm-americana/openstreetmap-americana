@@ -809,13 +809,16 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:HI"] = {
-    backgroundImage: shieldImages.shield40_us_hi,
+    backgroundImage: [
+      shieldImages.shield40_us_hi_2,
+      shieldImages.shield40_us_hi_3,
+    ],
     textColor: colors.black,
     padding: {
-      left: 3,
-      right: 3,
-      top: 5.5,
-      bottom: 4.5,
+      left: 4,
+      right: 4,
+      top: 5,
+      bottom: 1,
     },
   };
 
@@ -1071,7 +1074,7 @@ export function loadShields(shieldImages) {
     ],
     textColor: colors.black,
     padding: {
-      left: 3,
+      left: 3.5,
       right: 2,
       top: 4,
       bottom: 5,
@@ -1476,8 +1479,8 @@ export function loadShields(shieldImages) {
     padding: {
       left: 2,
       right: 3,
-      top: 2,
-      bottom: 4,
+      top: 3,
+      bottom: 5,
     },
   };
 
