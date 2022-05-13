@@ -1577,9 +1577,9 @@ export function loadShields(shieldImages) {
     ],
     textColor: colors.green,
     padding: {
-      left: 4,
-      right: 4,
-      top: 7,
+      left: 3,
+      right: 3,
+      top: 3,
       bottom: 3,
     },
   };
