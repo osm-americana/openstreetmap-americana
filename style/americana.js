@@ -62,10 +62,6 @@ americanaLayers.push(
   lyrWater.waterLabel,
   lyrWater.waterPointLabel,
 
-  lyrAeroway.runway,
-  lyrAeroway.runwayArea,
-  lyrAeroway.taxiway,
-
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
   lyrRoad.trunkTunnel.casing(),
@@ -103,6 +99,10 @@ americanaLayers.push(
 
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
+
+  lyrAeroway.runway,
+  lyrAeroway.runwayArea,
+  lyrAeroway.taxiway,
 
   lyrRoad.motorway.casing(),
   lyrRoad.trunkExpressway.casing(),
