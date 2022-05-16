@@ -23,7 +23,7 @@ const colors = {
   yellow_green: "#c4d600", // Pantone 382
 };
 
-function circleShield(fillColor, strokeColor, textColor, rectWidth) {
+function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.ellipse(fillColor, strokeColor, ref, rectWidth),
@@ -68,6 +68,10 @@ function roundedRectShield(
     maxFontSize: 16,
     textColor: textColor,
   };
+}
+
+function pillShield(fillColor, strokeColor, textColor, rectWidth) {
+  return roundedRectShield(fillColor, strokeColor, textColor, 10, 1, rectWidth);
 }
 
 function banneredShield(baseDef, modifiers) {
@@ -259,7 +263,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["CA:AB:primary"] = homeDownWhiteShield;
-  shields["CA:AB:secondary"] = circleShield(colors.white, colors.black);
+  shields["CA:AB:secondary"] = ovalShield(colors.white, colors.black);
 
   shields["CA:BC"] = {
     backgroundImage: [
@@ -276,7 +280,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["CA:MB:PTH"] = homeDownWhiteShield;
-  shields["CA:MB:PR"] = circleShield(
+  shields["CA:MB:PR"] = ovalShield(
     colors.black,
     colors.white,
     colors.white,
@@ -362,7 +366,7 @@ export function loadShields(shieldImages) {
     padding: padding_on_primary,
   };
   shields["CA:ON:private_toll"] = banneredShield(
-    roundedRectShield(colors.white, colors.blue, colors.black, 8, 1, null),
+    pillShield(colors.white, colors.blue, colors.black),
     ["ETR"]
   );
   shields["CA:ON:secondary"] = trapezoidDownShield;
@@ -423,11 +427,8 @@ export function loadShields(shieldImages) {
   shields["CA:ON:Hastings:Wollaston"] = banneredShield(shields["default"], [
     "TWP",
   ]);
-  shields["CA:ON:Waterloo:Wellesley"] = circleShield(
-    colors.white,
-    colors.black
-  );
-  shields["CA:ON:Waterloo:Woolwich"] = circleShield(colors.white, colors.black);
+  shields["CA:ON:Waterloo:Wellesley"] = ovalShield(colors.white, colors.black);
+  shields["CA:ON:Waterloo:Woolwich"] = ovalShield(colors.white, colors.black);
   ["North Dumfries", "Wilmot"].forEach(
     (township) =>
       (shields[`CA:ON:Waterloo:${township}`] = banneredShield(
@@ -668,7 +669,7 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["US:DE"] = circleShield(colors.white, colors.black);
+  shields["US:DE"] = ovalShield(colors.white, colors.black);
   shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
   shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
   shields["US:DE:Truck"] = banneredShield(shields["US:DE"], ["TRK"]);
@@ -822,14 +823,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:IA"] = roundedRectShield(
-    colors.white,
-    colors.black,
-    colors.black,
-    8,
-    1,
-    null
-  );
+  shields["US:IA"] = pillShield(colors.white, colors.black);
 
   shields["US:ID"] = {
     backgroundImage: [
@@ -867,14 +861,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:KY"] = roundedRectShield(
-    colors.white,
-    colors.black,
-    colors.black,
-    8,
-    1,
-    null
-  );
+  shields["US:KY"] = pillShield(colors.white, colors.black);
   shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
 
   shields["US:KY:AA"] = {
@@ -1014,7 +1001,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:MS"] = circleShield(colors.white, colors.black);
+  shields["US:MS"] = ovalShield(colors.white, colors.black);
 
   shields["US:MT"] = shields["default"];
   shields["US:MT:secondary"] = {
@@ -1082,7 +1069,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:NH:Bypass"] = banneredShield(shields["US:NH"], ["BYP"]);
-  shields["US:NJ"] = circleShield(colors.white, colors.black);
+  shields["US:NJ"] = ovalShield(colors.white, colors.black);
 
   shields["US:NJ:ACE"] = {
     backgroundImage: shieldImages.shield40_us_nj_ace_noref,
@@ -1125,14 +1112,7 @@ export function loadShields(shieldImages) {
   ].forEach((county) => (shields[`US:NJ:${county}`] = usMUTCDCountyShield));
   shields["US:NJ:Bergen"] = shields["default"];
 
-  shields["US:NM"] = roundedRectShield(
-    colors.white,
-    colors.red,
-    colors.black,
-    8,
-    1,
-    null
-  );
+  shields["US:NM"] = pillShield(colors.white, colors.pink, colors.black);
 
   shields["US:NV"] = {
     backgroundImage: shieldImages.shield40_us_nv,
@@ -1554,20 +1534,11 @@ export function loadShields(shieldImages) {
       bottom: 7,
     },
   };
-
   shields["US:VA:Business"] = banneredShield(shields["US:VA"], ["BUS"]);
   shields["US:VA:Alternate"] = banneredShield(shields["US:VA"], ["ALT"]);
+  shields["US:VA:Secondary"] = pillShield(colors.white, colors.black);
 
-  shields["US:VA:Secondary"] = roundedRectShield(
-    colors.white,
-    colors.black,
-    colors.black,
-    8,
-    1,
-    null
-  );
-
-  shields["US:VI"] = circleShield(colors.white, colors.black);
+  shields["US:VI"] = pillShield(colors.white, colors.black);
 
   // Vermont routes - green and white
   shields["US:VT"] = {
@@ -1584,7 +1555,7 @@ export function loadShields(shieldImages) {
     },
   };
   // Vermont routes town maintained sections - black and white ovals
-  shields["US:VT:Town"] = circleShield("white", "black");
+  shields["US:VT:Town"] = ovalShield("white", "black");
 
   shields["US:WA"] = {
     backgroundImage: shieldImages.shield40_us_wa,
@@ -1965,7 +1936,7 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["KR:national"] = circleShield(
+  shields["KR:national"] = ovalShield(
     colors.blue,
     colors.white,
     colors.white,
