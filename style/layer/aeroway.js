@@ -108,7 +108,7 @@ export const runwayArea = {
 export const taxiway = {
   id: "airport_taxiway",
   type: "line",
-  filter: ["==", "class", "taxiway"],
+  filter: ["all", ["==", "class", "taxiway"], ["==", "$type", "LineString"]],
   paint: {
     "line-color": Color.airportRunway,
     "line-width": {
@@ -121,6 +121,22 @@ export const taxiway = {
   },
   layout: {
     "line-cap": "square",
+    visibility: "visible",
+  },
+  minzoom: 12,
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "aeroway",
+};
+
+export const taxiwayArea = {
+  id: "airport_taxiway_area",
+  type: "fill",
+  filter: ["all", ["==", "class", "taxiway"], ["==", "$type", "Polygon"]],
+  paint: {
+    "fill-color": Color.airportRunway,
+  },
+  layout: {
     visibility: "visible",
   },
   minzoom: 12,
