@@ -103,6 +103,7 @@ americanaLayers.push(
   lyrAeroway.runway,
   lyrAeroway.runwayArea,
   lyrAeroway.taxiway,
+  lyrAeroway.taxiwayArea,
 
   lyrRoad.motorway.casing(),
   lyrRoad.trunkExpressway.casing(),
