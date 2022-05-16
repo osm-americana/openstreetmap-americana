@@ -6,6 +6,7 @@ import * as Util from "./js/util.js";
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
 
+import * as lyrAeroway from "./layer/aeroway.js";
 import * as lyrBackground from "./layer/background.js";
 import * as lyrBoundary from "./layer/boundary.js";
 import * as lyrHighwayShield from "./layer/highway_shield.js";
@@ -34,6 +35,7 @@ var americanaLayers = [];
 americanaLayers.push(
   lyrBackground.base,
   lyrPark.fill,
+  lyrAeroway.fill,
   lyrPark.parkFill,
 
   lyrBoundary.countyCasing,
@@ -45,6 +47,7 @@ americanaLayers.push(
   lyrWater.waterwayIntermittent,
 
   lyrPark.outline,
+  lyrAeroway.outline,
   lyrPark.parkOutline,
 
   lyrBoundary.city,
@@ -96,6 +99,10 @@ americanaLayers.push(
 
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
+
+  lyrAeroway.runway,
+  lyrAeroway.runwayArea,
+  lyrAeroway.taxiway,
 
   lyrRoad.motorway.casing(),
   lyrRoad.trunkExpressway.casing(),
@@ -255,6 +262,12 @@ americanaLayers.push(
 
   lyrPark.label,
   lyrPark.parkLabel,
+  /* The ref label shows up at lower zoom levels and when the long name doesn't fit */
+  lyrAeroway.airportRefLabel,
+  lyrAeroway.minorAirportRefLabel,
+  lyrAeroway.airportLabel,
+  lyrAeroway.minorAirportLabel,
+  lyrAeroway.airportGate,
 
   lyrHighwayShield.motorway,
   lyrHighwayShield.trunk,
