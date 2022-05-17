@@ -78,7 +78,7 @@ const labelPaintProperties = {
 const nameField = [
   "coalesce",
   ["get", "name:en"],
-  ["get": "name_en"],
+  ["get", "name_en"],
   ["get", "name"],
 ];
 
