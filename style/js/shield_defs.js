@@ -1583,6 +1583,7 @@ export function loadShields(shieldImages) {
       bottom: 3,
     },
   };
+  shields["US:VT:Alternate"] = banneredShield(shields["US:VT"], ["ALT"]);
   // Vermont routes town maintained sections - black and white ovals
   shields["US:VT:Town"] = circleShield("white", "black");
 
