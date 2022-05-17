@@ -514,6 +514,8 @@ export function loadShields(shieldImages) {
 
   shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
   shields["US:I:Truck"] = banneredShield(shields["US:I"], ["TRK"]);
+  shields["US:I:Express"] = banneredShield(shields["US:I"], ["EXPR"]);
+  shields["US:I:Express:Toll"] = shields["US:I:Express"];
 
   shields["US:I:Business:Loop"] = {
     backgroundImage: [
@@ -687,19 +689,16 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["US:FL:Toll"] = banneredShield(
-    {
-      backgroundImage: shieldImages.shield40_us_fl_toll,
-      textColor: colors.black,
-      padding: {
-        left: 2,
-        right: 5,
-        top: 7.5,
-        bottom: 4.5,
-      },
+  shields["US:FL:Toll"] = {
+    backgroundImage: shieldImages.shield40_us_fl_toll,
+    textColor: colors.black,
+    padding: {
+      left: 2,
+      right: 5,
+      top: 7.5,
+      bottom: 4.5,
     },
-    ["TOLL"]
-  );
+  };
   [
     "Alachua",
     "Baker",
@@ -1486,24 +1485,23 @@ export function loadShields(shieldImages) {
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
 
-  shields["US:TX:Toll"] = banneredShield(
-    roundedRectShield(colors.blue, colors.white, colors.white, 2, 1, null),
-    ["TOLL"]
+  shields["US:TX:Toll"] = roundedRectShield(
+    colors.blue,
+    colors.white,
+    colors.white,
+    2,
+    1,
+    null
   );
   shields["US:TX:BCTRA"] = shields["US:TX:Toll"];
   shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
   shields["US:TX:NTTA"] = shields["US:TX:Toll"];
   shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
     "EXPR",
-    "TOLL",
   ]);
-  shields["US:TX:Loop:Toll"] = banneredShield(shields["US:TX:Toll"], [
-    "TOLL",
-    "LOOP",
-  ]);
+  shields["US:TX:Loop:Toll"] = banneredShield(shields["US:TX:Toll"], ["LOOP"]);
   shields["US:TX:Loop:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
     "EXPR",
-    "TOLL",
     "LOOP",
   ]);
 
