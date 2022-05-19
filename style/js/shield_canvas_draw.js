@@ -121,6 +121,7 @@ export function roundedRectangle(
   } else {
     var width = rectWidth * PXR;
   }
+  width = Math.ceil(width);
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
 
