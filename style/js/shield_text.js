@@ -49,14 +49,18 @@ export function rectTextConstraint(spaceBounds, textBounds) {
 }
 
 export function roundedRectTextConstraint(spaceBounds, textBounds, radius) {
-  //Shrink space bounds so that corners hit the arcs
-  return rectTextConstraint(
-    {
-      width: spaceBounds.width - radius * (2 - 2 / Math.sqrt(2)),
-      height: spaceBounds.height - radius * (2 - 2 / Math.sqrt(2)),
-    },
-    textBounds
-  );
+  if (radius < 8) {
+    //Shrink space bounds so that corners hit the arcs
+    return rectTextConstraint(
+      {
+        width: spaceBounds.width - radius * (2 - Math.sqrt(2)),
+        height: spaceBounds.height - radius * (2 - Math.sqrt(2)),
+      },
+      textBounds
+    );
+  } else {
+    return ellipseTextConstraint(spaceBounds, textBounds);
+  }
 }
 
 /**
