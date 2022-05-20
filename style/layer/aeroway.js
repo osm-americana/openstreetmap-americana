@@ -82,7 +82,7 @@ export const runway = {
     },
   },
   layout: {
-    "line-cap": "square",
+    "line-cap": "butt",
     visibility: "visible",
   },
   source: "openmaptiles",
@@ -120,7 +120,7 @@ export const taxiway = {
     },
   },
   layout: {
-    "line-cap": "square",
+    "line-cap": "butt",
     visibility: "visible",
   },
   minzoom: 12,
