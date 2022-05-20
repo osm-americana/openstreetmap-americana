@@ -1112,7 +1112,19 @@ export function loadShields(shieldImages) {
   ].forEach((county) => (shields[`US:NJ:${county}`] = usMUTCDCountyShield));
   shields["US:NJ:Bergen"] = shields["default"];
 
-  shields["US:NM"] = pillShield(colors.white, colors.pink, colors.black);
+  shields["US:NM"] = {
+    backgroundImage: [
+      shieldImages.shield40_us_nm_2,
+      shieldImages.shield40_us_nm_3,
+    ],
+    textColor: colors.black,
+    padding: {
+      left: 7,
+      right: 7,
+      top: 7,
+      bottom: 7,
+    },
+  };
 
   shields["US:NV"] = {
     backgroundImage: shieldImages.shield40_us_nv,
