@@ -96,11 +96,14 @@ function textColor(shieldDef) {
   return "black";
 }
 
-function drawShield(shieldDef, routeDef) {
-  var ctx = null;
+/**
+ * Creates a graphics context of the correct size to hold the shield and banner.
+ * @param {*} shieldDef shield definition
+ * @param {*} routeDef route definition
+ * @returns a blank graphics context
+ */
+function generateBlankGraphicsContext(shieldDef, routeDef) {
   var bannerCount = ShieldDef.getBannerCount(shieldDef);
-  var shieldBounds = null;
-
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
   var compoundBounds = null;
 
@@ -110,9 +113,29 @@ function drawShield(shieldDef, routeDef) {
       shieldDef.backgroundDraw = ShieldDraw.rectangle;
     }
 
+    //Do a test background draw to determine drawn size
     let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
     compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
-    ctx = Gfx.getGfxContext(compoundBounds);
+  } else {
+    compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
+  }
+
+  return Gfx.getGfxContext(compoundBounds);
+}
+
+function drawShield(ctx, shieldDef, routeDef) {
+  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var shieldBounds = null;
+
+  var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
+
+  if (shieldArtwork == null) {
+    if (typeof shieldDef.backgroundDraw == "undefined") {
+      //Default to drawing a rectangle if shape draw function is not specified
+      shieldDef.backgroundDraw = ShieldDraw.rectangle;
+    }
+
+    let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
 
     ctx.drawImage(
       drawnShieldCtx.canvas,
@@ -125,8 +148,6 @@ function drawShield(shieldDef, routeDef) {
       height: drawnShieldCtx.canvas.height,
     };
   } else {
-    compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-    ctx = Gfx.getGfxContext(compoundBounds);
     loadShield(ctx, shieldArtwork, bannerCount);
     shieldBounds = {
       width: shieldArtwork.data.width,
@@ -242,7 +263,9 @@ function generateShieldCtx(id) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
   }
 
-  var ctx = drawShield(shieldDef, routeDef);
+  var ctx = generateBlankGraphicsContext(shieldDef, routeDef);
+
+  drawShield(ctx, shieldDef, routeDef);
 
   // Add modifier plaques above shields
   drawBanners(ctx, routeDef.network);
