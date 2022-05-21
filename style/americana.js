@@ -342,9 +342,8 @@ var map = (window.map = new maplibregl.Map({
   hash: true,
   antialias: true,
   style: style,
-  zoom: 12,
-  center: [11.39085, 47.27574],
-  pitch: 52,
+  center: [-94, 40.5], // starting position [lng, lat]
+  zoom: 4, // starting zoom
   attributionControl: false,
 }));
 
