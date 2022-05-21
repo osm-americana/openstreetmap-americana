@@ -37,6 +37,13 @@ americanaLayers.push(
   lyrPark.fill,
   lyrAeroway.fill,
   lyrPark.parkFill,
+  {
+    id: "hills",
+    type: "hillshade",
+    source: "hillshadeSource",
+    layout: { visibility: "visible" },
+    paint: { "hillshade-shadow-color": "#473B24" },
+  },
 
   lyrBoundary.countyCasing,
   lyrBoundary.stateCasing,
@@ -301,10 +308,24 @@ var style = {
   name: "Americana",
   glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   layers: americanaLayers,
+  terrain: {
+    source: "terrainSource",
+    exaggeration: 1,
+  },
   sources: {
     openmaptiles: {
       url: config.OPENMAPTILES_URL,
       type: "vector",
+    },
+    terrainSource: {
+      type: "raster-dem",
+      url: "https://demotiles.maplibre.org/terrain-tiles/tiles.json",
+      tileSize: 256,
+    },
+    hillshadeSource: {
+      type: "raster-dem",
+      url: "https://demotiles.maplibre.org/terrain-tiles/tiles.json",
+      tileSize: 256,
     },
   },
   sprite: new URL("sprites/sprite", baseUrl).href,
@@ -321,8 +342,9 @@ var map = (window.map = new maplibregl.Map({
   hash: true,
   antialias: true,
   style: style,
-  center: [-94, 40.5], // starting position [lng, lat]
-  zoom: 4, // starting zoom
+  zoom: 12,
+  center: [11.39085, 47.27574],
+  pitch: 52,
   attributionControl: false,
 }));
 
