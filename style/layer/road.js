@@ -1,5 +1,6 @@
 "use strict";
 
+import * as Color from "../constants/color.js";
 import * as Util from "../js/util.js";
 
 //At this zoom, render switches from unified to differentiated bridge/tunnel rendering
@@ -257,7 +258,7 @@ class MotorwayToll extends Motorway {
   constructor() {
     super();
     this.toll = true;
-    this.hue = 48;
+    this.hue = Color.tollRoadHue;
 
     this.fillColor = motorwayFillColor(this.hue);
     this.casingColor = motorwayCasingColor(this.hue);
@@ -331,7 +332,7 @@ class TrunkToll extends Trunk {
   constructor() {
     super();
     this.toll = true;
-    this.hue = 48;
+    this.hue = Color.tollRoadHue;
 
     this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
     this.casingColor = trunkCasingColor(this.hue);
@@ -481,7 +482,7 @@ class PrimaryToll extends Primary {
   constructor() {
     super();
     this.toll = true;
-    this.hue = 48;
+    this.hue = Color.tollRoadHue;
 
     this.fillColor = tollRoadFillColor(
       this.hue,
@@ -560,7 +561,7 @@ class SecondaryToll extends Secondary {
   constructor() {
     super();
     this.toll = true;
-    this.hue = 48;
+    this.hue = Color.tollRoadHue;
 
     this.fillColor = tollRoadFillColor(
       this.hue,
@@ -639,7 +640,7 @@ class TertiaryToll extends Tertiary {
   constructor() {
     super();
     this.toll = true;
-    this.hue = 48;
+    this.hue = Color.tollRoadHue;
 
     this.fillColor = tollRoadFillColor(
       this.hue,
@@ -712,7 +713,7 @@ class MinorToll extends Minor {
   constructor() {
     super();
     this.toll = true;
-    this.hue = 48;
+    this.hue = Color.tollRoadHue;
 
     this.fillColor = tollRoadFillColor(this.hue, this.minZoomFill);
     this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
@@ -772,7 +773,7 @@ class ServiceToll extends Service {
   constructor() {
     super();
     this.toll = true;
-    this.hue = 48;
+    this.hue = Color.tollRoadHue;
 
     // Fill color gets interpolated as a fade from light to dark between this
     // level's introduction and next road-level introduction.
