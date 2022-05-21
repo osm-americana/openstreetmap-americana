@@ -205,7 +205,7 @@ export function drawShieldText(ctx, text, textLayout) {
 export function drawBannerText(ctx, text, bannerIndex) {
   var textLayout = layoutShieldTextFromDef(text, null, {
     width: ctx.canvas.width,
-    height: ShieldDef.bannerSizeH,
+    height: ShieldDef.bannerSizeH - ShieldDef.bannerPadding,
   });
 
   ctx.fillStyle = "black";
@@ -217,7 +217,9 @@ export function drawBannerText(ctx, text, bannerIndex) {
   ctx.fillText(
     text,
     textLayout.xBaseline,
-    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+    textLayout.yBaseline +
+      bannerIndex * ShieldDef.bannerSizeH -
+      ShieldDef.bannerPadding
   );
 }
 
@@ -231,7 +233,7 @@ export function drawBannerText(ctx, text, bannerIndex) {
 export function drawBannerHaloText(ctx, text, bannerIndex) {
   var textLayout = layoutShieldTextFromDef(text, null, {
     width: ctx.canvas.width,
-    height: ShieldDef.bannerSizeH,
+    height: ShieldDef.bannerSizeH - ShieldDef.bannerPadding,
   });
 
   ctx.shadowColor = "rgba(250, 246, 242, 1)";
@@ -245,7 +247,9 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
   ctx.strokeText(
     text,
     textLayout.xBaseline,
-    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+    textLayout.yBaseline +
+      bannerIndex * ShieldDef.bannerSizeH -
+      ShieldDef.bannerPadding
   );
   ctx.shadowColor = null;
   ctx.shadowBlur = null;
