@@ -319,12 +319,12 @@ var style = {
     },
     terrainSource: {
       type: "raster-dem",
-      url: "https://demotiles.maplibre.org/terrain-tiles/tiles.json",
+      url: "https://tiles.wifidb.net/data/jaxa_terrainrgb.json",
       tileSize: 256,
     },
     hillshadeSource: {
       type: "raster-dem",
-      url: "https://demotiles.maplibre.org/terrain-tiles/tiles.json",
+      url: "https://tiles.wifidb.net/data/jaxa_terrainrgb.json",
       tileSize: 256,
     },
   },
