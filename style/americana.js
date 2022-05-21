@@ -65,6 +65,18 @@ americanaLayers.push(
   lyrBackground.pierArea,
   lyrBackground.pierLine,
 
+  lyrRoad.motorwayLinkTunnel.casing(),
+  lyrRoad.trunkLinkTunnel.casing(),
+  lyrRoad.primaryLinkTunnel.casing(),
+  lyrRoad.secondaryLinkTunnel.casing(),
+  lyrRoad.tertiaryLinkTunnel.casing(),
+
+  lyrRoad.motorwayLinkTollTunnel.casing(),
+  lyrRoad.trunkLinkTollTunnel.casing(),
+  lyrRoad.primaryLinkTollTunnel.casing(),
+  lyrRoad.secondaryLinkTollTunnel.casing(),
+  lyrRoad.tertiaryLinkTollTunnel.casing(),
+
   lyrRoad.motorwayTunnel.casing(),
   lyrRoad.trunkExpresswayTunnel.casing(),
   lyrRoad.trunkTunnel.casing(),
@@ -77,12 +89,6 @@ americanaLayers.push(
   lyrRoad.minorTunnel.casing(),
   lyrRoad.serviceTunnel.casing(),
   lyrRoad.smallServiceTunnel.casing(),
-
-  lyrRoad.motorwayLinkTunnel.casing(),
-  lyrRoad.trunkLinkTunnel.casing(),
-  lyrRoad.primaryLinkTunnel.casing(),
-  lyrRoad.secondaryLinkTunnel.casing(),
-  lyrRoad.tertiaryLinkTunnel.casing(),
 
   lyrRoad.motorwayTollTunnel.casing(),
   lyrRoad.trunkExpresswayTollTunnel.casing(),
@@ -97,11 +103,17 @@ americanaLayers.push(
   lyrRoad.serviceTollTunnel.casing(),
   lyrRoad.smallServiceTollTunnel.casing(),
 
-  lyrRoad.motorwayLinkTollTunnel.casing(),
-  lyrRoad.trunkLinkTollTunnel.casing(),
-  lyrRoad.primaryLinkTollTunnel.casing(),
-  lyrRoad.secondaryLinkTollTunnel.casing(),
-  lyrRoad.tertiaryLinkTollTunnel.casing(),
+  lyrRoad.motorwayLinkTunnel.fill(),
+  lyrRoad.trunkLinkTunnel.fill(),
+  lyrRoad.primaryLinkTunnel.fill(),
+  lyrRoad.secondaryLinkTunnel.fill(),
+  lyrRoad.tertiaryLinkTunnel.fill(),
+
+  lyrRoad.motorwayLinkTollTunnel.fill(),
+  lyrRoad.trunkLinkTollTunnel.fill(),
+  lyrRoad.primaryLinkTollTunnel.fill(),
+  lyrRoad.secondaryLinkTollTunnel.fill(),
+  lyrRoad.tertiaryLinkTollTunnel.fill(),
 
   lyrRoad.motorwayTunnel.fill(),
   lyrRoad.trunkExpresswayTunnel.fill(),
@@ -115,11 +127,6 @@ americanaLayers.push(
   lyrRoad.minorTunnel.fill(),
   lyrRoad.serviceTunnel.fill(),
   lyrRoad.smallServiceTunnel.fill(),
-  lyrRoad.motorwayLinkTunnel.fill(),
-  lyrRoad.trunkLinkTunnel.fill(),
-  lyrRoad.primaryLinkTunnel.fill(),
-  lyrRoad.secondaryLinkTunnel.fill(),
-  lyrRoad.tertiaryLinkTunnel.fill(),
 
   lyrRoad.motorwayTollTunnel.fill(),
   lyrRoad.trunkExpresswayTollTunnel.fill(),
@@ -133,11 +140,6 @@ americanaLayers.push(
   lyrRoad.minorTollTunnel.fill(),
   lyrRoad.serviceTollTunnel.fill(),
   lyrRoad.smallServiceTollTunnel.fill(),
-  lyrRoad.motorwayLinkTollTunnel.fill(),
-  lyrRoad.trunkLinkTollTunnel.fill(),
-  lyrRoad.primaryLinkTollTunnel.fill(),
-  lyrRoad.secondaryLinkTollTunnel.fill(),
-  lyrRoad.tertiaryLinkTollTunnel.fill(),
 
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
@@ -146,6 +148,18 @@ americanaLayers.push(
   lyrAeroway.runwayArea,
   lyrAeroway.taxiway,
   lyrAeroway.taxiwayArea,
+
+  lyrRoad.motorwayLink.casing(),
+  lyrRoad.trunkLink.casing(),
+  lyrRoad.primaryLink.casing(),
+  lyrRoad.secondaryLink.casing(),
+  lyrRoad.tertiaryLink.casing(),
+
+  lyrRoad.motorwayLinkToll.casing(),
+  lyrRoad.trunkLinkToll.casing(),
+  lyrRoad.primaryLinkToll.casing(),
+  lyrRoad.secondaryLinkToll.casing(),
+  lyrRoad.tertiaryLinkToll.casing(),
 
   lyrRoad.motorway.casing(),
   lyrRoad.trunkExpressway.casing(),
@@ -160,12 +174,6 @@ americanaLayers.push(
   lyrRoad.service.casing(),
   lyrRoad.smallService.casing(),
 
-  lyrRoad.motorwayLink.casing(),
-  lyrRoad.trunkLink.casing(),
-  lyrRoad.primaryLink.casing(),
-  lyrRoad.secondaryLink.casing(),
-  lyrRoad.tertiaryLink.casing(),
-
   lyrRoad.motorwayToll.casing(),
   lyrRoad.trunkExpresswayToll.casing(),
   lyrRoad.trunkToll.casing(),
@@ -179,17 +187,17 @@ americanaLayers.push(
   lyrRoad.serviceToll.casing(),
   lyrRoad.smallServiceToll.casing(),
 
-  lyrRoad.motorwayLinkToll.casing(),
-  lyrRoad.trunkLinkToll.casing(),
-  lyrRoad.primaryLinkToll.casing(),
-  lyrRoad.secondaryLinkToll.casing(),
-  lyrRoad.tertiaryLinkToll.casing(),
-
   lyrRoad.motorwayLink.fill(),
   lyrRoad.trunkLink.fill(),
   lyrRoad.primaryLink.fill(),
   lyrRoad.secondaryLink.fill(),
   lyrRoad.tertiaryLink.fill(),
+
+  lyrRoad.motorwayLinkToll.fill(),
+  lyrRoad.trunkLinkToll.fill(),
+  lyrRoad.primaryLinkToll.fill(),
+  lyrRoad.secondaryLinkToll.fill(),
+  lyrRoad.tertiaryLinkToll.fill(),
 
   lyrRoad.smallService.fill(),
   lyrRoad.service.fill(),
@@ -204,12 +212,6 @@ americanaLayers.push(
   lyrRoad.trunkExpressway.fill(),
   lyrRoad.motorway.fill(),
   lyrRoad.interstate.fill(),
-
-  lyrRoad.motorwayLinkToll.fill(),
-  lyrRoad.trunkLinkToll.fill(),
-  lyrRoad.primaryLinkToll.fill(),
-  lyrRoad.secondaryLinkToll.fill(),
-  lyrRoad.tertiaryLinkToll.fill(),
 
   lyrRoad.smallServiceToll.fill(),
   lyrRoad.serviceToll.fill(),
@@ -230,6 +232,12 @@ americanaLayers.push(
   lyrRoad.secondaryLink.surface(),
   lyrRoad.tertiaryLink.surface(),
 
+  lyrRoad.motorwayLinkToll.surface(),
+  lyrRoad.trunkLinkToll.surface(),
+  lyrRoad.primaryLinkToll.surface(),
+  lyrRoad.secondaryLinkToll.surface(),
+  lyrRoad.tertiaryLinkToll.surface(),
+
   lyrRoad.smallService.surface(),
   lyrRoad.service.surface(),
   lyrRoad.minor.surface(),
@@ -242,12 +250,6 @@ americanaLayers.push(
   lyrRoad.trunk.surface(),
   lyrRoad.trunkExpressway.surface(),
   lyrRoad.motorway.surface(),
-
-  lyrRoad.motorwayLinkToll.surface(),
-  lyrRoad.trunkLinkToll.surface(),
-  lyrRoad.primaryLinkToll.surface(),
-  lyrRoad.secondaryLinkToll.surface(),
-  lyrRoad.tertiaryLinkToll.surface(),
 
   lyrRoad.smallServiceToll.surface(),
   lyrRoad.serviceToll.surface(),

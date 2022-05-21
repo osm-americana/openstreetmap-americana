@@ -193,22 +193,6 @@ class Road {
 }
 
 //Highway class styles
-function motorwayFillColor(hue) {
-  return [
-    "interpolate",
-    ["exponential", roadExp],
-    ["zoom"],
-    4,
-    `hsl(${hue}, 70%, 76%)`,
-    6,
-    `hsl(${hue}, 70%, 66%)`,
-    minzoomBrunnel - 0.5,
-    `hsl(${hue}, 70%, 60%)`,
-    14,
-    `hsl(${hue}, 71%, 35%)`,
-  ];
-}
-
 function motorwayCasingColor(hue) {
   return [
     "interpolate",
@@ -248,7 +232,19 @@ class Motorway extends Road {
       [20, 22],
     ];
 
-    this.fillColor = motorwayFillColor(this.hue);
+    this.fillColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      4,
+      `hsl(${this.hue}, 70%, 76%)`,
+      6,
+      `hsl(${this.hue}, 70%, 66%)`,
+      minzoomBrunnel - 0.5,
+      `hsl(${this.hue}, 70%, 60%)`,
+      14,
+      `hsl(${this.hue}, 71%, 35%)`,
+    ];
     this.casingColor = motorwayCasingColor(this.hue);
     this.surfaceColor = `hsl(${this.hue}, 50%, 70%)`;
   }
@@ -260,7 +256,20 @@ class MotorwayToll extends Motorway {
     this.toll = true;
     this.hue = Color.tollRoadHue;
 
-    this.fillColor = motorwayFillColor(this.hue);
+    this.fillColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      4,
+      `hsl(${this.hue}, 70%, 76%)`,
+      6,
+      `hsl(${this.hue}, 70%, 66%)`,
+      minzoomBrunnel - 0.5,
+      `hsl(${this.hue}, 70%, 60%)`,
+      14,
+      `hsl(${this.hue}, 71%, 45%)`,
+    ];
+
     this.casingColor = motorwayCasingColor(this.hue);
     this.surfaceColor = `hsl(${this.hue}, 50%, 70%)`;
   }
