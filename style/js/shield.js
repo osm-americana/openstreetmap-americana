@@ -18,17 +18,15 @@ function loadShield(ctx, shield, bannerCount) {
   ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
 }
 
-function drawBanners(ctx, network) {
+function drawBannerPart(ctx, network, drawFunc) {
   var shieldDef = ShieldDef.shields[network];
 
   if (shieldDef == null || typeof shieldDef.modifiers == "undefined") {
     return ctx; //Unadorned shield
   }
 
-  ctx.fillStyle = "black";
-
   for (var i = 0; i < shieldDef.modifiers.length; i++) {
-    ShieldText.drawBannerText(ctx, shieldDef.modifiers[i], i);
+    drawFunc(ctx, shieldDef.modifiers[i], i);
   }
 
   return ctx;
@@ -265,10 +263,14 @@ function generateShieldCtx(id) {
 
   var ctx = generateBlankGraphicsContext(shieldDef, routeDef);
 
+  // Add the halo around modifier plaque text
+  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
+
+  // Draw the shield and shield text
   drawShield(ctx, shieldDef, routeDef);
 
-  // Add modifier plaques above shields
-  drawBanners(ctx, routeDef.network);
+  // Add modifier plaque text
+  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerText);
 
   // Swap black with a different color for certain shields.
   // The secondary canvas is necessary here for some reason. Without it,

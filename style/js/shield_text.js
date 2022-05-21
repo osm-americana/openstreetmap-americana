@@ -208,21 +208,47 @@ export function drawBannerText(ctx, text, bannerIndex) {
     height: ShieldDef.bannerSizeH,
   });
 
-  ctx.textBaseline = "top";
-  ctx.font = Gfx.shieldFont(textLayout.fontPx);
-  ctx.shadowColor = "rgba(250, 246, 242, 1)";
-  [-2, 2].forEach((offsetX) => {
-    [-2, 2].forEach((offsetY) => {
-      ctx.shadowOffsetX = offsetX;
-      ctx.shadowOffsetY = offsetY;
+  ctx.fillStyle = "black";
 
-      ctx.fillText(
-        text,
-        textLayout.xBaseline,
-        textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
-      );
-    });
+  ctx.font = Gfx.shieldFont(textLayout.fontPx);
+  ctx.textBaseline = "top";
+  ctx.textAlign = "center";
+
+  ctx.fillText(
+    text,
+    textLayout.xBaseline,
+    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+  );
+}
+
+/**
+ * Draw drop shadow for text on a modifier plate above a shield
+ *
+ * @param {*} ctx - graphics context to draw to
+ * @param {*} text - text to draw
+ * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
+ */
+export function drawBannerHaloText(ctx, text, bannerIndex) {
+  var textLayout = layoutShieldTextFromDef(text, null, {
+    width: ctx.canvas.width,
+    height: ShieldDef.bannerSizeH,
   });
+
+  ctx.shadowColor = "rgba(250, 246, 242, 1)";
+  ctx.strokeStyle = ctx.shadowColor;
+  ctx.font = Gfx.shieldFont(textLayout.fontPx);
+  ctx.textBaseline = "top";
+  ctx.textAlign = "center";
+  ctx.shadowBlur = 5;
+  ctx.lineWidth = 1.2;
+
+  ctx.strokeText(
+    text,
+    textLayout.xBaseline,
+    textLayout.yBaseline + bannerIndex * ShieldDef.bannerSizeH
+  );
+  ctx.shadowColor = null;
+  ctx.shadowBlur = null;
 }
 
 export function calculateTextWidth(text, fontSize) {
