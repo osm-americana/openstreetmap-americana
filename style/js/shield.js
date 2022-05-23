@@ -18,17 +18,15 @@ function loadShield(ctx, shield, bannerCount) {
   ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
 }
 
-function drawBanners(ctx, network) {
+function drawBannerPart(ctx, network, drawFunc) {
   var shieldDef = ShieldDef.shields[network];
 
   if (shieldDef == null || typeof shieldDef.modifiers == "undefined") {
     return ctx; //Unadorned shield
   }
 
-  ctx.fillStyle = "black";
-
   for (var i = 0; i < shieldDef.modifiers.length; i++) {
-    ShieldText.drawBannerText(ctx, shieldDef.modifiers[i], i);
+    drawFunc(ctx, shieldDef.modifiers[i], i);
   }
 
   return ctx;
@@ -96,11 +94,14 @@ function textColor(shieldDef) {
   return "black";
 }
 
-function drawShield(shieldDef, routeDef) {
-  var ctx = null;
+/**
+ * Creates a graphics context of the correct size to hold the shield and banner.
+ * @param {*} shieldDef shield definition
+ * @param {*} routeDef route definition
+ * @returns a blank graphics context
+ */
+function generateBlankGraphicsContext(shieldDef, routeDef) {
   var bannerCount = ShieldDef.getBannerCount(shieldDef);
-  var shieldBounds = null;
-
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
   var compoundBounds = null;
 
@@ -110,9 +111,29 @@ function drawShield(shieldDef, routeDef) {
       shieldDef.backgroundDraw = ShieldDraw.rectangle;
     }
 
+    //Do a test background draw to determine drawn size
     let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
     compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
-    ctx = Gfx.getGfxContext(compoundBounds);
+  } else {
+    compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
+  }
+
+  return Gfx.getGfxContext(compoundBounds);
+}
+
+function drawShield(ctx, shieldDef, routeDef) {
+  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var shieldBounds = null;
+
+  var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
+
+  if (shieldArtwork == null) {
+    if (typeof shieldDef.backgroundDraw == "undefined") {
+      //Default to drawing a rectangle if shape draw function is not specified
+      shieldDef.backgroundDraw = ShieldDraw.rectangle;
+    }
+
+    let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
 
     ctx.drawImage(
       drawnShieldCtx.canvas,
@@ -125,8 +146,6 @@ function drawShield(shieldDef, routeDef) {
       height: drawnShieldCtx.canvas.height,
     };
   } else {
-    compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-    ctx = Gfx.getGfxContext(compoundBounds);
     loadShield(ctx, shieldArtwork, bannerCount);
     shieldBounds = {
       width: shieldArtwork.data.width,
@@ -242,10 +261,16 @@ function generateShieldCtx(id) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
   }
 
-  var ctx = drawShield(shieldDef, routeDef);
+  var ctx = generateBlankGraphicsContext(shieldDef, routeDef);
 
-  // Add modifier plaques above shields
-  drawBanners(ctx, routeDef.network);
+  // Add the halo around modifier plaque text
+  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
+
+  // Draw the shield and shield text
+  drawShield(ctx, shieldDef, routeDef);
+
+  // Add modifier plaque text
+  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerText);
 
   // Swap black with a different color for certain shields.
   // The secondary canvas is necessary here for some reason. Without it,
