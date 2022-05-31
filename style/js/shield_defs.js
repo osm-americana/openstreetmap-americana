@@ -93,9 +93,9 @@ export function loadShields(shieldImages) {
     shieldImages.shield40_pentagon_green_white_2,
     shieldImages.shield40_pentagon_green_white_3,
   ];
-  let shield_pentagon_white_black = [
-    shieldImages.shield40_pentagon_white_black_2,
-    shieldImages.shield40_pentagon_white_black_3,
+  let shield_pentagon_white_pink = [
+    shieldImages.shield40_pentagon_white_pink_2,
+    shieldImages.shield40_pentagon_white_pink_3,
   ];
   let padding_pentagon = {
     left: 2,
@@ -1456,11 +1456,10 @@ export function loadShields(shieldImages) {
   );
   shields["US:NM:San_Juan:NCM"] = banneredShield(
     {
-      backgroundImage: shield_pentagon_white_black,
+      backgroundImage: shield_pentagon_white_pink,
       textLayoutConstraint: ShieldText.ellipseTextConstraint,
-      textColor: Color.shields.black,
+      textColor: Color.shields.pink,
       padding: padding_pentagon,
-      colorLighten: Color.shields.pink,
     },
     ["NCM"]
   );
@@ -1952,9 +1951,9 @@ export function loadShields(shieldImages) {
     "Ward",
   ].forEach(
     (county) =>
-      (shields[`US:TX:${county}`] = banneredShield(shields["default"], "CR"))
+      (shields[`US:TX:${county}`] = banneredShield(shields["default"], ["CR"]))
   );
-  shields["US:TX:Jackson"] = banneredShield(roundedRectShieldBlueWhite, "CR");
+  shields["US:TX:Jackson"] = banneredShield(roundedRectShieldBlueWhite, ["CR"]);
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
     roundedRectShield(
       Color.shields.white,
