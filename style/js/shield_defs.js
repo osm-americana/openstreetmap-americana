@@ -566,10 +566,7 @@ export function loadShields(shieldImages) {
   // US Federal Agencies
 
   shields["US:BIA"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_bia_2,
-      shieldImages.shield40_us_bia_3,
-    ],
+    backgroundImage: shieldImages.shield40_us_bia,
     textColor: Color.shields.black,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     padding: {
