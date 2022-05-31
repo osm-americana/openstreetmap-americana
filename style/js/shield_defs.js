@@ -192,40 +192,42 @@ export function loadShields(shieldImages) {
     colorLighten: Color.shields.blue,
   };
 
-  let shield_trapezoid_up_black_yellow = [
-    shieldImages.shield40_trapezoid_up_black_yellow_2,
-    shieldImages.shield40_trapezoid_up_black_yellow_3,
-  ];
   let trapezoidUpShieldBlackYellow = {
-    backgroundImage: shield_trapezoid_up_black_yellow,
+    backgroundImage: [
+      shieldImages.shield40_trapezoid_up_black_yellow_2,
+      shieldImages.shield40_trapezoid_up_black_yellow_3,
+    ],
     textColor: Color.shields.yellow,
     padding: padding_trapezoid_up,
   };
 
-  let shield_trapezoid_up_blue_white = [
-    shieldImages.shield40_trapezoid_up_blue_white_2,
-    shieldImages.shield40_trapezoid_up_blue_white_3,
-  ];
   let trapezoidUpShieldBlueWhite = {
-    backgroundImage: shield_trapezoid_up_blue_white,
+    backgroundImage: [
+      shieldImages.shield40_trapezoid_up_blue_white_2,
+      shieldImages.shield40_trapezoid_up_blue_white_3,
+    ],
     textColor: Color.shields.white,
     padding: padding_trapezoid_up,
   };
 
-  let shield_trapezoid_up_green_yellow = [
-    shieldImages.shield40_trapezoid_up_green_yellow_2,
-    shieldImages.shield40_trapezoid_up_green_yellow_3,
-  ];
   let trapezoidUpShieldGreenYellow = {
-    backgroundImage: shield_trapezoid_up_green_yellow,
+    backgroundImage: [
+      shieldImages.shield40_trapezoid_up_green_yellow_2,
+      shieldImages.shield40_trapezoid_up_green_yellow_3,
+    ],
     textColor: Color.shields.yellow,
     padding: padding_trapezoid_up,
   };
 
-  let shield_trapezoid_down = [
-    shieldImages.shield40_trapezoid_down_2,
-    shieldImages.shield40_trapezoid_down_3,
-  ];
+  let trapezoidUpShieldRoundedBrown = {
+    backgroundImage: [
+      shieldImages.shield40_trapezoid_up_rounded_brown_2,
+      shieldImages.shield40_trapezoid_up_rounded_brown_3,
+    ],
+    textColor: Color.shields.white,
+    padding: padding_trapezoid_up,
+  };
+
   let padding_trapezoid_down = {
     left: 4,
     right: 4,
@@ -233,7 +235,10 @@ export function loadShields(shieldImages) {
     bottom: 2,
   };
   let trapezoidDownShield = {
-    backgroundImage: shield_trapezoid_down,
+    backgroundImage: [
+      shieldImages.shield40_trapezoid_down_2,
+      shieldImages.shield40_trapezoid_down_3,
+    ],
     textColor: Color.shields.black,
     padding: padding_trapezoid_down,
   };
@@ -1116,7 +1121,7 @@ export function loadShields(shieldImages) {
       bottom: 3,
     },
   };
-  let minnesotaCounties = [
+  [
     "Aitkin",
     "Anoka",
     "Becker",
@@ -1204,18 +1209,22 @@ export function loadShields(shieldImages) {
     "Winona",
     "Wright",
     "Yellow_Medicine",
-  ];
-  minnesotaCounties.forEach(
+  ].forEach(
     (county) =>
-      (shields[`US:MN:${county}:CSAH`] = {
-        backgroundImage: shield_pentagon_blue_yellow,
-        textLayoutConstraint: ShieldText.ellipseTextConstraint,
-        textColor: Color.shields.white,
-        padding: padding_pentagon,
-      })
-  );
-  minnesotaCounties.forEach(
-    (county) => (shields[`US:MN:${county}:CR`] = roundedRectShieldGreenWhite)
+      ([
+        shields[`US:MN:${county}:CSAH`],
+        shields[`US:MN:${county}:CR`],
+        shields[`US:MN:${county}:Park_Access`],
+      ] = [
+        {
+          backgroundImage: shield_pentagon_blue_yellow,
+          textLayoutConstraint: ShieldText.ellipseTextConstraint,
+          textColor: Color.shields.white,
+          padding: padding_pentagon,
+        },
+        shields["default"],
+        trapezoidUpShieldRoundedBrown,
+      ])
   );
 
   shields["US:MO"] = {
