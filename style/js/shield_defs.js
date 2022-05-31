@@ -1886,6 +1886,8 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:SD:${county}`] = roundedRectShieldGreenWhite)
   );
 
+  shields["US:TN:McMinn"] = pentagonShieldBlueYellow;
+
   shields["US:TX"] = shields["default"];
   shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
   shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
