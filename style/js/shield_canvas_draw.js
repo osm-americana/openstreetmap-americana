@@ -21,7 +21,7 @@ const genericShieldFontSize = 18 * PXR;
 export function paBelt(ref) {
   var ctx = square();
 
-  let lineWidth = 1 * PXR;
+  let lineWidth = 0.5 * PXR;
   let diameter = CS / 3 - lineWidth;
   ctx.beginPath();
   ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
