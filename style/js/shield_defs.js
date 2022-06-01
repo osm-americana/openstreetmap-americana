@@ -12,6 +12,7 @@ export const bannerPadding = 0.5 * Gfx.getPixelRatio();
 export const shields = {};
 
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
+  textColor = textColor ?? strokeColor;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.ellipse(fillColor, strokeColor, ref, rectWidth),
@@ -35,6 +36,9 @@ function roundedRectShield(
   outlineWidth,
   rectWidth
 ) {
+  textColor = textColor ?? strokeColor;
+  radius = radius ?? 2;
+  outlineWidth = outlineWidth ?? 1;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(
@@ -58,8 +62,21 @@ function roundedRectShield(
   };
 }
 
-function pillShield(fillColor, strokeColor, textColor, rectWidth) {
-  return roundedRectShield(fillColor, strokeColor, textColor, 10, 1, rectWidth);
+function pillShield(
+  fillColor,
+  strokeColor,
+  textColor,
+  outlineWidth,
+  rectWidth
+) {
+  return roundedRectShield(
+    fillColor,
+    strokeColor,
+    textColor,
+    10,
+    outlineWidth,
+    rectWidth
+  );
 }
 
 function banneredShield(baseDef, modifiers) {
@@ -247,38 +264,7 @@ export function loadShields(shieldImages) {
 
   shields["default"] = roundedRectShield(
     Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    1
-  );
-  let roundedRectShieldBlueWhite = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1
-  );
-  let roundedRectShieldBrownWhite = roundedRectShield(
-    Color.shields.brown,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1
-  );
-  let roundedRectShieldGreenWhite = roundedRectShield(
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1
-  );
-  let roundedRectShieldYellowBlack = roundedRectShield(
-    Color.shields.yellow,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    1
+    Color.shields.black
   );
 
   // North America
@@ -320,12 +306,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["CA:MB:PTH"] = homeDownWhiteShield;
-  shields["CA:MB:PR"] = ovalShield(
-    Color.shields.black,
-    Color.shields.white,
-    Color.shields.white,
-    30
-  );
+  shields["CA:MB:PR"] = ovalShield(Color.shields.black, Color.shields.white);
   shields["CA:MB:Winnipeg"] = {
     backgroundImage: shieldImages.shield40_ca_mb_winnipeg,
     textColor: Color.shields.black,
@@ -370,7 +351,10 @@ export function loadShields(shieldImages) {
     },
   };
   shields["CA:NS:T"] = badgeShield;
-  shields["CA:NS:R"] = roundedRectShieldBrownWhite;
+  shields["CA:NS:R"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.white
+  );
 
   shields["CA:NT"] = {
     backgroundImage: shieldImages.shield40_ca_nt,
@@ -744,9 +728,16 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:AR:${county}`] = pentagonShieldBlueYellow)
   );
   ["Lee", "Izard"].forEach(
-    (county) => (shields[`US:AR:${county}`] = roundedRectShieldGreenWhite)
+    (county) =>
+      (shields[`US:AR:${county}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.white
+      ))
   );
-  shields["US:AR:Baxter"] = roundedRectShieldBlueWhite;
+  shields["US:AR:Baxter"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
 
   shields["US:AS"] = {
     backgroundImage: shieldImages.shield40_us_as,
@@ -837,7 +828,11 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:CO:${county}`] = pentagonShieldBlueYellow)
   );
   ["Fremont", "Ouray", "Routt"].forEach(
-    (county) => (shields[`US:CO:${county}`] = roundedRectShieldGreenWhite)
+    (county) =>
+      (shields[`US:CO:${county}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.white
+      ))
   );
   shields["US:CO:Douglas"] = pentagonShieldGreenWhite;
 
@@ -1134,7 +1129,11 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:MI:${county}`] = pentagonShieldBlueYellow)
   );
   ["Delta", "Manistee"].forEach(
-    (county) => (shields[`US:MI:${county}`] = roundedRectShieldGreenWhite)
+    (county) =>
+      (shields[`US:MI:${county}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.white
+      ))
   );
   ["Iron", "Luce", "Marquette", "Oscoda", "Schoolcraft"].forEach(
     (county) => (shields[`US:MI:${county}`] = shields["default"])
@@ -1294,7 +1293,10 @@ export function loadShields(shieldImages) {
   ].forEach(
     (county) => (shields[`US:MO:${county}`] = pentagonShieldBlueYellow)
   );
-  shields["US:MO:Lewis"] = roundedRectShieldBrownWhite;
+  shields["US:MO:Lewis"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.white
+  );
 
   shields["US:MP"] = {
     backgroundImage: [
@@ -1402,7 +1404,11 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:ND:${county}`] = pentagonShieldBlueYellow)
   );
   ["Eddy", "Kidder"].forEach(
-    (county) => (shields[`US:ND:${county}`] = roundedRectShieldGreenWhite)
+    (county) =>
+      (shields[`US:ND:${county}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.white
+      ))
   );
   shields["US:ND:Towner"] = shields["default"];
 
@@ -1670,17 +1676,26 @@ export function loadShields(shieldImages) {
   ].forEach(
     // White on green rectangle
     (countyOrTownship) =>
-      (shields[`US:OH:${countyOrTownship}`] = roundedRectShieldGreenWhite)
+      (shields[`US:OH:${countyOrTownship}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.white
+      ))
   );
   ["MED", "NOB", "WAY:Paint", "WAY:Salt_Creek"].forEach(
     // White on blue rectangle
     (countyOrTownship) =>
-      (shields[`US:OH:${countyOrTownship}`] = roundedRectShieldBlueWhite)
+      (shields[`US:OH:${countyOrTownship}`] = roundedRectShield(
+        Color.shields.blue,
+        Color.shields.white
+      ))
   );
   ["TRU", "VIN", "COS:Adams"].forEach(
     // Black on yellow rectangle
     (countyOrTownship) =>
-      (shields[`US:OH:${countyOrTownship}`] = roundedRectShieldYellowBlack)
+      (shields[`US:OH:${countyOrTownship}`] = roundedRectShield(
+        Color.shields.yellow,
+        Color.shields.black
+      ))
   );
   shields["US:OH:ASD"] = {
     backgroundImage: [shieldImages.shield40_us_oh_asd],
@@ -1708,18 +1723,11 @@ export function loadShields(shieldImages) {
   shields["US:OH:HOC:Falls"] = roundedRectShield(
     Color.shields.white,
     Color.shields.green,
-    Color.shields.black,
-    2,
-    1,
-    null
+    Color.shields.black
   );
   shields["US:OH:PER:Monday_Creek"] = roundedRectShield(
     Color.shields.green,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    1,
-    null
+    Color.shields.black
   );
   shields["US:OH:TUS:Salem"] = {
     backgroundImage: [shieldImages.shield40_us_oh_tus_salem],
@@ -1915,7 +1923,11 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:SD:${county}`] = pentagonShieldBlueYellow)
   );
   ["Brown", "Tripp"].forEach(
-    (county) => (shields[`US:SD:${county}`] = roundedRectShieldGreenWhite)
+    (county) =>
+      (shields[`US:SD:${county}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.white
+      ))
   );
 
   shields["US:TN:McMinn"] = pentagonShieldBlueYellow;
@@ -1933,18 +1945,14 @@ export function loadShields(shieldImages) {
   shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
   shields["US:TX:RM"] = banneredShield(shields["US:TX"], ["R.M."]);
   shields["US:TX:Recreational"] = banneredShield(
-    roundedRectShield(
-      Color.shields.white,
-      Color.shields.brown,
-      Color.shields.brown,
-      2,
-      1,
-      null
-    ),
+    roundedRectShield(Color.shields.white, Color.shields.brown),
     ["R"]
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
-  shields["US:TX:Toll"] = roundedRectShieldBlueWhite;
+  shields["US:TX:Toll"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
   shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
   shields["US:TX:NTTA"] = shields["US:TX:Toll"];
   shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
@@ -1978,7 +1986,11 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:TX:${county}`] = pentagonShieldBlueYellow)
   );
   ["Brazoria", "Brown", "Burleson", "Colorado", "Comanche", "Houston"].forEach(
-    (county) => (shields[`US:TX:${county}`] = roundedRectShieldGreenWhite)
+    (county) =>
+      (shields[`US:TX:${county}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.white
+      ))
   );
   [
     "Cass",
@@ -1996,16 +2008,12 @@ export function loadShields(shieldImages) {
     (county) =>
       (shields[`US:TX:${county}`] = banneredShield(shields["default"], ["CR"]))
   );
-  shields["US:TX:Jackson"] = banneredShield(roundedRectShieldBlueWhite, ["CR"]);
+  shields["US:TX:Jackson"] = banneredShield(
+    roundedRectShield(Color.shields.blue, Color.shields.white),
+    ["CR"]
+  );
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
-    roundedRectShield(
-      Color.shields.white,
-      Color.shields.blue,
-      Color.shields.blue,
-      2,
-      1,
-      null
-    ),
+    roundedRectShield(Color.shields.white, Color.shields.blue),
     ["LOOP"]
   );
 
@@ -2061,7 +2069,7 @@ export function loadShields(shieldImages) {
   };
   shields["US:VT:Alternate"] = banneredShield(shields["US:VT"], ["ALT"]);
   // Vermont routes town maintained sections - black and white ovals
-  shields["US:VT:Town"] = ovalShield("white", "black");
+  shields["US:VT:Town"] = ovalShield(Color.shields.white, Color.shields.black);
 
   shields["US:WA"] = {
     backgroundImage: shieldImages.shield40_us_wa,
@@ -2183,7 +2191,10 @@ export function loadShields(shieldImages) {
 
   shields["US:WV"] = shields["default"];
 
-  shields["US:WY"] = roundedRectShieldYellowBlack;
+  shields["US:WY"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
   [
     "Big_Horn",
     "Carbon",
@@ -2207,16 +2218,18 @@ export function loadShields(shieldImages) {
   );
 
   // Asia
-  shields["BD:national"] = roundedRectShieldGreenWhite;
-  shields["BD:regional"] = roundedRectShieldYellowBlack;
+  shields["BD:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
+  shields["BD:regional"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
 
   shields["CN:national"] = roundedRectShield(
     Color.shields.red,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1,
-    null
+    Color.shields.white
   );
   shields["CN:expressway"] = {
     backgroundImage: [
@@ -2265,7 +2278,10 @@ export function loadShields(shieldImages) {
     "YN",
     "ZJ",
   ].forEach((province) => {
-    shields[`CN:${province}`] = roundedRectShieldYellowBlack;
+    shields[`CN:${province}`] = roundedRectShield(
+      Color.shields.yellow,
+      Color.shields.black
+    );
     shields[`CN:${province}:expressway`] = {
       backgroundImage: [
         shieldImages.shield40_cn_regional_expressway_2,
@@ -2308,7 +2324,7 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["JP:E"] = roundedRectShieldGreenWhite;
+  shields["JP:E"] = roundedRectShield(Color.shields.green, Color.shields.white);
   shields["JP:national"] = {
     backgroundImage: [
       shieldImages.shield40_jp_national_2,
@@ -2397,7 +2413,10 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["np:national"] = roundedRectShieldGreenWhite;
+  shields["np:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
   shields["np:regional"] = shields["default"];
 
   shields["PH:N"] = homeDownWhiteShield;
@@ -2435,10 +2454,7 @@ export function loadShields(shieldImages) {
   shields["KR:local"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.white,
-    Color.shields.blue,
-    2,
-    1,
-    null
+    Color.shields.blue
   );
 
   shields["TW:freeway"] = {
@@ -2478,7 +2494,10 @@ export function loadShields(shieldImages) {
     (type) => (shields[`TW:${type}`] = shields["default"])
   );
 
-  shields["vn:expressway"] = roundedRectShieldYellowBlack;
+  shields["vn:expressway"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
   shields["vn:national"] = shields["default"];
 
   // Europe
