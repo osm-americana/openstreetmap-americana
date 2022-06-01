@@ -675,6 +675,16 @@ export function loadShields(shieldImages) {
       bottom: 2,
     },
   };
+  shields["US:CO:E470"] = {
+    backgroundImage: shieldImages.shield40_us_co_e470,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 9.5,
+      bottom: 2,
+    },
+  };
 
   shields["US:CT"] = shields["default"];
   shields["US:DC"] = {
