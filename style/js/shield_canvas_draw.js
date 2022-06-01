@@ -4,6 +4,7 @@
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
+import * as Color from "../constants/color.js";
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldText from "./shield_text.js";
 
@@ -27,22 +28,22 @@ export function paBelt(ref) {
 
   switch (ref) {
     case "Red Belt":
-      ctx.fillStyle = "#b01c2e";
+      ctx.fillStyle = Color.shields.red;
       break;
     case "Orange Belt":
-      ctx.fillStyle = "#d97300";
+      ctx.fillStyle = Color.shields.orange;
       break;
     case "Yellow Belt":
-      ctx.fillStyle = "#f7d117";
+      ctx.fillStyle = Color.shields.yellow;
       break;
     case "Green Belt":
-      ctx.fillStyle = "#006b54";
+      ctx.fillStyle = Color.shields.green;
       break;
     case "Blue Belt":
-      ctx.fillStyle = "#003882";
+      ctx.fillStyle = Color.shields.blue;
       break;
     case "Purple Belt":
-      ctx.fillStyle = "#bd0063";
+      ctx.fillStyle = Color.shields.purple;
       break;
     default:
       return null;
@@ -50,7 +51,7 @@ export function paBelt(ref) {
   ctx.fill();
 
   ctx.lineWidth = lineWidth;
-  ctx.strokeStyle = "black";
+  ctx.strokeStyle = Color.shields.black;
   ctx.stroke();
   return ctx;
 }
@@ -96,7 +97,14 @@ function square() {
 }
 
 export function rectangle(ref) {
-  return roundedRectangle("white", "black", ref, 1.3, 1, null);
+  return roundedRectangle(
+    Color.shields.white,
+    Color.shields.black,
+    ref,
+    2,
+    1,
+    null
+  );
 }
 
 export function blank() {
