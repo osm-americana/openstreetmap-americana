@@ -1065,6 +1065,28 @@ export function loadShields(shieldImages) {
   shields["US:LA:Business"] = banneredShield(shields["US:LA"], ["BUS"]);
   shields["US:LA:Spur"] = banneredShield(shields["US:LA"], ["SPUR"]);
   shields["US:LA:Truck"] = banneredShield(shields["US:LA"], ["TRK"]);
+  [
+    "Bienville",
+    "Caddo",
+    "Cameron",
+    "De_Soto",
+    "Grant",
+    "Iberia",
+    "Lincoln",
+    "Livingston",
+    "Natchitoches",
+    "Ouachita",
+    "Rapides",
+    "Red_River",
+    "Richland",
+    "Saint_Mary",
+    "Terrebonne",
+    "Union",
+    "Webster",
+    "Winn",
+  ].forEach(
+    (parish) => (shields[`US:LA:${parish}`] = pentagonShieldBlueYellow)
+  );
 
   shields["US:MA"] = shields["default"];
 
