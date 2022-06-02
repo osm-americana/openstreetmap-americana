@@ -725,6 +725,10 @@ export function loadShields(shieldImages) {
       bottom: 4.5,
     },
   };
+  shields["US:FL:Turnpike"] = {
+    norefImage: shieldImages.shield40_us_fl_turnpike,
+    notext: true,
+  };
   [
     "Alachua",
     "Baker",

@@ -256,6 +256,11 @@ function generateShieldCtx(id) {
     return ShieldDraw.blank();
   }
 
+  // Swap black with a different color for certain shields.
+  // The secondary canvas is necessary here for some reason. Without it,
+  // the recolored shield gets an opaque instead of transparent background.
+  var colorLighten = ShieldDef.shieldLighten(shieldDef, routeDef);
+
   // Handle special case for Kentucky
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
@@ -267,26 +272,28 @@ function generateShieldCtx(id) {
   drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
 
   // Draw the shield and shield text
-  drawShield(ctx, shieldDef, routeDef);
-
-  // Add modifier plaque text
-  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerText);
-
-  // Swap black with a different color for certain shields.
-  // The secondary canvas is necessary here for some reason. Without it,
-  // the recolored shield gets an opaque instead of transparent background.
-  var colorLighten = ShieldDef.shieldLighten(shieldDef, routeDef);
-
   if (colorLighten) {
-    let colorCtx = Gfx.getGfxContext(ctx.canvas);
+    // Draw a color-composited version of the shield and shield text
+    let shieldCtx = generateBlankGraphicsContext(shieldDef, routeDef);
+    drawShield(shieldCtx, shieldDef, routeDef);
+
+    let colorCtx = generateBlankGraphicsContext(shieldDef, routeDef);
+    drawShield(colorCtx, shieldDef, routeDef);
     colorCtx.drawImage(ctx.canvas, 0, 0);
     colorCtx.globalCompositeOperation = "lighten";
     colorCtx.fillStyle = colorLighten;
     colorCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     colorCtx.globalCompositeOperation = "destination-atop";
-    colorCtx.drawImage(ctx.canvas, 0, 0);
-    ctx = colorCtx;
+    colorCtx.drawImage(shieldCtx.canvas, 0, 0);
+
+    ctx.drawImage(colorCtx.canvas, 0, 0);
+  } else {
+    // Draw the shield and shield text
+    drawShield(ctx, shieldDef, routeDef);
   }
+
+  // Add modifier plaque text
+  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerText);
 
   return ctx;
 }
