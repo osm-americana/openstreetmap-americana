@@ -29,21 +29,27 @@ export function paBelt(ref) {
   switch (ref) {
     case "Red Belt":
       ctx.fillStyle = Color.shields.red;
+      ctx.strokeStyle = Color.shields.black;
       break;
     case "Orange Belt":
       ctx.fillStyle = Color.shields.orange;
+      ctx.strokeStyle = Color.shields.black;
       break;
     case "Yellow Belt":
       ctx.fillStyle = Color.shields.yellow;
+      ctx.strokeStyle = Color.shields.black;
       break;
     case "Green Belt":
       ctx.fillStyle = Color.shields.green;
+      ctx.strokeStyle = Color.shields.white;
       break;
     case "Blue Belt":
       ctx.fillStyle = Color.shields.blue;
+      ctx.strokeStyle = Color.shields.white;
       break;
     case "Purple Belt":
       ctx.fillStyle = Color.shields.purple;
+      ctx.strokeStyle = Color.shields.white;
       break;
     default:
       return null;
@@ -51,7 +57,6 @@ export function paBelt(ref) {
   ctx.fill();
 
   ctx.lineWidth = lineWidth;
-  ctx.strokeStyle = Color.shields.black;
   ctx.stroke();
   return ctx;
 }
