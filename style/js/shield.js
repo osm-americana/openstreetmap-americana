@@ -274,6 +274,9 @@ function generateShieldCtx(id) {
   // Draw the shield and shield text
   if (colorLighten) {
     // Draw a color-composited version of the shield and shield text
+    let shieldCtx = generateBlankGraphicsContext(shieldDef, routeDef);
+    drawShield(shieldCtx, shieldDef, routeDef);
+
     let colorCtx = generateBlankGraphicsContext(shieldDef, routeDef);
     drawShield(colorCtx, shieldDef, routeDef);
     colorCtx.drawImage(ctx.canvas, 0, 0);
@@ -281,7 +284,9 @@ function generateShieldCtx(id) {
     colorCtx.fillStyle = colorLighten;
     colorCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     colorCtx.globalCompositeOperation = "destination-atop";
-    colorCtx.drawImage(ctx.canvas, 0, 0);
+    colorCtx.drawImage(shieldCtx.canvas, 0, 0);
+
+    ctx.drawImage(colorCtx.canvas, 0, 0);
   } else {
     // Draw the shield and shield text
     drawShield(ctx, shieldDef, routeDef);
