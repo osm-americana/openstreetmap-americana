@@ -2158,6 +2158,57 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Sweden
+  shields["SE:RV"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    4,
+    1,
+    null
+  );
+  shields["SE:LV"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    4,
+    1,
+    null
+  );
+  [
+    "AB",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "K",
+    "M",
+    "N",
+    "O",
+    "S",
+    "T",
+    "U",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    "AC",
+    "BD",
+  ].forEach(
+    (county_letter) =>
+      (shields[`SE:${county_letter}`] = roundedRectShield(
+        Color.shields.blue,
+        Color.shields.white,
+        Color.shields.white,
+        4,
+        1,
+        null
+      ))
+  );
+
   return shields;
 }
 
