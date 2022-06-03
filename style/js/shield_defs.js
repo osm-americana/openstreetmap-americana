@@ -2208,6 +2208,14 @@ export function loadShields(shieldImages) {
         null
       ))
   );
+  shields["SE:LS"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    4,
+    1,
+    null
+  );
 
   return shields;
 }
