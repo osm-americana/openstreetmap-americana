@@ -3,6 +3,8 @@
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldDef from "./shield_defs.js";
 
+export const PXR = Gfx.getPixelRatio();
+
 const VerticalAlignment = {
   Middle: "middle",
   Top: "top",
@@ -243,7 +245,7 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
   ctx.shadowBlur = 0;
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 2 * PXR;
 
   ctx.strokeText(
     text,
