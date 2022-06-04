@@ -15,7 +15,11 @@ function loadShield(ctx, shield, bannerCount) {
 
   drawCtx.putImageData(imgData, 0, 0);
 
-  ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
+  ctx.drawImage(
+    drawCtx.canvas,
+    0,
+    bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
+  );
 }
 
 function drawBannerPart(ctx, network, drawFunc) {
@@ -35,7 +39,10 @@ function drawBannerPart(ctx, network, drawFunc) {
 function compoundShieldSize(dimension, bannerCount) {
   return {
     width: dimension.width,
-    height: dimension.height + bannerCount * ShieldDef.bannerSizeH,
+    height:
+      dimension.height +
+      bannerCount * ShieldDef.bannerSizeH +
+      ShieldDef.topPadding,
   };
 }
 
@@ -138,7 +145,7 @@ function drawShield(ctx, shieldDef, routeDef) {
     ctx.drawImage(
       drawnShieldCtx.canvas,
       0,
-      bannerCount * ShieldDef.bannerSizeH
+      bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
     );
 
     shieldBounds = {
@@ -173,7 +180,8 @@ function drawShield(ctx, shieldDef, routeDef) {
     shieldBounds
   );
 
-  textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
+  textLayout.yBaseline +=
+    bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   ctx.fillStyle = textColor(shieldDef);
   ShieldText.drawShieldText(ctx, routeDef.ref, textLayout);
