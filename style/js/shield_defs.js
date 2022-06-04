@@ -8,6 +8,7 @@ import * as Gfx from "./screen_gfx.js";
 //Height of modifier banners
 export const bannerSizeH = 9 * Gfx.getPixelRatio();
 export const bannerPadding = 0.5 * Gfx.getPixelRatio();
+export const topPadding = 1 * Gfx.getPixelRatio();
 
 export const shields = {};
 
