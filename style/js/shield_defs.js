@@ -1709,6 +1709,11 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:WV"] = shields["default"];
+  shields["US:WV:County"] = pillShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
   shields["US:WY"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black,
