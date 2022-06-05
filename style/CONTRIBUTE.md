@@ -223,7 +223,7 @@ See the [developer tools](../dev/README.md) for an importable, Inkscape-compatib
 
 ### Font Sizes
 
-Shields should target 8-12px text actual-size character heights for readability:
+Shields should target 8-14px text actual-size character heights for readability:
 
 | Example                                                    | Text height |
 | ---------------------------------------------------------- | ----------- |
