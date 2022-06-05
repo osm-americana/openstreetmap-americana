@@ -2168,7 +2168,7 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    4,
+    2,
     1,
     null
   );
@@ -2176,7 +2176,7 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    4,
+    2,
     1,
     null
   );
@@ -2208,7 +2208,7 @@ export function loadShields(shieldImages) {
         Color.shields.blue,
         Color.shields.white,
         Color.shields.white,
-        4,
+        2,
         1,
         null
       ))
@@ -2217,7 +2217,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black,
     Color.shields.black,
-    4,
+    2,
     1,
     null
   );
