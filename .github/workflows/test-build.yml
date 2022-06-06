@@ -17,7 +17,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           cd style
-          npm install --include=dev
+          npm ci --include=dev
           sed 's/<your MapTiler key>/53iZvB2drcamS0Ge0xiD/g' configs/config.maptiler.js > config.js
           npm run build
         # MapTiler key 53iZvB2drcamS0Ge0xiD only allows requests from zelonewolf.github.io
