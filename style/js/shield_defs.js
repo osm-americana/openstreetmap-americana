@@ -103,18 +103,6 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let shield_pentagon_blue_yellow = [
-    shieldImages.shield40_pentagon_blue_yellow_2,
-    shieldImages.shield40_pentagon_blue_yellow_3,
-  ];
-  let shield_pentagon_green_white = [
-    shieldImages.shield40_pentagon_green_white_2,
-    shieldImages.shield40_pentagon_green_white_3,
-  ];
-  let shield_pentagon_white_pink = [
-    shieldImages.shield40_pentagon_white_pink_2,
-    shieldImages.shield40_pentagon_white_pink_3,
-  ];
   let padding_pentagon = {
     left: 2,
     right: 2,
@@ -122,32 +110,36 @@ export function loadShields(shieldImages) {
     bottom: 5,
   };
   let pentagonShieldBlueYellow = {
-    backgroundImage: shield_pentagon_blue_yellow,
+    backgroundImage: [
+      shieldImages.shield40_pentagon_blue_yellow_2,
+      shieldImages.shield40_pentagon_blue_yellow_3,
+    ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.yellow,
     padding: padding_pentagon,
   };
   let pentagonShieldGreenWhite = {
-    backgroundImage: shield_pentagon_green_white,
+    backgroundImage: [
+      shieldImages.shield40_pentagon_green_white_2,
+      shieldImages.shield40_pentagon_green_white_3,
+    ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    textColor: Color.shields.yellow,
+    textColor: Color.shields.white,
     padding: padding_pentagon,
   };
 
-  let shield_badge = [
-    shieldImages.shield40_badge_2,
-    shieldImages.shield40_badge_3,
-  ];
-  let padding_badge = {
-    left: 2,
-    right: 2,
-    top: 4,
-    bottom: 5,
-  };
   let badgeShield = {
-    backgroundImage: shield_badge,
+    backgroundImage: [
+      shieldImages.shield40_badge_2,
+      shieldImages.shield40_badge_3,
+    ],
     textColor: Color.shields.black,
-    padding: padding_badge,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 5,
+    },
   };
 
   let padding_home_down = {
@@ -178,12 +170,7 @@ export function loadShields(shieldImages) {
 
   // Home plate, flipped vertically, white fill, blue stroke
   let homeDownWhiteBlueShield = {
-    backgroundImage: [
-      shieldImages.shield40_home_down_white_2,
-      shieldImages.shield40_home_down_white_3,
-    ],
-    textColor: Color.shields.black,
-    padding: padding_home_down,
+    ...homeDownWhiteShield,
     colorLighten: Color.shields.blue,
   };
 
@@ -194,19 +181,16 @@ export function loadShields(shieldImages) {
     bottom: 5,
   };
 
-  let shield_trapezoid_up = [
-    shieldImages.shield40_trapezoid_up_2,
-    shieldImages.shield40_trapezoid_up_3,
-  ];
   let trapezoidUpShield = {
-    backgroundImage: shield_trapezoid_up,
+    backgroundImage: [
+      shieldImages.shield40_trapezoid_up_2,
+      shieldImages.shield40_trapezoid_up_3,
+    ],
     textColor: Color.shields.black,
     padding: padding_trapezoid_up,
   };
   let trapezoidUpShieldWhiteBlue = {
-    backgroundImage: shield_trapezoid_up,
-    textColor: Color.shields.black,
-    padding: padding_trapezoid_up,
+    ...trapezoidUpShield,
     colorLighten: Color.shields.blue,
   };
 
@@ -578,9 +562,7 @@ export function loadShields(shieldImages) {
   ]);
 
   shields["US:US:Historic"] = {
-    backgroundImage: shield_badge,
-    textColor: Color.shields.black,
-    padding: padding_badge,
+    ...badgeShield,
     colorLighten: Color.shields.brown,
   };
 
@@ -1249,10 +1231,8 @@ export function loadShields(shieldImages) {
         shields[`US:MN:${county}:Park_Access`],
       ] = [
         {
-          backgroundImage: shield_pentagon_blue_yellow,
-          textLayoutConstraint: ShieldText.ellipseTextConstraint,
+          ...pentagonShieldBlueYellow,
           textColor: Color.shields.white,
-          padding: padding_pentagon,
         },
         shields["default"],
         trapezoidUpShieldRoundedBrown,
@@ -1504,7 +1484,10 @@ export function loadShields(shieldImages) {
   );
   shields["US:NM:San_Juan:NCM"] = banneredShield(
     {
-      backgroundImage: shield_pentagon_white_pink,
+      backgroundImage: [
+        shieldImages.shield40_pentagon_white_pink_2,
+        shieldImages.shield40_pentagon_white_pink_3,
+      ],
       textLayoutConstraint: ShieldText.ellipseTextConstraint,
       textColor: Color.shields.pink,
       padding: padding_pentagon,
