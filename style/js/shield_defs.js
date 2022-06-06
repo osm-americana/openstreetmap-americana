@@ -498,7 +498,7 @@ export function loadShields(shieldImages) {
   let padding_us_interstate = {
     left: 4,
     right: 4,
-    top: 5,
+    top: 6,
     bottom: 5,
   };
   shields["US:I"] = {
