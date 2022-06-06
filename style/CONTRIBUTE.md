@@ -234,6 +234,8 @@ Shields should target 8-14px text actual-size character heights for readability:
 | <img src="../doc-img/8_px_text.svg" height=20 width=20 />  | 8px         |
 | <img src="../doc-img/6_px_text.svg" height=20 width=20 />  | 6px         |
 
+It is not possible to use font sizes greater than 14px in shields.
+
 ### Shield Definitions
 
 The `loadShields` function in style/js/shield_defs.js contains a definition object for each shield displayed on the map. A definition object can contain the following properties:
