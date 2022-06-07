@@ -223,7 +223,7 @@ See the [developer tools](../dev/README.md) for an importable, Inkscape-compatib
 
 ### Font Sizes
 
-Shields should target 8-12px text actual-size character heights for readability:
+Shields should target 8-14px text actual-size character heights for readability:
 
 | Example                                                    | Text height |
 | ---------------------------------------------------------- | ----------- |
@@ -233,6 +233,8 @@ Shields should target 8-12px text actual-size character heights for readability:
 | <img src="../doc-img/10_px_text.svg" height=20 width=20 /> | 10px        |
 | <img src="../doc-img/8_px_text.svg" height=20 width=20 />  | 8px         |
 | <img src="../doc-img/6_px_text.svg" height=20 width=20 />  | 6px         |
+
+It is not possible to use font sizes greater than 14px in shields.
 
 ### Shield Definitions
 
