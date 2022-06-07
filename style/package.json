@@ -12,7 +12,7 @@
     "code_format": "npx prettier --write . && npx svgo -f icons/ --config configs/config.svgo.cjs",
     "clean": "rm -rf dist .parcel-cache",
     "presprites": "rm -rf dist/sprites",
-    "sprites": "mkdir -p dist/sprites && npx spritezero dist/sprites/sprite@2x icons/ --retina && npx spritezero dist/sprites/sprite icons/",
+    "sprites": "node scripts/sprites.js",
     "status_map": "node scripts/status_map.js",
     "taginfo": "node scripts/taginfo.js",
     "start": "run-s clean sprites serve",
@@ -21,7 +21,8 @@
     "build": "run-s clean sprites build:code taginfo status_map"
   },
   "dependencies": {
-    "@beyondtracks/spritezero-cli": "^2.3.0",
+    "@basemaps/sprites": "^6.28.0",
+    "glob": "^8.0.3",
     "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
