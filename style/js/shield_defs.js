@@ -339,21 +339,20 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let padding_on_primary = {
-    left: 3,
-    right: 3,
-    top: 6,
-    bottom: 3,
-  };
   shields["CA:ON:primary"] = {
     backgroundImage: shieldImages.shield40_ca_on_primary,
     textColor: Color.shields.black,
-    padding: padding_on_primary,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 6,
+      bottom: 3,
+    },
   };
   shields["CA:ON:primary:Toll"] = {
+    ...shields["CA:ON:primary"],
     backgroundImage: shieldImages.shield40_ca_on_primary_toll,
     textColor: Color.shields.white,
-    padding: padding_on_primary,
   };
   shields["CA:ON:private_toll"] = banneredShield(
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
@@ -491,7 +490,10 @@ export function loadShields(shieldImages) {
   };
   shields["CA:SK:tertiary"] = homeDownWhiteBlueShield;
 
-  shields["CA:YT"] = shields["default"];
+  shields["CA:YT"] = {
+    ...shields["default"],
+    colorLighten: Color.shields.red,
+  };
 
   let padding_us_interstate = {
     left: 4,
@@ -787,7 +789,6 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-
   shields["US:GA:Truck:Bypass"] = banneredShield(shields["US:GA"], [
     "TRK",
     "BYP",
@@ -2141,6 +2142,49 @@ export function loadShields(shieldImages) {
     null
   );
 
+  //Ref-specific cases. Additional entries should be documented in CONTRIBUTE.md
+
+  shields["CA:ON:primary"].overrideByRef = {
+    QEW: {
+      backgroundImage: shieldImages.shield40_ca_on_primary_qew,
+      textColor: Color.shields.blue,
+    },
+  };
+
+  shields["CA:YT"].overrideByRef = {
+    2: {
+      colorLighten: "#ce9d00",
+    },
+    3: {
+      colorLighten: "#ce9d00",
+    },
+    5: {
+      colorLighten: Color.shields.blue,
+    },
+    6: {
+      colorLighten: Color.shields.green,
+    },
+    11: {
+      colorLighten: Color.shields.blue,
+    },
+  };
+
+  shields["US:AR"].overrideByRef = {
+    980: {
+      backgroundImage: shieldImages.shield40_us_ar_980,
+      textColor: Color.shields.white,
+    },
+  };
+
+  shields["US:GA"].overrideByRef = {
+    515: {
+      colorLighten: Color.shields.blue,
+    },
+    520: {
+      colorLighten: Color.shields.green,
+    },
+  };
+
   return shields;
 }
 
@@ -2155,45 +2199,6 @@ export function hasShieldArtwork(network) {
     shields[network] != null &&
     typeof shields[network].backgroundImage !== "undefined"
   );
-}
-
-/**
- * Determines whether a shield should be changed in color from the base color
- * to another color via a "lighten" operation.  For example, Historic US 66
- * should be converted from the standard black US route shield to the historic
- * brown color.  This function is a comprehensive list of special cases.
- *
- * @param {*} shieldDef - Shield definition
- */
-export function shieldLighten(shieldDef, routeDef) {
-  //Ref-specific cases.  Additional entries should be documented in CONTRIBUTE.md
-  switch (routeDef.network) {
-    case "US:GA":
-      switch (routeDef.ref) {
-        case "515":
-          return Color.shields.blue;
-        case "520":
-          return Color.shields.green;
-        default:
-          return null;
-      }
-    case "CA:YT":
-      switch (routeDef.ref) {
-        case "2":
-        case "3":
-          return "#ce9d00";
-        case "5":
-        case "11":
-          return Color.shields.blue;
-        case "6":
-          return Color.shields.green;
-        default:
-          return Color.shields.red;
-      }
-    default:
-      //Network-specific cases are defined in shield definitions:
-      return shieldDef.colorLighten;
-  }
 }
 
 /**
