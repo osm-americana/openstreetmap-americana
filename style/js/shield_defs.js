@@ -23,7 +23,6 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
       top: 2,
       bottom: 2,
     },
-    maxFontSize: 16,
     textColor: textColor,
   };
 }
@@ -54,7 +53,6 @@ function roundedRectShield(
       top: 3,
       bottom: 3,
     },
-    maxFontSize: 16,
     textColor: textColor,
   };
 }

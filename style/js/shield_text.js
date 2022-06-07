@@ -168,14 +168,14 @@ export function layoutShieldTextFromDef(text, def, bounds) {
   var padding = def.padding || {};
 
   var textLayoutFunc = rectTextConstraint;
-  var maxFontSize = 100; //By default, no max size
+  var maxFontSize = 14; // default max size
 
   if (typeof def.textLayoutConstraint != "undefined") {
     textLayoutFunc = def.textLayoutConstraint;
   }
 
   if (typeof def.maxFontSize != "undefined") {
-    maxFontSize = def.maxFontSize;
+    maxFontSize = Math.min(maxFontSize, def.maxFontSize); // shield definition cannot set max size higher than default
   }
 
   return layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize);
