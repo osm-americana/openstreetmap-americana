@@ -490,10 +490,13 @@ export function loadShields(shieldImages) {
   };
   shields["CA:SK:tertiary"] = homeDownWhiteBlueShield;
 
-  shields["CA:YT"] = {
-    ...shields["default"],
-    colorLighten: Color.shields.red,
-  };
+  shields["CA:YT"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.red,
+    Color.shields.red,
+    2,
+    1
+  );
 
   let padding_us_interstate = {
     left: 4,
@@ -2152,21 +2155,29 @@ export function loadShields(shieldImages) {
   };
 
   shields["CA:YT"].overrideByRef = {
-    2: {
-      colorLighten: "#ce9d00",
-    },
-    3: {
-      colorLighten: "#ce9d00",
-    },
-    5: {
-      colorLighten: Color.shields.blue,
-    },
-    6: {
-      colorLighten: Color.shields.green,
-    },
-    11: {
-      colorLighten: Color.shields.blue,
-    },
+    2: roundedRectShield(Color.shields.white, "#ce9d00", "#ce9d00", 2, 1),
+    3: roundedRectShield(Color.shields.white, "#ce9d00", "#ce9d00", 2, 1),
+    5: roundedRectShield(
+      Color.shields.white,
+      Color.shields.blue,
+      Color.shields.blue,
+      2,
+      1
+    ),
+    6: roundedRectShield(
+      Color.shields.white,
+      Color.shields.green,
+      Color.shields.green,
+      2,
+      1
+    ),
+    11: roundedRectShield(
+      Color.shields.white,
+      Color.shields.blue,
+      Color.shields.blue,
+      2,
+      1
+    ),
   };
 
   shields["US:AR"].overrideByRef = {
