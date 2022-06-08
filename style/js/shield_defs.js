@@ -23,7 +23,6 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
       top: 2,
       bottom: 2,
     },
-    maxFontSize: 16,
     textColor: textColor,
   };
 }
@@ -54,7 +53,6 @@ function roundedRectShield(
       top: 3,
       bottom: 3,
     },
-    maxFontSize: 16,
     textColor: textColor,
   };
 }
@@ -495,6 +493,12 @@ export function loadShields(shieldImages) {
 
   shields["CA:YT"] = shields["default"];
 
+  let padding_us_interstate = {
+    left: 4,
+    right: 4,
+    top: 6,
+    bottom: 5,
+  };
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -502,12 +506,7 @@ export function loadShields(shieldImages) {
     ],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
-    padding: {
-      left: 3.5,
-      right: 3.5,
-      top: 5,
-      bottom: 4,
-    },
+    padding: padding_us_interstate,
   };
 
   shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
@@ -522,12 +521,7 @@ export function loadShields(shieldImages) {
     ],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
-    padding: {
-      left: 3,
-      right: 3,
-      top: 5,
-      bottom: 5,
-    },
+    padding: padding_us_interstate,
   };
 
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];

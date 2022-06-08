@@ -12,14 +12,18 @@
     "code_format": "npx prettier --write . && npx svgo -f icons/ --config configs/config.svgo.cjs",
     "clean": "rm -rf dist .parcel-cache",
     "presprites": "rm -rf dist/sprites",
-    "sprites": "mkdir -p dist/sprites && npx spritezero dist/sprites/sprite@2x icons/ --retina && npx spritezero dist/sprites/sprite icons/",
-    "status_map": "npm run sprites && node scripts/status_map.js",
-    "taginfo": "npm run sprites && node scripts/taginfo.js",
-    "start": "npm run clean && npm run sprites && npx parcel index.html --open --port 1776",
-    "build": "npm run clean && npm run sprites && npx parcel build index.html --public-url ./ && npm run taginfo && npm run status_map"
+    "sprites": "node scripts/sprites.js",
+    "status_map": "node scripts/status_map.js",
+    "taginfo": "node scripts/taginfo.js",
+    "start": "run-s clean sprites serve",
+    "serve": "parcel index.html --open --port 1776",
+    "build:code": "parcel build index.html --public-url ./",
+    "build": "run-s clean sprites build:code taginfo status_map"
   },
   "dependencies": {
-    "@beyondtracks/spritezero-cli": "^2.3.0"
+    "@basemaps/sprites": "^6.28.1",
+    "glob": "^8.0.3",
+    "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
     "maplibre-gl": "^2.1.9",
