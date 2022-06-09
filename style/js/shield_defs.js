@@ -1441,11 +1441,6 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:PA:Belt"] = {
-    notext: true,
-    backgroundDraw: ShieldDraw.paBelt,
-  };
-
   shields["US:RI"] = shields["default"];
 
   shields["US:SC"] = {
@@ -2193,6 +2188,38 @@ export function loadShields(shieldImages) {
     },
     520: {
       colorLighten: Color.shields.green,
+    },
+  };
+
+  shields["US:PA:Belt"] = {
+    notext: true,
+    backgroundDraw: (ref) =>
+      ShieldDraw.paBelt(Color.shields.white, Color.shields.black),
+    overrideByRef: {
+      "Red Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.red, Color.shields.black),
+      },
+      "Orange Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.orange, Color.shields.black),
+      },
+      "Yellow Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.yellow, Color.shields.black),
+      },
+      "Green Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.green, Color.shields.white),
+      },
+      "Blue Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.blue, Color.shields.white),
+      },
+      "Purple Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.purple, Color.shields.white),
+      },
     },
   };
 
