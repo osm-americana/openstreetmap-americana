@@ -493,6 +493,8 @@ export function loadShields(shieldImages) {
 
   shields["CA:YT"] = shields["default"];
 
+  // US Interstate Highways
+
   let padding_us_interstate = {
     left: 4,
     right: 4,
@@ -526,7 +528,8 @@ export function loadShields(shieldImages) {
 
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
 
-  //US Highways
+  // US Highways
+
   shields["US:US"] = badgeShield;
   shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
   shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
@@ -554,6 +557,22 @@ export function loadShields(shieldImages) {
     padding: padding_badge,
     colorLighten: Color.shields.brown,
   };
+
+  // US Federal Agencies
+
+  shields["US:BIA"] = {
+    backgroundImage: shieldImages.shield40_us_bia,
+    textColor: Color.shields.black,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 5,
+    },
+  };
+
+  // US States and Territories
 
   shields["US:AK"] = {
     backgroundImage: shieldImages.shield40_us_ak,
