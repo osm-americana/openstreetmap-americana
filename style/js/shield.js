@@ -225,6 +225,13 @@ function getShieldDef(routeDef) {
     return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
   }
 
+  if (shieldDef.overrideByRef) {
+    shieldDef = {
+      ...shieldDef,
+      ...shieldDef.overrideByRef[routeDef.ref],
+    };
+  }
+
   //Determine whether a route without a ref gets drawn
   if (
     !isValidRef(routeDef.ref) &&
@@ -267,7 +274,7 @@ function generateShieldCtx(id) {
   // Swap black with a different color for certain shields.
   // The secondary canvas is necessary here for some reason. Without it,
   // the recolored shield gets an opaque instead of transparent background.
-  var colorLighten = ShieldDef.shieldLighten(shieldDef, routeDef);
+  var colorLighten = shieldDef.colorLighten;
 
   // Handle special case for Kentucky
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
