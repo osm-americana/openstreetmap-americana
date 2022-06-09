@@ -339,21 +339,20 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let padding_on_primary = {
-    left: 3,
-    right: 3,
-    top: 6,
-    bottom: 3,
-  };
   shields["CA:ON:primary"] = {
     backgroundImage: shieldImages.shield40_ca_on_primary,
     textColor: Color.shields.black,
-    padding: padding_on_primary,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 6,
+      bottom: 3,
+    },
   };
   shields["CA:ON:primary:Toll"] = {
+    ...shields["CA:ON:primary"],
     backgroundImage: shieldImages.shield40_ca_on_primary_toll,
     textColor: Color.shields.white,
-    padding: padding_on_primary,
   };
   shields["CA:ON:private_toll"] = banneredShield(
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
@@ -491,7 +490,15 @@ export function loadShields(shieldImages) {
   };
   shields["CA:SK:tertiary"] = homeDownWhiteBlueShield;
 
-  shields["CA:YT"] = shields["default"];
+  shields["CA:YT"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.red,
+    Color.shields.red,
+    2,
+    1
+  );
+
+  // US Interstate Highways
 
   let padding_us_interstate = {
     left: 4,
@@ -526,7 +533,8 @@ export function loadShields(shieldImages) {
 
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
 
-  //US Highways
+  // US Highways
+
   shields["US:US"] = badgeShield;
   shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
   shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
@@ -554,6 +562,22 @@ export function loadShields(shieldImages) {
     padding: padding_badge,
     colorLighten: Color.shields.brown,
   };
+
+  // US Federal Agencies
+
+  shields["US:BIA"] = {
+    backgroundImage: shieldImages.shield40_us_bia,
+    textColor: Color.shields.black,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 5,
+    },
+  };
+
+  // US States and Territories
 
   shields["US:AK"] = {
     backgroundImage: shieldImages.shield40_us_ak,
@@ -787,7 +811,6 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-
   shields["US:GA:Truck:Bypass"] = banneredShield(shields["US:GA"], [
     "TRK",
     "BYP",
@@ -1435,11 +1458,6 @@ export function loadShields(shieldImages) {
       top: 5,
       bottom: 5,
     },
-  };
-
-  shields["US:PA:Belt"] = {
-    notext: true,
-    backgroundDraw: ShieldDraw.paBelt,
   };
 
   shields["US:RI"] = shields["default"];
@@ -2141,6 +2159,87 @@ export function loadShields(shieldImages) {
     null
   );
 
+  //Ref-specific cases. Additional entries should be documented in CONTRIBUTE.md
+
+  shields["CA:ON:primary"].overrideByRef = {
+    QEW: {
+      backgroundImage: shieldImages.shield40_ca_on_primary_qew,
+      textColor: Color.shields.blue,
+    },
+  };
+
+  shields["CA:YT"].overrideByRef = {
+    2: roundedRectShield(Color.shields.white, "#ce9d00", "#ce9d00", 2, 1),
+    3: roundedRectShield(Color.shields.white, "#ce9d00", "#ce9d00", 2, 1),
+    5: roundedRectShield(
+      Color.shields.white,
+      Color.shields.blue,
+      Color.shields.blue,
+      2,
+      1
+    ),
+    6: roundedRectShield(
+      Color.shields.white,
+      Color.shields.green,
+      Color.shields.green,
+      2,
+      1
+    ),
+    11: roundedRectShield(
+      Color.shields.white,
+      Color.shields.blue,
+      Color.shields.blue,
+      2,
+      1
+    ),
+  };
+
+  shields["US:AR"].overrideByRef = {
+    980: {
+      backgroundImage: shieldImages.shield40_us_ar_980,
+      textColor: Color.shields.white,
+    },
+  };
+
+  shields["US:GA"].overrideByRef = {
+    515: {
+      colorLighten: Color.shields.blue,
+    },
+    520: {
+      colorLighten: Color.shields.green,
+    },
+  };
+
+  shields["US:PA:Belt"] = {
+    notext: true,
+    overrideByRef: {
+      "Red Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.red, Color.shields.black),
+      },
+      "Orange Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.orange, Color.shields.black),
+      },
+      "Yellow Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.yellow, Color.shields.black),
+      },
+      "Green Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.green, Color.shields.white),
+      },
+      "Blue Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.blue, Color.shields.white),
+      },
+      "Purple Belt": {
+        backgroundDraw: (ref) =>
+          ShieldDraw.paBelt(Color.shields.purple, Color.shields.white),
+      },
+    },
+  };
+
   return shields;
 }
 
@@ -2155,45 +2254,6 @@ export function hasShieldArtwork(network) {
     shields[network] != null &&
     typeof shields[network].backgroundImage !== "undefined"
   );
-}
-
-/**
- * Determines whether a shield should be changed in color from the base color
- * to another color via a "lighten" operation.  For example, Historic US 66
- * should be converted from the standard black US route shield to the historic
- * brown color.  This function is a comprehensive list of special cases.
- *
- * @param {*} shieldDef - Shield definition
- */
-export function shieldLighten(shieldDef, routeDef) {
-  //Ref-specific cases.  Additional entries should be documented in CONTRIBUTE.md
-  switch (routeDef.network) {
-    case "US:GA":
-      switch (routeDef.ref) {
-        case "515":
-          return Color.shields.blue;
-        case "520":
-          return Color.shields.green;
-        default:
-          return null;
-      }
-    case "CA:YT":
-      switch (routeDef.ref) {
-        case "2":
-        case "3":
-          return "#ce9d00";
-        case "5":
-        case "11":
-          return Color.shields.blue;
-        case "6":
-          return Color.shields.green;
-        default:
-          return Color.shields.red;
-      }
-    default:
-      //Network-specific cases are defined in shield definitions:
-      return shieldDef.colorLighten;
-  }
 }
 
 /**
