@@ -18,7 +18,7 @@ const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
 // Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
-export function paBelt(ref) {
+export function paBelt(fillColor, strokeColor) {
   var ctx = square();
 
   let lineWidth = 0.5 * PXR;
@@ -26,34 +26,8 @@ export function paBelt(ref) {
   ctx.beginPath();
   ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
 
-  switch (ref) {
-    case "Red Belt":
-      ctx.fillStyle = Color.shields.red;
-      ctx.strokeStyle = Color.shields.black;
-      break;
-    case "Orange Belt":
-      ctx.fillStyle = Color.shields.orange;
-      ctx.strokeStyle = Color.shields.black;
-      break;
-    case "Yellow Belt":
-      ctx.fillStyle = Color.shields.yellow;
-      ctx.strokeStyle = Color.shields.black;
-      break;
-    case "Green Belt":
-      ctx.fillStyle = Color.shields.green;
-      ctx.strokeStyle = Color.shields.white;
-      break;
-    case "Blue Belt":
-      ctx.fillStyle = Color.shields.blue;
-      ctx.strokeStyle = Color.shields.white;
-      break;
-    case "Purple Belt":
-      ctx.fillStyle = Color.shields.purple;
-      ctx.strokeStyle = Color.shields.white;
-      break;
-    default:
-      return null;
-  }
+  ctx.fillStyle = fillColor;
+  ctx.strokeStyle = strokeColor;
   ctx.fill();
 
   ctx.lineWidth = lineWidth;
