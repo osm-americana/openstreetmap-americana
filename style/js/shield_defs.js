@@ -2160,24 +2160,10 @@ export function loadShields(shieldImages) {
   );
 
   // Sweden
-  shields["SE:RV"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1,
-    null
-  );
-  shields["SE:LV"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1,
-    null
-  );
   [
-    "AB",
+    "RV", // Riksväg - national road
+    "LV", // Länsväg - primary county road
+    "AB", // Individual counties
     "C",
     "D",
     "E",
@@ -2209,6 +2195,7 @@ export function loadShields(shieldImages) {
         null
       ))
   );
+  // Lokal slinga - Local loops
   shields["SE:LS"] = roundedRectShield(
     Color.shields.white,
     Color.shields.black,
@@ -2298,7 +2285,6 @@ export function loadShields(shieldImages) {
       },
     },
   };
->>>>>>> main
 
   return shields;
 }
