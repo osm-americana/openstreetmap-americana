@@ -2077,6 +2077,46 @@ export function loadShields(shieldImages) {
     1
   );
 
+  // Bosnia and Herzegovina
+  shields["ba:Autoceste"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+
+  shields["ba:Magistralne ceste"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+
+  // Bulgaria
+  shields["bg:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+
+  // Belarus
+  shields["by:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Czechia
   shields["CZ:national"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
@@ -2095,6 +2135,66 @@ export function loadShields(shieldImages) {
     35
   );
 
+  // Denmark
+  shields["dk:national"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black,
+    2,
+    1,
+    35
+  );
+
+  // Estonia
+  shields["ee:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Spain
+  shields["ES:A-road"] = roundedRectShield(
+    Color.shields.blue,
+    null,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Finland
+  shields["fi:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // France
+  shields["FR:A-road"] = roundedRectShield(
+    Color.shields.red,
+    null,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Greece
+  shields["GR:national"] = wideHexagonGreenShield;
+  shields["GR:motorway"] = shields["GR:national"];
+
+  // Hungary
+  shields["HU:national"] = {
+    ...homeDownBlueWhiteShield,
+    backgroundImage: shieldImages.shield40_home_down_blue_3,
+  };
+
   // Italy
   shields["IT:A-road"] = {
     backgroundImage: [
@@ -2111,27 +2211,55 @@ export function loadShields(shieldImages) {
     },
   };
 
-  // Hungary
-  shields["HU:national"] = {
-    ...homeDownBlueWhiteShield,
-    backgroundImage: shieldImages.shield40_home_down_blue_3,
+  // Lithuania
+  shields["lt:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Latvia
+  shields["lv:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+  shields["lv:regional"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Moldova
+  shields["md:national"] = {
+    backgroundImage: shieldImages.shield40_ro_trunk_2,
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
+    },
   };
 
-  // Slovakia
-  shields["sk:national"] = roundedRectShield(
-    Color.shields.red,
+  // Montenegro
+  shields["ME:Magistralni putevi"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
     2,
     1,
     35
   );
-
-  // Slovenia
-  shields["SI:AC"] = wideHexagonGreenShield;
-
-  // Serbia
-  shields["RS:national"] = wideHexagonGreenShield;
 
   // North Macedonia
   shields["mk:national"] = wideHexagonGreenShield;
@@ -2151,6 +2279,106 @@ export function loadShields(shieldImages) {
     2,
     null
   );
+
+  [
+    "Amsterdam",
+    "Den Haag",
+    "Rotterdam",
+    "Nijmegen",
+    "Parkstad",
+    "Zaanstad",
+  ].forEach(
+    (city) =>
+      (shields["NL:S:" + city] = {
+        backgroundImage: shieldImages.shield40_nl_city,
+        textColor: Color.shields.black,
+        padding: {
+          left: 3,
+          right: 3,
+          top: 4,
+          bottom: 5,
+        },
+      })
+  );
+
+  // Poland
+  shields["pl:motorways"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+  shields["pl:expressways"] = shields["pl:motorways"];
+  shields["pl:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Portugal
+  shields["PT:national"] = roundedRectShield(
+    Color.shields.blue,
+    null,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+  shields["PT:regional"] = shields["PT:national"];
+
+  // Romania
+  shields["RO:A"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+
+  // Serbia
+  shields["RS:national"] = wideHexagonGreenShield;
+
+  // Russia
+  shields["ru:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Slovenia
+  shields["SI:AC"] = wideHexagonGreenShield;
+
+  // Slovakia
+  shields["sk:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+
+  // Ukraine
+  shields["ua:international"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    null
+  );
+
+  // Kosovo
+  shields["XK:motorway"] = wideHexagonGreenShield;
 
   //Ref-specific cases. Additional entries should be documented in CONTRIBUTE.md
 
@@ -2230,184 +2458,6 @@ export function loadShields(shieldImages) {
         backgroundDraw: (ref) =>
           ShieldDraw.paBelt(Color.shields.purple, Color.shields.white),
       },
-    },
-  };
-
-  [
-    "Amsterdam",
-    "Den Haag",
-    "Rotterdam",
-    "Nijmegen",
-    "Parkstad",
-    "Zaanstad",
-  ].forEach(
-    (city) =>
-      (shields["NL:S:" + city] = {
-        backgroundImage: shieldImages.shield40_nl_city_2,
-        textColor: "black",
-        padding: {
-          left: 3,
-          right: 3,
-          top: 4,
-          bottom: 5,
-        },
-      })
-  );
-
-  // Greece
-  shields["GR:national"] = wideHexagonGreenShield;
-  shields["GR:motorway"] = shields["GR:national"];
-
-  // France
-  shields["FR:A-road"] = roundedRectShield(
-    "#cd151d",
-    null,
-    "white",
-    2,
-    2,
-    null
-  );
-
-  // Bulgaria
-  shields["bg:national"] = roundedRectShield(
-    "#026254",
-    "white",
-    "white",
-    3,
-    2,
-    33
-  );
-
-  // Kosovo
-  shields["XK:motorway"] = wideHexagonGreenShield;
-
-  // Bosnia and Herzegovina
-  shields["ba:Autoceste"] = roundedRectShield(
-    "#0B8F4B",
-    "white",
-    "white",
-    3,
-    2,
-    33
-  );
-
-  shields["ba:Magistralne ceste"] = shields["cz:national"];
-
-  // Spain
-  shields["ES:A-road"] = roundedRectShield(
-    "#19408b",
-    null,
-    "white",
-    2,
-    0,
-    null
-  );
-
-  // Portugal
-  shields["PT:national"] = roundedRectShield(
-    "#19408b",
-    null,
-    "white",
-    2,
-    0,
-    null
-  );
-  shields["PT:regional"] = shields["PT:national"];
-
-  // Poland
-  shields["pl:motorways"] = roundedRectShield(
-    "#ed2224",
-    "white",
-    "white",
-    2,
-    1.5,
-    33
-  );
-  shields["pl:expressways"] = shields["pl:motorways"];
-  shields["pl:national"] = roundedRectShield(
-    "#ed2224",
-    "white",
-    "white",
-    2,
-    1.5,
-    null
-  );
-
-  // Lithuania
-  shields["lt:national"] = roundedRectShield(
-    "#ed2224",
-    "white",
-    "white",
-    2,
-    1.5,
-    null
-  );
-
-  // Latvia
-  shields["lv:national"] = shields["lt:national"];
-  shields["lv:regional"] = roundedRectShield(
-    "#263894",
-    "white",
-    "white",
-    2,
-    1.5,
-    null
-  );
-
-  // Estonia
-  shields["ee:national"] = shields["pl:national"];
-
-  // Finland
-  shields["fi:national"] = shields["pl:national"];
-
-  // Denmark
-  shields["dk:national"] = roundedRectShield(
-    "#eacb44",
-    "black",
-    "black",
-    2,
-    1.5,
-    33
-  );
-
-  // Ukraine
-  shields["ua:international"] = roundedRectShield(
-    "#006699",
-    "white",
-    "white",
-    2,
-    1.5,
-    null
-  );
-
-  // Belarus
-  shields["by:national"] = shields["pl:national"];
-
-  // Russia
-  shields["ru:national"] = shields["ua:international"];
-
-  // Montenegro
-  shields["ME:Magistralni putevi"] = roundedRectShield(
-    "#006699",
-    "white",
-    "white",
-    2,
-    1.5,
-    33
-  );
-
-  // Romania
-  shields["RO:A"] = roundedRectShield("#008033", "white", "white", 3, 1.5, 33);
-
-  // Moldova
-  shields["md:national"] = {
-    backgroundImage: shieldImages.shield40_ro_trunk_2,
-    textColor: "white",
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
     },
   };
 
