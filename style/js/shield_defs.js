@@ -2100,25 +2100,6 @@ export function loadShields(shieldImages) {
     },
   };
 
-  /**
-   * The top-level Swiss highway network is currently tagged with the oddly generic network=motorway.
-   * Given the general lack of data consumer support for road route relations in Europe, this code is
-   * temporarily disabled until we can be assured that supporting such a generic value for a national
-   * network is appropriate mapper feedback.
-   */
-
-  // Switzerland
-  // shields["motorway"] = {
-  //   backgroundImage: shieldImages.shield40_ch_2,
-  //   textColor: Color.shields.white,
-  //   padding: {
-  //     left: 2,
-  //     right: 2,
-  //      top: 4,
-  //    bottom: 5,
-  //   },
-  // };
-
   // Hungary
   shields["HU:national"] = {
     ...homeDownBlueWhiteShield,
@@ -2146,10 +2127,6 @@ export function loadShields(shieldImages) {
       bottom: 4.5,
     },
   };
-
-  // Croatia
-  shields["Autoceste"] = shields["SI:AC"];
-  shields["Državne ceste"] = shields["cz:national"];
 
   // Serbia
   shields["RS:national"] = shields["SI:AC"];
@@ -2275,18 +2252,6 @@ export function loadShields(shieldImages) {
       })
   );
 
-  // Germany
-  shields["BAB"] = {
-    backgroundImage: shieldImages.shield40_de_2,
-    textColor: "white",
-    padding: {
-      left: 3,
-      right: 3,
-      top: 4,
-      bottom: 5,
-    },
-  };
-
   // Greece
   shields["GR:national"] = {
     backgroundImage: shieldImages.shield40_gr_2,
@@ -2401,7 +2366,6 @@ export function loadShields(shieldImages) {
 
   // Finland
   shields["fi:national"] = shields["pl:national"];
-  shields["trunk"] = shields["fi:national"];
 
   // Denmark
   shields["dk:national"] = roundedRectShield(
@@ -2412,9 +2376,6 @@ export function loadShields(shieldImages) {
     1.5,
     33
   );
-
-  // Iceland
-  shields["S"] = roundedRectShield("white", "black", "black", 2, 1.5, 33);
 
   // Ukraine
   shields["ua:international"] = roundedRectShield(
