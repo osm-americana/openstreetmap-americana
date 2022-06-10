@@ -1936,7 +1936,8 @@ export function loadShields(shieldImages) {
   shields["US:TX:Beltway"] = banneredShield(shields["US:TX"], ["BELT"]);
   shields["US:TX:FM"] = banneredShield(shields["US:TX"], ["F.M."]);
   shields["US:TX:FM:Business"] = banneredShield(shields["US:TX:FM"], [
-    "BUS, F.M.",
+    "BUS",
+    "F.M.",
   ]);
   shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
   shields["US:TX:RM"] = banneredShield(shields["US:TX"], ["R.M."]);
