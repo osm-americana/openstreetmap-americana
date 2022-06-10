@@ -4,6 +4,7 @@
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
+import * as Color from "../constants/color.js";
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldText from "./shield_text.js";
 
@@ -17,40 +18,19 @@ const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
 // Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
-export function paBelt(ref) {
+export function paBelt(fillColor, strokeColor) {
   var ctx = square();
 
-  let lineWidth = 1 * PXR;
+  let lineWidth = 0.5 * PXR;
   let diameter = CS / 3 - lineWidth;
   ctx.beginPath();
   ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
 
-  switch (ref) {
-    case "Red Belt":
-      ctx.fillStyle = "#b01c2e";
-      break;
-    case "Orange Belt":
-      ctx.fillStyle = "#d97300";
-      break;
-    case "Yellow Belt":
-      ctx.fillStyle = "#f7d117";
-      break;
-    case "Green Belt":
-      ctx.fillStyle = "#006b54";
-      break;
-    case "Blue Belt":
-      ctx.fillStyle = "#003882";
-      break;
-    case "Purple Belt":
-      ctx.fillStyle = "#bd0063";
-      break;
-    default:
-      return null;
-  }
+  ctx.fillStyle = fillColor;
+  ctx.strokeStyle = strokeColor;
   ctx.fill();
 
   ctx.lineWidth = lineWidth;
-  ctx.strokeStyle = "black";
   ctx.stroke();
   return ctx;
 }
@@ -96,7 +76,14 @@ function square() {
 }
 
 export function rectangle(ref) {
-  return roundedRectangle("white", "black", ref, 1.3, 1, null);
+  return roundedRectangle(
+    Color.shields.white,
+    Color.shields.black,
+    ref,
+    2,
+    1,
+    null
+  );
 }
 
 export function blank() {
@@ -121,6 +108,7 @@ export function roundedRectangle(
   } else {
     var width = rectWidth * PXR;
   }
+  width = Math.ceil(width);
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
 
