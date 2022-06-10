@@ -115,6 +115,17 @@ export function loadShields(shieldImages) {
     padding: padding_badge,
   };
 
+  let wideHexagonGreenShield = {
+    backgroundImage: shieldImages.shield40_hexagon_wide_green,
+    textColor: Color.shields.white,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4.5,
+      bottom: 4.5,
+    },
+  };
+
   let padding_home_down = {
     left: 2,
     right: 2,
@@ -2117,22 +2128,13 @@ export function loadShields(shieldImages) {
   );
 
   // Slovenia
-  shields["SI:AC"] = {
-    backgroundImage: shieldImages.shield40_si_2,
-    textColor: Color.shields.white,
-    padding: {
-      left: 3,
-      right: 3,
-      top: 4.5,
-      bottom: 4.5,
-    },
-  };
+  shields["SI:AC"] = wideHexagonGreenShield;
 
   // Serbia
-  shields["RS:national"] = shields["SI:AC"];
+  shields["RS:national"] = wideHexagonGreenShield;
 
   // North Macedonia
-  shields["mk:national"] = shields["SI:AC"];
+  shields["mk:national"] = wideHexagonGreenShield;
 
   // Netherlands
   shields["NL:A"] = roundedRectShield(
@@ -2253,16 +2255,7 @@ export function loadShields(shieldImages) {
   );
 
   // Greece
-  shields["GR:national"] = {
-    backgroundImage: shieldImages.shield40_gr_2,
-    textColor: "white",
-    padding: {
-      left: 3,
-      right: 3,
-      top: 4,
-      bottom: 5,
-    },
-  };
+  shields["GR:national"] = wideHexagonGreenShield;
   shields["GR:motorway"] = shields["GR:national"];
 
   // France
@@ -2286,7 +2279,7 @@ export function loadShields(shieldImages) {
   );
 
   // Kosovo
-  shields["XK:motorway"] = shields["SI:AC"];
+  shields["XK:motorway"] = wideHexagonGreenShield;
 
   // Bosnia and Herzegovina
   shields["ba:Autoceste"] = roundedRectShield(
