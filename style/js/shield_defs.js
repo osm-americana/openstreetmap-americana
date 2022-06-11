@@ -2265,6 +2265,7 @@ export function loadShields(shieldImages) {
   shields["mk:national"] = wideHexagonGreenShield;
 
   // Netherlands
+  // https://wiki.openstreetmap.org/wiki/The_Netherlands_road_network
   shields["NL:A"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
@@ -2279,26 +2280,43 @@ export function loadShields(shieldImages) {
     2,
     1
   );
-
   [
-    "Amsterdam",
-    "Den Haag",
-    "Rotterdam",
-    "Nijmegen",
-    "Parkstad",
-    "Zaanstad",
+    "NL:S:Amsterdam",
+    "NL:S:Den Haag",
+    "NL:S:Nijmegen",
+    "NL:S:Parkstad",
+    "NL:S:Rotterdam",
+    "NL:S:Zaanstad",
+    "NL:binnenstedelijke_ring", // also for Curacao
   ].forEach(
-    (city) =>
-      (shields["NL:S:" + city] = {
+    (network) =>
+      (shields[network] = {
         backgroundImage: shieldImages.shield40_nl_city,
         textColor: Color.shields.black,
         padding: {
           left: 3,
           right: 3,
-          top: 4,
-          bottom: 5,
+          top: 3,
+          bottom: 3,
         },
       })
+  );
+  [
+    "NL:R:Ommen",
+    "NL:R:Schouwen",
+    "NL:R:Sluis",
+    "NL:R:Spaarnwoude",
+    "NL:R:Voorthuizen",
+    "NL:R:IJmuiden",
+  ].forEach(
+    (network) =>
+      (shields[network] = roundedRectShield(
+        Color.shields.brown,
+        Color.shields.white,
+        Color.shields.white,
+        2,
+        1
+    ))
   );
 
   // Poland
