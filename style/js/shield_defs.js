@@ -2775,6 +2775,52 @@ export function loadShields(shieldImages) {
   // Kosovo
   shields["XK:motorway"] = wideHexagonGreenShield;
 
+  // Sweden
+  [
+    "RV", // Riksväg - national road
+    "LV", // Länsväg - primary county road
+    "AB", // Individual counties
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "K",
+    "M",
+    "N",
+    "O",
+    "S",
+    "T",
+    "U",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    "AC",
+    "BD",
+  ].forEach(
+    (county_letter) =>
+      (shields[`SE:${county_letter}`] = roundedRectShield(
+        Color.shields.blue,
+        Color.shields.white,
+        Color.shields.white,
+        2,
+        1,
+        null
+      ))
+  );
+  // Lokal slinga - Local loops
+  shields["SE:LS"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2,
+    1,
+    null
+  );
+
   //Ref-specific cases. Additional entries should be documented in CONTRIBUTE.md
 
   shields["CA:ON:primary"].overrideByRef = {
