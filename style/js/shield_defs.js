@@ -2280,37 +2280,38 @@ export function loadShields(shieldImages) {
     2,
     1
   );
+  let nlCityRoute = {
+    backgroundImage: shieldImages.shield40_nl_city,
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 3,
+    },
+  };
   [
-    "NL:S:Amsterdam",
-    "NL:S:Den Haag",
-    "NL:S:Nijmegen",
-    "NL:S:Parkstad",
-    "NL:S:Rotterdam",
-    "NL:S:Zaanstad",
-    "NL:binnenstedelijke_ring", // also for Curacao
+    "Amsterdam",
+    "Den Haag",
+    "Nijmegen",
+    "Parkstad",
+    "Rotterdam",
+    "Zaanstad",
   ].forEach(
-    (network) =>
-      (shields[network] = {
-        backgroundImage: shieldImages.shield40_nl_city,
-        textColor: Color.shields.black,
-        padding: {
-          left: 3,
-          right: 3,
-          top: 3,
-          bottom: 3,
-        },
-      })
+    (city) =>
+      (shields[`NL:S:${city}`] = nlCityRoute)
   );
+  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both Netherlands and Curacao
   [
-    "NL:R:Ommen",
-    "NL:R:Schouwen",
-    "NL:R:Sluis",
-    "NL:R:Spaarnwoude",
-    "NL:R:Voorthuizen",
-    "NL:R:IJmuiden",
+    "Ommen",
+    "Schouwen",
+    "Sluis",
+    "Spaarnwoude",
+    "Voorthuizen",
+    "IJmuiden",
   ].forEach(
-    (network) =>
-      (shields[network] = roundedRectShield(
+    (place) =>
+      (shields[`NL:R:${place}`] = roundedRectShield(
         Color.shields.brown,
         Color.shields.white,
         Color.shields.white,
