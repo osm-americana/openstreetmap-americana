@@ -2297,10 +2297,7 @@ export function loadShields(shieldImages) {
     "Parkstad",
     "Rotterdam",
     "Zaanstad",
-  ].forEach(
-    (city) =>
-      (shields[`NL:S:${city}`] = nlCityRoute)
-  );
+  ].forEach((city) => (shields[`NL:S:${city}`] = nlCityRoute));
   shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both Netherlands and Curacao
   [
     "Ommen",
