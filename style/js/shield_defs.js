@@ -2316,7 +2316,7 @@ export function loadShields(shieldImages) {
         Color.shields.white,
         2,
         1
-    ))
+      ))
   );
 
   // Poland
