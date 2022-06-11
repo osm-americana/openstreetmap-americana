@@ -2158,7 +2158,7 @@ export function loadShields(shieldImages) {
   // Spain
   shields["ES:A-road"] = roundedRectShield(
     Color.shields.blue,
-    null,
+    Color.shields.white,
     Color.shields.white,
     2,
     1,
@@ -2178,7 +2178,7 @@ export function loadShields(shieldImages) {
   // France
   shields["FR:A-road"] = roundedRectShield(
     Color.shields.red,
-    null,
+    Color.shields.white,
     Color.shields.white,
     2,
     1,
@@ -2274,10 +2274,10 @@ export function loadShields(shieldImages) {
   );
   shields["NL:N"] = roundedRectShield(
     Color.shields.yellow,
-    null,
+    Color.shields.black,
     Color.shields.black,
     2,
-    null
+    1
   );
 
   [
@@ -2323,7 +2323,7 @@ export function loadShields(shieldImages) {
   // Portugal
   shields["PT:national"] = roundedRectShield(
     Color.shields.blue,
-    null,
+    Color.shields.white,
     Color.shields.white,
     2,
     1,
