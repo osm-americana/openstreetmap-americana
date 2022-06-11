@@ -2038,6 +2038,7 @@ export function loadShields(shieldImages) {
       bottom: 5,
     },
   };
+  shields["US:UT:Wayne"] = pentagonShieldBlueYellow;
 
   shields["US:VA"] = {
     backgroundImage: [
