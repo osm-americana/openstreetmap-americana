@@ -278,7 +278,6 @@ Banners should be specified in the following cases:
 
 - When a route represents a variant of a main route with which it shares a common shield design. The banner ensures that the variant route information, which is an important component of the route, is visually displayed.
 - When two or more routes from different networks share a common symbology in the map within a common geographical area. Shields which are very similar may be drawn using common graphics for simplicity and readability, for example, when the networks differ only by a difference in text. In these cases, the most significant network should be drawn with no banner, and each of the less significant networks should be drawn with a banner.
-- To indicate toll road networks on non-motorway roads, because such roads are not colored differently from non-toll roads.
 - When a short text of up to 4 characters is a significant stylistic element of a shield that can't reasonably be incorporated into the main shield graphic for aesthetic reasons.
 
 In all cases, banner text should be no more than **4** characters in length.
