@@ -59,7 +59,7 @@ project through Rosetta][63].
 
 ### Windows
 
-Due to [dependency issues][61] which previously caused issues on Windows, running 
+Due to [dependency issues][61] which previously caused issues on Windows, running
 the project on [Ubuntu](#ubuntu-linux) via [Windows Subsystem for Linux][60] had been
 recommended. Now that these dependency issues have been resolved, it should be possible
 to run the project on Windows so long as you have Node.js, npm, and Windows executable of
