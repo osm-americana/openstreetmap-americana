@@ -1841,6 +1841,7 @@ export function loadShields(shieldImages) {
       shieldImages.shield40_us_ok_3,
     ],
     textColor: Color.shields.black,
+    textHaloColor: Color.shields.white,
     padding: {
       left: 3,
       right: 3,
