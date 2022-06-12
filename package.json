@@ -9,7 +9,9 @@
   },
   "scripts": {
     "config": "cp src/configs/config.maptiler.js src/config.js",
-    "code_format": "npx prettier --write . && npx svgo -f icons/ --config src/configs/config.svgo.cjs",
+    "code_format": "run-s code_format:prettier code_format:svgo",
+    "code_format:prettier": "prettier --write .",
+    "code_format:svgo": "svgo -f icons/",
     "clean": "rm -rf dist .parcel-cache",
     "presprites": "rm -rf dist/sprites",
     "sprites": "node scripts/sprites.js",
