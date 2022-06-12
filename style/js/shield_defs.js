@@ -177,12 +177,6 @@ export function loadShields(shieldImages) {
     padding: padding_home_down,
   };
 
-  // Home plate, flipped vertically, white fill, blue stroke
-  let homeDownWhiteBlueShield = {
-    ...homeDownWhiteShield,
-    colorLighten: Color.shields.blue,
-  };
-
   let padding_trapezoid_up = {
     left: 4,
     right: 4,
@@ -197,10 +191,6 @@ export function loadShields(shieldImages) {
     ],
     textColor: Color.shields.black,
     padding: padding_trapezoid_up,
-  };
-  let trapezoidUpShieldWhiteBlue = {
-    ...trapezoidUpShield,
-    colorLighten: Color.shields.blue,
   };
 
   let trapezoidUpShieldBlackYellow = {
@@ -384,7 +374,11 @@ export function loadShields(shieldImages) {
   shields["CA:ON:tertiary"] = shields["default"];
   shields["CA:ON:Halton"] = trapezoidUpShieldGreenYellow;
   shields["CA:ON:Peel"] = trapezoidUpShieldBlackYellow;
-  shields["CA:ON:Simcoe"] = trapezoidUpShieldWhiteBlue;
+  shields["CA:ON:Simcoe"] = {
+    ...trapezoidUpShield,
+    textColor: Color.shields.blue,
+    colorLighten: Color.shields.blue,
+  };
   ["Grey", "Hamilton", "Niagara"].forEach(
     (county) => (shields[`CA:ON:${county}`] = trapezoidUpShieldBlueWhite)
   );
@@ -510,7 +504,11 @@ export function loadShields(shieldImages) {
       bottom: 2,
     },
   };
-  shields["CA:SK:tertiary"] = homeDownWhiteBlueShield;
+  shields["CA:SK:tertiary"] = {
+    ...homeDownWhiteShield,
+    textColor: Color.shields.blue,
+    colorLighten: Color.shields.blue,
+  };
 
   shields["CA:YT"] = roundedRectShield(Color.shields.white, Color.shields.red);
 
@@ -574,6 +572,7 @@ export function loadShields(shieldImages) {
 
   shields["US:US:Historic"] = {
     ...badgeShield,
+    textColor: Color.shields.brown,
     colorLighten: Color.shields.brown,
   };
 
@@ -1105,28 +1104,25 @@ export function loadShields(shieldImages) {
 
   shields["US:MA"] = shields["default"];
 
-  let padding_us_md = {
-    left: 4,
-    right: 4,
-    top: 7,
-    bottom: 3,
-  };
-  let shield_us_md = [
-    shieldImages.shield40_us_md_2,
-    shieldImages.shield40_us_md_3,
-  ];
   shields["US:MD"] = {
-    backgroundImage: shield_us_md,
+    backgroundImage: [
+      shieldImages.shield40_us_md_2,
+      shieldImages.shield40_us_md_3,
+    ],
     textColor: Color.shields.black,
-    padding: padding_us_md,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 7,
+      bottom: 3,
+    },
   };
   shields["US:MD:Alternate"] = banneredShield(shields["US:MD"], ["ALT"]);
   shields["US:MD:Bypass"] = banneredShield(shields["US:MD"], ["BYP"]);
   shields["US:MD:Business"] = banneredShield(
     {
-      backgroundImage: shield_us_md,
-      textColor: Color.shields.black,
-      padding: padding_us_md,
+      ...shields["US:MD"],
+      textColor: Color.shields.green,
       colorLighten: Color.shields.green,
     },
     ["BUS"]
@@ -2860,9 +2856,11 @@ export function loadShields(shieldImages) {
 
   shields["US:GA"].overrideByRef = {
     515: {
+      textColor: Color.shields.blue,
       colorLighten: Color.shields.blue,
     },
     520: {
+      textColor: Color.shields.green,
       colorLighten: Color.shields.green,
     },
   };

@@ -198,6 +198,28 @@ export function drawShieldText(ctx, text, textLayout) {
 }
 
 /**
+ * Draw drop shadow for text on a shield
+ *
+ * @param {*} ctx - graphics context to draw to
+ * @param {*} text - text to draw
+ * @param {*} textLayout - location to draw text
+ */
+export function drawShieldHaloText(ctx, text, textLayout) {
+  //Stroke color is set by strokeStyle
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+  ctx.font = Gfx.shieldFont(textLayout.fontPx);
+
+  ctx.shadowColor = ctx.strokeStyle;
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 2 * PXR;
+
+  ctx.strokeText(text, textLayout.xBaseline, textLayout.yBaseline);
+  ctx.shadowColor = null;
+  ctx.shadowBlur = null;
+}
+
+/**
  * Draw text on a modifier plate above a shield
  *
  * @param {*} ctx - graphics context to draw to
