@@ -114,8 +114,7 @@ function generateBlankGraphicsContext(shieldDef, routeDef) {
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.backgroundDraw == "undefined") {
-      //Default to drawing a rectangle if shape draw function is not specified
-      shieldDef.backgroundDraw = ShieldDraw.rectangle;
+      shieldDef.backgroundDraw = ShieldDraw.blank;
     }
 
     //Do a test background draw to determine drawn size
@@ -135,8 +134,7 @@ function drawShield(ctx, shieldDef, routeDef) {
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.backgroundDraw == "undefined") {
-      //Default to drawing a rectangle if shape draw function is not specified
-      shieldDef.backgroundDraw = ShieldDraw.rectangle;
+      shieldDef.backgroundDraw = ShieldDraw.blank;
     }
 
     let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
@@ -161,8 +159,7 @@ function drawShieldText(ctx, shieldDef, routeDef) {
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.backgroundDraw == "undefined") {
-      //Default to drawing a rectangle if shape draw function is not specified
-      shieldDef.backgroundDraw = ShieldDraw.rectangle;
+      shieldDef.backgroundDraw = ShieldDraw.blank;
     }
 
     let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
@@ -244,7 +241,7 @@ function getShieldDef(routeDef) {
   var shieldDef = ShieldDef.shields[routeDef.network];
 
   if (shieldDef == null) {
-    //Default to a plain white rectangle with black outline and text
+    //Default to plain black text with a white halo
     return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
   }
 
@@ -291,7 +288,7 @@ function generateShieldCtx(id) {
   var shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
-    return ShieldDraw.blank();
+    return ShieldDraw.blank(ref);
   }
 
   // Swap black with a different color for certain shields.
