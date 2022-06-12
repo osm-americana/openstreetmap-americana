@@ -288,7 +288,7 @@ function generateShieldCtx(id) {
   var shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
-    return ShieldDraw.blank(ref);
+    return ShieldDraw.blank(routeDef.ref);
   }
 
   // Swap black with a different color for certain shields.
