@@ -3,6 +3,8 @@
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldDef from "./shield_defs.js";
 
+export const PXR = Gfx.getPixelRatio();
+
 const VerticalAlignment = {
   Middle: "middle",
   Top: "top",
@@ -166,14 +168,14 @@ export function layoutShieldTextFromDef(text, def, bounds) {
   var padding = def.padding || {};
 
   var textLayoutFunc = rectTextConstraint;
-  var maxFontSize = 100; //By default, no max size
+  var maxFontSize = 14; // default max size
 
   if (typeof def.textLayoutConstraint != "undefined") {
     textLayoutFunc = def.textLayoutConstraint;
   }
 
   if (typeof def.maxFontSize != "undefined") {
-    maxFontSize = def.maxFontSize;
+    maxFontSize = Math.min(maxFontSize, def.maxFontSize); // shield definition cannot set max size higher than default
   }
 
   return layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize);
@@ -219,7 +221,8 @@ export function drawBannerText(ctx, text, bannerIndex) {
     textLayout.xBaseline,
     textLayout.yBaseline +
       bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding
+      ShieldDef.bannerPadding +
+      ShieldDef.topPadding
   );
 }
 
@@ -241,15 +244,16 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
-  ctx.shadowBlur = 5;
-  ctx.lineWidth = 1.2;
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 2 * PXR;
 
   ctx.strokeText(
     text,
     textLayout.xBaseline,
     textLayout.yBaseline +
       bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding
+      ShieldDef.bannerPadding +
+      ShieldDef.topPadding
   );
   ctx.shadowColor = null;
   ctx.shadowBlur = null;

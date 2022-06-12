@@ -15,7 +15,11 @@ function loadShield(ctx, shield, bannerCount) {
 
   drawCtx.putImageData(imgData, 0, 0);
 
-  ctx.drawImage(drawCtx.canvas, 0, bannerCount * ShieldDef.bannerSizeH);
+  ctx.drawImage(
+    drawCtx.canvas,
+    0,
+    bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
+  );
 }
 
 function drawBannerPart(ctx, network, drawFunc) {
@@ -35,7 +39,10 @@ function drawBannerPart(ctx, network, drawFunc) {
 function compoundShieldSize(dimension, bannerCount) {
   return {
     width: dimension.width,
-    height: dimension.height + bannerCount * ShieldDef.bannerSizeH,
+    height:
+      dimension.height +
+      bannerCount * ShieldDef.bannerSizeH +
+      ShieldDef.topPadding,
   };
 }
 
@@ -138,7 +145,7 @@ function drawShield(ctx, shieldDef, routeDef) {
     ctx.drawImage(
       drawnShieldCtx.canvas,
       0,
-      bannerCount * ShieldDef.bannerSizeH
+      bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
     );
 
     shieldBounds = {
@@ -173,7 +180,8 @@ function drawShield(ctx, shieldDef, routeDef) {
     shieldBounds
   );
 
-  textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
+  textLayout.yBaseline +=
+    bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   ctx.fillStyle = textColor(shieldDef);
   ShieldText.drawShieldText(ctx, routeDef.ref, textLayout);
@@ -217,6 +225,13 @@ function getShieldDef(routeDef) {
     return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
   }
 
+  if (shieldDef.overrideByRef) {
+    shieldDef = {
+      ...shieldDef,
+      ...shieldDef.overrideByRef[routeDef.ref],
+    };
+  }
+
   //Determine whether a route without a ref gets drawn
   if (
     !isValidRef(routeDef.ref) &&
@@ -256,6 +271,11 @@ function generateShieldCtx(id) {
     return ShieldDraw.blank();
   }
 
+  // Swap black with a different color for certain shields.
+  // The secondary canvas is necessary here for some reason. Without it,
+  // the recolored shield gets an opaque instead of transparent background.
+  var colorLighten = shieldDef.colorLighten;
+
   // Handle special case for Kentucky
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
@@ -267,26 +287,28 @@ function generateShieldCtx(id) {
   drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
 
   // Draw the shield and shield text
-  drawShield(ctx, shieldDef, routeDef);
-
-  // Add modifier plaque text
-  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerText);
-
-  // Swap black with a different color for certain shields.
-  // The secondary canvas is necessary here for some reason. Without it,
-  // the recolored shield gets an opaque instead of transparent background.
-  var colorLighten = ShieldDef.shieldLighten(shieldDef, routeDef);
-
   if (colorLighten) {
-    let colorCtx = Gfx.getGfxContext(ctx.canvas);
+    // Draw a color-composited version of the shield and shield text
+    let shieldCtx = generateBlankGraphicsContext(shieldDef, routeDef);
+    drawShield(shieldCtx, shieldDef, routeDef);
+
+    let colorCtx = generateBlankGraphicsContext(shieldDef, routeDef);
+    drawShield(colorCtx, shieldDef, routeDef);
     colorCtx.drawImage(ctx.canvas, 0, 0);
     colorCtx.globalCompositeOperation = "lighten";
     colorCtx.fillStyle = colorLighten;
     colorCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     colorCtx.globalCompositeOperation = "destination-atop";
-    colorCtx.drawImage(ctx.canvas, 0, 0);
-    ctx = colorCtx;
+    colorCtx.drawImage(shieldCtx.canvas, 0, 0);
+
+    ctx.drawImage(colorCtx.canvas, 0, 0);
+  } else {
+    // Draw the shield and shield text
+    drawShield(ctx, shieldDef, routeDef);
   }
+
+  // Add modifier plaque text
+  drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerText);
 
   return ctx;
 }

@@ -223,7 +223,7 @@ See the [developer tools](../dev/README.md) for an importable, Inkscape-compatib
 
 ### Font Sizes
 
-Shields should target 8-12px text actual-size character heights for readability:
+Shields should target 8-14px text actual-size character heights for readability:
 
 | Example                                                    | Text height |
 | ---------------------------------------------------------- | ----------- |
@@ -233,6 +233,8 @@ Shields should target 8-12px text actual-size character heights for readability:
 | <img src="../doc-img/10_px_text.svg" height=20 width=20 /> | 10px        |
 | <img src="../doc-img/8_px_text.svg" height=20 width=20 />  | 8px         |
 | <img src="../doc-img/6_px_text.svg" height=20 width=20 />  | 6px         |
+
+It is not possible to use font sizes greater than 14px in shields.
 
 ### Shield Definitions
 
@@ -260,7 +262,6 @@ Banners should be specified in the following cases:
 
 - When a route represents a variant of a main route with which it shares a common shield design. The banner ensures that the variant route information, which is an important component of the route, is visually displayed.
 - When two or more routes from different networks share a common symbology in the map within a common geographical area. Shields which are very similar may be drawn using common graphics for simplicity and readability, for example, when the networks differ only by a difference in text. In these cases, the most significant network should be drawn with no banner, and each of the less significant networks should be drawn with a banner.
-- To indicate toll road networks on non-motorway roads, because such roads are not colored differently from non-toll roads.
 - When a short text of up to 4 characters is a significant stylistic element of a shield that can't reasonably be incorporated into the main shield graphic for aesthetic reasons.
 
 In all cases, banner text should be no more than **4** characters in length.
@@ -269,8 +270,10 @@ In all cases, banner text should be no more than **4** characters in length.
 
 This style strives to draw representative highway shields wherever they are tagged on road route relations consistently with international norms. This style operates on the expectation that the `network` value on a route relation corresponds to the shield design that will be drawn, and the `ref` value will contain the text which is drawn on the shield. In order to give appropriate mapper feedback, this style will add support for special cases only when the complexity of the route network and shield styling cannot be adequately expressed via `network` and `ref` alone. These special cases should be exceptionally rare and documented in the list below. PRs to add special case code should also add an entry below justifying its inclusion. For all other `network` and `ref` combinations, the style will draw a "generic" shield displaying the `ref` value.
 
+- **Arkansas Highway 980**. Highway 980 is a designation applied to various short state highways leading to airports. It has a unique shield based on the state route shield, with a white-on-blue color scheme and additional artwork. Because these roads are clearly part of the Arkansas state highway system designated by `network=US:AR`, special code is needed to apply the special coloring to this route.
 - **Georgia State Routes**. Highway shields for Georgia State Routes 515 and 520 are colored in blue and green respectively, rather than the usual black, for their entire length. This is done because these roads are part of the Appalachian Development Highway System. Because these roads are clearly part of the Georgia state highway system designated by `network=US:GA`, special code is needed to apply the special coloring to these two routes.
 - **Italy "Diramazione" (branch) motorways**. Between their main autostrade "A" roads, the Italian motorway network has branch motorways which carry the name of both highways that they connect. For example, the A7 and A26 motorways have a branch motorway named A7/A26, which is correctly tagged `ref=A7/A26` and drawn on shields with the two motorway numbers stacked vertically. This requires special code to split ref values at the `/` and draw the two text strings in a stacked configuration.
 - **Kentucky Parkways**. Kentucky signs a network of state highways which use a common shield styling, but with full-text names of the parkways on the shields. In addition, these routes are locally known by initialisms. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
+- **Ontario's Queen Elizabeth Way**. The Queen Elizabeth Way has a special shield based on the King's Highway shield, with a blue-on-yellow color scheme. Because this highway is clearly part of the King's Highway designated by `network=CA:ON:primary`, with an unsigned internal designation of 451, special code is needed to apply the special coloring to this route.
 - **Pittsburgh Belt System**. Shields for this system use colors, with a colored circle and the words "<COLOR> BELT". These shields are drawn as squares with colored circles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (white shield with colored circle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
 - **Yukon Routes**. The majority of Yukon Route shields are red, but certain numbered highways have yellow, blue or green shields for their entire length. Because these roads are clearly part of the Yukon system designated by `network=CA:YT`, special code is needed to apply the special coloring to these routes.
