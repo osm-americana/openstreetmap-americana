@@ -1,7 +1,7 @@
 "use strict";
 
 import * as fs from "fs";
-import * as ShieldDef from "../js/shield_defs.js";
+import * as ShieldDef from "../src/js/shield_defs.js";
 
 /**
  * Adds documentation about network=* tags to a project description object, modifying it in place.

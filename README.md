@@ -18,7 +18,7 @@ _Contributors welcome!_
 
 The repository is organized as follows:
 
-- **style/** - The map style. See [Style Contributor's Guide](style/CONTRIBUTE.md)
+- **src/** - The map style. See [CONTRIBUTING.md][].
 - **dev/** - Development tools used for style development. See [Style Developer Tools](dev/README.md)
 - _Coming soon! Other customized parts of the tech stack._
 
