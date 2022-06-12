@@ -24,8 +24,8 @@ import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
-import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl";
-import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles";
+import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
+import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
 /*
  This is a list of the layers in the Americana style, from bottom to top.
