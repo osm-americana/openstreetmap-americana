@@ -37,6 +37,13 @@ americanaLayers.push(
   lyrPark.fill,
   lyrAeroway.fill,
   lyrPark.parkFill,
+  {
+    id: "hills",
+    type: "hillshade",
+    source: "hillshadeSource",
+    layout: { visibility: "visible" },
+    paint: { "hillshade-shadow-color": "#473B24" },
+  },
 
   lyrBoundary.countyCasing,
   lyrBoundary.stateCasing,
@@ -445,10 +452,24 @@ var style = {
   name: "Americana",
   glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
   layers: americanaLayers,
+  terrain: {
+    source: "terrainSource",
+    exaggeration: 1,
+  },
   sources: {
     openmaptiles: {
       url: config.OPENMAPTILES_URL,
       type: "vector",
+    },
+    terrainSource: {
+      type: "raster-dem",
+      url: "https://tiles.wifidb.net/data/jaxa_terrainrgb.json",
+      tileSize: 256,
+    },
+    hillshadeSource: {
+      type: "raster-dem",
+      url: "https://tiles.wifidb.net/data/jaxa_terrainrgb.json",
+      tileSize: 256,
     },
   },
   sprite: new URL("sprites/sprite", baseUrl).href,
