@@ -2553,6 +2553,20 @@ export function loadShields(shieldImages) {
     35
   );
 
+  // Belgium
+  shields["BE:A-road"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+  shields["BE:N-road"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+  shields["BE:R-road"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
   // Bulgaria
   shields["bg:national"] = roundedRectShield(
     Color.shields.green,
