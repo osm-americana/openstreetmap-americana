@@ -2685,31 +2685,44 @@ export function loadShields(shieldImages) {
   shields["mk:national"] = wideHexagonGreenShield;
 
   // Netherlands
+  // https://wiki.openstreetmap.org/wiki/The_Netherlands_road_network
   shields["NL:A"] = roundedRectShield(Color.shields.red, Color.shields.white);
   shields["NL:N"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black
   );
-
+  let nlCityRoute = {
+    backgroundImage: shieldImages.shield40_nl_city,
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 3,
+    },
+  };
   [
     "Amsterdam",
     "Den Haag",
-    "Rotterdam",
     "Nijmegen",
     "Parkstad",
+    "Rotterdam",
     "Zaanstad",
+  ].forEach((city) => (shields[`NL:S:${city}`] = nlCityRoute));
+  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both Netherlands and Curacao
+  [
+    "Ommen",
+    "Schouwen",
+    "Sluis",
+    "Spaarnwoude",
+    "Voorthuizen",
+    "IJmuiden",
   ].forEach(
-    (city) =>
-      (shields["NL:S:" + city] = {
-        backgroundImage: shieldImages.shield40_nl_city,
-        textColor: Color.shields.black,
-        padding: {
-          left: 3,
-          right: 3,
-          top: 4,
-          bottom: 5,
-        },
-      })
+    (place) =>
+      (shields[`NL:R:${place}`] = roundedRectShield(
+        Color.shields.brown,
+        Color.shields.white
+      ))
   );
 
   // Poland
