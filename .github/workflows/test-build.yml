@@ -16,7 +16,6 @@ jobs:
           node-version: 17.x
       - name: Install and Build 🔧
         run: |
-          cd style
           npm ci --include=dev
           sed 's/<your MapTiler key>/53iZvB2drcamS0Ge0xiD/g' configs/config.maptiler.js > config.js
           npm run build

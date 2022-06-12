@@ -15,7 +15,7 @@ let sprites = JSON.parse(
 let shieldImageURLs = Object.fromEntries(
   Object.keys(sprites).map((sprite) => [
     sprite,
-    `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/${sprite}.svg`,
+    `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${sprite}.svg`,
   ])
 );
 let shields = ShieldDef.loadShields(shieldImageURLs);
