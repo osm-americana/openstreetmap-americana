@@ -68,14 +68,27 @@ function pillShield(
   outlineWidth,
   rectWidth
 ) {
-  return roundedRectShield(
-    fillColor,
-    strokeColor,
-    textColor,
-    10,
-    outlineWidth,
-    rectWidth
-  );
+  textColor = textColor ?? strokeColor;
+  outlineWidth = outlineWidth ?? 1;
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.roundedRectangle(
+        fillColor,
+        strokeColor,
+        ref,
+        10,
+        outlineWidth,
+        rectWidth
+      ),
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 2,
+    },
+    textColor: textColor,
+  };
 }
 
 function banneredShield(baseDef, modifiers) {
