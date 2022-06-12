@@ -59,8 +59,24 @@ project through Rosetta][63].
 
 ### Windows
 
-Running the project natively on Windows is not currently possible due to [dependency issues][61].
-Instead running on [Ubuntu](#ubuntu-linux) via [Windows Subsystem for Linux][60] is recommended.
+Due to [dependency issues][61] which previously caused issues on Windows, running 
+the project on [Ubuntu](#ubuntu-linux) via [Windows Subsystem for Linux][60] had been
+recommended. Now that these dependency issues have been resolved, it should be possible
+to run the project on Windows so long as you have Node.js, npm, and Windows executable of
+the bash shell in some form.
+
+You may have to configure npm to use `bash.exe` as the script-shell in order for `npm start`
+to work. For example, using the `bash.exe` executable bundled with git for Windows:
+
+```
+npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
+```
+
+Alternatively, using a Cygwin installation:
+
+```
+npm config set script-shell "C:\\cygwin64\\bin\\bash.exe"
+```
 
 ### Ubuntu Linux
 
