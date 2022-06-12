@@ -2529,6 +2529,11 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  shields["AT:S-road"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Bosnia and Herzegovina
   shields["ba:Autoceste"] = roundedRectShield(
     Color.shields.green,
@@ -2546,6 +2551,20 @@ export function loadShields(shieldImages) {
     2,
     1,
     35
+  );
+
+  // Belgium
+  shields["BE:A-road"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+  shields["BE:N-road"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+  shields["BE:R-road"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
   );
 
   // Bulgaria
