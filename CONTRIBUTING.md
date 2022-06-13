@@ -201,8 +201,8 @@ More complicated shields may be more challenging to simplify. Consider taking so
 
 For consistency, shields should use the following color palette:
 
-| color                                                                    | Pantone | RGB         | Hex triplet |
-| ------------------------------------------------------------------------ | ------- | ----------- | ----------- |
+| color                                                                 | Pantone | RGB         | Hex triplet |
+| --------------------------------------------------------------------- | ------- | ----------- | ----------- |
 | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue         | 294     | 0 63 135    | #003f87     |
 | <img src="doc-img/pantone_469.svg" height=18 width=50 /> Brown        | 469     | 105 63 35   | #693f23     |
 | <img src="doc-img/pantone_342.svg" height=18 width=50 /> Green        | 342     | 0 103 71    | #006747     |
@@ -223,8 +223,8 @@ See the [developer tools](dev/README.md) for an importable, Inkscape-compatible 
 
 Shields should target 8-14px text actual-size character heights for readability:
 
-| Example                                                    | Text height |
-| ---------------------------------------------------------- | ----------- |
+| Example                                                 | Text height |
+| ------------------------------------------------------- | ----------- |
 | <img src="doc-img/16_px_text.svg" height=20 width=20 /> | 16px        |
 | <img src="doc-img/14_px_text.svg" height=20 width=20 /> | 14px        |
 | <img src="doc-img/12_px_text.svg" height=20 width=20 /> | 12px        |
