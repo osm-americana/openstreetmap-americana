@@ -20,8 +20,6 @@ jobs:
           npm ci --include=dev
           cp src/configs/config.aws.js src/config.js
           npm run build
-        # MapTiler key hJFMGrd2JszhwfJx5M2k only allows requests from zelonewolf.github.io
-
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
