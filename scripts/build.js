@@ -5,7 +5,7 @@ import esbuild from "esbuild";
 const isMain =
   import.meta.url === new URL(`file://${process.argv[1]}`).toString();
 
-export async function build(updateHook) {
+export async function build(updateHook, buildOptions = {}) {
   const watch = updateHook && {
     onRebuild(error, result) {
       if (error) {
@@ -26,6 +26,7 @@ export async function build(updateHook) {
       sourcemap: true,
       outdir: "dist",
       watch,
+      ...buildOptions,
     }),
     copyFile("src/index.html", "dist/index.html"),
   ]);
