@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = {
+export default {
   multipass: true,
   js2svg: {
     indent: 1,
