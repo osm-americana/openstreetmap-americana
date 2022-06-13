@@ -2,7 +2,8 @@ import { copyFile, mkdir } from "fs/promises";
 
 import esbuild from "esbuild";
 
-const isMain = import.meta.url === new URL(`file://${process.argv[1]}`).toString();
+const isMain =
+  import.meta.url === new URL(`file://${process.argv[1]}`).toString();
 
 export async function build(updateHook) {
   const watch = updateHook && {
