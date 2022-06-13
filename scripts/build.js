@@ -26,6 +26,7 @@ export async function build(updateHook, buildOptions = {}) {
       sourcemap: true,
       outdir: "dist",
       watch,
+      logLevel: "info",
       ...buildOptions,
     }),
     copyFile("src/index.html", "dist/index.html"),
