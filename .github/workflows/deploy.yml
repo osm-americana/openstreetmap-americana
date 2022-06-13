@@ -17,14 +17,11 @@ jobs:
           node-version: 17.x
       - name: Install and Build 🔧
         run: |
-          cd style
           npm ci --include=dev
-          cp configs/config.aws.js config.js
+          cp src/configs/config.aws.js src/config.js
           npm run build
-        # MapTiler key hJFMGrd2JszhwfJx5M2k only allows requests from zelonewolf.github.io
-
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: style/dist/ # The folder the action should deploy.
+          folder: dist/ # The folder the action should deploy.
