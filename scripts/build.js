@@ -11,7 +11,6 @@ export async function build(updateHook) {
         console.error(error);
         return;
       }
-      console.log(Date.now());
       updateHook();
     },
   };
