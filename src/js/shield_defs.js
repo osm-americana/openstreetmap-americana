@@ -378,8 +378,8 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield40_ca_on_primary,
     textColor: Color.shields.black,
     padding: {
-      left: 3,
-      right: 3,
+      left: 3.5,
+      right: 3.5,
       top: 6,
       bottom: 3,
     },
