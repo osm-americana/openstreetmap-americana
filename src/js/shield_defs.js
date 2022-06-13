@@ -2366,7 +2366,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["JP:prefectural"] = {
-    backgroundImage: shieldImages.shield40_jp_prefectural,
+    backgroundImage: shieldImages.shield40_hexagon_blue,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
@@ -2456,7 +2456,19 @@ export function loadShields(shieldImages) {
       bottom: 6,
     },
   };
-
+  
+  shields["PK:national"] = {
+    backgroundImage: shieldImages.shield40_hexagon_blue,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: Color.shields.white,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 2,
+      bottom: 2,
+    },
+  };
+  
   shields["KR:expressway"] = {
     backgroundImage: [
       shieldImages.shield40_kr_expressway_2,
