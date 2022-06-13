@@ -322,7 +322,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["CA:NB:tertiary"] = {
-    backgroundImage: shieldImages.shield40_ca_nb_tertiary,
+    backgroundImage: shieldImages.shield40_ca_nb,
     textColor: Color.shields.black,
     padding: {
       left: 4,
