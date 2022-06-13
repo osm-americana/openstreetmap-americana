@@ -186,7 +186,7 @@ In addition, the following style guidelines are recommended:
 5. Shields should consistently use squared or rounded corners, but not a mix of both. Rounded corners should have a 2px radius.
    - To give a rectangle a 2px corner radius, drag the circular handles 2 pixels (4 grid lines) away from the edge, as shown in the following examples:
 
-<img src="../doc-img/inkscape_rounded_corners_1.png"/> <img src="../doc-img/inkscape_rounded_corners_2.png"/>
+<img src="doc-img/inkscape_rounded_corners_1.png"/> <img src="doc-img/inkscape_rounded_corners_2.png"/>
 
 In general, this style is not trying to exactly replicate highway shields as seen on signage. Instead, we are trying to extract the key stylistic elements so that the graphics are recognizable as simplifications of their real-world counterparts. Here are some examples of Americana's simplified shields for small-size readability:
 
@@ -201,36 +201,36 @@ More complicated shields may be more challenging to simplify. Consider taking so
 
 For consistency, shields should use the following color palette:
 
-| color                                                                    | Pantone | RGB         | Hex triplet |
-| ------------------------------------------------------------------------ | ------- | ----------- | ----------- |
-| <img src="../doc-img/pantone_294.svg" height=18 width=50 /> Blue         | 294     | 0 63 135    | #003f87     |
-| <img src="../doc-img/pantone_469.svg" height=18 width=50 /> Brown        | 469     | 105 63 35   | #693f23     |
-| <img src="../doc-img/pantone_342.svg" height=18 width=50 /> Green        | 342     | 0 103 71    | #006747     |
-| <img src="../doc-img/pantone_152.svg" height=18 width=50 /> Orange       | 152     | 243 143 0   | #f38f00     |
-| <img src="../doc-img/pantone_198.svg" height=18 width=50 /> Pink         | 198     | 223 70 97   | #df4661     |
-| <img src="../doc-img/pantone_259.svg" height=18 width=50 /> Purple       | 259     | 109 32 119  | #6d2077     |
-| <img src="../doc-img/pantone_187.svg" height=18 width=50 /> Red          | 187     | 191 32 51   | #bf2033     |
-| <img src="../doc-img/pantone_116.svg" height=18 width=50 /> Yellow       | 116     | 255 205 0   | #ffcd00     |
-| <img src="../doc-img/pantone_382.svg" height=18 width=50 /> Yellow-Green | 382     | 196 214 0   | #c4d600     |
-| <img src="../doc-img/white.svg" height=18 width=50 /> White              | N/A     | 255 255 255 | #ffffff     |
-| <img src="../doc-img/black.svg" height=18 width=50 /> Black              | N/A     | 0 0 0       | #000000     |
+| color                                                                 | Pantone | RGB         | Hex triplet |
+| --------------------------------------------------------------------- | ------- | ----------- | ----------- |
+| <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue         | 294     | 0 63 135    | #003f87     |
+| <img src="doc-img/pantone_469.svg" height=18 width=50 /> Brown        | 469     | 105 63 35   | #693f23     |
+| <img src="doc-img/pantone_342.svg" height=18 width=50 /> Green        | 342     | 0 103 71    | #006747     |
+| <img src="doc-img/pantone_152.svg" height=18 width=50 /> Orange       | 152     | 243 143 0   | #f38f00     |
+| <img src="doc-img/pantone_198.svg" height=18 width=50 /> Pink         | 198     | 223 70 97   | #df4661     |
+| <img src="doc-img/pantone_259.svg" height=18 width=50 /> Purple       | 259     | 109 32 119  | #6d2077     |
+| <img src="doc-img/pantone_187.svg" height=18 width=50 /> Red          | 187     | 191 32 51   | #bf2033     |
+| <img src="doc-img/pantone_116.svg" height=18 width=50 /> Yellow       | 116     | 255 205 0   | #ffcd00     |
+| <img src="doc-img/pantone_382.svg" height=18 width=50 /> Yellow-Green | 382     | 196 214 0   | #c4d600     |
+| <img src="doc-img/white.svg" height=18 width=50 /> White              | N/A     | 255 255 255 | #ffffff     |
+| <img src="doc-img/black.svg" height=18 width=50 /> Black              | N/A     | 0 0 0       | #000000     |
 
 Base data from MUTCD Color Specifications, Federal Highway Administration
 
-See the [developer tools](../dev/README.md) for an importable, Inkscape-compatible palette file.
+See the [developer tools](dev/README.md) for an importable, Inkscape-compatible palette file.
 
 ### Font Sizes
 
 Shields should target 8-14px text actual-size character heights for readability:
 
-| Example                                                    | Text height |
-| ---------------------------------------------------------- | ----------- |
-| <img src="../doc-img/16_px_text.svg" height=20 width=20 /> | 16px        |
-| <img src="../doc-img/14_px_text.svg" height=20 width=20 /> | 14px        |
-| <img src="../doc-img/12_px_text.svg" height=20 width=20 /> | 12px        |
-| <img src="../doc-img/10_px_text.svg" height=20 width=20 /> | 10px        |
-| <img src="../doc-img/8_px_text.svg" height=20 width=20 />  | 8px         |
-| <img src="../doc-img/6_px_text.svg" height=20 width=20 />  | 6px         |
+| Example                                                 | Text height |
+| ------------------------------------------------------- | ----------- |
+| <img src="doc-img/16_px_text.svg" height=20 width=20 /> | 16px        |
+| <img src="doc-img/14_px_text.svg" height=20 width=20 /> | 14px        |
+| <img src="doc-img/12_px_text.svg" height=20 width=20 /> | 12px        |
+| <img src="doc-img/10_px_text.svg" height=20 width=20 /> | 10px        |
+| <img src="doc-img/8_px_text.svg" height=20 width=20 />  | 8px         |
+| <img src="doc-img/6_px_text.svg" height=20 width=20 />  | 6px         |
 
 It is not possible to use font sizes greater than 14px in shields.
 
