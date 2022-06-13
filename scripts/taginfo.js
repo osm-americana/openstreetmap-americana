@@ -1,7 +1,7 @@
 "use strict";
 
 import * as fs from "fs";
-import * as ShieldDef from "../js/shield_defs.js";
+import * as ShieldDef from "../src/js/shield_defs.js";
 
 /**
  * Adds documentation about network=* tags to a project description object, modifying it in place.
@@ -14,7 +14,7 @@ function addNetworkTags(project, sprites) {
   let shieldImageURLs = Object.fromEntries(
     Object.keys(sprites).map((sprite) => [
       sprite,
-      `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/${sprite}.svg`,
+      `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${sprite}.svg`,
     ])
   );
   let shields = ShieldDef.loadShields(shieldImageURLs);
