@@ -18,7 +18,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev
-          cp configs/config.aws.js config.js
+          cp src/configs/config.aws.js src/config.js
           npm run build
         # MapTiler key hJFMGrd2JszhwfJx5M2k only allows requests from zelonewolf.github.io
 
