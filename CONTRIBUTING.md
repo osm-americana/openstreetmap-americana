@@ -2,7 +2,7 @@
 
 _'murica!_
 
-The repository is organized as follows:
+The style is located within **src/** and is organized as follows:
 
 - **layer/** - Individual style layers, organized by subject area
 - **icons/** - SVG icons, which get converted into PNG stylesheets
@@ -104,7 +104,7 @@ and re-running `npm install`.
 
 Environment specific settings go in the untracked file `config.js`. Copy from one of
 the templates in the configs/ folder `config.*.js` and rename it `config.js` in
-the root. The variables in this file can then be changed without the risk of
+the src/ root. The variables in this file can then be changed without the risk of
 accidentally comitting to the main repo.
 
 You can create a new copy of the config file by running `npm run config`
