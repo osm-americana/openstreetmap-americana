@@ -9,7 +9,6 @@ export async function build(updateHook, buildOptions = {}) {
   const watch = updateHook && {
     onRebuild(error, result) {
       if (error) {
-        console.error(error);
         return;
       }
       updateHook();
@@ -34,5 +33,5 @@ export async function build(updateHook, buildOptions = {}) {
 }
 
 if (isMain) {
-  await build();
+  await build().catch(() => process.exit(1));
 }
