@@ -261,7 +261,7 @@ export function loadShields(shieldImages) {
 
   shields["default"] = {
     textColor: Color.shields.black,
-    textHaloColor: Color.shields.white,
+    textHaloColor: Color.backgroundFill,
     padding: {
       left: 3,
       right: 3,

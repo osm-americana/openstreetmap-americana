@@ -1,5 +1,6 @@
 "use strict";
 
+import * as Color from "../constants/color.js";
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldDef from "./shield_defs.js";
 
@@ -257,8 +258,7 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
     height: ShieldDef.bannerSizeH - ShieldDef.bannerPadding,
   });
 
-  ctx.shadowColor = "rgba(250, 246, 242, 1)";
-  ctx.strokeStyle = ctx.shadowColor;
+  (ctx.shadowColor = Color.backgroundFill), (ctx.strokeStyle = ctx.shadowColor);
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
