@@ -1,7 +1,7 @@
 "use strict";
 
 import * as fs from "fs";
-import * as ShieldDef from "../js/shield_defs.js";
+import * as ShieldDef from "../src/js/shield_defs.js";
 
 function fillPaths(svg, codes) {
   let selectors = new Set(codes.map((code) => `.${code.toLowerCase()}`));
@@ -15,7 +15,7 @@ let sprites = JSON.parse(
 let shieldImageURLs = Object.fromEntries(
   Object.keys(sprites).map((sprite) => [
     sprite,
-    `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/style/icons/${sprite}.svg`,
+    `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${sprite}.svg`,
   ])
 );
 let shields = ShieldDef.loadShields(shieldImageURLs);
@@ -34,7 +34,7 @@ usSVG = usSVG.replace(
   /<title>.+?<\/title>/,
   "<title>U.S. states with shields supported by OpenStreetMap Americana</title>"
 );
-fs.writeFileSync(`${process.cwd()}/../doc-img/shield_map_us.svg`, usSVG);
+fs.writeFileSync(`${process.cwd()}/doc-img/shield_map_us.svg`, usSVG);
 
 let worldSVG = fs.readFileSync(`${process.cwd()}/scripts/blank_map_world.svg`, {
   encoding: "utf8",
@@ -50,4 +50,4 @@ worldSVG = worldSVG.replace(
   /<title>.+?<\/title>/,
   "<title>Countries with shields supported by OpenStreetMap Americana</title>"
 );
-fs.writeFileSync(`${process.cwd()}/../doc-img/shield_map_world.svg`, worldSVG);
+fs.writeFileSync(`${process.cwd()}/doc-img/shield_map_world.svg`, worldSVG);
