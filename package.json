@@ -25,7 +25,8 @@
   "dependencies": {
     "@basemaps/sprites": "^6.28.1",
     "glob": "^8.0.3",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "open": "^8.4.0"
   },
   "devDependencies": {
     "create-serve": "^1.0.1",
