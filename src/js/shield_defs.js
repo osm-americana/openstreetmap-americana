@@ -259,16 +259,10 @@ export function loadShields(shieldImages) {
 
   // Default
 
-  shields["default"] = {
-    textColor: Color.shields.black,
-    textHaloColor: Color.backgroundFill,
-    padding: {
-      left: 3,
-      right: 3,
-      top: 3,
-      bottom: 3,
-    },
-  };
+  shields["default"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
 
   // North America
 
