@@ -59,8 +59,8 @@ project through Rosetta][63].
 
 ### Windows
 
-Running the project natively on Windows is not currently possible due to [dependency issues][61].
-Instead running on [Ubuntu](#ubuntu-linux) via [Windows Subsystem for Linux][60] is recommended.
+The project can be run from any Windows command line environment provided that Node.js
+and npm are installed.
 
 ### Ubuntu Linux
 
@@ -79,7 +79,6 @@ sudo apt install nodejs
 [51]: https://www.macports.org/
 [52]: https://nodejs.org
 [60]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
-[61]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132#issuecomment-1036976993
 [62]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132
 [63]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132#issuecomment-1027274543
 
