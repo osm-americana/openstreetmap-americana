@@ -2866,6 +2866,16 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Åland Islands
+  shields["AX:main"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+  shields["AX:province"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   //Ref-specific cases. Additional entries should be documented in CONTRIBUTE.md
 
   shields["CA:ON:primary"].overrideByRef = {
