@@ -2085,8 +2085,8 @@ export function loadShields(shieldImages) {
     padding: {
       left: 3,
       right: 3,
-      top: 3,
-      bottom: 3,
+      top: 5,
+      bottom: 2,
     },
   };
   shields["US:VT:Alternate"] = banneredShield(shields["US:VT"], ["ALT"]);
