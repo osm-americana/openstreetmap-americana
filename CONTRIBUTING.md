@@ -60,9 +60,7 @@ project through Rosetta][63].
 ### Windows
 
 The project can be run from any Windows command line environment provided that Node.js
-and npm are installed. ([Dependency issues][61] which prevented Windows compatibility
-have now been resolved, and the project build scripts have been [updated to no longer
-require a bash analogue][64].)
+and npm are installed.
 
 ### Ubuntu Linux
 
@@ -81,10 +79,8 @@ sudo apt install nodejs
 [51]: https://www.macports.org/
 [52]: https://nodejs.org
 [60]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
-[61]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132#issuecomment-1036976993
 [62]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132
 [63]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132#issuecomment-1027274543
-[64]: https://github.com/ZeLonewolf/openstreetmap-americana/pull/403
 
 ## Install Project Level NPM Dependencies
 
