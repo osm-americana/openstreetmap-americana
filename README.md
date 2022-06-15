@@ -48,4 +48,4 @@ and for routes in the following countries:
 
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
 
-We are hoping that it will support more areas, you can [help us](style/CONTRIBUTE.md)!
+We are hoping that it will support more areas, you can [help us](CONTRIBUTING.md)!
