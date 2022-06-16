@@ -1,18 +1,14 @@
 "use strict";
+
+import * as Color from "../constants/color.js";
+
 /*
   Background Layer
 
   This is the base color of the map.
 */
 
-let backgroundColor = {
-  stops: [
-    [6, "rgba(253, 251, 242, 1)"],
-    [10, "rgba(253, 251, 242, 1)"],
-    [14, "rgba(250, 246, 242, 1)"],
-    [15, "rgba(250, 246, 242, 1)"],
-  ],
-};
+let backgroundColor = Color.backgroundFill;
 
 export const base = {
   id: "background",
