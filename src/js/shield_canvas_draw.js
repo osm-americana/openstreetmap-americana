@@ -86,8 +86,15 @@ export function rectangle(ref) {
   );
 }
 
-export function blank() {
-  return Gfx.getGfxContext({ width: 1, height: 1 });
+export function blank(ref) {
+  var shieldWidth =
+    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 5 * PXR;
+  var width = Math.max(
+    minGenericShieldWidth,
+    Math.min(maxGenericShieldWidth, shieldWidth)
+  );
+  width = Math.ceil(width);
+  return Gfx.getGfxContext({ width: width, height: CS });
 }
 
 export function roundedRectangle(
