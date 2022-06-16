@@ -241,7 +241,7 @@ function getShieldDef(routeDef) {
   var shieldDef = ShieldDef.shields[routeDef.network];
 
   if (shieldDef == null) {
-    //Default to plain black text with halo and no background shield
+    // Default to plain black text with halo and no background shield
     return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
   }
 
