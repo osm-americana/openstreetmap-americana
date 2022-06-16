@@ -114,12 +114,6 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let padding_pentagon = {
-    left: 2,
-    right: 2,
-    top: 2,
-    bottom: 5,
-  };
   let pentagonShieldBlueYellow = {
     backgroundImage: [
       shieldImages.shield40_pentagon_blue_yellow_2,
@@ -127,16 +121,20 @@ export function loadShields(shieldImages) {
     ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.yellow,
-    padding: padding_pentagon,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 5,
+    },
   };
   let pentagonShieldGreenWhite = {
+    ...pentagonShieldBlueYellow,
     backgroundImage: [
       shieldImages.shield40_pentagon_green_white_2,
       shieldImages.shield40_pentagon_green_white_3,
     ],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
-    padding: padding_pentagon,
   };
 
   let badgeShield = {
@@ -1524,13 +1522,12 @@ export function loadShields(shieldImages) {
   );
   shields["US:NM:San_Juan:NCM"] = banneredShield(
     {
+      ...pentagonShieldBlueYellow,
       backgroundImage: [
         shieldImages.shield40_pentagon_white_pink_2,
         shieldImages.shield40_pentagon_white_pink_3,
       ],
-      textLayoutConstraint: ShieldText.ellipseTextConstraint,
       textColor: Color.shields.pink,
-      padding: padding_pentagon,
     },
     ["NCM"]
   );
@@ -2241,6 +2238,58 @@ export function loadShields(shieldImages) {
     "Weston",
   ].forEach(
     (county) => (shields[`US:WY:${county}`] = pentagonShieldBlueYellow)
+  );
+
+  // South America
+
+  shields["BR"] = {
+    backgroundImage: shieldImages.shield40_br,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 5,
+    },
+  };
+  [
+    "AC",
+    "AL",
+    "AM",
+    "AP",
+    "BA",
+    "CE",
+    "DF",
+    "ES",
+    "GO",
+    "MA",
+    "MG",
+    "MS",
+    "MT",
+    "PA",
+    "PB",
+    "PE",
+    "PI",
+    "PR",
+    "RJ",
+    "RN",
+    "RO",
+    "RR",
+    "RS",
+    "SC",
+    "SE",
+    "SP",
+    "TO",
+  ].forEach(
+    (state) =>
+      (shields[`BR:${state}`] = {
+        ...pentagonShieldBlueYellow,
+        backgroundImage: [
+          shieldImages.shield40_pentagon_white_angled_2,
+          shieldImages.shield40_pentagon_white_angled_3,
+        ],
+        textColor: Color.shields.black,
+      })
   );
 
   // Asia
