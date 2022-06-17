@@ -114,8 +114,7 @@ function generateBlankGraphicsContext(shieldDef, routeDef) {
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.backgroundDraw == "undefined") {
-      //Default to drawing a rectangle if shape draw function is not specified
-      shieldDef.backgroundDraw = ShieldDraw.rectangle;
+      shieldDef.backgroundDraw = ShieldDraw.blank;
     }
 
     //Do a test background draw to determine drawn size
@@ -130,14 +129,12 @@ function generateBlankGraphicsContext(shieldDef, routeDef) {
 
 function drawShield(ctx, shieldDef, routeDef) {
   var bannerCount = ShieldDef.getBannerCount(shieldDef);
-  var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.backgroundDraw == "undefined") {
-      //Default to drawing a rectangle if shape draw function is not specified
-      shieldDef.backgroundDraw = ShieldDraw.rectangle;
+      shieldDef.backgroundDraw = ShieldDraw.blank;
     }
 
     let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
@@ -147,13 +144,31 @@ function drawShield(ctx, shieldDef, routeDef) {
       0,
       bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
     );
+  } else {
+    loadShield(ctx, shieldArtwork, bannerCount);
+  }
+
+  return ctx;
+}
+
+function drawShieldText(ctx, shieldDef, routeDef) {
+  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var shieldBounds = null;
+
+  var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
+
+  if (shieldArtwork == null) {
+    if (typeof shieldDef.backgroundDraw == "undefined") {
+      shieldDef.backgroundDraw = ShieldDraw.blank;
+    }
+
+    let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
 
     shieldBounds = {
       width: drawnShieldCtx.canvas.width,
       height: drawnShieldCtx.canvas.height,
     };
   } else {
-    loadShield(ctx, shieldArtwork, bannerCount);
     shieldBounds = {
       width: shieldArtwork.data.width,
       height: shieldArtwork.data.height,
@@ -182,6 +197,11 @@ function drawShield(ctx, shieldDef, routeDef) {
 
   textLayout.yBaseline +=
     bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+
+  if (shieldDef.textHaloColor) {
+    ctx.strokeStyle = shieldDef.textHaloColor;
+    ShieldText.drawShieldHaloText(ctx, routeDef.ref, textLayout);
+  }
 
   ctx.fillStyle = textColor(shieldDef);
   ShieldText.drawShieldText(ctx, routeDef.ref, textLayout);
@@ -221,7 +241,7 @@ function getShieldDef(routeDef) {
   var shieldDef = ShieldDef.shields[routeDef.network];
 
   if (shieldDef == null) {
-    //Default to a plain white rectangle with black outline and text
+    // Default to plain black text with halo and no background shield
     return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
   }
 
@@ -268,7 +288,7 @@ function generateShieldCtx(id) {
   var shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
-    return ShieldDraw.blank();
+    return ShieldDraw.blank(routeDef.ref);
   }
 
   // Swap black with a different color for certain shields.
@@ -286,7 +306,7 @@ function generateShieldCtx(id) {
   // Add the halo around modifier plaque text
   drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
 
-  // Draw the shield and shield text
+  // Draw the shield
   if (colorLighten) {
     // Draw a color-composited version of the shield and shield text
     let shieldCtx = generateBlankGraphicsContext(shieldDef, routeDef);
@@ -303,9 +323,12 @@ function generateShieldCtx(id) {
 
     ctx.drawImage(colorCtx.canvas, 0, 0);
   } else {
-    // Draw the shield and shield text
+    // Draw the shield
     drawShield(ctx, shieldDef, routeDef);
   }
+
+  // Draw the shield text
+  drawShieldText(ctx, shieldDef, routeDef);
 
   // Add modifier plaque text
   drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerText);

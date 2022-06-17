@@ -145,7 +145,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .md,
 .me,
 .mk,
-.nl,
+.nl, .cw,
 .pl,
 .pt,
 .ro,

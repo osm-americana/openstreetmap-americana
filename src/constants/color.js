@@ -1,3 +1,5 @@
+export const backgroundFill = "#faf6f2";
+
 export const waterFill = "hsl(211, 42%, 70%)";
 export const waterLine = "hsl(211, 73%, 78%)";
 export const waterIntermittent = "hsl(205, 89%, 83%)";
