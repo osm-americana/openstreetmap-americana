@@ -60,6 +60,7 @@ Place this code in the empty space below. */
 .ri,
 .sc,
 .sd,
+.tn,
 .tx,
 .ut,
 .va,

@@ -6,9 +6,9 @@ _A quintessentially American map style_ [🗺 View the map](https://zelonewolf.g
 
 The purpose of the Americana style is to:
 
-- Express the American experience through cartography
-- Challenge the status quo by showcasing innovation and invention
 - Promote collaboration and common purpose in the American mapping community
+- Express the American experience through cartography, taking inspiration from the familiar features of North American paper maps
+- Challenge the status quo by showcasing innovation and invention
 
 The Americana style is the first digital map to achieve concurrent, state-specific highway shields arranged along the path of road. Representative highway shield rendering is of considerable cartographic importance to the American community. We do this proudly in an open source project using vector tile technology.
 
@@ -18,7 +18,7 @@ _Contributors welcome!_
 
 The repository is organized as follows:
 
-- **style/** - The map style. See [Style Contributor's Guide](style/CONTRIBUTE.md)
+- **src/** - The map style. See [CONTRIBUTING.md](CONTRIBUTING.md).
 - **dev/** - Development tools used for style development. See [Style Developer Tools](dev/README.md)
 - _Coming soon! Other customized parts of the tech stack._
 
@@ -47,3 +47,5 @@ Americana displays custom route shields for routes in the following U.S. states:
 and for routes in the following countries:
 
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
+
+We are hoping that it will support more areas, you can [help us](CONTRIBUTING.md)!
