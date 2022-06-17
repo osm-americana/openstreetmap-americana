@@ -1648,6 +1648,7 @@ export function loadShields(shieldImages) {
     "Madison",
     "Montgomery",
     "Oneida",
+    "Onondaga", // ref=57, unsigned_ref=91 (only)
     "Orange",
     "Oswego",
     "Otsego",
