@@ -2,6 +2,8 @@
 
 import * as maplibregl from "maplibre-gl";
 
+import "./search.css";
+
 var searchInput;
 var liveResults;
 

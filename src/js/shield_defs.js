@@ -1056,6 +1056,22 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
+  [
+    "Clay",
+    "Cowley",
+    "Decatur",
+    "Douglas",
+    "Harvey",
+    "Leavenworth",
+    "Linn",
+    "McPherson",
+    "Ness",
+    "Rawlins",
+    "Riley",
+    "Sheridan",
+  ].forEach(
+    (county) => (shields[`US:KS:${county}`] = pentagonShieldBlueYellow)
+  );
 
   shields["US:KY"] = pillShield(Color.shields.white, Color.shields.black);
   shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
@@ -1632,6 +1648,7 @@ export function loadShields(shieldImages) {
     "Madison",
     "Montgomery",
     "Oneida",
+    "Onondaga", // ref=57, unsigned_ref=91 (only)
     "Orange",
     "Oswego",
     "Otsego",
