@@ -2993,6 +2993,13 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:MI"].overrideByRef = {
+    185: {
+      backgroundImage: shieldImages.shield40_diamond_brown,
+      textColor: Color.shields.white,
+    },
+  };
+
   shields["US:PA:Allegheny:Belt"] = {
     notext: true,
     overrideByRef: {
