@@ -36,6 +36,12 @@ The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
 
+## Data Sources
+
+The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https://openmaptiles.org/schema/), which includes:
+* Feature data from OpenStreetMap
+* Translated place name labels from [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page)
+
 ## Coverage
 
 Americana is compatible with vector tiles covering the entire world.
