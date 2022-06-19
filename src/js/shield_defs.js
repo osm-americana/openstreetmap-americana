@@ -2651,6 +2651,16 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Åland Islands
+  shields["AX:main"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+  shields["AX:province"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Bosnia and Herzegovina
   shields["ba:Autoceste"] = roundedRectShield(
     Color.shields.green,
@@ -2902,28 +2912,6 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
-  // Slovenia
-  shields["SI:AC"] = wideHexagonGreenShield;
-
-  // Slovakia
-  shields["sk:national"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1,
-    35
-  );
-
-  // Ukraine
-  shields["ua:international"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.white
-  );
-
-  // Kosovo
-  shields["XK:motorway"] = wideHexagonGreenShield;
-
   // Sweden
   [
     "RV", // Riksväg - national road
@@ -2970,6 +2958,28 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Slovenia
+  shields["SI:AC"] = wideHexagonGreenShield;
+
+  // Slovakia
+  shields["sk:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+
+  // Ukraine
+  shields["ua:international"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
+  // Kosovo
+  shields["XK:motorway"] = wideHexagonGreenShield;
+
   //Ref-specific cases. Additional entries should be documented in CONTRIBUTE.md
 
   shields["CA:ON:primary"].overrideByRef = {
@@ -3002,6 +3012,13 @@ export function loadShields(shieldImages) {
     520: {
       textColor: Color.shields.green,
       colorLighten: Color.shields.green,
+    },
+  };
+
+  shields["US:MI"].overrideByRef = {
+    185: {
+      backgroundImage: shieldImages.shield40_diamond_brown,
+      textColor: Color.shields.white,
     },
   };
 
