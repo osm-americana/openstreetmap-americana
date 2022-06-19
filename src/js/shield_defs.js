@@ -2011,6 +2011,41 @@ export function loadShields(shieldImages) {
       ))
   );
 
+  shields["US:TN:primary"] = {
+    backgroundImage: shieldImages.shield40_us_tn_primary,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 7,
+    },
+  };
+  shields["US:TN:primary:Business"] = banneredShield(shields["US:TN:primary"], [
+    "BUS",
+  ]);
+  shields["US:TN:primary:Bypass"] = banneredShield(shields["US:TN:primary"], [
+    "BYP",
+  ]);
+  shields["US:TN:secondary"] = {
+    backgroundImage: shieldImages.shield40_us_tn_secondary,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 7,
+      right: 7,
+      top: 2,
+      bottom: 7,
+    },
+  };
+  shields["US:TN:secondary:Alternate"] = banneredShield(
+    shields["US:TN:secondary"],
+    ["ALT"]
+  );
+  shields["US:TN:secondary:Truck"] = banneredShield(
+    shields["US:TN:secondary"],
+    ["TRK"]
+  );
   shields["US:TN:McMinn"] = pentagonShieldBlueYellow;
 
   shields["US:TX"] = roundedRectShield(
