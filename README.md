@@ -36,6 +36,14 @@ The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
 
+## Data Sources
+
+The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https://openmaptiles.org/schema/), which includes:
+
+- Feature data from OpenStreetMap
+- Translated name labels from [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) for places, POIs, airports, roads, bodies of water, parks, and mountain peaks.
+- Low-zoom ocean/water and boundary data from [Natural Earth](https://www.naturalearthdata.com/).
+
 ## Coverage
 
 Americana is compatible with vector tiles covering the entire world.
@@ -48,4 +56,4 @@ and for routes in the following countries:
 
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
 
-We are hoping that it will support more areas, you can [help us](style/CONTRIBUTE.md)!
+We are hoping that it will support more areas, you can [help us](CONTRIBUTING.md)!
