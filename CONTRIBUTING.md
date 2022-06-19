@@ -243,6 +243,7 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 - **`notext`** – By default, a relation missing a `ref` tag will not appear as a shield. Set this property to `true` to display a shield even if it has no `ref`. This is appropriate for one-off shield networks, which are common for toll roads and touristic routes.
 - **`padding`** – An object that specifies the amount of padding on each side of the inscribed text relative to the background image.
 - **`textColor`** – The color of the inscribed text to superimpose on the background.
+- **`textHaloColor`** – The color of the halo surrounding the inscribed text.
 - **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
 
 Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks). In the future, it is expected that these initialisms will be encoded on the server side by processing appropriate tagging which holds the initialism in the database.
