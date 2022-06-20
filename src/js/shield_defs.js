@@ -1056,6 +1056,22 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
+  [
+    "Clay",
+    "Cowley",
+    "Decatur",
+    "Douglas",
+    "Harvey",
+    "Leavenworth",
+    "Linn",
+    "McPherson",
+    "Ness",
+    "Rawlins",
+    "Riley",
+    "Sheridan",
+  ].forEach(
+    (county) => (shields[`US:KS:${county}`] = pentagonShieldBlueYellow)
+  );
 
   shields["US:KY"] = pillShield(Color.shields.white, Color.shields.black);
   shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
@@ -1640,6 +1656,7 @@ export function loadShields(shieldImages) {
     "Madison",
     "Montgomery",
     "Oneida",
+    "Onondaga", // ref=57, unsigned_ref=91 (only)
     "Orange",
     "Oswego",
     "Otsego",
@@ -2002,6 +2019,41 @@ export function loadShields(shieldImages) {
       ))
   );
 
+  shields["US:TN:primary"] = {
+    backgroundImage: shieldImages.shield40_us_tn_primary,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 7,
+    },
+  };
+  shields["US:TN:primary:Business"] = banneredShield(shields["US:TN:primary"], [
+    "BUS",
+  ]);
+  shields["US:TN:primary:Bypass"] = banneredShield(shields["US:TN:primary"], [
+    "BYP",
+  ]);
+  shields["US:TN:secondary"] = {
+    backgroundImage: shieldImages.shield40_us_tn_secondary,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 7,
+      right: 7,
+      top: 2,
+      bottom: 7,
+    },
+  };
+  shields["US:TN:secondary:Alternate"] = banneredShield(
+    shields["US:TN:secondary"],
+    ["ALT"]
+  );
+  shields["US:TN:secondary:Truck"] = banneredShield(
+    shields["US:TN:secondary"],
+    ["TRK"]
+  );
   shields["US:TN:McMinn"] = pentagonShieldBlueYellow;
 
   shields["US:TX"] = roundedRectShield(
@@ -2630,6 +2682,16 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Åland Islands
+  shields["AX:main"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+  shields["AX:province"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Bosnia and Herzegovina
   shields["ba:Autoceste"] = roundedRectShield(
     Color.shields.green,
@@ -2881,28 +2943,6 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
-  // Slovenia
-  shields["SI:AC"] = wideHexagonGreenShield;
-
-  // Slovakia
-  shields["sk:national"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white,
-    Color.shields.white,
-    2,
-    1,
-    35
-  );
-
-  // Ukraine
-  shields["ua:international"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.white
-  );
-
-  // Kosovo
-  shields["XK:motorway"] = wideHexagonGreenShield;
-
   // Sweden
   [
     "RV", // Riksväg - national road
@@ -2949,6 +2989,28 @@ export function loadShields(shieldImages) {
     null
   );
 
+  // Slovenia
+  shields["SI:AC"] = wideHexagonGreenShield;
+
+  // Slovakia
+  shields["sk:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    2,
+    1,
+    35
+  );
+
+  // Ukraine
+  shields["ua:international"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
+  // Kosovo
+  shields["XK:motorway"] = wideHexagonGreenShield;
+
   //Ref-specific cases. Additional entries should be documented in CONTRIBUTE.md
 
   shields["CA:ON:primary"].overrideByRef = {
@@ -2981,6 +3043,13 @@ export function loadShields(shieldImages) {
     520: {
       textColor: Color.shields.green,
       colorLighten: Color.shields.green,
+    },
+  };
+
+  shields["US:MI"].overrideByRef = {
+    185: {
+      backgroundImage: shieldImages.shield40_diamond_brown,
+      textColor: Color.shields.white,
     },
   };
 
