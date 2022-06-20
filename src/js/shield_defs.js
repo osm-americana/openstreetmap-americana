@@ -91,6 +91,13 @@ function pillShield(
   };
 }
 
+function paBeltShield(fillColor, strokeColor) {
+  return {
+    notext: true,
+    backgroundDraw: (ref) => ShieldDraw.paBelt(fillColor, strokeColor),
+  };
+}
+
 function banneredShield(baseDef, modifiers) {
   return {
     ...baseDef,
@@ -1085,31 +1092,6 @@ export function loadShields(shieldImages) {
       bottom: 6,
     },
   };
-  shields["US:KY:Parkway"] = Object.assign(
-    {
-      // FIXME: This object contains both spelled-out and abbreviated road
-      // names to accommodate both the abbreviated names from OpenMapTiles and
-      // the spelled-out names from Planetiler.
-      // https://github.com/onthegomap/planetiler/issues/14
-      // This is a special case, as documented in CONTRIBUTE.md
-      refsByWayName: {
-        "Audubon Parkway": "AU",
-        "Bluegrass Parkway": "BG",
-        "Bluegrass Pkwy": "BG",
-        "Cumberland Parkway": "LN",
-        "Cumberland Pkwy": "LN",
-        "Hal Rogers Parkway": "HR",
-        "Hal Rogers Pkwy": "HR",
-        "Mountain Parkway": "MP",
-        "Mountain Pkwy": "MP",
-        "Purchase Parkway": "JC",
-        "Purchase Pkwy": "JC",
-        "Western Kentucky Parkway": "WK",
-        "Western Kentucky Pkwy": "WK",
-      },
-    },
-    shields["US:KY:AA"]
-  );
 
   shields["US:LA"] = {
     backgroundImage: [
@@ -1933,6 +1915,7 @@ export function loadShields(shieldImages) {
       bottom: 5,
     },
   };
+  shields["US:PA:Allegheny:Belt"] = {}; // See ref-specific cases below
 
   shields["US:RI"] = roundedRectShield(
     Color.shields.white,
@@ -2083,6 +2066,10 @@ export function loadShields(shieldImages) {
     "EXPR",
     "LOOP",
   ]);
+  shields["US:TX:Montgomery:MCTRA"] = {
+    ...homeDownBlueWhiteShield,
+    backgroundImage: shieldImages.shield40_home_down_blue_red_3,
+  };
   [
     "Anderson",
     "Blanco",
@@ -3038,6 +3025,31 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:KY:Parkway"] = Object.assign(
+    {
+      // FIXME: This object contains both spelled-out and abbreviated road
+      // names to accommodate both the abbreviated names from OpenMapTiles and
+      // the spelled-out names from Planetiler.
+      // https://github.com/onthegomap/planetiler/issues/14
+      refsByWayName: {
+        "Audubon Parkway": "AU",
+        "Bluegrass Parkway": "BG",
+        "Bluegrass Pkwy": "BG",
+        "Cumberland Parkway": "LN",
+        "Cumberland Pkwy": "LN",
+        "Hal Rogers Parkway": "HR",
+        "Hal Rogers Pkwy": "HR",
+        "Mountain Parkway": "MP",
+        "Mountain Pkwy": "MP",
+        "Purchase Parkway": "JC",
+        "Purchase Pkwy": "JC",
+        "Western Kentucky Parkway": "WK",
+        "Western Kentucky Pkwy": "WK",
+      },
+    },
+    shields["US:KY:AA"]
+  );
+
   shields["US:MI"].overrideByRef = {
     185: {
       backgroundImage: shieldImages.shield40_diamond_brown,
@@ -3045,35 +3057,55 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:PA:Allegheny:Belt"] = {
-    notext: true,
-    overrideByRef: {
-      "Red Belt": {
-        backgroundDraw: (ref) =>
-          ShieldDraw.paBelt(Color.shields.red, Color.shields.black),
-      },
-      "Orange Belt": {
-        backgroundDraw: (ref) =>
-          ShieldDraw.paBelt(Color.shields.orange, Color.shields.black),
-      },
-      "Yellow Belt": {
-        backgroundDraw: (ref) =>
-          ShieldDraw.paBelt(Color.shields.yellow, Color.shields.black),
-      },
-      "Green Belt": {
-        backgroundDraw: (ref) =>
-          ShieldDraw.paBelt(Color.shields.green, Color.shields.white),
-      },
-      "Blue Belt": {
-        backgroundDraw: (ref) =>
-          ShieldDraw.paBelt(Color.shields.blue, Color.shields.white),
-      },
-      "Purple Belt": {
-        backgroundDraw: (ref) =>
-          ShieldDraw.paBelt(Color.shields.purple, Color.shields.white),
+  shields["US:PA:Allegheny:Belt"].overrideByRef = {
+    "Red Belt": paBeltShield(Color.shields.red, Color.shields.black),
+    "Orange Belt": paBeltShield(Color.shields.orange, Color.shields.black),
+    "Yellow Belt": paBeltShield(Color.shields.yellow, Color.shields.black),
+    "Green Belt": paBeltShield(Color.shields.green, Color.shields.white),
+    "Blue Belt": paBeltShield(Color.shields.blue, Color.shields.white),
+    "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
+  };
+
+  shields["US:TX:Fort_Bend:FBCTRA"] = Object.assign(
+    {
+      refsByWayName: {
+        "Fort Bend Parkway Toll Road": "FBP",
+        "Fort Bend Westpark Tollway": "WPT",
       },
     },
-  };
+    {
+      backgroundImage: shieldImages.shield40_us_tx_fbctra,
+      textColor: Color.shields.white,
+      padding: {
+        left: 3,
+        right: 3,
+        top: 2,
+        bottom: 8,
+      },
+    }
+  );
+  shields["US:TX:Harris:HCTRA"] = Object.assign(
+    {
+      refsByWayName: {
+        "East Sam Houston Tollway North": "SHT",
+        "East Sam Houston Tollway South": "SHT",
+        "North Sam Houston Tollway East": "SHT",
+        "North Sam Houston Tollway West": "SHT",
+        "South Sam Houston Tollway East": "SHT",
+        "South Sam Houston Tollway West": "SHT",
+        "West Sam Houston Tollway North": "SHT",
+        "West Sam Houston Tollway South": "SHT",
+        "Fort Bend Toll Road": "FBTR",
+        "Hardy Toll Road": "HTR",
+        "Tomball Tollway": "TBT",
+        "Westpark Tollway": "WPT",
+      },
+    },
+    {
+      ...pentagonShieldBlueYellow,
+      backgroundImage: shieldImages.shield40_pentagon_purple_yellow_3,
+    }
+  );
 
   return shields;
 }
