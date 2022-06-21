@@ -296,7 +296,7 @@ function generateShieldCtx(id) {
   // the recolored shield gets an opaque instead of transparent background.
   var colorLighten = shieldDef.colorLighten;
 
-  // Handle special case for Kentucky
+  // Handle special case for manually-applied abbreviations
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
   }
