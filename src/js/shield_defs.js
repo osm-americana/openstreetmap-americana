@@ -1557,18 +1557,11 @@ export function loadShields(shieldImages) {
   ].forEach(
     (county) => (shields[`US:NM:${county}`] = pentagonShieldBlueYellow)
   );
-  shields["US:NM:San_Juan:NCM"] = banneredShield(
-    {
-      backgroundImage: [
-        shieldImages.shield40_pentagon_white_pink_2,
-        shieldImages.shield40_pentagon_white_pink_3,
-      ],
-      textLayoutConstraint: ShieldText.ellipseTextConstraint,
-      textColor: Color.shields.pink,
-      padding: padding_pentagon,
-    },
-    ["NCM"]
-  );
+  shields["US:NM:San_Juan:NCM"] = {
+    ...pentagonShieldBlueYellow,
+    backgroundImage: shieldImages.shield40_pentagon_white_pink_3,
+    textColor: Color.shields.pink,
+  };
 
   shields["US:NV"] = {
     backgroundImage: shieldImages.shield40_us_nv,
