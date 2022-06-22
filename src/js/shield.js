@@ -291,7 +291,8 @@ function generateShieldCtx(id) {
   var shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
-    return null;
+    // Want to return null here, but that gives a corrupted display. See #243
+    return Gfx.getGfxContext({ width: 1, height: 1 });
   }
 
   // Swap black with a different color for certain shields.
