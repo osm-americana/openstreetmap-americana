@@ -219,6 +219,9 @@ export function missingIconHandler(map, e) {
 
 export function missingIconLoader(map, e) {
   var ctx = generateShieldCtx(e.id);
+  if (ctx == null) {
+    return null;
+  }
   var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   map.addImage(
     e.id,
@@ -288,7 +291,7 @@ function generateShieldCtx(id) {
   var shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
-    return ShieldDraw.blank(routeDef.ref);
+    return null;
   }
 
   // Swap black with a different color for certain shields.
