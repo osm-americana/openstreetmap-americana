@@ -218,11 +218,13 @@ export function missingIconHandler(map, e) {
 }
 
 export function missingIconLoader(map, e) {
-  var ctx = generateShieldCtx(e.id);
+  let ctx = generateShieldCtx(e.id);
   if (ctx == null) {
-    return null;
+    // Want to return null here, but that gives a corrupted display. See #243
+    console.warn("Didn't produce a shield for", JSON.stringify(e.id));
+    ctx = Gfx.getGfxContext({ width: 1, height: 1 });
   }
-  var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+  const imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   map.addImage(
     e.id,
     {
@@ -291,8 +293,7 @@ function generateShieldCtx(id) {
   var shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
-    // Want to return null here, but that gives a corrupted display. See #243
-    return Gfx.getGfxContext({ width: 1, height: 1 });
+    return null;
   }
 
   // Swap black with a different color for certain shields.
