@@ -1040,6 +1040,10 @@ export function loadShields(shieldImages) {
   ].forEach(
     (county) => (shields[`US:IL:${county}`] = pentagonShieldBlueYellow)
   );
+  shields["US:IL:Cook:Chicago:Skyway"] = {
+    norefImage: shieldImages.shield40_us_il_skyway,
+    notext: true,
+  };
 
   shields["US:IN"] = roundedRectShield(
     Color.shields.white,
