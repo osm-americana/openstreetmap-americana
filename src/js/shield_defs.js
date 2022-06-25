@@ -2757,8 +2757,24 @@ export function loadShields(shieldImages) {
   );
 
   // Finland
+  // Valtatie/riksväg
   shields["fi:national"] = roundedRectShield(
     Color.shields.red,
+    Color.shields.white
+  );
+  // Kantatie/stamväg
+  shields["fi:trunk"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
+  // Seututie/regionalväg
+  shields["fi:regional"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+  // Yhdystie/förbindelseväg
+  shields["fi:link"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white
   );
 
@@ -2946,21 +2962,13 @@ export function loadShields(shieldImages) {
     (county_letter) =>
       (shields[`SE:${county_letter}`] = roundedRectShield(
         Color.shields.blue,
-        Color.shields.white,
-        Color.shields.white,
-        2,
-        1,
-        null
+        Color.shields.white
       ))
   );
   // Lokal slinga - Local loops
   shields["SE:LS"] = roundedRectShield(
     Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    1,
-    null
+    Color.shields.black
   );
 
   // Slovenia
