@@ -2402,10 +2402,8 @@ export function loadShields(shieldImages) {
   // Ecuador
   shields["EC:national"] = shields["US:I"];
   shields["EC:provincial"] = {
+    ...shields["US:I"],
     backgroundImage: shieldImages.shield40_ec_collector_3,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.white,
-    padding: padding_us_interstate,
   };
 
   // ASIA
