@@ -2397,6 +2397,15 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:WY:${county}`] = pentagonShieldBlueYellow)
   );
 
+  // SOUTH AMERICA
+
+  // Ecuador
+  shields["EC:national"] = shields["US:I"];
+  shields["EC:provincial"] = {
+    ...shields["US:I"],
+    backgroundImage: shieldImages.shield40_ec_collector_3,
+  };
+
   // ASIA
 
   // Bangladesh
