@@ -3069,7 +3069,10 @@ export function loadShields(shieldImages) {
 
   // New Zealand
   shields["NZ:SH"] = {
-    backgroundImage: shieldImages.shield40_nz_sh,
+    backgroundImage: [
+      shieldImages.shield40_nz_sh_2,
+      shieldImages.shield40_nz_sh_3,
+    ],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
