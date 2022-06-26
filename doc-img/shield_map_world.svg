@@ -115,6 +115,7 @@ The lines may be combined if desired:
 See the end of this file for a list of available jurisdictions and their codes. */
 
 .ca,
+.cr,
 .us,
 .bd,
 .cn,

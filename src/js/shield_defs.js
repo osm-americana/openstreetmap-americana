@@ -160,6 +160,20 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let badgeWithStrokeShield = {
+    backgroundImage: [
+      shieldImages.shield40_badge_stroke_2,
+      shieldImages.shield40_badge_stroke_3,
+    ],
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 7,
+      bottom: 4,
+    },
+  };
+
   let wideHexagonGreenShield = {
     backgroundImage: shieldImages.shield40_hexagon_wide_green,
     textColor: Color.shields.white,
@@ -550,6 +564,9 @@ export function loadShields(shieldImages) {
 
   // Yukon
   shields["CA:YT"] = roundedRectShield(Color.shields.white, Color.shields.red);
+
+  // Costa Rica
+  shields["CR:national"] = badgeWithStrokeShield;
 
   // United States
 
