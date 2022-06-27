@@ -276,6 +276,11 @@ export function loadShields(shieldImages) {
     textColor: Color.shields.white,
   };
 
+  let pentagonAngledShieldBlue = {
+    ...pentagonShieldBlueYellow,
+    backgroundImage: shieldImages.shield_pent_angled_blue_3,
+  };
+
   // Home plate shields
   let homeDownShield = {
     backgroundImage: [shieldImages.shield_home_2, shieldImages.shield_home_3],
@@ -2482,6 +2487,9 @@ export function loadShields(shieldImages) {
     shields["GH:inter-regional"] =
     shields["GH:regional"] =
       roundedRectShield(Color.shields.yellow, Color.shields.black);
+
+  // South Africa
+  shields["za:national"] = pentagonAngledShieldBlue;
 
   // ASIA
 
