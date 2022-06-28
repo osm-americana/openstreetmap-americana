@@ -2414,6 +2414,14 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:WY:${county}`] = pentagonShieldBlueYellow)
   );
 
+  // AFRICA
+
+  // Ghana
+  shields["GH:national"] =
+    shields["GH:inter-regional"] =
+    shields["GH:regional"] =
+      roundedRectShield(Color.shields.yellow, Color.shields.black);
+
   // ASIA
 
   // Bangladesh
