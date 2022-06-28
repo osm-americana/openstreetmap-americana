@@ -2522,6 +2522,16 @@ export function loadShields(shieldImages) {
     },
   };
 
+  // Iran
+  shields["ir:freeways"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+  shields["ir:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
+
   // Japan
   shields["JP:E"] = roundedRectShield(Color.shields.green, Color.shields.white);
   shields["JP:national"] = {
