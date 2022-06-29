@@ -2397,6 +2397,56 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:WY:${county}`] = pentagonShieldBlueYellow)
   );
 
+  // SOUTH AMERICA
+
+  // Venezuela
+  [
+    "AM",
+    "AN",
+    "AP",
+    "AR",
+    "BA",
+    "BO",
+    "CA",
+    "CO",
+    "DA",
+    "DC",
+    "FA",
+    "GU",
+    "LA",
+    "ME",
+    "MI",
+    "MO",
+    "NE",
+    "PO",
+    "SU",
+    "TA",
+    "TR",
+    "VA",
+    "YA",
+    "ZU",
+  ].forEach(
+    (state) =>
+      ([
+        shields[`VE:T:${state}`],
+        shields[`VE:L:${state}`],
+        shields[`VE:R:${state}`],
+      ] = [
+        {
+          backgroundImage: shieldImages.shield40_ve_t,
+          textColor: Color.shields.black,
+          padding: {
+            left: 4,
+            right: 4,
+            top: 3,
+            bottom: 5,
+          },
+        },
+        ovalShield(Color.shields.white, Color.shields.black),
+        diamondShield,
+      ])
+  );
+
   // AFRICA
 
   // Ghana
