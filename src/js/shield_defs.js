@@ -121,29 +121,39 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let padding_pentagon = {
-    left: 2,
-    right: 2,
-    top: 2,
-    bottom: 5,
+  let pentagonShield = {
+    backgroundImage: shieldImages.shield40_pentagon_3,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 5,
+    },
   };
+
   let pentagonShieldBlueYellow = {
+    ...pentagonShield,
     backgroundImage: [
       shieldImages.shield40_pentagon_blue_yellow_2,
       shieldImages.shield40_pentagon_blue_yellow_3,
     ],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.yellow,
-    padding: padding_pentagon,
   };
-  let pentagonShieldGreenWhite = {
+
+  let pentagonShieldPurpleYellow = {
+    ...pentagonShieldBlueYellow,
+    backgroundImage: shieldImages.shield40_pentagon_purple_yellow_3,
+  };
+
+  let pentagonShieldGreen = {
+    ...pentagonShield,
     backgroundImage: [
-      shieldImages.shield40_pentagon_green_white_2,
-      shieldImages.shield40_pentagon_green_white_3,
+      shieldImages.shield40_pentagon_green_2,
+      shieldImages.shield40_pentagon_green_3,
     ],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
-    padding: padding_pentagon,
   };
 
   let badgeShield = {
@@ -185,37 +195,39 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let padding_home_down = {
-    left: 2,
-    right: 2,
-    top: 2,
-    bottom: 6,
-  };
   // Home plate, flipped vertically, white fill, black stroke
-  let homeDownWhiteShield = {
+  let homeDownShield = {
     backgroundImage: [
-      shieldImages.shield40_home_down_white_2,
-      shieldImages.shield40_home_down_white_3,
+      shieldImages.shield40_home_down_2,
+      shieldImages.shield40_home_down_3,
     ],
     textColor: Color.shields.black,
-    padding: padding_home_down,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 6,
+    },
+  };
+
+  let homeDownShieldYellow = {
+    ...homeDownShield,
+    backgroundImage: shieldImages.shield40_home_down_yellow_2,
   };
 
   // Home plate, flipped vertically, blue fill, white stroke
-  let homeDownBlueWhiteShield = {
+  let homeDownShieldBlue = {
+    ...homeDownShield,
     backgroundImage: [
       shieldImages.shield40_home_down_blue_2,
       shieldImages.shield40_home_down_blue_3,
     ],
     textColor: Color.shields.white,
-    padding: padding_home_down,
   };
 
-  let padding_trapezoid_up = {
-    left: 4,
-    right: 4,
-    top: 2,
-    bottom: 5,
+  let homeDownShieldBlueRed = {
+    ...homeDownShieldBlue,
+    backgroundImage: shieldImages.shield40_home_down_blue_red_3,
   };
 
   let trapezoidUpShield = {
@@ -224,58 +236,106 @@ export function loadShields(shieldImages) {
       shieldImages.shield40_trapezoid_up_3,
     ],
     textColor: Color.shields.black,
-    padding: padding_trapezoid_up,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 2,
+      bottom: 5,
+    },
   };
 
   let trapezoidUpShieldBlackYellow = {
+    ...trapezoidUpShield,
     backgroundImage: [
       shieldImages.shield40_trapezoid_up_black_yellow_2,
       shieldImages.shield40_trapezoid_up_black_yellow_3,
     ],
     textColor: Color.shields.yellow,
-    padding: padding_trapezoid_up,
-  };
-
-  let trapezoidUpShieldBlueWhite = {
-    backgroundImage: [
-      shieldImages.shield40_trapezoid_up_blue_white_2,
-      shieldImages.shield40_trapezoid_up_blue_white_3,
-    ],
-    textColor: Color.shields.white,
-    padding: padding_trapezoid_up,
   };
 
   let trapezoidUpShieldGreenYellow = {
+    ...trapezoidUpShield,
     backgroundImage: [
       shieldImages.shield40_trapezoid_up_green_yellow_2,
       shieldImages.shield40_trapezoid_up_green_yellow_3,
     ],
     textColor: Color.shields.yellow,
-    padding: padding_trapezoid_up,
+  };
+
+  let trapezoidUpShieldBlueWhite = {
+    ...trapezoidUpShield,
+    backgroundImage: [
+      shieldImages.shield40_trapezoid_up_blue_white_2,
+      shieldImages.shield40_trapezoid_up_blue_white_3,
+    ],
+    textColor: Color.shields.white,
   };
 
   let trapezoidUpShieldRoundedBrown = {
+    ...trapezoidUpShield,
     backgroundImage: [
       shieldImages.shield40_trapezoid_up_rounded_brown_2,
       shieldImages.shield40_trapezoid_up_rounded_brown_3,
     ],
     textColor: Color.shields.white,
-    padding: padding_trapezoid_up,
   };
 
-  let padding_trapezoid_down = {
-    left: 4,
-    right: 4,
-    top: 5,
-    bottom: 2,
-  };
   let trapezoidDownShield = {
     backgroundImage: [
       shieldImages.shield40_trapezoid_down_2,
       shieldImages.shield40_trapezoid_down_3,
     ],
     textColor: Color.shields.black,
-    padding: padding_trapezoid_down,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 5,
+      bottom: 2,
+    },
+  };
+
+  let triangleConvexUpShield = {
+    backgroundImage: [
+      shieldImages.shield40_tri_convex_up_2,
+      shieldImages.shield40_tri_convex_up_3,
+    ],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 5,
+      bottom: 1,
+    },
+  };
+
+  let triangleConvexDownShield = {
+    backgroundImage: [
+      shieldImages.shield40_tri_convex_down_2,
+      shieldImages.shield40_tri_convex_down_3,
+    ],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 1,
+      bottom: 5,
+    },
+  };
+
+  let triangleConvexDownShieldBlue = {
+    ...triangleConvexDownShield,
+    backgroundImage: [
+      shieldImages.shield40_tri_convex_down_blue_2,
+      shieldImages.shield40_tri_convex_down_blue_3,
+    ],
+    textColor: Color.shields.white,
+  };
+
+  let triangleConvexDownShieldRedBlue = {
+    ...triangleConvexDownShieldBlue,
+    backgroundImage: shieldImages.shield40_tri_convex_down_red_blue_2,
   };
 
   // Default
@@ -311,7 +371,7 @@ export function loadShields(shieldImages) {
   };
 
   // Alberta
-  shields["CA:AB:primary"] = homeDownWhiteShield;
+  shields["CA:AB:primary"] = homeDownShield;
   shields["CA:AB:secondary"] = ovalShield(
     Color.shields.white,
     Color.shields.black
@@ -333,7 +393,7 @@ export function loadShields(shieldImages) {
   };
 
   // Manitoba
-  shields["CA:MB:PTH"] = homeDownWhiteShield;
+  shields["CA:MB:PTH"] = homeDownShield;
   shields["CA:MB:PR"] = ovalShield(Color.shields.black, Color.shields.white);
   shields["CA:MB:Winnipeg"] = {
     backgroundImage: shieldImages.shield40_ca_mb_winnipeg,
@@ -545,7 +605,7 @@ export function loadShields(shieldImages) {
   };
 
   // Saskatchewan
-  shields["CA:SK:primary"] = homeDownBlueWhiteShield;
+  shields["CA:SK:primary"] = homeDownShieldBlue;
   shields["CA:SK:secondary"] = {
     backgroundImage: shieldImages.shield40_ca_sk_secondary,
     textColor: Color.shields.green,
@@ -557,7 +617,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["CA:SK:tertiary"] = {
-    ...homeDownWhiteShield,
+    ...homeDownShield,
     textColor: Color.shields.blue,
     colorLighten: Color.shields.blue,
   };
@@ -571,12 +631,6 @@ export function loadShields(shieldImages) {
   // United States
 
   // Interstate Highways
-  let padding_us_interstate = {
-    left: 4,
-    right: 4,
-    top: 6,
-    bottom: 5,
-  };
   shields["US:I"] = {
     backgroundImage: [
       shieldImages.shield40_us_interstate_2,
@@ -584,7 +638,12 @@ export function loadShields(shieldImages) {
     ],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
-    padding: padding_us_interstate,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 5,
+    },
   };
 
   shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
@@ -593,13 +652,11 @@ export function loadShields(shieldImages) {
   shields["US:I:Express:Toll"] = shields["US:I:Express"];
 
   shields["US:I:Business:Loop"] = {
+    ...shields["US:I"],
     backgroundImage: [
       shieldImages.shield40_us_interstate_business_2,
       shieldImages.shield40_us_interstate_business_3,
     ],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.white,
-    padding: padding_us_interstate,
   };
 
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
@@ -900,7 +957,7 @@ export function loadShields(shieldImages) {
         Color.shields.white
       ))
   );
-  shields["US:CO:Douglas"] = pentagonShieldGreenWhite;
+  shields["US:CO:Douglas"] = pentagonShieldGreen;
 
   // Connecticut
   shields["US:CT"] = roundedRectShield(
@@ -998,19 +1055,7 @@ export function loadShields(shieldImages) {
   };
 
   // Hawaii
-  shields["US:HI"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_hi_2,
-      shieldImages.shield40_us_hi_3,
-    ],
-    textColor: Color.shields.black,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 5,
-      bottom: 1,
-    },
-  };
+  shields["US:HI"] = triangleConvexUpShield;
 
   // Iowa
   shields["US:IA"] = pillShield(Color.shields.white, Color.shields.black);
@@ -1456,7 +1501,7 @@ export function loadShields(shieldImages) {
   shields["US:NC:Bypass"] = banneredShield(shields["US:NC"], ["BYP"]);
   shields["US:NC:Business"] = banneredShield(shields["US:NC"], ["BUS"]);
   shields["US:NC:Truck"] = banneredShield(shields["US:NC"], ["TRK"]);
-  shields["US:NC:Mecklenburg:Charlotte"] = pentagonShieldGreenWhite;
+  shields["US:NC:Mecklenburg:Charlotte"] = pentagonShieldGreen;
 
   // North Dakota
   shields["US:ND"] = {
@@ -1624,8 +1669,8 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:NM:${county}`] = pentagonShieldBlueYellow)
   );
   shields["US:NM:San_Juan:NCM"] = {
-    ...pentagonShieldBlueYellow,
-    backgroundImage: shieldImages.shield40_pentagon_white_pink_3,
+    ...pentagonShield,
+    colorLighten: Color.shields.pink,
     textColor: Color.shields.pink,
   };
 
@@ -2132,10 +2177,7 @@ export function loadShields(shieldImages) {
     "EXPR",
     "LOOP",
   ]);
-  shields["US:TX:Montgomery:MCTRA"] = {
-    ...homeDownBlueWhiteShield,
-    backgroundImage: shieldImages.shield40_home_down_blue_red_3,
-  };
+  shields["US:TX:Montgomery:MCTRA"] = homeDownShieldBlueRed;
   [
     "Anderson",
     "Blanco",
@@ -2547,20 +2589,7 @@ export function loadShields(shieldImages) {
 
   // Japan
   shields["JP:E"] = roundedRectShield(Color.shields.green, Color.shields.white);
-  shields["JP:national"] = {
-    backgroundImage: [
-      shieldImages.shield40_jp_national_2,
-      shieldImages.shield40_jp_national_3,
-    ],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    textColor: Color.shields.white,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 1,
-      bottom: 5,
-    },
-  };
+  shields["JP:national"] = triangleConvexDownShieldBlue;
   shields["JP:prefectural"] = {
     backgroundImage: shieldImages.shield40_jp_prefectural,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
@@ -2647,17 +2676,8 @@ export function loadShields(shieldImages) {
   );
 
   // Philippines
-  shields["PH:N"] = homeDownWhiteShield;
-  shields["PH:E"] = {
-    backgroundImage: shieldImages.shield40_ph_expressway_2,
-    textColor: Color.shields.black,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 6,
-    },
-  };
+  shields["PH:N"] = homeDownShield;
+  shields["PH:E"] = homeDownShieldYellow;
 
   // South Korea
   shields["KR:expressway"] = {
@@ -2698,28 +2718,8 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
-  shields["TW:provincial"] = {
-    backgroundImage: shieldImages.shield40_tw_provincial,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.white,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 10,
-    },
-  };
-  shields["TW:expressway"] = {
-    backgroundImage: shieldImages.shield40_tw_expressway,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.white,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 10,
-    },
-  };
+  shields["TW:provincial"] = triangleConvexDownShieldBlue;
+  shields["TW:expressway"] = triangleConvexDownShieldRedBlue;
   ["city", "county", "district", "township"].forEach(
     (type) =>
       (shields[`TW:${type}`] = roundedRectShield(
@@ -2893,7 +2893,7 @@ export function loadShields(shieldImages) {
 
   // Hungary
   shields["HU:national"] = {
-    ...homeDownBlueWhiteShield,
+    ...homeDownShieldBlue,
     backgroundImage: shieldImages.shield40_home_down_blue_3,
   };
 
@@ -3225,10 +3225,7 @@ export function loadShields(shieldImages) {
         "Westpark Tollway": "WPT",
       },
     },
-    {
-      ...pentagonShieldBlueYellow,
-      backgroundImage: shieldImages.shield40_pentagon_purple_yellow_3,
-    }
+    pentagonShieldPurpleYellow
   );
 
   return shields;
