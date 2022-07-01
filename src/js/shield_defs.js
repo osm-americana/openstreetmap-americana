@@ -2448,6 +2448,9 @@ export function loadShields(shieldImages) {
       })
   );
 
+  // Uruguay
+  shields["UY"] = homeDownBlueWhiteShield;
+
   // AFRICA
 
   // Ghana
