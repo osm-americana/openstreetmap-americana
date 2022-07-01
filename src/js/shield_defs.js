@@ -2399,6 +2399,9 @@ export function loadShields(shieldImages) {
 
   // SOUTH AMERICA
 
+  // Uruguay
+  shields["UY"] = homeDownBlueWhiteShield;
+
   // Venezuela
   [
     "AM",
