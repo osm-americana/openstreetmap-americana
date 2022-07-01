@@ -2418,6 +2418,11 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:WY:${county}`] = pentagonShieldBlueYellow)
   );
 
+  // SOUTH AMERICA
+
+  // Uruguay
+  shields["UY"] = homeDownBlueWhiteShield;
+
   // AFRICA
 
   // Ghana
