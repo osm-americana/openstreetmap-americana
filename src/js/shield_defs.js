@@ -2084,29 +2084,45 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
-  shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
-  shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
-  shields["US:TX:Business"] = banneredShield(shields["US:TX"], ["BUS"]);
-  shields["US:TX:Park"] = banneredShield(shields["US:TX"], ["PARK"]);
   shields["US:TX:Beltway"] = banneredShield(shields["US:TX"], ["BELT"]);
-  shields["US:TX:FM"] = banneredShield(shields["US:TX"], ["F.M."]);
+  shields["US:TX:Business"] = banneredShield(shields["US:TX"], ["BUS"]);
+  shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
+  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
+  shields["US:TX:Park"] = banneredShield(shields["US:TX"], ["PARK"]);
+  shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
+  shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
+  shields["US:TX:FM"] = banneredShield(
+    {
+      backgroundImage: shieldImages.shield40_us_tx_outline,
+      textColor: Color.shields.black,
+      padding: {
+        left: 6.5,
+        right: 2.5,
+        top: 6.5,
+        bottom: 9.5,
+      },
+    },
+    ["F.M."]
+  );
   shields["US:TX:FM:Business"] = banneredShield(shields["US:TX:FM"], [
     "BUS",
     "F.M.",
   ]);
-  shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
-  shields["US:TX:RM"] = banneredShield(shields["US:TX"], ["R.M."]);
+  shields["US:TX:RM"] = banneredShield(shields["US:TX:FM"], ["R.M."]);
   shields["US:TX:Recreational"] = banneredShield(
-    roundedRectShield(Color.shields.white, Color.shields.brown),
+    {
+      ...shields["US:TX:FM"],
+      textColor: Color.shields.brown,
+      colorLighten: Color.shields.brown,
+    },
     ["R"]
   );
-  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
+
+  // Texas toll roads
   shields["US:TX:Toll"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
-  shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
-  shields["US:TX:NTTA"] = shields["US:TX:Toll"];
   shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
     "EXPR",
   ]);
@@ -2115,10 +2131,15 @@ export function loadShields(shieldImages) {
     "EXPR",
     "LOOP",
   ]);
+  shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
+  shields["US:TX:NTTA"] = shields["US:TX:Toll"];
   shields["US:TX:Montgomery:MCTRA"] = {
     ...homeDownBlueWhiteShield,
     backgroundImage: shieldImages.shield40_home_down_blue_red_3,
   };
+  // FBCTRA, HCTRA: see special cases at bottom
+
+  // Texas county roads
   [
     "Anderson",
     "Blanco",
