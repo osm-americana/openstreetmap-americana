@@ -2091,24 +2091,21 @@ export function loadShields(shieldImages) {
   shields["US:TX:Park"] = banneredShield(shields["US:TX"], ["PARK"]);
   shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
   shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
-  shields["US:TX:FM"] = banneredShield(
-    {
-      backgroundImage: shieldImages.shield40_us_tx_outline,
-      textColor: Color.shields.black,
-      padding: {
-        left: 6.5,
-        right: 2.5,
-        top: 6.5,
-        bottom: 9.5,
-      },
+  shields["US:TX:FM"] = {
+    backgroundImage: shieldImages.shield40_us_tx_outline,
+    textColor: Color.shields.black,
+    padding: {
+      left: 8,
+      right: 4,
+      top: 8,
+      bottom: 11,
     },
-    ["F.M."]
-  );
+  };
   shields["US:TX:FM:Business"] = banneredShield(shields["US:TX:FM"], [
     "BUS",
     "F.M.",
   ]);
-  shields["US:TX:RM"] = banneredShield(shields["US:TX:FM"], ["R.M."]);
+  shields["US:TX:RM"] = shields["US:TX:FM"];
   shields["US:TX:Recreational"] = banneredShield(
     {
       ...shields["US:TX:FM"],
