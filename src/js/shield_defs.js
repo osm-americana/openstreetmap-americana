@@ -2399,6 +2399,22 @@ export function loadShields(shieldImages) {
 
   // SOUTH AMERICA
 
+  // Colombia
+  shields["co:national"] = {
+    backgroundImage: [
+      shieldImages.shield40_co_national_2,
+      shieldImages.shield40_co_national_3,
+    ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 3,
+      bottom: 6,
+    },
+  };
+
   // Uruguay
   shields["UY"] = homeDownBlueWhiteShield;
 
