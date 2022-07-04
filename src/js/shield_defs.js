@@ -3165,6 +3165,7 @@ export function loadShields(shieldImages) {
       bottom: 5,
     },
   };
+  shields["NZ:UR"] = homeDownWhiteShield;
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
