@@ -160,15 +160,6 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let badgeShieldGreen = {
-    ...badgeShield,
-    backgroundImage: [
-      shieldImages.shield40_badge_green_2,
-      shieldImages.shield40_badge_green_3,
-    ],
-    textColor: Color.shields.white,
-  };
-
   let wideHexagonGreenShield = {
     backgroundImage: shieldImages.shield40_hexagon_wide_green,
     textColor: Color.shields.white,
@@ -2409,7 +2400,19 @@ export function loadShields(shieldImages) {
   // SOUTH AMERICA
 
   // Chile
-  shields["CL:national"] = badgeShieldGreen;
+  shields["CL:national"] = {
+    backgroundImage: [
+      shieldImages.shield40_cl_national_2,
+      shieldImages.shield40_cl_national_3,
+    ],
+    textColor: Color.shields.white,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 5,
+    },
+  };
   shields["CL:regional"] = roundedRectShield(
     Color.shields.green,
     Color.shields.white
