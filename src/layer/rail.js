@@ -51,6 +51,9 @@ function baseRailLayer(railClass, id, brunnel, minzoom, service, constraints) {
 // Base railway class
 
 class Railway {
+  constructor() {
+    this.hue = 35;
+  }
   fill = function () {
     var layer = baseRailLayer(
       this.railClass,
@@ -91,18 +94,11 @@ class Railway {
       "line-join": "bevel",
       visibility: "visible",
     };
-    if (this.brunnel === "bridge") {
-      layer.layout = {
-        "line-cap": "butt",
-        "line-join": "bevel",
-        visibility: "visible",
-      };
-    }
     layer.paint = {
       "line-color": this.fillColor,
       "line-width": {
         base: railExp,
-        stops: this.casingWidth,
+        stops: this.dashWidth,
       },
       "line-dasharray": this.dashArray,
     };
@@ -121,7 +117,6 @@ class Rail extends Railway {
     this.railClass = "rail";
     this.brunnel = "surface";
     this.service = false;
-    this.hue = 45;
 
     this.minZoom = 8;
 
@@ -130,10 +125,10 @@ class Rail extends Railway {
       [12, 1.2],
       [20, 5],
     ];
-    this.casingWidth = [
-      [8, 1.2],
-      [12, 3.6],
-      [20, 15],
+    this.dashWidth = [
+      [8, 1.6],
+      [12, 4.8],
+      [20, 20],
     ];
 
     this.dashArray = [0.2, 4];
@@ -143,9 +138,9 @@ class Rail extends Railway {
       ["exponential", railExp],
       ["zoom"],
       this.minZoom,
-      `hsl(${this.hue}, 70%, 75%)`,
+      `hsl(${this.hue}, 0%, 75%)`,
       this.minZoom + 2,
-      `hsl(${this.hue}, 70%, 33%)`,
+      `hsl(${this.hue}, 0%, 50%)`,
     ];
   }
 }
@@ -160,13 +155,8 @@ class RailService extends Rail {
       [12, 0.6],
       [20, 2.5],
     ];
-    this.casingWidth = [
-      [8, 0.6],
-      [12, 1.8],
-      [20, 7.5],
-    ];
 
-    this.dashArray = [0.2, 8];
+    this.dashArray = [0.1, 4];
 
     this.constraints = null;
   }
@@ -207,7 +197,7 @@ class RailTunnel extends Rail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 70%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
@@ -215,7 +205,7 @@ class RailServiceTunnel extends RailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 70%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
