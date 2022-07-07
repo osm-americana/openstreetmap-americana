@@ -13,6 +13,7 @@ import * as lyrHighwayShield from "./layer/highway_shield.js";
 import * as lyrOneway from "./layer/oneway.js";
 import * as lyrPark from "./layer/park.js";
 import * as lyrPlace from "./layer/place.js";
+import * as lyrRail from "./layer/rail.js";
 import * as lyrRoad from "./layer/road.js";
 import * as lyrRoadLabel from "./layer/road_label.js";
 import * as lyrWater from "./layer/water.js";
@@ -141,6 +142,11 @@ americanaLayers.push(
   lyrRoad.serviceTollTunnel.fill(),
   lyrRoad.smallServiceTollTunnel.fill(),
 
+  lyrRail.railTunnel.dashes(),
+  lyrRail.railTunnel.fill(),
+  lyrRail.railServiceTunnel.dashes(),
+  lyrRail.railServiceTunnel.fill(),
+
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
 
@@ -261,6 +267,11 @@ americanaLayers.push(
   lyrRoad.trunkExpresswayToll.surface(),
   lyrRoad.motorwayToll.surface(),
 
+  lyrRail.rail.dashes(),
+  lyrRail.rail.fill(),
+  lyrRail.railService.dashes(),
+  lyrRail.railService.fill(),
+
   lyrOneway.road,
   lyrOneway.link
 );
@@ -369,6 +380,11 @@ var bridgeLayers = [
   lyrRoad.trunkTollBridge.surface(),
   lyrRoad.trunkExpresswayTollBridge.surface(),
   lyrRoad.motorwayTollBridge.surface(),
+
+  lyrRail.railBridge.dashes(),
+  lyrRail.railBridge.fill(),
+  lyrRail.railServiceBridge.dashes(),
+  lyrRail.railServiceBridge.fill(),
 
   lyrRoadLabel.bridgeSpacer,
 
