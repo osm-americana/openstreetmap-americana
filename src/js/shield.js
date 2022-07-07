@@ -218,8 +218,13 @@ export function missingIconHandler(map, e) {
 }
 
 export function missingIconLoader(map, e) {
-  var ctx = generateShieldCtx(e.id);
-  var imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+  let ctx = generateShieldCtx(e.id);
+  if (ctx == null) {
+    // Want to return null here, but that gives a corrupted display. See #243
+    console.warn("Didn't produce a shield for", JSON.stringify(e.id));
+    ctx = Gfx.getGfxContext({ width: 1, height: 1 });
+  }
+  const imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   map.addImage(
     e.id,
     {
@@ -288,7 +293,7 @@ function generateShieldCtx(id) {
   var shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
-    return ShieldDraw.blank(routeDef.ref);
+    return null;
   }
 
   // Swap black with a different color for certain shields.
@@ -296,7 +301,7 @@ function generateShieldCtx(id) {
   // the recolored shield gets an opaque instead of transparent background.
   var colorLighten = shieldDef.colorLighten;
 
-  // Handle special case for Kentucky
+  // Handle special case for manually-applied abbreviations
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
   }
