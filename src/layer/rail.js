@@ -118,7 +118,7 @@ class Rail extends Railway {
     this.brunnel = "surface";
     this.service = false;
 
-    this.minZoom = 8;
+    this.minZoom = 10;
 
     this.fillWidth = [
       [8, 0.4],
@@ -197,7 +197,7 @@ class RailTunnel extends Rail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
   }
 }
 
@@ -205,7 +205,7 @@ class RailServiceTunnel extends RailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
   }
 }
 
