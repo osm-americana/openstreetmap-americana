@@ -2458,8 +2458,91 @@ export function loadShields(shieldImages) {
 
   // SOUTH AMERICA
 
+  // Chile
+  shields["CL:national"] = {
+    backgroundImage: [
+      shieldImages.shield40_cl_national_2,
+      shieldImages.shield40_cl_national_3,
+    ],
+    textColor: Color.shields.white,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 5,
+    },
+  };
+  shields["CL:regional"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
+
+  // Colombia
+  shields["co:national"] = {
+    backgroundImage: [
+      shieldImages.shield40_co_national_2,
+      shieldImages.shield40_co_national_3,
+    ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 3,
+      bottom: 6,
+    },
+  };
+
   // Uruguay
   shields["UY"] = homeDownShieldBlue;
+
+  // Venezuela
+  [
+    "AM",
+    "AN",
+    "AP",
+    "AR",
+    "BA",
+    "BO",
+    "CA",
+    "CO",
+    "DA",
+    "DC",
+    "FA",
+    "GU",
+    "LA",
+    "ME",
+    "MI",
+    "MO",
+    "NE",
+    "PO",
+    "SU",
+    "TA",
+    "TR",
+    "VA",
+    "YA",
+    "ZU",
+  ].forEach(
+    (state) =>
+      ([
+        shields[`VE:T:${state}`],
+        shields[`VE:L:${state}`],
+        shields[`VE:R:${state}`],
+      ] = [
+        {
+          backgroundImage: shieldImages.shield40_ve_t,
+          textColor: Color.shields.black,
+          padding: {
+            left: 4,
+            right: 4,
+            top: 3,
+            bottom: 5,
+          },
+        },
+        ovalShield(Color.shields.white, Color.shields.black),
+        diamondShield,
+      ])
+  );
 
   // AFRICA
 
@@ -3118,6 +3201,7 @@ export function loadShields(shieldImages) {
       bottom: 5,
     },
   };
+  shields["NZ:UR"] = homeDownShield;
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
