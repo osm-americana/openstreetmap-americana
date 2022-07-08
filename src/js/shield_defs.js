@@ -2399,6 +2399,25 @@ export function loadShields(shieldImages) {
 
   // SOUTH AMERICA
 
+  // Chile
+  shields["CL:national"] = {
+    backgroundImage: [
+      shieldImages.shield40_cl_national_2,
+      shieldImages.shield40_cl_national_3,
+    ],
+    textColor: Color.shields.white,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 4,
+      bottom: 5,
+    },
+  };
+  shields["CL:regional"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
+
   // Colombia
   shields["co:national"] = {
     backgroundImage: [
