@@ -91,6 +91,17 @@ export const tertiary = {
   "source-layer": "transportation_name",
 };
 
+export const busway = {
+  id: "busway_label",
+  type: "symbol",
+  paint: textPaint,
+  filter: ["all", ["==", "class", "busway"]],
+  minzoom: 13,
+  layout: Object.assign(zoomDependentLayout(17), textLayout),
+  source: "openmaptiles",
+  "source-layer": "transportation_name",
+};
+
 export const minor = {
   id: "minor_label",
   type: "symbol",
