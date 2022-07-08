@@ -704,10 +704,10 @@ class Busway extends Road {
     this.brunnel = "surface";
     this.link = false;
     this.toll = false;
-    this.hue = 270;
+    this.hue = 0;
 
-    this.minZoomFill = 11;
-    this.minZoomCasing = 11;
+    this.minZoomFill = 12;
+    this.minZoomCasing = 12;
 
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
@@ -717,13 +717,13 @@ class Busway extends Road {
       ["exponential", roadExp],
       ["zoom"],
       this.minZoomFill,
-      `hsl(${this.hue}, 60%, 75%)`,
+      `hsl(${this.hue}, 0%, 85%)`,
       this.minZoomFill + 2,
-      `hsl(${this.hue}, 60%, 40%)`,
+      `hsl(${this.hue}, 0%, 75%)`,
       14.9999,
-      `hsl(${this.hue}, 30%, 40%)`,
+      `hsl(${this.hue}, 0%, 75%)`,
       15,
-      `hsl(${this.hue}, 30%, 75%)`,
+      `hsl(${this.hue}, 0%, 80%)`,
     ];
     this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
@@ -1503,7 +1503,7 @@ class BuswayTunnel extends Busway {
     super();
     this.brunnel = "tunnel";
     this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 30%, 95%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
   }
 }
 
