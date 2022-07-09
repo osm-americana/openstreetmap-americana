@@ -5,7 +5,7 @@ import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
 
-function loadShield(ctx, shield, bannerCount) {
+function loadShield(ctx, shield, bannerCount, verticalReflect) {
   var drawCtx = Gfx.getGfxContext(shield.data);
   var imgData = drawCtx.createImageData(shield.data.width, shield.data.height);
 
@@ -15,11 +15,25 @@ function loadShield(ctx, shield, bannerCount) {
 
   drawCtx.putImageData(imgData, 0, 0);
 
-  ctx.drawImage(
-    drawCtx.canvas,
-    0,
-    bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
-  );
+  if (verticalReflect == null) {
+    ctx.drawImage(
+      drawCtx.canvas,
+      0,
+      bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
+    );
+  } else {
+    ctx.save();
+    ctx.scale(1, -1);
+    ctx.drawImage(
+      drawCtx.canvas,
+      0,
+      bannerCount * ShieldDef.bannerSizeH +
+        ShieldDef.topPadding -
+        drawCtx.canvas.height -
+        2 * ShieldDraw.PXR
+    );
+    ctx.restore();
+  }
 }
 
 function drawBannerPart(ctx, network, drawFunc) {
@@ -145,7 +159,7 @@ function drawShield(ctx, shieldDef, routeDef) {
       bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
     );
   } else {
-    loadShield(ctx, shieldArtwork, bannerCount);
+    loadShield(ctx, shieldArtwork, bannerCount, shieldDef.verticalReflect);
   }
 
   return ctx;
