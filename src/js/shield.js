@@ -30,7 +30,7 @@ function loadShield(ctx, shield, bannerCount, verticalReflect) {
       bannerCount * ShieldDef.bannerSizeH +
         ShieldDef.topPadding -
         drawCtx.canvas.height -
-        ShieldDraw.PXR
+        2 * ShieldDraw.PXR
     );
     ctx.restore();
   }
