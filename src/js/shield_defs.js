@@ -110,7 +110,7 @@ export function loadShields(shieldImages) {
 
   // Triangle shields
   let triangleRoundedDownShield = {
-    backgroundImage: shieldImages.shield40_tri_rounded,
+    backgroundImage: shieldImages.shield_tri_rounded,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.black,
     padding: {
@@ -123,8 +123,8 @@ export function loadShields(shieldImages) {
 
   let triangleConvexDownShield = {
     backgroundImage: [
-      shieldImages.shield40_tri_convex_2,
-      shieldImages.shield40_tri_convex_3,
+      shieldImages.shield_tri_convex_2,
+      shieldImages.shield_tri_convex_3,
     ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.black,
@@ -139,15 +139,15 @@ export function loadShields(shieldImages) {
   let triangleConvexDownShieldBlue = {
     ...triangleConvexDownShield,
     backgroundImage: [
-      shieldImages.shield40_tri_convex_blue_2,
-      shieldImages.shield40_tri_convex_blue_3,
+      shieldImages.shield_tri_convex_blue_2,
+      shieldImages.shield_tri_convex_blue_3,
     ],
     textColor: Color.shields.white,
   };
 
   let triangleConvexDownShieldRedBlue = {
     ...triangleConvexDownShieldBlue,
-    backgroundImage: shieldImages.shield40_tri_convex_red_blue_2,
+    backgroundImage: shieldImages.shield_tri_convex_red_blue_2,
   };
 
   let triangleConvexUpShield = {
@@ -163,7 +163,7 @@ export function loadShields(shieldImages) {
 
   // Diamond shields
   let diamondShield = {
-    backgroundImage: shieldImages.shield40_diamond,
+    backgroundImage: shieldImages.shield_diamond,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.black,
     padding: {
@@ -176,15 +176,15 @@ export function loadShields(shieldImages) {
 
   let diamondShieldBrown = {
     ...diamondShield,
-    backgroundImage: shieldImages.shield40_diamond_brown,
+    backgroundImage: shieldImages.shield_diamond_brown,
     textColor: Color.shields.white,
   };
 
   // Trapezoid shields
   let trapezoidUpShield = {
     backgroundImage: [
-      shieldImages.shield40_trapezoid_2,
-      shieldImages.shield40_trapezoid_3,
+      shieldImages.shield_trapezoid_2,
+      shieldImages.shield_trapezoid_3,
     ],
     textColor: Color.shields.black,
     padding: {
@@ -198,8 +198,8 @@ export function loadShields(shieldImages) {
   let trapezoidUpShieldRoundedBrown = {
     ...trapezoidUpShield,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_rounded_brown_2,
-      shieldImages.shield40_trapezoid_rounded_brown_3,
+      shieldImages.shield_trapezoid_rounded_brown_2,
+      shieldImages.shield_trapezoid_rounded_brown_3,
     ],
     textColor: Color.shields.white,
   };
@@ -207,16 +207,16 @@ export function loadShields(shieldImages) {
   let trapezoidUpShieldBlue = {
     ...trapezoidUpShieldRoundedBrown,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_blue_2,
-      shieldImages.shield40_trapezoid_blue_3,
+      shieldImages.shield_trapezoid_blue_2,
+      shieldImages.shield_trapezoid_blue_3,
     ],
   };
 
   let trapezoidUpShieldBlackYellow = {
     ...trapezoidUpShield,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_black_yellow_2,
-      shieldImages.shield40_trapezoid_black_yellow_3,
+      shieldImages.shield_trapezoid_black_yellow_2,
+      shieldImages.shield_trapezoid_black_yellow_3,
     ],
     textColor: Color.shields.yellow,
   };
@@ -224,8 +224,8 @@ export function loadShields(shieldImages) {
   let trapezoidUpShieldGreenYellow = {
     ...trapezoidUpShieldBlackYellow,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_green_yellow_2,
-      shieldImages.shield40_trapezoid_green_yellow_3,
+      shieldImages.shield_trapezoid_green_yellow_2,
+      shieldImages.shield_trapezoid_green_yellow_3,
     ],
   };
 
@@ -242,7 +242,7 @@ export function loadShields(shieldImages) {
 
   // Pentagon shields
   let pentagonShield = {
-    backgroundImage: shieldImages.shield40_pent_3,
+    backgroundImage: shieldImages.shield_pent_3,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.black,
     padding: {
@@ -256,32 +256,29 @@ export function loadShields(shieldImages) {
   let pentagonShieldBlueYellow = {
     ...pentagonShield,
     backgroundImage: [
-      shieldImages.shield40_pent_blue_yellow_2,
-      shieldImages.shield40_pent_blue_yellow_3,
+      shieldImages.shield_pent_blue_yellow_2,
+      shieldImages.shield_pent_blue_yellow_3,
     ],
     textColor: Color.shields.yellow,
   };
 
   let pentagonShieldPurpleYellow = {
     ...pentagonShieldBlueYellow,
-    backgroundImage: shieldImages.shield40_pent_purple_yellow_3,
+    backgroundImage: shieldImages.shield_pent_purple_yellow_3,
   };
 
   let pentagonShieldGreen = {
     ...pentagonShield,
     backgroundImage: [
-      shieldImages.shield40_pent_green_2,
-      shieldImages.shield40_pent_green_3,
+      shieldImages.shield_pent_green_2,
+      shieldImages.shield_pent_green_3,
     ],
     textColor: Color.shields.white,
   };
 
   // Home plate shields
   let homeDownShield = {
-    backgroundImage: [
-      shieldImages.shield40_home_2,
-      shieldImages.shield40_home_3,
-    ],
+    backgroundImage: [shieldImages.shield_home_2, shieldImages.shield_home_3],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -293,21 +290,21 @@ export function loadShields(shieldImages) {
 
   let homeDownShieldYellow = {
     ...homeDownShield,
-    backgroundImage: shieldImages.shield40_home_yellow_2,
+    backgroundImage: shieldImages.shield_home_yellow_2,
   };
 
   let homeDownShieldBlue = {
     ...homeDownShield,
     backgroundImage: [
-      shieldImages.shield40_home_blue_2,
-      shieldImages.shield40_home_blue_3,
+      shieldImages.shield_home_blue_2,
+      shieldImages.shield_home_blue_3,
     ],
     textColor: Color.shields.white,
   };
 
   // Hexagon shields
   let hexagonVerticalShieldYellow = {
-    backgroundImage: shieldImages.shield40_hex_vert_yellow,
+    backgroundImage: shieldImages.shield_hex_vert_yellow,
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -319,12 +316,12 @@ export function loadShields(shieldImages) {
 
   let hexagonVerticalShieldGreen = {
     ...hexagonVerticalShieldYellow,
-    backgroundImage: shieldImages.shield40_hex_vert_green,
+    backgroundImage: shieldImages.shield_hex_vert_green,
     textColor: Color.shields.white,
   };
 
   let hexagonHorizontalShieldBlue = {
-    backgroundImage: shieldImages.shield40_hex_horz_blue,
+    backgroundImage: shieldImages.shield_hex_horz_blue,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
@@ -338,9 +335,9 @@ export function loadShields(shieldImages) {
   // Octagon shields
   let octagonShieldGreen = {
     backgroundImage: [
-      shieldImages.shield40_oct_green_2,
-      shieldImages.shield40_oct_green_3,
-      shieldImages.shield40_oct_green_4,
+      shieldImages.shield_oct_green_2,
+      shieldImages.shield_oct_green_3,
+      shieldImages.shield_oct_green_4,
     ],
     textColor: Color.shields.white,
     padding: {
@@ -353,10 +350,7 @@ export function loadShields(shieldImages) {
 
   // Other common shield shapes
   let badgeShield = {
-    backgroundImage: [
-      shieldImages.shield40_badge_2,
-      shieldImages.shield40_badge_3,
-    ],
+    backgroundImage: [shieldImages.shield_badge_2, shieldImages.shield_badge_3],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -383,7 +377,7 @@ export function loadShields(shieldImages) {
 
   // Canada
   shields["CA:transcanada"] = {
-    backgroundImage: shieldImages.shield40_ca_tch,
+    backgroundImage: shieldImages.shield_ca_tch,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.green,
     padding: {
@@ -394,7 +388,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["CA:transcanada:namedRoute"] = {
-    norefImage: shieldImages.shield40_ca_tch,
+    norefImage: shieldImages.shield_ca_tch,
     notext: true,
   };
 
@@ -407,10 +401,7 @@ export function loadShields(shieldImages) {
 
   // British Columbia
   shields["CA:BC"] = {
-    backgroundImage: [
-      shieldImages.shield40_ca_bc_2,
-      shieldImages.shield40_ca_bc_3,
-    ],
+    backgroundImage: [shieldImages.shield_ca_bc_2, shieldImages.shield_ca_bc_3],
     textColor: Color.shields.blue,
     padding: {
       left: 3.5,
@@ -424,7 +415,7 @@ export function loadShields(shieldImages) {
   shields["CA:MB:PTH"] = homeDownShield;
   shields["CA:MB:PR"] = ovalShield(Color.shields.black, Color.shields.white);
   shields["CA:MB:Winnipeg"] = {
-    backgroundImage: shieldImages.shield40_ca_mb_winnipeg,
+    backgroundImage: shieldImages.shield_ca_mb_winnipeg,
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -436,7 +427,7 @@ export function loadShields(shieldImages) {
 
   // New Brunswick
   shields["CA:NB:tertiary"] = {
-    backgroundImage: shieldImages.shield40_ca_nb,
+    backgroundImage: shieldImages.shield_ca_nb,
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -456,7 +447,7 @@ export function loadShields(shieldImages) {
 
   // Nova Scotia
   shields["CA:NS:H"] = {
-    backgroundImage: shieldImages.shield40_ca_ns_h,
+    backgroundImage: shieldImages.shield_ca_ns_h,
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -473,7 +464,7 @@ export function loadShields(shieldImages) {
 
   // Northwest Territories
   shields["CA:NT"] = {
-    backgroundImage: shieldImages.shield40_ca_nt,
+    backgroundImage: shieldImages.shield_ca_nt,
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -485,7 +476,7 @@ export function loadShields(shieldImages) {
 
   // Ontario
   shields["CA:ON:primary"] = {
-    backgroundImage: shieldImages.shield40_ca_on_primary,
+    backgroundImage: shieldImages.shield_ca_on_primary,
     textColor: Color.shields.black,
     padding: {
       left: 3.5,
@@ -496,7 +487,7 @@ export function loadShields(shieldImages) {
   };
   shields["CA:ON:primary:Toll"] = {
     ...shields["CA:ON:primary"],
-    backgroundImage: shieldImages.shield40_ca_on_primary_toll,
+    backgroundImage: shieldImages.shield_ca_on_primary_toll,
     textColor: Color.shields.white,
   };
   shields["CA:ON:private_toll"] = banneredShield(
@@ -597,7 +588,7 @@ export function loadShields(shieldImages) {
 
   // Prince Edward Island
   shields["CA:PE"] = {
-    backgroundImage: shieldImages.shield40_ca_pe,
+    backgroundImage: shieldImages.shield_ca_pe,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -610,8 +601,8 @@ export function loadShields(shieldImages) {
   // Quebec
   shields["CA:QC:A"] = {
     backgroundImage: [
-      shieldImages.shield40_ca_qc_a_2,
-      shieldImages.shield40_ca_qc_a_3,
+      shieldImages.shield_ca_qc_a_2,
+      shieldImages.shield_ca_qc_a_3,
     ],
     textColor: Color.shields.white,
     padding: {
@@ -622,7 +613,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["CA:QC:R"] = {
-    backgroundImage: shieldImages.shield40_ca_qc_r,
+    backgroundImage: shieldImages.shield_ca_qc_r,
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -635,7 +626,7 @@ export function loadShields(shieldImages) {
   // Saskatchewan
   shields["CA:SK:primary"] = homeDownShieldBlue;
   shields["CA:SK:secondary"] = {
-    backgroundImage: shieldImages.shield40_ca_sk_secondary,
+    backgroundImage: shieldImages.shield_ca_sk_secondary,
     textColor: Color.shields.green,
     padding: {
       left: 2,
@@ -658,8 +649,8 @@ export function loadShields(shieldImages) {
   // Interstate Highways
   shields["US:I"] = {
     backgroundImage: [
-      shieldImages.shield40_us_interstate_2,
-      shieldImages.shield40_us_interstate_3,
+      shieldImages.shield_us_interstate_2,
+      shieldImages.shield_us_interstate_3,
     ],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
@@ -679,8 +670,8 @@ export function loadShields(shieldImages) {
   shields["US:I:Business:Loop"] = {
     ...shields["US:I"],
     backgroundImage: [
-      shieldImages.shield40_us_interstate_business_2,
-      shieldImages.shield40_us_interstate_business_3,
+      shieldImages.shield_us_interstate_business_2,
+      shieldImages.shield_us_interstate_business_3,
     ],
   };
 
@@ -716,7 +707,7 @@ export function loadShields(shieldImages) {
 
   // Federal Agencies
   shields["US:BIA"] = {
-    backgroundImage: shieldImages.shield40_us_bia,
+    backgroundImage: shieldImages.shield_us_bia,
     textColor: Color.shields.black,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     padding: {
@@ -729,7 +720,7 @@ export function loadShields(shieldImages) {
 
   // Alaska
   shields["US:AK"] = {
-    backgroundImage: shieldImages.shield40_us_ak,
+    backgroundImage: shieldImages.shield_us_ak,
     textColor: Color.shields.black,
     padding: {
       left: 5,
@@ -741,10 +732,7 @@ export function loadShields(shieldImages) {
 
   // Alabama
   shields["US:AL"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_al_2,
-      shieldImages.shield40_us_al_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_al_2, shieldImages.shield_us_al_3],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -828,10 +816,7 @@ export function loadShields(shieldImages) {
 
   // Arkansas
   shields["US:AR"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ar_2,
-      shieldImages.shield40_us_ar_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_ar_2, shieldImages.shield_us_ar_3],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -883,7 +868,7 @@ export function loadShields(shieldImages) {
   );
 
   shields["US:AS"] = {
-    backgroundImage: shieldImages.shield40_us_as,
+    backgroundImage: shieldImages.shield_us_as,
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -894,10 +879,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:AZ"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_az_2,
-      shieldImages.shield40_us_az_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_az_2, shieldImages.shield_us_az_3],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -919,10 +901,7 @@ export function loadShields(shieldImages) {
 
   // California
   shields["US:CA"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ca_2,
-      shieldImages.shield40_us_ca_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_ca_2, shieldImages.shield_us_ca_3],
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -936,7 +915,7 @@ export function loadShields(shieldImages) {
 
   // Colorado
   shields["US:CO"] = {
-    backgroundImage: shieldImages.shield40_us_co,
+    backgroundImage: shieldImages.shield_us_co,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -946,7 +925,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:CO:E470"] = {
-    backgroundImage: shieldImages.shield40_us_co_e470,
+    backgroundImage: shieldImages.shield_us_co_e470,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -992,7 +971,7 @@ export function loadShields(shieldImages) {
 
   // Washington, D.C.
   shields["US:DC"] = {
-    backgroundImage: shieldImages.shield40_us_dc,
+    backgroundImage: shieldImages.shield_us_dc,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1010,10 +989,7 @@ export function loadShields(shieldImages) {
 
   // Florida
   shields["US:FL"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_fl_2,
-      shieldImages.shield40_us_fl_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_fl_2, shieldImages.shield_us_fl_3],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1023,7 +999,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:FL:Toll"] = {
-    backgroundImage: shieldImages.shield40_us_fl_toll,
+    backgroundImage: shieldImages.shield_us_fl_toll,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1033,17 +1009,14 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:FL:Turnpike"] = {
-    norefImage: shieldImages.shield40_us_fl_turnpike,
+    norefImage: shieldImages.shield_us_fl_turnpike,
     notext: true,
   };
   shields["US:FL:CR"] = pentagonShieldBlueYellow;
 
   // Georgia
   shields["US:GA"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ga_2,
-      shieldImages.shield40_us_ga_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_ga_2, shieldImages.shield_us_ga_3],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -1065,10 +1038,7 @@ export function loadShields(shieldImages) {
 
   // Guam
   shields["US:GU"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_gu_2,
-      shieldImages.shield40_us_gu_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_gu_2, shieldImages.shield_us_gu_3],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
@@ -1088,10 +1058,7 @@ export function loadShields(shieldImages) {
 
   // Idaho
   shields["US:ID"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_id_2,
-      shieldImages.shield40_us_id_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_id_2, shieldImages.shield_us_id_3],
     textColor: Color.shields.black,
     padding: {
       left: 5,
@@ -1152,7 +1119,7 @@ export function loadShields(shieldImages) {
     (county) => (shields[`US:IL:${county}`] = pentagonShieldBlueYellow)
   );
   shields["US:IL:Cook:Chicago:Skyway"] = {
-    norefImage: shieldImages.shield40_us_il_skyway,
+    norefImage: shieldImages.shield_us_il_skyway,
     notext: true,
   };
 
@@ -1162,16 +1129,13 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:IN:Toll"] = {
-    norefImage: shieldImages.shield40_us_in_toll,
+    norefImage: shieldImages.shield_us_in_toll,
     notext: true,
   };
 
   // Kansas
   shields["US:KS"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ks_2,
-      shieldImages.shield40_us_ks_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_ks_2, shieldImages.shield_us_ks_3],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -1201,7 +1165,7 @@ export function loadShields(shieldImages) {
   shields["US:KY"] = pillShield(Color.shields.white, Color.shields.black);
   shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
   shields["US:KY:AA"] = {
-    backgroundImage: shieldImages.shield40_us_ky_parkway,
+    backgroundImage: shieldImages.shield_us_ky_parkway,
     textColor: Color.shields.blue,
     padding: {
       left: 2,
@@ -1213,10 +1177,7 @@ export function loadShields(shieldImages) {
 
   // Louisiana
   shields["US:LA"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_la_2,
-      shieldImages.shield40_us_la_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_la_2, shieldImages.shield_us_la_3],
     textColor: Color.shields.black,
     padding: {
       left: 2.5,
@@ -1259,10 +1220,7 @@ export function loadShields(shieldImages) {
 
   // Maryland
   shields["US:MD"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_md_2,
-      shieldImages.shield40_us_md_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_md_2, shieldImages.shield_us_md_3],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -1310,10 +1268,7 @@ export function loadShields(shieldImages) {
 
   // Minnesota
   shields["US:MN"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_mn_2,
-      shieldImages.shield40_us_mn_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_mn_2, shieldImages.shield_us_mn_3],
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -1428,10 +1383,7 @@ export function loadShields(shieldImages) {
 
   // Missouri
   shields["US:MO"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_mo_2,
-      shieldImages.shield40_us_mo_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_mo_2, shieldImages.shield_us_mo_3],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -1472,10 +1424,7 @@ export function loadShields(shieldImages) {
 
   // Northern Mariana Islands
   shields["US:MP"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_mp_2,
-      shieldImages.shield40_us_mp_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_mp_2, shieldImages.shield_us_mp_3],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -1508,7 +1457,7 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:MT:secondary"] = {
-    backgroundImage: shieldImages.shield40_us_mt_secondary,
+    backgroundImage: shieldImages.shield_us_mt_secondary,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1530,10 +1479,7 @@ export function loadShields(shieldImages) {
 
   // North Dakota
   shields["US:ND"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_nd_2,
-      shieldImages.shield40_us_nd_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_nd_2, shieldImages.shield_us_nd_3],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1604,10 +1550,7 @@ export function loadShields(shieldImages) {
 
   // New Hampshire
   shields["US:NH"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_nh_2,
-      shieldImages.shield40_us_nh_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_nh_2, shieldImages.shield_us_nh_3],
     textColor: Color.shields.black,
     padding: {
       left: 3.5,
@@ -1621,15 +1564,15 @@ export function loadShields(shieldImages) {
   // New Jersey
   shields["US:NJ"] = ovalShield(Color.shields.white, Color.shields.black);
   shields["US:NJ:ACE"] = {
-    backgroundImage: shieldImages.shield40_us_nj_ace_noref,
+    backgroundImage: shieldImages.shield_us_nj_ace_noref,
     notext: true,
   };
   shields["US:NJ:GSP"] = {
-    backgroundImage: shieldImages.shield40_us_nj_gsp_noref,
+    backgroundImage: shieldImages.shield_us_nj_gsp_noref,
     notext: true,
   };
   shields["US:NJ:NJTP"] = {
-    backgroundImage: shieldImages.shield40_us_nj_njtp_noref,
+    backgroundImage: shieldImages.shield_us_nj_njtp_noref,
     notext: true,
   };
   //New Jersey county routes with standard shields
@@ -1701,7 +1644,7 @@ export function loadShields(shieldImages) {
 
   // Nevada
   shields["US:NV"] = {
-    backgroundImage: shieldImages.shield40_us_nv,
+    backgroundImage: shieldImages.shield_us_nv,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1716,10 +1659,7 @@ export function loadShields(shieldImages) {
 
   // New York
   shields["US:NY"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ny_2,
-      shieldImages.shield40_us_ny_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_ny_2, shieldImages.shield_us_ny_3],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1729,11 +1669,11 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:NY:Thruway"] = {
-    norefImage: shieldImages.shield40_us_ny_thruway,
+    norefImage: shieldImages.shield_us_ny_thruway,
     notext: true,
   };
   shields["US:NY:STE"] = {
-    norefImage: shieldImages.shield40_us_ny_ste,
+    norefImage: shieldImages.shield_us_ny_ste,
     notext: true,
   };
   [
@@ -1787,11 +1727,8 @@ export function loadShields(shieldImages) {
 
   // Ohio
   shields["US:OH"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_oh_2,
-      shieldImages.shield40_us_oh_3,
-    ],
-    norefImage: shieldImages.shield40_us_oh_turnpike,
+    backgroundImage: [shieldImages.shield_us_oh_2, shieldImages.shield_us_oh_3],
+    norefImage: shieldImages.shield_us_oh_turnpike,
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -1889,7 +1826,7 @@ export function loadShields(shieldImages) {
       ))
   );
   shields["US:OH:ASD"] = {
-    backgroundImage: [shieldImages.shield40_us_oh_asd],
+    backgroundImage: [shieldImages.shield_us_oh_asd],
     textColor: Color.shields.green,
     padding: {
       left: 6,
@@ -1900,8 +1837,8 @@ export function loadShields(shieldImages) {
   };
   shields["US:OH:SCI"] = {
     backgroundImage: [
-      shieldImages.shield40_us_oh_sci_2,
-      shieldImages.shield40_us_oh_sci_3,
+      shieldImages.shield_us_oh_sci_2,
+      shieldImages.shield_us_oh_sci_3,
     ],
     textColor: Color.shields.black,
     padding: {
@@ -1921,7 +1858,7 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:OH:TUS:Salem"] = {
-    backgroundImage: [shieldImages.shield40_us_oh_tus_salem],
+    backgroundImage: [shieldImages.shield_us_oh_tus_salem],
     textColor: Color.shields.black,
     padding: {
       left: 1,
@@ -1977,10 +1914,7 @@ export function loadShields(shieldImages) {
 
   // Oklahoma
   shields["US:OK"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ok_2,
-      shieldImages.shield40_us_ok_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_ok_2, shieldImages.shield_us_ok_3],
     textColor: Color.shields.black,
     textHaloColor: Color.shields.white,
     padding: {
@@ -1998,10 +1932,7 @@ export function loadShields(shieldImages) {
 
   // Oregon
   shields["US:OR"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_or_2,
-      shieldImages.shield40_us_or_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_or_2, shieldImages.shield_us_or_3],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2017,10 +1948,7 @@ export function loadShields(shieldImages) {
 
   // Pennsylvania
   shields["US:PA"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_pa_2,
-      shieldImages.shield40_us_pa_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_pa_2, shieldImages.shield_us_pa_3],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2034,10 +1962,10 @@ export function loadShields(shieldImages) {
   shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
   shields["US:PA:Turnpike"] = {
     backgroundImage: [
-      shieldImages.shield40_us_pa_turnpike_2,
-      shieldImages.shield40_us_pa_turnpike_3,
+      shieldImages.shield_us_pa_turnpike_2,
+      shieldImages.shield_us_pa_turnpike_3,
     ],
-    norefImage: shieldImages.shield40_us_pa_turnpike_noref,
+    norefImage: shieldImages.shield_us_pa_turnpike_noref,
     textColor: Color.shields.white,
     padding: {
       left: 3,
@@ -2056,7 +1984,7 @@ export function loadShields(shieldImages) {
 
   // South Carolina
   shields["US:SC"] = {
-    backgroundImage: shieldImages.shield40_us_sc,
+    backgroundImage: shieldImages.shield_us_sc,
     textColor: Color.shields.blue,
     padding: {
       left: 2,
@@ -2071,10 +1999,7 @@ export function loadShields(shieldImages) {
 
   // South Dakota
   shields["US:SD"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_sd_2,
-      shieldImages.shield40_us_sd_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_sd_2, shieldImages.shield_us_sd_3],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2130,7 +2055,7 @@ export function loadShields(shieldImages) {
 
   // Tennessee
   shields["US:TN:primary"] = {
-    backgroundImage: shieldImages.shield40_us_tn_primary,
+    backgroundImage: shieldImages.shield_us_tn_primary,
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2194,7 +2119,7 @@ export function loadShields(shieldImages) {
   ]);
   shields["US:TX:Montgomery:MCTRA"] = {
     ...homeDownShieldBlue,
-    backgroundImage: shieldImages.shield40_home_blue_red_3,
+    backgroundImage: shieldImages.shield_home_blue_red_3,
   };
   [
     "Anderson",
@@ -2255,10 +2180,7 @@ export function loadShields(shieldImages) {
 
   // Utah
   shields["US:UT"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_ut_2,
-      shieldImages.shield40_us_ut_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_ut_2, shieldImages.shield_us_ut_3],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -2271,10 +2193,7 @@ export function loadShields(shieldImages) {
 
   // Virginia
   shields["US:VA"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_va_2,
-      shieldImages.shield40_us_va_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_va_2, shieldImages.shield_us_va_3],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2295,10 +2214,7 @@ export function loadShields(shieldImages) {
 
   // Vermont
   shields["US:VT"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_vt_2,
-      shieldImages.shield40_us_vt_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_vt_2, shieldImages.shield_us_vt_3],
     textColor: Color.shields.green,
     padding: {
       left: 3,
@@ -2313,7 +2229,7 @@ export function loadShields(shieldImages) {
 
   // Washington (state)
   shields["US:WA"] = {
-    backgroundImage: shieldImages.shield40_us_wa,
+    backgroundImage: shieldImages.shield_us_wa,
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2328,10 +2244,7 @@ export function loadShields(shieldImages) {
 
   // Wisconsin
   shields["US:WI"] = {
-    backgroundImage: [
-      shieldImages.shield40_us_wi_2,
-      shieldImages.shield40_us_wi_3,
-    ],
+    backgroundImage: [shieldImages.shield_us_wi_2, shieldImages.shield_us_wi_3],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2427,7 +2340,7 @@ export function loadShields(shieldImages) {
     ["TRK"]
   );
   shields["US:WI:Rustic"] = {
-    backgroundImage: shieldImages.shield40_us_wi_rustic,
+    backgroundImage: shieldImages.shield_us_wi_rustic,
     textColor: Color.shields.yellow,
     padding: {
       left: 1.5,
@@ -2479,8 +2392,8 @@ export function loadShields(shieldImages) {
   // Chile
   shields["CL:national"] = {
     backgroundImage: [
-      shieldImages.shield40_cl_national_2,
-      shieldImages.shield40_cl_national_3,
+      shieldImages.shield_cl_national_2,
+      shieldImages.shield_cl_national_3,
     ],
     textColor: Color.shields.white,
     padding: {
@@ -2498,8 +2411,8 @@ export function loadShields(shieldImages) {
   // Colombia
   shields["co:national"] = {
     backgroundImage: [
-      shieldImages.shield40_co_national_2,
-      shieldImages.shield40_co_national_3,
+      shieldImages.shield_co_national_2,
+      shieldImages.shield_co_national_3,
     ],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.black,
@@ -2548,7 +2461,7 @@ export function loadShields(shieldImages) {
         shields[`VE:R:${state}`],
       ] = [
         {
-          backgroundImage: shieldImages.shield40_ve_t,
+          backgroundImage: shieldImages.shield_ve_t,
           textColor: Color.shields.black,
           padding: {
             left: 4,
@@ -2589,9 +2502,9 @@ export function loadShields(shieldImages) {
   );
   shields["CN:expressway"] = {
     backgroundImage: [
-      shieldImages.shield40_cn_national_expressway_2,
-      shieldImages.shield40_cn_national_expressway_3,
-      shieldImages.shield40_cn_national_expressway_4,
+      shieldImages.shield_cn_national_expressway_2,
+      shieldImages.shield_cn_national_expressway_3,
+      shieldImages.shield_cn_national_expressway_4,
     ],
     textColor: Color.shields.white,
     padding: {
@@ -2640,9 +2553,9 @@ export function loadShields(shieldImages) {
     );
     shields[`CN:${province}:expressway`] = {
       backgroundImage: [
-        shieldImages.shield40_cn_regional_expressway_2,
-        shieldImages.shield40_cn_regional_expressway_3,
-        shieldImages.shield40_cn_regional_expressway_4,
+        shieldImages.shield_cn_regional_expressway_2,
+        shieldImages.shield_cn_regional_expressway_3,
+        shieldImages.shield_cn_regional_expressway_4,
       ],
       textColor: Color.shields.white,
       padding: {
@@ -2676,7 +2589,7 @@ export function loadShields(shieldImages) {
 
   // Hong Kong
   shields["HK"] = {
-    backgroundImage: shieldImages.shield40_hk,
+    backgroundImage: shieldImages.shield_hk,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.black,
     padding: {
@@ -2769,8 +2682,8 @@ export function loadShields(shieldImages) {
   // South Korea
   shields["KR:expressway"] = {
     backgroundImage: [
-      shieldImages.shield40_kr_expressway_2,
-      shieldImages.shield40_kr_expressway_3,
+      shieldImages.shield_kr_expressway_2,
+      shieldImages.shield_kr_expressway_3,
     ],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
@@ -2795,7 +2708,7 @@ export function loadShields(shieldImages) {
 
   // Taiwan
   shields["TW:freeway"] = {
-    backgroundImage: shieldImages.shield40_tw_freeway,
+    backgroundImage: shieldImages.shield_tw_freeway,
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.black,
     padding: {
@@ -2981,7 +2894,7 @@ export function loadShields(shieldImages) {
   // Hungary
   shields["HU:national"] = {
     ...homeDownShieldBlue,
-    backgroundImage: shieldImages.shield40_home_blue_3,
+    backgroundImage: shieldImages.shield_home_blue_3,
   };
 
   // Italy
@@ -3005,7 +2918,7 @@ export function loadShields(shieldImages) {
 
   // Moldova
   shields["md:national"] = {
-    backgroundImage: shieldImages.shield40_ro_trunk_2,
+    backgroundImage: shieldImages.shield_ro_trunk_2,
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -3036,7 +2949,7 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   let nlCityRoute = {
-    backgroundImage: shieldImages.shield40_nl_city,
+    backgroundImage: shieldImages.shield_nl_city,
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -3174,10 +3087,7 @@ export function loadShields(shieldImages) {
 
   // New Zealand
   shields["NZ:SH"] = {
-    backgroundImage: [
-      shieldImages.shield40_nz_sh_2,
-      shieldImages.shield40_nz_sh_3,
-    ],
+    backgroundImage: [shieldImages.shield_nz_sh_2, shieldImages.shield_nz_sh_3],
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
@@ -3193,7 +3103,7 @@ export function loadShields(shieldImages) {
 
   shields["CA:ON:primary"].overrideByRef = {
     QEW: {
-      backgroundImage: shieldImages.shield40_ca_on_primary_qew,
+      backgroundImage: shieldImages.shield_ca_on_primary_qew,
       textColor: Color.shields.blue,
     },
   };
@@ -3208,7 +3118,7 @@ export function loadShields(shieldImages) {
 
   shields["US:AR"].overrideByRef = {
     980: {
-      backgroundImage: shieldImages.shield40_us_ar_980,
+      backgroundImage: shieldImages.shield_us_ar_980,
       textColor: Color.shields.white,
     },
   };
@@ -3270,7 +3180,7 @@ export function loadShields(shieldImages) {
       },
     },
     {
-      backgroundImage: shieldImages.shield40_us_tx_fbctra,
+      backgroundImage: shieldImages.shield_us_tx_fbctra,
       textColor: Color.shields.white,
       padding: {
         left: 3,
