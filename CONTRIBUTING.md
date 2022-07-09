@@ -245,6 +245,7 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 - **`textColor`** – The color of the inscribed text to superimpose on the background.
 - **`textHaloColor`** – The color of the halo surrounding the inscribed text.
 - **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
+- **`verticalReflect`** – Set this property to `true` to draw the shield image upside-down.
 
 If special code is necessary to style a specific `ref` in a particular network, `overrideByRef` can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
 

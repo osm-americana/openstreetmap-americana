@@ -110,7 +110,7 @@ export function loadShields(shieldImages) {
 
   // Triangle shields
   let triangleRoundedDownShield = {
-    backgroundImage: shieldImages.shield40_tri_rounded_down,
+    backgroundImage: shieldImages.shield40_tri_rounded,
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.black,
     padding: {
@@ -121,13 +121,13 @@ export function loadShields(shieldImages) {
     },
   };
 
-  let triangleConvexDownShieldBlue = {
+  let triangleConvexDownShield = {
     backgroundImage: [
-      shieldImages.shield40_tri_convex_down_blue_2,
-      shieldImages.shield40_tri_convex_down_blue_3,
+      shieldImages.shield40_tri_convex_2,
+      shieldImages.shield40_tri_convex_3,
     ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    textColor: Color.shields.white,
+    textColor: Color.shields.black,
     padding: {
       left: 2,
       right: 2,
@@ -136,18 +136,23 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let triangleConvexDownShieldBlue = {
+    ...triangleConvexDownShield,
+    backgroundImage: [
+      shieldImages.shield40_tri_convex_blue_2,
+      shieldImages.shield40_tri_convex_blue_3,
+    ],
+    textColor: Color.shields.white,
+  };
+
   let triangleConvexDownShieldRedBlue = {
     ...triangleConvexDownShieldBlue,
-    backgroundImage: shieldImages.shield40_tri_convex_down_red_blue_2,
+    backgroundImage: shieldImages.shield40_tri_convex_red_blue_2,
   };
 
   let triangleConvexUpShield = {
-    backgroundImage: [
-      shieldImages.shield40_tri_convex_up_2,
-      shieldImages.shield40_tri_convex_up_3,
-    ],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    textColor: Color.shields.black,
+    ...triangleConvexDownShield,
+    verticalReflect: true,
     padding: {
       left: 2,
       right: 2,
@@ -178,8 +183,8 @@ export function loadShields(shieldImages) {
   // Trapezoid shields
   let trapezoidUpShield = {
     backgroundImage: [
-      shieldImages.shield40_trapezoid_up_2,
-      shieldImages.shield40_trapezoid_up_3,
+      shieldImages.shield40_trapezoid_2,
+      shieldImages.shield40_trapezoid_3,
     ],
     textColor: Color.shields.black,
     padding: {
@@ -193,8 +198,8 @@ export function loadShields(shieldImages) {
   let trapezoidUpShieldRoundedBrown = {
     ...trapezoidUpShield,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_up_rounded_brown_2,
-      shieldImages.shield40_trapezoid_up_rounded_brown_3,
+      shieldImages.shield40_trapezoid_rounded_brown_2,
+      shieldImages.shield40_trapezoid_rounded_brown_3,
     ],
     textColor: Color.shields.white,
   };
@@ -202,16 +207,16 @@ export function loadShields(shieldImages) {
   let trapezoidUpShieldBlue = {
     ...trapezoidUpShieldRoundedBrown,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_up_blue_2,
-      shieldImages.shield40_trapezoid_up_blue_3,
+      shieldImages.shield40_trapezoid_blue_2,
+      shieldImages.shield40_trapezoid_blue_3,
     ],
   };
 
   let trapezoidUpShieldBlackYellow = {
     ...trapezoidUpShield,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_up_black_yellow_2,
-      shieldImages.shield40_trapezoid_up_black_yellow_3,
+      shieldImages.shield40_trapezoid_black_yellow_2,
+      shieldImages.shield40_trapezoid_black_yellow_3,
     ],
     textColor: Color.shields.yellow,
   };
@@ -219,17 +224,14 @@ export function loadShields(shieldImages) {
   let trapezoidUpShieldGreenYellow = {
     ...trapezoidUpShieldBlackYellow,
     backgroundImage: [
-      shieldImages.shield40_trapezoid_up_green_yellow_2,
-      shieldImages.shield40_trapezoid_up_green_yellow_3,
+      shieldImages.shield40_trapezoid_green_yellow_2,
+      shieldImages.shield40_trapezoid_green_yellow_3,
     ],
   };
 
   let trapezoidDownShield = {
-    backgroundImage: [
-      shieldImages.shield40_trapezoid_down_2,
-      shieldImages.shield40_trapezoid_down_3,
-    ],
-    textColor: Color.shields.black,
+    ...trapezoidUpShield,
+    verticalReflect: true,
     padding: {
       left: 4,
       right: 4,
@@ -277,8 +279,8 @@ export function loadShields(shieldImages) {
   // Home plate shields
   let homeDownShield = {
     backgroundImage: [
-      shieldImages.shield40_home_down_2,
-      shieldImages.shield40_home_down_3,
+      shieldImages.shield40_home_2,
+      shieldImages.shield40_home_3,
     ],
     textColor: Color.shields.black,
     padding: {
@@ -291,14 +293,14 @@ export function loadShields(shieldImages) {
 
   let homeDownShieldYellow = {
     ...homeDownShield,
-    backgroundImage: shieldImages.shield40_home_down_yellow_2,
+    backgroundImage: shieldImages.shield40_home_yellow_2,
   };
 
   let homeDownShieldBlue = {
     ...homeDownShield,
     backgroundImage: [
-      shieldImages.shield40_home_down_blue_2,
-      shieldImages.shield40_home_down_blue_3,
+      shieldImages.shield40_home_blue_2,
+      shieldImages.shield40_home_blue_3,
     ],
     textColor: Color.shields.white,
   };
@@ -2192,7 +2194,7 @@ export function loadShields(shieldImages) {
   ]);
   shields["US:TX:Montgomery:MCTRA"] = {
     ...homeDownShieldBlue,
-    backgroundImage: shieldImages.shield40_home_down_blue_red_3,
+    backgroundImage: shieldImages.shield40_home_blue_red_3,
   };
   [
     "Anderson",
@@ -2979,7 +2981,7 @@ export function loadShields(shieldImages) {
   // Hungary
   shields["HU:national"] = {
     ...homeDownShieldBlue,
-    backgroundImage: shieldImages.shield40_home_down_blue_3,
+    backgroundImage: shieldImages.shield40_home_blue_3,
   };
 
   // Italy
