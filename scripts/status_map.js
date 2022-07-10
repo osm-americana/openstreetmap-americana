@@ -5,6 +5,10 @@ import * as ShieldDef from "../src/js/shield_defs.js";
 
 function fillPaths(svg, codes) {
   let selectors = new Set(codes.map((code) => `.${code.toLowerCase()}`));
+  if (selectors.has(".nl")) {
+    // Curaçao routes use NL prefix with the Netherlands.
+    selectors.add(".cw");
+  }
   return svg.replace(".supported", new Array(...selectors).join(",\n"));
 }
 

@@ -30,7 +30,7 @@ function addNetworkTags(project, sprites) {
     }
     description += ".";
 
-    let icon = definition.backgroundImage;
+    let icon = definition.backgroundImage || definition.norefImage;
     if (Array.isArray(icon)) {
       icon = icon[0];
     }
