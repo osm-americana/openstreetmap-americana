@@ -2898,31 +2898,13 @@ export function loadShields(shieldImages) {
   };
 
   // Iceland
-  [
-    "S", // Stofnvegur - Trunk road
-    "Sx", // Stofnvegur um hálendi - Trunk road in highlands
-    "T", // Tengivegur - Connecting road
-    "L", // Landsvegur - Country road
-    "H", // Héraðsvegur - County road
-    // Combinations used as of 2022-06-19
-    // Should these be supported?
-    //"S;H",
-    //"S;Sx",
-    //"S;T",
-    //"S;T;L",
-    //"T;H",
-    //"T;L",
-    //"T;S;L",
-  ].forEach(
-    (icelandic_road_class) =>
-      (shields[`${icelandic_road_class}`] = roundedRectShield(
-        Color.shields.white,
-        Color.shields.black,
-        Color.shields.black,
-        2,
-        1,
-        35
-      ))
+  shields["IS"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2,
+    1,
+    35
   );
 
   // Italy
