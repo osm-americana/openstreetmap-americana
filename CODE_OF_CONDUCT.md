@@ -1,6 +1,6 @@
 # Code of Conduct
 
-The OpenStreetMap Americana project has opted in (PR link) to the [OpenStreetMap US Code of Conduct](https://wiki.openstreetmap.org/wiki/Foundation/Local_Chapters/United_States/Code_of_Conduct_Committee/OSM_US_Code_of_Conduct) (CoC) and [Process for Moderation](https://wiki.openstreetmap.org/wiki/Foundation/Local_Chapters/United_States/Code_of_Conduct_Committee/ModerationProcess).
+The OpenStreetMap Americana project has opted in (#489) to the [OpenStreetMap US Code of Conduct](https://wiki.openstreetmap.org/wiki/Foundation/Local_Chapters/United_States/Code_of_Conduct_Committee/OSM_US_Code_of_Conduct) (CoC) and [Process for Moderation](https://wiki.openstreetmap.org/wiki/Foundation/Local_Chapters/United_States/Code_of_Conduct_Committee/ModerationProcess).
 
 This document outlines the standards for behavior in this project, and describes the procedure that users may follow if they experience unacceptable behavior.
 
