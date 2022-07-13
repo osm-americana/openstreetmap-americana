@@ -326,7 +326,10 @@ export function loadShields(shieldImages) {
   };
 
   let hexagonHorizontalShieldBlue = {
-    backgroundImage: shieldImages.shield_hex_horz_blue,
+    backgroundImage: [
+      shieldImages.shield_hex_horz_blue_2,
+      shieldImages.shield_hex_horz_blue_3,
+    ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
@@ -2619,7 +2622,10 @@ export function loadShields(shieldImages) {
   // Japan
   shields["JP:E"] = roundedRectShield(Color.shields.green, Color.shields.white);
   shields["JP:national"] = triangleConvexDownShieldBlue;
-  shields["JP:prefectural"] = hexagonHorizontalShieldBlue;
+  shields["JP:prefectural"] = {
+    ...hexagonHorizontalShieldBlue,
+    backgroundImage: shieldImages.shield_hex_horz_blue_2,
+  };
   [
     "aichi",
     "akita",
@@ -2690,15 +2696,16 @@ export function loadShields(shieldImages) {
   shields["PH:E"] = homeDownShieldYellow;
 
   // Pakistan
-  shields["PK:national"] = {
-    backgroundImage: shieldImages.shield40_hexagon_blue,
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+  shields["PK:national"] = hexagonHorizontalShieldBlue;
+  shields["PK:motorway"] = {
+    backgroundImage: shieldImages.shield_pk_motorway,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
-      left: 3,
-      right: 3,
+      left: 2,
+      right: 2,
       top: 2,
-      bottom: 2,
+      bottom: 7,
     },
   };
 
