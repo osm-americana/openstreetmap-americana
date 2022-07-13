@@ -42,8 +42,8 @@ If you believe someone has violated the CoC, we ask that you report it to OpenSt
 
 ## Maintainer Responsibilities
 
-- The maintainer team agrees to abide by the CoC and to implement and be bound by moderation decisions made by the CoC Committee. This includes making a best effort to resolve disputes
-- Maintainers agree not to act in CoC cases in which a maintainer has a conflict of interest, such as in the case of a complaint made against the maintainer.
+- The maintainer team agrees to abide by the CoC and to implement and be bound by moderation decisions made by the CoC Committee. This includes making a best effort to resolve disputes.
+- Maintainers agree not to act in CoC cases in which the maintainer has a conflict of interest, such as in the case of a complaint made against the maintainer.
 
 ## Applicability
 
