@@ -61,4 +61,4 @@ We are hoping that it will support more areas, you can [help us](CONTRIBUTING.md
 ## License
 
 <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
-Except where otherwise noted, to the extend possible under law, the contributors to OpenStreetMap Americana have waived all copyright and related or neighboring rights to OpenStreetMap Americana.
+Except where otherwise noted, to the extent possible under law, the contributors to OpenStreetMap Americana have waived all copyright and related or neighboring rights to OpenStreetMap Americana.
