@@ -116,9 +116,15 @@ See the end of this file for a list of available jurisdictions and their codes. 
 
 .ca,
 .us,
+.cl,
+.co,
+.uy,
+.ve,
+.gh,
 .bd,
 .cn,
 .hk,
+.ir,
 .jp,
 .my,
 .np,
@@ -127,6 +133,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .tw,
 .vn,
 .at,
+.ax,
 .ba,
 .be,
 .bg,
@@ -145,17 +152,19 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .md,
 .me,
 .mk,
-.nl, .cw,
+.nl,
 .pl,
 .pt,
 .ro,
 .rs,
 .ru,
+.se,
 .si,
 .sk,
 .ua,
 .xk,
-.se { fill: #8250df; }
+.nz,
+.cw { fill: #8250df; }
 
 /* Color individual borders
 For example, to color the border between Angola and Namibia in green, add this line in the space below:

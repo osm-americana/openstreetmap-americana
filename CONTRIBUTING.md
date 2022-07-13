@@ -189,10 +189,10 @@ In addition, the following style guidelines are recommended:
 
 In general, this style is not trying to exactly replicate highway shields as seen on signage. Instead, we are trying to extract the key stylistic elements so that the graphics are recognizable as simplifications of their real-world counterparts. Here are some examples of Americana's simplified shields for small-size readability:
 
-| Network                | Real-world Shield                                                                                          | Americana Representation                                                                                                              |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| NJ Turnpike            | <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/New_Jersey_Turnpike_Shield.svg" width="40"/> | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/shield40_us_nj_njtp_noref.svg" width="40"/> |
-| Washington State Route | <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/WA-blank.svg" width="40"/>                   | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/shield40_us_wa.svg" width="40"/>            |
+| Network                | Real-world Shield                                                                                          | Americana Representation                                                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| NJ Turnpike            | <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/New_Jersey_Turnpike_Shield.svg" width="40"/> | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/shield_us_nj_njtp_noref.svg" width="40"/> |
+| Washington State Route | <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/WA-blank.svg" width="40"/>                   | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/shield_us_wa.svg" width="40"/>            |
 
 More complicated shields may be more challenging to simplify. Consider taking some inspiration from the [rebusurance](https://github.com/1ec5/rebusurance) project, which effectivly simplifies a number of complex state shield designs by stretching, compressing, omitting, or simplifying graphic elements.
 
@@ -245,10 +245,15 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 - **`textColor`** – The color of the inscribed text to superimpose on the background.
 - **`textHaloColor`** – The color of the halo surrounding the inscribed text.
 - **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
+- **`verticalReflect`** – Set this property to `true` to draw the shield image upside-down.
+
+If special code is necessary to style a specific `ref` in a particular network, `overrideByRef` can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
 
 Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks). In the future, it is expected that these initialisms will be encoded on the server side by processing appropriate tagging which holds the initialism in the database.
 
 `refsByWayName` only works if there is no `ref` tag and the expression in the `routeConcurrency` function in layer/highway_shield.js includes the `name` property in the image name. The network needs to be listed as an input value that causes the `match` expression to append `name` to the image name.
+
+When using `overrideByRef` or `refsByWayName`, make sure to add a line to the bottom section of this page explaining why it is necessary, as they are only intended for use in special cases.
 
 ### Banners
 
@@ -275,6 +280,7 @@ This style strives to draw representative highway shields wherever they are tagg
   - **Ontario's Queen Elizabeth Way**. The Queen Elizabeth Way has a special shield based on the King's Highway shield, with a blue-on-yellow color scheme.
   - **Yukon Routes**. The majority of Yukon Route shields are red, but certain numbered highways have yellow, blue or green shields for their entire length. All shields have a simple square shape.
 - Shields for route networks where the full name of the route is displayed unabbreviated in real life, but abbreviated for the purposes of this project. Such cases include:
+  - **Houston, TX toll roads**. Harris and Fort Bend Counties each sign a network of toll roads which use a common shield styling, but with full-text names of the highways on the shields. Because these counties' toll road systems are clearly common networks due to their common shield symbology, special code is needed to convert toll road names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
   - **Kentucky Parkways**. Kentucky signs a network of state highways which use a common shield styling, but with full-text names of the parkways on the shields. In addition, these routes are locally known by initialisms. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
 - Shields for route networks where each individual route is identified by a color, rather than a number or letter. Such cases include:
   - **Allegheny County, PA Belt Routes**. Shields for this system use colors, with a colored circle and the words "<COLOR> BELT". These shields are drawn as squares with colored circles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (white shield with colored circle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
