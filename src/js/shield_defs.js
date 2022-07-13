@@ -2892,7 +2892,7 @@ export function loadShields(shieldImages) {
   );
 
   // France
-  shields["FR:A-road"] = roundedRectShield(
+  shields["FR:A-road"] = shields["FR:N-road"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
   );
