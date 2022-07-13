@@ -55,4 +55,6 @@ If you believe someone has violated the CoC, we ask that you report it to OpenSt
 
 ## License
 
-Per a _(Date)_ decision of the OpenStreetMap US Board of Directors, OpenStreetMap US releases the text in this document from any claim of copyright, and grants permission for its inclusion in public domain-compatible works, with or without the inclusion of this statement.
+This code of conduct file (`CODE_OF_CONDUCT.md`) includes excerpts from the [OpenStreetMap-US Code of Conduct](https://wiki.openstreetmap.org/wiki/Foundation/Local_Chapters/United_States/Code_of_Conduct_Committee/OSM_US_Code_of_Conduct) and is provided under the [Creative Commons Attribution-ShareAlike 3.0](http://creativecommons.org/licenses/by-sa/3.0/) license.
+
+Credits for the sources and inspiration of this code of conduct go to the [Speak Up! Project](http://web.archive.org/web/20141109123859/http://speakup.io/coc.html), [HOT Code of Conduct](https://www.hotosm.org/code-of-conduct.html), [Django Code of Conduct](https://www.djangoproject.com/conduct/reporting/), [Geek Feminism Code of Conduct](https://geekfeminismdotorg.wordpress.com/about/code-of-conduct/), [Slack Code of Conduct](https://api.slack.com/docs/community-code-of-conduct) and [The Ada Initiative](http://adainitiative.org/2014/02/18/howto-design-a-code-of-conduct-for-your-community/) under a [Creative Commons Attribution-ShareAlike](http://creativecommons.org/licenses/by-sa/3.0/) license.
