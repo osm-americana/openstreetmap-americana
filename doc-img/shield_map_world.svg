@@ -168,12 +168,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .xk,
 .nz,
 .cw,
-.as,
-.gu,
-.mp,
-.nm,
-.pr,
-.vi { fill: #8250df; }
+.ust { fill: #8250df; }
 
 /* Color individual borders
 For example, to color the border between Angola and Namibia in green, add this line in the space below:
