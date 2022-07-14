@@ -223,10 +223,7 @@ export function loadShields(shieldImages) {
 
   let trapezoidUpShieldGreenYellow = {
     ...trapezoidUpShieldBlackYellow,
-    backgroundImage: [
-      shieldImages.shield_trapezoid_green_yellow_2,
-      shieldImages.shield_trapezoid_green_yellow_3,
-    ],
+    backgroundImage: shieldImages.shield_trapezoid_green_yellow_2,
   };
 
   let trapezoidDownShield = {
