@@ -319,6 +319,11 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let hexagonVerticalShieldOrange = {
+    ...hexagonVerticalShieldYellow,
+    backgroundImage: shieldImages.shield_hex_vert_orange,
+  };
+
   let hexagonVerticalShieldGreen = {
     ...hexagonVerticalShieldYellow,
     backgroundImage: shieldImages.shield_hex_vert_green,
@@ -2678,6 +2683,33 @@ export function loadShields(shieldImages) {
     shields[`JP:prefectural:${prefecture}`] = shields["JP:prefectural"];
   });
 
+  // South Korea
+  shields["KR:expressway"] = {
+    backgroundImage: [
+      shieldImages.shield_kr_expressway_2,
+      shieldImages.shield_kr_expressway_3,
+    ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 8,
+      bottom: 4,
+    },
+  };
+  shields["KR:national"] = ovalShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    30
+  );
+  shields["KR:local"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.white,
+    Color.shields.blue
+  );
+
   // Myanmar
   shields["MY:E"] = shields["my:federal"] = hexagonVerticalShieldYellow;
 
@@ -2709,32 +2741,8 @@ export function loadShields(shieldImages) {
     },
   };
 
-  // South Korea
-  shields["KR:expressway"] = {
-    backgroundImage: [
-      shieldImages.shield_kr_expressway_2,
-      shieldImages.shield_kr_expressway_3,
-    ],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 8,
-      bottom: 4,
-    },
-  };
-  shields["KR:national"] = ovalShield(
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    30
-  );
-  shields["KR:local"] = roundedRectShield(
-    Color.shields.yellow,
-    Color.shields.white,
-    Color.shields.blue
-  );
+  // Turkey
+  shields["TR:motorway"] = hexagonVerticalShieldOrange;
 
   // Taiwan
   shields["TW:freeway"] = {
