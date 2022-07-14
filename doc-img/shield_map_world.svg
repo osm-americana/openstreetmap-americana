@@ -172,6 +172,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .gu,
 .mp,
 .nm,
+.pr,
 .vi { fill: #8250df; }
 
 /* Color individual borders

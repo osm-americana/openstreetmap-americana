@@ -15,7 +15,7 @@ function fillPaths(svg, codes) {
     selectors.add(".gu");
     selectors.add(".mp");
     selectors.add(".nm");
-    //selectors.add(".pr");
+    selectors.add(".pr");
     selectors.add(".vi");
   }
   return svg.replace(".supported", new Array(...selectors).join(",\n"));

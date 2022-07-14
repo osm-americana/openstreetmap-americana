@@ -370,6 +370,42 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let escutcheonShield = {
+    backgroundImage: [
+      shieldImages.shield_escutcheon_2,
+      shieldImages.shield_escutcheon_3,
+    ],
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 7,
+    },
+  };
+
+  let escutcheonShieldRounded = {
+    ...escutcheonShield,
+    backgroundImage: [
+      shieldImages.shield_escutcheon_rounded_2,
+      shieldImages.shield_escutcheon_rounded_3,
+    ],
+  };
+
+  let escutcheonShieldYellow = {
+    ...escutcheonShield,
+    backgroundImage: shieldImages.shield_escutcheon_yellow_2,
+  };
+
+  let escutcheonShieldBlue = {
+    ...escutcheonShield,
+    backgroundImage: [
+      shieldImages.shield_escutcheon_blue_2,
+      shieldImages.shield_escutcheon_blue_3,
+    ],
+    textColor: Color.shields.white,
+  };
+
   // Default
 
   shields["default"] = {
@@ -1986,6 +2022,15 @@ export function loadShields(shieldImages) {
   };
   shields["US:PA:Allegheny:Belt"] = {}; // See ref-specific cases below
 
+  // Puerto Rico
+  shields["US:PR:primary"] = escutcheonShieldBlue;
+  shields["US:PR:urban_primary"] = escutcheonShield;
+  shields["US:PR:secondary"] = pentagonShieldBlueYellow;
+  shields["US:PR:tertiary"] = ovalShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
   // Rhode Island
   shields["US:RI"] = roundedRectShield(
     Color.shields.white,
@@ -2207,16 +2252,7 @@ export function loadShields(shieldImages) {
   shields["US:UT:Wayne"] = pentagonShieldBlueYellow;
 
   // Virginia
-  shields["US:VA"] = {
-    backgroundImage: [shieldImages.shield_us_va_2, shieldImages.shield_us_va_3],
-    textColor: Color.shields.black,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 7,
-    },
-  };
+  shields["US:VA"] = escutcheonShieldRounded;
   shields["US:VA:Business"] = banneredShield(shields["US:VA"], ["BUS"]);
   shields["US:VA:Alternate"] = banneredShield(shields["US:VA"], ["ALT"]);
   shields["US:VA:Secondary"] = pillShield(
@@ -2609,17 +2645,7 @@ export function loadShields(shieldImages) {
   );
 
   // Hong Kong
-  shields["HK"] = {
-    backgroundImage: shieldImages.shield_hk,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.black,
-    padding: {
-      left: 1,
-      right: 1,
-      top: 1,
-      bottom: 12,
-    },
-  };
+  shields["HK"] = escutcheonShieldYellow;
 
   // Iran
   shields["ir:freeways"] = roundedRectShield(
