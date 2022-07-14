@@ -2503,6 +2503,12 @@ export function loadShields(shieldImages) {
 
   // ASIA
 
+  // Armenia
+  shields["am:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Bangladesh
   shields["BD:national"] = roundedRectShield(
     Color.shields.green,
