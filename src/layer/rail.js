@@ -162,6 +162,57 @@ class RailService extends Rail {
   }
 }
 
+class NarrowGauge extends Railway {
+  constructor() {
+    super();
+    this.railClass = "narrow_gauge";
+    this.brunnel = "surface";
+    this.service = false;
+
+    this.minZoom = 10;
+
+    this.fillWidth = [
+      [8, 0.3],
+      [12, 0.9],
+      [20, 3.8],
+    ];
+    this.dashWidth = [
+      [8, 1.2],
+      [12, 3.6],
+      [20, 15],
+    ];
+
+    this.dashArray = [0.15, 4];
+
+    this.fillColor = [
+      "interpolate",
+      ["exponential", railExp],
+      ["zoom"],
+      this.minZoom,
+      `hsl(${this.hue}, 0%, 75%)`,
+      this.minZoom + 2,
+      `hsl(${this.hue}, 0%, 50%)`,
+    ];
+  }
+}
+
+class NarrowGaugeService extends NarrowGauge {
+  constructor() {
+    super();
+    this.service = true;
+
+    this.fillWidth = [
+      [8, 0.15],
+      [12, 0.5],
+      [20, 1.9],
+    ];
+
+    this.dashArray = [0.1, 4];
+
+    this.constraints = null;
+  }
+}
+
 /*
  * TODO:
  * subway
@@ -169,7 +220,6 @@ class RailService extends Rail {
  * tram
  * monorail
  * funicular
- * narrow_gauge
  * preserved?
  */
 
@@ -184,6 +234,22 @@ class RailBridge extends Rail {
 }
 
 class RailServiceBridge extends RailService {
+  constructor() {
+    super();
+    // Undifferentiated
+    this.brunnel = "bridge";
+  }
+}
+
+class NarrowGaugeBridge extends NarrowGauge {
+  constructor() {
+    super();
+    // Undifferentiated
+    this.brunnel = "bridge";
+  }
+}
+
+class NarrowGaugeServiceBridge extends NarrowGaugeService {
   constructor() {
     super();
     // Undifferentiated
@@ -209,6 +275,22 @@ class RailServiceTunnel extends RailService {
   }
 }
 
+class NarrowGaugeTunnel extends NarrowGauge {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class NarrowGaugeServiceTunnel extends NarrowGaugeService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
 export const rail = new Rail();
 export const railBridge = new RailBridge();
 export const railTunnel = new RailTunnel();
@@ -216,3 +298,11 @@ export const railTunnel = new RailTunnel();
 export const railService = new RailService();
 export const railServiceBridge = new RailServiceBridge();
 export const railServiceTunnel = new RailServiceTunnel();
+
+export const narrowGauge = new NarrowGauge();
+export const narrowGaugeBridge = new NarrowGaugeBridge();
+export const narrowGaugeTunnel = new NarrowGaugeTunnel();
+
+export const narrowGaugeService = new NarrowGaugeService();
+export const narrowGaugeServiceBridge = new NarrowGaugeServiceBridge();
+export const narrowGaugeServiceTunnel = new NarrowGaugeServiceTunnel();
