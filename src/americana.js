@@ -289,6 +289,18 @@ americanaLayers.push(
 americanaLayers.push(lyrBuilding.building);
 
 var bridgeLayers = [
+  lyrRail.railBridge.bridgeCasing(),
+  lyrRail.railServiceBridge.bridgeCasing(),
+
+  lyrRail.narrowGaugeBridge.bridgeCasing(),
+  lyrRail.narrowGaugeServiceBridge.bridgeCasing(),
+
+  lyrRail.railBridge.bridgeFill(),
+  lyrRail.railServiceBridge.bridgeFill(),
+
+  lyrRail.narrowGaugeBridge.bridgeFill(),
+  lyrRail.narrowGaugeServiceBridge.bridgeFill(),
+
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),
   lyrRoad.primaryLinkBridge.casing(),
