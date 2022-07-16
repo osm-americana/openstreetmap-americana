@@ -223,10 +223,7 @@ export function loadShields(shieldImages) {
 
   let trapezoidUpShieldGreenYellow = {
     ...trapezoidUpShieldBlackYellow,
-    backgroundImage: [
-      shieldImages.shield_trapezoid_green_yellow_2,
-      shieldImages.shield_trapezoid_green_yellow_3,
-    ],
+    backgroundImage: shieldImages.shield_trapezoid_green_yellow_2,
   };
 
   let trapezoidDownShield = {
@@ -310,6 +307,11 @@ export function loadShields(shieldImages) {
     textColor: Color.shields.white,
   };
 
+  let homeDownShieldBlueRed = {
+    ...homeDownShieldBlue,
+    backgroundImage: shieldImages.shield_home_blue_red_3,
+  };
+
   // Hexagon shields
   let hexagonVerticalShieldYellow = {
     backgroundImage: shieldImages.shield_hex_vert_yellow,
@@ -322,6 +324,11 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let hexagonVerticalShieldOrange = {
+    ...hexagonVerticalShieldYellow,
+    backgroundImage: shieldImages.shield_hex_vert_orange,
+  };
+
   let hexagonVerticalShieldGreen = {
     ...hexagonVerticalShieldYellow,
     backgroundImage: shieldImages.shield_hex_vert_green,
@@ -329,7 +336,10 @@ export function loadShields(shieldImages) {
   };
 
   let hexagonHorizontalShieldBlue = {
-    backgroundImage: shieldImages.shield_hex_horz_blue,
+    backgroundImage: [
+      shieldImages.shield_hex_horz_blue_2,
+      shieldImages.shield_hex_horz_blue_3,
+    ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
@@ -2111,12 +2121,17 @@ export function loadShields(shieldImages) {
     ["R"]
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
-  shields["US:TX:Toll"] = roundedRectShield(
+
+  // Texas toll roads
+  shields["US:TX:Toll"] = shields["US:TX:NTTA"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
-  shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
-  shields["US:TX:NTTA"] = shields["US:TX:Toll"];
+  shields["US:TX:CTRMA"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.yellow,
+    Color.shields.white
+  );
   shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
     "EXPR",
   ]);
@@ -2125,10 +2140,10 @@ export function loadShields(shieldImages) {
     "EXPR",
     "LOOP",
   ]);
-  shields["US:TX:Montgomery:MCTRA"] = {
-    ...homeDownShieldBlue,
-    backgroundImage: shieldImages.shield_home_blue_red_3,
-  };
+  shields["US:TX:Montgomery:MCTRA"] = homeDownShieldBlueRed;
+  // HCTRA and FBCTRA: see ref-specific cases below
+
+  // Texas county roads
   [
     "Anderson",
     "Blanco",
@@ -2534,6 +2549,12 @@ export function loadShields(shieldImages) {
 
   // ASIA
 
+  // Armenia
+  shields["am:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Bangladesh
   shields["BD:national"] = roundedRectShield(
     Color.shields.green,
@@ -2658,7 +2679,10 @@ export function loadShields(shieldImages) {
   // Japan
   shields["JP:E"] = roundedRectShield(Color.shields.green, Color.shields.white);
   shields["JP:national"] = triangleConvexDownShieldBlue;
-  shields["JP:prefectural"] = hexagonHorizontalShieldBlue;
+  shields["JP:prefectural"] = {
+    ...hexagonHorizontalShieldBlue,
+    backgroundImage: shieldImages.shield_hex_horz_blue_2,
+  };
   [
     "aichi",
     "akita",
@@ -2711,23 +2735,6 @@ export function loadShields(shieldImages) {
     shields[`JP:prefectural:${prefecture}`] = shields["JP:prefectural"];
   });
 
-  // Myanmar
-  shields["MY:E"] = shields["my:federal"] = hexagonVerticalShieldYellow;
-
-  // Nepal
-  shields["np:national"] = roundedRectShield(
-    Color.shields.green,
-    Color.shields.white
-  );
-  shields["np:regional"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-
-  // Philippines
-  shields["PH:N"] = homeDownShield;
-  shields["PH:E"] = homeDownShieldYellow;
-
   // South Korea
   shields["KR:expressway"] = {
     backgroundImage: [
@@ -2754,6 +2761,40 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.blue
   );
+
+  // Myanmar
+  shields["MY:E"] = shields["my:federal"] = hexagonVerticalShieldYellow;
+
+  // Nepal
+  shields["np:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
+  shields["np:regional"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
+  // Philippines
+  shields["PH:N"] = homeDownShield;
+  shields["PH:E"] = homeDownShieldYellow;
+
+  // Pakistan
+  shields["PK:national"] = hexagonHorizontalShieldBlue;
+  shields["PK:motorway"] = {
+    backgroundImage: shieldImages.shield_pk_motorway,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.white,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 7,
+    },
+  };
+
+  // Turkey
+  shields["TR:motorway"] = hexagonVerticalShieldOrange;
 
   // Taiwan
   shields["TW:freeway"] = {
@@ -2931,7 +2972,7 @@ export function loadShields(shieldImages) {
   );
 
   // France
-  shields["FR:A-road"] = roundedRectShield(
+  shields["FR:A-road"] = shields["FR:N-road"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
   );
