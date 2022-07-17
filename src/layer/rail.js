@@ -13,7 +13,7 @@ function filterRail(railClass, service, brunnel) {
     brunnel === "surface"
       ? ["!in", "brunnel", "bridge", "tunnel"]
       : ["==", "brunnel", brunnel],
-    ["==", "class", "rail"],
+    ["in", "class", "rail", "transit"],
     ["==", "subclass", railClass],
     [service ? "in" : "!in", "service", "siding", "spur", "yard"],
   ];
@@ -226,9 +226,39 @@ class NarrowGaugeService extends NarrowGauge {
   }
 }
 
+class Subway extends Railway {
+  constructor() {
+    super();
+    this.railClass = "subway";
+    this.brunnel = "surface";
+    this.service = false;
+
+    this.minZoom = 14;
+    this.minZoomBridge = 14;
+
+    this.fillWidth = [
+      [12, 2],
+      [20, 8],
+    ];
+
+    this.fillColor = `hsl(${this.hue}, 0%, 65%)`;
+  }
+}
+
+class SubwayService extends Subway {
+  constructor() {
+    super();
+    this.service = true;
+
+    this.fillWidth = [
+      [12, 1],
+      [20, 4],
+    ];
+  }
+}
+
 /*
  * TODO:
- * subway
  * light_rail
  * tram
  * monorail
@@ -270,6 +300,22 @@ class NarrowGaugeServiceBridge extends NarrowGaugeService {
   }
 }
 
+class SubwayBridge extends Subway {
+  constructor() {
+    super();
+    // Undifferentiated
+    this.brunnel = "bridge";
+  }
+}
+
+class SubwayServiceBridge extends SubwayService {
+  constructor() {
+    super();
+    // Undifferentiated
+    this.brunnel = "bridge";
+  }
+}
+
 // Tunnels
 
 class RailTunnel extends Rail {
@@ -304,6 +350,22 @@ class NarrowGaugeServiceTunnel extends NarrowGaugeService {
   }
 }
 
+class SubwayTunnel extends Subway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class SubwayServiceTunnel extends SubwayService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
 export const rail = new Rail();
 export const railBridge = new RailBridge();
 export const railTunnel = new RailTunnel();
@@ -319,3 +381,11 @@ export const narrowGaugeTunnel = new NarrowGaugeTunnel();
 export const narrowGaugeService = new NarrowGaugeService();
 export const narrowGaugeServiceBridge = new NarrowGaugeServiceBridge();
 export const narrowGaugeServiceTunnel = new NarrowGaugeServiceTunnel();
+
+export const subway = new Subway();
+export const subwayBridge = new SubwayBridge();
+export const subwayTunnel = new SubwayTunnel();
+
+export const subwayService = new SubwayService();
+export const subwayServiceBridge = new SubwayServiceBridge();
+export const subwayServiceTunnel = new SubwayServiceTunnel();

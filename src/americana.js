@@ -152,6 +152,9 @@ americanaLayers.push(
   lyrRail.narrowGaugeServiceTunnel.dashes(),
   lyrRail.narrowGaugeServiceTunnel.fill(),
 
+  lyrRail.subwayTunnel.fill(),
+  lyrRail.subwayServiceTunnel.fill(),
+
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
 
@@ -282,6 +285,9 @@ americanaLayers.push(
   lyrRail.narrowGaugeService.dashes(),
   lyrRail.narrowGaugeService.fill(),
 
+  lyrRail.subway.fill(),
+  lyrRail.subwayService.fill(),
+
   lyrOneway.road,
   lyrOneway.link
 );
@@ -294,6 +300,9 @@ var bridgeLayers = [
 
   lyrRail.narrowGaugeBridge.bridgeCasing(),
   lyrRail.narrowGaugeServiceBridge.bridgeCasing(),
+
+  lyrRail.subwayBridge.bridgeCasing(),
+  lyrRail.subwayServiceBridge.bridgeCasing(),
 
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),
@@ -406,6 +415,9 @@ var bridgeLayers = [
   lyrRail.narrowGaugeBridge.fill(),
   lyrRail.narrowGaugeServiceBridge.dashes(),
   lyrRail.narrowGaugeServiceBridge.fill(),
+
+  lyrRail.subwayBridge.fill(),
+  lyrRail.subwayServiceBridge.fill(),
 
   lyrRoadLabel.bridgeSpacer,
 
