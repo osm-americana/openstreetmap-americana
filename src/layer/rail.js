@@ -38,13 +38,22 @@ function uniqueLayerID(railClass, service, part, brunnel, constraints) {
   return layerID;
 }
 
-function baseRailLayer(railClass, id, brunnel, minzoom, service, constraints) {
+function baseRailLayer(
+  railClass,
+  id,
+  brunnel,
+  minzoom,
+  maxzoom,
+  service,
+  constraints
+) {
   var layer = Util.layerClone(
     defRail,
     uniqueLayerID(railClass, service, id, brunnel, constraints)
   );
   layer.filter = filterRail(railClass, service, brunnel);
   layer.minzoom = minzoom;
+  layer.maxzoom = maxzoom ?? 24;
   return layer;
 }
 
@@ -53,7 +62,6 @@ function baseRailLayer(railClass, id, brunnel, minzoom, service, constraints) {
 class Railway {
   constructor() {
     this.hue = 0;
-    this.minZoomBridge = 13;
   }
   bridgeCasing = function () {
     var layer = baseRailLayer(
@@ -61,6 +69,7 @@ class Railway {
       "bridgeCasing",
       this.brunnel,
       this.minZoomBridge,
+      null,
       this.service,
       this.constraints
     );
@@ -87,6 +96,7 @@ class Railway {
       "fill",
       this.brunnel,
       this.minZoom,
+      null,
       this.service,
       this.constraints
     );
@@ -113,6 +123,7 @@ class Railway {
       "dashes",
       this.brunnel,
       this.minZoom,
+      this.minZoomBridge,
       this.service,
       this.constraints
     );
@@ -162,7 +173,7 @@ class Rail extends Railway {
       this.minZoom,
       `hsl(${this.hue}, 0%, 75%)`,
       this.minZoom + 2,
-      `hsl(${this.hue}, 0%, 50%)`,
+      `hsl(${this.hue}, 0%, 60%)`,
     ];
   }
 }
@@ -206,7 +217,7 @@ class NarrowGauge extends Railway {
       this.minZoom,
       `hsl(${this.hue}, 0%, 75%)`,
       this.minZoom + 2,
-      `hsl(${this.hue}, 0%, 50%)`,
+      `hsl(${this.hue}, 0%, 60%)`,
     ];
   }
 }
@@ -241,7 +252,7 @@ class Subway extends Railway {
       [20, 8],
     ];
 
-    this.fillColor = `hsl(${this.hue}, 0%, 65%)`;
+    this.fillColor = `hsl(${this.hue}, 0%, 50%)`;
   }
 }
 
@@ -273,6 +284,7 @@ class RailBridge extends Rail {
     super();
     // Undifferentiated
     this.brunnel = "bridge";
+    this.minZoomBridge = 13;
   }
 }
 
@@ -281,6 +293,7 @@ class RailServiceBridge extends RailService {
     super();
     // Undifferentiated
     this.brunnel = "bridge";
+    this.minZoomBridge = 13;
   }
 }
 
@@ -289,6 +302,7 @@ class NarrowGaugeBridge extends NarrowGauge {
     super();
     // Undifferentiated
     this.brunnel = "bridge";
+    this.minZoomBridge = 13;
   }
 }
 
@@ -297,6 +311,7 @@ class NarrowGaugeServiceBridge extends NarrowGaugeService {
     super();
     // Undifferentiated
     this.brunnel = "bridge";
+    this.minZoomBridge = 13;
   }
 }
 
