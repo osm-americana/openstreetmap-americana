@@ -69,36 +69,10 @@ class Railway {
       visibility: "visible",
     };
     layer.paint = {
-      "line-color": "hsl(0, 0%, 50%)",
+      "line-color": Color.backgroundFill,
       "line-width": {
         base: railExp,
-        stops: this.bridgeCasingWidth,
-      },
-    };
-    if (this.constraints != null) {
-      layer.filter.push(this.constraints);
-    }
-    return layer;
-  };
-  bridgeFill = function () {
-    var layer = baseRailLayer(
-      this.railClass,
-      "bridgeFill",
-      this.brunnel,
-      this.minZoomBridge,
-      this.service,
-      this.constraints
-    );
-    layer.layout = {
-      "line-cap": "butt",
-      "line-join": "bevel",
-      visibility: "visible",
-    };
-    layer.paint = {
-      "line-color": "white",
-      "line-width": {
-        base: railExp,
-        stops: this.bridgeFillWidth,
+        stops: Util.zoomMultiply(this.fillWidth, 1.5),
       },
     };
     if (this.constraints != null) {
@@ -150,9 +124,9 @@ class Railway {
       "line-color": this.fillColor,
       "line-width": {
         base: railExp,
-        stops: this.dashWidth,
+        stops: Util.zoomMultiply(this.fillWidth, this.dashWidthFactor),
       },
-      "line-dasharray": this.dashArray,
+      "line-dasharray": [1 / 2 / this.dashWidthFactor, 4],
     };
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
@@ -172,18 +146,13 @@ class Rail extends Railway {
 
     this.minZoom = 10;
     this.minZoomBridge = 13;
-    this.lineWeight = 0.4;
+    this.dashWidthFactor = 2.5;
 
-    this.dashWidth = [
-      [8, 1.6],
-      [12, 4.8],
-      [20, 20],
+    this.fillWidth = [
+      [8, 0.6],
+      [12, 2],
+      [20, 8],
     ];
-    this.fillWidth = Util.zoomMultiply(this.dashWidth, this.lineWeight);
-    this.bridgeFillWidth = Util.zoomMultiply(this.dashWidth, 1.1);
-    this.bridgeCasingWidth = Util.zoomMultiply(this.dashWidth, 1.3);
-
-    this.dashArray = [this.lineWeight / 2, 4];
 
     this.fillColor = [
       "interpolate",
@@ -202,11 +171,13 @@ class RailService extends Rail {
     super();
     this.service = true;
 
-    this.lineWeight = 0.2;
+    this.dashWidthFactor = 5;
 
-    this.fillWidth = Util.zoomMultiply(this.dashWidth, this.lineWeight);
-
-    this.dashArray = [this.lineWeight / 2, 4];
+    this.fillWidth = [
+      [8, 0.3],
+      [12, 1],
+      [20, 4],
+    ];
 
     this.constraints = null;
   }
@@ -221,18 +192,13 @@ class NarrowGauge extends Railway {
 
     this.minZoom = 10;
     this.minZoomBridge = 13;
-    this.lineWeight = 0.4;
+    this.dashWidthFactor = 2.5;
 
-    this.dashWidth = [
-      [8, 1.2],
-      [12, 3.6],
-      [20, 15],
+    this.fillWidth = [
+      [8, 0.45],
+      [12, 1.5],
+      [20, 6],
     ];
-    this.fillWidth = Util.zoomMultiply(this.dashWidth, this.lineWeight);
-    this.bridgeFillWidth = Util.zoomMultiply(this.dashWidth, 1.1);
-    this.bridgeCasingWidth = Util.zoomMultiply(this.dashWidth, 1.3);
-
-    this.dashArray = [this.lineWeight / 2, 4];
 
     this.fillColor = [
       "interpolate",
@@ -251,11 +217,13 @@ class NarrowGaugeService extends NarrowGauge {
     super();
     this.service = true;
 
-    this.lineWeight = 0.2;
+    this.dashWidthFactor = 5;
 
-    this.fillWidth = Util.zoomMultiply(this.dashWidth, this.lineWeight);
-
-    this.dashArray = [this.lineWeight / 2, 4];
+    this.fillWidth = [
+      [8, 0.25],
+      [12, 0.75],
+      [20, 3],
+    ];
 
     this.constraints = null;
   }
