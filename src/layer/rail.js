@@ -52,7 +52,8 @@ function baseRailLayer(railClass, id, brunnel, minzoom, service, constraints) {
 
 class Railway {
   constructor() {
-    this.hue = 35;
+    this.hue = 0;
+    this.minZoomBridge = 13;
   }
   bridgeCasing = function () {
     var layer = baseRailLayer(
@@ -121,12 +122,12 @@ class Railway {
       visibility: "visible",
     };
     layer.paint = {
-      "line-color": this.fillColor,
+      "line-color": this.dashFillColor,
       "line-width": {
         base: railExp,
         stops: Util.zoomMultiply(this.fillWidth, this.dashWidthFactor),
       },
-      "line-dasharray": [1 / 2 / this.dashWidthFactor, 4],
+      "line-dasharray": [1 / 2 / this.dashWidthFactor, this.dashArraySpacing],
     };
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
@@ -145,8 +146,8 @@ class Rail extends Railway {
     this.service = false;
 
     this.minZoom = 10;
-    this.minZoomBridge = 13;
     this.dashWidthFactor = 2.5;
+    this.dashArraySpacing = 4;
 
     this.fillWidth = [
       [8, 0.6],
@@ -154,7 +155,7 @@ class Rail extends Railway {
       [20, 8],
     ];
 
-    this.fillColor = [
+    this.fillColor = this.dashFillColor = [
       "interpolate",
       ["exponential", railExp],
       ["zoom"],
@@ -171,15 +172,13 @@ class RailService extends Rail {
     super();
     this.service = true;
 
-    this.dashWidthFactor = 5;
+    this.dashWidthFactor = 4;
 
     this.fillWidth = [
       [8, 0.3],
       [12, 1],
       [20, 4],
     ];
-
-    this.constraints = null;
   }
 }
 
@@ -191,8 +190,8 @@ class NarrowGauge extends Railway {
     this.service = false;
 
     this.minZoom = 10;
-    this.minZoomBridge = 13;
     this.dashWidthFactor = 2.5;
+    this.dashArraySpacing = 4;
 
     this.fillWidth = [
       [8, 0.45],
@@ -200,7 +199,7 @@ class NarrowGauge extends Railway {
       [20, 6],
     ];
 
-    this.fillColor = [
+    this.fillColor = this.dashFillColor = [
       "interpolate",
       ["exponential", railExp],
       ["zoom"],
@@ -217,15 +216,13 @@ class NarrowGaugeService extends NarrowGauge {
     super();
     this.service = true;
 
-    this.dashWidthFactor = 5;
+    this.dashWidthFactor = 4;
 
     this.fillWidth = [
       [8, 0.25],
       [12, 0.75],
       [20, 3],
     ];
-
-    this.constraints = null;
   }
 }
 
