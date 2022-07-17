@@ -322,7 +322,7 @@ class RailTunnel extends Rail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
   }
 }
 
@@ -330,7 +330,7 @@ class RailServiceTunnel extends RailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
   }
 }
 
@@ -338,7 +338,7 @@ class NarrowGaugeTunnel extends NarrowGauge {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
   }
 }
 
@@ -346,7 +346,7 @@ class NarrowGaugeServiceTunnel extends NarrowGaugeService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
   }
 }
 
