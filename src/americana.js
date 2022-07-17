@@ -142,18 +142,33 @@ americanaLayers.push(
   lyrRoad.serviceTollTunnel.fill(),
   lyrRoad.smallServiceTollTunnel.fill(),
 
-  lyrRail.railTunnel.dashes(),
   lyrRail.railTunnel.fill(),
-  lyrRail.railServiceTunnel.dashes(),
+  lyrRail.railTunnel.dashes(),
   lyrRail.railServiceTunnel.fill(),
+  lyrRail.railServiceTunnel.dashes(),
 
-  lyrRail.narrowGaugeTunnel.dashes(),
   lyrRail.narrowGaugeTunnel.fill(),
-  lyrRail.narrowGaugeServiceTunnel.dashes(),
+  lyrRail.narrowGaugeTunnel.dashes(),
   lyrRail.narrowGaugeServiceTunnel.fill(),
+  lyrRail.narrowGaugeServiceTunnel.dashes(),
 
   lyrRail.subwayTunnel.fill(),
   lyrRail.subwayServiceTunnel.fill(),
+
+  lyrRail.lightRailTunnel.fill(),
+  lyrRail.lightRailTunnel.dashes(),
+  lyrRail.lightRailServiceTunnel.fill(),
+  lyrRail.lightRailServiceTunnel.dashes(),
+
+  lyrRail.tramTunnel.fill(),
+  lyrRail.tramTunnel.dashes(),
+  lyrRail.tramServiceTunnel.fill(),
+  lyrRail.tramServiceTunnel.dashes(),
+
+  lyrRail.funicularTunnel.fill(),
+  lyrRail.funicularTunnel.dashes(),
+  lyrRail.funicularServiceTunnel.fill(),
+  lyrRail.funicularServiceTunnel.dashes(),
 
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
@@ -275,18 +290,33 @@ americanaLayers.push(
   lyrRoad.trunkExpresswayToll.surface(),
   lyrRoad.motorwayToll.surface(),
 
-  lyrRail.rail.dashes(),
   lyrRail.rail.fill(),
-  lyrRail.railService.dashes(),
+  lyrRail.rail.dashes(),
   lyrRail.railService.fill(),
+  lyrRail.railService.dashes(),
 
-  lyrRail.narrowGauge.dashes(),
   lyrRail.narrowGauge.fill(),
-  lyrRail.narrowGaugeService.dashes(),
+  lyrRail.narrowGauge.dashes(),
   lyrRail.narrowGaugeService.fill(),
+  lyrRail.narrowGaugeService.dashes(),
 
   lyrRail.subway.fill(),
   lyrRail.subwayService.fill(),
+
+  lyrRail.lightRail.fill(),
+  lyrRail.lightRail.dashes(),
+  lyrRail.lightRailService.fill(),
+  lyrRail.lightRailService.dashes(),
+
+  lyrRail.tram.fill(),
+  lyrRail.tram.dashes(),
+  lyrRail.tramService.fill(),
+  lyrRail.tramService.dashes(),
+
+  lyrRail.funicular.fill(),
+  lyrRail.funicular.dashes(),
+  lyrRail.funicularService.fill(),
+  lyrRail.funicularService.dashes(),
 
   lyrOneway.road,
   lyrOneway.link
@@ -303,6 +333,15 @@ var bridgeLayers = [
 
   lyrRail.subwayBridge.bridgeCasing(),
   lyrRail.subwayServiceBridge.bridgeCasing(),
+
+  lyrRail.lightRailBridge.bridgeCasing(),
+  lyrRail.lightRailServiceBridge.bridgeCasing(),
+
+  lyrRail.tramBridge.bridgeCasing(),
+  lyrRail.tramServiceBridge.bridgeCasing(),
+
+  lyrRail.funicularBridge.bridgeCasing(),
+  lyrRail.funicularServiceBridge.bridgeCasing(),
 
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),
@@ -406,18 +445,33 @@ var bridgeLayers = [
   lyrRoad.trunkExpresswayTollBridge.surface(),
   lyrRoad.motorwayTollBridge.surface(),
 
-  lyrRail.railBridge.dashes(),
   lyrRail.railBridge.fill(),
-  lyrRail.railServiceBridge.dashes(),
+  lyrRail.railBridge.dashes(),
   lyrRail.railServiceBridge.fill(),
+  lyrRail.railServiceBridge.dashes(),
 
-  lyrRail.narrowGaugeBridge.dashes(),
   lyrRail.narrowGaugeBridge.fill(),
-  lyrRail.narrowGaugeServiceBridge.dashes(),
+  lyrRail.narrowGaugeBridge.dashes(),
   lyrRail.narrowGaugeServiceBridge.fill(),
+  lyrRail.narrowGaugeServiceBridge.dashes(),
 
   lyrRail.subwayBridge.fill(),
   lyrRail.subwayServiceBridge.fill(),
+
+  lyrRail.lightRailBridge.fill(),
+  lyrRail.lightRailBridge.dashes(),
+  lyrRail.lightRailServiceBridge.fill(),
+  lyrRail.lightRailServiceBridge.dashes(),
+
+  lyrRail.tramBridge.fill(),
+  lyrRail.tramBridge.dashes(),
+  lyrRail.tramServiceBridge.fill(),
+  lyrRail.tramServiceBridge.dashes(),
+
+  lyrRail.funicularBridge.fill(),
+  lyrRail.funicularBridge.dashes(),
+  lyrRail.funicularServiceBridge.fill(),
+  lyrRail.funicularServiceBridge.dashes(),
 
   lyrRoadLabel.bridgeSpacer,
 

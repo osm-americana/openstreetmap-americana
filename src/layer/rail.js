@@ -123,7 +123,7 @@ class Railway {
       "dashes",
       this.brunnel,
       this.minZoom,
-      this.minZoomBridge,
+      this.hideBridgeDashes ? this.minZoomBridge : null,
       this.service,
       this.constraints
     );
@@ -159,6 +159,7 @@ class Rail extends Railway {
     this.minZoom = 10;
     this.dashWidthFactor = 2.5;
     this.dashArraySpacing = 4;
+    this.hideBridgeDashes = true;
 
     this.fillWidth = [
       [8, 0.6],
@@ -184,6 +185,7 @@ class RailService extends Rail {
     this.service = true;
 
     this.dashWidthFactor = 4;
+    this.dashArraySpacing = 5;
 
     this.fillWidth = [
       [8, 0.3],
@@ -203,6 +205,7 @@ class NarrowGauge extends Railway {
     this.minZoom = 10;
     this.dashWidthFactor = 2.5;
     this.dashArraySpacing = 4;
+    this.hideBridgeDashes = true;
 
     this.fillWidth = [
       [8, 0.45],
@@ -228,6 +231,7 @@ class NarrowGaugeService extends NarrowGauge {
     this.service = true;
 
     this.dashWidthFactor = 4;
+    this.dashArraySpacing = 5;
 
     this.fillWidth = [
       [8, 0.25],
@@ -245,7 +249,6 @@ class Subway extends Railway {
     this.service = false;
 
     this.minZoom = 14;
-    this.minZoomBridge = 14;
 
     this.fillWidth = [
       [12, 2],
@@ -268,12 +271,114 @@ class SubwayService extends Subway {
   }
 }
 
+class LightRail extends Railway {
+  constructor() {
+    super();
+    this.railClass = "light_rail";
+    this.brunnel = "surface";
+    this.service = false;
+
+    this.minZoom = 14;
+    this.dashWidthFactor = 1.5;
+    this.dashArraySpacing = 1.5;
+
+    this.fillWidth = [
+      [12, 1.2],
+      [20, 5],
+    ];
+
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 50%)`;
+  }
+}
+
+class LightRailService extends LightRail {
+  constructor() {
+    super();
+    this.service = true;
+
+    this.dashWidthFactor = 2;
+    this.dashArraySpacing = 3;
+
+    this.fillWidth = [
+      [12, 0.6],
+      [20, 2.5],
+    ];
+  }
+}
+
+class Tram extends Railway {
+  constructor() {
+    super();
+    this.railClass = "tram";
+    this.brunnel = "surface";
+    this.service = false;
+
+    this.minZoom = 14;
+    this.dashWidthFactor = 1.5;
+    this.dashArraySpacing = 1.5;
+
+    this.fillWidth = [
+      [12, 1.2],
+      [20, 5],
+    ];
+
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 60%)`;
+  }
+}
+
+class TramService extends Tram {
+  constructor() {
+    super();
+    this.service = true;
+
+    this.dashWidthFactor = 2;
+    this.dashArraySpacing = 3;
+
+    this.fillWidth = [
+      [12, 0.6],
+      [20, 2.5],
+    ];
+  }
+}
+
+class Funicular extends Railway {
+  constructor() {
+    super();
+    this.railClass = "funicular";
+    this.brunnel = "surface";
+    this.service = false;
+
+    this.minZoom = 14;
+    this.dashWidthFactor = 1.5;
+    this.dashArraySpacing = 0.5;
+
+    this.fillWidth = [
+      [12, 1.2],
+      [20, 5],
+    ];
+
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 50%)`;
+  }
+}
+
+class FunicularService extends Funicular {
+  constructor() {
+    super();
+    this.service = true;
+
+    this.dashWidthFactor = 2;
+    this.dashArraySpacing = 1;
+
+    this.fillWidth = [
+      [12, 0.6],
+      [20, 2.5],
+    ];
+  }
+}
+
 /*
  * TODO:
- * light_rail
- * tram
  * monorail
- * funicular
  * preserved?
  */
 
@@ -282,7 +387,6 @@ class SubwayService extends Subway {
 class RailBridge extends Rail {
   constructor() {
     super();
-    // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
   }
@@ -291,7 +395,6 @@ class RailBridge extends Rail {
 class RailServiceBridge extends RailService {
   constructor() {
     super();
-    // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
   }
@@ -300,7 +403,6 @@ class RailServiceBridge extends RailService {
 class NarrowGaugeBridge extends NarrowGauge {
   constructor() {
     super();
-    // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
   }
@@ -309,7 +411,6 @@ class NarrowGaugeBridge extends NarrowGauge {
 class NarrowGaugeServiceBridge extends NarrowGaugeService {
   constructor() {
     super();
-    // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
   }
@@ -320,6 +421,7 @@ class SubwayBridge extends Subway {
     super();
     // Undifferentiated
     this.brunnel = "bridge";
+    this.minZoomBridge = 14;
   }
 }
 
@@ -328,6 +430,55 @@ class SubwayServiceBridge extends SubwayService {
     super();
     // Undifferentiated
     this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class LightRailBridge extends LightRail {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class LightRailServiceBridge extends LightRailService {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class FunicularBridge extends Funicular {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class FunicularServiceBridge extends FunicularService {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class TramBridge extends Tram {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class TramServiceBridge extends TramService {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
   }
 }
 
@@ -381,6 +532,54 @@ class SubwayServiceTunnel extends SubwayService {
   }
 }
 
+class LightRailTunnel extends LightRail {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class LightRailServiceTunnel extends LightRailService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class FunicularTunnel extends Funicular {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class FunicularServiceTunnel extends FunicularService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class TramTunnel extends Tram {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class TramServiceTunnel extends TramService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
 export const rail = new Rail();
 export const railBridge = new RailBridge();
 export const railTunnel = new RailTunnel();
@@ -404,3 +603,27 @@ export const subwayTunnel = new SubwayTunnel();
 export const subwayService = new SubwayService();
 export const subwayServiceBridge = new SubwayServiceBridge();
 export const subwayServiceTunnel = new SubwayServiceTunnel();
+
+export const lightRail = new LightRail();
+export const lightRailBridge = new LightRailBridge();
+export const lightRailTunnel = new LightRailTunnel();
+
+export const lightRailService = new LightRailService();
+export const lightRailServiceBridge = new LightRailServiceBridge();
+export const lightRailServiceTunnel = new LightRailServiceTunnel();
+
+export const tram = new Tram();
+export const tramBridge = new TramBridge();
+export const tramTunnel = new TramTunnel();
+
+export const tramService = new TramService();
+export const tramServiceBridge = new TramServiceBridge();
+export const tramServiceTunnel = new TramServiceTunnel();
+
+export const funicular = new Funicular();
+export const funicularBridge = new FunicularBridge();
+export const funicularTunnel = new FunicularTunnel();
+
+export const funicularService = new FunicularService();
+export const funicularServiceBridge = new FunicularServiceBridge();
+export const funicularServiceTunnel = new FunicularServiceTunnel();
