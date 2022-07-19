@@ -157,14 +157,14 @@ class Rail extends Railway {
     this.service = false;
 
     this.minZoom = 10;
-    this.dashWidthFactor = 2.5;
+    this.dashWidthFactor = 3;
     this.dashArraySpacing = 4;
     this.hideBridgeDashes = true;
 
     this.fillWidth = [
-      [8, 0.6],
-      [12, 2],
-      [20, 8],
+      [8, 0.3],
+      [12, 1],
+      [20, 4],
     ];
 
     this.fillColor = this.dashFillColor = [
@@ -188,9 +188,9 @@ class RailService extends Rail {
     this.dashArraySpacing = 5;
 
     this.fillWidth = [
-      [8, 0.3],
-      [12, 1],
-      [20, 4],
+      [8, 0.15],
+      [12, 0.5],
+      [20, 2],
     ];
   }
 }
@@ -203,14 +203,14 @@ class NarrowGauge extends Railway {
     this.service = false;
 
     this.minZoom = 10;
-    this.dashWidthFactor = 2.5;
+    this.dashWidthFactor = 3;
     this.dashArraySpacing = 4;
     this.hideBridgeDashes = true;
 
     this.fillWidth = [
-      [8, 0.45],
-      [12, 1.5],
-      [20, 6],
+      [8, 0.25],
+      [12, 0.83],
+      [20, 3.33],
     ];
 
     this.fillColor = this.dashFillColor = [
@@ -234,9 +234,9 @@ class NarrowGaugeService extends NarrowGauge {
     this.dashArraySpacing = 5;
 
     this.fillWidth = [
-      [8, 0.25],
-      [12, 0.75],
-      [20, 3],
+      [8, 0.13],
+      [12, 0.4],
+      [20, 1.7],
     ];
   }
 }
@@ -251,8 +251,8 @@ class Subway extends Railway {
     this.minZoom = 14;
 
     this.fillWidth = [
-      [12, 2],
-      [20, 8],
+      [12, 1],
+      [20, 4],
     ];
 
     this.fillColor = `hsl(${this.hue}, 0%, 50%)`;
@@ -265,8 +265,8 @@ class SubwayService extends Subway {
     this.service = true;
 
     this.fillWidth = [
-      [12, 1],
-      [20, 4],
+      [12, 0.5],
+      [20, 2],
     ];
   }
 }
@@ -279,12 +279,12 @@ class LightRail extends Railway {
     this.service = false;
 
     this.minZoom = 14;
-    this.dashWidthFactor = 1.5;
+    this.dashWidthFactor = 2;
     this.dashArraySpacing = 1.5;
 
     this.fillWidth = [
-      [12, 1.2],
-      [20, 5],
+      [12, 0.6],
+      [20, 2.5],
     ];
 
     this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 50%)`;
@@ -296,12 +296,12 @@ class LightRailService extends LightRail {
     super();
     this.service = true;
 
-    this.dashWidthFactor = 2;
+    this.dashWidthFactor = 3;
     this.dashArraySpacing = 3;
 
     this.fillWidth = [
-      [12, 0.6],
-      [20, 2.5],
+      [12, 0.3],
+      [20, 1.25],
     ];
   }
 }
@@ -314,12 +314,12 @@ class Tram extends Railway {
     this.service = false;
 
     this.minZoom = 14;
-    this.dashWidthFactor = 1.5;
+    this.dashWidthFactor = 2;
     this.dashArraySpacing = 1.5;
 
     this.fillWidth = [
-      [12, 1.2],
-      [20, 5],
+      [12, 0.6],
+      [20, 2.5],
     ];
 
     this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 60%)`;
@@ -331,12 +331,12 @@ class TramService extends Tram {
     super();
     this.service = true;
 
-    this.dashWidthFactor = 2;
+    this.dashWidthFactor = 3;
     this.dashArraySpacing = 3;
 
     this.fillWidth = [
-      [12, 0.6],
-      [20, 2.5],
+      [12, 0.3],
+      [20, 1.25],
     ];
   }
 }
@@ -349,12 +349,12 @@ class Funicular extends Railway {
     this.service = false;
 
     this.minZoom = 14;
-    this.dashWidthFactor = 1.5;
+    this.dashWidthFactor = 3;
     this.dashArraySpacing = 0.5;
 
     this.fillWidth = [
-      [12, 1.2],
-      [20, 5],
+      [12, 0.6],
+      [20, 2.5],
     ];
 
     this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 50%)`;
@@ -370,8 +370,8 @@ class FunicularService extends Funicular {
     this.dashArraySpacing = 1;
 
     this.fillWidth = [
-      [12, 0.6],
-      [20, 2.5],
+      [12, 0.3],
+      [20, 1.25],
     ];
   }
 }
