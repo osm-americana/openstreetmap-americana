@@ -1,7 +1,7 @@
 const majorConstruction = [
-  "any",
-  ["in", "motorway", ["get", "class"]],
-  ["in", "trunk", ["get", "class"]],
+  "match",
+  ["get", "class"],
+  ["motorway_construction", "trunk_construction"],
 ];
 
 const constructionColor = [
@@ -9,11 +9,11 @@ const constructionColor = [
   ["exponential", 2],
   ["zoom"],
   10,
-  ["case", majorConstruction, "lightcoral", "lightslategray"],
+  [...majorConstruction, "lightcoral", "lightslategray"],
   13,
-  ["case", majorConstruction, "maroon", "lightslategray"],
+  [...majorConstruction, "maroon", "lightslategray"],
   15,
-  ["case", majorConstruction, "maroon", "slategray"],
+  [...majorConstruction, "maroon", "slategray"],
 ];
 
 const constructionFilter = [
