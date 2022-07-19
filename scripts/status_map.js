@@ -9,6 +9,15 @@ function fillPaths(svg, codes) {
     // Curaçao routes use NL prefix with the Netherlands.
     selectors.add(".cw");
   }
+  if (selectors.has(".us")) {
+    // Routes in United States insular areas use US prefix with the U.S.
+    selectors.add(".as");
+    selectors.add(".gu");
+    selectors.add(".mp");
+    selectors.add(".nm");
+    //selectors.add(".pr");
+    selectors.add(".vi");
+  }
   return svg.replace(".supported", new Array(...selectors).join(",\n"));
 }
 
