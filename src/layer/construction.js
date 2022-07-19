@@ -43,17 +43,7 @@ export const road = {
   paint: {
     "line-color": constructionColor,
     "line-opacity": ["interpolate", ["exponential", 2], ["zoom"], 10, 0, 11, 1],
-    "line-width": [
-      "interpolate",
-      ["exponential", 2],
-      ["zoom"],
-      9,
-      0,
-      12,
-      ["case", majorConstruction, 1, 0.5],
-      15,
-      1,
-    ],
+    "line-width": 1,
     "line-dasharray": [2, 1],
     "line-offset": 0,
     "line-gap-width": [
