@@ -60,7 +60,7 @@ export const road = {
       "interpolate",
       ["exponential", 2],
       ["zoom"],
-      12,
+      11,
       0,
       20,
       2,
