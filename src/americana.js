@@ -9,6 +9,7 @@ import * as ShieldDef from "./js/shield_defs.js";
 import * as lyrAeroway from "./layer/aeroway.js";
 import * as lyrBackground from "./layer/background.js";
 import * as lyrBoundary from "./layer/boundary.js";
+import * as lyrConstruction from "./layer/construction.js";
 import * as lyrHighwayShield from "./layer/highway_shield.js";
 import * as lyrOneway from "./layer/oneway.js";
 import * as lyrPark from "./layer/park.js";
@@ -64,6 +65,8 @@ americanaLayers.push(
 
   lyrBackground.pierArea,
   lyrBackground.pierLine,
+
+  lyrConstruction.road,
 
   lyrRoad.motorwayLinkTunnel.casing(),
   lyrRoad.trunkLinkTunnel.casing(),
@@ -407,6 +410,8 @@ americanaLayers.push(
   lyrRoadLabel.minor,
   lyrRoadLabel.service,
   lyrRoadLabel.smallService,
+
+  lyrConstruction.label,
 
   lyrPark.label,
   lyrPark.parkLabel,
