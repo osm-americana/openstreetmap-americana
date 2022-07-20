@@ -68,7 +68,7 @@
     {
       "key": "unsigned_ref",
       "object_types": ["relation"],
-      "description": "Suppresses any shields that would mark the roads carrying the route relation, unless the network=* consists of unnumbered routes.",
+      "description": "Suppresses any shields that would mark the roads carrying the route relation, unless ref=* is also set or the network=* consists of unnumbered routes.",
       "doc_url": "https://openmaptiles.org/schema/#route_1"
     },
     {
