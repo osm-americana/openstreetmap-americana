@@ -673,6 +673,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
+  shields["US:I:Future"] = banneredShield(shields["US:I"], ["FUT"]);
   shields["US:I:Truck"] = banneredShield(shields["US:I"], ["TRK"]);
   shields["US:I:Express"] = banneredShield(shields["US:I"], ["EXPR"]);
   shields["US:I:Express:Toll"] = shields["US:I:Express"];
