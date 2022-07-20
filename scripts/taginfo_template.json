@@ -66,6 +66,12 @@
       "doc_url": "https://openmaptiles.org/schema/#route_1"
     },
     {
+      "key": "unsigned_ref",
+      "object_types": ["relation"],
+      "description": "Suppresses any shields that would mark the roads carrying the route relation, unless the network=* consists of unnumbered routes.",
+      "doc_url": "https://openmaptiles.org/schema/#route_1"
+    },
+    {
       "key": "ref",
       "object_types": ["node"],
       "description": "Freeway and expressway exits are labeled with the exit number.",
