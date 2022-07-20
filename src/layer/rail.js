@@ -138,7 +138,9 @@ class Railway {
         base: railExp,
         stops: Util.zoomMultiply(this.fillWidth, this.dashWidthFactor),
       },
-      "line-dasharray": [1 / 2 / this.dashWidthFactor, this.dashArraySpacing],
+      "line-dasharray": this.dashArray.map(
+        (stop) => stop / 2 / this.dashWidthFactor
+      ),
     };
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
@@ -158,8 +160,7 @@ class Rail extends Railway {
 
     this.minZoom = 10;
     this.dashWidthFactor = 3;
-    this.dashArraySpacing = 4;
-    this.hideBridgeDashes = true;
+    this.dashArray = [1, 25];
 
     this.fillWidth = [
       [8, 0.3],
@@ -185,7 +186,7 @@ class RailService extends Rail {
     this.service = true;
 
     this.dashWidthFactor = 4;
-    this.dashArraySpacing = 5;
+    this.dashArray = [1, 50];
 
     this.fillWidth = [
       [8, 0.15],
@@ -204,8 +205,7 @@ class NarrowGauge extends Railway {
 
     this.minZoom = 10;
     this.dashWidthFactor = 3;
-    this.dashArraySpacing = 4;
-    this.hideBridgeDashes = true;
+    this.dashArray = [1, 25];
 
     this.fillWidth = [
       [8, 0.25],
@@ -231,10 +231,10 @@ class NarrowGaugeService extends NarrowGauge {
     this.service = true;
 
     this.dashWidthFactor = 4;
-    this.dashArraySpacing = 5;
+    this.dashArray = [1, 50];
 
     this.fillWidth = [
-      [8, 0.13],
+      [8, 0.12],
       [12, 0.4],
       [20, 1.7],
     ];
@@ -280,7 +280,7 @@ class LightRail extends Railway {
 
     this.minZoom = 14;
     this.dashWidthFactor = 2;
-    this.dashArraySpacing = 1.5;
+    this.dashArray = [1, 6];
 
     this.fillWidth = [
       [12, 0.6],
@@ -297,7 +297,7 @@ class LightRailService extends LightRail {
     this.service = true;
 
     this.dashWidthFactor = 3;
-    this.dashArraySpacing = 3;
+    this.dashArray = [1, 12];
 
     this.fillWidth = [
       [12, 0.3],
@@ -315,7 +315,7 @@ class Tram extends Railway {
 
     this.minZoom = 14;
     this.dashWidthFactor = 2;
-    this.dashArraySpacing = 1.5;
+    this.dashArray = [1, 6];
 
     this.fillWidth = [
       [12, 0.6],
@@ -332,7 +332,7 @@ class TramService extends Tram {
     this.service = true;
 
     this.dashWidthFactor = 3;
-    this.dashArraySpacing = 3;
+    this.dashArray = [1, 12];
 
     this.fillWidth = [
       [12, 0.3],
@@ -350,7 +350,7 @@ class Funicular extends Railway {
 
     this.minZoom = 14;
     this.dashWidthFactor = 3;
-    this.dashArraySpacing = 0.5;
+    this.dashArray = [1, 2];
 
     this.fillWidth = [
       [12, 0.6],
@@ -374,6 +374,7 @@ class RailBridge extends Rail {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
+    this.hideBridgeDashes = true;
   }
 }
 
@@ -390,6 +391,7 @@ class NarrowGaugeBridge extends NarrowGauge {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
+    this.hideBridgeDashes = true;
   }
 }
 
