@@ -361,21 +361,6 @@ class Funicular extends Railway {
   }
 }
 
-class FunicularService extends Funicular {
-  constructor() {
-    super();
-    this.service = true;
-
-    this.dashWidthFactor = 2;
-    this.dashArraySpacing = 1;
-
-    this.fillWidth = [
-      [12, 0.3],
-      [20, 1.25],
-    ];
-  }
-}
-
 /*
  * TODO:
  * monorail
@@ -451,14 +436,6 @@ class LightRailServiceBridge extends LightRailService {
 }
 
 class FunicularBridge extends Funicular {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-    this.minZoomBridge = 14;
-  }
-}
-
-class FunicularServiceBridge extends FunicularService {
   constructor() {
     super();
     this.brunnel = "bridge";
@@ -556,14 +533,6 @@ class FunicularTunnel extends Funicular {
   }
 }
 
-class FunicularServiceTunnel extends FunicularService {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
-  }
-}
-
 class TramTunnel extends Tram {
   constructor() {
     super();
@@ -623,7 +592,3 @@ export const tramServiceTunnel = new TramServiceTunnel();
 export const funicular = new Funicular();
 export const funicularBridge = new FunicularBridge();
 export const funicularTunnel = new FunicularTunnel();
-
-export const funicularService = new FunicularService();
-export const funicularServiceBridge = new FunicularServiceBridge();
-export const funicularServiceTunnel = new FunicularServiceTunnel();

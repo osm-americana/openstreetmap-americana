@@ -170,8 +170,6 @@ americanaLayers.push(
 
   lyrRail.funicularTunnel.fill(),
   lyrRail.funicularTunnel.dashes(),
-  lyrRail.funicularServiceTunnel.fill(),
-  lyrRail.funicularServiceTunnel.dashes(),
 
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
@@ -318,8 +316,6 @@ americanaLayers.push(
 
   lyrRail.funicular.fill(),
   lyrRail.funicular.dashes(),
-  lyrRail.funicularService.fill(),
-  lyrRail.funicularService.dashes(),
 
   lyrOneway.road,
   lyrOneway.link
@@ -344,7 +340,6 @@ var bridgeLayers = [
   lyrRail.tramServiceBridge.bridgeCasing(),
 
   lyrRail.funicularBridge.bridgeCasing(),
-  lyrRail.funicularServiceBridge.bridgeCasing(),
 
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),
@@ -473,8 +468,6 @@ var bridgeLayers = [
 
   lyrRail.funicularBridge.fill(),
   lyrRail.funicularBridge.dashes(),
-  lyrRail.funicularServiceBridge.fill(),
-  lyrRail.funicularServiceBridge.dashes(),
 
   lyrRoadLabel.bridgeSpacer,
 
