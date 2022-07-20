@@ -156,6 +156,13 @@
       "doc_url": "https://openmaptiles.org/schema/#aeroway"
     },
     {
+      "key": "area:aeroway",
+      "value": "taxiway",
+      "object_types": ["area"],
+      "description": "Taxiway areas are filled in with the same color as taxiway lines.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
       "key": "highway",
       "value": "construction",
       "object_types": ["way"],
