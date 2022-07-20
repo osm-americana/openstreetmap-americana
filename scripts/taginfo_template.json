@@ -66,6 +66,12 @@
       "doc_url": "https://openmaptiles.org/schema/#route_1"
     },
     {
+      "key": "ref",
+      "object_types": ["node"],
+      "description": "Freeway and expressway exits are labeled with the exit number.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation_name"
+    },
+    {
       "key": "surface",
       "object_types": ["way"],
       "description": "Unpaved roads have an alternating dash pattern.",
