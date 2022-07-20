@@ -154,6 +154,33 @@
       "object_types": ["area"],
       "description": "Runway areas are filled in with the same color as runway lines.",
       "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "highway",
+      "value": "construction",
+      "object_types": ["way"],
+      "description": "Roads under construction have a dotted line pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "object_types": ["way"],
+      "description": "Roads under construction have a dotted line pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "value": "motorway",
+      "object_types": ["way"],
+      "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "value": "trunk",
+      "object_types": ["way"],
+      "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
     }
   ]
 }
