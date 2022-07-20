@@ -82,7 +82,7 @@ class Railway {
       "line-color": Color.backgroundFill,
       "line-width": {
         base: railExp,
-        stops: Util.zoomMultiply(this.fillWidth, 1.5),
+        stops: Util.zoomMultiply(this.fillWidth, 1.8),
       },
     };
     if (this.constraints != null) {
