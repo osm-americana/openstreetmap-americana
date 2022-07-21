@@ -66,10 +66,140 @@
       "doc_url": "https://openmaptiles.org/schema/#route_1"
     },
     {
+      "key": "unsigned_ref",
+      "object_types": ["relation"],
+      "description": "Suppresses any shields that would mark the roads carrying the route relation, unless ref=* is also set or the network=* consists of unnumbered routes.",
+      "doc_url": "https://openmaptiles.org/schema/#route_1"
+    },
+    {
+      "key": "ref",
+      "object_types": ["node"],
+      "description": "Freeway and expressway exits are labeled with the exit number.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation_name"
+    },
+    {
       "key": "surface",
       "object_types": ["way"],
       "description": "Unpaved roads have an alternating dash pattern.",
       "doc_url": "https://openmaptiles.org/schema/#surface"
+    },
+    {
+      "key": "iata",
+      "object_types": ["node", "area"],
+      "description": "Airports at low zoom levels are labeled by their IATA codes.",
+      "doc_url": "https://openmaptiles.org/schema/#iata"
+    },
+    {
+      "key": "icao",
+      "object_types": ["node", "area"],
+      "description": "Airports at low zoom levels are labeled by their ICAO codes if they do not have IATA codes.",
+      "doc_url": "https://openmaptiles.org/schema/#icao"
+    },
+    {
+      "key": "aerodrome",
+      "value": "private",
+      "object_types": ["node", "area"],
+      "description": "Private airports first appear at a higher zoom level than public airports.",
+      "doc_url": "https://openmaptiles.org/schema/#class"
+    },
+    {
+      "key": "aerodrome",
+      "value": "military",
+      "object_types": ["node", "area"],
+      "description": "Military air bases are marked by a fighter jet.",
+      "doc_url": "https://openmaptiles.org/schema/#class",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+    },
+    {
+      "key": "aerodrome:type",
+      "value": "private",
+      "object_types": ["node", "area"],
+      "description": "Private airports first appear at a higher zoom level than public airports.",
+      "doc_url": "https://openmaptiles.org/schema/#class"
+    },
+    {
+      "key": "aerodrome:type",
+      "value": "military",
+      "object_types": ["node", "area"],
+      "description": "Military air bases are marked by a fighter jet.",
+      "doc_url": "https://openmaptiles.org/schema/#class",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+    },
+    {
+      "key": "military",
+      "value": "airfield",
+      "object_types": ["node", "area"],
+      "description": "Military air bases are marked by a fighter jet.",
+      "doc_url": "https://openmaptiles.org/schema/#class",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+    },
+    {
+      "key": "aeroway",
+      "value": "runway",
+      "object_types": ["way"],
+      "description": "Runways are thicker than taxiways.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "aeroway",
+      "value": "taxiway",
+      "object_types": ["way"],
+      "description": "Taxiways are thinner than runways.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "aeroway",
+      "value": "gate",
+      "object_types": ["node"],
+      "description": "Airport gates are labeled by the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "ref",
+      "object_types": ["node"],
+      "description": "Labels an airport gate (aeroway=gate).",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "area:aeroway",
+      "value": "runway",
+      "object_types": ["area"],
+      "description": "Runway areas are filled in with the same color as runway lines.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "area:aeroway",
+      "value": "taxiway",
+      "object_types": ["area"],
+      "description": "Taxiway areas are filled in with the same color as taxiway lines.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "highway",
+      "value": "construction",
+      "object_types": ["way"],
+      "description": "Roads under construction have a dotted line pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "object_types": ["way"],
+      "description": "Roads under construction have a dotted line pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "value": "motorway",
+      "object_types": ["way"],
+      "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "value": "trunk",
+      "object_types": ["way"],
+      "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
     }
   ]
 }
