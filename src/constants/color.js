@@ -20,8 +20,6 @@ export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
 export const airportLabel = "hsl(250, 71%, 29%)";
 
-export const tollRoadHue = 48;
-
 export const shields = {
   black: "black",
   blue: "#003f87", // Pantone 294
