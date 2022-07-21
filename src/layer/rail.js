@@ -79,7 +79,7 @@ class Railway {
       "line-color": Color.backgroundFill,
       "line-width": {
         base: railExp,
-        stops: Util.zoomMultiply(this.fillWidth, 1.8),
+        stops: Util.zoomMultiply(this.fillWidth, this.bridgeCasingFactor),
       },
     };
     if (this.constraints != null) {
@@ -120,7 +120,7 @@ class Railway {
       "dashes",
       this.brunnel,
       this.minZoom,
-      this.hideBridgeDashes ? this.minZoomBridge : null,
+      null,
       this.service,
       this.constraints
     );
@@ -202,7 +202,7 @@ class NarrowGauge extends Railway {
 
     this.minZoom = 10;
     this.dashWidthFactor = 3;
-    this.dashArray = [1, 25];
+    this.dashArray = [1, 20];
 
     this.fillWidth = [
       [8, 0.25],
@@ -228,7 +228,7 @@ class NarrowGaugeService extends NarrowGauge {
     this.service = true;
 
     this.dashWidthFactor = 4;
-    this.dashArray = [1, 50];
+    this.dashArray = [1, 40];
 
     this.fillWidth = [
       [8, 0.12],
@@ -376,7 +376,7 @@ class Funicular extends Railway {
     this.service = false;
 
     this.minZoom = 14;
-    this.dashWidthFactor = 3;
+    this.dashWidthFactor = 2.3;
     this.dashArray = [1, 2];
 
     this.fillWidth = [
@@ -400,7 +400,8 @@ class RailBridge extends Rail {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
-    this.hideBridgeDashes = true;
+    this.bridgeCasingFactor = 1.8;
+    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -409,6 +410,8 @@ class RailServiceBridge extends RailService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
+    this.bridgeCasingFactor = 1.8;
+    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -417,7 +420,8 @@ class NarrowGaugeBridge extends NarrowGauge {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
-    this.hideBridgeDashes = true;
+    this.bridgeCasingFactor = 1.8;
+    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -426,6 +430,8 @@ class NarrowGaugeServiceBridge extends NarrowGaugeService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
+    this.bridgeCasingFactor = 1.8;
+    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -435,6 +441,7 @@ class SubwayBridge extends Subway {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 1.8;
   }
 }
 
@@ -444,6 +451,7 @@ class SubwayServiceBridge extends SubwayService {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 1.8;
   }
 }
 
@@ -453,6 +461,7 @@ class MonorailBridge extends Monorail {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 2;
   }
 }
 
@@ -462,6 +471,7 @@ class MonorailServiceBridge extends MonorailService {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 2;
   }
 }
 
@@ -470,6 +480,7 @@ class LightRailBridge extends LightRail {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 2.5;
   }
 }
 
@@ -478,6 +489,8 @@ class LightRailServiceBridge extends LightRailService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 2.5;
+    this.dashWidthFactor = 2.3;
   }
 }
 
@@ -486,6 +499,7 @@ class FunicularBridge extends Funicular {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 2.5;
   }
 }
 
@@ -494,6 +508,7 @@ class TramBridge extends Tram {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 2.5;
   }
 }
 
@@ -502,6 +517,8 @@ class TramServiceBridge extends TramService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
+    this.bridgeCasingFactor = 2.5;
+    this.dashWidthFactor = 2.3;
   }
 }
 
