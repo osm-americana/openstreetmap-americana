@@ -2939,6 +2939,16 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield_home_blue_3,
   };
 
+  // Iceland
+  shields["IS"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2,
+    1,
+    35
+  );
+
   // Italy
   shields["IT:A-road"] = octagonShieldGreen;
 
