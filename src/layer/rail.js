@@ -60,9 +60,6 @@ function baseRailLayer(
 // Base railway class
 
 class Railway {
-  constructor() {
-    this.hue = 0;
-  }
   bridgeCasing = function () {
     var layer = baseRailLayer(
       this.railClass,
@@ -173,9 +170,9 @@ class Rail extends Railway {
       ["exponential", railExp],
       ["zoom"],
       this.minZoom,
-      `hsl(${this.hue}, 0%, 75%)`,
+      `hsl(0, 0%, 75%)`,
       this.minZoom + 2,
-      `hsl(${this.hue}, 0%, 60%)`,
+      `hsl(0, 0%, 60%)`,
     ];
   }
 }
@@ -218,9 +215,9 @@ class NarrowGauge extends Railway {
       ["exponential", railExp],
       ["zoom"],
       this.minZoom,
-      `hsl(${this.hue}, 0%, 75%)`,
+      `hsl(0, 0%, 75%)`,
       this.minZoom + 2,
-      `hsl(${this.hue}, 0%, 60%)`,
+      `hsl(0, 0%, 60%)`,
     ];
   }
 }
@@ -255,7 +252,7 @@ class Subway extends Railway {
       [20, 4],
     ];
 
-    this.fillColor = `hsl(${this.hue}, 0%, 50%)`;
+    this.fillColor = `hsl(0, 0%, 50%)`;
   }
 }
 
@@ -285,7 +282,7 @@ class Monorail extends Railway {
       [20, 3.2],
     ];
 
-    this.fillColor = `hsl(${this.hue}, 0%, 50%)`;
+    this.fillColor = `hsl(0, 0%, 50%)`;
   }
 }
 
@@ -317,7 +314,7 @@ class LightRail extends Railway {
       [20, 2.5],
     ];
 
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 50%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 50%)`;
   }
 }
 
@@ -352,7 +349,7 @@ class Tram extends Railway {
       [20, 2.5],
     ];
 
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 60%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 60%)`;
   }
 }
 
@@ -387,7 +384,7 @@ class Funicular extends Railway {
       [20, 2.5],
     ];
 
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 50%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 50%)`;
   }
 }
 
@@ -514,7 +511,7 @@ class RailTunnel extends Rail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -522,7 +519,7 @@ class RailServiceTunnel extends RailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -530,7 +527,7 @@ class NarrowGaugeTunnel extends NarrowGauge {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -538,7 +535,7 @@ class NarrowGaugeServiceTunnel extends NarrowGaugeService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -546,7 +543,7 @@ class SubwayTunnel extends Subway {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -554,7 +551,7 @@ class SubwayServiceTunnel extends SubwayService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -562,7 +559,7 @@ class MonorailTunnel extends Monorail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -570,7 +567,7 @@ class MonorailServiceTunnel extends MonorailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -578,7 +575,7 @@ class LightRailTunnel extends LightRail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -586,7 +583,7 @@ class LightRailServiceTunnel extends LightRailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -594,7 +591,7 @@ class FunicularTunnel extends Funicular {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -602,7 +599,7 @@ class TramTunnel extends Tram {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
@@ -610,7 +607,7 @@ class TramServiceTunnel extends TramService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.fillColor = this.dashFillColor = `hsl(${this.hue}, 0%, 90%)`;
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
   }
 }
 
