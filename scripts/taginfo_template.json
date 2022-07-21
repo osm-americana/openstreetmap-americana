@@ -224,6 +224,13 @@
     },
     {
       "key": "railway",
+      "value": "monorail",
+      "object_types": ["way"],
+      "description": "Monorails are represented by a thin dark gray line with no tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
       "value": "light_rail",
       "object_types": ["way"],
       "description": "Light rail is represented by a thin dark gray line with a dense tie pattern.",

@@ -158,6 +158,9 @@ americanaLayers.push(
   lyrRail.subwayTunnel.fill(),
   lyrRail.subwayServiceTunnel.fill(),
 
+  lyrRail.monorailTunnel.fill(),
+  lyrRail.monorailServiceTunnel.fill(),
+
   lyrRail.lightRailTunnel.fill(),
   lyrRail.lightRailTunnel.dashes(),
   lyrRail.lightRailServiceTunnel.fill(),
@@ -304,6 +307,9 @@ americanaLayers.push(
   lyrRail.subway.fill(),
   lyrRail.subwayService.fill(),
 
+  lyrRail.monorail.fill(),
+  lyrRail.monorailService.fill(),
+
   lyrRail.lightRail.fill(),
   lyrRail.lightRail.dashes(),
   lyrRail.lightRailService.fill(),
@@ -332,6 +338,9 @@ var bridgeLayers = [
 
   lyrRail.subwayBridge.bridgeCasing(),
   lyrRail.subwayServiceBridge.bridgeCasing(),
+
+  lyrRail.monorailBridge.bridgeCasing(),
+  lyrRail.monorailServiceBridge.bridgeCasing(),
 
   lyrRail.lightRailBridge.bridgeCasing(),
   lyrRail.lightRailServiceBridge.bridgeCasing(),
@@ -455,6 +464,9 @@ var bridgeLayers = [
 
   lyrRail.subwayBridge.fill(),
   lyrRail.subwayServiceBridge.fill(),
+
+  lyrRail.monorailBridge.fill(),
+  lyrRail.monorailServiceBridge.fill(),
 
   lyrRail.lightRailBridge.fill(),
   lyrRail.lightRailBridge.dashes(),

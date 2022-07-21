@@ -271,6 +271,36 @@ class SubwayService extends Subway {
   }
 }
 
+class Monorail extends Railway {
+  constructor() {
+    super();
+    this.railClass = "monorail";
+    this.brunnel = "surface";
+    this.service = false;
+
+    this.minZoom = 14;
+
+    this.fillWidth = [
+      [12, 0.8],
+      [20, 3.2],
+    ];
+
+    this.fillColor = `hsl(${this.hue}, 0%, 50%)`;
+  }
+}
+
+class MonorailService extends Monorail {
+  constructor() {
+    super();
+    this.service = true;
+
+    this.fillWidth = [
+      [12, 0.4],
+      [20, 1.6],
+    ];
+  }
+}
+
 class LightRail extends Railway {
   constructor() {
     super();
@@ -363,7 +393,6 @@ class Funicular extends Railway {
 
 /*
  * TODO:
- * monorail
  * preserved?
  */
 
@@ -413,6 +442,24 @@ class SubwayBridge extends Subway {
 }
 
 class SubwayServiceBridge extends SubwayService {
+  constructor() {
+    super();
+    // Undifferentiated
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class MonorailBridge extends Monorail {
+  constructor() {
+    super();
+    // Undifferentiated
+    this.brunnel = "bridge";
+    this.minZoomBridge = 14;
+  }
+}
+
+class MonorailServiceBridge extends MonorailService {
   constructor() {
     super();
     // Undifferentiated
@@ -511,6 +558,22 @@ class SubwayServiceTunnel extends SubwayService {
   }
 }
 
+class MonorailTunnel extends Monorail {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
+class MonorailServiceTunnel extends MonorailService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = `hsl(${this.hue}, 0%, 90%)`;
+  }
+}
+
 class LightRailTunnel extends LightRail {
   constructor() {
     super();
@@ -574,6 +637,14 @@ export const subwayTunnel = new SubwayTunnel();
 export const subwayService = new SubwayService();
 export const subwayServiceBridge = new SubwayServiceBridge();
 export const subwayServiceTunnel = new SubwayServiceTunnel();
+
+export const monorail = new Monorail();
+export const monorailBridge = new MonorailBridge();
+export const monorailTunnel = new MonorailTunnel();
+
+export const monorailService = new MonorailService();
+export const monorailServiceBridge = new MonorailServiceBridge();
+export const monorailServiceTunnel = new MonorailServiceTunnel();
 
 export const lightRail = new LightRail();
 export const lightRailBridge = new LightRailBridge();
