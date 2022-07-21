@@ -200,6 +200,48 @@
       "object_types": ["way"],
       "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "rail",
+      "object_types": ["way"],
+      "description": "Conventional railroads are represented by a thick light gray line with a sparse tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "narrow_gauge",
+      "object_types": ["way"],
+      "description": "Narrow gauge railroads are identical to conventional railroads, but thinner and with slightly closer tie spacing.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "subway",
+      "object_types": ["way"],
+      "description": "Subways are represented by a thick dark gray line with no tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "light_rail",
+      "object_types": ["way"],
+      "description": "Light rail is represented by a thin dark gray line with a dense tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "tram",
+      "object_types": ["way"],
+      "description": "Trams are represented by a thin light gray line with a dense tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "funicular",
+      "object_types": ["way"],
+      "description": "Funiculars are represented by a thin dark gray line with a very dense tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
     }
   ]
 }
