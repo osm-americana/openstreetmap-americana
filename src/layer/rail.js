@@ -36,7 +36,7 @@ export const bridgeCasing = {
     ["!in", "service", "siding", "spur", "yard"],
     ["in", "class", "rail", "transit"],
   ],
-  minzoom: 13,
+  minzoom: 14,
   layout: {
     "line-cap": "butt",
     "line-join": "bevel",
@@ -65,7 +65,7 @@ export const serviceBridgeCasing = {
     ["in", "service", "siding", "spur", "yard"],
     ["in", "class", "rail", "transit"],
   ],
-  minzoom: 13,
+  minzoom: 14,
   layout: {
     "line-cap": "butt",
     "line-join": "bevel",
