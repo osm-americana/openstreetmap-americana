@@ -47,9 +47,9 @@ export const bridgeCasing = {
     "line-width": {
       base: railExp,
       stops: [
-        [8, 0.6],
-        [12, 1.8],
-        [20, 7.2],
+        [8, 1.0],
+        [12, 2.5],
+        [20, 8.5],
       ],
     },
     "line-blur": 0.75,
@@ -76,9 +76,9 @@ export const serviceBridgeCasing = {
     "line-width": {
       base: railExp,
       stops: [
-        [8, 0.4],
-        [12, 1.1],
-        [20, 4.0],
+        [8, 0.8],
+        [12, 2.0],
+        [20, 7.8],
       ],
     },
     "line-blur": 0.75,
