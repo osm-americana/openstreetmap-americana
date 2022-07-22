@@ -687,6 +687,8 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
+  shields["US:I:Downtown:Loop"] = shields["US:I:Business:Loop"];
+  shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
 
   // US Highways
   shields["US:US"] = badgeShield;
@@ -2938,6 +2940,16 @@ export function loadShields(shieldImages) {
     ...homeDownShieldBlue,
     backgroundImage: shieldImages.shield_home_blue_3,
   };
+
+  // Iceland
+  shields["IS"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2,
+    1,
+    35
+  );
 
   // Italy
   shields["IT:A-road"] = octagonShieldGreen;
