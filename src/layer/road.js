@@ -81,11 +81,15 @@ function roadSurfacePaint(color, width) {
 
 //Helper function to create a "filter" block for a particular road class.
 function filterRoad(roadClass, ramp, brunnel, toll) {
+  let brunnelFilter =
+    brunnel === "ignore"
+      ? []
+      : brunnel === "surface"
+      ? [["!in", "brunnel", "bridge", "tunnel"]]
+      : [["==", "brunnel", brunnel]];
   return [
     "all",
-    brunnel === "surface"
-      ? ["!in", "brunnel", "bridge", "tunnel"]
-      : ["==", "brunnel", brunnel],
+    ...brunnelFilter,
     ["==", "class", roadClass],
     [ramp ? "==" : "!=", "ramp", 1],
     [toll ? "==" : "!=", "toll", 1],
@@ -278,6 +282,7 @@ class MotorwayToll extends Motorway {
 class InterstateMotorway extends Motorway {
   constructor() {
     super();
+    this.brunnel = "ignore";
 
     this.minZoomFill = 4;
     this.minZoomCasing = 4;
