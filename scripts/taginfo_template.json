@@ -212,7 +212,7 @@
       "key": "railway",
       "value": "narrow_gauge",
       "object_types": ["way"],
-      "description": "Narrow gauge railroads are identical to conventional railroads, but thinner and with slightly closer tie spacing.",
+      "description": "Narrow gauge railroads are represented by a thick light gray line with a sparse doubled tie pattern.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
     },
     {

@@ -233,13 +233,13 @@ class NarrowGauge extends Railway {
     this.service = false;
 
     this.minZoom = 10;
-    this.dashWidthFactor = 3;
-    this.dashArray = [1, 20];
+    this.dashWidthFactor = 2;
+    this.dashArray = [1, 1, 1, 15];
 
     this.fillWidth = [
-      [8, 0.25],
-      [12, 0.83],
-      [20, 3.33],
+      [8, 0.3],
+      [12, 1],
+      [20, 4],
     ];
 
     this.fillColor = this.dashFillColor = [
@@ -259,13 +259,13 @@ class NarrowGaugeService extends NarrowGauge {
     super();
     this.service = true;
 
-    this.dashWidthFactor = 4;
-    this.dashArray = [1, 40];
+    this.dashWidthFactor = 3;
+    this.dashArray = [1, 2, 1, 30];
 
     this.fillWidth = [
-      [8, 0.12],
-      [12, 0.4],
-      [20, 1.7],
+      [8, 0.15],
+      [12, 0.5],
+      [20, 2],
     ];
   }
 }
