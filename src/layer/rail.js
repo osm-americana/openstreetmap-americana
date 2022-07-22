@@ -26,6 +26,63 @@ var defRail = {
   "source-layer": "transportation",
 };
 
+// Bridge casing layers
+export const bridgeCasing = {
+  ...defRail,
+  id: "railway-bridge-casing",
+  filter: [
+    "all",
+    ["==", "brunnel", "bridge"],
+    ["!in", "service", "siding", "spur", "yard"],
+    ["in", "class", "rail", "transit"],
+  ],
+  minzoom: 13,
+  layout: {
+    "line-cap": "butt",
+    "line-join": "bevel",
+    visibility: "visible",
+  },
+  paint: {
+    "line-color": Color.backgroundFill,
+    "line-width": {
+      base: railExp,
+      stops: [
+        [8, 0.6],
+        [12, 1.8],
+        [20, 7.2],
+      ],
+    },
+  },
+};
+
+export const serviceBridgeCasing = {
+  ...defRail,
+  id: "railway-service-bridge-casing",
+  filter: [
+    "all",
+    ["==", "brunnel", "bridge"],
+    ["in", "service", "siding", "spur", "yard"],
+    ["in", "class", "rail", "transit"],
+  ],
+  minzoom: 13,
+  layout: {
+    "line-cap": "butt",
+    "line-join": "bevel",
+    visibility: "visible",
+  },
+  paint: {
+    "line-color": Color.backgroundFill,
+    "line-width": {
+      base: railExp,
+      stops: [
+        [8, 0.4],
+        [12, 1.1],
+        [20, 4.0],
+      ],
+    },
+  },
+};
+
 // Generate a unique layer ID
 function uniqueLayerID(railClass, service, part, brunnel, constraints) {
   var layerID = [railClass, service ? "service" : "rail", part, brunnel].join(
@@ -60,33 +117,6 @@ function baseRailLayer(
 // Base railway class
 
 class Railway {
-  bridgeCasing = function () {
-    var layer = baseRailLayer(
-      this.railClass,
-      "bridgeCasing",
-      this.brunnel,
-      this.minZoomBridge,
-      null,
-      this.service,
-      this.constraints
-    );
-    layer.layout = {
-      "line-cap": "butt",
-      "line-join": "bevel",
-      visibility: "visible",
-    };
-    layer.paint = {
-      "line-color": Color.backgroundFill,
-      "line-width": {
-        base: railExp,
-        stops: Util.zoomMultiply(this.fillWidth, this.bridgeCasingFactor),
-      },
-    };
-    if (this.constraints != null) {
-      layer.filter.push(this.constraints);
-    }
-    return layer;
-  };
   fill = function () {
     var layer = baseRailLayer(
       this.railClass,
@@ -400,8 +430,6 @@ class RailBridge extends Rail {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
-    this.bridgeCasingFactor = 1.8;
-    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -410,8 +438,6 @@ class RailServiceBridge extends RailService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
-    this.bridgeCasingFactor = 1.8;
-    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -420,8 +446,6 @@ class NarrowGaugeBridge extends NarrowGauge {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
-    this.bridgeCasingFactor = 1.8;
-    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -430,8 +454,6 @@ class NarrowGaugeServiceBridge extends NarrowGaugeService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 13;
-    this.bridgeCasingFactor = 1.8;
-    this.dashWidthFactor = 1.6;
   }
 }
 
@@ -441,7 +463,6 @@ class SubwayBridge extends Subway {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 1.8;
   }
 }
 
@@ -451,7 +472,6 @@ class SubwayServiceBridge extends SubwayService {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 1.8;
   }
 }
 
@@ -461,7 +481,6 @@ class MonorailBridge extends Monorail {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 2;
   }
 }
 
@@ -471,7 +490,6 @@ class MonorailServiceBridge extends MonorailService {
     // Undifferentiated
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 2;
   }
 }
 
@@ -480,7 +498,6 @@ class LightRailBridge extends LightRail {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 2.5;
   }
 }
 
@@ -489,8 +506,6 @@ class LightRailServiceBridge extends LightRailService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 2.5;
-    this.dashWidthFactor = 2.3;
   }
 }
 
@@ -499,7 +514,6 @@ class FunicularBridge extends Funicular {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 2.5;
   }
 }
 
@@ -508,7 +522,6 @@ class TramBridge extends Tram {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 2.5;
   }
 }
 
@@ -517,8 +530,6 @@ class TramServiceBridge extends TramService {
     super();
     this.brunnel = "bridge";
     this.minZoomBridge = 14;
-    this.bridgeCasingFactor = 2.5;
-    this.dashWidthFactor = 2.3;
   }
 }
 
