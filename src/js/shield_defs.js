@@ -2027,7 +2027,7 @@ export function loadShields(shieldImages) {
 
   // Puerto Rico
   shields["US:PR:primary"] = escutcheonShieldBlue;
-  shields["US:PR:urban_primary"] = escutcheonShield;
+  shields["US:PR:primary_urban"] = escutcheonShield;
   shields["US:PR:secondary"] = pentagonShieldBlueYellow;
   shields["US:PR:tertiary"] = ovalShield(
     Color.shields.white,
