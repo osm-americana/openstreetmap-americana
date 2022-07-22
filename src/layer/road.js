@@ -20,26 +20,32 @@ let tunDashArray = [
   ["literal", [0.5, 0.25]],
 ];
 
+let layerSortKey = ["coalesce", ["get", "toll"], 0];
+
 //Join styles for fill and casing
 let layoutRoadFill = {
   "line-cap": "round",
   "line-join": "round",
   visibility: "visible",
+  "line-sort-key": layerSortKey,
 };
 let layoutRoadCase = {
   "line-cap": "round",
   "line-join": "round",
   visibility: "visible",
+  "line-sort-key": layerSortKey,
 };
 let layoutBridgeCase = {
   "line-cap": "butt",
   "line-join": "bevel",
   visibility: "visible",
+  "line-sort-key": layerSortKey,
 };
 let layoutRoadSurface = {
   "line-cap": "butt",
   "line-join": "round",
   visibility: "visible",
+  "line-sort-key": layerSortKey,
 };
 
 let tollRoadSelector = ["match", ["get", "toll"], 1];
