@@ -52,6 +52,7 @@ export const bridgeCasing = {
         [20, 7.2],
       ],
     },
+    "line-blur": 0.75,
   },
 };
 
@@ -80,6 +81,7 @@ export const serviceBridgeCasing = {
         [20, 4.0],
       ],
     },
+    "line-blur": 0.75,
   },
 };
 
