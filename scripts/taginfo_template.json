@@ -249,6 +249,34 @@
       "object_types": ["way"],
       "description": "Funiculars are represented by a thin dark gray line with a very dense tie pattern.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "crossover",
+      "object_types": ["way"],
+      "description": "Displays railroads with normal line width but ties removed.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "siding",
+      "object_types": ["way"],
+      "description": "Displays railroads with a thinner line width but normal tie spacing.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "spur",
+      "object_types": ["way"],
+      "description": "Displays railroads with a thinner line width but normal tie spacing.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "yard",
+      "object_types": ["way"],
+      "description": "Displays railroads with a thinner line width but normal tie spacing.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
     }
   ]
 }
