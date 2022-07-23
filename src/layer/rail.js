@@ -174,6 +174,7 @@ class Railway {
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
     }
+    layer.filter.push(["!=", "service", "crossover"]);
     return layer;
   };
 }
