@@ -122,13 +122,24 @@ function uniqueLayerID(hwyClass, link, part, brunnel, constraints) {
   return layerID;
 }
 
-function baseRoadLayer(highwayClass, id, brunnel, minzoom, link, constraints) {
+function baseRoadLayer(
+  highwayClass,
+  id,
+  brunnel,
+  minzoom,
+  maxzoom,
+  link,
+  constraints
+) {
   var layer = Util.layerClone(
     defRoad,
     uniqueLayerID(highwayClass, link, id, brunnel, constraints)
   );
   layer.filter = filterRoad(highwayClass, link, brunnel);
   layer.minzoom = minzoom;
+  if (maxzoom) {
+    layer.maxzoom = maxzoom;
+  }
   return layer;
 }
 
@@ -140,6 +151,7 @@ class Road {
       "fill",
       this.brunnel,
       this.minZoomFill,
+      this.maxZoomFill,
       this.link,
       this.constraints
     );
@@ -156,6 +168,7 @@ class Road {
       "casing",
       this.brunnel,
       this.minZoomCasing,
+      this.maxZoomCasing,
       this.link,
       this.constraints
     );
@@ -179,6 +192,7 @@ class Road {
       "surface",
       this.brunnel,
       Math.min(this.minZoomCasing, this.minZoomFill),
+      Math.max(this.maxZoomCasing, this.maxZoomFill),
       this.link,
       this.constraints
     );
