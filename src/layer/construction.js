@@ -1,3 +1,5 @@
+import * as Color from "../constants/color.js";
+
 const majorConstruction = [
   "match",
   ["get", "class"],
@@ -75,7 +77,7 @@ export const label = {
   },
   paint: {
     "text-color": constructionColor,
-    "text-halo-color": "white",
+    "text-halo-color": Color.backgroundFill,
     "text-halo-width": 2,
     "text-halo-blur": 0.5,
   },
