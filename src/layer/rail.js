@@ -87,7 +87,9 @@ function baseRailLayer(
   );
   layer.filter = filterRail(railClass, service, brunnel);
   layer.minzoom = minzoom;
-  layer.maxzoom = maxzoom ?? 24;
+  if (maxzoom) {
+    layer.maxzoom = maxzoom;
+  }
   return layer;
 }
 
