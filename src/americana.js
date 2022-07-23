@@ -290,7 +290,6 @@ americanaLayers.push(lyrBuilding.building);
 
 var bridgeLayers = [
   lyrRail.bridgeCasing,
-  lyrRail.serviceBridgeCasing,
 
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),

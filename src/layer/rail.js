@@ -26,6 +26,8 @@ var defRail = {
   "source-layer": "transportation",
 };
 
+var serviceSelector = ["match", ["get", "service"], ["siding", "spur", "yard"]];
+
 // Bridge casing layers
 export const bridgeCasing = {
   ...defRail,
@@ -33,7 +35,6 @@ export const bridgeCasing = {
   filter: [
     "all",
     ["==", "brunnel", "bridge"],
-    ["!in", "service", "siding", "spur", "yard"],
     ["in", "class", "rail", "transit"],
   ],
   minzoom: 14,
@@ -44,43 +45,17 @@ export const bridgeCasing = {
   },
   paint: {
     "line-color": Color.backgroundFill,
-    "line-width": {
-      base: railExp,
-      stops: [
-        [8, 1.0],
-        [12, 2.5],
-        [20, 8.5],
-      ],
-    },
-    "line-blur": 0.75,
-  },
-};
-
-export const serviceBridgeCasing = {
-  ...defRail,
-  id: "railway-service-bridge-casing",
-  filter: [
-    "all",
-    ["==", "brunnel", "bridge"],
-    ["in", "service", "siding", "spur", "yard"],
-    ["in", "class", "rail", "transit"],
-  ],
-  minzoom: 14,
-  layout: {
-    "line-cap": "butt",
-    "line-join": "bevel",
-    visibility: "visible",
-  },
-  paint: {
-    "line-color": Color.backgroundFill,
-    "line-width": {
-      base: railExp,
-      stops: [
-        [8, 0.8],
-        [12, 2.0],
-        [20, 7.8],
-      ],
-    },
+    "line-width": [
+      "interpolate",
+      ["exponential", railExp],
+      ["zoom"],
+      8,
+      [...serviceSelector, 0.8, 1],
+      12,
+      [...serviceSelector, 2.0, 2.5],
+      20,
+      [...serviceSelector, 6.5, 8.5],
+    ],
     "line-blur": 0.75,
   },
 };
