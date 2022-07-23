@@ -59,10 +59,6 @@ americanaLayers.push(
   lyrFerry.ferry,
   lyrFerry.ferryLabel,
 
-  lyrWater.waterwayLabel,
-  lyrWater.waterLabel,
-  lyrWater.waterPointLabel,
-
   lyrBackground.pierArea,
   lyrBackground.pierLine,
 
@@ -362,6 +358,10 @@ americanaLayers.push(
   lyrRoadLabel.smallService,
 
   lyrConstruction.label,
+
+  lyrWater.waterwayLabel,
+  lyrWater.waterLabel,
+  lyrWater.waterPointLabel,
 
   lyrPark.label,
   lyrPark.parkLabel,
