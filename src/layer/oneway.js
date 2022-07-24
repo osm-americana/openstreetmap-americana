@@ -1,35 +1,70 @@
 "use strict";
 
-export const road = {
-  id: "road_oneway",
-  type: "symbol",
-  paint: {
-    "icon-opacity": 0.5,
-  },
-  filter: [
-    "all",
-    ["==", "oneway", 1],
-    ["!in", "brunnel", "bridge", "tunnel"],
-    ["!=", "ramp", 1],
+// Common expressions
+const highwaySelector = ["match", ["get", "class"]];
+
+const linkSelector = ["match", ["get", "ramp"], 1];
+
+// Helper function to determine icon opacity
+function iconOpacity(maxOpacity) {
+  return [
+    "interpolate",
+    ["exponential", 2],
+    ["zoom"],
+    15,
+    0,
+    16,
     [
-      "in",
-      "class",
-      "motorway",
-      //      "trunk",
-      //      "primary",
-      //      "secondary",
-      //      "tertiary",
-      //      "minor",
-      //      "service",
+      ...highwaySelector,
+      ["motorway", "trunk", "primary", "secondary", "tertiary"],
+      [...linkSelector, 0, maxOpacity],
+      0,
     ],
-  ],
+    17,
+    maxOpacity,
+  ];
+}
+
+export const surface = {
+  id: "road_oneway",
+  filter: ["all", ["==", "oneway", 1], ["!in", "brunnel", "bridge", "tunnel"]],
+
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  type: "symbol",
+
+  minzoom: 15,
+
   layout: {
-    "icon-size": {
-      stops: [
-        [15, 0.5],
-        [19, 1],
+    "icon-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      15,
+      [
+        ...highwaySelector,
+        "motorway",
+        [...linkSelector, 0.3, 0.5],
+        ["trunk", "primary"],
+        [...linkSelector, 0.2, 0.5],
+        "secondary",
+        [...linkSelector, 0.2, 0.3],
+        0.2,
       ],
-    },
+      19,
+      [
+        ...highwaySelector,
+        "motorway",
+        [...linkSelector, 0.8, 1],
+        ["trunk", "primary"],
+        [...linkSelector, 0.6, 1],
+        "secondary",
+        [...linkSelector, 0.4, 0.8],
+        "tertiary",
+        [...linkSelector, 0.3, 0.6],
+        0.3,
+      ],
+    ],
     "icon-image": "oneway",
     visibility: "visible",
     "icon-padding": 2,
@@ -37,219 +72,22 @@ export const road = {
     "symbol-placement": "line",
     "icon-rotation-alignment": "map",
   },
-  source: "openmaptiles",
-  minzoom: 15,
-  "source-layer": "transportation",
+  paint: {
+    "icon-opacity": iconOpacity(0.5),
+  },
 };
 
 export const tunnel = {
+  ...surface,
   id: "tunnel_oneway",
-  type: "symbol",
+  filter: ["all", ["==", "oneway", 1], ["==", "brunnel", "tunnel"]],
   paint: {
-    "icon-opacity": 0.5,
+    "icon-opacity": iconOpacity(0.2),
   },
-  filter: [
-    "all",
-    ["==", "oneway", 1],
-    ["==", "brunnel", "tunnel"],
-    ["!=", "ramp", 1],
-    [
-      "in",
-      "class",
-      "motorway",
-      //      "trunk",
-      //      "primary",
-      //      "secondary",
-      //      "tertiary",
-      //      "minor",
-      //      "service",
-    ],
-  ],
-  layout: {
-    "icon-size": {
-      stops: [
-        [15, 0.5],
-        [19, 1],
-      ],
-    },
-    "icon-image": "oneway",
-    visibility: "visible",
-    //"icon-rotate": 90,
-    "icon-padding": 2,
-    "symbol-spacing": 75,
-    "symbol-placement": "line",
-    "icon-rotation-alignment": "map",
-  },
-  source: "openmaptiles",
-  minzoom: 15,
-  "source-layer": "transportation",
 };
 
 export const bridge = {
+  ...surface,
   id: "bridge_oneway",
-  type: "symbol",
-  paint: {
-    "icon-opacity": 0.5,
-  },
-  filter: [
-    "all",
-    ["==", "oneway", 1],
-    ["==", "brunnel", "bridge"],
-    ["!=", "ramp", 1],
-    [
-      "in",
-      "class",
-      "motorway",
-      //      "trunk",
-      //      "primary",
-      //      "secondary",
-      //      "tertiary",
-      //      "minor",
-      //      "service",
-    ],
-  ],
-  layout: {
-    "icon-size": {
-      stops: [
-        [15, 0.5],
-        [19, 1],
-      ],
-    },
-    "icon-image": "oneway",
-    visibility: "visible",
-    "icon-padding": 2,
-    "symbol-spacing": 75,
-    "symbol-placement": "line",
-    "icon-rotation-alignment": "map",
-  },
-  source: "openmaptiles",
-  minzoom: 15,
-  "source-layer": "transportation",
-};
-
-export const link = {
-  id: "road_oneway_link",
-  type: "symbol",
-  paint: {
-    "icon-opacity": 0.5,
-  },
-  filter: [
-    "all",
-    ["==", "oneway", 1],
-    ["!in", "brunnel", "bridge", "tunnel"],
-    ["==", "ramp", 1],
-    [
-      "in",
-      "class",
-      "motorway",
-      //      "trunk",
-      //      "primary",
-      //      "secondary",
-      //      "tertiary",
-      //      "minor",
-      //      "service",
-    ],
-  ],
-  layout: {
-    "icon-size": {
-      stops: [
-        [15, 0.3],
-        [19, 0.8],
-      ],
-    },
-    "icon-image": "oneway",
-    visibility: "visible",
-    "icon-padding": 2,
-    "symbol-spacing": 75,
-    "symbol-placement": "line",
-    "icon-rotation-alignment": "map",
-  },
-  source: "openmaptiles",
-  minzoom: 16,
-  "source-layer": "transportation",
-};
-
-export const tunnelLink = {
-  id: "tunnel_oneway_link",
-  type: "symbol",
-  paint: {
-    "icon-opacity": 0.5,
-  },
-  filter: [
-    "all",
-    ["==", "oneway", 1],
-    ["==", "brunnel", "tunnel"],
-    ["==", "ramp", 1],
-    [
-      "in",
-      "class",
-      "motorway",
-      //      "trunk",
-      //      "primary",
-      //      "secondary",
-      //      "tertiary",
-      //      "minor",
-      //      "service",
-    ],
-  ],
-  layout: {
-    "icon-size": {
-      stops: [
-        [15, 0.3],
-        [19, 0.8],
-      ],
-    },
-    "icon-image": "oneway",
-    visibility: "visible",
-    //"icon-rotate": 90,
-    "icon-padding": 2,
-    "symbol-spacing": 75,
-    "symbol-placement": "line",
-    "icon-rotation-alignment": "map",
-  },
-  source: "openmaptiles",
-  minzoom: 16,
-  "source-layer": "transportation",
-};
-
-export const bridgeLink = {
-  id: "bridge_oneway_link",
-  type: "symbol",
-  paint: {
-    "icon-opacity": 0.5,
-  },
-  filter: [
-    "all",
-    ["==", "oneway", 1],
-    ["==", "brunnel", "bridge"],
-    ["==", "ramp", 1],
-    [
-      "in",
-      "class",
-      "motorway",
-      //      "trunk",
-      //      "primary",
-      //      "secondary",
-      //      "tertiary",
-      //      "minor",
-      //      "service",
-    ],
-  ],
-  layout: {
-    "icon-size": {
-      stops: [
-        [15, 0.3],
-        [19, 0.8],
-      ],
-    },
-    "icon-image": "oneway",
-    visibility: "visible",
-    "icon-padding": 2,
-    "symbol-spacing": 75,
-    "symbol-placement": "line",
-    "icon-rotation-alignment": "map",
-  },
-  source: "openmaptiles",
-  minzoom: 16,
-  "source-layer": "transportation",
+  filter: ["all", ["==", "oneway", 1], ["==", "brunnel", "bridge"]],
 };

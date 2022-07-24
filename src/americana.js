@@ -125,7 +125,6 @@ americanaLayers.push(
   lyrRoad.smallServiceTollTunnel.fill(),
 
   lyrOneway.tunnel,
-  lyrOneway.tunnelLink,
 
   lyrAeroway.runway,
   lyrAeroway.runwayArea,
@@ -223,8 +222,7 @@ americanaLayers.push(
   lyrRoad.secondaryToll.surface(),
   lyrRoad.primaryToll.surface(),
 
-  lyrOneway.road,
-  lyrOneway.link
+  lyrOneway.surface
 );
 
 americanaLayers.push(lyrBuilding.building);
@@ -314,7 +312,6 @@ var bridgeLayers = [
   lyrRoadLabel.bridgeSpacer,
 
   lyrOneway.bridge,
-  lyrOneway.bridgeLink,
 ];
 
 //Render bridge without layer on the lowest bridge layer
