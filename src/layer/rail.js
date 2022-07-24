@@ -50,13 +50,12 @@ export const bridgeCasing = {
       ["exponential", railExp],
       ["zoom"],
       8,
-      [...serviceSelector, 0.8, 1],
+      [...serviceSelector, 0.3, 0.45],
       12,
-      [...serviceSelector, 2.0, 2.5],
+      [...serviceSelector, 1, 1.5],
       20,
-      [...serviceSelector, 6.5, 8.5],
+      [...serviceSelector, 4, 6],
     ],
-    "line-blur": 0.75,
   },
 };
 
