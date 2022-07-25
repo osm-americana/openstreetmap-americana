@@ -5,26 +5,6 @@ const highwaySelector = ["match", ["get", "class"]];
 
 const linkSelector = ["match", ["get", "ramp"], 1];
 
-// Helper function to determine icon opacity
-function iconOpacity(maxOpacity) {
-  return [
-    "interpolate",
-    ["exponential", 2],
-    ["zoom"],
-    15,
-    0,
-    16,
-    [
-      ...highwaySelector,
-      ["motorway", "trunk", "primary", "secondary", "tertiary"],
-      [...linkSelector, 0, maxOpacity],
-      0,
-    ],
-    17,
-    maxOpacity,
-  ];
-}
-
 export const surface = {
   id: "road_oneway",
   filter: ["all", ["==", "oneway", 1], ["!in", "brunnel", "bridge", "tunnel"]],
@@ -82,7 +62,7 @@ export const surface = {
     "icon-rotation-alignment": "map",
   },
   paint: {
-    "icon-opacity": iconOpacity(0.5),
+    "icon-opacity": 0.5,
   },
 };
 
@@ -91,7 +71,7 @@ export const tunnel = {
   id: "tunnel_oneway",
   filter: ["all", ["==", "oneway", 1], ["==", "brunnel", "tunnel"]],
   paint: {
-    "icon-opacity": iconOpacity(0.2),
+    "icon-opacity": 0.2,
   },
 };
 
