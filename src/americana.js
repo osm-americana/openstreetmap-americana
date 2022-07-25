@@ -381,6 +381,8 @@ americanaLayers.push(
   lyrPlace.continent
 );
 
+console.debug(`Loaded ${americanaLayers.length} layers`);
+
 var getUrl = window.location;
 var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
 
