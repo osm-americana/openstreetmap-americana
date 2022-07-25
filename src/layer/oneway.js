@@ -46,7 +46,30 @@ export const surface = {
         0.3,
       ],
     ],
-    "icon-image": "oneway",
+    "icon-image": [
+      "match",
+      ["get", "brunnel"],
+      "tunnel",
+      "oneway_black",
+      [
+        "match",
+        ["get", "toll"],
+        1,
+        "oneway_black",
+        [
+          "match",
+          ["get", "expressway"],
+          1,
+          "oneway_black",
+          [
+            ...highwaySelector,
+            ["motorway", "trunk"],
+            "oneway_white",
+            "oneway_black",
+          ],
+        ],
+      ],
+    ],
     visibility: "visible",
     "icon-padding": 2,
     "symbol-spacing": [
