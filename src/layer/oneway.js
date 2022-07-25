@@ -34,6 +34,7 @@ export const surface = {
   type: "symbol",
 
   minzoom: 15,
+  maxzoom: 20, // Removing this may affect performance
 
   layout: {
     "icon-size": [
