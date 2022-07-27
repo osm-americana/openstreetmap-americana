@@ -15,7 +15,12 @@ function routeConcurrency(num) {
         [
           "match",
           ["get", "route_" + num],
-          ["US:KY:Parkway=", "US:TX:Fort_Bend:FBCTRA=", "US:TX:Harris:HCTRA="],
+          [
+            "US:KY:Parkway=",
+            "US:NY:Parkway=",
+            "US:TX:Fort_Bend:FBCTRA=",
+            "US:TX:Harris:HCTRA=",
+          ],
           ["concat", "\n", ["get", "name"]],
           "",
         ],

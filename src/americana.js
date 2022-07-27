@@ -15,7 +15,7 @@ import * as lyrOneway from "./layer/oneway.js";
 import * as lyrPark from "./layer/park.js";
 import * as lyrPlace from "./layer/place.js";
 import * as lyrRoad from "./layer/road.js";
-import * as lyrRoadLabel from "./layer/road_label.js";
+import * as lyrTransportationLabel from "./layer/transportation_label.js";
 import * as lyrWater from "./layer/water.js";
 import * as lyrBuilding from "./layer/building.js";
 import * as lyrHighwayExit from "./layer/highway_exit.js";
@@ -125,7 +125,6 @@ americanaLayers.push(
   lyrOneway.tunnelLink,
 
   lyrFerry.ferry,
-  lyrFerry.ferryLabel,
 
   lyrAeroway.runway,
   lyrAeroway.runwayArea,
@@ -311,7 +310,7 @@ var bridgeLayers = [
   lyrRoad.secondaryTollBridge.surface(),
   lyrRoad.primaryTollBridge.surface(),
 
-  lyrRoadLabel.bridgeSpacer,
+  lyrTransportationLabel.bridgeSpacer,
 
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
@@ -340,8 +339,7 @@ bridgeLayers.forEach((layer) =>
 
 americanaLayers.push(
   //The labels at the end of the list draw on top of the layers at the beginning.
-  lyrRoadLabel.label,
-  lyrConstruction.label,
+  lyrTransportationLabel.label,
 
   lyrWater.waterwayLabel,
   lyrWater.waterLabel,
