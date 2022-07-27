@@ -56,9 +56,6 @@ americanaLayers.push(
   lyrBoundary.state,
   lyrBoundary.country,
 
-  lyrFerry.ferry,
-  lyrFerry.ferryLabel,
-
   lyrBackground.pierArea,
   lyrBackground.pierLine,
 
@@ -126,6 +123,9 @@ americanaLayers.push(
 
   lyrOneway.tunnel,
   lyrOneway.tunnelLink,
+
+  lyrFerry.ferry,
+  lyrFerry.ferryLabel,
 
   lyrAeroway.runway,
   lyrAeroway.runwayArea,
@@ -340,15 +340,7 @@ bridgeLayers.forEach((layer) =>
 
 americanaLayers.push(
   //The labels at the end of the list draw on top of the layers at the beginning.
-  lyrRoadLabel.motorway,
-  lyrRoadLabel.trunk,
-  lyrRoadLabel.primary,
-  lyrRoadLabel.secondary,
-  lyrRoadLabel.tertiary,
-  lyrRoadLabel.minor,
-  lyrRoadLabel.service,
-  lyrRoadLabel.smallService,
-
+  lyrRoadLabel.label,
   lyrConstruction.label,
 
   lyrWater.waterwayLabel,
