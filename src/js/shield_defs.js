@@ -1213,7 +1213,7 @@ export function loadShields(shieldImages) {
   // Kentucky
   shields["US:KY"] = pillShield(Color.shields.white, Color.shields.black);
   shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
-  shields["US:KY:AA"] = {
+  shields["US:KY:AA"] = shields["US:KY:Parkway"] = {
     backgroundImage: shieldImages.shield_us_ky_parkway,
     textColor: Color.shields.blue,
     padding: {
@@ -1725,6 +1725,24 @@ export function loadShields(shieldImages) {
     norefImage: shieldImages.shield_us_ny_ste,
     notext: true,
   };
+  shields["US:NY:Parkway"] = {
+    ...shields["US:NY"],
+    backgroundImage: [
+      shieldImages.shield_us_ny_parkway_2,
+      shieldImages.shield_us_ny_parkway_3,
+    ],
+    textColor: Color.shields.white,
+  };
+  shields["US:NY:Parkway:NYC"] = {
+    backgroundImage: shieldImages.shield_us_ny_parkway_nyc,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 8,
+    },
+  };
   [
     "Albany",
     "Allegany",
@@ -2181,7 +2199,17 @@ export function loadShields(shieldImages) {
     "LOOP",
   ]);
   shields["US:TX:Montgomery:MCTRA"] = homeDownShieldBlueRed;
-  // HCTRA and FBCTRA: see ref-specific cases below
+  shields["US:TX:Fort_Bend:FBCTRA"] = {
+    backgroundImage: shieldImages.shield_us_tx_fbctra,
+    textColor: Color.shields.white,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 2,
+      bottom: 8,
+    },
+  };
+  shields["US:TX:Harris:HCTRA"] = pentagonShieldPurpleYellow;
 
   // Texas county roads
   [
@@ -3214,33 +3242,42 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:KY:Parkway"] = Object.assign(
-    {
-      // FIXME: This object contains both spelled-out and abbreviated road
-      // names to accommodate both the abbreviated names from OpenMapTiles and
-      // the spelled-out names from Planetiler.
-      // https://github.com/onthegomap/planetiler/issues/14
-      refsByWayName: {
-        "Audubon Parkway": "AU",
-        "Bluegrass Parkway": "BG",
-        "Bluegrass Pkwy": "BG",
-        "Cumberland Parkway": "LN",
-        "Cumberland Pkwy": "LN",
-        "Hal Rogers Parkway": "HR",
-        "Hal Rogers Pkwy": "HR",
-        "Mountain Parkway": "MP",
-        "Mountain Pkwy": "MP",
-        "Purchase Parkway": "JC",
-        "Purchase Pkwy": "JC",
-        "Western Kentucky Parkway": "WK",
-        "Western Kentucky Pkwy": "WK",
-      },
-    },
-    shields["US:KY:AA"]
-  );
+  shields["US:KY:Parkway"].refsByWayName = {
+    // FIXME: This object contains both spelled-out and abbreviated road
+    // names to accommodate both the abbreviated names from OpenMapTiles and
+    // the spelled-out names from Planetiler.
+    // https://github.com/onthegomap/planetiler/issues/14
+    "Audubon Parkway": "AU",
+    "Bluegrass Parkway": "BG",
+    "Bluegrass Pkwy": "BG",
+    "Cumberland Parkway": "LN",
+    "Cumberland Pkwy": "LN",
+    "Hal Rogers Parkway": "HR",
+    "Hal Rogers Pkwy": "HR",
+    "Mountain Parkway": "MP",
+    "Mountain Pkwy": "MP",
+    "Purchase Parkway": "JC",
+    "Purchase Pkwy": "JC",
+    "Western Kentucky Parkway": "WK",
+    "Western Kentucky Pkwy": "WK",
+  };
 
   shields["US:MI"].overrideByRef = {
     185: diamondShieldBrown,
+  };
+
+  shields["US:NY:Parkway"].refsByWayName = {
+    "Bear Mountain Parkway": "BMP",
+    "Bronx and Pelham Parkway": "PP",
+    "Bronx River Parkway": "BRP",
+    "Cross County Parkway": "CCP",
+    "Hutchinson River Parkway": "HRP",
+    "Korean War Veterans Parkway": "KWVP",
+    "Mosholu Parkway": "MP",
+    "Pelham Parkway": "PP",
+    "Saw Mill River Parkway": "SMP",
+    "Sprain Brook Parkway": "SBP",
+    "Taconic State Parkway": "TSP",
   };
 
   shields["US:PA:Allegheny:Belt"].overrideByRef = {
@@ -3252,43 +3289,24 @@ export function loadShields(shieldImages) {
     "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
   };
 
-  shields["US:TX:Fort_Bend:FBCTRA"] = Object.assign(
-    {
-      refsByWayName: {
-        "Fort Bend Parkway Toll Road": "FBP",
-        "Fort Bend Westpark Tollway": "WPT",
-      },
-    },
-    {
-      backgroundImage: shieldImages.shield_us_tx_fbctra,
-      textColor: Color.shields.white,
-      padding: {
-        left: 3,
-        right: 3,
-        top: 2,
-        bottom: 8,
-      },
-    }
-  );
-  shields["US:TX:Harris:HCTRA"] = Object.assign(
-    {
-      refsByWayName: {
-        "East Sam Houston Tollway North": "SHT",
-        "East Sam Houston Tollway South": "SHT",
-        "North Sam Houston Tollway East": "SHT",
-        "North Sam Houston Tollway West": "SHT",
-        "South Sam Houston Tollway East": "SHT",
-        "South Sam Houston Tollway West": "SHT",
-        "West Sam Houston Tollway North": "SHT",
-        "West Sam Houston Tollway South": "SHT",
-        "Fort Bend Toll Road": "FBTR",
-        "Hardy Toll Road": "HTR",
-        "Tomball Tollway": "TBT",
-        "Westpark Tollway": "WPT",
-      },
-    },
-    pentagonShieldPurpleYellow
-  );
+  shields["US:TX:Fort_Bend:FBCTRA"].refsByWayName = {
+    "Fort Bend Parkway Toll Road": "FBP",
+    "Fort Bend Westpark Tollway": "WPT",
+  };
+  shields["US:TX:Harris:HCTRA"].refsByWayName = {
+    "East Sam Houston Tollway North": "SHT",
+    "East Sam Houston Tollway South": "SHT",
+    "North Sam Houston Tollway East": "SHT",
+    "North Sam Houston Tollway West": "SHT",
+    "South Sam Houston Tollway East": "SHT",
+    "South Sam Houston Tollway West": "SHT",
+    "West Sam Houston Tollway North": "SHT",
+    "West Sam Houston Tollway South": "SHT",
+    "Fort Bend Toll Road": "FBTR",
+    "Hardy Toll Road": "HTR",
+    "Tomball Tollway": "TBT",
+    "Westpark Tollway": "WPT",
+  };
 
   return shields;
 }
