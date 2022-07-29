@@ -317,8 +317,6 @@ var bridgeLayers = [
   lyrRoad.secondaryTollBridge.surface(),
   lyrRoad.primaryTollBridge.surface(),
 
-  lyrTransportationLabel.bridgeSpacer,
-
   lyrOneway.bridge,
   lyrOneway.bridgeLink,
 ];
@@ -346,11 +344,12 @@ bridgeLayers.forEach((layer) =>
 
 americanaLayers.push(
   //The labels at the end of the list draw on top of the layers at the beginning.
-  lyrTransportationLabel.label,
-
   lyrWater.waterwayLabel,
   lyrWater.waterLabel,
   lyrWater.waterPointLabel,
+
+  lyrTransportationLabel.bridgeSpacer,
+  lyrTransportationLabel.label,
 
   lyrPark.label,
   lyrPark.parkLabel,
