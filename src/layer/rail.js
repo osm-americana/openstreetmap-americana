@@ -112,6 +112,7 @@ class Railway {
     };
     layer.paint = {
       "line-color": this.fillColor,
+      "line-gap-width": this.lineGapWidth ?? 0,
       "line-width": {
         base: railExp,
         stops: this.fillWidth,
@@ -202,32 +203,13 @@ class RailService extends Rail {
   }
 }
 
-class NarrowGauge extends Railway {
+class NarrowGauge extends Rail {
   constructor() {
     super();
     this.railClass = "narrow_gauge";
-    this.brunnel = "surface";
-    this.service = false;
 
-    this.minZoom = 10;
     this.dashWidthFactor = 2;
     this.dashArray = [1, 1, 1, 15];
-
-    this.fillWidth = [
-      [8, 0.3],
-      [12, 1],
-      [20, 4],
-    ];
-
-    this.fillColor = this.dashFillColor = [
-      "interpolate",
-      ["exponential", railExp],
-      ["zoom"],
-      this.minZoom,
-      `hsl(0, 0%, 75%)`,
-      this.minZoom + 2,
-      `hsl(0, 0%, 60%)`,
-    ];
   }
 }
 
@@ -243,6 +225,62 @@ class NarrowGaugeService extends NarrowGauge {
       [8, 0.15],
       [12, 0.5],
       [20, 2],
+    ];
+  }
+}
+
+class Preserved extends Railway {
+  constructor() {
+    super();
+    this.railClass = "preserved";
+    this.brunnel = "surface";
+    this.service = false;
+
+    this.minZoom = 14;
+    this.dashWidthFactor = 4;
+    this.dashArray = [1, 8];
+
+    this.fillWidth = [
+      [8, 0.1],
+      [12, 0.4],
+      [20, 1.6],
+    ];
+    this.lineGapWidth = [
+      "interpolate",
+      ["exponential", railExp],
+      ["zoom"],
+      8,
+      0.1,
+      12,
+      0.4,
+      20,
+      1.6,
+    ];
+
+    this.fillColor = this.dashFillColor = [
+      "interpolate",
+      ["exponential", railExp],
+      ["zoom"],
+      this.minZoom,
+      `hsl(0, 0%, 75%)`,
+      this.minZoom + 2,
+      `hsl(0, 0%, 50%)`,
+    ];
+  }
+}
+
+class PreservedService extends Preserved {
+  constructor() {
+    super();
+    this.service = true;
+
+    this.dashWidthFactor = 6;
+    this.dashArray = [1, 16];
+
+    this.fillWidth = [
+      [8, 0.05],
+      [12, 0.2],
+      [20, 0.8],
     ];
   }
 }
@@ -436,6 +474,22 @@ class NarrowGaugeServiceBridge extends NarrowGaugeService {
   }
 }
 
+class PreservedBridge extends Preserved {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 13;
+  }
+}
+
+class PreservedServiceBridge extends PreservedService {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+    this.minZoomBridge = 13;
+  }
+}
+
 class SubwayBridge extends Subway {
   constructor() {
     super();
@@ -546,6 +600,22 @@ class NarrowGaugeServiceTunnel extends NarrowGaugeService {
   }
 }
 
+class PreservedTunnel extends Preserved {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
+  }
+}
+
+class PreservedServiceTunnel extends PreservedService {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+    this.fillColor = this.dashFillColor = `hsl(0, 0%, 90%)`;
+  }
+}
+
 class SubwayTunnel extends Subway {
   constructor() {
     super();
@@ -633,6 +703,14 @@ export const narrowGaugeTunnel = new NarrowGaugeTunnel();
 export const narrowGaugeService = new NarrowGaugeService();
 export const narrowGaugeServiceBridge = new NarrowGaugeServiceBridge();
 export const narrowGaugeServiceTunnel = new NarrowGaugeServiceTunnel();
+
+export const preserved = new Preserved();
+export const preservedBridge = new PreservedBridge();
+export const preservedTunnel = new PreservedTunnel();
+
+export const preservedService = new PreservedService();
+export const preservedServiceBridge = new PreservedServiceBridge();
+export const preservedServiceTunnel = new PreservedServiceTunnel();
 
 export const subway = new Subway();
 export const subwayBridge = new SubwayBridge();

@@ -217,6 +217,13 @@
     },
     {
       "key": "railway",
+      "value": "preserved",
+      "object_types": ["way"],
+      "description": "Narrow gauge railroads are represented by two parallel dark gray lines with a dense tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
       "value": "subway",
       "object_types": ["way"],
       "description": "Subways are represented by a thick dark gray line with no tie pattern.",
