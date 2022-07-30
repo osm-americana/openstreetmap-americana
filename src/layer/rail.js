@@ -39,15 +39,13 @@ function zoomInterpolate(widthZ20) {
 }
 
 // Helper function to create a "filter" block for a particular railway class.
-function filterRail(railClass, service, brunnel) {
+function filterRail(brunnel) {
   return [
     "all",
     brunnel === "surface"
       ? ["!in", "brunnel", "bridge", "tunnel"]
       : ["==", "brunnel", brunnel],
     ["in", "class", "rail", "transit"],
-    ["==", "subclass", railClass],
-    [service ? "in" : "!in", "service", "siding", "spur", "yard"],
   ];
 }
 
@@ -59,6 +57,36 @@ var defRail = {
 };
 
 var serviceSelector = ["match", ["get", "service"], ["siding", "spur", "yard"]];
+var isService = ["in", "service", "siding", "spur", "yard"];
+var isNotService = ["!in", "service", "siding", "spur", "yard"];
+
+var lineColor = [
+  "match",
+  ["get", "brunnel"],
+  "tunnel",
+  "hsl(0, 0%, 90%)",
+  [
+    "match",
+    ["get", "subclass"],
+    ["preserved", "subway", "light_rail", "monorail", "funicular"],
+    "hsl(0, 0%, 50%)",
+    "hsl(0, 0%, 60%)",
+  ],
+];
+
+var lineWidth = [
+  "match",
+  ["get", "subclass"],
+  ["rail", "narrow_gauge", "subway"],
+  [...serviceSelector, 2, 4],
+  "monorail",
+  [...serviceSelector, 1.6, 3.2],
+  "preserved",
+  [...serviceSelector, 0.8, 1.6],
+  [...serviceSelector, 1.25, 2.5],
+];
+
+var lineGapWidth = ["match", ["get", "subclass"], "preserved", 1.6, 0];
 
 // Bridge casing layers
 export const bridgeCasing = {
@@ -89,10 +117,8 @@ export const bridgeCasing = {
 };
 
 // Generate a unique layer ID
-function uniqueLayerID(railClass, service, part, brunnel, constraints) {
-  var layerID = [railClass, service ? "service" : "rail", part, brunnel].join(
-    "_"
-  );
+function uniqueLayerID(part, brunnel, constraints) {
+  var layerID = ["rail", part, brunnel].join("_");
   if (constraints != null) {
     layerID +=
       "_" + constraints.join("_").replaceAll("=", "").replaceAll("-", "_");
@@ -100,20 +126,9 @@ function uniqueLayerID(railClass, service, part, brunnel, constraints) {
   return layerID;
 }
 
-function baseRailLayer(
-  railClass,
-  id,
-  brunnel,
-  minzoom,
-  maxzoom,
-  service,
-  constraints
-) {
-  var layer = Util.layerClone(
-    defRail,
-    uniqueLayerID(railClass, service, id, brunnel, constraints)
-  );
-  layer.filter = filterRail(railClass, service, brunnel);
+function baseRailLayer(id, brunnel, minzoom, maxzoom, constraints) {
+  var layer = Util.layerClone(defRail, uniqueLayerID(id, brunnel, constraints));
+  layer.filter = filterRail(brunnel);
   layer.minzoom = minzoom;
   if (maxzoom) {
     layer.maxzoom = maxzoom;
@@ -124,14 +139,16 @@ function baseRailLayer(
 // Base railway class
 
 class Railway {
+  constructor() {
+    this.brunnel = "surface";
+    this.minZoom = 10;
+  }
   fill = function () {
     var layer = baseRailLayer(
-      this.railClass,
       "fill",
       this.brunnel,
       this.minZoom,
       null,
-      this.service,
       this.constraints
     );
     layer.layout = {
@@ -140,11 +157,9 @@ class Railway {
       visibility: "visible",
     };
     layer.paint = {
-      "line-color": `hsl(0, 0%, ${this.lightness}%)`,
-      "line-gap-width": this.gapWidthZ20
-        ? zoomInterpolate(this.gapWidthZ20)
-        : 0,
-      "line-width": zoomInterpolate(this.widthZ20),
+      "line-color": lineColor,
+      "line-gap-width": zoomInterpolate(lineGapWidth),
+      "line-width": zoomInterpolate(lineWidth),
     };
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
@@ -153,12 +168,10 @@ class Railway {
   };
   dashes = function () {
     var layer = baseRailLayer(
-      this.railClass,
       "dashes",
       this.brunnel,
       this.minZoom,
       null,
-      this.service,
       this.constraints
     );
     layer.layout = {
@@ -167,8 +180,10 @@ class Railway {
       visibility: "visible",
     };
     layer.paint = {
-      "line-color": `hsl(0, 0%, ${this.lightness}%)`,
-      "line-width": zoomInterpolate(this.widthZ20 * this.dashWidthFactor),
+      "line-color": lineColor,
+      "line-width": zoomInterpolate(
+        multiplyMatchExpression(lineWidth, this.dashWidthFactor)
+      ),
       "line-dasharray": this.dashArray.map(
         (stop) => stop / 2 / this.dashWidthFactor
       ),
@@ -181,41 +196,51 @@ class Railway {
   };
 }
 
+class RailwayBridge extends Railway {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class RailwayTunnel extends Railway {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+  }
+}
+
 // Railway class styles
 
 class Rail extends Railway {
   constructor() {
     super();
-    this.railClass = "rail";
+    this.constraints = ["all", ["==", "subclass", "rail"], isNotService];
     this.brunnel = "surface";
-    this.service = false;
 
-    this.minZoom = 10;
     this.dashWidthFactor = 3;
     this.dashArray = [1, 25];
-
-    this.widthZ20 = 4;
-
-    this.lightness = 60;
   }
 }
 
 class RailService extends Rail {
   constructor() {
     super();
-    this.service = true;
+    this.constraints = ["all", ["==", "subclass", "rail"], isService];
 
     this.dashWidthFactor = 4;
     this.dashArray = [1, 50];
-
-    this.widthZ20 = 2;
   }
 }
 
 class NarrowGauge extends Rail {
   constructor() {
     super();
-    this.railClass = "narrow_gauge";
+    this.constraints = [
+      "all",
+      ["==", "subclass", "narrow_gauge"],
+      isNotService,
+    ];
 
     this.dashWidthFactor = 2;
     this.dashArray = [1, 1, 1, 15];
@@ -225,165 +250,88 @@ class NarrowGauge extends Rail {
 class NarrowGaugeService extends NarrowGauge {
   constructor() {
     super();
-    this.service = true;
+    this.constraints = ["all", ["==", "subclass", "narrow_gauge"], isService];
 
     this.dashWidthFactor = 3;
     this.dashArray = [1, 2, 1, 30];
-
-    this.widthZ20 = 2;
   }
 }
 
 class Preserved extends Railway {
   constructor() {
     super();
-    this.railClass = "preserved";
+    this.constraints = ["all", ["==", "subclass", "preserved"], isNotService];
     this.brunnel = "surface";
-    this.service = false;
 
     this.minZoom = 14;
     this.dashWidthFactor = 4;
     this.dashArray = [1, 8];
-
-    this.widthZ20 = 1.6;
-    this.gapWidthZ20 = 1.6;
-
-    this.lightness = 50;
   }
 }
 
 class PreservedService extends Preserved {
   constructor() {
     super();
-    this.service = true;
+    this.constraints = ["all", ["==", "subclass", "preserved"], isService];
 
     this.dashWidthFactor = 6;
     this.dashArray = [1, 16];
-
-    this.widthZ20 = 0.8;
-  }
-}
-
-class Subway extends Railway {
-  constructor() {
-    super();
-    this.railClass = "subway";
-    this.brunnel = "surface";
-    this.service = false;
-
-    this.minZoom = 14;
-
-    this.widthZ20 = 4;
-
-    this.lightness = 50;
-  }
-}
-
-class SubwayService extends Subway {
-  constructor() {
-    super();
-    this.service = true;
-
-    this.widthZ20 = 2;
-  }
-}
-
-class Monorail extends Railway {
-  constructor() {
-    super();
-    this.railClass = "monorail";
-    this.brunnel = "surface";
-    this.service = false;
-
-    this.minZoom = 14;
-
-    this.widthZ20 = 3.2;
-
-    this.lightness = 50;
-  }
-}
-
-class MonorailService extends Monorail {
-  constructor() {
-    super();
-    this.service = true;
-
-    this.widthZ20 = 1.6;
   }
 }
 
 class LightRail extends Railway {
   constructor() {
     super();
-    this.railClass = "light_rail";
+    this.constraints = ["all", ["==", "subclass", "light_rail"], isNotService];
     this.brunnel = "surface";
-    this.service = false;
 
     this.minZoom = 14;
     this.dashWidthFactor = 2;
     this.dashArray = [1, 6];
-
-    this.widthZ20 = 2.5;
-
-    this.lightness = 50;
   }
 }
 
 class LightRailService extends LightRail {
   constructor() {
     super();
-    this.service = true;
+    this.constraints = ["all", ["==", "subclass", "light_rail"], isService];
 
     this.dashWidthFactor = 3;
     this.dashArray = [1, 12];
-
-    this.widthZ20 = 1.25;
   }
 }
 
 class Tram extends Railway {
   constructor() {
     super();
-    this.railClass = "tram";
+    this.constraints = ["all", ["==", "subclass", "tram"], isNotService];
     this.brunnel = "surface";
-    this.service = false;
 
     this.minZoom = 14;
     this.dashWidthFactor = 2;
     this.dashArray = [1, 6];
-
-    this.widthZ20 = 2.5;
-
-    this.lightness = 60;
   }
 }
 
 class TramService extends Tram {
   constructor() {
     super();
-    this.service = true;
+    this.constraints = ["all", ["==", "subclass", "tram"], isService];
 
     this.dashWidthFactor = 3;
     this.dashArray = [1, 12];
-
-    this.widthZ20 = 1.25;
   }
 }
 
 class Funicular extends Railway {
   constructor() {
     super();
-    this.railClass = "funicular";
+    this.constraints = ["==", "subclass", "funicular"];
     this.brunnel = "surface";
-    this.service = false;
 
     this.minZoom = 14;
     this.dashWidthFactor = 2.3;
     this.dashArray = [1, 2];
-
-    this.widthZ20 = 2.5;
-
-    this.lightness = 50;
   }
 }
 
@@ -436,38 +384,6 @@ class PreservedServiceBridge extends PreservedService {
   }
 }
 
-class SubwayBridge extends Subway {
-  constructor() {
-    super();
-    // Undifferentiated
-    this.brunnel = "bridge";
-  }
-}
-
-class SubwayServiceBridge extends SubwayService {
-  constructor() {
-    super();
-    // Undifferentiated
-    this.brunnel = "bridge";
-  }
-}
-
-class MonorailBridge extends Monorail {
-  constructor() {
-    super();
-    // Undifferentiated
-    this.brunnel = "bridge";
-  }
-}
-
-class MonorailServiceBridge extends MonorailService {
-  constructor() {
-    super();
-    // Undifferentiated
-    this.brunnel = "bridge";
-  }
-}
-
 class LightRailBridge extends LightRail {
   constructor() {
     super();
@@ -509,7 +425,6 @@ class RailTunnel extends Rail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -517,7 +432,6 @@ class RailServiceTunnel extends RailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -525,7 +439,6 @@ class NarrowGaugeTunnel extends NarrowGauge {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -533,7 +446,6 @@ class NarrowGaugeServiceTunnel extends NarrowGaugeService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -541,7 +453,6 @@ class PreservedTunnel extends Preserved {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -549,39 +460,6 @@ class PreservedServiceTunnel extends PreservedService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
-  }
-}
-
-class SubwayTunnel extends Subway {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.lightness = 90;
-  }
-}
-
-class SubwayServiceTunnel extends SubwayService {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.lightness = 90;
-  }
-}
-
-class MonorailTunnel extends Monorail {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.lightness = 90;
-  }
-}
-
-class MonorailServiceTunnel extends MonorailService {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -589,7 +467,6 @@ class LightRailTunnel extends LightRail {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -597,7 +474,6 @@ class LightRailServiceTunnel extends LightRailService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -605,7 +481,6 @@ class FunicularTunnel extends Funicular {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -613,7 +488,6 @@ class TramTunnel extends Tram {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
 
@@ -621,9 +495,12 @@ class TramServiceTunnel extends TramService {
   constructor() {
     super();
     this.brunnel = "tunnel";
-    this.lightness = 90;
   }
 }
+
+export const railway = new Railway();
+export const railwayBridge = new RailwayBridge();
+export const railwayTunnel = new RailwayTunnel();
 
 export const rail = new Rail();
 export const railBridge = new RailBridge();
@@ -648,22 +525,6 @@ export const preservedTunnel = new PreservedTunnel();
 export const preservedService = new PreservedService();
 export const preservedServiceBridge = new PreservedServiceBridge();
 export const preservedServiceTunnel = new PreservedServiceTunnel();
-
-export const subway = new Subway();
-export const subwayBridge = new SubwayBridge();
-export const subwayTunnel = new SubwayTunnel();
-
-export const subwayService = new SubwayService();
-export const subwayServiceBridge = new SubwayServiceBridge();
-export const subwayServiceTunnel = new SubwayServiceTunnel();
-
-export const monorail = new Monorail();
-export const monorailBridge = new MonorailBridge();
-export const monorailTunnel = new MonorailTunnel();
-
-export const monorailService = new MonorailService();
-export const monorailServiceBridge = new MonorailServiceBridge();
-export const monorailServiceTunnel = new MonorailServiceTunnel();
 
 export const lightRail = new LightRail();
 export const lightRailBridge = new LightRailBridge();
