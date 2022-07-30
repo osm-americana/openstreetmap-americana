@@ -279,10 +279,14 @@ class PreservedService extends Preserved {
   }
 }
 
-class LightRail extends Railway {
+class LightRailTram extends Railway {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "subclass", "light_rail"], isNotService];
+    this.constraints = [
+      "all",
+      ["in", "subclass", "light_rail", "tram"],
+      isNotService,
+    ];
     this.brunnel = "surface";
 
     this.minZoom = 14;
@@ -291,32 +295,14 @@ class LightRail extends Railway {
   }
 }
 
-class LightRailService extends LightRail {
+class LightRailTramService extends LightRailTram {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "subclass", "light_rail"], isService];
-
-    this.dashWidthFactor = 3;
-    this.dashArray = [1, 12];
-  }
-}
-
-class Tram extends Railway {
-  constructor() {
-    super();
-    this.constraints = ["all", ["==", "subclass", "tram"], isNotService];
-    this.brunnel = "surface";
-
-    this.minZoom = 14;
-    this.dashWidthFactor = 2;
-    this.dashArray = [1, 6];
-  }
-}
-
-class TramService extends Tram {
-  constructor() {
-    super();
-    this.constraints = ["all", ["==", "subclass", "tram"], isService];
+    this.constraints = [
+      "all",
+      ["in", "subclass", "light_rail", "tram"],
+      isService,
+    ];
 
     this.dashWidthFactor = 3;
     this.dashArray = [1, 12];
@@ -384,20 +370,6 @@ class PreservedServiceBridge extends PreservedService {
   }
 }
 
-class LightRailBridge extends LightRail {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class LightRailServiceBridge extends LightRailService {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
 class FunicularBridge extends Funicular {
   constructor() {
     super();
@@ -405,14 +377,14 @@ class FunicularBridge extends Funicular {
   }
 }
 
-class TramBridge extends Tram {
+class LightRailTramBridge extends LightRailTram {
   constructor() {
     super();
     this.brunnel = "bridge";
   }
 }
 
-class TramServiceBridge extends TramService {
+class LightRailTramServiceBridge extends LightRailTramService {
   constructor() {
     super();
     this.brunnel = "bridge";
@@ -463,20 +435,6 @@ class PreservedServiceTunnel extends PreservedService {
   }
 }
 
-class LightRailTunnel extends LightRail {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-  }
-}
-
-class LightRailServiceTunnel extends LightRailService {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-  }
-}
-
 class FunicularTunnel extends Funicular {
   constructor() {
     super();
@@ -484,14 +442,14 @@ class FunicularTunnel extends Funicular {
   }
 }
 
-class TramTunnel extends Tram {
+class LightRailTramTunnel extends LightRailTram {
   constructor() {
     super();
     this.brunnel = "tunnel";
   }
 }
 
-class TramServiceTunnel extends TramService {
+class LightRailTramServiceTunnel extends LightRailTramService {
   constructor() {
     super();
     this.brunnel = "tunnel";
@@ -526,21 +484,13 @@ export const preservedService = new PreservedService();
 export const preservedServiceBridge = new PreservedServiceBridge();
 export const preservedServiceTunnel = new PreservedServiceTunnel();
 
-export const lightRail = new LightRail();
-export const lightRailBridge = new LightRailBridge();
-export const lightRailTunnel = new LightRailTunnel();
+export const lightRailTram = new LightRailTram();
+export const lightRailTramBridge = new LightRailTramBridge();
+export const lightRailTramTunnel = new LightRailTramTunnel();
 
-export const lightRailService = new LightRailService();
-export const lightRailServiceBridge = new LightRailServiceBridge();
-export const lightRailServiceTunnel = new LightRailServiceTunnel();
-
-export const tram = new Tram();
-export const tramBridge = new TramBridge();
-export const tramTunnel = new TramTunnel();
-
-export const tramService = new TramService();
-export const tramServiceBridge = new TramServiceBridge();
-export const tramServiceTunnel = new TramServiceTunnel();
+export const lightRailTramService = new LightRailTramService();
+export const lightRailTramServiceBridge = new LightRailTramServiceBridge();
+export const lightRailTramServiceTunnel = new LightRailTramServiceTunnel();
 
 export const funicular = new Funicular();
 export const funicularBridge = new FunicularBridge();
