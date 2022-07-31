@@ -68,8 +68,6 @@ var lineColor = [
   [
     "match",
     ["get", "subclass"],
-    "preserved",
-    Color.preservedFill,
     "subway",
     Color.subwayFill,
     "light_rail",
@@ -89,16 +87,12 @@ var lineColor = [
 var lineWidth = [
   "match",
   ["get", "subclass"],
-  ["rail", "narrow_gauge", "subway"],
+  ["rail", "preserved", "narrow_gauge", "subway"],
   [...serviceSelector, 2, 4],
   "monorail",
   [...serviceSelector, 1.6, 3.2],
-  "preserved",
-  [...serviceSelector, 0.8, 1.6],
   [...serviceSelector, 1.25, 2.5],
 ];
-
-var lineGapWidth = ["match", ["get", "subclass"], "preserved", 1.6, 0];
 
 // Bridge casing layers
 export const bridgeCasing = {
@@ -120,7 +114,13 @@ export const bridgeCasing = {
     "line-opacity": [
       "step",
       ["zoom"],
-      ["match", ["get", "subclass"], ["rail", "narrow_gauge"], 1, 0],
+      [
+        "match",
+        ["get", "subclass"],
+        ["rail", "preserved", "narrow_gauge"],
+        1,
+        0,
+      ],
       14,
       1,
     ],
@@ -170,7 +170,6 @@ class Railway {
     };
     layer.paint = {
       "line-color": lineColor,
-      "line-gap-width": zoomInterpolate(lineGapWidth),
       "line-width": zoomInterpolate(lineWidth),
     };
     if (this.constraints != null) {
@@ -227,7 +226,11 @@ class RailwayTunnel extends Railway {
 class Rail extends Railway {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "subclass", "rail"], isNotService];
+    this.constraints = [
+      "all",
+      ["in", "subclass", "rail", "preserved"],
+      isNotService,
+    ];
     this.brunnel = "surface";
 
     this.dashWidthFactor = 3;
@@ -238,7 +241,11 @@ class Rail extends Railway {
 class RailService extends Rail {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "subclass", "rail"], isService];
+    this.constraints = [
+      "all",
+      ["in", "subclass", "rail", "preserved"],
+      isService,
+    ];
 
     this.dashWidthFactor = 4;
     this.dashArray = [1, 50];
@@ -266,28 +273,6 @@ class NarrowGaugeService extends NarrowGauge {
 
     this.dashWidthFactor = 3;
     this.dashArray = [1, 2, 1, 30];
-  }
-}
-
-class Preserved extends Railway {
-  constructor() {
-    super();
-    this.constraints = ["all", ["==", "subclass", "preserved"], isNotService];
-    this.brunnel = "surface";
-
-    this.minZoom = 14;
-    this.dashWidthFactor = 4;
-    this.dashArray = [1, 8];
-  }
-}
-
-class PreservedService extends Preserved {
-  constructor() {
-    super();
-    this.constraints = ["all", ["==", "subclass", "preserved"], isService];
-
-    this.dashWidthFactor = 6;
-    this.dashArray = [1, 16];
   }
 }
 
@@ -333,11 +318,6 @@ class Funicular extends Railway {
   }
 }
 
-/*
- * TODO:
- * preserved?
- */
-
 // Bridges
 
 class RailBridge extends Rail {
@@ -362,20 +342,6 @@ class NarrowGaugeBridge extends NarrowGauge {
 }
 
 class NarrowGaugeServiceBridge extends NarrowGaugeService {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class PreservedBridge extends Preserved {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class PreservedServiceBridge extends PreservedService {
   constructor() {
     super();
     this.brunnel = "bridge";
@@ -433,20 +399,6 @@ class NarrowGaugeServiceTunnel extends NarrowGaugeService {
   }
 }
 
-class PreservedTunnel extends Preserved {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-  }
-}
-
-class PreservedServiceTunnel extends PreservedService {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-  }
-}
-
 class FunicularTunnel extends Funicular {
   constructor() {
     super();
@@ -487,14 +439,6 @@ export const narrowGaugeTunnel = new NarrowGaugeTunnel();
 export const narrowGaugeService = new NarrowGaugeService();
 export const narrowGaugeServiceBridge = new NarrowGaugeServiceBridge();
 export const narrowGaugeServiceTunnel = new NarrowGaugeServiceTunnel();
-
-export const preserved = new Preserved();
-export const preservedBridge = new PreservedBridge();
-export const preservedTunnel = new PreservedTunnel();
-
-export const preservedService = new PreservedService();
-export const preservedServiceBridge = new PreservedServiceBridge();
-export const preservedServiceTunnel = new PreservedServiceTunnel();
 
 export const lightRailTram = new LightRailTram();
 export const lightRailTramBridge = new LightRailTramBridge();

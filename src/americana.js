@@ -66,9 +66,6 @@ americanaLayers.push(
   lyrRail.narrowGaugeTunnel.dashes(),
   lyrRail.narrowGaugeServiceTunnel.dashes(),
 
-  lyrRail.preservedTunnel.dashes(),
-  lyrRail.preservedServiceTunnel.dashes(),
-
   lyrRail.lightRailTramTunnel.dashes(),
   lyrRail.lightRailTramServiceTunnel.dashes(),
 
@@ -245,9 +242,6 @@ americanaLayers.push(
   lyrRail.narrowGauge.dashes(),
   lyrRail.narrowGaugeService.dashes(),
 
-  lyrRail.preserved.dashes(),
-  lyrRail.preservedService.dashes(),
-
   lyrRail.lightRailTram.dashes(),
   lyrRail.lightRailTramService.dashes(),
 
@@ -350,9 +344,6 @@ var bridgeLayers = [
 
   lyrRail.narrowGaugeBridge.dashes(),
   lyrRail.narrowGaugeServiceBridge.dashes(),
-
-  lyrRail.preservedBridge.dashes(),
-  lyrRail.preservedServiceBridge.dashes(),
 
   lyrRail.lightRailTramBridge.dashes(),
   lyrRail.lightRailTramServiceBridge.dashes(),

@@ -38,7 +38,6 @@ export const railwayTunnelFill = "hsl(0, 0%, 90%)";
 
 export const railFill = "hsl(0, 0%, 60%)";
 export const narrowGaugeFill = "hsl(0, 0%, 60%)";
-export const preservedFill = "hsl(0, 0%, 50%)";
 export const subwayFill = "hsl(0, 0%, 50%)";
 export const lightRailFill = "hsl(0, 0%, 50%)";
 export const tramFill = "hsl(0, 0%, 60%)";
