@@ -404,12 +404,7 @@ americanaLayers.push(
   lyrAeroway.minorAirportLabel,
   lyrAeroway.airportGate,
 
-  lyrHighwayShield.motorway,
-  lyrHighwayShield.trunk,
-  lyrHighwayShield.primary,
-  lyrHighwayShield.secondary,
-  lyrHighwayShield.tertiary,
-  lyrHighwayShield.minor,
+  lyrHighwayShield.shield,
 
   lyrHighwayExit.exits,
 
