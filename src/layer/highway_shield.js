@@ -1,7 +1,5 @@
 "use strict";
 
-import * as Util from "../js/util.js";
-
 function routeConcurrency(num) {
   return [
     "case",
@@ -44,38 +42,65 @@ let shieldLayout = {
   "symbol-placement": "line",
   "text-max-angle": 180,
   "text-pitch-alignment": "viewport",
+  "symbol-sort-key": [
+    "match",
+    ["get", "class"],
+    "motorway",
+    0,
+    "trunk",
+    1,
+    "primary",
+    2,
+    "secondary",
+    3,
+    "tertiary",
+    4,
+    5,
+  ],
 };
 
-let baseShield = {
+export const shield = {
   type: "symbol",
-  layout: shieldLayout,
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "transportation_name",
-};
-
-function shieldLayer(hwyClass, minzoom) {
-  var layer = Util.cp(baseShield);
-  layer.filter = [
-    "all",
-    ["==", "class", hwyClass],
-    [
-      "any",
-      ["has", "route_1"],
-      ["has", "route_2"],
-      ["has", "route_3"],
-      ["has", "route_4"],
-      ["has", "route_5"],
-      ["has", "route_6"],
+  id: "highway_shield",
+  layout: shieldLayout,
+  paint: {
+    "text-opacity": [
+      "step",
+      ["zoom"],
+      ["match", ["get", "class"], "motorway", 1, 0],
+      8,
+      ["match", ["get", "class"], ["motorway", "trunk"], 1, 0],
+      10,
+      ["match", ["get", "class"], ["motorway", "trunk", "primary"], 1, 0],
+      11,
+      [
+        "match",
+        ["get", "class"],
+        ["motorway", "trunk", "primary", "secondary"],
+        1,
+        0,
+      ],
+      12,
+      [
+        "match",
+        ["get", "class"],
+        ["motorway", "trunk", "primary", "secondary", "tertiary"],
+        1,
+        0,
+      ],
+      14,
+      1,
     ],
-  ];
-  layer.id = "highway_shield_" + hwyClass;
-  return layer;
-}
-
-export const motorway = shieldLayer("motorway", 6);
-export const trunk = shieldLayer("trunk", 8);
-export const primary = shieldLayer("primary", 10);
-export const secondary = shieldLayer("secondary", 11);
-export const tertiary = shieldLayer("tertiary", 12);
-export const minor = shieldLayer("minor", 14);
+  },
+  filter: [
+    "any",
+    ["has", "route_1"],
+    ["has", "route_2"],
+    ["has", "route_3"],
+    ["has", "route_4"],
+    ["has", "route_5"],
+    ["has", "route_6"],
+  ],
+};
