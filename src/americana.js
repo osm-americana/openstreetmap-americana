@@ -14,6 +14,7 @@ import * as lyrHighwayShield from "./layer/highway_shield.js";
 import * as lyrOneway from "./layer/oneway.js";
 import * as lyrPark from "./layer/park.js";
 import * as lyrPlace from "./layer/place.js";
+import * as lyrRail from "./layer/rail.js";
 import * as lyrRoad from "./layer/road.js";
 import * as lyrTransportationLabel from "./layer/transportation_label.js";
 import * as lyrWater from "./layer/water.js";
@@ -58,6 +59,19 @@ americanaLayers.push(
 
   lyrBackground.pierArea,
   lyrBackground.pierLine,
+
+  lyrRail.railTunnel.dashes(),
+  lyrRail.railServiceTunnel.dashes(),
+
+  lyrRail.narrowGaugeTunnel.dashes(),
+  lyrRail.narrowGaugeServiceTunnel.dashes(),
+
+  lyrRail.lightRailTramTunnel.dashes(),
+  lyrRail.lightRailTramServiceTunnel.dashes(),
+
+  lyrRail.funicularTunnel.dashes(),
+
+  lyrRail.railwayTunnel.fill(),
 
   lyrConstruction.road,
 
@@ -222,6 +236,19 @@ americanaLayers.push(
   lyrRoad.secondaryToll.surface(),
   lyrRoad.primaryToll.surface(),
 
+  lyrRail.rail.dashes(),
+  lyrRail.railService.dashes(),
+
+  lyrRail.narrowGauge.dashes(),
+  lyrRail.narrowGaugeService.dashes(),
+
+  lyrRail.lightRailTram.dashes(),
+  lyrRail.lightRailTramService.dashes(),
+
+  lyrRail.funicular.dashes(),
+
+  lyrRail.railway.fill(),
+
   lyrOneway.road,
   lyrOneway.link
 );
@@ -229,6 +256,8 @@ americanaLayers.push(
 americanaLayers.push(lyrBuilding.building);
 
 var bridgeLayers = [
+  lyrRail.bridgeCasing,
+
   lyrRoad.tertiaryLinkBridge.casing(),
   lyrRoad.secondaryLinkBridge.casing(),
   lyrRoad.primaryLinkBridge.casing(),
@@ -309,6 +338,19 @@ var bridgeLayers = [
   lyrRoad.tertiaryTollBridge.surface(),
   lyrRoad.secondaryTollBridge.surface(),
   lyrRoad.primaryTollBridge.surface(),
+
+  lyrRail.railBridge.dashes(),
+  lyrRail.railServiceBridge.dashes(),
+
+  lyrRail.narrowGaugeBridge.dashes(),
+  lyrRail.narrowGaugeServiceBridge.dashes(),
+
+  lyrRail.lightRailTramBridge.dashes(),
+  lyrRail.lightRailTramServiceBridge.dashes(),
+
+  lyrRail.funicularBridge.dashes(),
+
+  lyrRail.railwayBridge.fill(),
 
   lyrOneway.bridge,
   lyrOneway.bridgeLink,

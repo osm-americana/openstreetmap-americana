@@ -33,3 +33,13 @@ export const shields = {
   yellow: "#ffcd00", // Pantone 116
   yellow_green: "#c4d600", // Pantone 382
 };
+
+export const railwayTunnelFill = "hsl(0, 0%, 90%)";
+
+export const railFill = "hsl(0, 0%, 60%)";
+export const narrowGaugeFill = "hsl(0, 0%, 60%)";
+export const subwayFill = "hsl(0, 0%, 50%)";
+export const lightRailFill = "hsl(0, 0%, 50%)";
+export const tramFill = "hsl(0, 0%, 60%)";
+export const monorailFill = "hsl(0, 0%, 50%)";
+export const funicularFill = "hsl(0, 0%, 50%)";
