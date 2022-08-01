@@ -231,7 +231,7 @@ export const country = {
   },
   filter: [
     "all",
-    ["in", ["get", "admin_level"], ["literal", [2]]],
+    ["==", ["get", "admin_level"], 2],
     ["==", ["get", "disputed"], 0],
     ["==", ["get", "maritime"], 0],
   ],
