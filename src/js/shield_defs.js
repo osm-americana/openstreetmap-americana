@@ -3180,6 +3180,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["NZ:UR"] = homeDownShield;
+  shields["NZ:WRR"] = pillShield(Color.shields.white, Color.shields.black);
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
