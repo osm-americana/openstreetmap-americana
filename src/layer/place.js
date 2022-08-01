@@ -211,7 +211,7 @@ export const state = {
     "text-halo-width": 2,
     "text-halo-blur": 0.5,
   },
-  filter: ["all", ["==", ["get", "class"], "state"]],
+  filter: ["==", ["get", "class"], "state"],
   layout: {
     "text-font": ["Metropolis Regular"],
     "text-size": {
@@ -377,7 +377,7 @@ export const continent = {
     "text-halo-color": "rgba(255,255,255,0.7)",
     "text-halo-width": 1,
   },
-  filter: ["all", ["==", ["get", "class"], "continent"]],
+  filter: ["==", ["get", "class"], "continent"],
   layout: {
     "text-font": ["Metropolis Light"],
     "text-size": 13,
