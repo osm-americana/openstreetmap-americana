@@ -43,9 +43,9 @@ function filterRail(brunnel) {
   return [
     "all",
     brunnel === "surface"
-      ? ["!in", "brunnel", "bridge", "tunnel"]
-      : ["==", "brunnel", brunnel],
-    ["in", "class", "rail", "transit"],
+      ? ["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]]
+      : ["==", ["get", "brunnel"], brunnel],
+    ["in", ["get", "class"], ["literal", ["rail", "transit"]]],
   ];
 }
 
@@ -57,8 +57,12 @@ var defRail = {
 };
 
 var serviceSelector = ["match", ["get", "service"], ["siding", "spur", "yard"]];
-var isService = ["in", "service", "siding", "spur", "yard"];
-var isNotService = ["!in", "service", "siding", "spur", "yard"];
+var isService = [
+  "in",
+  ["get", "service"],
+  ["literal", ["siding", "spur", "yard"]],
+];
+var isNotService = ["!", isService];
 
 var lineColor = [
   "match",
@@ -100,8 +104,8 @@ export const bridgeCasing = {
   id: "railway-bridge-casing",
   filter: [
     "all",
-    ["==", "brunnel", "bridge"],
-    ["in", "class", "rail", "transit"],
+    ["==", ["get", "brunnel"], "bridge"],
+    ["in", ["get", "class"], ["literal", ["rail", "transit"]]],
   ],
   minzoom: 13,
   layout: {
@@ -202,7 +206,7 @@ class Railway {
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
     }
-    layer.filter.push(["!=", "service", "crossover"]);
+    layer.filter.push(["!=", ["get", "service"], "crossover"]);
     return layer;
   };
 }
@@ -228,7 +232,7 @@ class Rail extends Railway {
     super();
     this.constraints = [
       "all",
-      ["in", "subclass", "rail", "preserved"],
+      ["in", ["get", "subclass"], ["literal", ["rail", "preserved"]]],
       isNotService,
     ];
     this.brunnel = "surface";
@@ -243,7 +247,7 @@ class RailService extends Rail {
     super();
     this.constraints = [
       "all",
-      ["in", "subclass", "rail", "preserved"],
+      ["in", ["get", "subclass"], ["literal", ["rail", "preserved"]]],
       isService,
     ];
 
@@ -257,7 +261,7 @@ class NarrowGauge extends Rail {
     super();
     this.constraints = [
       "all",
-      ["==", "subclass", "narrow_gauge"],
+      ["==", ["get", "subclass"], "narrow_gauge"],
       isNotService,
     ];
 
@@ -269,7 +273,11 @@ class NarrowGauge extends Rail {
 class NarrowGaugeService extends NarrowGauge {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "subclass", "narrow_gauge"], isService];
+    this.constraints = [
+      "all",
+      ["==", ["get", "subclass"], "narrow_gauge"],
+      isService,
+    ];
 
     this.dashWidthFactor = 3;
     this.dashArray = [1, 2, 1, 30];
@@ -281,7 +289,7 @@ class LightRailTram extends Railway {
     super();
     this.constraints = [
       "all",
-      ["in", "subclass", "light_rail", "tram"],
+      ["in", ["get", "subclass"], ["literal", ["light_rail", "tram"]]],
       isNotService,
     ];
     this.brunnel = "surface";
@@ -297,7 +305,7 @@ class LightRailTramService extends LightRailTram {
     super();
     this.constraints = [
       "all",
-      ["in", "subclass", "light_rail", "tram"],
+      ["in", ["get", "subclass"], ["literal", ["light_rail", "tram"]]],
       isService,
     ];
 
@@ -309,7 +317,7 @@ class LightRailTramService extends LightRailTram {
 class Funicular extends Railway {
   constructor() {
     super();
-    this.constraints = ["==", "subclass", "funicular"];
+    this.constraints = ["==", ["get", "subclass"], "funicular"];
     this.brunnel = "surface";
 
     this.minZoom = 14;

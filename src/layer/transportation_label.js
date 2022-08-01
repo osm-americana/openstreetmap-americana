@@ -127,7 +127,11 @@ export const bridgeSpacer = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", ["==", "brunnel", "bridge"], ["in", "$type", "LineString"]],
+  filter: [
+    "all",
+    ["==", ["get", "brunnel"], "bridge"],
+    ["in", ["geometry-type"], ["literal", ["LineString"]]],
+  ],
   paint: {
     "icon-opacity": 0,
   },

@@ -211,7 +211,7 @@ export const state = {
     "text-halo-width": 2,
     "text-halo-blur": 0.5,
   },
-  filter: ["all", ["==", "class", "state"]],
+  filter: ["all", ["==", ["get", "class"], "state"]],
   layout: {
     "text-font": ["Metropolis Regular"],
     "text-size": {
@@ -251,7 +251,11 @@ export const countryOther = {
     "text-halo-color": "rgba(255,255,255,0.8)",
     "text-halo-width": 2.0,
   },
-  filter: ["all", ["==", "class", "country"], ["!has", "iso_a2"]],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "country"],
+    ["!", ["has", "iso_a2"]],
+  ],
   layout: {
     "text-font": ["Metropolis Regular"],
     "text-size": {
@@ -278,8 +282,8 @@ export const country3 = {
   },
   filter: [
     "all",
-    [">=", "rank", 3],
-    ["==", "class", "country"],
+    [">=", ["get", "rank"], 3],
+    ["==", ["get", "class"], "country"],
     ["has", "iso_a2"],
   ],
   layout: {
@@ -308,8 +312,8 @@ export const country2 = {
   },
   filter: [
     "all",
-    ["==", "rank", 2],
-    ["==", "class", "country"],
+    ["==", ["get", "rank"], 2],
+    ["==", ["get", "class"], "country"],
     ["has", "iso_a2"],
   ],
   layout: {
@@ -338,8 +342,8 @@ export const country1 = {
   },
   filter: [
     "all",
-    ["==", "rank", 1],
-    ["==", "class", "country"],
+    ["==", ["get", "rank"], 1],
+    ["==", ["get", "class"], "country"],
     ["has", "iso_a2"],
   ],
   layout: {
@@ -373,7 +377,7 @@ export const continent = {
     "text-halo-color": "rgba(255,255,255,0.7)",
     "text-halo-width": 1,
   },
-  filter: ["all", ["==", "class", "continent"]],
+  filter: ["all", ["==", ["get", "class"], "continent"]],
   layout: {
     "text-font": ["Metropolis Light"],
     "text-size": 13,

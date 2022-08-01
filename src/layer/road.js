@@ -95,13 +95,13 @@ function filterRoad(roadClass, ramp, brunnel) {
     brunnel === "ignore"
       ? []
       : brunnel === "surface"
-      ? [["!in", "brunnel", "bridge", "tunnel"]]
-      : [["==", "brunnel", brunnel]];
+      ? [["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]]]
+      : [["==", ["get", "brunnel"], brunnel]];
   return [
     "all",
     ...brunnelFilter,
-    ["==", "class", roadClass],
-    [ramp ? "==" : "!=", "ramp", 1],
+    ["==", ["get", "class"], roadClass],
+    [ramp ? "==" : "!=", ["get", "ramp"], 1],
   ];
 }
 
@@ -196,7 +196,7 @@ class Road {
       this.link,
       this.constraints
     );
-    layer.filter.push(["==", "surface", "unpaved"]);
+    layer.filter.push(["==", ["get", "surface"], "unpaved"]);
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
     }
@@ -292,7 +292,7 @@ class InterstateMotorway extends Motorway {
     this.maxZoomFill = 5;
     this.maxZoomCasing = 5;
 
-    this.constraints = ["==", "network", "us-interstate"];
+    this.constraints = ["==", ["get", "network"], "us-interstate"];
   }
 }
 
@@ -347,7 +347,7 @@ class Trunk extends Road {
       `hsl(${roadHue}, 95%, 80%)`,
     ];
 
-    this.constraints = ["!=", "expressway", 1];
+    this.constraints = ["!=", ["get", "expressway"], 1];
   }
 }
 
@@ -385,7 +385,7 @@ class TrunkExpressway extends Trunk {
       `hsl(${roadHue}, 77%, 50%)`,
     ];
 
-    this.constraints = ["==", "expressway", 1];
+    this.constraints = ["==", ["get", "expressway"], 1];
   }
 }
 
@@ -472,14 +472,22 @@ class Primary extends Road {
     this.casingColor = roadCasingColor(roadHue, this.minZoomCasing);
     this.surfaceColor = `hsl(${roadHue}, 0%, 80%)`;
 
-    this.constraints = ["all", ["!=", "toll", 1], ["!=", "expressway", 1]];
+    this.constraints = [
+      "all",
+      ["!=", ["get", "toll"], 1],
+      ["!=", ["get", "expressway"], 1],
+    ];
   }
 }
 
 class PrimaryToll extends Primary {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "toll", 1], ["!=", "expressway", 1]];
+    this.constraints = [
+      "all",
+      ["==", ["get", "toll"], 1],
+      ["!=", ["get", "expressway"], 1],
+    ];
 
     this.fillColor = tollRoadFillColor(
       tollRoadHue,
@@ -508,7 +516,7 @@ class PrimaryExpressway extends Primary {
       this.minZoomCasing + 2
     );
 
-    this.constraints = ["==", "expressway", 1];
+    this.constraints = ["==", ["get", "expressway"], 1];
   }
 }
 
@@ -533,14 +541,22 @@ class Secondary extends Road {
     this.casingColor = roadCasingColor(roadHue, this.minZoomCasing);
     this.surfaceColor = `hsl(${roadHue}, 0%, 80%)`;
 
-    this.constraints = ["all", ["!=", "toll", 1], ["!=", "expressway", 1]];
+    this.constraints = [
+      "all",
+      ["!=", ["get", "toll"], 1],
+      ["!=", ["get", "expressway"], 1],
+    ];
   }
 }
 
 class SecondaryToll extends Secondary {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "toll", 1], ["!=", "expressway", 1]];
+    this.constraints = [
+      "all",
+      ["==", ["get", "toll"], 1],
+      ["!=", ["get", "expressway"], 1],
+    ];
 
     this.fillColor = tollRoadFillColor(
       tollRoadHue,
@@ -569,7 +585,7 @@ class SecondaryExpressway extends Secondary {
       this.minZoomCasing + 2
     );
 
-    this.constraints = ["==", "expressway", 1];
+    this.constraints = ["==", ["get", "expressway"], 1];
   }
 }
 
@@ -594,14 +610,22 @@ class Tertiary extends Road {
     this.casingColor = roadCasingColor(roadHue, this.minZoomCasing);
     this.surfaceColor = `hsl(${roadHue}, 0%, 80%)`;
 
-    this.constraints = ["all", ["!=", "toll", 1], ["!=", "expressway", 1]];
+    this.constraints = [
+      "all",
+      ["!=", ["get", "toll"], 1],
+      ["!=", ["get", "expressway"], 1],
+    ];
   }
 }
 
 class TertiaryToll extends Tertiary {
   constructor() {
     super();
-    this.constraints = ["all", ["==", "toll", 1], ["!=", "expressway", 1]];
+    this.constraints = [
+      "all",
+      ["==", ["get", "toll"], 1],
+      ["!=", ["get", "expressway"], 1],
+    ];
 
     this.fillColor = tollRoadFillColor(
       tollRoadHue,
@@ -630,7 +654,7 @@ class TertiaryExpressway extends Tertiary {
       this.minZoomCasing + 2
     );
 
-    this.constraints = ["==", "expressway", 1];
+    this.constraints = ["==", ["get", "expressway"], 1];
   }
 }
 
@@ -640,7 +664,7 @@ class Minor extends Road {
     this.highwayClass = "minor";
     this.brunnel = "surface";
     this.link = false;
-    this.constraints = ["!=", "toll", 1];
+    this.constraints = ["!=", ["get", "toll"], 1];
 
     this.minZoomFill = 12;
     this.minZoomCasing = 12;
@@ -657,7 +681,7 @@ class Minor extends Road {
 class MinorToll extends Minor {
   constructor() {
     super();
-    this.constraints = ["==", "toll", 1];
+    this.constraints = ["==", ["get", "toll"], 1];
 
     this.fillColor = tollRoadFillColor(tollRoadHue, this.minZoomFill);
     this.casingColor = roadCasingColor(tollRoadHue, this.minZoomCasing);
@@ -709,8 +733,11 @@ class Service extends Road {
 
     this.constraints = [
       "all",
-      ["!=", "toll", 1],
-      ["!in", "service", "parking_aisle", "driveway"],
+      ["!=", ["get", "toll"], 1],
+      [
+        "!",
+        ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
+      ],
     ];
   }
 }
@@ -720,8 +747,11 @@ class ServiceToll extends Service {
     super();
     this.constraints = [
       "all",
-      ["==", "toll", 1],
-      ["!in", "service", "parking_aisle", "driveway"],
+      ["==", ["get", "toll"], 1],
+      [
+        "!",
+        ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
+      ],
     ];
 
     // Fill color gets interpolated as a fade from light to dark between this
@@ -779,8 +809,8 @@ class SmallService extends Service {
 
     this.constraints = [
       "all",
-      ["!=", "toll", 1],
-      ["in", "service", "parking_aisle", "driveway"],
+      ["!=", ["get", "toll"], 1],
+      ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
     ];
   }
 }
@@ -809,8 +839,8 @@ class SmallServiceToll extends ServiceToll {
 
     this.constraints = [
       "all",
-      ["==", "toll", 1],
-      ["in", "service", "parking_aisle", "driveway"],
+      ["==", ["get", "toll"], 1],
+      ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
     ];
   }
 }
@@ -859,7 +889,7 @@ class PrimaryLink extends Primary {
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.45);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.45);
 
-    this.constraints = ["!=", "toll", 1];
+    this.constraints = ["!=", ["get", "toll"], 1];
   }
 }
 
@@ -871,7 +901,7 @@ class PrimaryLinkToll extends PrimaryToll {
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.45);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.45);
 
-    this.constraints = ["==", "toll", 1];
+    this.constraints = ["==", ["get", "toll"], 1];
   }
 }
 
@@ -883,7 +913,7 @@ class SecondaryLink extends Secondary {
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
 
-    this.constraints = ["!=", "toll", 1];
+    this.constraints = ["!=", ["get", "toll"], 1];
   }
 }
 
@@ -895,7 +925,7 @@ class SecondaryLinkToll extends SecondaryToll {
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
 
-    this.constraints = ["==", "toll", 1];
+    this.constraints = ["==", ["get", "toll"], 1];
   }
 }
 
@@ -907,7 +937,7 @@ class TertiaryLink extends Tertiary {
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.25);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.25);
 
-    this.constraints = ["!=", "toll", 1];
+    this.constraints = ["!=", ["get", "toll"], 1];
   }
 }
 
@@ -919,7 +949,7 @@ class TertiaryLinkToll extends TertiaryToll {
     this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.25);
     this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.25);
 
-    this.constraints = ["==", "toll", 1];
+    this.constraints = ["==", ["get", "toll"], 1];
   }
 }
 
