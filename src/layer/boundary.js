@@ -185,7 +185,7 @@ export const countryCasing = {
   },
   filter: [
     "all",
-    ["in", ["get", "admin_level"], ["literal", [2]]],
+    ["==", ["get", "admin_level"], 2],
     ["==", ["get", "maritime"], 0],
   ],
   minzoom: 2,
