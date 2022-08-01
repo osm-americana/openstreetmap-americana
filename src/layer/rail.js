@@ -57,12 +57,8 @@ var defRail = {
 };
 
 var serviceSelector = ["match", ["get", "service"], ["siding", "spur", "yard"]];
-var isService = [
-  "in",
-  ["get", "service"],
-  ["literal", ["siding", "spur", "yard"]],
-];
-var isNotService = ["!", isService];
+var isService = [...serviceSelector, true, false];
+var isNotService = [...serviceSelector, false, true];
 
 var lineColor = [
   "match",

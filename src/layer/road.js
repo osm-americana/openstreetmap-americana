@@ -50,6 +50,14 @@ let layoutRoadSurface = {
 
 let tollRoadSelector = ["match", ["get", "toll"], 1];
 
+const serviceSelector = [
+  "match",
+  ["get", "service"],
+  ["parking_aisle", "driveway"],
+];
+const isService = [...serviceSelector, true, false];
+const isNotService = [...serviceSelector, false, true];
+
 /*
  Road style generation helper functions
 */
@@ -731,28 +739,14 @@ class Service extends Road {
 
     this.surfaceColor = `hsl(${roadHue}, 0%, 80%)`;
 
-    this.constraints = [
-      "all",
-      ["!=", ["get", "toll"], 1],
-      [
-        "!",
-        ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
-      ],
-    ];
+    this.constraints = ["all", ["!=", ["get", "toll"], 1], isNotService];
   }
 }
 
 class ServiceToll extends Service {
   constructor() {
     super();
-    this.constraints = [
-      "all",
-      ["==", ["get", "toll"], 1],
-      [
-        "!",
-        ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
-      ],
-    ];
+    this.constraints = ["all", ["==", ["get", "toll"], 1], isNotService];
 
     // Fill color gets interpolated as a fade from light to dark between this
     // level's introduction and next road-level introduction.
@@ -807,11 +801,7 @@ class SmallService extends Service {
       `hsl(${roadHue}, 0%, 23%)`,
     ];
 
-    this.constraints = [
-      "all",
-      ["!=", ["get", "toll"], 1],
-      ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
-    ];
+    this.constraints = ["all", ["!=", ["get", "toll"], 1], isService];
   }
 }
 
@@ -837,11 +827,7 @@ class SmallServiceToll extends ServiceToll {
       `hsl(${tollRoadHue}, 0%, 23%)`,
     ];
 
-    this.constraints = [
-      "all",
-      ["==", ["get", "toll"], 1],
-      ["in", ["get", "service"], ["literal", ["parking_aisle", "driveway"]]],
-    ];
+    this.constraints = ["all", ["==", ["get", "toll"], 1], isService];
   }
 }
 
