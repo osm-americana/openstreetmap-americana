@@ -79,7 +79,12 @@ export const label = {
       ["literal", ["Metropolis Regular Italic"]],
       ["literal", ["Metropolis Light"]],
     ],
-    "text-field": "{name:latin} {name:nonlatin}",
+    "text-field": [
+      "concat",
+      ["get", "name:latin"],
+      " ",
+      ["get", "name:nonlatin"],
+    ],
     "text-max-angle": 20,
     "symbol-placement": "line",
     "text-size": [
