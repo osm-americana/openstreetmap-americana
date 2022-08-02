@@ -94,6 +94,14 @@ var lineWidth = [
   [...serviceSelector, 1.25, 2.5],
 ];
 
+var opacity = [
+  "step",
+  ["zoom"],
+  ["match", ["get", "subclass"], ["rail", "preserved", "narrow_gauge"], 1, 0],
+  14,
+  1,
+];
+
 // Bridge casing layers
 export const bridgeCasing = {
   ...defRail,
@@ -111,19 +119,7 @@ export const bridgeCasing = {
   },
   paint: {
     "line-color": Color.backgroundFill,
-    "line-opacity": [
-      "step",
-      ["zoom"],
-      [
-        "match",
-        ["get", "subclass"],
-        ["rail", "preserved", "narrow_gauge"],
-        1,
-        0,
-      ],
-      14,
-      1,
-    ],
+    "line-opacity": opacity,
     "line-width": zoomInterpolate([...serviceSelector, 4, 6]),
   },
 };
@@ -170,6 +166,7 @@ class Railway {
     };
     layer.paint = {
       "line-color": lineColor,
+      "line-opacity": opacity,
       "line-width": zoomInterpolate(lineWidth),
     };
     if (this.constraints != null) {
@@ -192,6 +189,7 @@ class Railway {
     };
     layer.paint = {
       "line-color": lineColor,
+      "line-opacity": opacity,
       "line-width": zoomInterpolate(
         multiplyMatchExpression(lineWidth, this.dashWidthFactor)
       ),
