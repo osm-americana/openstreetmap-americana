@@ -43,8 +43,8 @@ function filterRail(brunnel) {
   return [
     "all",
     brunnel === "surface"
-      ? ["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]]
-      : ["==", ["get", "brunnel"], brunnel],
+      ? ["match", ["get", "brunnel"], ["bridge", "tunnel"], false, true]
+      : ["match", ["get", "brunnel"], brunnel, true, false],
     ["in", ["get", "class"], ["literal", ["rail", "transit"]]],
   ];
 }
