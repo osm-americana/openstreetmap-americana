@@ -373,7 +373,11 @@ for (let i = 1; i <= 4; i++) {
 //If layer is more than 5, just give up and render on a single layer.
 bridgeLayers.forEach((layer) =>
   americanaLayers.push(
-    Util.filteredClone(layer, [">=", ["get", "layer"], 5], "_layer_top")
+    Util.filteredClone(
+      layer,
+      [">=", ["coalesce", ["get", "layer"], 0], 5],
+      "_layer_top"
+    )
   )
 );
 
