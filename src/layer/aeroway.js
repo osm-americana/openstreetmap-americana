@@ -2,6 +2,8 @@
 
 import * as Color from "../constants/color.js";
 
+const sortKey = ["coalesce", ["get", "rank"], Infinity];
+
 const name_en = [
   "coalesce",
   ["get", "name:en"],
@@ -13,7 +15,7 @@ const minorAirport = [
   "any",
   ["!", ["has", "iata"]],
   ["!", ["has", "icao"]],
-  ["in", ["get", "class"], ["literal", ["private"]]],
+  ["==", ["get", "class"], "private"],
 ];
 
 const iconLayout = {
@@ -177,7 +179,7 @@ export const airportRefLabel = {
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": sortKey,
     ...iconLayout,
   },
   source: "openmaptiles",
@@ -202,7 +204,7 @@ export const minorAirportRefLabel = {
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": sortKey,
   },
   source: "openmaptiles",
   metadata: {},
@@ -226,7 +228,7 @@ export const airportLabel = {
     "text-field": name_en,
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": sortKey,
     ...iconLayout,
   },
   source: "openmaptiles",
@@ -251,7 +253,7 @@ export const minorAirportLabel = {
     "text-field": name_en,
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": sortKey,
   },
   source: "openmaptiles",
   metadata: {},
@@ -274,7 +276,7 @@ export const airportGate = {
     "text-field": "{ref}",
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": sortKey,
   },
   source: "openmaptiles",
   metadata: {},
