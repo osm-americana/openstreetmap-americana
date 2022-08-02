@@ -56,7 +56,11 @@ var defRail = {
   "source-layer": "transportation",
 };
 
-var serviceSelector = ["match", ["get", "service"], ["siding", "spur", "yard"]];
+var serviceSelector = [
+  "match",
+  ["get", "service"],
+  ["siding", "spur", "yard", "crossover"],
+];
 var isService = [...serviceSelector, true, false];
 var isNotService = [...serviceSelector, false, true];
 
