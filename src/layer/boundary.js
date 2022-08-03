@@ -13,9 +13,9 @@ export const city = {
   },
   filter: [
     "all",
-    ["==", "admin_level", 8],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 8],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   minzoom: 11,
   layout: {
@@ -41,9 +41,9 @@ export const countyCasing = {
   },
   filter: [
     "all",
-    ["==", "admin_level", 6],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 6],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   minzoom: 11,
   layout: {
@@ -65,9 +65,9 @@ export const county = {
   },
   filter: [
     "all",
-    ["==", "admin_level", 6],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 6],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   minzoom: 9,
   layout: {
@@ -99,7 +99,11 @@ export const stateCasing = {
       ],
     },
   },
-  filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
+  filter: [
+    "all",
+    ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+    ["==", ["get", "maritime"], 0],
+  ],
   minzoom: 3,
   layout: {
     "line-join": "round",
@@ -137,7 +141,11 @@ export const state = {
     },
     "line-offset": 0,
   },
-  filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
+  filter: [
+    "all",
+    ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+    ["==", ["get", "maritime"], 0],
+  ],
   minzoom: 3,
   layout: {
     "line-join": "round",
@@ -175,7 +183,11 @@ export const countryCasing = {
       ],
     },
   },
-  filter: ["all", ["in", "admin_level", 2], ["==", "maritime", 0]],
+  filter: [
+    "all",
+    ["==", ["get", "admin_level"], 2],
+    ["==", ["get", "maritime"], 0],
+  ],
   minzoom: 2,
   layout: {
     "line-cap": "round",
@@ -219,9 +231,9 @@ export const country = {
   },
   filter: [
     "all",
-    ["in", "admin_level", 2],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 2],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   maxzoom: 24,
   layout: {

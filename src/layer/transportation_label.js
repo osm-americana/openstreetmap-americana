@@ -79,7 +79,12 @@ export const label = {
       ["literal", ["Metropolis Regular Italic"]],
       ["literal", ["Metropolis Light"]],
     ],
-    "text-field": "{name:latin} {name:nonlatin}",
+    "text-field": [
+      "concat",
+      ["get", "name:latin"],
+      " ",
+      ["get", "name:nonlatin"],
+    ],
     "text-max-angle": 20,
     "symbol-placement": "line",
     "text-size": [
@@ -127,7 +132,11 @@ export const bridgeSpacer = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", ["==", "brunnel", "bridge"], ["in", "$type", "LineString"]],
+  filter: [
+    "all",
+    ["==", ["get", "brunnel"], "bridge"],
+    ["in", ["geometry-type"], ["literal", ["LineString"]]],
+  ],
   paint: {
     "icon-opacity": 0,
   },

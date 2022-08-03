@@ -1,7 +1,11 @@
 export const exits = {
   id: "highway_exit",
   type: "symbol",
-  filter: ["all", ["==", "subclass", "junction"], ["!=", "ref", ""]],
+  filter: [
+    "all",
+    ["==", ["get", "subclass"], "junction"],
+    ["!=", ["get", "ref"], ""],
+  ],
   source: "openmaptiles",
   "source-layer": "transportation_name",
   minzoom: 14,

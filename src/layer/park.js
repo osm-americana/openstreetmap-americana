@@ -63,7 +63,7 @@ export const label = {
 export const parkFill = {
   id: "park-fill",
   type: "fill",
-  filter: ["==", "subclass", "park"],
+  filter: ["==", ["get", "subclass"], "park"],
   paint: {
     "fill-color": Color.parkFill,
   },
@@ -78,7 +78,7 @@ export const parkFill = {
 export const parkOutline = {
   id: "park-outline",
   type: "line",
-  filter: ["==", "subclass", "park"],
+  filter: ["==", ["get", "subclass"], "park"],
   paint: {
     "line-color": Color.parkOutline,
   },
@@ -93,7 +93,7 @@ export const parkOutline = {
 export const parkLabel = {
   id: "park-label",
   type: "symbol",
-  filter: ["==", "class", "park"],
+  filter: ["==", ["get", "class"], "park"],
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
