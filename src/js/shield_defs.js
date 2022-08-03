@@ -2126,7 +2126,7 @@ export function loadShields(shieldImages) {
   shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
   shields["US:TX:FM"] = banneredShield(
     {
-      backgroundImage: shieldImages.shield40_us_tx_outline,
+      backgroundImage: shieldImages.shield_us_tx_outline,
       textColor: Color.shields.black,
       padding: {
         left: 6.5,
