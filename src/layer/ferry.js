@@ -11,7 +11,11 @@ export const ferry = {
     "line-dasharray": [7, 5],
     "line-width": 1.5,
   },
-  filter: ["any", ["==", "class", "ferry"], ["==", "subclass", "ferry"]],
+  filter: [
+    "any",
+    ["==", ["get", "class"], "ferry"],
+    ["==", ["get", "subclass"], "ferry"],
+  ],
   layout: {
     visibility: "visible",
   },

@@ -2,17 +2,18 @@
 
 // Common expressions
 const highwaySelector = ["match", ["get", "class"]];
-
 const linkSelector = ["match", ["get", "ramp"], 1];
 
 export const surface = {
   id: "road_oneway",
-  filter: ["all", ["==", "oneway", 1], ["!in", "brunnel", "bridge", "tunnel"]],
-
+  filter: [
+    "all",
+    ["==", ["get", "oneway"], 1],
+    ["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]],
+  ],
   source: "openmaptiles",
   "source-layer": "transportation",
   type: "symbol",
-
   minzoom: 15,
   maxzoom: 20, // Removing this may affect performance
 
@@ -81,7 +82,11 @@ export const surface = {
 export const tunnel = {
   ...surface,
   id: "tunnel_oneway",
-  filter: ["all", ["==", "oneway", 1], ["==", "brunnel", "tunnel"]],
+  filter: [
+    "all",
+    ["==", ["get", "oneway"], 1],
+    ["==", ["get", "brunnel"], "tunnel"],
+  ],
   paint: {
     "icon-opacity": 0.2,
   },
@@ -90,5 +95,9 @@ export const tunnel = {
 export const bridge = {
   ...surface,
   id: "bridge_oneway",
-  filter: ["all", ["==", "oneway", 1], ["==", "brunnel", "bridge"]],
+  filter: [
+    "all",
+    ["==", ["get", "oneway"], 1],
+    ["==", ["get", "brunnel"], "bridge"],
+  ],
 };

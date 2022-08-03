@@ -3,7 +3,11 @@
 
 //Limit the specified definition to a single numbered layer
 export function restrictLayer(def, layer) {
-  return filteredClone(def, ["==", "layer", layer], "_layer_" + layer);
+  return filteredClone(
+    def,
+    ["==", ["coalesce", ["get", "layer"], 0], layer],
+    "_layer_" + layer
+  );
 }
 
 export function cp(obj) {
