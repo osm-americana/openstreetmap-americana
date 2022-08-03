@@ -20,8 +20,6 @@ export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
 export const airportLabel = "hsl(250, 71%, 29%)";
 
-export const tollRoadHue = 48;
-
 export const shields = {
   black: "black",
   blue: "#003f87", // Pantone 294
@@ -35,3 +33,13 @@ export const shields = {
   yellow: "#ffcd00", // Pantone 116
   yellow_green: "#c4d600", // Pantone 382
 };
+
+export const railwayTunnelFill = "hsl(0, 0%, 90%)";
+
+export const railFill = "hsl(0, 0%, 60%)";
+export const narrowGaugeFill = "hsl(0, 0%, 60%)";
+export const subwayFill = "hsl(0, 0%, 50%)";
+export const lightRailFill = "hsl(0, 0%, 50%)";
+export const tramFill = "hsl(0, 0%, 60%)";
+export const monorailFill = "hsl(0, 0%, 50%)";
+export const funicularFill = "hsl(0, 0%, 50%)";

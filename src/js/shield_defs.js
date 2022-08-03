@@ -223,10 +223,7 @@ export function loadShields(shieldImages) {
 
   let trapezoidUpShieldGreenYellow = {
     ...trapezoidUpShieldBlackYellow,
-    backgroundImage: [
-      shieldImages.shield_trapezoid_green_yellow_2,
-      shieldImages.shield_trapezoid_green_yellow_3,
-    ],
+    backgroundImage: shieldImages.shield_trapezoid_green_yellow_2,
   };
 
   let trapezoidDownShield = {
@@ -302,6 +299,11 @@ export function loadShields(shieldImages) {
     textColor: Color.shields.white,
   };
 
+  let homeDownShieldBlueRed = {
+    ...homeDownShieldBlue,
+    backgroundImage: shieldImages.shield_home_blue_red_3,
+  };
+
   // Hexagon shields
   let hexagonVerticalShieldYellow = {
     backgroundImage: shieldImages.shield_hex_vert_yellow,
@@ -314,6 +316,11 @@ export function loadShields(shieldImages) {
     },
   };
 
+  let hexagonVerticalShieldOrange = {
+    ...hexagonVerticalShieldYellow,
+    backgroundImage: shieldImages.shield_hex_vert_orange,
+  };
+
   let hexagonVerticalShieldGreen = {
     ...hexagonVerticalShieldYellow,
     backgroundImage: shieldImages.shield_hex_vert_green,
@@ -321,7 +328,10 @@ export function loadShields(shieldImages) {
   };
 
   let hexagonHorizontalShieldBlue = {
-    backgroundImage: shieldImages.shield_hex_horz_blue,
+    backgroundImage: [
+      shieldImages.shield_hex_horz_blue_2,
+      shieldImages.shield_hex_horz_blue_3,
+    ],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
@@ -663,6 +673,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
+  shields["US:I:Future"] = banneredShield(shields["US:I"], ["FUT"]);
   shields["US:I:Truck"] = banneredShield(shields["US:I"], ["TRK"]);
   shields["US:I:Express"] = banneredShield(shields["US:I"], ["EXPR"]);
   shields["US:I:Express:Toll"] = shields["US:I:Express"];
@@ -676,6 +687,8 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
+  shields["US:I:Downtown:Loop"] = shields["US:I:Business:Loop"];
+  shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
 
   // US Highways
   shields["US:US"] = badgeShield;
@@ -1164,7 +1177,7 @@ export function loadShields(shieldImages) {
   // Kentucky
   shields["US:KY"] = pillShield(Color.shields.white, Color.shields.black);
   shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
-  shields["US:KY:AA"] = {
+  shields["US:KY:AA"] = shields["US:KY:Parkway"] = {
     backgroundImage: shieldImages.shield_us_ky_parkway,
     textColor: Color.shields.blue,
     padding: {
@@ -1676,6 +1689,24 @@ export function loadShields(shieldImages) {
     norefImage: shieldImages.shield_us_ny_ste,
     notext: true,
   };
+  shields["US:NY:Parkway"] = {
+    ...shields["US:NY"],
+    backgroundImage: [
+      shieldImages.shield_us_ny_parkway_2,
+      shieldImages.shield_us_ny_parkway_3,
+    ],
+    textColor: Color.shields.white,
+  };
+  shields["US:NY:Parkway:NYC"] = {
+    backgroundImage: shieldImages.shield_us_ny_parkway_nyc,
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 8,
+    },
+  };
   [
     "Albany",
     "Allegany",
@@ -2119,10 +2150,16 @@ export function loadShields(shieldImages) {
     },
     ["R"]
   );
+  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
 
   // Texas toll roads
-  shields["US:TX:Toll"] = roundedRectShield(
+  shields["US:TX:Toll"] = shields["US:TX:NTTA"] = roundedRectShield(
     Color.shields.blue,
+    Color.shields.white
+  );
+  shields["US:TX:CTRMA"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.yellow,
     Color.shields.white
   );
   shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
@@ -2133,13 +2170,18 @@ export function loadShields(shieldImages) {
     "EXPR",
     "LOOP",
   ]);
-  shields["US:TX:CTRMA"] = shields["US:TX:Toll"];
-  shields["US:TX:NTTA"] = shields["US:TX:Toll"];
-  shields["US:TX:Montgomery:MCTRA"] = {
-    ...homeDownShieldBlue,
-    backgroundImage: shieldImages.shield_home_blue_red_3,
+  shields["US:TX:Montgomery:MCTRA"] = homeDownShieldBlueRed;
+  shields["US:TX:Fort_Bend:FBCTRA"] = {
+    backgroundImage: shieldImages.shield_us_tx_fbctra,
+    textColor: Color.shields.white,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 2,
+      bottom: 8,
+    },
   };
-  // FBCTRA, HCTRA: see special cases at bottom
+  shields["US:TX:Harris:HCTRA"] = pentagonShieldPurpleYellow;
 
   // Texas county roads
   [
@@ -2506,6 +2548,12 @@ export function loadShields(shieldImages) {
 
   // ASIA
 
+  // Armenia
+  shields["am:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Bangladesh
   shields["BD:national"] = roundedRectShield(
     Color.shields.green,
@@ -2630,7 +2678,10 @@ export function loadShields(shieldImages) {
   // Japan
   shields["JP:E"] = roundedRectShield(Color.shields.green, Color.shields.white);
   shields["JP:national"] = triangleConvexDownShieldBlue;
-  shields["JP:prefectural"] = hexagonHorizontalShieldBlue;
+  shields["JP:prefectural"] = {
+    ...hexagonHorizontalShieldBlue,
+    backgroundImage: shieldImages.shield_hex_horz_blue_2,
+  };
   [
     "aichi",
     "akita",
@@ -2683,23 +2734,6 @@ export function loadShields(shieldImages) {
     shields[`JP:prefectural:${prefecture}`] = shields["JP:prefectural"];
   });
 
-  // Myanmar
-  shields["MY:E"] = shields["my:federal"] = hexagonVerticalShieldYellow;
-
-  // Nepal
-  shields["np:national"] = roundedRectShield(
-    Color.shields.green,
-    Color.shields.white
-  );
-  shields["np:regional"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-
-  // Philippines
-  shields["PH:N"] = homeDownShield;
-  shields["PH:E"] = homeDownShieldYellow;
-
   // South Korea
   shields["KR:expressway"] = {
     backgroundImage: [
@@ -2726,6 +2760,40 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.blue
   );
+
+  // Myanmar
+  shields["MY:E"] = shields["my:federal"] = hexagonVerticalShieldYellow;
+
+  // Nepal
+  shields["np:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
+  shields["np:regional"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
+  // Philippines
+  shields["PH:N"] = homeDownShield;
+  shields["PH:E"] = homeDownShieldYellow;
+
+  // Pakistan
+  shields["PK:national"] = hexagonHorizontalShieldBlue;
+  shields["PK:motorway"] = {
+    backgroundImage: shieldImages.shield_pk_motorway,
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.white,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 7,
+    },
+  };
+
+  // Turkey
+  shields["TR:motorway"] = hexagonVerticalShieldOrange;
 
   // Taiwan
   shields["TW:freeway"] = {
@@ -2903,7 +2971,7 @@ export function loadShields(shieldImages) {
   );
 
   // France
-  shields["FR:A-road"] = roundedRectShield(
+  shields["FR:A-road"] = shields["FR:N-road"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
   );
@@ -2917,6 +2985,16 @@ export function loadShields(shieldImages) {
     ...homeDownShieldBlue,
     backgroundImage: shieldImages.shield_home_blue_3,
   };
+
+  // Iceland
+  shields["IS"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2,
+    1,
+    35
+  );
 
   // Italy
   shields["IT:A-road"] = octagonShieldGreen;
@@ -3155,33 +3233,42 @@ export function loadShields(shieldImages) {
     },
   };
 
-  shields["US:KY:Parkway"] = Object.assign(
-    {
-      // FIXME: This object contains both spelled-out and abbreviated road
-      // names to accommodate both the abbreviated names from OpenMapTiles and
-      // the spelled-out names from Planetiler.
-      // https://github.com/onthegomap/planetiler/issues/14
-      refsByWayName: {
-        "Audubon Parkway": "AU",
-        "Bluegrass Parkway": "BG",
-        "Bluegrass Pkwy": "BG",
-        "Cumberland Parkway": "LN",
-        "Cumberland Pkwy": "LN",
-        "Hal Rogers Parkway": "HR",
-        "Hal Rogers Pkwy": "HR",
-        "Mountain Parkway": "MP",
-        "Mountain Pkwy": "MP",
-        "Purchase Parkway": "JC",
-        "Purchase Pkwy": "JC",
-        "Western Kentucky Parkway": "WK",
-        "Western Kentucky Pkwy": "WK",
-      },
-    },
-    shields["US:KY:AA"]
-  );
+  shields["US:KY:Parkway"].refsByWayName = {
+    // FIXME: This object contains both spelled-out and abbreviated road
+    // names to accommodate both the abbreviated names from OpenMapTiles and
+    // the spelled-out names from Planetiler.
+    // https://github.com/onthegomap/planetiler/issues/14
+    "Audubon Parkway": "AU",
+    "Bluegrass Parkway": "BG",
+    "Bluegrass Pkwy": "BG",
+    "Cumberland Parkway": "LN",
+    "Cumberland Pkwy": "LN",
+    "Hal Rogers Parkway": "HR",
+    "Hal Rogers Pkwy": "HR",
+    "Mountain Parkway": "MP",
+    "Mountain Pkwy": "MP",
+    "Purchase Parkway": "JC",
+    "Purchase Pkwy": "JC",
+    "Western Kentucky Parkway": "WK",
+    "Western Kentucky Pkwy": "WK",
+  };
 
   shields["US:MI"].overrideByRef = {
     185: diamondShieldBrown,
+  };
+
+  shields["US:NY:Parkway"].refsByWayName = {
+    "Bear Mountain Parkway": "BMP",
+    "Bronx and Pelham Parkway": "PP",
+    "Bronx River Parkway": "BRP",
+    "Cross County Parkway": "CCP",
+    "Hutchinson River Parkway": "HRP",
+    "Korean War Veterans Parkway": "KWVP",
+    "Mosholu Parkway": "MP",
+    "Pelham Parkway": "PP",
+    "Saw Mill River Parkway": "SMP",
+    "Sprain Brook Parkway": "SBP",
+    "Taconic State Parkway": "TSP",
   };
 
   shields["US:PA:Allegheny:Belt"].overrideByRef = {
@@ -3193,43 +3280,24 @@ export function loadShields(shieldImages) {
     "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
   };
 
-  shields["US:TX:Fort_Bend:FBCTRA"] = Object.assign(
-    {
-      refsByWayName: {
-        "Fort Bend Parkway Toll Road": "FBP",
-        "Fort Bend Westpark Tollway": "WPT",
-      },
-    },
-    {
-      backgroundImage: shieldImages.shield_us_tx_fbctra,
-      textColor: Color.shields.white,
-      padding: {
-        left: 3,
-        right: 3,
-        top: 2,
-        bottom: 8,
-      },
-    }
-  );
-  shields["US:TX:Harris:HCTRA"] = Object.assign(
-    {
-      refsByWayName: {
-        "East Sam Houston Tollway North": "SHT",
-        "East Sam Houston Tollway South": "SHT",
-        "North Sam Houston Tollway East": "SHT",
-        "North Sam Houston Tollway West": "SHT",
-        "South Sam Houston Tollway East": "SHT",
-        "South Sam Houston Tollway West": "SHT",
-        "West Sam Houston Tollway North": "SHT",
-        "West Sam Houston Tollway South": "SHT",
-        "Fort Bend Toll Road": "FBTR",
-        "Hardy Toll Road": "HTR",
-        "Tomball Tollway": "TBT",
-        "Westpark Tollway": "WPT",
-      },
-    },
-    pentagonShieldPurpleYellow
-  );
+  shields["US:TX:Fort_Bend:FBCTRA"].refsByWayName = {
+    "Fort Bend Parkway Toll Road": "FBP",
+    "Fort Bend Westpark Tollway": "WPT",
+  };
+  shields["US:TX:Harris:HCTRA"].refsByWayName = {
+    "East Sam Houston Tollway North": "SHT",
+    "East Sam Houston Tollway South": "SHT",
+    "North Sam Houston Tollway East": "SHT",
+    "North Sam Houston Tollway West": "SHT",
+    "South Sam Houston Tollway East": "SHT",
+    "South Sam Houston Tollway West": "SHT",
+    "West Sam Houston Tollway North": "SHT",
+    "West Sam Houston Tollway South": "SHT",
+    "Fort Bend Toll Road": "FBTR",
+    "Hardy Toll Road": "HTR",
+    "Tomball Tollway": "TBT",
+    "Westpark Tollway": "WPT",
+  };
 
   return shields;
 }

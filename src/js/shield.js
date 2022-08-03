@@ -261,6 +261,7 @@ function getShieldDef(routeDef) {
 
   if (shieldDef == null) {
     // Default to plain black text with halo and no background shield
+    console.debug("Generic shield for", JSON.stringify(routeDef));
     return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
   }
 

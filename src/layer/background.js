@@ -24,7 +24,11 @@ export const pierArea = {
   type: "fill",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", ["==", "class", "pier"], ["==", "$type", "Polygon"]],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "pier"],
+    ["==", ["geometry-type"], "Polygon"],
+  ],
   paint: {
     "fill-color": backgroundColor,
   },
@@ -36,7 +40,11 @@ export const pierLine = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", ["==", "class", "pier"], ["==", "$type", "LineString"]],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "pier"],
+    ["==", ["geometry-type"], "LineString"],
+  ],
   paint: {
     "line-color": backgroundColor,
     "line-width": {
