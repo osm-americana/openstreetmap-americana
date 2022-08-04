@@ -961,6 +961,10 @@ export function loadShields(shieldImages) {
   };
   shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
   shields["US:CA:CR"] = pentagonShieldBlueYellow;
+  shields["US:CA:Mendocino"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
 
   // Colorado
   shields["US:CO"] = {
