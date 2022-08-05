@@ -98,6 +98,13 @@ function paBeltShield(fillColor, strokeColor) {
   };
 }
 
+function bransonRouteShield(fillColor, strokeColor) {
+  return {
+    notext: true,
+    backgroundDraw: (ref) => ShieldDraw.bransonRoute(fillColor, strokeColor),
+  };
+}
+
 function banneredShield(baseDef, modifiers) {
   return {
     ...baseDef,
@@ -1438,6 +1445,7 @@ export function loadShields(shieldImages) {
     Color.shields.brown,
     Color.shields.white
   );
+  shields["US:MO:Taney:Branson"] = {}; // See ref-specific cases below
 
   // Northern Mariana Islands
   shields["US:MP"] = {
@@ -3253,6 +3261,15 @@ export function loadShields(shieldImages) {
 
   shields["US:MI"].overrideByRef = {
     185: diamondShieldBrown,
+  };
+
+  shields["US:MO:Taney:Branson"].overrideByRef = {
+    "Red Route": bransonRouteShield(Color.shields.red, Color.shields.white),
+    "Yellow Route": bransonRouteShield(
+      Color.shields.yellow,
+      Color.shields.green
+    ),
+    "Blue Route": bransonRouteShield(Color.shields.blue, Color.shields.white),
   };
 
   shields["US:NY:Parkway"].refsByWayName = {
