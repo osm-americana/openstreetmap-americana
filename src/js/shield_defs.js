@@ -2166,20 +2166,31 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
-  shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
-  shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
-  shields["US:TX:Business"] = banneredShield(shields["US:TX"], ["BUS"]);
-  shields["US:TX:Park"] = banneredShield(shields["US:TX"], ["PARK"]);
   shields["US:TX:Beltway"] = banneredShield(shields["US:TX"], ["BELT"]);
-  shields["US:TX:FM"] = banneredShield(shields["US:TX"], ["F.M."]);
-  shields["US:TX:FM:Business"] = banneredShield(shields["US:TX:FM"], [
-    "BUS",
-    "F.M.",
-  ]);
+  shields["US:TX:Business"] = banneredShield(shields["US:TX"], ["BUS"]);
+  shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
+  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
+  shields["US:TX:Park"] = banneredShield(shields["US:TX"], ["PARK"]);
   shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
-  shields["US:TX:RM"] = banneredShield(shields["US:TX"], ["R.M."]);
+  shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
+  shields["US:TX:FM"] = shields["US:TX:RM"] = {
+    backgroundImage: shieldImages.shield_us_tx_outline,
+    textColor: Color.shields.black,
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    padding: {
+      left: 3,
+      right: 0,
+      top: 7,
+      bottom: 10,
+    },
+  };
+  shields["US:TX:FM:Business"] = banneredShield(shields["US:TX:FM"], ["BUS"]);
   shields["US:TX:Recreational"] = banneredShield(
-    roundedRectShield(Color.shields.white, Color.shields.brown),
+    {
+      ...shields["US:TX:FM"],
+      textColor: Color.shields.brown,
+      colorLighten: Color.shields.brown,
+    },
     ["R"]
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
