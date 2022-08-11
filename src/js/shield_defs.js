@@ -1168,6 +1168,10 @@ export function loadShields(shieldImages) {
       bottom: 4,
     },
   };
+  shields["US:KS:Turnpike"] = {
+    norefImage: shieldImages.shield_us_ks_turnpike,
+    notext: true,
+  };
   [
     "Clay",
     "Cowley",
