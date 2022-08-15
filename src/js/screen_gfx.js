@@ -2,7 +2,7 @@
 
 const fontFamily =
   '"sans-serif-condensed", "Arial Narrow", "Roboto Condensed", "Noto Sans Armenian", sans-serif';
-export const shieldFont = (size) => `bold ${size}px ${fontFamily}`;
+export const shieldFont = (size) => `condensed bold ${size}px ${fontFamily}`;
 export const fontSizeThreshold = 12;
 
 export function getGfxContext(bounds) {
