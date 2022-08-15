@@ -1,6 +1,7 @@
 "use strict";
 
-const fontFamily = '"sans-serif-condensed", "Arial Narrow", sans-serif';
+const fontFamily =
+  '"sans-serif-condensed", "Arial Narrow", "Roboto Condensed", "Noto Sans Armenian", sans-serif';
 export const shieldFont = (size) => `bold ${size}px ${fontFamily}`;
 export const fontSizeThreshold = 12;
 

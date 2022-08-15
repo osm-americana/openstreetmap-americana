@@ -253,7 +253,7 @@ export function loadShields(shieldImages) {
       left: 2,
       right: 2,
       top: 2,
-      bottom: 5,
+      bottom: 4,
     },
   };
 
@@ -421,8 +421,8 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_ca_bc_2, shieldImages.shield_ca_bc_3],
     textColor: Color.shields.blue,
     padding: {
-      left: 3.5,
-      right: 3.5,
+      left: 3,
+      right: 3,
       top: 5,
       bottom: 4,
     },
@@ -448,7 +448,7 @@ export function loadShields(shieldImages) {
     textColor: Color.shields.black,
     padding: {
       left: 4,
-      right: 4,
+      right: 5,
       top: 5,
       bottom: 5,
     },
@@ -625,8 +625,8 @@ export function loadShields(shieldImages) {
     padding: {
       left: 2,
       right: 2,
-      top: 5.5,
-      bottom: 4,
+      top: 6,
+      bottom: 4.5,
     },
   };
   shields["CA:QC:R"] = {
@@ -674,7 +674,7 @@ export function loadShields(shieldImages) {
     padding: {
       left: 4,
       right: 4,
-      top: 6,
+      top: 5,
       bottom: 5,
     },
   };
@@ -924,8 +924,8 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_us_ca_2, shieldImages.shield_us_ca_3],
     textColor: Color.shields.white,
     padding: {
-      left: 4,
-      right: 4,
+      left: 3,
+      right: 3,
       top: 6,
       bottom: 4,
     },
@@ -1160,12 +1160,13 @@ export function loadShields(shieldImages) {
   // Kansas
   shields["US:KS"] = {
     backgroundImage: [shieldImages.shield_us_ks_2, shieldImages.shield_us_ks_3],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 2,
     },
   };
   shields["US:KS:Turnpike"] = {
@@ -1251,8 +1252,8 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_us_md_2, shieldImages.shield_us_md_3],
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
+      left: 3,
+      right: 3,
       top: 7,
       bottom: 3,
     },
@@ -1299,8 +1300,8 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_us_mn_2, shieldImages.shield_us_mn_3],
     textColor: Color.shields.white,
     padding: {
-      left: 4,
-      right: 4,
+      left: 3,
+      right: 3,
       top: 7,
       bottom: 3,
     },
@@ -1414,10 +1415,10 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_us_mo_2, shieldImages.shield_us_mo_3],
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4.5,
+      left: 3.5,
+      right: 4,
       top: 3,
-      bottom: 5.5,
+      bottom: 6,
     },
   };
   shields["US:MO:Alternate"] = banneredShield(shields["US:MO"], ["ALT"]);
@@ -1511,8 +1512,8 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_us_nd_2, shieldImages.shield_us_nd_3],
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 5,
+      left: 3,
+      right: 6,
       top: 4,
       bottom: 4,
     },
@@ -1679,7 +1680,7 @@ export function loadShields(shieldImages) {
       left: 2,
       right: 2,
       top: 2,
-      bottom: 12,
+      bottom: 13,
     },
   };
   ["Clark", "Washoe"].forEach(
@@ -1873,7 +1874,7 @@ export function loadShields(shieldImages) {
       ))
   );
   shields["US:OH:ASD"] = {
-    backgroundImage: [shieldImages.shield_us_oh_asd],
+    backgroundImage: shieldImages.shield_us_oh_asd,
     textColor: Color.shields.green,
     padding: {
       left: 6,
@@ -1905,7 +1906,7 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:OH:TUS:Salem"] = {
-    backgroundImage: [shieldImages.shield_us_oh_tus_salem],
+    backgroundImage: shieldImages.shield_us_oh_tus_salem,
     textColor: Color.shields.black,
     padding: {
       left: 1,
@@ -2049,8 +2050,8 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_us_sd_2, shieldImages.shield_us_sd_3],
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 3,
+      left: 4,
+      right: 5,
       top: 3,
       bottom: 5,
     },
@@ -2256,9 +2257,9 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_us_ut_2, shieldImages.shield_us_ut_3],
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 5.5,
+      left: 3,
+      right: 3,
+      top: 6,
       bottom: 5,
     },
   };
