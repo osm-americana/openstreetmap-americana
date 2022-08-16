@@ -33,6 +33,7 @@
     "esbuild": "^0.14.43",
     "maplibre-gl": "^2.1.9",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
+    "openmapsamples": "github:adamfranco/OpenMapSamples",
     "prettier": "2.3.2",
     "shx": "^0.3.4",
     "svgo": "^2.8.0"
