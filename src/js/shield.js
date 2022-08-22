@@ -303,7 +303,7 @@ function getRouteDef(id) {
   };
 }
 
-function generateShieldCtx(id) {
+export function generateShieldCtx(id) {
   var routeDef = getRouteDef(id);
   var shieldDef = getShieldDef(routeDef);
 
