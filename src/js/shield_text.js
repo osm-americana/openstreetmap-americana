@@ -135,7 +135,8 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   return {
     xBaseline: xBaseline,
     yBaseline: yBaseline,
-    fontPx: fontSize,
+    fontPx: Gfx.fontSizeThreshold * PXR,
+    width: availWidth,
   };
 }
 
@@ -188,10 +189,11 @@ export function layoutShieldTextFromDef(text, def, bounds) {
 export function drawShieldText(ctx, text, textLayout) {
   //Text color is set by fillStyle
   ctx.textAlign = "center";
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "alphabetic";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
 
-  ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
+  let y = Math.floor(textLayout.yBaseline + 0.75 * textLayout.fontPx);
+  ctx.fillText(text, textLayout.xBaseline, y, textLayout.width);
 }
 
 /**

@@ -77,9 +77,6 @@ function isValidRef(ref) {
  */
 function getRasterShieldBlank(shieldDef, routeDef) {
   var shieldArtwork = null;
-  var textLayout;
-  var bannerCount = 0;
-  var bounds;
 
   //Special case where there's a defined fallback shield when no ref is tagged
   //Example: PA Turnpike
@@ -88,18 +85,17 @@ function getRasterShieldBlank(shieldDef, routeDef) {
   }
 
   if (Array.isArray(shieldDef.backgroundImage)) {
-    for (var i = 0; i < shieldDef.backgroundImage.length; i++) {
-      shieldArtwork = shieldDef.backgroundImage[i];
-
-      bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-      textLayout = ShieldText.layoutShieldTextFromDef(
-        routeDef.ref,
-        shieldDef,
-        bounds
-      );
-      if (textLayout.fontPx > Gfx.fontSizeThreshold * Gfx.getPixelRatio()) {
+    // When multiple shield widths are available, the first should be for up to
+    // 2 characters.  Each size larger should accomodate an additional character.
+    // If the ref is longer than optimalCharacters of the widest available shield
+    // the text will be condensed to fit.
+    let optimalCharacters = 2;
+    for (let image of shieldDef.backgroundImage) {
+      shieldArtwork = image;
+      if (routeDef.ref.length <= optimalCharacters) {
         break;
       }
+      optimalCharacters++;
     }
   } else {
     shieldArtwork = shieldDef.backgroundImage;

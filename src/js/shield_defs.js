@@ -370,10 +370,10 @@ export function loadShields(shieldImages) {
     backgroundImage: [shieldImages.shield_badge_2, shieldImages.shield_badge_3],
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 2,
-      top: 4,
-      bottom: 5,
+      left: 2.5,
+      right: 2.5,
+      top: 6,
+      bottom: 6,
     },
   };
 
@@ -708,9 +708,9 @@ export function loadShields(shieldImages) {
     textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
     textColor: Color.shields.white,
     padding: {
-      left: 4,
-      right: 4,
-      top: 6,
+      left: 5,
+      right: 5,
+      top: 7,
       bottom: 5,
     },
   };
