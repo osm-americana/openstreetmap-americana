@@ -27,11 +27,15 @@ let networks = [
 
   // Rectangles
   "US:CT",
+  "US:WY",
   "US:AR:Lee",
   "US:AR:Baxter",
-  "US:WY",
   "CA:NS:R",
   "CA:YT",
+  "IS",
+  "dk:national",
+  "e-road",
+  "pl:motorways",
 
   // Basic Angular Shapes
   "CA:ON:secondary",
