@@ -40,14 +40,13 @@ let networks = [
   // Basic Angular Shapes
   "CA:ON:secondary",
   "US:NE",
-  "US:MN:Aitkin:Park_Access",
+  "US:MN:Hennepin:Park_Access",
   "US:PA",
   "US:PA:Turnpike",
 
   "CA:AB:primary",
   "CA:SK:tertiary",
   "CA:SK:primary",
-  "PH:N",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
 
