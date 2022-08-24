@@ -213,6 +213,8 @@ let refs = [
   "H201",
   "480N",
   "A 562",
+  "1138-2",
+  "A26/A7",
 ];
 
 export function getShieldCanvas(shield_id) {
