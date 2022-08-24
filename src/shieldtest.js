@@ -17,7 +17,9 @@ let networks = [
   "default",
 
   // Circles, pills, ovals
+  "NZ:WRR",
   "US:DE",
+  "CA:MB:PR",
   "KR:national",
   "US:IA",
   "US:NM",
