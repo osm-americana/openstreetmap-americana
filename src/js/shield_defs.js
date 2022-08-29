@@ -2025,7 +2025,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:OR:Business"] = banneredShield(shields["US:OR"], ["BUS"]);
-  ["Douglas", "Grant", "Lake", "Morrow"].forEach(
+  ["Douglas", "Grant", "Lake", "Lane", "Morrow"].forEach(
     (county) => (shields[`US:OR:${county}`] = pentagonShieldBlueYellow)
   );
 
