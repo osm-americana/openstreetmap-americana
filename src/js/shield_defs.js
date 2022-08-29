@@ -2162,10 +2162,17 @@ export function loadShields(shieldImages) {
   shields["US:TN:primary:Bypass"] = banneredShield(shields["US:TN:primary"], [
     "BYP",
   ]);
+  shields["US:TN:primary:Truck"] = banneredShield(shields["US:TN:primary"], [
+    "TRK",
+  ]);
   shields["US:TN:secondary"] = triangleRoundedDownShield;
   shields["US:TN:secondary:Alternate"] = banneredShield(
     shields["US:TN:secondary"],
     ["ALT"]
+  );
+  shields["US:TN:secondary:Scenic"] = banneredShield(
+    shields["US:TN:secondary"],
+    ["SCEN"]
   );
   shields["US:TN:secondary:Truck"] = banneredShield(
     shields["US:TN:secondary"],
