@@ -2,13 +2,13 @@
 
 // Common expressions
 const highwaySelector = ["match", ["get", "class"]];
-const linkSelector = ["match", ["get", "ramp"], 1];
 
 export const surface = {
   id: "road_oneway",
   filter: [
     "all",
     ["==", ["get", "oneway"], 1],
+    ["!=", ["get", "ramp"], 1],
     ["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]],
   ],
   source: "openmaptiles",
@@ -25,25 +25,21 @@ export const surface = {
       15,
       [
         ...highwaySelector,
-        "motorway",
-        [...linkSelector, 0.3, 0.5],
-        ["trunk", "primary"],
-        [...linkSelector, 0.2, 0.5],
+        ["motorway", "trunk", "primary"],
+        0.5,
         "secondary",
-        [...linkSelector, 0.2, 0.3],
+        0.3,
         0.2,
       ],
       19,
       [
         ...highwaySelector,
-        "motorway",
-        [...linkSelector, 0.8, 1],
-        ["trunk", "primary"],
-        [...linkSelector, 0.6, 1],
+        ["motorway", "trunk", "primary"],
+        1,
         "secondary",
-        [...linkSelector, 0.4, 0.8],
+        0.8,
         "tertiary",
-        [...linkSelector, 0.3, 0.6],
+        0.6,
         0.3,
       ],
     ],
@@ -85,6 +81,7 @@ export const tunnel = {
   filter: [
     "all",
     ["==", ["get", "oneway"], 1],
+    ["!=", ["get", "ramp"], 1],
     ["==", ["get", "brunnel"], "tunnel"],
   ],
   paint: {
@@ -98,6 +95,7 @@ export const bridge = {
   filter: [
     "all",
     ["==", ["get", "oneway"], 1],
+    ["!=", ["get", "ramp"], 1],
     ["==", ["get", "brunnel"], "bridge"],
   ],
 };
