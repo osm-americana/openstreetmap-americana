@@ -2219,11 +2219,6 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white
   );
-  shields["US:TX:CTRMA"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.yellow,
-    Color.shields.white
-  );
   shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
     "EXPR",
   ]);
@@ -2231,6 +2226,14 @@ export function loadShields(shieldImages) {
   shields["US:TX:Loop:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
     "EXPR",
     "LOOP",
+  ]);
+  shields["US:TX:CTRMA"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.yellow,
+    Color.shields.white
+  );
+  shields["US:TX:CTRMA:Express"] = banneredShield(shields["US:TX:CTRMA"], [
+    "EXPR",
   ]);
   shields["US:TX:Montgomery:MCTRA"] = homeDownShieldBlueRed;
   shields["US:TX:Fort_Bend:FBCTRA"] = {
