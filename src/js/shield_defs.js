@@ -735,10 +735,19 @@ export function loadShields(shieldImages) {
 
   // US Highways
   shields["US:US"] = badgeShield;
+
   shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
+  shields["US:US:Truck:Bypass"] = banneredShield(shields["US:US"], [
+    "TRK",
+    "BYP",
+  ]);
+
   shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
+
   shields["US:US:Connector"] = banneredShield(shields["US:US"], ["CONN"]);
+
   shields["US:US:Bypass"] = banneredShield(shields["US:US"], ["BYP"]);
+
   shields["US:US:Business"] = banneredShield(shields["US:US"], ["BUS"]);
   shields["US:US:Business:Alternate"] = banneredShield(shields["US:US"], [
     "BUS",
@@ -748,6 +757,7 @@ export function loadShields(shieldImages) {
     "BUS",
     "TRK",
   ]);
+
   shields["US:US:Alternate"] = banneredShield(shields["US:US"], ["ALT"]);
   shields["US:US:Alternate:Truck:Business"] = banneredShield(shields["US:US"], [
     "ALT",
