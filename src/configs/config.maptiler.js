@@ -18,9 +18,11 @@ const ATTRIBUTION_LOGO = `
 </a>`;
 const ATTRIBUTION_TEXT =
   '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>';
+const SHIELD_TEXT_HALO_COLOR = null;
 
 export default {
   OPENMAPTILES_URL,
   ATTRIBUTION_LOGO,
   ATTRIBUTION_TEXT,
+  SHIELD_TEXT_HALO_COLOR,
 };
