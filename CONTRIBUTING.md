@@ -247,7 +247,9 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 - **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
 - **`verticalReflect`** – Set this property to `true` to draw the shield image upside-down.
 
-If special code is necessary to style a specific `ref` in a particular network, `overrideByRef` can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
+In addition to `textHaloColor`, the config variable **`SHIELD_TEXT_HALO_COLOR`** can be used to override the text halo color on all shields. This can be helpful to avoid collisions with other design features when determining padding values. For example, set `SHIELD_TEXT_HALO_COLOR` in src/config.js to `"magenta"` to display a magenta halo around all shield text.
+
+If special code is necessary to style a specific `ref` in a particular network, **`overrideByRef`** can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
 
 Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks). In the future, it is expected that these initialisms will be encoded on the server side by processing appropriate tagging which holds the initialism in the database.
 
