@@ -12,6 +12,15 @@ export const topPadding = 1 * Gfx.getPixelRatio();
 
 export const shields = {};
 
+/**
+ * Draws a shield with an ellipse background
+ *
+ * @param {*} fillColor - Color of ellipse background fill
+ * @param {*} strokeColor - Color of ellipse outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of ellipse (defaults to variable-width)
+ * @returns a shield definition object
+ */
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
@@ -28,10 +37,28 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   };
 }
 
+/**
+ * Draws a shield with circle background (special case of ovalShield)
+ *
+ * @param {*} fillColor - Color of circle background fill
+ * @param {*} strokeColor - Color of circle outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @returns a shield definition object
+ */
 function circleShield(fillColor, strokeColor, textColor) {
   return ovalShield(fillColor, strokeColor, textColor, 20);
 }
 
+/**
+ * Draws a shield with a rectangle background
+ *
+ * @param {*} fillColor - Color of rectangle background fill
+ * @param {*} strokeColor - Color of rectangle outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of rectangle (defaults to variable-width)
+ * @param {*} radius - Corner radius of rectangle (defaults to 2)
+ * @returns a shield definition object
+ */
 function roundedRectShield(
   fillColor,
   strokeColor,
@@ -63,6 +90,15 @@ function roundedRectShield(
   };
 }
 
+/**
+ * Draws a shield with a pill-shaped background
+ *
+ * @param {*} fillColor - Color of pill background fill
+ * @param {*} strokeColor - Color of pill outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of pill (defaults to variable-width)
+ * @returns a shield definition object
+ */
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
@@ -86,6 +122,13 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   };
 }
 
+/**
+ * Draws a circle icon inside a black-outlined white square shield
+ *
+ * @param {*} fillColor - Color of circle icon background fill
+ * @param {*} strokeColor - Color of circle icon outline stroke
+ * @returns a shield definition object
+ */
 function paBeltShield(fillColor, strokeColor) {
   return {
     notext: true,
@@ -93,6 +136,13 @@ function paBeltShield(fillColor, strokeColor) {
   };
 }
 
+/**
+ * Draws a rectangle icon inside a white-outlined green square shield
+ *
+ * @param {*} fillColor - Color of rectangle icon background fill
+ * @param {*} strokeColor - Color of rectangle icon outline stroke
+ * @returns a shield definition object
+ */
 function bransonRouteShield(fillColor, strokeColor) {
   return {
     notext: true,
@@ -100,6 +150,13 @@ function bransonRouteShield(fillColor, strokeColor) {
   };
 }
 
+/**
+ * Adds banner text above a shield
+ *
+ * @param {*} baseDef - Shield definition object
+ * @param {*} modifiers - Array of strings to be displayed above shield
+ * @returns a shield definition object
+ */
 function banneredShield(baseDef, modifiers) {
   return {
     ...baseDef,
