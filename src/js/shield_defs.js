@@ -36,8 +36,8 @@ function roundedRectShield(
   fillColor,
   strokeColor,
   textColor,
-  radius,
-  rectWidth
+  rectWidth,
+  radius
 ) {
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
@@ -2887,7 +2887,6 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -2917,7 +2916,6 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -2925,7 +2923,6 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -2948,7 +2945,6 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -2963,7 +2959,6 @@ export function loadShields(shieldImages) {
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -2971,7 +2966,6 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -2980,7 +2974,6 @@ export function loadShields(shieldImages) {
     Color.shields.yellow,
     Color.shields.black,
     Color.shields.black,
-    2,
     34
   );
 
@@ -3039,7 +3032,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black,
     Color.shields.black,
-    2,
     34
   );
 
@@ -3079,7 +3071,6 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -3132,7 +3123,6 @@ export function loadShields(shieldImages) {
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
   shields["pl:expressways"] = shields["pl:motorways"];
@@ -3153,7 +3143,6 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
@@ -3212,7 +3201,6 @@ export function loadShields(shieldImages) {
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
-    2,
     34
   );
 
