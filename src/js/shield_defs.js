@@ -37,12 +37,10 @@ function roundedRectShield(
   strokeColor,
   textColor,
   radius,
-  outlineWidth,
   rectWidth
 ) {
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
-  outlineWidth = outlineWidth ?? 1;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(
@@ -50,7 +48,7 @@ function roundedRectShield(
         strokeColor,
         ref,
         radius,
-        outlineWidth,
+        1,
         rectWidth
       ),
     textLayoutConstraint: (spaceBounds, textBounds) =>
@@ -65,15 +63,8 @@ function roundedRectShield(
   };
 }
 
-function pillShield(
-  fillColor,
-  strokeColor,
-  textColor,
-  outlineWidth,
-  rectWidth
-) {
+function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
-  outlineWidth = outlineWidth ?? 1;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(
@@ -81,7 +72,7 @@ function pillShield(
         strokeColor,
         ref,
         10,
-        outlineWidth,
+        1,
         rectWidth
       ),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
@@ -2897,7 +2888,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -2928,7 +2918,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -2937,7 +2926,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -2961,7 +2949,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -2977,7 +2964,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -2986,7 +2972,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -2996,7 +2981,6 @@ export function loadShields(shieldImages) {
     Color.shields.black,
     Color.shields.black,
     2,
-    1,
     34
   );
 
@@ -3056,7 +3040,6 @@ export function loadShields(shieldImages) {
     Color.shields.black,
     Color.shields.black,
     2,
-    1,
     34
   );
 
@@ -3097,7 +3080,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -3151,7 +3133,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
   shields["pl:expressways"] = shields["pl:motorways"];
@@ -3173,7 +3154,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
@@ -3233,7 +3213,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     2,
-    1,
     34
   );
 
