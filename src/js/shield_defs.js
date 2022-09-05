@@ -2898,7 +2898,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   // Austria
@@ -2929,7 +2929,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   shields["ba:Magistralne ceste"] = roundedRectShield(
@@ -2938,7 +2938,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   // Belgium
@@ -2962,7 +2962,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   // Belarus
@@ -2978,7 +2978,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   shields["cz:national"] = roundedRectShield(
@@ -2987,7 +2987,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   // Denmark
@@ -2997,7 +2997,7 @@ export function loadShields(shieldImages) {
     Color.shields.black,
     2,
     1,
-    35
+    34
   );
 
   // Estonia
@@ -3057,7 +3057,7 @@ export function loadShields(shieldImages) {
     Color.shields.black,
     2,
     1,
-    35
+    34
   );
 
   // Italy
@@ -3098,7 +3098,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   // North Macedonia
@@ -3152,7 +3152,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
   shields["pl:expressways"] = shields["pl:motorways"];
   shields["pl:national"] = roundedRectShield(
@@ -3174,7 +3174,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   // Serbia
@@ -3234,7 +3234,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     2,
     1,
-    35
+    34
   );
 
   // Ukraine
