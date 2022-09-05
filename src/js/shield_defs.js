@@ -28,6 +28,10 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   };
 }
 
+function circleShield(fillColor, strokeColor, textColor) {
+  return ovalShield(fillColor, strokeColor, textColor, 20);
+}
+
 function roundedRectShield(
   fillColor,
   strokeColor,
@@ -449,7 +453,9 @@ export function loadShields(shieldImages) {
   shields["CA:AB:primary"] = homeDownShield;
   shields["CA:AB:secondary"] = ovalShield(
     Color.shields.white,
-    Color.shields.black
+    Color.shields.black,
+    Color.shields.black,
+    30
   );
 
   // British Columbia
@@ -466,7 +472,12 @@ export function loadShields(shieldImages) {
 
   // Manitoba
   shields["CA:MB:PTH"] = homeDownShield;
-  shields["CA:MB:PR"] = ovalShield(Color.shields.black, Color.shields.white);
+  shields["CA:MB:PR"] = ovalShield(
+    Color.shields.black,
+    Color.shields.white,
+    Color.shields.white,
+    30
+  );
   shields["CA:MB:Winnipeg"] = {
     backgroundImage: shieldImages.shield_ca_mb_winnipeg,
     textColor: Color.shields.black,
@@ -2596,7 +2607,7 @@ export function loadShields(shieldImages) {
             bottom: 5,
           },
         },
-        ovalShield(Color.shields.white, Color.shields.black),
+        circleShield(Color.shields.white, Color.shields.black),
         diamondShield,
       ])
   );
@@ -3250,12 +3261,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["NZ:UR"] = homeDownShield;
-  shields["NZ:WRR"] = ovalShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    20
-  );
+  shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
