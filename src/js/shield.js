@@ -214,8 +214,8 @@ function drawShieldText(ctx, shieldDef, routeDef) {
   textLayout.yBaseline +=
     bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
-  if (config.SHIELD_TEXT_HALO_COLOR) {
-    ctx.strokeStyle = config.SHIELD_TEXT_HALO_COLOR;
+  if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
+    ctx.strokeStyle = config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
     ShieldText.drawShieldHaloText(ctx, routeDef.ref, textLayout);
   } else if (shieldDef.textHaloColor) {
     ctx.strokeStyle = shieldDef.textHaloColor;
