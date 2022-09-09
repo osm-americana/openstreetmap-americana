@@ -12,6 +12,15 @@ export const topPadding = 1 * Gfx.getPixelRatio();
 
 export const shields = {};
 
+/**
+ * Draws a shield with an ellipse background
+ *
+ * @param {*} fillColor - Color of ellipse background fill
+ * @param {*} strokeColor - Color of ellipse outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of ellipse (defaults to variable-width)
+ * @returns a shield definition object
+ */
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
@@ -28,17 +37,37 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   };
 }
 
+/**
+ * Draws a shield with circle background (special case of ovalShield)
+ *
+ * @param {*} fillColor - Color of circle background fill
+ * @param {*} strokeColor - Color of circle outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @returns a shield definition object
+ */
+function circleShield(fillColor, strokeColor, textColor) {
+  return ovalShield(fillColor, strokeColor, textColor, 20);
+}
+
+/**
+ * Draws a shield with a rectangle background
+ *
+ * @param {*} fillColor - Color of rectangle background fill
+ * @param {*} strokeColor - Color of rectangle outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of rectangle (defaults to variable-width)
+ * @param {*} radius - Corner radius of rectangle (defaults to 2)
+ * @returns a shield definition object
+ */
 function roundedRectShield(
   fillColor,
   strokeColor,
   textColor,
-  radius,
-  outlineWidth,
-  rectWidth
+  rectWidth,
+  radius
 ) {
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
-  outlineWidth = outlineWidth ?? 1;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(
@@ -46,7 +75,7 @@ function roundedRectShield(
         strokeColor,
         ref,
         radius,
-        outlineWidth,
+        1,
         rectWidth
       ),
     textLayoutConstraint: (spaceBounds, textBounds) =>
@@ -61,15 +90,17 @@ function roundedRectShield(
   };
 }
 
-function pillShield(
-  fillColor,
-  strokeColor,
-  textColor,
-  outlineWidth,
-  rectWidth
-) {
+/**
+ * Draws a shield with a pill-shaped background
+ *
+ * @param {*} fillColor - Color of pill background fill
+ * @param {*} strokeColor - Color of pill outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of pill (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
-  outlineWidth = outlineWidth ?? 1;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(
@@ -77,7 +108,7 @@ function pillShield(
         strokeColor,
         ref,
         10,
-        outlineWidth,
+        1,
         rectWidth
       ),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
@@ -91,6 +122,13 @@ function pillShield(
   };
 }
 
+/**
+ * Draws a circle icon inside a black-outlined white square shield
+ *
+ * @param {*} fillColor - Color of circle icon background fill
+ * @param {*} strokeColor - Color of circle icon outline stroke
+ * @returns a shield definition object
+ */
 function paBeltShield(fillColor, strokeColor) {
   return {
     notext: true,
@@ -98,6 +136,13 @@ function paBeltShield(fillColor, strokeColor) {
   };
 }
 
+/**
+ * Draws a rectangle icon inside a white-outlined green square shield
+ *
+ * @param {*} fillColor - Color of rectangle icon background fill
+ * @param {*} strokeColor - Color of rectangle icon outline stroke
+ * @returns a shield definition object
+ */
 function bransonRouteShield(fillColor, strokeColor) {
   return {
     notext: true,
@@ -105,6 +150,13 @@ function bransonRouteShield(fillColor, strokeColor) {
   };
 }
 
+/**
+ * Adds banner text above a shield
+ *
+ * @param {*} baseDef - Shield definition object
+ * @param {*} modifiers - Array of strings to be displayed above shield
+ * @returns a shield definition object
+ */
 function banneredShield(baseDef, modifiers) {
   return {
     ...baseDef,
@@ -449,7 +501,9 @@ export function loadShields(shieldImages) {
   shields["CA:AB:primary"] = homeDownShield;
   shields["CA:AB:secondary"] = ovalShield(
     Color.shields.white,
-    Color.shields.black
+    Color.shields.black,
+    Color.shields.black,
+    30
   );
 
   // British Columbia
@@ -466,7 +520,12 @@ export function loadShields(shieldImages) {
 
   // Manitoba
   shields["CA:MB:PTH"] = homeDownShield;
-  shields["CA:MB:PR"] = ovalShield(Color.shields.black, Color.shields.white);
+  shields["CA:MB:PR"] = ovalShield(
+    Color.shields.black,
+    Color.shields.white,
+    Color.shields.white,
+    30
+  );
   shields["CA:MB:Winnipeg"] = {
     backgroundImage: shieldImages.shield_ca_mb_winnipeg,
     textColor: Color.shields.black,
@@ -2596,7 +2655,7 @@ export function loadShields(shieldImages) {
             bottom: 5,
           },
         },
-        ovalShield(Color.shields.white, Color.shields.black),
+        circleShield(Color.shields.white, Color.shields.black),
         diamondShield,
       ])
   );
@@ -2885,9 +2944,7 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   // Austria
@@ -2916,18 +2973,14 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   shields["ba:Magistralne ceste"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   // Belgium
@@ -2949,9 +3002,7 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   // Belarus
@@ -2965,18 +3016,14 @@ export function loadShields(shieldImages) {
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   shields["cz:national"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   // Denmark
@@ -2984,9 +3031,7 @@ export function loadShields(shieldImages) {
     Color.shields.yellow,
     Color.shields.black,
     Color.shields.black,
-    2,
-    1,
-    35
+    34
   );
 
   // Estonia
@@ -3044,9 +3089,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black,
     Color.shields.black,
-    2,
-    1,
-    35
+    34
   );
 
   // Italy
@@ -3085,9 +3128,7 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   // North Macedonia
@@ -3139,9 +3180,7 @@ export function loadShields(shieldImages) {
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
   shields["pl:expressways"] = shields["pl:motorways"];
   shields["pl:national"] = roundedRectShield(
@@ -3161,9 +3200,7 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   // Serbia
@@ -3221,9 +3258,7 @@ export function loadShields(shieldImages) {
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
-    2,
-    1,
-    35
+    34
   );
 
   // Ukraine
@@ -3250,12 +3285,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["NZ:UR"] = homeDownShield;
-  shields["NZ:WRR"] = ovalShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    20
-  );
+  shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
