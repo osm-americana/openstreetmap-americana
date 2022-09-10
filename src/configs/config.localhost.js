@@ -6,12 +6,12 @@
 const OPENMAPTILES_URL = "http://localhost:8080/data/v3.json";
 
 /*
-Uncomment this variable to override the shield text halo color.  Useful while testing shield design changes.
+Uncomment this variable to override the shield text halo color. Useful while testing shield design changes.
 Accepts an HTML color name, hex code, or other CSS color value.
 */
-//const SHIELD_TEXT_HALO_COLOR_OVERRIDE = "magenta";
+const SHIELD_TEXT_HALO_COLOR_OVERRIDE = null;
 
 export default {
   OPENMAPTILES_URL,
-  //SHIELD_TEXT_HALO_COLOR_OVERRIDE,
+  SHIELD_TEXT_HALO_COLOR_OVERRIDE,
 };
