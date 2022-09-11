@@ -1,5 +1,7 @@
 "use strict";
 
+import config from "../config.js";
+
 import * as ShieldDef from "./shield_defs.js";
 import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
@@ -208,7 +210,10 @@ function drawShieldText(ctx, shieldDef, routeDef) {
   textLayout.yBaseline +=
     bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
-  if (shieldDef.textHaloColor) {
+  if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
+    ctx.strokeStyle = config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
+    ShieldText.drawShieldHaloText(ctx, routeDef.ref, textLayout);
+  } else if (shieldDef.textHaloColor) {
     ctx.strokeStyle = shieldDef.textHaloColor;
     ShieldText.drawShieldHaloText(ctx, routeDef.ref, textLayout);
   }
