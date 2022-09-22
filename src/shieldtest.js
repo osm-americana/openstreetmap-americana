@@ -28,8 +28,9 @@ let networks = [
   // Rectangles
   "US:CT",
   "US:WY",
-  "US:AR:Lee",
-  "US:AR:Baxter",
+  "AU:QLD",
+  "CL:regional",
+  "ES:A-road",
   "CA:NS:R",
   "CA:YT",
   "IS",
@@ -47,6 +48,7 @@ let networks = [
   "CA:AB:primary",
   "CA:SK:tertiary",
   "CA:SK:primary",
+  "AU:WA:NH",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
 
@@ -56,12 +58,14 @@ let networks = [
   "US:IA:CR",
   "US:CO:Douglas",
   "US:MN:Aitkin:CSAH",
+  "AU:ACT:T",
   "US:TX:Harris:HCTRA",
   "US:NM:San_Juan:NCM",
 
   "JP:prefectural",
   "PK:national",
 
+  "AU:QLD:MR",
   "GR:national",
   "my:federal",
   "TR:motorway",
@@ -86,6 +90,7 @@ let networks = [
   "HK",
   "PK:motorway",
   "NZ:SH",
+  "AU:WA:S",
 
   // Basic shapes with more detail
   "US:I",
@@ -195,6 +200,9 @@ let networks = [
   "CA:ON:Waterloo:Wilmot",
   "CA:ON:Brant:Highway",
   "CA:ON:Muskoka:West",
+  "AU:QLD:ALT",
+  "AU:QLD:ALT_S",
+  "AU:VIC:ALT_NR",
 ];
 
 // Uncomment for a list of all supported networks.  This makes for a very long page.

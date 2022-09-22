@@ -332,6 +332,14 @@ export function loadShields(shieldImages) {
     textColor: Color.shields.white,
   };
 
+  let pentagonShieldBrown = {
+    ...pentagonShieldGreen,
+    backgroundImage: [
+      shieldImages.shield_pent_brown_2,
+      shieldImages.shield_pent_brown_3,
+    ],
+  };
+
   // Home plate shields
   let homeDownShield = {
     backgroundImage: [shieldImages.shield_home_2, shieldImages.shield_home_3],
@@ -363,26 +371,40 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield_home_blue_red_3,
   };
 
+  let homeDownShieldGreenYellow = {
+    ...homeDownShield,
+    backgroundImage: [
+      shieldImages.shield_home_green_yellow_2,
+      shieldImages.shield_home_green_yellow_3,
+    ],
+    textColor: Color.shields.yellow,
+  };
+
   // Hexagon shields
-  let hexagonVerticalShieldYellow = {
-    backgroundImage: shieldImages.shield_hex_vert_yellow,
+  let hexagonVerticalShield = {
+    backgroundImage: shieldImages.shield_hex_vert_2,
     textColor: Color.shields.black,
     padding: {
-      left: 3,
-      right: 3,
+      left: 2,
+      right: 2,
       top: 4.5,
       bottom: 4.5,
     },
   };
 
+  let hexagonVerticalShieldYellow = {
+    ...hexagonVerticalShield,
+    backgroundImage: shieldImages.shield_hex_vert_yellow_3,
+  };
+
   let hexagonVerticalShieldOrange = {
-    ...hexagonVerticalShieldYellow,
-    backgroundImage: shieldImages.shield_hex_vert_orange,
+    ...hexagonVerticalShield,
+    backgroundImage: shieldImages.shield_hex_vert_orange_3,
   };
 
   let hexagonVerticalShieldGreen = {
-    ...hexagonVerticalShieldYellow,
-    backgroundImage: shieldImages.shield_hex_vert_green,
+    ...hexagonVerticalShield,
+    backgroundImage: shieldImages.shield_hex_vert_green_3,
     textColor: Color.shields.white,
   };
 
@@ -463,6 +485,26 @@ export function loadShields(shieldImages) {
       shieldImages.shield_escutcheon_blue_3,
     ],
     textColor: Color.shields.white,
+  };
+
+  let fishheadShieldRed = {
+    backgroundImage: [
+      shieldImages.shield_fishhead_red_2,
+      shieldImages.shield_fishhead_red_3,
+    ],
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 3,
+      bottom: 5,
+    },
+  };
+
+  let fishheadShieldBlue = {
+    ...fishheadShieldRed,
+    backgroundImage: shieldImages.shield_fishhead_blue_2,
   };
 
   // Default
@@ -3272,18 +3314,35 @@ export function loadShields(shieldImages) {
 
   // OCEANIA
 
-  // New Zealand
-  shields["NZ:SH"] = {
-    backgroundImage: [shieldImages.shield_nz_sh_2, shieldImages.shield_nz_sh_3],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 3,
-      bottom: 5,
-    },
+  // Australia
+  ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].forEach(
+    (state_or_territory) =>
+      ([
+        shields[`AU:${state_or_territory}`],
+        shields[`AU:${state_or_territory}:NH`],
+        shields[`AU:${state_or_territory}:NR`],
+        shields[`AU:${state_or_territory}:S`],
+        shields[`AU:${state_or_territory}:T`],
+      ] = [
+        roundedRectShield(Color.shields.green, Color.shields.yellow),
+        homeDownShieldGreenYellow,
+        homeDownShield,
+        fishheadShieldBlue,
+        pentagonShieldBrown,
+      ])
+  );
+
+  shields["AU:QLD:MR"] = {
+    ...hexagonVerticalShield,
+    colorLighten: Color.shields.blue,
+    textColor: Color.shields.blue,
   };
+  shields["AU:QLD:ALT"] = banneredShield(shields["AU:QLD"], ["ALT"]);
+  shields["AU:QLD:ALT_S"] = banneredShield(shields["AU:QLD:S"], ["ALT"]);
+  shields["AU:VIC:ALT_NR"] = banneredShield(shields["AU:VIC:NR"], ["ALT"]);
+
+  // New Zealand
+  shields["NZ:SH"] = fishheadShieldRed;
   shields["NZ:UR"] = homeDownShield;
   shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
 
