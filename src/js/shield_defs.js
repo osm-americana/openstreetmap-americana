@@ -1748,6 +1748,16 @@ export function loadShields(shieldImages) {
     Color.shields.pink,
     Color.shields.black
   );
+  shields["US:NM:Frontage"] = {
+    backgroundImage: shieldImages.shield_us_nm_frontage,
+    textColor: Color.shields.black,
+    padding: {
+      left: 1.5,
+      right: 1.5,
+      top: 3,
+      bottom: 5,
+    },
+  };
   [
     "Cibola",
     "Doña_Ana",

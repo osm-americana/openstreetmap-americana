@@ -139,22 +139,25 @@ let networks = [
   "CN:AH:expressway",
 
   // Detailed Shapes
-  "US:AL",
-  "US:AR",
-
+  "US:NV",
   "US:AZ",
-  "US:GA",
-  "US:LA",
-  "US:MO",
+  "US:NM:Frontage",
 
   "US:ND",
-  "US:NV",
+  "US:SD",
+
+  "US:MO",
+  "US:AR",
+  "US:LA",
+  "US:TX:FM",
+
+  "US:AL",
+  "US:GA",
+
   "US:OH",
   "US:OH:ASD",
   "US:OH:SCI",
   "US:OH:TUS:Salem",
-  "US:SD",
-  "US:TX:FM",
   "US:WA",
   "CA:transcanada",
   "CA:NB:primary",
