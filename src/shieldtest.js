@@ -29,6 +29,7 @@ let networks = [
   "US:CT",
   "US:WY",
   "AU:QLD",
+  "AU:QLD:SSTR",
   "CL:regional",
   "ES:A-road",
   "CA:NS:R",

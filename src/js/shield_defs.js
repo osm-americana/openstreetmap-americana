@@ -3337,6 +3337,10 @@ export function loadShields(shieldImages) {
     colorLighten: Color.shields.blue,
     textColor: Color.shields.blue,
   };
+  shields["AU:QLD:SSTR"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.yellow
+  );
   shields["AU:QLD:ALT"] = banneredShield(shields["AU:QLD"], ["ALT"]);
   shields["AU:QLD:ALT_S"] = banneredShield(shields["AU:QLD:S"], ["ALT"]);
   shields["AU:VIC:ALT_NR"] = banneredShield(shields["AU:VIC:NR"], ["ALT"]);
