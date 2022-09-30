@@ -35,6 +35,35 @@ export function paBelt(fillColor, strokeColor) {
   return ctx;
 }
 
+// Special case for Branson color-coded routes, documented in CONTRIBUTE.md
+export function bransonRoute(fillColor, strokeColor) {
+  var ctx = roundedRectangle(
+    Color.shields.green,
+    Color.shields.white,
+    "",
+    2,
+    1
+  );
+
+  let lineWidth = 0.5 * PXR;
+  let x = 0.15 * CS + lineWidth;
+  let width = 0.7 * CS - 2 * lineWidth;
+
+  let y = 0.4 * CS + lineWidth;
+  let height = 0.45 * CS - 2 * lineWidth;
+
+  ctx.beginPath();
+  ctx.rect(x, y, width, height);
+
+  ctx.fillStyle = fillColor;
+  ctx.strokeStyle = strokeColor;
+  ctx.fill();
+
+  ctx.lineWidth = lineWidth;
+  ctx.stroke();
+  return ctx;
+}
+
 export function ellipse(fill, outline, ref, rectWidth) {
   let shieldWidth =
     ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -88,7 +117,7 @@ export function rectangle(ref) {
 
 export function blank(ref) {
   var shieldWidth =
-    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 5 * PXR;
+    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
   var width = Math.max(
     minGenericShieldWidth,
     Math.min(maxGenericShieldWidth, shieldWidth)
@@ -106,8 +135,9 @@ export function roundedRectangle(
   rectWidth
 ) {
   if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 5 * PXR;
+    var shieldWidth = Math.ceil(
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
+    );
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -115,7 +145,6 @@ export function roundedRectangle(
   } else {
     var width = rectWidth * PXR;
   }
-  width = Math.ceil(width);
 
   var ctx = Gfx.getGfxContext({ width: width, height: CS });
 
@@ -129,7 +158,7 @@ export function roundedRectangle(
   let x3 = width - lineWidth;
 
   let y0 = lineWidth;
-  let y1 = lineWidth + radius;
+  let y1 = lineWidth + drawRadius;
   let y2 = CS - lineWidth - drawRadius;
   let y3 = CS - lineWidth;
 
