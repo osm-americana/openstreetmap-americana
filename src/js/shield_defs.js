@@ -504,7 +504,10 @@ export function loadShields(shieldImages) {
 
   let fishheadShieldBlue = {
     ...fishheadShieldRed,
-    backgroundImage: shieldImages.shield_fishhead_blue_2,
+    backgroundImage: [
+      shieldImages.shield_fishhead_blue_2,
+      shieldImages.shield_fishhead_blue_3,
+    ],
   };
 
   // Default
