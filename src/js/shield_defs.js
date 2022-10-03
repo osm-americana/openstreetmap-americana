@@ -3326,12 +3326,21 @@ export function loadShields(shieldImages) {
         shields[`AU:${state_or_territory}:NR`],
         shields[`AU:${state_or_territory}:S`],
         shields[`AU:${state_or_territory}:T`],
+        shields[`AU:${state_or_territory}:ALT`],
+        shields[`AU:${state_or_territory}:ALT_NR`],
+        shields[`AU:${state_or_territory}:ALT_S`],
       ] = [
         roundedRectShield(Color.shields.green, Color.shields.yellow),
         homeDownShieldGreenYellow,
         homeDownShield,
         fishheadShieldBlue,
         pentagonShieldBrown,
+        banneredShield(
+          roundedRectShield(Color.shields.green, Color.shields.yellow),
+          ["ALT"]
+        ),
+        banneredShield(homeDownShield, ["ALT"]),
+        banneredShield(fishheadShieldBlue, ["ALT"]),
       ])
   );
 
@@ -3344,9 +3353,6 @@ export function loadShields(shieldImages) {
     Color.shields.brown,
     Color.shields.yellow
   );
-  shields["AU:QLD:ALT"] = banneredShield(shields["AU:QLD"], ["ALT"]);
-  shields["AU:QLD:ALT_S"] = banneredShield(shields["AU:QLD:S"], ["ALT"]);
-  shields["AU:VIC:ALT_NR"] = banneredShield(shields["AU:VIC:NR"], ["ALT"]);
 
   // New Zealand
   shields["NZ:SH"] = fishheadShieldRed;
