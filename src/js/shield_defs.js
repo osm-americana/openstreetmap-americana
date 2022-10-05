@@ -2984,18 +2984,14 @@ export function loadShields(shieldImages) {
   );
 
   // Belgium
-  shields["BE:A-road"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
   shields["BE:N-road"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
-  shields["BE:R-road"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
+  shields["BE:A-road"] =
+    shields["BE:B-road"] =
+    shields["BE:R-road"] =
+      roundedRectShield(Color.shields.white, Color.shields.black);
 
   // Bulgaria
   shields["bg:national"] = roundedRectShield(
@@ -3099,6 +3095,20 @@ export function loadShields(shieldImages) {
   shields["lt:national"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
+  );
+
+  // Luxembourg
+  shields["LU:A-road"] = shields["LU:B-road"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+  shields["LU:N-road"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+  shields["LU:CR-road"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
   );
 
   // Latvia
