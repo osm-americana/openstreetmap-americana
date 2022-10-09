@@ -4102,6 +4102,13 @@ export function loadShields() {
   );
 
   // Cyprus
+  shields["CY:motorway"] = hexagonVerticalShield(
+    2,
+    Color.shields.green,
+    Color.shields.yellow,
+    Color.shields.yellow,
+    0
+  );
   shields["CY:B"] =
     shields["CY:E"] =
     shields["CY:F"] =
