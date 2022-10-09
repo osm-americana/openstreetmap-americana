@@ -3149,6 +3149,9 @@ export function loadShields(shieldImages) {
   // Italy
   shields["IT:A-road"] = octagonShieldGreen;
 
+  // Kosovo
+  shields["XK:motorway"] = hexagonVerticalShieldGreen;
+
   // Lithuania
   shields["lt:national"] = roundedRectShield(
     Color.shields.red,
