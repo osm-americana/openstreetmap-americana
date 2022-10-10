@@ -117,7 +117,7 @@ export function rectangle(ref) {
 
 export function blank(ref) {
   var shieldWidth =
-    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 5 * PXR;
+    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
   var width = Math.max(
     minGenericShieldWidth,
     Math.min(maxGenericShieldWidth, shieldWidth)
@@ -136,7 +136,7 @@ export function roundedRectangle(
 ) {
   if (rectWidth == null) {
     var shieldWidth = Math.ceil(
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 5 * PXR
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
     );
     var width = Math.max(
       minGenericShieldWidth,

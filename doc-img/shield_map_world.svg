@@ -152,6 +152,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .is,
 .it,
 .lt,
+.lu,
 .lv,
 .md,
 .me,
@@ -167,6 +168,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .sk,
 .ua,
 .xk,
+.au,
 .nz,
 .cw,
 .ust { fill: #8250df; }
