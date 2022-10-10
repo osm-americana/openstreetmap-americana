@@ -888,6 +888,11 @@ export function loadShields(shieldImages) {
     },
   };
 
+  shields["US:NPS:Blue_Ridge"] = {
+    norefImage: shieldImages.shield_us_nps_brp,
+    notext: true,
+  };
+
   // Alaska
   shields["US:AK"] = {
     backgroundImage: shieldImages.shield_us_ak,
