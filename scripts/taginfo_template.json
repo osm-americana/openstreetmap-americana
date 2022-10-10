@@ -20,6 +20,14 @@
     },
     {
       "key": "capital",
+      "value": "3",
+      "object_types": ["node"],
+      "description": "Marks the city with a state capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_state_capital.svg"
+    },
+    {
+      "key": "capital",
       "value": "4",
       "object_types": ["node"],
       "description": "Marks the city with a state capital icon.",

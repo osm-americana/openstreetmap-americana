@@ -12,6 +12,8 @@ const cityIcon = [
   ["get", "capital"],
   2,
   "star_nation_capital",
+  3,
+  "star_state_capital",
   4,
   "star_state_capital",
   "dot_city",
