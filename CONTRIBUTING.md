@@ -163,6 +163,8 @@ boilerplate in `scripts/taginfo_template.json`.
 2. If you are introducing a novel approach to depicting a layer or feature
    property from the OpenMapTiles schema, document how the corresponding
    OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
+3. If any shield background icons are introduced, add lines to `src/shieldtest.js`
+   to demonstrate overlaid text on each of them.
 
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
