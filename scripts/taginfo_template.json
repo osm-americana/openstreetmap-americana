@@ -12,6 +12,14 @@
   "tags": [
     {
       "key": "capital",
+      "value": "yes",
+      "object_types": ["node"],
+      "description": "Marks the city with a national capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_nation_capital.svg"
+    },
+    {
+      "key": "capital",
       "value": "2",
       "object_types": ["node"],
       "description": "Marks the city with a national capital icon.",
