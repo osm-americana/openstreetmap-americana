@@ -1751,6 +1751,9 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield_us_nj_ace_noref,
     notext: true,
   };
+  shields["US:NJ:ACE:Connector"] = banneredShield(shields["US:NJ:ACE"], [
+    "CONN",
+  ]);
   shields["US:NJ:GSP"] = {
     backgroundImage: shieldImages.shield_us_nj_gsp_noref,
     notext: true,
