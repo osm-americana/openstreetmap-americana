@@ -801,6 +801,12 @@ export function loadShields(shieldImages) {
   // Yukon
   shields["CA:YT"] = roundedRectShield(Color.shields.white, Color.shields.red);
 
+  // Haiti
+  shields["HT:RN-road"] = shields["HT:RD-road"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // United States
 
   // Interstate Highways
