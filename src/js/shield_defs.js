@@ -2728,6 +2728,16 @@ export function loadShields(shieldImages) {
 
   // AFRICA
 
+  // Algeria
+  shields["DZ:highway"] = shields["DZ:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+  shields["DZ:regional"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
+
   // Ghana
   shields["GH:national"] =
     shields["GH:inter-regional"] =
