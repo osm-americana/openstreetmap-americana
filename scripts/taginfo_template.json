@@ -11,6 +11,16 @@
   },
   "tags": [
     {
+      "key": "name:en",
+      "object_types": ["node", "way", "relation", "area"],
+      "description": "Labels are in English if available."
+    },
+    {
+      "key": "name",
+      "object_types": ["node", "way", "relation", "area"],
+      "description": "Labels fall back to the local language if name:en is unavailable."
+    },
+    {
       "key": "capital",
       "value": "yes",
       "object_types": ["node"],
