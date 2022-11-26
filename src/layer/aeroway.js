@@ -1,13 +1,7 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
-
-const name_en = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name:latin"],
-  ["get", "name"],
-];
 
 const minorAirport = [
   "any",
@@ -221,7 +215,7 @@ export const airportLabel = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
+    "text-field": Label.localizedName,
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
     ...iconLayout,
@@ -245,7 +239,7 @@ export const minorAirportLabel = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
+    "text-field": Label.localizedName,
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
   },

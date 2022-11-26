@@ -1,4 +1,4 @@
-import * as label from "../constants/label.js";
+import * as Label from "../constants/label.js";
 
 const cityLabelPaint = {
   "text-color": "#444",
@@ -59,7 +59,7 @@ export const village = {
         [11, 0.5],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -122,7 +122,7 @@ export const town = {
         [11, 0.7],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -181,7 +181,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -223,7 +223,7 @@ export const state = {
         [6, 14],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": 0.04,
@@ -266,7 +266,7 @@ export const countryOther = {
         [7, 15],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -296,7 +296,7 @@ export const country3 = {
         [7, 17],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -326,7 +326,7 @@ export const country2 = {
         [5, 17],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -357,7 +357,7 @@ export const country1 = {
         [6, 19],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
     "text-offset": [
@@ -383,7 +383,7 @@ export const continent = {
   layout: {
     "text-font": ["Metropolis Light"],
     "text-size": 13,
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-justify": "center",
     "text-transform": "uppercase",
   },
