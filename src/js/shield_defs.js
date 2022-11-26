@@ -24,6 +24,10 @@ export const shields = {};
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
+    shape: "oval",
+    fillColor,
+    strokeColor,
+    rectWidth,
     backgroundDraw: (ref) =>
       ShieldDraw.ellipse(fillColor, strokeColor, ref, rectWidth),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
@@ -46,7 +50,10 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
  * @returns a shield definition object
  */
 function circleShield(fillColor, strokeColor, textColor) {
-  return ovalShield(fillColor, strokeColor, textColor, 20);
+  return {
+    ...ovalShield(fillColor, strokeColor, textColor, 20),
+    shape: "circle",
+  };
 }
 
 /**
@@ -69,6 +76,11 @@ function roundedRectShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
+    shape: "rectangle",
+    fillColor,
+    strokeColor,
+    rectWidth,
+    radius,
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(
         fillColor,
@@ -112,6 +124,12 @@ function trapezoidShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
+    shape: "trapezoid",
+    angle,
+    fillColor,
+    strokeColor,
+    radius,
+    rectWidth,
     backgroundDraw: (ref) =>
       ShieldDraw.trapezoid(
         angle,
@@ -148,6 +166,11 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
+    shape: "diamond",
+    fillColor,
+    strokeColor,
+    radius,
+    rectWidth,
     backgroundDraw: (ref) =>
       ShieldDraw.diamond(fillColor, strokeColor, ref, radius, 1, rectWidth),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
@@ -183,6 +206,12 @@ function homePlateShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
+    shape: "home_plate",
+    offset,
+    fillColor,
+    strokeColor,
+    radius,
+    rectWidth,
     backgroundDraw: (ref) =>
       ShieldDraw.homePlate(
         offset,
@@ -227,6 +256,12 @@ function hexagonVerticalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
+    shape: "vertical_hexagon",
+    offset,
+    fillColor,
+    strokeColor,
+    radius,
+    rectWidth,
     backgroundDraw: (ref) =>
       ShieldDraw.hexagonVertical(
         offset,
@@ -271,6 +306,12 @@ function hexagonHorizontalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
+    shape: "horizontal_hexagon",
+    angle,
+    fillColor,
+    strokeColor,
+    radius,
+    rectWidth,
     backgroundDraw: (ref) =>
       ShieldDraw.hexagonHorizontal(
         angle,
@@ -304,6 +345,10 @@ function hexagonHorizontalShield(
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
+    shape: "pill",
+    fillColor,
+    strokeColor,
+    rectWidth,
     backgroundDraw: (ref) =>
       ShieldDraw.roundedRectangle(
         fillColor,
@@ -333,6 +378,9 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
  */
 function paBeltShield(fillColor, strokeColor) {
   return {
+    shape: "disc_in_rectangle",
+    fillColor,
+    strokeColor,
     notext: true,
     backgroundDraw: (ref) => ShieldDraw.paBelt(fillColor, strokeColor),
   };
@@ -347,6 +395,9 @@ function paBeltShield(fillColor, strokeColor) {
  */
 function bransonRouteShield(fillColor, strokeColor) {
   return {
+    shape: "bar_in_rectangle",
+    fillColor,
+    strokeColor,
     notext: true,
     backgroundDraw: (ref) => ShieldDraw.bransonRoute(fillColor, strokeColor),
   };

@@ -12,6 +12,7 @@
     "code_format": "run-s code_format:prettier code_format:svgo",
     "code_format:prettier": "prettier --write --list-different .",
     "code_format:svgo": "svgo -q -f icons/",
+    "compile_shield_defs": "node scripts/compile_shield_defs.js",
     "clean": "shx rm -rf dist",
     "presprites": "shx rm -rf dist/sprites",
     "sprites": "node scripts/sprites.js",
