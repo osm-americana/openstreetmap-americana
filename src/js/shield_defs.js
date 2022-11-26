@@ -2853,6 +2853,14 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Iraq
+  shields["IQ:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    34
+  );
+
   // Japan
   shields["JP:E"] = roundedRectShield(Color.shields.green, Color.shields.white);
   shields["JP:national"] = triangleConvexDownShieldBlue;
