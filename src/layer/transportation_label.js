@@ -1,5 +1,6 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 const highwaySelector = ["match", ["get", "class"]];
@@ -79,12 +80,7 @@ export const label = {
       ["literal", ["Metropolis Regular Italic"]],
       ["literal", ["Metropolis Light"]],
     ],
-    "text-field": [
-      "concat",
-      ["get", "name:latin"],
-      " ",
-      ["get", "name:nonlatin"],
-    ],
+    "text-field": Label.legacyLocalizedName,
     "text-max-angle": 20,
     "symbol-placement": "line",
     "text-size": [
