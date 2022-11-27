@@ -801,6 +801,12 @@ export function loadShields(shieldImages) {
   // Yukon
   shields["CA:YT"] = roundedRectShield(Color.shields.white, Color.shields.red);
 
+  // Haiti
+  shields["HT:RN-road"] = shields["HT:RD-road"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // United States
 
   // Interstate Highways
@@ -1091,6 +1097,10 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white
   );
+  shields["US:CA:San_Francisco:49_Mile_Scenic_Drive"] = {
+    backgroundImage: shieldImages.shield_us_ca_sf_49,
+    notext: true,
+  };
 
   // Colorado
   shields["US:CO"] = {
@@ -1751,6 +1761,9 @@ export function loadShields(shieldImages) {
     backgroundImage: shieldImages.shield_us_nj_ace_noref,
     notext: true,
   };
+  shields["US:NJ:ACE:Connector"] = banneredShield(shields["US:NJ:ACE"], [
+    "CONN",
+  ]);
   shields["US:NJ:GSP"] = {
     backgroundImage: shieldImages.shield_us_nj_gsp_noref,
     notext: true,
@@ -2725,6 +2738,16 @@ export function loadShields(shieldImages) {
 
   // AFRICA
 
+  // Algeria
+  shields["DZ:highway"] = shields["DZ:national"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+  shields["DZ:regional"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
+
   // Ghana
   shields["GH:national"] =
     shields["GH:inter-regional"] =
@@ -2848,6 +2871,14 @@ export function loadShields(shieldImages) {
   shields["ir:freeways"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
+  );
+
+  // Iraq
+  shields["IQ:national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
 
   // Japan

@@ -1,4 +1,4 @@
-import * as label from "../constants/label.js";
+import * as Label from "../constants/label.js";
 
 const cityLabelPaint = {
   "text-color": "#444",
@@ -59,7 +59,7 @@ export const village = {
         [11, 0.5],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -80,6 +80,9 @@ export const village = {
   minzoom: 11,
   maxzoom: 14,
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 
 export const town = {
@@ -122,7 +125,7 @@ export const town = {
         [11, 0.7],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -143,6 +146,9 @@ export const town = {
   minzoom: 4,
   maxzoom: 13,
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 
 export const city = {
@@ -181,7 +187,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -202,6 +208,9 @@ export const city = {
   minzoom: 4,
   maxzoom: 12,
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 
 export const state = {
@@ -223,7 +232,7 @@ export const state = {
         [6, 14],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": 0.04,
@@ -243,6 +252,9 @@ export const state = {
   maxzoom: 7,
   minzoom: 3,
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 export const countryOther = {
   id: "country_other",
@@ -266,12 +278,15 @@ export const countryOther = {
         [7, 15],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
   source: "openmaptiles",
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 export const country3 = {
   id: "country_3",
@@ -296,12 +311,15 @@ export const country3 = {
         [7, 17],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
   source: "openmaptiles",
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 export const country2 = {
   id: "country_2",
@@ -326,12 +344,15 @@ export const country2 = {
         [5, 17],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
   source: "openmaptiles",
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 export const country1 = {
   id: "country_1",
@@ -357,7 +378,7 @@ export const country1 = {
         [6, 19],
       ],
     },
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
     "text-offset": [
@@ -370,6 +391,9 @@ export const country1 = {
   },
   source: "openmaptiles",
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 export const continent = {
   id: "continent",
@@ -383,11 +407,14 @@ export const continent = {
   layout: {
     "text-font": ["Metropolis Light"],
     "text-size": 13,
-    "text-field": label.name_en,
+    "text-field": Label.localizedName,
     "text-justify": "center",
     "text-transform": "uppercase",
   },
   source: "openmaptiles",
   maxzoom: 1,
   "source-layer": "place",
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };

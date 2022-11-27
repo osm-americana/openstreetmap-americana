@@ -10,8 +10,8 @@
   "scripts": {
     "config": "shx cp src/configs/config.maptiler.js src/config.js",
     "code_format": "run-s code_format:prettier code_format:svgo",
-    "code_format:prettier": "prettier --write .",
-    "code_format:svgo": "svgo -f icons/",
+    "code_format:prettier": "prettier --write --list-different .",
+    "code_format:svgo": "svgo -q -f icons/",
     "clean": "shx rm -rf dist",
     "presprites": "shx rm -rf dist/sprites",
     "sprites": "node scripts/sprites.js",
@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "create-serve": "^1.0.1",
-    "esbuild": "^0.14.43",
+    "esbuild": "^0.15.15",
     "maplibre-gl": "^2.1.9",
-    "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
+    "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "prettier": "2.3.2",
     "shx": "^0.3.4",
     "svgo": "^2.8.0"
