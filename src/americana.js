@@ -320,9 +320,6 @@ export const map = (window.map = new maplibregl.Map({
 }));
 
 map.on("styledata", function (event) {
-  if (event.dataType === "style") {
-    console.debug(`Loaded ${map.getStyle().layers.length} layers`);
-  }
   ShieldDef.loadShields(map.style.imageManager.images);
 });
 
