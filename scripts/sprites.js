@@ -19,6 +19,8 @@ const sprites = await Promise.all(
   })
 );
 
+console.log(`Building ${sprites.length} sprites`);
+
 const generated = await Sprites.generate(sprites, [1, 2]);
 
 for (const result of generated) {
@@ -28,4 +30,6 @@ for (const result of generated) {
 
   await fs.writeFile(outputPng, result.buffer);
   await fs.writeFile(outputJson, JSON.stringify(result.layout, null, 2));
+  const kb = (result.buffer.length / 1024).toFixed(1);
+  console.log(`Wrote ${kb}KiB to ${outputPng}`);
 }

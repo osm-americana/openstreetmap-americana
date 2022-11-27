@@ -48,12 +48,8 @@ The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https:
 
 Americana is compatible with vector tiles covering the entire world.
 
-Americana displays custom route shields for routes in the following U.S. states:
-
-<img src="doc-img/shield_map_us.svg" width="500" alt="U.S. states">
-
-and for routes in the following countries:
+Americana displays custom route shields for routes in all U.S. states and territories, and for routes in the following countries:
 
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
 
-We are hoping that it will support more areas, you can [help us](CONTRIBUTING.md)!
+We are hoping that it will support more countries; you can [help us](https://github.com/ZeLonewolf/openstreetmap-americana/projects/1)!

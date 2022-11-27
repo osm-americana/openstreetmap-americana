@@ -1,5 +1,6 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 const bigRivers = ["river", "canal"];
@@ -75,16 +76,9 @@ const labelPaintProperties = {
   "text-halo-blur": 0.25,
 };
 
-const nameField = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name_en"],
-  ["get", "name"],
-];
-
 const labelLayoutProperties = {
   "symbol-placement": "line",
-  "text-field": nameField,
+  "text-field": Label.localizedName,
   "text-font": ["Metropolis Bold Italic"],
   "text-max-angle": 55,
 };
@@ -94,7 +88,7 @@ export const waterwayLabel = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "waterway",
-  filter: ["!=", "brunnel", "tunnel"],
+  filter: ["!=", ["get", "brunnel"], "tunnel"],
   layout: {
     ...labelLayoutProperties,
     "text-size": [
@@ -118,13 +112,16 @@ export const waterwayLabel = {
     "text-letter-spacing": 0.15,
   },
   paint: labelPaintProperties,
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 
 //Lake labels rendered as a linear feature
 export const waterLabel = {
   id: "water_label",
   type: "symbol",
-  filter: ["all", ["==", "$type", "LineString"]],
+  filter: ["all", ["==", ["geometry-type"], "LineString"]],
   source: "openmaptiles",
   "source-layer": "water_name",
   layout: {
@@ -143,6 +140,9 @@ export const waterLabel = {
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 
 //Lake labels rendered as a point feature
@@ -151,9 +151,9 @@ export const waterPointLabel = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "water_name",
-  filter: ["all", ["==", "$type", "Point"]],
+  filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
-    "text-field": nameField,
+    "text-field": Label.localizedName,
     "text-font": ["Metropolis Bold Italic"],
     "text-size": [
       "interpolate",
@@ -169,4 +169,7 @@ export const waterPointLabel = {
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
