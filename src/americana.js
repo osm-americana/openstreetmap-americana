@@ -337,6 +337,12 @@ window.addEventListener("languagechange", (event) => {
 
 window.addEventListener("hashchange", (event) => {
   upgradeLegacyHash();
+  let oldLanguage = Label.getLanguageFromURL(new URL(event.oldURL));
+  let newLanguage = Label.getLanguageFromURL(new URL(event.newURL));
+  if (oldLanguage !== newLanguage) {
+    console.log(`Changed to ${newLanguage}`);
+    map.setStyle(buildStyle());
+  }
 });
 
 let attributionConfig = {
