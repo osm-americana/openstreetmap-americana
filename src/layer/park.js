@@ -1,14 +1,7 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
-
-// Name fields in order of preference
-const name_en = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name:latin"],
-  ["get", "name"],
-];
 
 export const fill = {
   id: "protected-area-fill",
@@ -50,7 +43,7 @@ export const label = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
+    "text-field": Label.localizedName,
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
@@ -102,7 +95,7 @@ export const parkLabel = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
+    "text-field": Label.localizedName,
     "text-font": ["Metropolis Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
