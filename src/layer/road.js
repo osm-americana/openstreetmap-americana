@@ -1,16 +1,27 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
 import * as Util from "../js/util.js";
 
 //At this zoom, render switches from unified to differentiated bridge/tunnel rendering
-let minzoomBrunnel = 11;
+const minzoomBrunnel = 11;
+
+const minZoomAllRoads = 4;
+const minZoomMotorwayTrunk = 5;
+const minZoomPrimary = 7;
+const minZoomSecondary = 9;
+const minZoomTertiary = 11;
+const minZoomMinor = 12;
+const minZoomService = 13;
+const minZoomSmallService = 15;
 
 //Exponent base for inter-zoom interpolation
-let roadExp = 1.2;
+const roadExp = 1.2;
+
+const roadHue = 0;
+const tollRoadHue = 48;
 
 //Tunnel casing dash pattern
-let tunDashArray = [
+const tunDashArray = [
   "step",
   ["zoom"],
   ["literal", [1]],
@@ -18,78 +29,121 @@ let tunDashArray = [
   ["literal", [0.5, 0.25]],
 ];
 
-//Join styles for fill and casing
-let layoutRoadFill = {
-  "line-cap": "round",
-  "line-join": "round",
-  visibility: "visible",
-};
-let layoutRoadCase = {
-  "line-cap": "round",
-  "line-join": "round",
-  visibility: "visible",
-};
-let layoutBridgeCase = {
-  "line-cap": "butt",
-  "line-join": "bevel",
-  visibility: "visible",
-};
-let layoutRoadSurface = {
-  "line-cap": "butt",
-  "line-join": "round",
-  visibility: "visible",
-};
+const getBrunnel = ["get", "brunnel"];
+const getClass = ["get", "class"];
+const getExpressway = ["coalesce", ["get", "expressway"], 0];
+const getRamp = ["coalesce", ["get", "ramp"], 0];
+const getToll = ["coalesce", ["get", "toll"], 0];
 
-/*
- Road style generation helper functions
-*/
+// Common filter expressions
+const classSelector = ["match", getClass];
+const tollSelector = ["match", getToll, 1];
+const isToll = ["==", getToll, 1];
+const isNotToll = ["!=", getToll, 1];
+const isLink = ["==", getRamp, 1];
+const isNotLink = ["!=", getRamp, 1];
+const linkSelector = ["match", getRamp, 1];
+const isExpressway = ["==", getExpressway, 1];
+const isNotExpressway = ["!=", getExpressway, 1];
+const expresswaySelector = ["match", getExpressway, 1];
+const smallServiceSelector = [
+  "match",
+  ["get", "service"],
+  ["parking_aisle", "driveway"],
+];
 
-function roadPaint(color, width) {
-  return {
-    "line-color": color,
-    "line-width": {
-      base: roadExp,
-      stops: width,
-    },
-    "line-blur": 0.5,
-  };
+function combineConstraints(constraint1, constraint2) {
+  if (constraint1 == null) {
+    if (constraint2 == null) {
+      return null;
+    }
+    return constraint2;
+  }
+  if (constraint2 == null) {
+    return constraint1;
+  }
+  return ["all", constraint1, constraint2];
 }
 
-function tunnelCasePaint(color, width) {
-  return {
-    "line-color": color,
-    "line-width": {
-      base: roadExp,
-      stops: width,
-    },
-    "line-opacity": 1,
-    "line-dasharray": tunDashArray,
-  };
-}
+const opacity = [
+  "step",
+  ["zoom"],
+  [...linkSelector, 0, ["match", ["get", "network"], "us-interstate", 1, 0]],
+  minZoomMotorwayTrunk,
+  [...linkSelector, 0, [...classSelector, ["motorway", "trunk"], 1, 0]],
+  minZoomPrimary,
+  [...classSelector, ["motorway", "trunk", "primary"], 1, 0],
+  minZoomSecondary,
+  [...classSelector, ["motorway", "trunk", "primary", "secondary"], 1, 0],
+  minZoomTertiary,
+  [
+    ...classSelector,
+    ["motorway", "trunk", "primary", "secondary", "tertiary"],
+    1,
+    0,
+  ],
+  minZoomMinor,
+  [...classSelector, "service", 0, 1],
+  minZoomService,
+  [...classSelector, "service", [...smallServiceSelector, 0, 1], 1],
+  minZoomSmallService,
+  1,
+];
 
-function roadSurfacePaint(color, width) {
-  return {
-    "line-dasharray": [4, 4],
-    "line-color": color,
-    "line-width": {
-      base: roadExp,
-      stops: width,
-    },
-    "line-blur": 0.5,
-  };
-}
+const layerSortKey = [
+  "+",
+  ["*", -28, getRamp],
+  [
+    "*",
+    4,
+    [
+      ...classSelector,
+      "motorway",
+      6,
+      "trunk",
+      5,
+      "primary",
+      4,
+      "secondary",
+      3,
+      "tertiary",
+      2,
+      "minor",
+      1,
+      0,
+    ],
+  ],
+  ["*", 2, getExpressway],
+  getToll,
+];
 
 //Helper function to create a "filter" block for a particular road class.
-function filterRoad(roadClass, ramp, brunnel, toll) {
-  return [
-    "all",
-    brunnel === "surface"
-      ? ["!in", "brunnel", "bridge", "tunnel"]
-      : ["==", "brunnel", brunnel],
-    ["==", "class", roadClass],
-    [ramp ? "==" : "!=", "ramp", 1],
-    [toll ? "==" : "!=", "toll", 1],
+function filterRoad(brunnel, constraints) {
+  var baseFilter = [
+    "in",
+    getClass,
+    [
+      "literal",
+      [
+        "motorway",
+        "trunk",
+        "primary",
+        "secondary",
+        "tertiary",
+        "minor",
+        "service",
+      ],
+    ],
   ];
+  baseFilter = combineConstraints(baseFilter, constraints);
+  if (brunnel == null) {
+    return baseFilter;
+  }
+  let brunnelFilter =
+    brunnel === "surface"
+      ? ["!", ["in", getBrunnel, ["literal", ["bridge", "tunnel"]]]]
+      : ["==", getBrunnel, brunnel];
+  return combineConstraints(baseFilter, brunnelFilter);
 }
 
 //Base definition that applies to all roads (fill and casing).
@@ -100,10 +154,11 @@ var defRoad = {
 };
 
 //Generate a unique layer ID
-function uniqueLayerID(hwyClass, link, part, brunnel, toll, constraints) {
-  var layerID = [hwyClass, link ? "link" : "road", part, brunnel, toll].join(
-    "_"
-  );
+function uniqueLayerID(part, brunnel, constraints) {
+  var layerID = ["road", part].join("_");
+  if (brunnel != null) {
+    layerID += "_" + brunnel;
+  }
   if (constraints != null) {
     layerID +=
       "_" + constraints.join("_").replaceAll("=", "").replaceAll("-", "_");
@@ -111,292 +166,188 @@ function uniqueLayerID(hwyClass, link, part, brunnel, toll, constraints) {
   return layerID;
 }
 
-function baseRoadLayer(
-  highwayClass,
-  id,
-  brunnel,
-  minzoom,
-  link,
-  toll,
-  constraints
-) {
-  var layer = Util.layerClone(
-    defRoad,
-    uniqueLayerID(highwayClass, link, id, brunnel, toll, constraints)
-  );
-  layer.filter = filterRoad(highwayClass, link, brunnel, toll);
+function baseRoadLayer(id, brunnel, minzoom, maxzoom, constraints) {
+  var layer = Util.layerClone(defRoad, uniqueLayerID(id, brunnel, constraints));
+  var roadFilter = filterRoad(brunnel, constraints);
+  if (roadFilter != null) {
+    layer.filter = roadFilter;
+  }
   layer.minzoom = minzoom;
+  if (maxzoom) {
+    layer.maxzoom = maxzoom;
+  }
   return layer;
 }
 
-//Base road class
-class Road {
-  fill = function () {
-    var layer = baseRoadLayer(
-      this.highwayClass,
-      "fill",
-      this.brunnel,
-      this.minZoomFill,
-      this.link,
-      this.toll,
-      this.constraints
-    );
-    layer.layout = layoutRoadFill;
-    layer.paint = roadPaint(this.fillColor, this.fillWidth);
-    if (this.constraints != null) {
-      layer.filter.push(this.constraints);
-    }
-    return layer;
-  };
-  casing = function () {
-    var layer = baseRoadLayer(
-      this.highwayClass,
-      "casing",
-      this.brunnel,
-      this.minZoomCasing,
-      this.link,
-      this.toll,
-      this.constraints
-    );
-    layer.layout = layoutRoadCase;
-    if (this.brunnel === "bridge") {
-      layer.layout = layoutBridgeCase;
-    }
-    if (this.brunnel === "tunnel") {
-      layer.paint = tunnelCasePaint(this.casingColor, this.casingWidth);
-    } else {
-      layer.paint = roadPaint(this.casingColor, this.casingWidth);
-    }
-    if (this.constraints != null) {
-      layer.filter.push(this.constraints);
-    }
-    return layer;
-  };
-  surface = function () {
-    var layer = baseRoadLayer(
-      this.highwayClass,
-      "surface",
-      this.brunnel,
-      Math.min(this.minZoomCasing, this.minZoomFill),
-      this.link,
-      this.toll,
-      this.constraints
-    );
-    layer.filter.push(["==", "surface", "unpaved"]);
-    if (this.constraints != null) {
-      layer.filter.push(this.constraints);
-    }
-    layer.layout = layoutRoadSurface;
-    layer.paint = roadSurfacePaint(this.surfaceColor, this.fillWidth);
-    return layer;
-  };
-}
-
-//Highway class styles
-function motorwayCasingColor(hue) {
-  return [
-    "interpolate",
-    ["exponential", roadExp],
-    ["zoom"],
-    4,
-    `hsl(${hue}, 10%, 85%)`,
-    6,
-    `hsl(${hue}, 60%, 50%)`,
-    minzoomBrunnel - 0.5,
-    `hsl(${hue}, 71%, 40%)`,
-    14,
-    `hsl(${hue}, 51%, 9%)`,
-  ];
-}
-
-class Motorway extends Road {
-  constructor() {
-    super();
-    this.highwayClass = "motorway";
-    this.brunnel = "surface";
-    this.link = false;
-    this.toll = false;
-    this.hue = 0;
-
-    this.minZoomFill = 5;
-    this.minZoomCasing = 5;
-
-    this.fillWidth = [
-      [4, 0.5],
-      [9, 1],
-      [20, 18],
-    ];
-    this.casingWidth = [
-      [4, 1.5],
-      [9, 3],
-      [20, 22],
-    ];
-
-    this.fillColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      4,
-      `hsl(${this.hue}, 70%, 76%)`,
-      6,
-      `hsl(${this.hue}, 70%, 66%)`,
-      minzoomBrunnel - 0.5,
-      `hsl(${this.hue}, 70%, 60%)`,
-      14,
-      `hsl(${this.hue}, 71%, 35%)`,
-    ];
-    this.casingColor = motorwayCasingColor(this.hue);
-    this.surfaceColor = `hsl(${this.hue}, 50%, 70%)`;
-  }
-}
-
-class MotorwayToll extends Motorway {
-  constructor() {
-    super();
-    this.toll = true;
-    this.hue = Color.tollRoadHue;
-
-    this.fillColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      4,
-      `hsl(${this.hue}, 70%, 76%)`,
-      6,
-      `hsl(${this.hue}, 70%, 66%)`,
-      minzoomBrunnel - 0.5,
-      `hsl(${this.hue}, 70%, 60%)`,
-      14,
-      `hsl(${this.hue}, 71%, 45%)`,
-    ];
-
-    this.casingColor = motorwayCasingColor(this.hue);
-    this.surfaceColor = `hsl(${this.hue}, 50%, 70%)`;
-  }
-}
-
-class InterstateMotorway extends Motorway {
-  constructor() {
-    super();
-
-    this.minZoomFill = 4;
-    this.minZoomCasing = 4;
-    this.maxZoomFill = 5;
-    this.maxZoomCasing = 5;
-
-    this.constraints = ["==", "network", "us-interstate"];
-  }
-}
-
-let trunkFillWidth = [
-  [4, 0.5],
-  [9, 1],
-  [12, 4],
-  [20, 18],
-];
-let trunkCasingWidth = [
-  [4, 0.5],
-  [9, 1.2],
-  [12, 5],
-  [20, 22],
-];
-function trunkCasingColor(hue) {
-  return [
-    "interpolate",
-    ["exponential", roadExp],
-    ["zoom"],
-    5,
-    `hsl(${hue}, 77%, 50%)`,
-    9,
-    `hsl(${hue}, 77%, 50%)`,
-    15,
-    `hsl(${hue}, 70%, 18%)`,
-  ];
-}
-
-class Trunk extends Road {
-  constructor() {
-    super();
-    this.highwayClass = "trunk";
-    this.brunnel = "surface";
-    this.link = false;
-    this.toll = false;
-    this.hue = 0;
-
-    this.minZoomFill = 5;
-    this.minZoomCasing = 5;
-
-    this.fillWidth = trunkFillWidth;
-    this.casingWidth = trunkCasingWidth;
-
-    this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
-    this.casingColor = trunkCasingColor(this.hue);
-    this.surfaceColor = `hsl(${this.hue}, 95%, 80%)`;
-
-    this.constraints = ["!=", "expressway", 1];
-  }
-}
-
-class TrunkToll extends Trunk {
-  constructor() {
-    super();
-    this.toll = true;
-    this.hue = Color.tollRoadHue;
-
-    this.fillColor = `hsl(${this.hue}, 77%, 50%)`;
-    this.casingColor = trunkCasingColor(this.hue);
-    this.surfaceColor = `hsl(${this.hue}, 95%, 80%)`;
-
-    this.constraints = ["!=", "expressway", 1];
-  }
-}
-
-let trunkExpresswayFillWidth = [
-  [7, 0.8],
-  [9, 1],
-  [12, 3.5],
-  [20, 16],
-];
-let trunkExpresswayCasingWidth = [
-  [7, 1.5],
-  [9, 3],
-  [12, 7],
-  [20, 28],
+const widthFactor = [
+  ...classSelector,
+  ["motorway", "trunk"],
+  [...linkSelector, 0.5, 1],
+  "primary",
+  [...linkSelector, 0.45, 0.9],
+  "secondary",
+  [...linkSelector, 0.3, [...expresswaySelector, 0.7, 0.6]],
+  "tertiary",
+  [...linkSelector, 0.25, 0.5],
+  "minor",
+  0.3,
+  "service",
+  [...smallServiceSelector, 0.15, 0.2],
+  0.2,
 ];
 
-class TrunkExpressway extends Trunk {
-  constructor() {
-    super();
+const roadFillWidth = [
+  4,
+  ["*", 0.5, widthFactor],
+  9,
+  widthFactor,
+  12,
+  [
+    "*",
+    [...classSelector, "motorway", 3.2, [...expresswaySelector, 3.5, 4]],
+    widthFactor,
+  ],
+  20,
+  ["*", [...expresswaySelector, 16, 18], widthFactor],
+];
 
-    this.minZoomFill = 5;
-    this.minZoomCasing = 5;
+const roadCasingWidth = [
+  4,
+  ["*", [...classSelector, "motorway", 1.5, 0.5], widthFactor],
+  9,
+  [
+    "*",
+    [...classSelector, "motorway", 3, [...expresswaySelector, 3, 1.2]],
+    widthFactor,
+  ],
+  12,
+  [
+    "*",
+    [...classSelector, "motorway", 5, [...expresswaySelector, 7, 5]],
+    widthFactor,
+  ],
+  20,
+  ["*", [...expresswaySelector, 28, 22], widthFactor],
+];
 
-    this.fillWidth = trunkExpresswayFillWidth;
-    this.casingWidth = trunkExpresswayCasingWidth;
+const roadCasingColorTunnel = [
+  "match",
+  getBrunnel,
+  "tunnel",
+  [
+    ...classSelector,
+    ["motorway", "trunk"],
+    [
+      ...tollSelector,
+      [
+        ...expresswaySelector,
+        `hsl(${tollRoadHue}, 41%, 85%)`,
+        `hsl(${tollRoadHue}, 41%, 80%)`,
+      ],
+      `hsl(${roadHue}, 41%, 80%)`,
+    ],
+    ["primary", "secondary", "tertiary"],
+    "hsl(0, 0%, 80%)",
+    "hsl(0, 0%, 90%)",
+  ],
+];
 
-    this.fillColor = `hsl(${this.hue}, 95%, 95%)`;
-    this.casingColor = `hsl(${this.hue}, 77%, 50%)`;
+const roadCasingColorTrunkExpressway = [
+  ...classSelector,
+  "trunk",
+  [
+    ...tollSelector,
+    `hsl(${tollRoadHue}, 77%, 50%)`,
+    `hsl(${roadHue}, 77%, 50%)`,
+  ],
+];
 
-    this.constraints = ["==", "expressway", 1];
-  }
-}
+const roadCasingColor = [
+  "step",
+  ["zoom"],
+  [
+    ...roadCasingColorTunnel,
+    [...roadCasingColorTrunkExpressway, `hsl(0, 0%, 90%)`],
+  ],
+  15,
+  [
+    ...roadCasingColorTunnel,
+    [...roadCasingColorTrunkExpressway, `hsl(0, 0%, 23%)`],
+  ],
+];
 
-class TrunkExpresswayToll extends TrunkToll {
-  constructor() {
-    super();
+const roadFillColorTunnel = [
+  "match",
+  getBrunnel,
+  "tunnel",
+  [
+    ...classSelector,
+    "motorway",
+    [
+      ...tollSelector,
+      `hsl(${tollRoadHue}, 71%, 90%)`,
+      `hsl(${roadHue}, 71%, 90%)`,
+    ],
+    "trunk",
+    [
+      ...tollSelector,
+      `hsl(${tollRoadHue}, 77%, 90%)`,
+      `hsl(${roadHue}, 77%, 90%)`,
+    ],
+    [
+      ...tollSelector,
+      `hsl(${tollRoadHue}, 100%, 95%)`,
+      `hsl(${roadHue}, 0%, 95%)`,
+    ],
+  ],
+];
 
-    this.minZoomFill = 5;
-    this.minZoomCasing = 5;
+const highwayFillColor = [
+  ...roadFillColorTunnel,
+  [
+    ...classSelector,
+    "trunk",
+    [
+      ...expresswaySelector,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 95%, 95%)`,
+        `hsl(${roadHue}, 95%, 95%)`,
+      ],
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 77%, 50%)`,
+        `hsl(${roadHue}, 77%, 50%)`,
+      ],
+    ],
+    [
+      ...tollSelector,
+      `hsl(${tollRoadHue}, 100%, 75%)`,
+      `hsl(${roadHue}, 100%, 100%)`,
+    ],
+  ],
+];
 
-    this.fillWidth = trunkExpresswayFillWidth;
-    this.casingWidth = trunkExpresswayCasingWidth;
-
-    this.fillColor = `hsl(${this.hue}, 95%, 95%)`;
-    this.casingColor = `hsl(${this.hue}, 77%, 50%)`;
-
-    this.constraints = ["==", "expressway", 1];
-  }
-}
+const roadSurfaceColor = [
+  ...classSelector,
+  "motorway",
+  [
+    ...tollSelector,
+    `hsl(${tollRoadHue}, 50%, 70%)`,
+    `hsl(${roadHue}, 50%, 70%)`,
+  ],
+  "trunk",
+  [
+    ...tollSelector,
+    `hsl(${tollRoadHue}, 95%, 80%)`,
+    `hsl(${roadHue}, 95%, 80%)`,
+  ],
+  [
+    ...tollSelector,
+    `hsl(${tollRoadHue}, 100%, 40%)`,
+    `hsl(${roadHue}, 0%, 80%)`,
+  ],
+];
 
 function roadFillColor(hue, minZoom, transitionZoom) {
   let transitionStop = transitionZoom
@@ -434,596 +385,590 @@ function tollRoadFillColor(hue, minZoom, transitionZoom) {
   ];
 }
 
-function roadCasingColor(hue, minZoom) {
+function expresswayCasingColor(minZoom, transitionZoom) {
   return [
     "interpolate",
     ["exponential", roadExp],
     ["zoom"],
     minZoom,
-    `hsl(${hue}, 0%, 90%)`,
-    14.9999,
-    `hsl(${hue}, 0%, 90%)`,
-    15,
-    `hsl(${hue}, 0%, 23%)`,
+    `hsl(0, 0%, 75%)`,
+    transitionZoom,
+    `hsl(0, 0%, 23%)`,
   ];
 }
 
-function expresswayCasingColor(hue, minZoom, transitionZoom) {
-  return [
-    "interpolate",
-    ["exponential", roadExp],
-    ["zoom"],
-    minZoom,
-    `hsl(${hue}, 0%, 75%)`,
-    transitionZoom,
-    `hsl(${hue}, 0%, 23%)`,
-  ];
+//Base road class
+class Road {
+  constructor() {
+    this.brunnel = "surface";
+    this.minZoomFill = 4;
+    this.minZoomCasing = 4;
+    this.casingColor = roadCasingColor;
+    this.fillColor = highwayFillColor;
+  }
+  fill = function () {
+    var layer = baseRoadLayer(
+      "fill",
+      this.brunnel,
+      this.minZoomFill,
+      this.maxZoomFill,
+      this.constraints
+    );
+    layer.layout = {
+      "line-cap": "round",
+      "line-join": "round",
+      visibility: "visible",
+      "line-sort-key": layerSortKey,
+    };
+    layer.paint = {
+      "line-opacity": opacity,
+      "line-color": this.fillColor,
+      "line-width": [
+        "interpolate",
+        ["exponential", roadExp],
+        ["zoom"],
+        ...roadFillWidth,
+      ],
+      "line-blur": 0.5,
+    };
+    return layer;
+  };
+  casing = function () {
+    var layer = baseRoadLayer(
+      "casing",
+      this.brunnel,
+      this.minZoomCasing,
+      this.maxZoomCasing,
+      this.constraints
+    );
+    layer.layout = {
+      "line-cap": this.brunnel === "bridge" ? "butt" : "round",
+      "line-join": this.brunnel === "bridge" ? "bevel" : "round",
+      visibility: "visible",
+      "line-sort-key": layerSortKey,
+    };
+    layer.paint = {
+      "line-opacity": opacity,
+      "line-color": this.casingColor,
+      "line-width": [
+        "interpolate",
+        ["exponential", roadExp],
+        ["zoom"],
+        ...roadCasingWidth,
+      ],
+    };
+    if (this.brunnel === "tunnel") {
+      layer.paint["line-dasharray"] = tunDashArray;
+    } else {
+      layer.paint["line-blur"] = 0.5;
+    }
+    return layer;
+  };
+  surface = function () {
+    var layer = baseRoadLayer(
+      "surface",
+      this.brunnel,
+      Math.min(this.minZoomCasing, this.minZoomFill),
+      Math.max(this.maxZoomCasing, this.maxZoomFill),
+      this.constraints
+    );
+    layer.filter = combineConstraints(layer.filter, [
+      "==",
+      ["get", "surface"],
+      "unpaved",
+    ]);
+    layer.layout = {
+      "line-cap": "butt",
+      "line-join": "round",
+      visibility: "visible",
+      "line-sort-key": layerSortKey,
+    };
+    layer.paint = {
+      "line-opacity": opacity,
+      "line-dasharray": [4, 4],
+      "line-color": roadSurfaceColor,
+      "line-width": [
+        "interpolate",
+        ["exponential", roadExp],
+        ["zoom"],
+        ...roadFillWidth,
+      ],
+      "line-blur": 0.5,
+    };
+    return layer;
+  };
+}
+
+class RoadSimpleCasing extends Road {
+  constructor() {
+    super();
+    this.constraints = [
+      "any",
+      [
+        "all",
+        ["!", ["in", getClass, ["literal", ["motorway", "trunk"]]]],
+        isNotExpressway,
+        isNotLink,
+      ],
+      ["all", ["==", getClass, "trunk"], isExpressway],
+    ];
+  }
+}
+
+class RoadLinkSimpleCasing extends Road {
+  constructor() {
+    super();
+    this.constraints = [
+      "all",
+      ["!", ["in", getClass, ["literal", ["motorway", "trunk"]]]],
+      isNotExpressway,
+      isLink,
+    ];
+  }
+}
+
+class RoadSimpleFill extends Road {
+  constructor() {
+    super();
+    this.constraints = [
+      "any",
+      ["all", ["==", getClass, "trunk"], isNotLink],
+      [
+        "all",
+        ["in", getClass, ["literal", ["primary", "secondary", "tertiary"]]],
+        isExpressway,
+      ],
+    ];
+  }
+}
+
+class RoadLinkSimpleFill extends Road {
+  constructor() {
+    super();
+    this.constraints = ["all", ["==", getClass, "trunk"], isLink];
+  }
+}
+
+class RoadBridge extends Road {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class RoadSimpleCasingBridge extends RoadSimpleCasing {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class RoadLinkSimpleCasingBridge extends RoadLinkSimpleCasing {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class RoadSimpleFillBridge extends RoadSimpleFill {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class RoadLinkSimpleFillBridge extends RoadLinkSimpleFill {
+  constructor() {
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
+class RoadTunnel extends Road {
+  constructor() {
+    super();
+    this.brunnel = "tunnel";
+  }
+}
+
+//Highway class styles
+class Motorway extends Road {
+  constructor() {
+    super();
+    this.constraints = ["all", ["==", getClass, "motorway"], isNotLink];
+
+    this.minZoomFill = minZoomAllRoads;
+    this.minZoomCasing = minZoomAllRoads;
+
+    this.fillColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      4,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 70%, 76%)`,
+        `hsl(${roadHue}, 70%, 76%)`,
+      ],
+      6,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 70%, 66%)`,
+        `hsl(${roadHue}, 70%, 66%)`,
+      ],
+      minzoomBrunnel - 0.5,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 70%, 60%)`,
+        `hsl(${roadHue}, 70%, 60%)`,
+      ],
+      14,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 71%, 45%)`,
+        `hsl(${roadHue}, 71%, 35%)`,
+      ],
+    ];
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      4,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 10%, 85%)`,
+        `hsl(${roadHue}, 10%, 85%)`,
+      ],
+      6,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 60%, 50%)`,
+        `hsl(${roadHue}, 60%, 50%)`,
+      ],
+      minzoomBrunnel - 0.5,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 71%, 40%)`,
+        `hsl(${roadHue}, 71%, 40%)`,
+      ],
+      14,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 51%, 9%)`,
+        `hsl(${roadHue}, 51%, 9%)`,
+      ],
+    ];
+  }
+}
+
+class Trunk extends Road {
+  constructor() {
+    super();
+    this.constraints = [
+      "all",
+      ["==", getClass, "trunk"],
+      isNotLink,
+      isNotExpressway,
+    ];
+
+    this.minZoomFill = minZoomAllRoads;
+    this.minZoomCasing = minZoomAllRoads;
+
+    this.fillColor = highwayFillColor;
+    this.casingColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      5,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 77%, 50%)`,
+        `hsl(${roadHue}, 77%, 50%)`,
+      ],
+      9,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 77%, 50%)`,
+        `hsl(${roadHue}, 77%, 50%)`,
+      ],
+      15,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 70%, 18%)`,
+        `hsl(${roadHue}, 70%, 18%)`,
+      ],
+    ];
+  }
 }
 
 class Primary extends Road {
   constructor() {
     super();
-    this.highwayClass = "primary";
-    this.brunnel = "surface";
-    this.link = false;
-    this.toll = false;
-    this.hue = 0;
+    this.constraints = [
+      "all",
+      ["==", getClass, "primary"],
+      isNotLink,
+      isNotExpressway,
+      isNotToll,
+    ];
 
-    this.minZoomFill = 7;
-    this.minZoomCasing = 7;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.9);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.9);
+    this.minZoomFill = minZoomPrimary;
+    this.minZoomCasing = minZoomPrimary;
 
     this.fillColor = roadFillColor(
-      this.hue,
+      roadHue,
       this.minZoomFill,
       this.minZoomFill + 2
     );
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
-
-    this.constraints = ["!=", "expressway", 1];
   }
 }
 
 class PrimaryToll extends Primary {
   constructor() {
     super();
-    this.toll = true;
-    this.hue = Color.tollRoadHue;
+    this.constraints = [
+      "all",
+      ["==", getClass, "primary"],
+      isNotLink,
+      isNotExpressway,
+      isToll,
+    ];
 
     this.fillColor = tollRoadFillColor(
-      this.hue,
+      tollRoadHue,
       this.minZoomFill,
       this.minZoomFill + 2
     );
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
 class PrimaryExpressway extends Primary {
   constructor() {
     super();
+    this.constraints = [
+      "all",
+      ["==", getClass, "primary"],
+      isNotLink,
+      isExpressway,
+    ];
 
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 1.0);
-    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.9);
-
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
-      this.hue,
       this.minZoomCasing,
       this.minZoomCasing + 2
     );
-
-    this.constraints = ["==", "expressway", 1];
-  }
-}
-
-class PrimaryExpresswayToll extends PrimaryToll {
-  constructor() {
-    super();
-
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 1.0);
-    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.9);
-
-    this.fillColor = `hsl(${this.hue}, 100%, 75%)`;
-    this.casingColor = expresswayCasingColor(
-      this.hue,
-      this.minZoomCasing,
-      this.minZoomCasing + 2
-    );
-
-    this.constraints = ["==", "expressway", 1];
   }
 }
 
 class Secondary extends Road {
   constructor() {
     super();
-    this.highwayClass = "secondary";
-    this.brunnel = "surface";
-    this.link = false;
-    this.toll = false;
-    this.hue = 0;
+    this.constraints = [
+      "all",
+      ["==", getClass, "secondary"],
+      isNotLink,
+      isNotExpressway,
+      isNotToll,
+    ];
 
-    this.minZoomFill = 9;
-    this.minZoomCasing = 9;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.6);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.6);
+    this.minZoomFill = minZoomSecondary;
+    this.minZoomCasing = minZoomSecondary;
 
     this.fillColor = roadFillColor(
-      this.hue,
+      roadHue,
       this.minZoomFill,
       this.minZoomFill + 2
     );
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
-
-    this.constraints = ["!=", "expressway", 1];
   }
 }
 
 class SecondaryToll extends Secondary {
   constructor() {
     super();
-    this.toll = true;
-    this.hue = Color.tollRoadHue;
+    this.constraints = [
+      "all",
+      ["==", getClass, "secondary"],
+      isNotLink,
+      isNotExpressway,
+      isToll,
+    ];
 
     this.fillColor = tollRoadFillColor(
-      this.hue,
+      tollRoadHue,
       this.minZoomFill,
       this.minZoomFill + 2
     );
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
 class SecondaryExpressway extends Secondary {
   constructor() {
     super();
+    this.constraints = [
+      "all",
+      ["==", getClass, "secondary"],
+      isNotLink,
+      isExpressway,
+    ];
 
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.7);
-    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.7);
-
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
-      this.hue,
       this.minZoomCasing,
       this.minZoomCasing + 2
     );
-
-    this.constraints = ["==", "expressway", 1];
-  }
-}
-
-class SecondaryExpresswayToll extends SecondaryToll {
-  constructor() {
-    super();
-
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.7);
-    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.7);
-
-    this.fillColor = `hsl(${this.hue}, 100%, 75%)`;
-    this.casingColor = expresswayCasingColor(
-      this.hue,
-      this.minZoomCasing,
-      this.minZoomCasing + 2
-    );
-
-    this.constraints = ["==", "expressway", 1];
   }
 }
 
 class Tertiary extends Road {
   constructor() {
     super();
-    this.highwayClass = "tertiary";
-    this.brunnel = "surface";
-    this.link = false;
-    this.toll = false;
-    this.hue = 0;
+    this.constraints = [
+      "all",
+      ["==", getClass, "tertiary"],
+      isNotLink,
+      isNotExpressway,
+      isNotToll,
+    ];
 
-    this.minZoomFill = 11;
-    this.minZoomCasing = 11;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
+    this.minZoomFill = minZoomTertiary;
+    this.minZoomCasing = minZoomTertiary;
 
     this.fillColor = roadFillColor(
-      this.hue,
+      roadHue,
       this.minZoomFill,
       this.minZoomFill + 2
     );
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
-
-    this.constraints = ["!=", "expressway", 1];
   }
 }
 
 class TertiaryToll extends Tertiary {
   constructor() {
     super();
-    this.toll = true;
-    this.hue = Color.tollRoadHue;
+    this.constraints = [
+      "all",
+      ["==", getClass, "tertiary"],
+      isNotLink,
+      isNotExpressway,
+      isToll,
+    ];
 
     this.fillColor = tollRoadFillColor(
-      this.hue,
+      tollRoadHue,
       this.minZoomFill,
       this.minZoomFill + 2
     );
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 
 class TertiaryExpressway extends Tertiary {
   constructor() {
     super();
+    this.constraints = [
+      "all",
+      ["==", getClass, "tertiary"],
+      isNotLink,
+      isExpressway,
+    ];
 
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.5);
-    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.5);
-
-    this.fillColor = `hsl(${this.hue}, 100%, 100%)`;
+    this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
-      this.hue,
       this.minZoomCasing,
       this.minZoomCasing + 2
     );
-
-    this.constraints = ["==", "expressway", 1];
-  }
-}
-
-class TertiaryExpresswayToll extends TertiaryToll {
-  constructor() {
-    super();
-
-    this.fillWidth = Util.zoomMultiply(trunkExpresswayFillWidth, 0.5);
-    this.casingWidth = Util.zoomMultiply(trunkExpresswayCasingWidth, 0.5);
-
-    this.fillColor = `hsl(${this.hue}, 100%, 75%)`;
-    this.casingColor = expresswayCasingColor(
-      this.hue,
-      this.minZoomCasing,
-      this.minZoomCasing + 2
-    );
-
-    this.constraints = ["==", "expressway", 1];
   }
 }
 
 class Minor extends Road {
   constructor() {
     super();
-    this.highwayClass = "minor";
-    this.brunnel = "surface";
-    this.link = false;
-    this.toll = false;
-    this.hue = 0;
+    this.constraints = [
+      "all",
+      ["in", getClass, ["literal", ["minor", "service"]]],
+      isNotToll,
+    ];
 
-    this.minZoomFill = 12;
-    this.minZoomCasing = 12;
+    this.minZoomFill = minZoomMinor;
+    this.minZoomCasing = minZoomMinor;
 
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
-
-    this.fillColor = roadFillColor(this.hue, this.minZoomFill);
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+    this.fillColor = roadFillColor(roadHue, this.minZoomFill);
   }
 }
 
 class MinorToll extends Minor {
   constructor() {
     super();
-    this.toll = true;
-    this.hue = Color.tollRoadHue;
-
-    this.fillColor = tollRoadFillColor(this.hue, this.minZoomFill);
-    this.casingColor = roadCasingColor(this.hue, this.minZoomCasing);
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
-  }
-}
-
-class Service extends Road {
-  constructor() {
-    super();
-    this.highwayClass = "service";
-    this.brunnel = "surface";
-    this.link = false;
-    this.toll = false;
-    this.hue = 0;
-
-    this.minZoomFill = 13;
-    this.minZoomCasing = 13;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.2);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.2);
-
-    // Fill color gets interpolated as a fade from light to dark between this
-    // level's introduction and next road-level introduction.
-    // It then switches at z15 from dark to light with the casing switching as
-    // well.
-    this.fillColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      13,
-      `hsl(${this.hue}, 0%, 65%)`,
-      14.9999,
-      `hsl(${this.hue}, 0%, 23%)`,
-      15,
-      `hsl(${this.hue}, 100%, 100%)`,
-    ];
-    this.casingColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      13,
-      `hsl(${this.hue}, 0%, 90%)`,
-      14.9999,
-      `hsl(${this.hue}, 0%, 90%)`,
-      15,
-      `hsl(${this.hue}, 0%, 23%)`,
+    this.constraints = [
+      "all",
+      ["in", getClass, ["literal", ["minor", "service"]]],
+      isToll,
     ];
 
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
-
-    this.constraints = ["!in", "service", "parking_aisle", "driveway"];
-  }
-}
-
-class ServiceToll extends Service {
-  constructor() {
-    super();
-    this.toll = true;
-    this.hue = Color.tollRoadHue;
-
-    // Fill color gets interpolated as a fade from light to dark between this
-    // level's introduction and next road-level introduction.
-    // It then switches at z15 from dark to light with the casing switching as
-    // well.
-    this.fillColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      13,
-      `hsl(${this.hue}, 100%, 65%)`,
-      14.9999,
-      `hsl(${this.hue}, 100%, 40%)`,
-      15,
-      `hsl(${this.hue}, 100%, 50%)`,
-    ];
-    this.casingColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      13,
-      `hsl(${this.hue}, 0%, 90%)`,
-      14.9999,
-      `hsl(${this.hue}, 0%, 90%)`,
-      15,
-      `hsl(${this.hue}, 0%, 23%)`,
-    ];
-
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
-  }
-}
-
-class SmallService extends Service {
-  constructor() {
-    super();
-
-    this.minZoomFill = 15;
-    this.minZoomCasing = 15;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.15);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.15);
-
-    // Casing color gets interpolated as a fade from light to dark between this
-    // level's introduction and next road-level introduction.
-    this.casingColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      15,
-      `hsl(${this.hue}, 0%, 65%)`,
-      19,
-      `hsl(${this.hue}, 0%, 23%)`,
-    ];
-
-    this.constraints = ["in", "service", "parking_aisle", "driveway"];
-  }
-}
-
-class SmallServiceToll extends ServiceToll {
-  constructor() {
-    super();
-
-    this.minZoomFill = 15;
-    this.minZoomCasing = 15;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.15);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.15);
-
-    // Casing color gets interpolated as a fade from light to dark between this
-    // level's introduction and next road-level introduction.
-    this.casingColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      15,
-      `hsl(${this.hue}, 0%, 65%)`,
-      19,
-      `hsl(${this.hue}, 0%, 23%)`,
-    ];
-
-    this.constraints = ["in", "service", "parking_aisle", "driveway"];
+    this.fillColor = tollRoadFillColor(tollRoadHue, this.minZoomFill);
   }
 }
 
 class MotorwayLink extends Motorway {
   constructor() {
     super();
-    this.link = true;
-    this.minZoomFill = 7;
-    this.minZoomCasing = 7;
-
-    this.fillWidth = [
-      [7, 1],
-      [13, 1.5],
-      [14, 2.5],
-      [20, 11.5],
-    ];
-    this.casingWidth = [
-      [7, 2],
-      [13, 3],
-      [14, 4],
-      [20, 15],
-    ];
-  }
-}
-
-class MotorwayLinkToll extends MotorwayToll {
-  constructor() {
-    super();
-    this.link = true;
-    this.minZoomFill = 7;
-    this.minZoomCasing = 7;
-
-    this.fillWidth = [
-      [7, 1],
-      [13, 1.5],
-      [14, 2.5],
-      [20, 11.5],
-    ];
-    this.casingWidth = [
-      [7, 2],
-      [13, 3],
-      [14, 4],
-      [20, 15],
-    ];
+    this.constraints = ["all", ["==", getClass, "motorway"], isLink];
+    this.minZoomFill = minZoomPrimary;
+    this.minZoomCasing = minZoomPrimary;
   }
 }
 
 class TrunkLink extends Trunk {
   constructor() {
     super();
-    this.link = true;
-    this.minZoomFill = 7;
-    this.minZoomCasing = 7;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
-  }
-}
-
-class TrunkLinkToll extends TrunkToll {
-  constructor() {
-    super();
-    this.link = true;
-    this.minZoomFill = 7;
-    this.minZoomCasing = 7;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.5);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.5);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
+    this.constraints = ["all", ["==", getClass, "trunk"], isLink];
+    this.minZoomFill = minZoomPrimary;
+    this.minZoomCasing = minZoomPrimary;
   }
 }
 
 class PrimaryLink extends Primary {
   constructor() {
     super();
-    this.link = true;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.45);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.45);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
+    this.constraints = ["all", ["==", getClass, "primary"], isLink, isNotToll];
   }
 }
 
 class PrimaryLinkToll extends PrimaryToll {
   constructor() {
     super();
-    this.link = true;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.45);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.45);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
+    this.constraints = ["all", ["==", getClass, "primary"], isLink, isToll];
   }
 }
 
 class SecondaryLink extends Secondary {
   constructor() {
     super();
-    this.link = true;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
+    this.constraints = [
+      "all",
+      ["==", getClass, "secondary"],
+      isLink,
+      isNotToll,
+    ];
   }
 }
 
 class SecondaryLinkToll extends SecondaryToll {
   constructor() {
     super();
-    this.link = true;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.3);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.3);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
+    this.constraints = ["all", ["==", getClass, "secondary"], isLink, isToll];
   }
 }
 
 class TertiaryLink extends Tertiary {
   constructor() {
     super();
-    this.link = true;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.25);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.25);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
+    this.constraints = ["all", ["==", getClass, "tertiary"], isLink, isNotToll];
   }
 }
 
 class TertiaryLinkToll extends TertiaryToll {
   constructor() {
     super();
-    this.link = true;
-
-    this.fillWidth = Util.zoomMultiply(trunkFillWidth, 0.25);
-    this.casingWidth = Util.zoomMultiply(trunkCasingWidth, 0.25);
-
-    // For now, don't differentiate on Expressway/not for trunk-link.
-    // Not sure if this is desirable or not.
-    this.constraints = null;
+    this.constraints = ["all", ["==", getClass, "tertiary"], isLink, isToll];
   }
 }
 
@@ -1035,36 +980,7 @@ class MotorwayBridge extends Motorway {
   }
 }
 
-class MotorwayTollBridge extends MotorwayToll {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
 class TrunkBridge extends Trunk {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class TrunkTollBridge extends TrunkToll {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class TrunkExpresswayBridge extends TrunkExpressway {
-  constructor() {
-    super();
-    this.brunnel = "bridge";
-    // this.casingColor = `hsl(${this.hue}, 70%, 25%)`;
-  }
-}
-
-class TrunkExpresswayTollBridge extends TrunkExpresswayToll {
   constructor() {
     super();
     this.brunnel = "bridge";
@@ -1088,14 +1004,6 @@ class PrimaryTollBridge extends PrimaryToll {
 }
 
 class PrimaryExpresswayBridge extends PrimaryExpressway {
-  constructor() {
-    //undifferentiated
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class PrimaryExpresswayTollBridge extends PrimaryExpresswayToll {
   constructor() {
     //undifferentiated
     super();
@@ -1127,14 +1035,6 @@ class SecondaryExpresswayBridge extends SecondaryExpressway {
   }
 }
 
-class SecondaryExpresswayTollBridge extends SecondaryExpresswayToll {
-  constructor() {
-    //undifferentiated
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
 class TertiaryBridge extends Tertiary {
   constructor() {
     //undifferentiated
@@ -1159,14 +1059,6 @@ class TertiaryExpresswayBridge extends TertiaryExpressway {
   }
 }
 
-class TertiaryExpresswayTollBridge extends TertiaryExpresswayToll {
-  constructor() {
-    //undifferentiated
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
 class MinorBridge extends Minor {
   constructor() {
     //undifferentiated
@@ -1183,55 +1075,7 @@ class MinorTollBridge extends MinorToll {
   }
 }
 
-class ServiceBridge extends Service {
-  constructor() {
-    //undifferentiated
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class ServiceTollBridge extends ServiceToll {
-  constructor() {
-    //undifferentiated
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class SmallServiceBridge extends SmallService {
-  constructor() {
-    //undifferentiated
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
-class SmallServiceTollBridge extends SmallServiceToll {
-  constructor() {
-    //undifferentiated
-    super();
-    this.brunnel = "bridge";
-  }
-}
-
 class MotorwayLinkBridge extends MotorwayLink {
-  constructor() {
-    super();
-    //Undifferentiated
-    this.brunnel = "bridge";
-  }
-}
-
-class MotorwayLinkTollBridge extends MotorwayLinkToll {
-  constructor() {
-    super();
-    //Undifferentiated
-    this.brunnel = "bridge";
-  }
-}
-
-class TrunkLinkTollBridge extends TrunkLinkToll {
   constructor() {
     super();
     //Undifferentiated
@@ -1295,394 +1139,50 @@ class TertiaryLinkTollBridge extends TertiaryLinkToll {
   }
 }
 
-//Tunnels
-class MotorwayTunnel extends Motorway {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
-  }
-}
+export const road = new Road();
+export const roadBridge = new RoadBridge();
+export const roadTunnel = new RoadTunnel();
 
-class MotorwayTollTunnel extends MotorwayToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
-  }
-}
+export const roadSimpleCasing = new RoadSimpleCasing();
+export const roadLinkSimpleCasing = new RoadLinkSimpleCasing();
+export const roadSimpleCasingBridge = new RoadSimpleCasingBridge();
+export const roadLinkSimpleCasingBridge = new RoadLinkSimpleCasingBridge();
 
-class TrunkTunnel extends Trunk {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
-  }
-}
+export const roadSimpleFill = new RoadSimpleFill();
+export const roadLinkSimpleFill = new RoadLinkSimpleFill();
+export const roadSimpleFillBridge = new RoadSimpleFillBridge();
+export const roadLinkSimpleFillBridge = new RoadLinkSimpleFillBridge();
 
-class TrunkTollTunnel extends TrunkToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
-  }
-}
-
-class TrunkExpresswayTunnel extends TrunkExpressway {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 85%)`;
-    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
-  }
-}
-
-class TrunkExpresswayTollTunnel extends TrunkExpresswayToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 85%)`;
-    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
-  }
-}
-
-class PrimaryTunnel extends Primary {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class PrimaryTollTunnel extends PrimaryToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class PrimaryExpresswayTunnel extends PrimaryExpressway {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-class PrimaryExpresswayTollTunnel extends PrimaryExpresswayToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class SecondaryTunnel extends Secondary {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class SecondaryTollTunnel extends SecondaryToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class SecondaryExpresswayTunnel extends SecondaryExpressway {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class SecondaryExpresswayTollTunnel extends SecondaryExpresswayToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class TertiaryTunnel extends Tertiary {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class TertiaryTollTunnel extends TertiaryToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class TertiaryExpresswayTunnel extends TertiaryExpressway {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class TertiaryExpresswayTollTunnel extends TertiaryExpresswayToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class MinorTunnel extends Minor {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class MinorTollTunnel extends MinorToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class ServiceTunnel extends Service {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class ServiceTollTunnel extends ServiceToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class SmallServiceTunnel extends SmallService {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class SmallServiceTollTunnel extends SmallServiceToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 90%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class MotorwayLinkTunnel extends MotorwayLink {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
-  }
-}
-
-class MotorwayLinkTollTunnel extends MotorwayLinkToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 71%, 90%)`;
-  }
-}
-
-class TrunkLinkTunnel extends TrunkLink {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
-  }
-}
-
-class TrunkLinkTollTunnel extends TrunkLinkToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 41%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 77%, 90%)`;
-  }
-}
-
-class PrimaryLinkTunnel extends PrimaryLink {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class PrimaryLinkTollTunnel extends PrimaryLinkToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class SecondaryLinkTunnel extends SecondaryLink {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class SecondaryLinkTollTunnel extends SecondaryLinkToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-class TertiaryLinkTunnel extends TertiaryLink {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 0%, 95%)`;
-  }
-}
-
-class TertiaryLinkTollTunnel extends TertiaryLinkToll {
-  constructor() {
-    super();
-    this.brunnel = "tunnel";
-    this.casingColor = `hsl(${this.hue}, 0%, 80%)`;
-    this.fillColor = `hsl(${this.hue}, 100%, 95%)`;
-  }
-}
-
-export const interstate = new InterstateMotorway();
 export const motorway = new Motorway();
-export const motorwayToll = new MotorwayToll();
 export const trunk = new Trunk();
-export const trunkToll = new TrunkToll();
-export const trunkExpressway = new TrunkExpressway();
-export const trunkExpresswayToll = new TrunkExpresswayToll();
 export const primary = new Primary();
 export const primaryToll = new PrimaryToll();
 export const primaryExpressway = new PrimaryExpressway();
-export const primaryExpresswayToll = new PrimaryExpresswayToll();
 export const secondary = new Secondary();
 export const secondaryToll = new SecondaryToll();
 export const secondaryExpressway = new SecondaryExpressway();
-export const secondaryExpresswayToll = new SecondaryExpresswayToll();
 export const tertiary = new Tertiary();
 export const tertiaryToll = new TertiaryToll();
 export const tertiaryExpressway = new TertiaryExpressway();
-export const tertiaryExpresswayToll = new TertiaryExpresswayToll();
 export const minor = new Minor();
 export const minorToll = new MinorToll();
-export const service = new Service();
-export const serviceToll = new ServiceToll();
-export const smallService = new SmallService();
-export const smallServiceToll = new SmallServiceToll();
 
 export const motorwayBridge = new MotorwayBridge();
-export const motorwayTollBridge = new MotorwayTollBridge();
 export const trunkBridge = new TrunkBridge();
-export const trunkTollBridge = new TrunkTollBridge();
-export const trunkExpresswayBridge = new TrunkExpresswayBridge();
-export const trunkExpresswayTollBridge = new TrunkExpresswayTollBridge();
 export const primaryBridge = new PrimaryBridge();
 export const primaryTollBridge = new PrimaryTollBridge();
 export const primaryExpresswayBridge = new PrimaryExpresswayBridge();
-export const primaryExpresswayTollBridge = new PrimaryExpresswayTollBridge();
 export const secondaryBridge = new SecondaryBridge();
 export const secondaryTollBridge = new SecondaryTollBridge();
 export const secondaryExpresswayBridge = new SecondaryExpresswayBridge();
-export const secondaryExpresswayTollBridge =
-  new SecondaryExpresswayTollBridge();
 export const tertiaryBridge = new TertiaryBridge();
 export const tertiaryTollBridge = new TertiaryTollBridge();
 export const tertiaryExpresswayBridge = new TertiaryExpresswayBridge();
-export const tertiaryExpresswayTollBridge = new TertiaryExpresswayTollBridge();
 export const minorBridge = new MinorBridge();
 export const minorTollBridge = new MinorTollBridge();
-export const serviceBridge = new ServiceBridge();
-export const serviceTollBridge = new ServiceTollBridge();
-export const smallServiceBridge = new SmallServiceBridge();
-export const smallServiceTollBridge = new SmallServiceTollBridge();
-
-export const motorwayTunnel = new MotorwayTunnel();
-export const motorwayTollTunnel = new MotorwayTollTunnel();
-export const trunkTunnel = new TrunkTunnel();
-export const trunkTollTunnel = new TrunkTollTunnel();
-export const trunkExpresswayTunnel = new TrunkExpresswayTunnel();
-export const trunkExpresswayTollTunnel = new TrunkExpresswayTollTunnel();
-export const primaryTunnel = new PrimaryTunnel();
-export const primaryTollTunnel = new PrimaryTollTunnel();
-export const primaryExpresswayTunnel = new PrimaryExpresswayTunnel();
-export const primaryExpresswayTollTunnel = new PrimaryExpresswayTollTunnel();
-export const secondaryTunnel = new SecondaryTunnel();
-export const secondaryTollTunnel = new SecondaryTollTunnel();
-export const secondaryExpresswayTunnel = new SecondaryExpresswayTunnel();
-export const secondaryExpresswayTollTunnel =
-  new SecondaryExpresswayTollTunnel();
-export const tertiaryTunnel = new TertiaryTunnel();
-export const tertiaryTollTunnel = new TertiaryTollTunnel();
-export const tertiaryExpresswayTunnel = new TertiaryExpresswayTunnel();
-export const tertiaryExpresswayTollTunnel = new TertiaryExpresswayTollTunnel();
-export const minorTunnel = new MinorTunnel();
-export const minorTollTunnel = new MinorTollTunnel();
-export const serviceTunnel = new ServiceTunnel();
-export const serviceTollTunnel = new ServiceTollTunnel();
-export const smallServiceTunnel = new SmallServiceTunnel();
-export const smallServiceTollTunnel = new SmallServiceTollTunnel();
 
 export const motorwayLink = new MotorwayLink();
-export const motorwayLinkToll = new MotorwayLinkToll();
 export const trunkLink = new TrunkLink();
-export const trunkLinkToll = new TrunkLinkToll();
 export const primaryLink = new PrimaryLink();
 export const primaryLinkToll = new PrimaryLinkToll();
 export const secondaryLink = new SecondaryLink();
@@ -1691,23 +1191,10 @@ export const tertiaryLink = new TertiaryLink();
 export const tertiaryLinkToll = new TertiaryLinkToll();
 
 export const motorwayLinkBridge = new MotorwayLinkBridge();
-export const motorwayLinkTollBridge = new MotorwayLinkTollBridge();
 export const trunkLinkBridge = new TrunkLinkBridge();
-export const trunkLinkTollBridge = new TrunkLinkTollBridge();
 export const primaryLinkBridge = new PrimaryLinkBridge();
 export const primaryLinkTollBridge = new PrimaryLinkTollBridge();
 export const secondaryLinkBridge = new SecondaryLinkBridge();
 export const secondaryLinkTollBridge = new SecondaryLinkTollBridge();
 export const tertiaryLinkBridge = new TertiaryLinkBridge();
 export const tertiaryLinkTollBridge = new TertiaryLinkTollBridge();
-
-export const motorwayLinkTunnel = new MotorwayLinkTunnel();
-export const motorwayLinkTollTunnel = new MotorwayLinkTollTunnel();
-export const trunkLinkTunnel = new TrunkLinkTunnel();
-export const trunkLinkTollTunnel = new TrunkLinkTollTunnel();
-export const primaryLinkTunnel = new PrimaryLinkTunnel();
-export const primaryLinkTollTunnel = new PrimaryLinkTollTunnel();
-export const secondaryLinkTunnel = new SecondaryLinkTunnel();
-export const secondaryLinkTollTunnel = new SecondaryLinkTollTunnel();
-export const tertiaryLinkTunnel = new TertiaryLinkTunnel();
-export const tertiaryLinkTollTunnel = new TertiaryLinkTollTunnel();

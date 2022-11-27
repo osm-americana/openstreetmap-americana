@@ -115,21 +115,27 @@ The lines may be combined if desired:
 See the end of this file for a list of available jurisdictions and their codes. */
 
 .ca,
+.ht,
 .us,
 .cl,
 .co,
 .uy,
 .ve,
+.dz,
 .gh,
+.am,
 .bd,
 .cn,
 .hk,
 .ir,
+.iq,
 .jp,
+.kr,
 .my,
 .np,
 .ph,
-.kr,
+.pk,
+.tr,
 .tw,
 .vn,
 .at,
@@ -146,8 +152,11 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .fr,
 .gr,
 .hu,
+.is,
 .it,
+.xk,
 .lt,
+.lu,
 .lv,
 .md,
 .me,
@@ -162,9 +171,10 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .si,
 .sk,
 .ua,
-.xk,
+.au,
 .nz,
-.cw { fill: #8250df; }
+.cw,
+.ust { fill: #8250df; }
 
 /* Color individual borders
 For example, to color the border between Angola and Namibia in green, add this line in the space below:

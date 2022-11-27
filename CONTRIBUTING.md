@@ -163,6 +163,8 @@ boilerplate in `scripts/taginfo_template.json`.
 2. If you are introducing a novel approach to depicting a layer or feature
    property from the OpenMapTiles schema, document how the corresponding
    OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
+3. If any shield background icons are introduced, add lines to `src/shieldtest.js`
+   to demonstrate overlaid text on each of them.
 
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
@@ -247,7 +249,9 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 - **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
 - **`verticalReflect`** – Set this property to `true` to draw the shield image upside-down.
 
-If special code is necessary to style a specific `ref` in a particular network, `overrideByRef` can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
+In addition to `textHaloColor`, the config variable **`SHIELD_TEXT_HALO_COLOR_OVERRIDE`** can be used to override the text halo color on all shields. This can be helpful to avoid collisions with other design features when determining padding values. For example, set `SHIELD_TEXT_HALO_COLOR_OVERRIDE` in src/config.js to `"magenta"` to display a magenta halo around all shield text.
+
+If special code is necessary to style a specific `ref` in a particular network, **`overrideByRef`** can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
 
 Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks). In the future, it is expected that these initialisms will be encoded on the server side by processing appropriate tagging which holds the initialism in the database.
 
@@ -282,8 +286,28 @@ This style strives to draw representative highway shields wherever they are tagg
 - Shields for route networks where the full name of the route is displayed unabbreviated in real life, but abbreviated for the purposes of this project. Such cases include:
   - **Houston, TX toll roads**. Harris and Fort Bend Counties each sign a network of toll roads which use a common shield styling, but with full-text names of the highways on the shields. Because these counties' toll road systems are clearly common networks due to their common shield symbology, special code is needed to convert toll road names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
   - **Kentucky Parkways**. Kentucky signs a network of state highways which use a common shield styling, but with full-text names of the parkways on the shields. In addition, these routes are locally known by initialisms. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
+  - **New York Parkways**. The State of New York signs a network of highways which use a common shield styling, but with full-text names of the parkways on the shields. The first letter of each word in a parkway's name is capitalized and in a larger font, making initialisms easily recognizable. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their initialisms. Because the initialisms are present on shields, but only as part of the full name, it would not be appropriate to encode this data in the `ref` tag.
 - Shields for route networks where each individual route is identified by a color, rather than a number or letter. Such cases include:
   - **Allegheny County, PA Belt Routes**. Shields for this system use colors, with a colored circle and the words "<COLOR> BELT". These shields are drawn as squares with colored circles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (white shield with colored circle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
+  - **Branson, MO color-coded routes**. Shields for this system use colors, with a colored rectangle and the words "<COLOR> ROUTE". These shields are drawn as squares with colored rectangles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (green shield with colored rectangle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
 - Shields with a stacked ref configuration, with `/` separating the two lines of text in the `ref` value. Currently, these `ref` values are displayed verbatim on one line, and the code necessary for stacked ref rendering has not been written yet ([#366](https://github.com/ZeLonewolf/openstreetmap-americana/issues/366)). Such cases include:
   - **Italy "Diramazione" (branch) motorways**. Between their main autostrade "A" roads, the Italian motorway network has branch motorways which carry the name of both highways that they connect. For example, the A7 and A26 motorways have a branch motorway named A7/A26, which is correctly tagged `ref=A7/A26` and shown on shields with the two numbers stacked vertically.
   - **West Virginia County Routes**. The West Virginia Department of Transportation posts County Routes, which can have shields with two stacked numbers. For example, in Mercer County, County Route 460/1 is a branch off U.S. Route 460, and County Route 27/6 is a branch off County Route 27. These routes are correctly tagged `ref=460/1` and `ref=27/6` respectively, and shown on shields with the two numbers stacked vertically.
+
+### Shield Test Gallery
+
+For testing out changes across a variety of different shield designs and ref lengths there is a shield test gallery available:
+
+- In local development: http://localhost:1776/shieldtest.html
+- On the public demo site: https://zelonewolf.github.io/openstreetmap-americana/shieldtest.html
+
+This aims to display a table of all the unique shield designs in the style with some example refs from 1 to 6 characters. The `networks` and `refs` arrays can be modified for testing with a different set of either:
+
+https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L16-L31
+https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L203-L218
+
+To test with a list of all the supported networks in the style this line can be uncommented:
+
+https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
+
+This results in a very long page and can be quite slow or even crash the browser tab.
