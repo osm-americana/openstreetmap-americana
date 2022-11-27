@@ -300,9 +300,18 @@ function buildStyle() {
   };
 }
 
+function upgradeLegacyHash() {
+  let hash = window.location.hash.substr(1);
+  if (!hash.includes("=")) {
+    hash = `#map=${hash}`;
+  }
+  window.location.hash = hash;
+}
+upgradeLegacyHash();
+
 export const map = (window.map = new maplibregl.Map({
   container: "map", // container id
-  hash: true,
+  hash: "map",
   antialias: true,
   style: buildStyle(),
   center: [-94, 40.5], // starting position [lng, lat]
@@ -324,6 +333,10 @@ map.on("styleimagemissing", function (e) {
 window.addEventListener("languagechange", (event) => {
   console.log(`Changed to ${navigator.languages}`);
   map.setStyle(buildStyle());
+});
+
+window.addEventListener("hashchange", (event) => {
+  upgradeLegacyHash();
 });
 
 let attributionConfig = {
