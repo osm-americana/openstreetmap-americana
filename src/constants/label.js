@@ -2,8 +2,7 @@
 
 // Name fields in order of preference
 export const localizedName = (function () {
-  let userLocales =
-    "languages" in navigator ? [...navigator.languages] : [navigator.language];
+  let userLocales = navigator.languages ?? [navigator.language];
   let locales = [];
   let localeSet = new Set(); // avoid duplicates
   for (let locale of userLocales) {
