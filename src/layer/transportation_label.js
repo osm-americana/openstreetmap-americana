@@ -77,8 +77,8 @@ export const label = {
     "text-font": [
       ...highwaySelector,
       "ferry",
-      ["literal", ["Metropolis Regular Italic"]],
-      ["literal", ["Metropolis Light"]],
+      ["literal", ["OpenHistorical Italic"]],
+      ["literal", ["OpenHistorical"]],
     ],
     "text-field": Label.localizedName,
     "text-max-angle": 20,

@@ -282,7 +282,8 @@ function buildStyle() {
   return {
     id: "streets",
     name: "Americana",
-    glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
+    glyphs:
+      "https://openhistoricalmap.github.io/map-styles/fonts/{fontstack}/{range}.pbf",
     layers: buildLayers(),
     sources: {
       openmaptiles: {
