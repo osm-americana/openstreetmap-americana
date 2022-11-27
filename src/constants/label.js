@@ -1,6 +1,13 @@
 "use strict";
 
 /**
+ * Returns a list of languages as a comma-delimited string from the given URL hash.
+ */
+export function getLanguageFromURL(url) {
+  return new URLSearchParams(url.hash.substr(1)).get("language");
+}
+
+/**
  * Returns a `coalesce` expression that resolves to the feature's name in a
  * language that the user prefers.
  *
@@ -8,8 +15,11 @@
  *  that include underscores, for layers that have not transitioned to the
  *  colon syntax.
  */
-function getLocalizedNameExpression(includesLegacyFields) {
-  let userLocales = navigator.languages ?? [navigator.language];
+export function getLocalizedNameExpression(includesLegacyFields) {
+  // Check the language "parameter" in the hash.
+  let parameter = getLanguageFromURL(window.location)?.split(",");
+  // Fall back to the user's language preference.
+  let userLocales = parameter ?? navigator.languages ?? [navigator.language];
   let locales = [];
   let localeSet = new Set(); // avoid duplicates
   for (let locale of userLocales) {
@@ -39,5 +49,5 @@ function getLocalizedNameExpression(includesLegacyFields) {
   return ["coalesce", ...nameFields.map((f) => ["get", f])];
 }
 
-export const localizedName = getLocalizedNameExpression(false);
-export const legacyLocalizedName = getLocalizedNameExpression(true);
+// Placeholder to be resolved by buildLayers()
+export const localizedName = "$$localizedName";

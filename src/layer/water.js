@@ -112,6 +112,9 @@ export const waterwayLabel = {
     "text-letter-spacing": 0.15,
   },
   paint: labelPaintProperties,
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 
 //Lake labels rendered as a linear feature
@@ -137,6 +140,9 @@ export const waterLabel = {
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
 
 //Lake labels rendered as a point feature
@@ -163,4 +169,7 @@ export const waterPointLabel = {
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
+  metadata: {
+    "americana:text-field-localized": true,
+  },
 };
