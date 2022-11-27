@@ -154,7 +154,7 @@ export const waterPointLabel = {
   filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
     "text-field": Label.localizedName,
-    "text-font": ["OpenHistorical Italic"],
+    "text-font": ["Open Sans Bold Italic"],
     "text-size": [
       "interpolate",
       ["exponential", 2],
