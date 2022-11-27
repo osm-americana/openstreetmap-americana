@@ -44,7 +44,7 @@ export const label = {
   layout: {
     visibility: "visible",
     "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
   },
@@ -98,7 +98,7 @@ export const parkLabel = {
   layout: {
     visibility: "visible",
     "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
   },
