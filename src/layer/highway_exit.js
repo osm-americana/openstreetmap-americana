@@ -11,7 +11,7 @@ export const exits = {
   minzoom: 14,
   layout: {
     "text-field": ["get", "ref"],
-    "text-font": ["Metropolis Black"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 9,
     "text-line-height": 1,
   },

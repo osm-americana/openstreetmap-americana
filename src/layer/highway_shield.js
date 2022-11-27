@@ -35,7 +35,7 @@ for (var i = 1; i <= 6; i++) {
 
 let shieldLayout = {
   "text-rotation-alignment": "viewport-glyph",
-  "text-font": ["Metropolis Light"],
+  "text-font": ["OpenHistorical"],
   "text-field": shieldTextField,
   "text-anchor": "center",
   "text-letter-spacing": 0.7,
