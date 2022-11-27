@@ -49,7 +49,9 @@ export const label = {
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  metadata: {},
+  metadata: {
+    "americana:text-field-localized": true,
+  },
   "source-layer": "park",
 };
 
@@ -101,6 +103,8 @@ export const parkLabel = {
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  metadata: {},
+  metadata: {
+    "americana:text-field-localized": true,
+  },
   "source-layer": "poi",
 };

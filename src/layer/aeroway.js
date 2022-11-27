@@ -221,7 +221,9 @@ export const airportLabel = {
     ...iconLayout,
   },
   source: "openmaptiles",
-  metadata: {},
+  metadata: {
+    "americana:text-field-localized": true,
+  },
   "source-layer": "aerodrome_label",
 };
 
@@ -244,7 +246,9 @@ export const minorAirportLabel = {
     "text-size": 10,
   },
   source: "openmaptiles",
-  metadata: {},
+  metadata: {
+    "americana:text-field-localized": true,
+  },
   "source-layer": "aerodrome_label",
 };
 

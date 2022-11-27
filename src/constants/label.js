@@ -8,7 +8,7 @@
  *  that include underscores, for layers that have not transitioned to the
  *  colon syntax.
  */
-function getLocalizedNameExpression(includesLegacyFields) {
+export function getLocalizedNameExpression(includesLegacyFields) {
   let userLocales = navigator.languages ?? [navigator.language];
   let locales = [];
   let localeSet = new Set(); // avoid duplicates
@@ -39,5 +39,5 @@ function getLocalizedNameExpression(includesLegacyFields) {
   return ["coalesce", ...nameFields.map((f) => ["get", f])];
 }
 
-export const localizedName = getLocalizedNameExpression(false);
-export const legacyLocalizedName = getLocalizedNameExpression(true);
+// Placeholder to be resolved by buildLayers()
+export const localizedName = "$$localizedName";
