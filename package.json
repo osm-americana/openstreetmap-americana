@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "create-serve": "^1.0.1",
-    "esbuild": "^0.14.43",
+    "esbuild": "^0.15.15",
     "maplibre-gl": "^2.1.9",
-    "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
+    "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "prettier": "2.3.2",
     "shx": "^0.3.4",
     "svgo": "^2.8.0"
