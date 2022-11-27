@@ -1097,6 +1097,10 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white
   );
+  shields["US:CA:San_Francisco:49_Mile_Scenic_Drive"] = {
+    backgroundImage: shieldImages.shield_us_ca_sf_49,
+    notext: true,
+  };
 
   // Colorado
   shields["US:CO"] = {
