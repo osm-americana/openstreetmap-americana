@@ -193,7 +193,7 @@ export function trapezoid(
 ) {
   let angleInRadians = (angle * Math.PI) / 180;
   let angleSign = Math.sign(angle);
-  let sine = Math.sin(angleInRadians);
+  let sine = Math.sin(Math.abs(angleInRadians));
   let cosine = Math.cos(angleInRadians);
   let tangent = Math.tan(angleInRadians);
 
