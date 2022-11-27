@@ -52,9 +52,4 @@ Americana displays custom route shields for routes in all U.S. states and territ
 
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
 
-We are hoping that it will support more areas, you can [help us](CONTRIBUTING.md)!
-
-## License
-
-<img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
-Except where otherwise noted, to the extent possible under law, the contributors to OpenStreetMap Americana have waived all copyright and related or neighboring rights to OpenStreetMap Americana.
+We are hoping that it will support more countries; you can [help us](https://github.com/ZeLonewolf/openstreetmap-americana/projects/1)!
