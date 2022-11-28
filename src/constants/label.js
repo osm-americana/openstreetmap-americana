@@ -8,14 +8,9 @@ export function getLanguageFromURL(url) {
 }
 
 /**
- * Returns a `coalesce` expression that resolves to the feature's name in a
- * language that the user prefers.
- *
- * @param {boolean} includesLegacyFields - Whether to include the older fields
- *  that include underscores, for layers that have not transitioned to the
- *  colon syntax.
+ * Returns the languages that the user prefers.
  */
-export function getLocalizedNameExpression(includesLegacyFields) {
+export function getLocales() {
   // Check the language "parameter" in the hash.
   let parameter = getLanguageFromURL(window.location)?.split(",");
   // Fall back to the user's language preference.
@@ -32,6 +27,19 @@ export function getLocalizedNameExpression(includesLegacyFields) {
       components.pop();
     }
   }
+  return locales;
+}
+
+/**
+ * Returns a `coalesce` expression that resolves to the feature's name in a
+ * language that the user prefers.
+ *
+ * @param {boolean} includesLegacyFields - Whether to include the older fields
+ *  that include underscores, for layers that have not transitioned to the
+ *  colon syntax.
+ */
+export function getLocalizedNameExpression(includesLegacyFields) {
+  let locales = getLocales();
   if (locales.at(-1) === "en") {
     locales.push("latin");
   }
@@ -50,4 +58,9 @@ export function getLocalizedNameExpression(includesLegacyFields) {
 }
 
 // Placeholder to be resolved by buildLayers()
-export const localizedName = "$$localizedName";
+export const localizedName = [
+  "let",
+  "localizedName",
+  "",
+  ["var", "localizedName"],
+];

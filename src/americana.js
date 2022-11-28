@@ -259,16 +259,21 @@ function buildLayers() {
   let localizedNameExpression = Label.getLocalizedNameExpression(false);
   let legacyLocalizedNameExpression = Label.getLocalizedNameExpression(true);
   for (let layer of layers) {
-    if (
-      "metadata" in layer &&
-      "layout" in layer &&
-      layer.metadata["americana:text-field-localized"] === true
-    ) {
-      // https://github.com/openmaptiles/openmaptiles/issues/769
-      layer.layout["text-field"] =
-        layer["source-layer"] === "transportation_name"
-          ? legacyLocalizedNameExpression
-          : localizedNameExpression;
+    if ("layout" in layer && "text-field" in layer.layout) {
+      let textField = layer.layout["text-field"];
+      if (textField && textField[0] === "let") {
+        if (textField.indexOf("localizedName") % 2 === 1) {
+          let variableNameIndex = textField.indexOf("localizedName");
+          if (variableNameIndex % 2 === 1) {
+            // https://github.com/openmaptiles/openmaptiles/issues/769
+            let expr =
+              layer["source-layer"] === "transportation_name"
+                ? legacyLocalizedNameExpression
+                : localizedNameExpression;
+            layer.layout["text-field"][variableNameIndex + 1] = expr;
+          }
+        }
+      }
     }
   }
 
