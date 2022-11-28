@@ -181,3 +181,76 @@ export function roundedRectangle(
 
   return ctx;
 }
+
+export function trapezoid(
+  angle,
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  let angleInRadians = (angle * Math.PI) / 180;
+  let angleSign = Math.sign(angle);
+  let sine = Math.sin(Math.abs(angleInRadians));
+  let cosine = Math.cos(angleInRadians);
+  let tangent = Math.tan(angleInRadians);
+
+  if (rectWidth == null) {
+    var shieldWidth = Math.ceil(
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
+        (2 + (CS * sine) / 2) * PXR
+    );
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+
+  let x0 = lineWidth;
+  let x11 = width - lineWidth;
+  let y0 = angle > 0 ? lineWidth : CS - lineWidth;
+  let y3 = angle > 0 ? CS - lineWidth : lineWidth;
+
+  let y1 = y0 + angleSign * drawRadius * (1 + sine);
+  let y2 = y3 - angleSign * drawRadius * (1 - sine);
+
+  let x1 = x0 + (y1 - y0) * tangent;
+  let x2 = x1 + drawRadius * cosine;
+  let x3 = x0 + (y2 - y0) * tangent;
+  let x4 = x0 + (y3 - y0) * tangent;
+  let x5 = x3 + drawRadius * cosine;
+  // let x6 = width - x5;
+  let x7 = width - x4;
+  let x8 = width - x3;
+  let x9 = width - x2;
+  // let x10 = width - x1;
+
+  ctx.beginPath();
+  ctx.moveTo(x9, y0);
+  ctx.arcTo(x11, y0, x8, y2, drawRadius);
+  ctx.arcTo(x7, y3, x5, y3, drawRadius);
+  ctx.arcTo(x4, y3, x1, y1, drawRadius);
+  ctx.arcTo(x0, y0, x9, y0, drawRadius);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
