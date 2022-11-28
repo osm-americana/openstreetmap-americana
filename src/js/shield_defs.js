@@ -91,6 +91,50 @@ function roundedRectShield(
 }
 
 /**
+ * Draws a shield with a trapezoid background
+ *
+ * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} fillColor - Color of rectangle background fill
+ * @param {*} strokeColor - Color of rectangle outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of rectangle (defaults to variable-width)
+ * @param {*} radius - Corner radius of rectangle (defaults to 2)
+ * @returns a shield definition object
+ */
+function trapezoidShield(
+  angle,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius = radius ?? 0;
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.trapezoid(
+        angle,
+        fillColor,
+        strokeColor,
+        ref,
+        radius,
+        1,
+        rectWidth
+      ),
+    textLayoutConstraint: (spaceBounds, textBounds) =>
+      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    padding: {
+      left: 3,
+      right: 3,
+      top: 3 - Math.sign(angle),
+      bottom: 3 + Math.sign(angle),
+    },
+    textColor: textColor,
+  };
+}
+
+/**
  * Draws a shield with a pill-shaped background
  *
  * @param {*} fillColor - Color of pill background fill
@@ -237,63 +281,6 @@ export function loadShields(shieldImages) {
     ...diamondShield,
     backgroundImage: shieldImages.shield_diamond_brown,
     textColor: Color.shields.white,
-  };
-
-  // Trapezoid shields
-  let trapezoidUpShield = {
-    backgroundImage: [
-      shieldImages.shield_trapezoid_2,
-      shieldImages.shield_trapezoid_3,
-    ],
-    textColor: Color.shields.black,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 2,
-      bottom: 5,
-    },
-  };
-
-  let trapezoidUpShieldRoundedBrown = {
-    ...trapezoidUpShield,
-    backgroundImage: [
-      shieldImages.shield_trapezoid_rounded_brown_2,
-      shieldImages.shield_trapezoid_rounded_brown_3,
-    ],
-    textColor: Color.shields.white,
-  };
-
-  let trapezoidUpShieldBlue = {
-    ...trapezoidUpShieldRoundedBrown,
-    backgroundImage: [
-      shieldImages.shield_trapezoid_blue_2,
-      shieldImages.shield_trapezoid_blue_3,
-    ],
-  };
-
-  let trapezoidUpShieldBlackYellow = {
-    ...trapezoidUpShield,
-    backgroundImage: [
-      shieldImages.shield_trapezoid_black_yellow_2,
-      shieldImages.shield_trapezoid_black_yellow_3,
-    ],
-    textColor: Color.shields.yellow,
-  };
-
-  let trapezoidUpShieldGreenYellow = {
-    ...trapezoidUpShieldBlackYellow,
-    backgroundImage: shieldImages.shield_trapezoid_green_yellow_2,
-  };
-
-  let trapezoidDownShield = {
-    ...trapezoidUpShield,
-    verticalReflect: true,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 5,
-      bottom: 2,
-    },
   };
 
   // Pentagon shields
@@ -651,20 +638,37 @@ export function loadShields(shieldImages) {
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
     ["ETR"]
   );
-  shields["CA:ON:secondary"] = trapezoidDownShield;
+  shields["CA:ON:secondary"] = trapezoidShield(
+    -10,
+    Color.shields.white,
+    Color.shields.black
+  );
   shields["CA:ON:tertiary"] = roundedRectShield(
     Color.shields.white,
     Color.shields.black
   );
-  shields["CA:ON:Halton"] = trapezoidUpShieldGreenYellow;
-  shields["CA:ON:Peel"] = trapezoidUpShieldBlackYellow;
-  shields["CA:ON:Simcoe"] = {
-    ...trapezoidUpShield,
-    textColor: Color.shields.blue,
-    colorLighten: Color.shields.blue,
-  };
+  shields["CA:ON:Halton"] = trapezoidShield(
+    10,
+    Color.shields.green,
+    Color.shields.yellow
+  );
+  shields["CA:ON:Peel"] = trapezoidShield(
+    10,
+    Color.shields.black,
+    Color.shields.yellow
+  );
+  shields["CA:ON:Simcoe"] = trapezoidShield(
+    10,
+    Color.shields.white,
+    Color.shields.blue
+  );
   ["Grey", "Hamilton", "Niagara"].forEach(
-    (county) => (shields[`CA:ON:${county}`] = trapezoidUpShieldBlue)
+    (county) =>
+      (shields[`CA:ON:${county}`] = trapezoidShield(
+        10,
+        Color.shields.blue,
+        Color.shields.white
+      ))
   );
   [
     "Brant",
@@ -711,7 +715,11 @@ export function loadShields(shieldImages) {
     "York",
   ].forEach(
     (countyTownshipOrCity) =>
-      (shields[`CA:ON:${countyTownshipOrCity}`] = trapezoidUpShield)
+      (shields[`CA:ON:${countyTownshipOrCity}`] = trapezoidShield(
+        10,
+        Color.shields.white,
+        Color.shields.black
+      ))
   );
   shields["CA:ON:Hastings:Wollaston"] = banneredShield(
     roundedRectShield(Color.shields.white, Color.shields.black),
@@ -1570,7 +1578,13 @@ export function loadShields(shieldImages) {
           textColor: Color.shields.white,
         },
         roundedRectShield(Color.shields.white, Color.shields.black),
-        trapezoidUpShieldRoundedBrown,
+        trapezoidShield(
+          10,
+          Color.shields.brown,
+          Color.shields.white,
+          Color.shields.white,
+          2
+        ),
       ])
   );
 
@@ -1736,7 +1750,11 @@ export function loadShields(shieldImages) {
   );
 
   // Nebraska
-  shields["US:NE"] = trapezoidUpShield;
+  shields["US:NE"] = trapezoidShield(
+    10,
+    Color.shields.white,
+    Color.shields.black
+  );
   shields["US:NE:Business"] = banneredShield(shields["US:NE"], ["BUS"]);
   shields["US:NE:Link"] = banneredShield(shields["US:NE"], ["LINK"]);
   shields["US:NE:Rec"] = banneredShield(shields["US:NE"], ["REC"]);
