@@ -181,7 +181,31 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": [
+      "let",
+      "localizedName",
+      "",
+      "localizedCollator",
+      ["collator", {}],
+      [
+        "case",
+        [
+          "==",
+          ["var", "localizedName"],
+          ["get", "name"],
+          ["var", "localizedCollator"],
+        ],
+        ["var", "localizedName"],
+        // Gloss the name in the local language if it differs from the localized name.
+        [
+          "format",
+          ["var", "localizedName"],
+          "\n",
+          ["concat", "(", ["get", "name"], ")"],
+          { "font-scale": 0.8 },
+        ],
+      ],
+    ],
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",

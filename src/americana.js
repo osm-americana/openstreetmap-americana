@@ -255,7 +255,8 @@ function buildLayers() {
     lyrPlace.continent
   );
 
-  // Resolve localized name placeholders.
+  // Updated localizable variables at the top level of each layer's text-field expression based on the current language preference.
+  let locale = Label.getLocales()[0];
   let localizedNameExpression = Label.getLocalizedNameExpression(false);
   let legacyLocalizedNameExpression = Label.getLocalizedNameExpression(true);
   for (let layer of layers) {
@@ -270,6 +271,18 @@ function buildLayers() {
               layer["source-layer"] === "transportation_name"
                 ? legacyLocalizedNameExpression
                 : localizedNameExpression;
+            layer.layout["text-field"][variableNameIndex + 1] = expr;
+          }
+        }
+        if (textField.indexOf("localizedCollator") % 2 === 1) {
+          let variableNameIndex = textField.indexOf("localizedCollator");
+          if (variableNameIndex % 2 === 1) {
+            let options = {
+              "case-sensitive": false,
+              "diacritic-sensitive": true,
+              locale: locale,
+            };
+            let expr = ["collator", options];
             layer.layout["text-field"][variableNameIndex + 1] = expr;
           }
         }
