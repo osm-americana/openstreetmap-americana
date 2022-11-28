@@ -310,6 +310,12 @@ function upgradeLegacyHash() {
 }
 upgradeLegacyHash();
 
+maplibregl.setRTLTextPlugin(
+  "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
+  null,
+  true
+);
+
 export const map = (window.map = new maplibregl.Map({
   container: "map", // container id
   hash: "map",
