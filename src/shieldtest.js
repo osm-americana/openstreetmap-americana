@@ -52,6 +52,7 @@ let networks = [
   "AU:WA:NH",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
+  "HU:national",
 
   "US:TN:secondary",
   "US:NC",

@@ -254,3 +254,141 @@ export function trapezoid(
 
   return ctx;
 }
+
+export function homePlate(
+  offset,
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  if (rectWidth == null) {
+    var shieldWidth = Math.ceil(
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
+    );
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+  let drawOffset = Math.abs(offset) * PXR;
+
+  let x0 = lineWidth;
+  let x4 = width - lineWidth;
+  let y0 = lineWidth;
+  let y4 = CS - lineWidth;
+
+  let x1 = x0 + drawRadius;
+  let x2 = (x0 + x4) / 2;
+  let x3 = x4 - drawRadius;
+  let y1 = y0 + drawRadius;
+  let y3 = y4 - drawOffset;
+
+  let drawOffsetTangent =
+    drawRadius * Math.tan(Math.PI / 4 - Math.asin(drawOffset / (x2 - x0)) / 2);
+  let y2 = y3 - drawOffsetTangent;
+
+  if (offset < 0) {
+    y0 = CS - y0;
+    y1 = CS - y1;
+    y2 = CS - y2;
+    y3 = CS - y3;
+    y4 = CS - y4;
+  }
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y4);
+  ctx.arcTo(x0, y3, x0, y2, drawRadius);
+  ctx.arcTo(x0, y0, x1, y0, drawRadius);
+  ctx.lineTo(x3, y0);
+  ctx.arcTo(x4, y0, x4, y2, drawRadius);
+  ctx.arcTo(x4, y3, x2, y4, drawRadius);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
+export function hexagonVertical(
+  offset,
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  if (rectWidth == null) {
+    var shieldWidth = Math.ceil(
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
+    );
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+  let drawOffset = offset * PXR;
+
+  let x0 = lineWidth;
+  let x4 = width - lineWidth;
+  let y0 = lineWidth;
+  let y5 = CS - lineWidth;
+
+  let x1 = x0 + drawRadius;
+  let x2 = (x0 + x4) / 2;
+  let x3 = x4 - drawRadius;
+  let y1 = y0 + drawOffset;
+  let y4 = y5 - drawOffset;
+
+  let drawOffsetTangent =
+    drawRadius * Math.tan(Math.PI / 4 - Math.asin(drawOffset / (x2 - x0)) / 2);
+  let y2 = y1 + drawOffsetTangent;
+  let y3 = y4 - drawOffsetTangent;
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y5);
+  ctx.arcTo(x0, y4, x0, y3, drawRadius);
+  ctx.arcTo(x0, y1, x2, y0, drawRadius);
+  ctx.lineTo(x2, y0);
+  ctx.arcTo(x4, y1, x4, y2, drawRadius);
+  ctx.arcTo(x4, y4, x2, y5, drawRadius);
+  ctx.lineTo(x2, y5);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
