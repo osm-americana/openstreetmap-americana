@@ -122,7 +122,6 @@ export function blank(ref) {
     minGenericShieldWidth,
     Math.min(maxGenericShieldWidth, shieldWidth)
   );
-  width = Math.ceil(width);
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
@@ -135,9 +134,8 @@ export function roundedRectangle(
   rectWidth
 ) {
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
-    );
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -198,10 +196,9 @@ export function trapezoid(
   let tangent = Math.tan(angleInRadians);
 
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
+    var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-        (2 + (CS * sine) / 2) * PXR
-    );
+      (2 + (CS * sine) / 2) * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -260,9 +257,8 @@ export function diamond(fill, outline, ref, radius, outlineWidth, rectWidth) {
   let height = CS + extraSpace;
 
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
-    );
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
     var width = Math.max(
       minGenericShieldWidth + extraSpace,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -331,9 +327,8 @@ export function homePlate(
   rectWidth
 ) {
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
-    );
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -403,9 +398,8 @@ export function hexagonVertical(
   rectWidth
 ) {
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
-    );
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -476,10 +470,9 @@ export function hexagonHorizontal(
   let halfComplementTangent = Math.tan(Math.PI / 4 - angleInRadians / 2);
 
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
+    var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-        (2 + (CS * sine) / 2) * PXR
-    );
+      (2 + (CS * sine) / 2) * PXR;
     var width = Math.max(
       minGenericShieldWidth + 4 * PXR,
       Math.min(maxGenericShieldWidth, shieldWidth)
