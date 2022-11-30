@@ -471,8 +471,7 @@ export function hexagonHorizontal(
 
   if (rectWidth == null) {
     var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-      (2 + (CS * sine) / 2) * PXR;
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
     var width = Math.max(
       minGenericShieldWidth + 4 * PXR,
       Math.min(maxGenericShieldWidth, shieldWidth)
