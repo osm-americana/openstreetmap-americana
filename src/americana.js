@@ -259,48 +259,44 @@ function buildLayers() {
   let locale = Label.getLocales()[0];
   let localizedNameExpression = Label.getLocalizedNameExpression(false);
   let legacyLocalizedNameExpression = Label.getLocalizedNameExpression(true);
+  let updateVariable = (prop, variable, expr) => {
+    let variableNameIndex = prop.indexOf(variable);
+    if (variableNameIndex % 2 === 1) {
+      prop[variableNameIndex + 1] = expr;
+    }
+  };
+
   for (let layer of layers) {
     if ("layout" in layer && "text-field" in layer.layout) {
       let textField = layer.layout["text-field"];
       if (textField && textField[0] === "let") {
-        if (textField.indexOf("localizedName") % 2 === 1) {
-          let variableNameIndex = textField.indexOf("localizedName");
-          if (variableNameIndex % 2 === 1) {
-            // https://github.com/openmaptiles/openmaptiles/issues/769
-            let expr =
-              layer["source-layer"] === "transportation_name"
-                ? legacyLocalizedNameExpression
-                : localizedNameExpression;
-            layer.layout["text-field"][variableNameIndex + 1] = expr;
-          }
-        }
-        if (textField.indexOf("localizedCollator") % 2 === 1) {
-          let variableNameIndex = textField.indexOf("localizedCollator");
-          if (variableNameIndex % 2 === 1) {
-            let options = {
-              "case-sensitive": false,
-              "diacritic-sensitive": true,
-              locale: locale,
-            };
-            let expr = ["collator", options];
-            layer.layout["text-field"][variableNameIndex + 1] = expr;
-          }
-        }
-        if (textField.indexOf("diacriticInsensitiveCollator") % 2 === 1) {
-          let variableNameIndex = textField.indexOf(
-            "diacriticInsensitiveCollator"
-          );
-          if (variableNameIndex % 2 === 1) {
-            // Only perform diacritic folding in English. English normally uses few diacritics except when labeling foreign place names on maps.
-            let options = {
-              "case-sensitive": false,
-              "diacritic-sensitive": !/^en\b/.test(locale),
-              locale: locale,
-            };
-            let expr = ["collator", options];
-            layer.layout["text-field"][variableNameIndex + 1] = expr;
-          }
-        }
+        // https://github.com/openmaptiles/openmaptiles/issues/769
+        updateVariable(
+          textField,
+          "localizedName",
+          layer["source-layer"] === "transportation_name"
+            ? legacyLocalizedNameExpression
+            : localizedNameExpression
+        );
+
+        updateVariable(textField, "localizedCollator", [
+          "collator",
+          {
+            "case-sensitive": false,
+            "diacritic-sensitive": true,
+            locale: locale,
+          },
+        ]);
+
+        // Only perform diacritic folding in English. English normally uses few diacritics except when labeling foreign place names on maps.
+        updateVariable(textField, "diacriticInsensitiveCollator", [
+          "collator",
+          {
+            "case-sensitive": false,
+            "diacritic-sensitive": !/^en\b/.test(locale),
+            locale: locale,
+          },
+        ]);
       }
     }
   }
