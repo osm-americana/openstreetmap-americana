@@ -286,6 +286,21 @@ function buildLayers() {
             layer.layout["text-field"][variableNameIndex + 1] = expr;
           }
         }
+        if (textField.indexOf("diacriticInsensitiveCollator") % 2 === 1) {
+          let variableNameIndex = textField.indexOf(
+            "diacriticInsensitiveCollator"
+          );
+          if (variableNameIndex % 2 === 1) {
+            // Only perform diacritic folding in English. English normally uses few diacritics except when labeling foreign place names on maps.
+            let options = {
+              "case-sensitive": false,
+              "diacritic-sensitive": !/^en\b/.test(locale),
+              locale: locale,
+            };
+            let expr = ["collator", options];
+            layer.layout["text-field"][variableNameIndex + 1] = expr;
+          }
+        }
       }
     }
   }

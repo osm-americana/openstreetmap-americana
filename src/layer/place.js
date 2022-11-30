@@ -187,15 +187,37 @@ export const city = {
       "",
       "localizedCollator",
       ["collator", {}],
+      "diacriticInsensitiveCollator",
+      ["collator", {}],
       [
         "case",
         [
-          "==",
-          ["var", "localizedName"],
-          ["get", "name"],
-          ["var", "localizedCollator"],
+          "any",
+          [
+            "==",
+            ["var", "localizedName"],
+            ["get", "name"],
+            ["var", "localizedCollator"],
+          ],
+          [
+            "==",
+            ["var", "localizedName"],
+            ["get", "name"],
+            ["var", "diacriticInsensitiveCollator"],
+          ],
         ],
-        ["var", "localizedName"],
+        [
+          "case",
+          [
+            "!=",
+            ["var", "localizedName"],
+            ["get", "name"],
+            ["var", "diacriticInsensitiveCollator"],
+          ],
+          ["var", "localizedName"],
+          // Replace the local name with the localized name if the local name is the same plus diacritics.
+          ["get", "name"],
+        ],
         // Gloss the name in the local language if it differs from the localized name.
         [
           "format",
