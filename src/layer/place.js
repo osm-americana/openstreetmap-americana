@@ -198,14 +198,87 @@ export const city = {
           ["var", "localizedCollator"],
         ],
         ["var", "localizedName"],
-        // If the name in the local language and preferred language match except for diacritics, show only the localized name.
+        // If the name in the preferred language is the same as the name in the local language except for the omission of diacritics and/or the addition of a suffix (e.g., "City" in English), replace the common prefix with the local name.
         [
-          "==",
-          ["var", "localizedName"],
-          ["get", "name"],
-          ["var", "diacriticInsensitiveCollator"],
+          "all",
+          [
+            "==",
+            ["slice", ["var", "localizedName"], 0, ["length", ["get", "name"]]],
+            ["get", "name"],
+            ["var", "diacriticInsensitiveCollator"],
+          ],
+          [
+            "in",
+            [
+              "slice",
+              // "Montreal" vs. "Montréal"
+              ["concat", ["var", "localizedName"], " "],
+              ["length", ["get", "name"]],
+              ["+", ["length", ["get", "name"]], 1],
+            ],
+            // "Quebec City" vs. "Québec", "Washington, D.C." vs. "Washington"
+            " ,",
+          ],
         ],
-        ["get", "name"],
+        [
+          "concat",
+          ["get", "name"],
+          ["slice", ["var", "localizedName"], ["length", ["get", "name"]]],
+        ],
+        // If the name in the preferred language is the same as the name in the local language except for the omission of diacritics and/or the addition of a prefix (e.g., "City of" in English or "Ciudad de" in Spanish), replace the common suffix with the local name.
+        [
+          "all",
+          [
+            "==",
+            [
+              "slice",
+              ["var", "localizedName"],
+              [
+                "-",
+                ["length", ["var", "localizedName"]],
+                ["length", ["get", "name"]],
+              ],
+            ],
+            ["get", "name"],
+            ["var", "diacriticInsensitiveCollator"],
+          ],
+          [
+            "==",
+            [
+              "slice",
+              ["var", "localizedName"],
+              [
+                "-",
+                [
+                  "-",
+                  ["length", ["var", "localizedName"]],
+                  ["length", ["get", "name"]],
+                ],
+                1,
+              ],
+              [
+                "-",
+                ["length", ["var", "localizedName"]],
+                ["length", ["get", "name"]],
+              ],
+            ],
+            " ",
+          ],
+        ],
+        [
+          "concat",
+          [
+            "slice",
+            ["var", "localizedName"],
+            0,
+            [
+              "-",
+              ["length", ["var", "localizedName"]],
+              ["length", ["get", "name"]],
+            ],
+          ],
+          ["get", "name"],
+        ],
         // Gloss the name in the local language if it differs from the localized name.
         [
           "format",
