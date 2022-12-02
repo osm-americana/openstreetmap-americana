@@ -2971,6 +2971,19 @@ export function loadShields(shieldImages) {
   // Hong Kong
   shields["HK"] = escutcheonShieldYellow;
 
+  // Indonesia
+  shields["ID:national"] = {
+    backgroundImage: [shieldImages.shield_id_national],
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 4,
+      bottom: 2,
+    },
+  };
+
   // Iran
   shields["ir:freeways"] = roundedRectShield(
     Color.shields.blue,
