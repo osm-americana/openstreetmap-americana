@@ -21,7 +21,7 @@
     "serve": "node scripts/serve.js",
     "build:code": "node scripts/build.js",
     "build": "run-s clean sprites build:code taginfo status_map",
-    "test": "mocha test/spec/**/*.js"
+    "test": "mocha"
   },
   "dependencies": {
     "@basemaps/sprites": "^6.28.1",
