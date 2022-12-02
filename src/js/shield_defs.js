@@ -2983,6 +2983,7 @@ export function loadShields(shieldImages) {
       bottom: 2,
     },
   };
+  shields["ID:toll"] = banneredShield(shields["ID:national"], ["TOL"]);
 
   // Iran
   shields["ir:freeways"] = roundedRectShield(
