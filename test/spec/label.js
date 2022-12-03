@@ -2,6 +2,25 @@
 
 import chai, { expect } from "chai";
 import * as Label from "../../src/constants/label.js";
+import { expression } from "@maplibre/maplibre-gl-style-spec";
+
+function localizedTextField(textField, locales) {
+  let layers = [
+    {
+      layout: {
+        "text-field": textField,
+      },
+    },
+  ];
+  Label.localizeLayers(layers, locales);
+  return layers[0].layout["text-field"];
+}
+
+function expressionContext(properties) {
+  return {
+    properties: () => properties,
+  };
+}
 
 describe("label", function () {
   describe("#getLanguageFromURL", function () {
@@ -137,7 +156,7 @@ describe("label", function () {
         },
         {
           layout: {
-            "text-field": Label.localizedName,
+            "text-field": [...Label.localizedName],
           },
         },
       ];
@@ -153,7 +172,7 @@ describe("label", function () {
         {
           "source-layer": "transportation_name",
           layout: {
-            "text-field": Label.localizedName,
+            "text-field": [...Label.localizedName],
           },
         },
       ];
@@ -221,6 +240,142 @@ describe("label", function () {
       Label.localizeLayers(layers, ["enm"]);
       expect(layers[0].layout["text-field"][2][1]["diacritic-sensitive"]).to.be
         .true;
+    });
+  });
+
+  describe("#localizedName", function () {
+    let evaluatedExpression = (locales, properties) =>
+      expression
+        .createExpression(localizedTextField([...Label.localizedName], ["en"]))
+        .value.expression.evaluate(expressionContext(properties));
+
+    it("is empty by default", function () {
+      expect(
+        expression
+          .createExpression(Label.localizedName)
+          .value.expression.evaluate(
+            expressionContext({
+              name: "Null Island",
+            })
+          )
+      ).to.be.eql("");
+    });
+    it("localizes to preferred language", function () {
+      expect(
+        evaluatedExpression(["en"], {
+          "name:en": "Null Island",
+          name: "Insula Nullius",
+        })
+      ).to.be.eql("Null Island");
+    });
+  });
+
+  describe("#localizedNameWithLocalGloss", function () {
+    let evaluatedExpression = (locales, properties) =>
+      expression
+        .createExpression(
+          localizedTextField([...Label.localizedNameWithLocalGloss], locales)
+        )
+        .value.expression.evaluate(expressionContext(properties));
+
+    let evaluatedLabelAndGloss = (locales, properties) => {
+      let evaluated = evaluatedExpression(locales, properties);
+      if (typeof evaluated === "string") {
+        return [evaluated, null];
+      }
+      return [evaluated.sections[0].text, evaluated.sections[4].text];
+    };
+
+    let expectGloss = (
+      locale,
+      localized,
+      local,
+      expectedLabel,
+      expectedGloss
+    ) => {
+      let properties = {
+        name: local,
+      };
+      properties[`name:${locale}`] = localized;
+      expect(evaluatedLabelAndGloss([locale], properties)).to.be.deep.equal([
+        expectedLabel,
+        expectedGloss,
+      ]);
+    };
+
+    it("puts an unlocalized name by itself", function () {
+      expect(
+        evaluatedExpression(["en"], {
+          name: "Null Island",
+        })
+      ).to.be.eql("Null Island");
+    });
+    it("glosses an anglicized name with the local name", function () {
+      let evaluated = evaluatedExpression(["en"], {
+        "name:en": "Null Island",
+        name: "Insula Nullius",
+      });
+
+      expect(evaluated.sections.length).to.be.eql(7);
+      expect(evaluated.sections[0].text).to.be.eql("Null Island");
+      expect(evaluated.sections[1].text).to.be.eql("\n");
+      expect(evaluated.sections[2].text).to.be.eql("(\u200B");
+      expect(evaluated.sections[3].text).to.be.eql("Null Island"[0] + " ");
+      expect(evaluated.sections[4].text).to.be.eql("Insula Nullius");
+      expect(evaluated.sections[5].text).to.be.eql(" " + "Null Island"[0]);
+      expect(evaluated.sections[6].text).to.be.eql("\u200B)");
+
+      expect(evaluated.sections[3].scale).to.be.below(0.1);
+      expect(evaluated.sections[4].scale).to.be.below(1);
+      expect(evaluated.sections[5].scale).to.be.below(0.1);
+    });
+    it("deduplicates matching anglicized and local names", function () {
+      expectGloss("en", "Null Island", "Null Island", "Null Island", null);
+      expectGloss("en", "Null Island", "NULL Island", "Null Island", null);
+      expectGloss("en", "Montreal", "Montréal", "Montréal", null);
+      expectGloss("en", "Quebec City", "Québec", "Québec City", null);
+      expectGloss("en", "Da Nang", "Đà Nẵng", "Đà Nẵng", null);
+      expectGloss("en", "Nūll Island", "Ñüłl Íşlåńđ", "Ñüłl Íşlåńđ", null);
+      expectGloss("en", "New York City", "New York", "New York City", null);
+      expectGloss(
+        "en",
+        "Washington, D.C.",
+        "Washington",
+        "Washington, D.C.",
+        null
+      );
+      expectGloss(
+        "en",
+        "Santiago de Querétaro",
+        "Querétaro",
+        "Santiago de Querétaro",
+        null
+      );
+
+      // Suboptimal but expected cases
+
+      expectGloss("en", "Córdobaaa", "Córdoba", "Córdobaaa", "Córdoba");
+      expectGloss(
+        "en",
+        "Derry",
+        "Derry/Londonderry",
+        "Derry",
+        "Derry/Londonderry"
+      );
+      expectGloss("en", "L’Aquila", "L'Aquila", "L’Aquila", "L'Aquila");
+    });
+    it("glosses non-English localized name with lookalike local name", function () {
+      expectGloss(
+        "es",
+        "Los Ángeles",
+        "Los Angeles",
+        "Los Ángeles",
+        "Los Angeles"
+      );
+      expectGloss("es", "Montreal", "Montréal", "Montreal", "Montréal");
+      expectGloss("es", "Quebec", "Québec", "Quebec", "Québec");
+      expectGloss("pl", "Ryga", "Rīga", "Ryga", "Rīga");
+      expectGloss("pl", "Jurmała", "Jūrmala", "Jurmała", "Jūrmala");
     });
   });
 });

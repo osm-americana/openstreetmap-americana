@@ -301,6 +301,7 @@ maplibregl.setRTLTextPlugin(
   true
 );
 
+window.maplibregl = maplibregl;
 export const map = (window.map = new maplibregl.Map({
   container: "map", // container id
   hash: "map",
