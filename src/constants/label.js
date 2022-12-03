@@ -129,7 +129,77 @@ export const localizedName = [
 ];
 
 /**
- * The name in the user's preferred language, followed by the name in the local language in parentheses if it differs.
+ * Returns an expression that tests whether the target has the given prefix,
+ * respecting word boundaries.
+ */
+function startsWithExpression(target, candidatePrefix, collator) {
+  // "Quebec City" vs. "Québec", "Washington, D.C." vs. "Washington"
+  let wordBoundaries = " ,";
+  return [
+    "all",
+    [
+      "==",
+      ["slice", target, 0, ["length", candidatePrefix]],
+      candidatePrefix,
+      collator,
+    ],
+    [
+      "in",
+      [
+        "slice",
+        // Pad the target in case the prefix matches exactly.
+        // "Montreal " vs. "Montréal"
+        ["concat", target, wordBoundaries[0]],
+        ["length", candidatePrefix],
+        ["+", ["length", candidatePrefix], 1],
+      ],
+      wordBoundaries,
+    ],
+  ];
+}
+
+function overwritePrefixExpression(target, newPrefix) {
+  return ["concat", newPrefix, ["slice", target, ["length", newPrefix]]];
+}
+
+/**
+ * Returns an expression that tests whether the target has the given suffix,
+ * respecting word boundaries.
+ */
+function endsWithExpression(target, candidateSuffix, collator) {
+  let wordBoundary = " ";
+  return [
+    "all",
+    [
+      "==",
+      ["slice", target, ["-", ["length", target], ["length", candidateSuffix]]],
+      candidateSuffix,
+      collator,
+    ],
+    [
+      "==",
+      [
+        "slice",
+        target,
+        ["-", ["-", ["length", target], ["length", candidateSuffix]], 1],
+        ["-", ["length", target], ["length", candidateSuffix]],
+      ],
+      wordBoundary,
+    ],
+  ];
+}
+
+function overwriteSuffixExpression(target, newSuffix) {
+  return [
+    "concat",
+    ["slice", target, 0, ["-", ["length", target], ["length", newSuffix]]],
+    newSuffix,
+  ];
+}
+
+/**
+ * The name in the user's preferred language, followed by the name in the local
+ * language in parentheses if it differs.
  */
 export const localizedNameWithLocalGloss = [
   "let",
@@ -141,109 +211,56 @@ export const localizedNameWithLocalGloss = [
   ["collator", {}],
   [
     "case",
+    // If the name in the preferred and local languages match exactly...
     [
       "==",
       ["var", "localizedName"],
       ["get", "name"],
       ["var", "localizedCollator"],
     ],
+    // ...just pick one.
     ["var", "localizedName"],
-    // If the name in the preferred language is the same as the name in the local language except for the omission of diacritics and/or the addition of a suffix (e.g., "City" in English), replace the common prefix with the local name.
-    [
-      "all",
-      [
-        "==",
-        ["slice", ["var", "localizedName"], 0, ["length", ["get", "name"]]],
-        ["get", "name"],
-        ["var", "diacriticInsensitiveCollator"],
-      ],
-      [
-        "in",
-        [
-          "slice",
-          // "Montreal" vs. "Montréal"
-          ["concat", ["var", "localizedName"], " "],
-          ["length", ["get", "name"]],
-          ["+", ["length", ["get", "name"]], 1],
-        ],
-        // "Quebec City" vs. "Québec", "Washington, D.C." vs. "Washington"
-        " ,",
-      ],
-    ],
-    [
-      "concat",
+    // If the name in the preferred language is the same as the name in the
+    // local language except for the omission of diacritics and/or the addition
+    // of a suffix (e.g., "City" in English)...
+    startsWithExpression(
+      ["var", "localizedName"],
       ["get", "name"],
-      ["slice", ["var", "localizedName"], ["length", ["get", "name"]]],
-    ],
-    // If the name in the preferred language is the same as the name in the local language except for the omission of diacritics and/or the addition of a prefix (e.g., "City of" in English or "Ciudad de" in Spanish), replace the common suffix with the local name.
-    [
-      "all",
-      [
-        "==",
-        [
-          "slice",
-          ["var", "localizedName"],
-          [
-            "-",
-            ["length", ["var", "localizedName"]],
-            ["length", ["get", "name"]],
-          ],
-        ],
-        ["get", "name"],
-        ["var", "diacriticInsensitiveCollator"],
-      ],
-      [
-        "==",
-        [
-          "slice",
-          ["var", "localizedName"],
-          [
-            "-",
-            [
-              "-",
-              ["length", ["var", "localizedName"]],
-              ["length", ["get", "name"]],
-            ],
-            1,
-          ],
-          [
-            "-",
-            ["length", ["var", "localizedName"]],
-            ["length", ["get", "name"]],
-          ],
-        ],
-        " ",
-      ],
-    ],
-    [
-      "concat",
-      [
-        "slice",
-        ["var", "localizedName"],
-        0,
-        [
-          "-",
-          ["length", ["var", "localizedName"]],
-          ["length", ["get", "name"]],
-        ],
-      ],
+      ["var", "diacriticInsensitiveCollator"]
+    ),
+    // ...then replace the common prefix with the local name.
+    overwritePrefixExpression(["var", "localizedName"], ["get", "name"]),
+    // If the name in the preferred language is the same as the name in the
+    // local language except for the omission of diacritics and/or the addition
+    // of a prefix (e.g., "City of" in English or "Ciudad de" in Spanish)...
+    endsWithExpression(
+      ["var", "localizedName"],
       ["get", "name"],
-    ],
-    // Gloss the name in the local language if it differs from the localized name.
+      ["var", "diacriticInsensitiveCollator"]
+    ),
+    // ...then replace the common suffix with the local name.
+    overwriteSuffixExpression(["var", "localizedName"], ["get", "name"]),
+    // Otherwise, gloss the name in the local language if it differs from the
+    // localized name.
     [
       "format",
       ["var", "localizedName"],
       "\n",
       "(\u200B",
       { "font-scale": 0.8 },
-      // GL JS lacks support for bidirectional isolating characters, so use a character from the localized name to insulate the parentheses from the embedded text's writing direction. Make it so small that GL JS doesn't bother rendering it.
+      // GL JS lacks support for bidirectional isolating characters, so use a
+      // character from the localized name to insulate the parentheses from the
+      // embedded text's writing direction. Make it so small that GL JS doesn't
+      // bother rendering it.
       ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
       { "font-scale": 0.001 },
       ["get", "name"],
       { "font-scale": 0.8 },
       ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
       { "font-scale": 0.001 },
-      // A ZWSP prevents GL JS from combining this component with the preceding one, which would cause it to vanish along with the faux isolating character.
+      // A ZWSP prevents GL JS from combining this component with the preceding
+      // one, which would cause it to vanish along with the faux isolating
+      // character.
       "\u200B)",
       { "font-scale": 0.8 },
     ],
