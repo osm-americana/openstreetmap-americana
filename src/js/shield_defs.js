@@ -1514,6 +1514,7 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
+  shields["US:ME:Business"] = banneredShield(shields["US:ME"], ["BUS"]);
 
   // Michigan
   shields["US:MI"] = diamondShield(
