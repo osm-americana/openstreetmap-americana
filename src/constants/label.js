@@ -34,12 +34,12 @@ export function getLocales() {
  * Returns a `coalesce` expression that resolves to the feature's name in a
  * language that the user prefers.
  *
+ * @param {[string]} locales - Locales of the name fields to include.
  * @param {boolean} includesLegacyFields - Whether to include the older fields
  *  that include underscores, for layers that have not transitioned to the
  *  colon syntax.
  */
-export function getLocalizedNameExpression(includesLegacyFields) {
-  let locales = getLocales();
+export function getLocalizedNameExpression(locales, includesLegacyFields) {
   if (locales.at(-1) === "en") {
     locales.push("latin");
   }
@@ -55,6 +55,67 @@ export function getLocalizedNameExpression(includesLegacyFields) {
     "name",
   ];
   return ["coalesce", ...nameFields.map((f) => ["get", f])];
+}
+
+/**
+ * Replaces the value of a variable in the given `let` expression.
+ *
+ * @param {array} letExpr - Expression to update.
+ * @param {string} variable - Name of the variable to set.
+ * @param {*} value - The variable's new value.
+ */
+export function updateVariable(letExpr, variable, value) {
+  if (!letExpr || letExpr[0] !== "let") return;
+
+  let variableNameIndex = letExpr.indexOf(variable);
+  if (variableNameIndex % 2 === 1) {
+    letExpr[variableNameIndex + 1] = value;
+  }
+}
+
+/**
+ * Updates localizable variables at the top level of each layer's `text-field` expression based on the given locales.
+ *
+ * @param {[object]} layers - The style layers to localize.
+ * @param {[string]} locales - The locales to insert into each layer.
+ */
+export function localizeLayers(layers, locales) {
+  let localizedNameExpression = getLocalizedNameExpression(locales, false);
+  let legacyLocalizedNameExpression = getLocalizedNameExpression(locales, true);
+
+  for (let layer of layers) {
+    if ("layout" in layer && "text-field" in layer.layout) {
+      let textField = layer.layout["text-field"];
+
+      updateVariable(
+        textField,
+        "localizedName",
+        // https://github.com/openmaptiles/openmaptiles/issues/769
+        layer["source-layer"] === "transportation_name"
+          ? legacyLocalizedNameExpression
+          : localizedNameExpression
+      );
+
+      updateVariable(textField, "localizedCollator", [
+        "collator",
+        {
+          "case-sensitive": false,
+          "diacritic-sensitive": true,
+          locale: locales[0],
+        },
+      ]);
+
+      // Only perform diacritic folding in English. English normally uses few diacritics except when labeling foreign place names on maps.
+      updateVariable(textField, "diacriticInsensitiveCollator", [
+        "collator",
+        {
+          "case-sensitive": false,
+          "diacritic-sensitive": !/^en\b/.test(locales[0]),
+          locale: locales[0],
+        },
+      ]);
+    }
+  }
 }
 
 // Placeholder to be resolved by buildLayers()
