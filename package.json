@@ -30,6 +30,7 @@
     "open": "^8.4.0"
   },
   "devDependencies": {
+    "@maplibre/maplibre-gl-style-spec": "^17.0.1",
     "chai": "^4.3.7",
     "create-serve": "^1.0.1",
     "esbuild": "^0.15.15",
