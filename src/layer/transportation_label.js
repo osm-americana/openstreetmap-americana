@@ -119,9 +119,6 @@ export const label = {
   },
   source: "openmaptiles",
   "source-layer": "transportation_name",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 // A spacer label on each bridge to push any waterway label away from the bridge.

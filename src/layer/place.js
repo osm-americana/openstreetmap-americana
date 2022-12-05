@@ -80,9 +80,6 @@ export const village = {
   minzoom: 11,
   maxzoom: 14,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 export const town = {
@@ -146,9 +143,6 @@ export const town = {
   minzoom: 4,
   maxzoom: 13,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 export const city = {
@@ -187,7 +181,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -208,9 +202,7 @@ export const city = {
   minzoom: 4,
   maxzoom: 12,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
+  metadata: {},
 };
 
 export const state = {
@@ -252,9 +244,6 @@ export const state = {
   maxzoom: 7,
   minzoom: 3,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const countryOther = {
   id: "country_other",
@@ -284,9 +273,6 @@ export const countryOther = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const country3 = {
   id: "country_3",
@@ -317,9 +303,6 @@ export const country3 = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const country2 = {
   id: "country_2",
@@ -350,9 +333,6 @@ export const country2 = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const country1 = {
   id: "country_1",
@@ -391,9 +371,6 @@ export const country1 = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const continent = {
   id: "continent",
@@ -414,7 +391,4 @@ export const continent = {
   source: "openmaptiles",
   maxzoom: 1,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
