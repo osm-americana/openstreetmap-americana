@@ -43,9 +43,9 @@ It may be necessary to prefix these with `sudo` depending where NPM is installed
 
 ## Platform Specific Notes
 
-### MacOS
+### macOS
 
-MacOS doesn't include a default package manager, but Node.js and NPM can be installed via
+macOS doesn't include a default package manager, but Node.js and NPM can be installed via
 [Homebrew][50] or [MacPorts][51]:
 
 - Homebrew - `brew install node`
@@ -165,6 +165,10 @@ boilerplate in `scripts/taginfo_template.json`.
    OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
 3. If any shield background icons are introduced, add lines to `src/shieldtest.js`
    to demonstrate overlaid text on each of them.
+4. If you are introducing new JavaScript code that can run independently of a
+   browser environment, add automated unit tests for it to `test/spec/`, then
+   run `npm test` to ensure that they pass. This project structures unit tests
+   using [Chai](https://www.chaijs.com/guide/styles/) for assertions.
 
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/

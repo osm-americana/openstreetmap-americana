@@ -122,7 +122,6 @@ export function blank(ref) {
     minGenericShieldWidth,
     Math.min(maxGenericShieldWidth, shieldWidth)
   );
-  width = Math.ceil(width);
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
@@ -135,9 +134,8 @@ export function roundedRectangle(
   rectWidth
 ) {
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR
-    );
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -198,10 +196,9 @@ export function trapezoid(
   let tangent = Math.tan(angleInRadians);
 
   if (rectWidth == null) {
-    var shieldWidth = Math.ceil(
+    var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-        (2 + (CS * sine) / 2) * PXR
-    );
+      (2 + (CS * sine) / 2) * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -241,6 +238,284 @@ export function trapezoid(
   ctx.arcTo(x7, y3, x5, y3, drawRadius);
   ctx.arcTo(x4, y3, x1, y1, drawRadius);
   ctx.arcTo(x0, y0, x9, y0, drawRadius);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
+export function diamond(fill, outline, ref, radius, outlineWidth, rectWidth) {
+  let extraSpace = 4 * PXR;
+  let height = CS + extraSpace;
+
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth + extraSpace,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: height });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+
+  let x0 = lineWidth;
+  let x6 = width - lineWidth;
+  let y0 = lineWidth;
+  let y6 = height - lineWidth;
+
+  let x3 = (x0 + x6) / 2;
+  let y3 = (y0 + y6) / 2;
+
+  let angle = Math.atan((y6 - y0) / (x6 - x0));
+  let xInnerOffset = drawRadius * Math.sin(angle);
+  let yInnerOffset = drawRadius * Math.cos(angle);
+  let xOuterOffset = yInnerOffset / Math.tan(angle);
+  let yOuterOffset = xInnerOffset * Math.tan(angle);
+
+  let x1 = x0 + xOuterOffset;
+  let x2 = x3 - xInnerOffset;
+  let x4 = x3 + xInnerOffset;
+  let x5 = x6 - xOuterOffset;
+
+  let y1 = y0 + yOuterOffset;
+  let y2 = y3 - yInnerOffset;
+  let y4 = y3 + yInnerOffset;
+  let y5 = y6 - yOuterOffset;
+
+  ctx.beginPath();
+  ctx.moveTo(x1, y2);
+  ctx.arcTo(x3, y0, x4, y1, drawRadius);
+  ctx.arcTo(x6, y3, x5, y4, drawRadius);
+  ctx.arcTo(x3, y6, x2, y5, drawRadius);
+  ctx.arcTo(x0, y3, x1, y2, drawRadius);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
+export function homePlate(
+  offset,
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+  let drawOffset = Math.abs(offset) * PXR;
+
+  let x0 = lineWidth;
+  let x4 = width - lineWidth;
+  let y0 = lineWidth;
+  let y4 = CS - lineWidth;
+
+  let x1 = x0 + drawRadius;
+  let x2 = (x0 + x4) / 2;
+  let x3 = x4 - drawRadius;
+  let y1 = y0 + drawRadius;
+  let y3 = y4 - drawOffset;
+
+  let drawOffsetTangent =
+    drawRadius * Math.tan(Math.PI / 4 - Math.asin(drawOffset / (x2 - x0)) / 2);
+  let y2 = y3 - drawOffsetTangent;
+
+  if (offset < 0) {
+    y0 = CS - y0;
+    y1 = CS - y1;
+    y2 = CS - y2;
+    y3 = CS - y3;
+    y4 = CS - y4;
+  }
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y4);
+  ctx.arcTo(x0, y3, x0, y2, drawRadius);
+  ctx.arcTo(x0, y0, x1, y0, drawRadius);
+  ctx.lineTo(x3, y0);
+  ctx.arcTo(x4, y0, x4, y2, drawRadius);
+  ctx.arcTo(x4, y3, x2, y4, drawRadius);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
+export function hexagonVertical(
+  offset,
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+  let drawOffset = offset * PXR;
+
+  let x0 = lineWidth;
+  let x4 = width - lineWidth;
+  let y0 = lineWidth;
+  let y5 = CS - lineWidth;
+
+  let x1 = x0 + drawRadius;
+  let x2 = (x0 + x4) / 2;
+  let x3 = x4 - drawRadius;
+  let y1 = y0 + drawOffset;
+  let y4 = y5 - drawOffset;
+
+  let drawOffsetTangent =
+    drawRadius * Math.tan(Math.PI / 4 - Math.asin(drawOffset / (x2 - x0)) / 2);
+  let y2 = y1 + drawOffsetTangent;
+  let y3 = y4 - drawOffsetTangent;
+
+  ctx.beginPath();
+  ctx.moveTo(x2, y5);
+  ctx.arcTo(x0, y4, x0, y3, drawRadius);
+  ctx.arcTo(x0, y1, x2, y0, drawRadius);
+  ctx.lineTo(x2, y0);
+  ctx.arcTo(x4, y1, x4, y2, drawRadius);
+  ctx.arcTo(x4, y4, x2, y5, drawRadius);
+  ctx.lineTo(x2, y5);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
+export function hexagonHorizontal(
+  angle,
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  let angleInRadians = (angle * Math.PI) / 180;
+  let angleSign = Math.sign(angle);
+  let sine = Math.sin(Math.abs(angleInRadians));
+  let cosine = Math.cos(angleInRadians);
+  let tangent = Math.tan(angleInRadians);
+  let halfComplementTangent = Math.tan(Math.PI / 4 - angleInRadians / 2);
+
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth + 4 * PXR,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+
+  let x0 = lineWidth;
+  let x9 = width - lineWidth;
+  let y0 = lineWidth;
+  let y6 = CS - lineWidth;
+
+  let y3 = (y0 + y6) / 2;
+
+  let y1 = y0 + drawRadius * halfComplementTangent * cosine;
+  let y2 = y3 - drawRadius * sine;
+  let y4 = y3 + drawRadius * sine;
+  let y5 = y6 - drawRadius * halfComplementTangent * cosine;
+
+  let x1 = x0 + (y3 - y2) * tangent;
+  let x3 = x0 + (y3 - y0) * tangent;
+  let x6 = x9 - (y3 - y0) * tangent;
+  let x8 = x9 - (y3 - y2) * tangent;
+
+  let x2 = x3 - drawRadius * halfComplementTangent * sine;
+  let x4 = x3 + drawRadius * halfComplementTangent;
+  let x5 = x6 - drawRadius * halfComplementTangent;
+  let x7 = x6 + drawRadius * halfComplementTangent * sine;
+
+  ctx.beginPath();
+  ctx.moveTo(x4, y0);
+  ctx.arcTo(x6, y0, x7, y1, drawRadius);
+  ctx.arcTo(x9, y3, x8, y4, drawRadius);
+  ctx.arcTo(x6, y6, x5, y6, drawRadius);
+  ctx.arcTo(x3, y6, x2, y5, drawRadius);
+  ctx.arcTo(x0, y3, x1, y2, drawRadius);
+  ctx.arcTo(x3, y0, x4, y0, drawRadius);
   ctx.closePath();
 
   ctx.lineWidth = lineThick;

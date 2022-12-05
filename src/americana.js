@@ -255,22 +255,7 @@ function buildLayers() {
     lyrPlace.continent
   );
 
-  // Resolve localized name placeholders.
-  let localizedNameExpression = Label.getLocalizedNameExpression(false);
-  let legacyLocalizedNameExpression = Label.getLocalizedNameExpression(true);
-  for (let layer of layers) {
-    if (
-      "metadata" in layer &&
-      "layout" in layer &&
-      layer.metadata["americana:text-field-localized"] === true
-    ) {
-      // https://github.com/openmaptiles/openmaptiles/issues/769
-      layer.layout["text-field"] =
-        layer["source-layer"] === "transportation_name"
-          ? legacyLocalizedNameExpression
-          : localizedNameExpression;
-    }
-  }
+  Label.localizeLayers(layers, Label.getLocales());
 
   return layers;
 }
@@ -310,6 +295,13 @@ function upgradeLegacyHash() {
 }
 upgradeLegacyHash();
 
+maplibregl.setRTLTextPlugin(
+  "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
+  null,
+  true
+);
+
+window.maplibregl = maplibregl;
 export const map = (window.map = new maplibregl.Map({
   container: "map", // container id
   hash: "map",
