@@ -280,5 +280,5 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
 export function calculateTextWidth(text, fontSize) {
   var ctx = Gfx.getGfxContext({ width: 1, height: 1 }); //dummy canvas
   ctx.font = Gfx.shieldFont(fontSize);
-  return ctx.measureText(text).width;
+  return Math.ceil(ctx.measureText(text).width);
 }

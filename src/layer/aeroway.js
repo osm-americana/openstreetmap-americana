@@ -169,7 +169,7 @@ export const airportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
     ...iconLayout,
   },
@@ -193,7 +193,7 @@ export const minorAirportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
@@ -216,14 +216,11 @@ export const airportLabel = {
   layout: {
     visibility: "visible",
     "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
     ...iconLayout,
   },
   source: "openmaptiles",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
   "source-layer": "aerodrome_label",
 };
 
@@ -242,13 +239,10 @@ export const minorAirportLabel = {
   layout: {
     visibility: "visible",
     "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
   "source-layer": "aerodrome_label",
 };
 
@@ -266,7 +260,7 @@ export const airportGate = {
   layout: {
     visibility: "visible",
     "text-field": "{ref}",
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",

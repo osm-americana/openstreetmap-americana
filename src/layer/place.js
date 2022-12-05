@@ -41,7 +41,7 @@ export const village = {
     ],
   ],
   layout: {
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": {
       base: 1.0,
       stops: [
@@ -80,9 +80,6 @@ export const village = {
   minzoom: 11,
   maxzoom: 14,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 export const town = {
@@ -107,7 +104,7 @@ export const town = {
     ],
   ],
   layout: {
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": {
       base: 1.2,
       stops: [
@@ -146,9 +143,6 @@ export const town = {
   minzoom: 4,
   maxzoom: 13,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 export const city = {
@@ -169,7 +163,7 @@ export const city = {
     ],
   ],
   layout: {
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": {
       base: 1.2,
       stops: [
@@ -187,7 +181,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -208,9 +202,7 @@ export const city = {
   minzoom: 4,
   maxzoom: 12,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
+  metadata: {},
 };
 
 export const state = {
@@ -224,7 +216,7 @@ export const state = {
   },
   filter: ["==", ["get", "class"], "state"],
   layout: {
-    "text-font": ["Metropolis Regular"],
+    "text-font": ["OpenHistorical"],
     "text-size": {
       base: 1.2,
       stops: [
@@ -252,9 +244,6 @@ export const state = {
   maxzoom: 7,
   minzoom: 3,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const countryOther = {
   id: "country_other",
@@ -271,7 +260,7 @@ export const countryOther = {
     ["!", ["has", "iso_a2"]],
   ],
   layout: {
-    "text-font": ["Metropolis Regular"],
+    "text-font": ["OpenHistorical"],
     "text-size": {
       stops: [
         [3, 9],
@@ -284,9 +273,6 @@ export const countryOther = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const country3 = {
   id: "country_3",
@@ -304,7 +290,7 @@ export const country3 = {
     ["has", "iso_a2"],
   ],
   layout: {
-    "text-font": ["Metropolis Regular"],
+    "text-font": ["OpenHistorical"],
     "text-size": {
       stops: [
         [3, 11],
@@ -317,9 +303,6 @@ export const country3 = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const country2 = {
   id: "country_2",
@@ -337,7 +320,7 @@ export const country2 = {
     ["has", "iso_a2"],
   ],
   layout: {
-    "text-font": ["Metropolis Regular"],
+    "text-font": ["OpenHistorical"],
     "text-size": {
       stops: [
         [2, 11],
@@ -350,9 +333,6 @@ export const country2 = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const country1 = {
   id: "country_1",
@@ -370,7 +350,7 @@ export const country1 = {
     ["has", "iso_a2"],
   ],
   layout: {
-    "text-font": ["Metropolis Regular"],
+    "text-font": ["OpenHistorical"],
     "text-size": {
       stops: [
         [1, 11],
@@ -391,9 +371,6 @@ export const country1 = {
   },
   source: "openmaptiles",
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 export const continent = {
   id: "continent",
@@ -405,7 +382,7 @@ export const continent = {
   },
   filter: ["==", ["get", "class"], "continent"],
   layout: {
-    "text-font": ["Metropolis Light"],
+    "text-font": ["OpenHistorical"],
     "text-size": 13,
     "text-field": Label.localizedName,
     "text-justify": "center",
@@ -414,7 +391,4 @@ export const continent = {
   source: "openmaptiles",
   maxzoom: 1,
   "source-layer": "place",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };

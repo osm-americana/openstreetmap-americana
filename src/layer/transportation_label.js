@@ -77,8 +77,8 @@ export const label = {
     "text-font": [
       ...highwaySelector,
       "ferry",
-      ["literal", ["Metropolis Regular Italic"]],
-      ["literal", ["Metropolis Light"]],
+      ["literal", ["OpenHistorical Italic"]],
+      ["literal", ["OpenHistorical"]],
     ],
     "text-field": Label.localizedName,
     "text-max-angle": 20,
@@ -119,9 +119,6 @@ export const label = {
   },
   source: "openmaptiles",
   "source-layer": "transportation_name",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 // A spacer label on each bridge to push any waterway label away from the bridge.

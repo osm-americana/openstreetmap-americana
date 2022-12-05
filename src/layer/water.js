@@ -79,7 +79,7 @@ const labelPaintProperties = {
 const labelLayoutProperties = {
   "symbol-placement": "line",
   "text-field": Label.localizedName,
-  "text-font": ["Metropolis Bold Italic"],
+  "text-font": ["OpenHistorical Italic"],
   "text-max-angle": 55,
 };
 
@@ -112,9 +112,6 @@ export const waterwayLabel = {
     "text-letter-spacing": 0.15,
   },
   paint: labelPaintProperties,
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 //Lake labels rendered as a linear feature
@@ -140,9 +137,6 @@ export const waterLabel = {
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 //Lake labels rendered as a point feature
@@ -154,7 +148,7 @@ export const waterPointLabel = {
   filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
     "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold Italic"],
+    "text-font": ["Open Sans Bold Italic"],
     "text-size": [
       "interpolate",
       ["exponential", 2],
@@ -169,7 +163,4 @@ export const waterPointLabel = {
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
