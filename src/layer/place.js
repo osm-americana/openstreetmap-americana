@@ -1,8 +1,9 @@
 import * as Label from "../constants/label.js";
+import * as Color from "../constants/color.js";
 
 const cityLabelPaint = {
   "text-color": "#444",
-  "text-halo-color": "rgb(255,255,255)",
+  "text-halo-color": Color.backgroundFill,
   "text-halo-width": 2,
   "text-halo-blur": 0.5,
 };
@@ -210,7 +211,7 @@ export const state = {
   type: "symbol",
   paint: {
     "text-color": "hsl(45, 6%, 10%)",
-    "text-halo-color": "rgb(255,255,255)",
+    "text-halo-color": Color.backgroundFill,
     "text-halo-width": 2,
     "text-halo-blur": 0.5,
   },
@@ -250,8 +251,8 @@ export const countryOther = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 1,
-    "text-halo-color": "rgba(255,255,255,0.8)",
+    "text-halo-blur": 0.5,
+    "text-halo-color": Color.backgroundFill,
     "text-halo-width": 2.0,
   },
   filter: [
@@ -279,9 +280,9 @@ export const country3 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 1,
-    "text-halo-color": "rgba(255,255,255,0.8)",
-    "text-halo-width": 2.0,
+    "text-halo-blur": 0.5,
+    "text-halo-color": Color.backgroundFill,
+    "text-halo-width": 2,
   },
   filter: [
     "all",
@@ -309,9 +310,9 @@ export const country2 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 1,
-    "text-halo-color": "rgba(255,255,255,1)",
-    "text-halo-width": 3.0,
+    "text-halo-blur": 0.5,
+    "text-halo-color": Color.backgroundFill,
+    "text-halo-width": 2,
   },
   filter: [
     "all",
@@ -339,9 +340,9 @@ export const country1 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 1,
-    "text-halo-color": "rgba(255,255,255,1)",
-    "text-halo-width": 3.0,
+    "text-halo-blur": 0.5,
+    "text-halo-color": Color.backgroundFill,
+    "text-halo-width": 2,
   },
   filter: [
     "all",
@@ -377,7 +378,7 @@ export const continent = {
   type: "symbol",
   paint: {
     "text-color": "#633",
-    "text-halo-color": "rgba(255,255,255,0.7)",
+    "text-halo-color": Color.backgroundFill,
     "text-halo-width": 1,
   },
   filter: ["==", ["get", "class"], "continent"],

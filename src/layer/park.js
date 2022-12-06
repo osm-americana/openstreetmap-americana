@@ -37,8 +37,8 @@ export const label = {
   filter: ["has", "rank"],
   paint: {
     "text-color": Color.parkLabel,
-    "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-blur": 0.5,
+    "text-halo-color": Color.backgroundFill,
     "text-halo-width": 1,
   },
   layout: {
@@ -88,8 +88,8 @@ export const parkLabel = {
   filter: ["==", ["get", "class"], "park"],
   paint: {
     "text-color": Color.parkLabel,
-    "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-blur": 0.5,
+    "text-halo-color": Color.backgroundFill,
     "text-halo-width": 1,
   },
   layout: {
