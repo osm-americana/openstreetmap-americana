@@ -5,7 +5,7 @@ const cityLabelPaint = {
   "text-color": "#444",
   "text-halo-color": Color.backgroundFill,
   "text-halo-width": 2,
-  "text-halo-blur": 0.5,
+  "text-halo-blur": 0,
 };
 
 const cityIcon = [
@@ -212,8 +212,13 @@ export const state = {
   paint: {
     "text-color": "hsl(45, 6%, 10%)",
     "text-halo-color": Color.backgroundFill,
-    "text-halo-width": 2,
-    "text-halo-blur": 0.5,
+    "text-halo-width": [
+      'interpolate', ['exponential', 1.2],
+      ['zoom'],
+      3, 1.5,
+      7, 2.7,
+    ],
+    "text-halo-blur": 0,
   },
   filter: ["==", ["get", "class"], "state"],
   layout: {
@@ -251,9 +256,14 @@ export const countryOther = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0.5,
+    "text-halo-blur": 0,
     "text-halo-color": Color.backgroundFill,
-    "text-halo-width": 2.0,
+    "text-halo-width": [
+      'interpolate', ['linear'],
+      ['zoom'],
+      3, 1.6,
+      7, 2.7,
+    ],
   },
   filter: [
     "all",
@@ -280,9 +290,14 @@ export const country3 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0.5,
+    "text-halo-blur": 0,
     "text-halo-color": Color.backgroundFill,
-    "text-halo-width": 2,
+    "text-halo-width": [
+      'interpolate', ['linear'],
+      ['zoom'],
+      3, 1.8,
+      7, 3,
+    ],
   },
   filter: [
     "all",
@@ -310,9 +325,14 @@ export const country2 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0.5,
+    "text-halo-blur": 0,
     "text-halo-color": Color.backgroundFill,
-    "text-halo-width": 2,
+    "text-halo-width": [
+      'interpolate', ['linear'],
+      ['zoom'],
+      2, 2,
+      5, 3,
+    ],
   },
   filter: [
     "all",
@@ -326,7 +346,7 @@ export const country2 = {
       stops: [
         [2, 11],
         [5, 17],
-      ],
+    ],
     },
     "text-field": Label.localizedName,
     "text-max-width": 6.25,
@@ -340,9 +360,15 @@ export const country1 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0.5,
+    "text-halo-blur": 0,
     "text-halo-color": Color.backgroundFill,
-    "text-halo-width": 2,
+    "text-halo-width": [
+      'interpolate', ['linear'],
+      ['zoom'],
+      1, 2,
+      4, 3,
+      6, 3,
+    ],
   },
   filter: [
     "all",
