@@ -64,6 +64,7 @@ export const water = {
       0.3,
       1,
     ],
+    "fill-outline-color": Color.waterFillTranslucent,
   },
   source: "openmaptiles",
   "source-layer": "water",
@@ -84,8 +85,7 @@ export const waterLine = {
     true,
   ],
   paint: {
-    "line-color": Color.waterLine,
-    "line-width": ["match", ["get", "class"], "ocean", 3, 2],
+    "line-color": Color.waterLineBold,
   },
   layout: {
     "line-cap": "round",
