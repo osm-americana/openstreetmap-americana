@@ -72,9 +72,20 @@ export const water = {
 export const waterLine = {
   id: "water-line",
   type: "line",
+  filter: [
+    "match",
+    ["get", "class"],
+    bigRivers,
+    [">=", ["zoom"], 8],
+    mediumRivers,
+    [">=", ["zoom"], 16],
+    "lake",
+    [">=", ["zoom"], 8],
+    true,
+  ],
   paint: {
     "line-color": Color.waterLine,
-    "line-width": 3,
+    "line-width": ["match", ["get", "class"], "ocean", 3, 2],
   },
   layout: {
     "line-cap": "round",
