@@ -1,11 +1,23 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
+const labelHaloColor = [
+  "interpolate",
+  ["linear"],
+  ["zoom"],
+  4,
+  `hsla(${Color.backgroundHsl}, 0.8)`,
+  5,
+  `hsl(${Color.backgroundHsl})`,
+];
+
+const labelHaloBlur = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
+
 const cityLabelPaint = {
   "text-color": "#444",
-  "text-halo-color": Color.backgroundFill,
+  "text-halo-color": labelHaloColor,
   "text-halo-width": 2,
-  "text-halo-blur": 0,
+  "text-halo-blur": labelHaloBlur,
 };
 
 const cityIcon = [
@@ -211,14 +223,17 @@ export const state = {
   type: "symbol",
   paint: {
     "text-color": "hsl(45, 6%, 10%)",
-    "text-halo-color": Color.backgroundFill,
+    "text-halo-color": labelHaloColor,
     "text-halo-width": [
-      'interpolate', ['exponential', 1.2],
-      ['zoom'],
-      3, 1.5,
-      7, 2.7,
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3,
+      1.5,
+      6,
+      2.5,
     ],
-    "text-halo-blur": 0,
+    "text-halo-blur": labelHaloBlur,
   },
   filter: ["==", ["get", "class"], "state"],
   layout: {
@@ -256,14 +271,9 @@ export const countryOther = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0,
-    "text-halo-color": Color.backgroundFill,
-    "text-halo-width": [
-      'interpolate', ['linear'],
-      ['zoom'],
-      3, 1.6,
-      7, 2.7,
-    ],
+    "text-halo-blur": 0.5,
+    "text-halo-color": labelHaloColor,
+    "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
   },
   filter: [
     "all",
@@ -290,14 +300,9 @@ export const country3 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0,
-    "text-halo-color": Color.backgroundFill,
-    "text-halo-width": [
-      'interpolate', ['linear'],
-      ['zoom'],
-      3, 1.8,
-      7, 3,
-    ],
+    "text-halo-blur": labelHaloBlur,
+    "text-halo-color": labelHaloColor,
+    "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
   },
   filter: [
     "all",
@@ -325,14 +330,9 @@ export const country2 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0,
-    "text-halo-color": Color.backgroundFill,
-    "text-halo-width": [
-      'interpolate', ['linear'],
-      ['zoom'],
-      2, 2,
-      5, 3,
-    ],
+    "text-halo-blur": labelHaloBlur,
+    "text-halo-color": labelHaloColor,
+    "text-halo-width": ["interpolate", ["linear"], ["zoom"], 1, 1, 5, 2.4],
   },
   filter: [
     "all",
@@ -346,7 +346,7 @@ export const country2 = {
       stops: [
         [2, 11],
         [5, 17],
-    ],
+      ],
     },
     "text-field": Label.localizedName,
     "text-max-width": 6.25,
@@ -360,14 +360,18 @@ export const country1 = {
   type: "symbol",
   paint: {
     "text-color": "#334",
-    "text-halo-blur": 0,
-    "text-halo-color": Color.backgroundFill,
+    "text-halo-blur": labelHaloBlur,
+    "text-halo-color": labelHaloColor,
     "text-halo-width": [
-      'interpolate', ['linear'],
-      ['zoom'],
-      1, 2,
-      4, 3,
-      6, 3,
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      1,
+      1,
+      4,
+      2.5,
+      6,
+      3,
     ],
   },
   filter: [
@@ -404,7 +408,8 @@ export const continent = {
   type: "symbol",
   paint: {
     "text-color": "#633",
-    "text-halo-color": Color.backgroundFill,
+    "text-halo-color": labelHaloColor,
+    "text-halo-blur": labelHaloBlur,
     "text-halo-width": 1,
   },
   filter: ["==", ["get", "class"], "continent"],
