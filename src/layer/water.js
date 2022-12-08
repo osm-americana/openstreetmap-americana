@@ -18,7 +18,7 @@ export const waterway = {
   },
   filter: ["!=", ["get", "intermittent"], 1],
   paint: {
-    "line-color": Color.waterFill,
+    "line-color": Color.waterLine,
     "line-width": [
       "interpolate",
       ["exponential", 2],
@@ -64,6 +64,21 @@ export const water = {
       0.3,
       1,
     ],
+  },
+  source: "openmaptiles",
+  "source-layer": "water",
+};
+
+export const waterLine = {
+  id: "water-line",
+  type: "line",
+  paint: {
+    "line-color": Color.waterLine,
+    "line-width": 3,
+  },
+  layout: {
+    "line-cap": "round",
+    "line-join": "round",
   },
   source: "openmaptiles",
   "source-layer": "water",

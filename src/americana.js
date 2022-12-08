@@ -47,9 +47,10 @@ function buildLayers() {
     lyrBoundary.stateCasing,
     lyrBoundary.countryCasing,
 
-    lyrWater.water,
     lyrWater.waterway,
     lyrWater.waterwayIntermittent,
+    lyrWater.waterLine,
+    lyrWater.water,
 
     lyrPark.outline,
     lyrAeroway.outline,
