@@ -85,7 +85,13 @@ export const waterLine = {
 };
 
 const labelPaintProperties = {
-  "text-halo-color": "#fff",
+  "text-halo-color": [
+    "match",
+    ["get", "class"],
+    ["sea", "ocean"],
+    Color.waterFill,
+    Color.backgroundFill,
+  ],
   "text-color": Color.waterLabel,
   "text-halo-width": 0.75,
   "text-halo-blur": 0.25,
