@@ -1,5 +1,5 @@
-export const backgroundHsl = "30, 44%, 96%";
-export const backgroundFill = `hsl(${backgroundHsl})`;
+export const backgroundFill = `hsl(30, 44%, 96%)`;
+export const backgroundFillTranslucent = `hsla(30, 44%, 96%, 0.8)`;
 
 export const waterFill = "hsl(211, 42%, 70%)";
 export const waterLine = "hsl(211, 73%, 78%)";

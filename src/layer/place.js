@@ -6,9 +6,9 @@ const labelHaloColor = [
   ["linear"],
   ["zoom"],
   4,
-  `hsla(${Color.backgroundHsl}, 0.8)`,
+  Color.backgroundFillTranslucent,
   5,
-  `hsl(${Color.backgroundHsl})`,
+  Color.backgroundFill,
 ];
 
 const labelHaloBlur = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
