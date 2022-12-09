@@ -89,15 +89,6 @@ describe("label", function () {
         ["get", "name"],
       ]);
     });
-    it("falls back from English to Romanization", function () {
-      expect(Label.getLocalizedNameExpression(["en-US", "en"], false)).to.eql([
-        "coalesce",
-        ["get", "name:en-US"],
-        ["get", "name:en"],
-        ["get", "name:latin"],
-        ["get", "name"],
-      ]);
-    });
     it("includes legacy fields", function () {
       expect(
         Label.getLocalizedNameExpression(["en-US", "en", "de"], true)

@@ -40,9 +40,6 @@ export function getLocales() {
  *  colon syntax.
  */
 export function getLocalizedNameExpression(locales, includesLegacyFields) {
-  if (locales.at(-1) === "en") {
-    locales.push("latin");
-  }
   let nameFields = [
     ...locales.flatMap((l) => {
       let fields = [`name:${l}`];
