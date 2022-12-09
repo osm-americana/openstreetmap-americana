@@ -24,6 +24,8 @@ import * as lyrBuilding from "./layer/building.js";
 import * as lyrHighwayExit from "./layer/highway_exit.js";
 import * as lyrFerry from "./layer/ferry.js";
 
+import * as languageLabel from "./js/language_label.js";
+
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
@@ -323,6 +325,7 @@ map.on("styleimagemissing", function (e) {
 window.addEventListener("languagechange", (event) => {
   console.log(`Changed to ${navigator.languages}`);
   map.setStyle(buildStyle());
+  languageLabel.displayLocales(Label.getLocales());
 });
 
 window.addEventListener("hashchange", (event) => {
@@ -332,6 +335,7 @@ window.addEventListener("hashchange", (event) => {
   if (oldLanguage !== newLanguage) {
     console.log(`Changed to ${newLanguage}`);
     map.setStyle(buildStyle());
+    languageLabel.displayLocales(Label.getLocales());
   }
 });
 
@@ -346,6 +350,7 @@ if (config.ATTRIBUTION_TEXT != undefined) {
 }
 
 map.addControl(new maplibregl.AttributionControl(attributionConfig));
+map.addControl(languageLabel.label, "bottom-right");
 
 if (config.ATTRIBUTION_LOGO != undefined) {
   document.getElementById("attribution-logo").innerHTML =
@@ -363,3 +368,5 @@ OpenMapTilesSamples.forEach((sample, i) => {
 map.addControl(sampleControl, "bottom-left");
 
 map.getCanvas().focus();
+
+languageLabel.displayLocales(Label.getLocales());
