@@ -30,9 +30,6 @@ class LanguageControl {
 export var label = new LanguageControl();
 
 export function displayLocales(localeSet) {
-  let languageField = document.getElementById("language-field");
-  if (languageField) {
-    //  console.log(localeSet);
-    languageField.textContent = Array.from(localeSet).join(", ");
-  }
+  document.getElementById("language-field").textContent =
+    Array.from(localeSet).join(", ");
 }
