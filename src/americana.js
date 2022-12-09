@@ -50,6 +50,7 @@ function buildLayers() {
     lyrWater.waterway,
     lyrWater.waterwayIntermittent,
     lyrWater.waterLine,
+    lyrWater.waterLineIntermittent,
     lyrWater.water,
 
     lyrPark.outline,

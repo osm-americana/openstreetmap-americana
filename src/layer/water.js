@@ -71,7 +71,7 @@ export const water = {
 };
 
 export const waterLine = {
-  id: "water-line",
+  id: "water_line",
   type: "line",
   filter: [
     "match",
@@ -81,11 +81,32 @@ export const waterLine = {
     mediumRivers,
     [">=", ["zoom"], 16],
     "lake",
-    [">=", ["zoom"], 8],
+    ["all", ["!=", ["get", "intermittent"], 1], [">=", ["zoom"], 8]],
     true,
   ],
   paint: {
     "line-color": Color.waterLineBold,
+  },
+  layout: {
+    "line-cap": "round",
+    "line-join": "round",
+  },
+  source: "openmaptiles",
+  "source-layer": "water",
+};
+
+export const waterLineIntermittent = {
+  id: "water_line_intermittent",
+  type: "line",
+  filter: [
+    "all",
+    ["==", ["get", "intermittent"], 1],
+    ["==", ["get", "class"], "lake"],
+    [">=", ["zoom"], 8],
+  ],
+  paint: {
+    "line-color": Color.waterLine,
+    "line-dasharray": [6, 4],
   },
   layout: {
     "line-cap": "round",
