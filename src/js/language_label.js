@@ -29,7 +29,9 @@ class LanguageControl {
 
 export var label = new LanguageControl();
 
-export function displayLocales(localeSet) {
+export function displayLocales(locales) {
+  let languageNames = new Intl.DisplayNames(locales, {type: "language"});
+  let listFormat = new Intl.ListFormat(locales, {type: "disjunction"});
   document.getElementById("language-field").textContent =
-    Array.from(localeSet).join(", ");
+    listFormat.format(locales.map(locale => languageNames.of(locale)));
 }
