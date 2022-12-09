@@ -66,6 +66,7 @@ let networks = [
 
   "JP:prefectural",
   "PK:national",
+  "ID:national",
 
   "AU:QLD:MR",
   "GR:national",
