@@ -346,6 +346,7 @@ if (config.ATTRIBUTION_TEXT != undefined) {
 }
 
 map.addControl(new maplibregl.AttributionControl(attributionConfig));
+map.addControl(Label.langLabel, "bottom-right");
 
 if (config.ATTRIBUTION_LOGO != undefined) {
   document.getElementById("attribution-logo").innerHTML =
@@ -363,3 +364,5 @@ OpenMapTilesSamples.forEach((sample, i) => {
 map.addControl(sampleControl, "bottom-left");
 
 map.getCanvas().focus();
+
+Label.getLocales();
