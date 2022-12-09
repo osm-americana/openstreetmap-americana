@@ -325,6 +325,7 @@ map.on("styleimagemissing", function (e) {
 window.addEventListener("languagechange", (event) => {
   console.log(`Changed to ${navigator.languages}`);
   map.setStyle(buildStyle());
+  languageLabel.displayLocales(Label.getLocales());
 });
 
 window.addEventListener("hashchange", (event) => {
@@ -334,6 +335,7 @@ window.addEventListener("hashchange", (event) => {
   if (oldLanguage !== newLanguage) {
     console.log(`Changed to ${newLanguage}`);
     map.setStyle(buildStyle());
+    languageLabel.displayLocales(Label.getLocales());
   }
 });
 
