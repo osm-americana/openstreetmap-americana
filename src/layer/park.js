@@ -1,14 +1,7 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
-
-// Name fields in order of preference
-const name_en = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name:latin"],
-  ["get", "name"],
-];
 
 export const fill = {
   id: "protected-area-fill",
@@ -45,18 +38,17 @@ export const label = {
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.parkLabelHalo,
     "text-halo-width": 1,
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
-    "text-font": ["Metropolis Bold"],
+    "text-field": Label.localizedName,
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "park",
 };
 
@@ -97,17 +89,16 @@ export const parkLabel = {
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.parkLabelHalo,
     "text-halo-width": 1,
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
-    "text-font": ["Metropolis Bold"],
+    "text-field": Label.localizedName,
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "poi",
 };

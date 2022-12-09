@@ -1,5 +1,6 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 const bigRivers = ["river", "canal"];
@@ -75,17 +76,10 @@ const labelPaintProperties = {
   "text-halo-blur": 0.25,
 };
 
-const nameField = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name_en"],
-  ["get", "name"],
-];
-
 const labelLayoutProperties = {
   "symbol-placement": "line",
-  "text-field": nameField,
-  "text-font": ["Metropolis Bold Italic"],
+  "text-field": Label.localizedName,
+  "text-font": ["OpenHistorical Italic"],
   "text-max-angle": 55,
 };
 
@@ -153,8 +147,8 @@ export const waterPointLabel = {
   "source-layer": "water_name",
   filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
-    "text-field": nameField,
-    "text-font": ["Metropolis Bold Italic"],
+    "text-field": Label.localizedName,
+    "text-font": ["Open Sans Bold Italic"],
     "text-size": [
       "interpolate",
       ["exponential", 2],

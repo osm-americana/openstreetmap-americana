@@ -2,6 +2,8 @@
 
 import config from "./config.js";
 
+import * as Label from "./constants/label.js";
+
 import * as Util from "./js/util.js";
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
@@ -22,6 +24,8 @@ import * as lyrBuilding from "./layer/building.js";
 import * as lyrHighwayExit from "./layer/highway_exit.js";
 import * as lyrFerry from "./layer/ferry.js";
 
+import * as languageLabel from "./js/language_label.js";
+
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
@@ -29,274 +33,310 @@ import * as search from "./search.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
-/*
- This is a list of the layers in the Americana style, from bottom to top.
-*/
-var americanaLayers = [];
+function buildLayers() {
+  // Layers from bottom to top
+  let layers = [];
 
-americanaLayers.push(
-  lyrBackground.base,
-  lyrPark.fill,
-  lyrAeroway.fill,
-  lyrPark.parkFill,
+  layers.push(
+    lyrBackground.base,
+    lyrPark.fill,
+    lyrAeroway.fill,
+    lyrPark.parkFill,
 
-  lyrBoundary.countyCasing,
-  lyrBoundary.stateCasing,
-  lyrBoundary.countryCasing,
+    lyrBoundary.countyCasing,
+    lyrBoundary.stateCasing,
+    lyrBoundary.countryCasing,
 
-  lyrWater.water,
-  lyrWater.waterway,
-  lyrWater.waterwayIntermittent,
+    lyrWater.water,
+    lyrWater.waterway,
+    lyrWater.waterwayIntermittent,
 
-  lyrPark.outline,
-  lyrAeroway.outline,
-  lyrPark.parkOutline,
+    lyrPark.outline,
+    lyrAeroway.outline,
+    lyrPark.parkOutline,
 
-  lyrBoundary.city,
-  lyrBoundary.county,
-  lyrBoundary.state,
-  lyrBoundary.country,
+    lyrBoundary.city,
+    lyrBoundary.county,
+    lyrBoundary.state,
+    lyrBoundary.country,
 
-  lyrBackground.pierArea,
-  lyrBackground.pierLine,
+    lyrBackground.pierArea,
+    lyrBackground.pierLine,
 
-  lyrRail.railTunnel.dashes(),
-  lyrRail.railServiceTunnel.dashes(),
+    lyrRail.railTunnel.dashes(),
+    lyrRail.railServiceTunnel.dashes(),
 
-  lyrRail.narrowGaugeTunnel.dashes(),
-  lyrRail.narrowGaugeServiceTunnel.dashes(),
+    lyrRail.narrowGaugeTunnel.dashes(),
+    lyrRail.narrowGaugeServiceTunnel.dashes(),
 
-  lyrRail.lightRailTramTunnel.dashes(),
-  lyrRail.lightRailTramServiceTunnel.dashes(),
+    lyrRail.lightRailTramTunnel.dashes(),
+    lyrRail.lightRailTramServiceTunnel.dashes(),
 
-  lyrRail.funicularTunnel.dashes(),
+    lyrRail.funicularTunnel.dashes(),
 
-  lyrRail.railwayTunnel.fill(),
+    lyrRail.railwayTunnel.fill(),
 
-  lyrConstruction.road,
+    lyrConstruction.road,
 
-  lyrRoad.roadTunnel.casing(),
+    lyrRoad.roadTunnel.casing(),
 
-  lyrRoad.roadTunnel.fill(),
+    lyrRoad.roadTunnel.fill(),
 
-  lyrOneway.tunnel,
-  lyrOneway.tunnelLink,
+    lyrOneway.tunnel,
+    lyrOneway.tunnelLink,
 
-  lyrFerry.ferry,
+    lyrFerry.ferry,
 
-  lyrAeroway.runway,
-  lyrAeroway.runwayArea,
-  lyrAeroway.taxiway,
-  lyrAeroway.taxiwayArea,
+    lyrAeroway.runway,
+    lyrAeroway.runwayArea,
+    lyrAeroway.taxiway,
+    lyrAeroway.taxiwayArea,
 
-  lyrRoad.motorwayLink.casing(),
-  lyrRoad.trunkLink.casing(),
+    lyrRoad.motorwayLink.casing(),
+    lyrRoad.trunkLink.casing(),
 
-  lyrRoad.roadLinkSimpleCasing.casing(),
+    lyrRoad.roadLinkSimpleCasing.casing(),
 
-  lyrRoad.motorway.casing(),
-  lyrRoad.trunk.casing(),
-  lyrRoad.primaryExpressway.casing(),
-  lyrRoad.secondaryExpressway.casing(),
-  lyrRoad.tertiaryExpressway.casing(),
+    lyrRoad.motorway.casing(),
+    lyrRoad.trunk.casing(),
+    lyrRoad.primaryExpressway.casing(),
+    lyrRoad.secondaryExpressway.casing(),
+    lyrRoad.tertiaryExpressway.casing(),
 
-  lyrRoad.roadSimpleCasing.casing(),
+    lyrRoad.roadSimpleCasing.casing(),
 
-  lyrRoad.motorwayLink.fill(),
-  lyrRoad.roadLinkSimpleFill.fill(),
-  lyrRoad.primaryLink.fill(),
-  lyrRoad.primaryLinkToll.fill(),
-  lyrRoad.secondaryLink.fill(),
-  lyrRoad.secondaryLinkToll.fill(),
-  lyrRoad.tertiaryLink.fill(),
-  lyrRoad.tertiaryLinkToll.fill(),
+    lyrRoad.motorwayLink.fill(),
+    lyrRoad.roadLinkSimpleFill.fill(),
+    lyrRoad.primaryLink.fill(),
+    lyrRoad.primaryLinkToll.fill(),
+    lyrRoad.secondaryLink.fill(),
+    lyrRoad.secondaryLinkToll.fill(),
+    lyrRoad.tertiaryLink.fill(),
+    lyrRoad.tertiaryLinkToll.fill(),
 
-  lyrRoad.minor.fill(),
-  lyrRoad.minorToll.fill(),
-  lyrRoad.tertiary.fill(),
-  lyrRoad.tertiaryToll.fill(),
-  lyrRoad.secondary.fill(),
-  lyrRoad.secondaryToll.fill(),
-  lyrRoad.primary.fill(),
-  lyrRoad.primaryToll.fill(),
-  lyrRoad.roadSimpleFill.fill(),
-  lyrRoad.motorway.fill(),
+    lyrRoad.minor.fill(),
+    lyrRoad.minorToll.fill(),
+    lyrRoad.tertiary.fill(),
+    lyrRoad.tertiaryToll.fill(),
+    lyrRoad.secondary.fill(),
+    lyrRoad.secondaryToll.fill(),
+    lyrRoad.primary.fill(),
+    lyrRoad.primaryToll.fill(),
+    lyrRoad.roadSimpleFill.fill(),
+    lyrRoad.motorway.fill(),
 
-  lyrRoad.road.surface(),
+    lyrRoad.road.surface(),
 
-  lyrRail.rail.dashes(),
-  lyrRail.railService.dashes(),
+    lyrRail.rail.dashes(),
+    lyrRail.railService.dashes(),
 
-  lyrRail.narrowGauge.dashes(),
-  lyrRail.narrowGaugeService.dashes(),
+    lyrRail.narrowGauge.dashes(),
+    lyrRail.narrowGaugeService.dashes(),
 
-  lyrRail.lightRailTram.dashes(),
-  lyrRail.lightRailTramService.dashes(),
+    lyrRail.lightRailTram.dashes(),
+    lyrRail.lightRailTramService.dashes(),
 
-  lyrRail.funicular.dashes(),
+    lyrRail.funicular.dashes(),
 
-  lyrRail.railway.fill(),
+    lyrRail.railway.fill(),
 
-  lyrOneway.road,
-  lyrOneway.link
-);
-
-americanaLayers.push(lyrBuilding.building);
-
-var bridgeLayers = [
-  lyrRail.bridgeCasing,
-
-  lyrRoad.trunkLinkBridge.casing(),
-  lyrRoad.motorwayLinkBridge.casing(),
-
-  lyrRoad.roadLinkSimpleCasingBridge.casing(),
-
-  lyrRoad.tertiaryExpresswayBridge.casing(),
-  lyrRoad.secondaryExpresswayBridge.casing(),
-  lyrRoad.primaryExpresswayBridge.casing(),
-  lyrRoad.trunkBridge.casing(),
-  lyrRoad.motorwayBridge.casing(),
-
-  lyrRoad.roadSimpleCasingBridge.casing(),
-
-  lyrRoad.tertiaryLinkBridge.fill(),
-  lyrRoad.tertiaryLinkTollBridge.fill(),
-  lyrRoad.secondaryLinkBridge.fill(),
-  lyrRoad.secondaryLinkTollBridge.fill(),
-  lyrRoad.primaryLinkBridge.fill(),
-  lyrRoad.primaryLinkTollBridge.fill(),
-  lyrRoad.roadLinkSimpleFillBridge.fill(),
-  lyrRoad.motorwayLinkBridge.fill(),
-
-  lyrRoad.minorBridge.fill(),
-  lyrRoad.minorTollBridge.fill(),
-  lyrRoad.tertiaryBridge.fill(),
-  lyrRoad.tertiaryTollBridge.fill(),
-  lyrRoad.secondaryBridge.fill(),
-  lyrRoad.secondaryTollBridge.fill(),
-  lyrRoad.primaryBridge.fill(),
-  lyrRoad.primaryTollBridge.fill(),
-  lyrRoad.roadSimpleFillBridge.fill(),
-  lyrRoad.motorwayBridge.fill(),
-
-  lyrRoad.roadBridge.surface(),
-
-  lyrRail.railBridge.dashes(),
-  lyrRail.railServiceBridge.dashes(),
-
-  lyrRail.narrowGaugeBridge.dashes(),
-  lyrRail.narrowGaugeServiceBridge.dashes(),
-
-  lyrRail.lightRailTramBridge.dashes(),
-  lyrRail.lightRailTramServiceBridge.dashes(),
-
-  lyrRail.funicularBridge.dashes(),
-
-  lyrRail.railwayBridge.fill(),
-
-  lyrOneway.bridge,
-  lyrOneway.bridgeLink,
-];
-
-//Render bridge without layer on the lowest bridge layer
-bridgeLayers.forEach((layer) =>
-  americanaLayers.push(
-    Util.filteredClone(layer, ["!", ["has", "layer"]], "_layer_bottom")
-  )
-);
-
-//One layer at a time to handle stacked bridges
-for (let i = 1; i <= 4; i++) {
-  bridgeLayers.forEach((layer) =>
-    americanaLayers.push(Util.restrictLayer(layer, i))
+    lyrOneway.road,
+    lyrOneway.link
   );
+
+  layers.push(lyrBuilding.building);
+
+  var bridgeLayers = [
+    lyrRail.bridgeCasing,
+
+    lyrRoad.trunkLinkBridge.casing(),
+    lyrRoad.motorwayLinkBridge.casing(),
+
+    lyrRoad.roadLinkSimpleCasingBridge.casing(),
+
+    lyrRoad.tertiaryExpresswayBridge.casing(),
+    lyrRoad.secondaryExpresswayBridge.casing(),
+    lyrRoad.primaryExpresswayBridge.casing(),
+    lyrRoad.trunkBridge.casing(),
+    lyrRoad.motorwayBridge.casing(),
+
+    lyrRoad.roadSimpleCasingBridge.casing(),
+
+    lyrRoad.tertiaryLinkBridge.fill(),
+    lyrRoad.tertiaryLinkTollBridge.fill(),
+    lyrRoad.secondaryLinkBridge.fill(),
+    lyrRoad.secondaryLinkTollBridge.fill(),
+    lyrRoad.primaryLinkBridge.fill(),
+    lyrRoad.primaryLinkTollBridge.fill(),
+    lyrRoad.roadLinkSimpleFillBridge.fill(),
+    lyrRoad.motorwayLinkBridge.fill(),
+
+    lyrRoad.minorBridge.fill(),
+    lyrRoad.minorTollBridge.fill(),
+    lyrRoad.tertiaryBridge.fill(),
+    lyrRoad.tertiaryTollBridge.fill(),
+    lyrRoad.secondaryBridge.fill(),
+    lyrRoad.secondaryTollBridge.fill(),
+    lyrRoad.primaryBridge.fill(),
+    lyrRoad.primaryTollBridge.fill(),
+    lyrRoad.roadSimpleFillBridge.fill(),
+    lyrRoad.motorwayBridge.fill(),
+
+    lyrRoad.roadBridge.surface(),
+
+    lyrRail.railBridge.dashes(),
+    lyrRail.railServiceBridge.dashes(),
+
+    lyrRail.narrowGaugeBridge.dashes(),
+    lyrRail.narrowGaugeServiceBridge.dashes(),
+
+    lyrRail.lightRailTramBridge.dashes(),
+    lyrRail.lightRailTramServiceBridge.dashes(),
+
+    lyrRail.funicularBridge.dashes(),
+
+    lyrRail.railwayBridge.fill(),
+
+    lyrOneway.bridge,
+    lyrOneway.bridgeLink,
+  ];
+
+  //Render bridge without layer on the lowest bridge layer
+  bridgeLayers.forEach((layer) =>
+    layers.push(
+      Util.filteredClone(layer, ["!", ["has", "layer"]], "_layer_bottom")
+    )
+  );
+
+  //One layer at a time to handle stacked bridges
+  for (let i = 1; i <= 4; i++) {
+    bridgeLayers.forEach((layer) => layers.push(Util.restrictLayer(layer, i)));
+  }
+
+  //If layer is more than 5, just give up and render on a single layer.
+  bridgeLayers.forEach((layer) =>
+    layers.push(
+      Util.filteredClone(
+        layer,
+        [">=", ["coalesce", ["get", "layer"], 0], 5],
+        "_layer_top"
+      )
+    )
+  );
+
+  layers.push(
+    //The labels at the end of the list draw on top of the layers at the beginning.
+    lyrWater.waterwayLabel,
+    lyrWater.waterLabel,
+    lyrWater.waterPointLabel,
+
+    lyrTransportationLabel.bridgeSpacer,
+    lyrTransportationLabel.label,
+
+    lyrPark.label,
+    lyrPark.parkLabel,
+    /* The ref label shows up at lower zoom levels and when the long name doesn't fit */
+    lyrAeroway.airportRefLabel,
+    lyrAeroway.minorAirportRefLabel,
+    lyrAeroway.airportLabel,
+    lyrAeroway.minorAirportLabel,
+    lyrAeroway.airportGate,
+
+    lyrHighwayShield.shield,
+
+    lyrHighwayExit.exits,
+
+    lyrPlace.state,
+    lyrPlace.village,
+    lyrPlace.town,
+    lyrPlace.city,
+    lyrPlace.countryOther,
+    lyrPlace.country3,
+    lyrPlace.country2,
+    lyrPlace.country1,
+    lyrPlace.continent
+  );
+
+  Label.localizeLayers(layers, Label.getLocales());
+
+  return layers;
 }
 
-//If layer is more than 5, just give up and render on a single layer.
-bridgeLayers.forEach((layer) =>
-  americanaLayers.push(
-    Util.filteredClone(
-      layer,
-      [">=", ["coalesce", ["get", "layer"], 0], 5],
-      "_layer_top"
-    )
-  )
-);
+function buildStyle() {
+  var getUrl = window.location;
+  var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
 
-americanaLayers.push(
-  //The labels at the end of the list draw on top of the layers at the beginning.
-  lyrWater.waterwayLabel,
-  lyrWater.waterLabel,
-  lyrWater.waterPointLabel,
-
-  lyrTransportationLabel.bridgeSpacer,
-  lyrTransportationLabel.label,
-
-  lyrPark.label,
-  lyrPark.parkLabel,
-  /* The ref label shows up at lower zoom levels and when the long name doesn't fit */
-  lyrAeroway.airportRefLabel,
-  lyrAeroway.minorAirportRefLabel,
-  lyrAeroway.airportLabel,
-  lyrAeroway.minorAirportLabel,
-  lyrAeroway.airportGate,
-
-  lyrHighwayShield.shield,
-
-  lyrHighwayExit.exits,
-
-  lyrPlace.state,
-  lyrPlace.village,
-  lyrPlace.town,
-  lyrPlace.city,
-  lyrPlace.countryOther,
-  lyrPlace.country3,
-  lyrPlace.country2,
-  lyrPlace.country1,
-  lyrPlace.continent
-);
-
-console.debug(`Loaded ${americanaLayers.length} layers`);
-
-var getUrl = window.location;
-var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
-
-var style = {
-  id: "streets",
-  name: "Americana",
-  glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
-  layers: americanaLayers,
-  sources: {
-    openmaptiles: {
-      url: config.OPENMAPTILES_URL,
-      type: "vector",
+  return {
+    id: "streets",
+    name: "Americana",
+    glyphs:
+      "https://openhistoricalmap.github.io/map-styles/fonts/{fontstack}/{range}.pbf",
+    layers: buildLayers(),
+    sources: {
+      openmaptiles: {
+        url: config.OPENMAPTILES_URL,
+        type: "vector",
+      },
     },
-  },
-  sprite: new URL("sprites/sprite", baseUrl).href,
-  light: {
-    anchor: "viewport",
-    color: "white",
-    intensity: 0.12,
-  },
-  version: 8,
-};
+    sprite: new URL("sprites/sprite", baseUrl).href,
+    light: {
+      anchor: "viewport",
+      color: "white",
+      intensity: 0.12,
+    },
+    version: 8,
+  };
+}
 
+function upgradeLegacyHash() {
+  let hash = window.location.hash.substr(1);
+  if (!hash.includes("=")) {
+    hash = `#map=${hash}`;
+  }
+  window.location.hash = hash;
+}
+upgradeLegacyHash();
+
+maplibregl.setRTLTextPlugin(
+  "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
+  null,
+  true
+);
+
+window.maplibregl = maplibregl;
 export const map = (window.map = new maplibregl.Map({
   container: "map", // container id
-  hash: true,
+  hash: "map",
   antialias: true,
-  style: style,
+  style: buildStyle(),
   center: [-94, 40.5], // starting position [lng, lat]
   zoom: 4, // starting zoom
   attributionControl: false,
 }));
 
-map.on("styledata", function () {
+map.on("styledata", function (event) {
   ShieldDef.loadShields(map.style.imageManager.images);
 });
 
 map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
+});
+
+window.addEventListener("languagechange", (event) => {
+  console.log(`Changed to ${navigator.languages}`);
+  map.setStyle(buildStyle());
+  languageLabel.displayLocales(Label.getLocales());
+});
+
+window.addEventListener("hashchange", (event) => {
+  upgradeLegacyHash();
+  let oldLanguage = Label.getLanguageFromURL(new URL(event.oldURL));
+  let newLanguage = Label.getLanguageFromURL(new URL(event.newURL));
+  if (oldLanguage !== newLanguage) {
+    console.log(`Changed to ${newLanguage}`);
+    map.setStyle(buildStyle());
+    languageLabel.displayLocales(Label.getLocales());
+  }
 });
 
 let attributionConfig = {
@@ -310,6 +350,7 @@ if (config.ATTRIBUTION_TEXT != undefined) {
 }
 
 map.addControl(new maplibregl.AttributionControl(attributionConfig));
+map.addControl(languageLabel.label, "bottom-right");
 
 if (config.ATTRIBUTION_LOGO != undefined) {
   document.getElementById("attribution-logo").innerHTML =
@@ -327,3 +368,5 @@ OpenMapTilesSamples.forEach((sample, i) => {
 map.addControl(sampleControl, "bottom-left");
 
 map.getCanvas().focus();
+
+languageLabel.displayLocales(Label.getLocales());

@@ -82,7 +82,7 @@ function getRasterShieldBlank(shieldDef, routeDef) {
 
   //Special case where there's a defined fallback shield when no ref is tagged
   //Example: PA Turnpike
-  if (!isValidRef(routeDef.ref)) {
+  if (!isValidRef(routeDef.ref) && "norefImage" in shieldDef) {
     return shieldDef.norefImage;
   }
 
