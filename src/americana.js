@@ -24,6 +24,8 @@ import * as lyrBuilding from "./layer/building.js";
 import * as lyrHighwayExit from "./layer/highway_exit.js";
 import * as lyrFerry from "./layer/ferry.js";
 
+import * as languageLabel from "./js/language_label.js";
+
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
@@ -346,7 +348,7 @@ if (config.ATTRIBUTION_TEXT != undefined) {
 }
 
 map.addControl(new maplibregl.AttributionControl(attributionConfig));
-map.addControl(Label.langLabel, "bottom-right");
+map.addControl(languageLabel.label, "bottom-right");
 
 if (config.ATTRIBUTION_LOGO != undefined) {
   document.getElementById("attribution-logo").innerHTML =
@@ -365,4 +367,4 @@ map.addControl(sampleControl, "bottom-left");
 
 map.getCanvas().focus();
 
-Label.getLocales();
+languageLabel.displayLocales(Label.getLocales());
