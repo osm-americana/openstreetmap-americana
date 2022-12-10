@@ -38,7 +38,7 @@ export const label = {
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.parkLabelHalo,
     "text-halo-width": 1,
   },
   layout: {
@@ -89,7 +89,7 @@ export const parkLabel = {
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.parkLabelHalo,
     "text-halo-width": 1,
   },
   layout: {

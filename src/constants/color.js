@@ -1,4 +1,5 @@
-export const backgroundFill = "#faf6f2";
+export const backgroundFill = `hsl(30, 44%, 96%)`;
+export const backgroundFillTranslucent = `hsla(30, 44%, 96%, 0.8)`;
 
 export const waterFill = "hsl(211, 42%, 70%)";
 export const waterLine = "hsl(211, 73%, 78%)";
@@ -14,6 +15,7 @@ export const borderCasing = `hsl(${hueBorderCasing}, 35%, 86%)`;
 export const parkFill = "hsl(136, 41%, 89%)";
 export const parkOutline = "hsl(136, 41%, 79%)";
 export const parkLabel = "hsl(136, 71%, 29%)";
+export const parkLabelHalo = "hsl(90, 27%, 94%)";
 
 export const airportFill = "hsl(250, 41%, 95%)";
 export const airportOutline = "hsl(250, 41%, 79%)";
