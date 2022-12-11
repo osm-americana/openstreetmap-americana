@@ -351,6 +351,7 @@ if (config.ATTRIBUTION_TEXT != undefined) {
 
 map.addControl(new maplibregl.AttributionControl(attributionConfig));
 map.addControl(languageLabel.label, "bottom-right");
+map.addControl(languageLabel.switcher, "bottom-right");
 
 if (config.ATTRIBUTION_LOGO != undefined) {
   document.getElementById("attribution-logo").innerHTML =
