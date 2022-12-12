@@ -18,7 +18,20 @@ export const waterway = {
   },
   filter: ["!=", ["get", "intermittent"], 1],
   paint: {
-    "line-color": Color.waterFill,
+    "line-color": [
+      "interpolate",
+      ["exponential", 2],
+      ["zoom"],
+      13,
+      Color.waterLine,
+      14,
+      [
+        "case",
+        ["==", ["get", "intermittent"], 1],
+        Color.waterLine,
+        Color.waterFill,
+      ],
+    ],
     "line-width": [
       "interpolate",
       ["exponential", 2],
@@ -64,13 +77,63 @@ export const water = {
       0.3,
       1,
     ],
+    "fill-outline-color": Color.waterFillTranslucent,
   },
   source: "openmaptiles",
   "source-layer": "water",
 };
 
+export const waterLine = {
+  id: "water_line",
+  type: "line",
+  filter: [
+    "match",
+    ["get", "class"],
+    bigRivers,
+    [">=", ["zoom"], 8],
+    mediumRivers,
+    [">=", ["zoom"], 16],
+    "lake",
+    ["all", ["!=", ["get", "intermittent"], 1], [">=", ["zoom"], 8]],
+    true,
+  ],
+  paint: {
+    "line-color": Color.waterLineBold,
+  },
+  layout: {
+    "line-cap": "round",
+    "line-join": "round",
+  },
+  source: "openmaptiles",
+  "source-layer": "water",
+};
+
+export const waterLineIntermittent = {
+  id: "water_line_intermittent",
+  type: "line",
+  filter: [
+    "all",
+    ["==", ["get", "intermittent"], 1],
+    ["==", ["get", "class"], "lake"],
+    [">=", ["zoom"], 8],
+  ],
+  paint: {
+    "line-color": Color.waterLine,
+    "line-dasharray": [6, 4],
+  },
+  layout: waterLine.layout,
+  source: "openmaptiles",
+  "source-layer": "water",
+};
+
 const labelPaintProperties = {
-  "text-halo-color": "#fff",
+  "text-halo-color": [
+    "match",
+    ["get", "class"],
+    ["sea", "ocean"],
+    Color.waterFill,
+    Color.backgroundFill,
+  ],
   "text-color": Color.waterLabel,
   "text-halo-width": 0.75,
   "text-halo-blur": 0.25,

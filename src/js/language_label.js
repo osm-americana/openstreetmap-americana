@@ -15,13 +15,13 @@ class LanguageControl {
   onAdd(map) {
     this._map = map;
     this._container = langField;
-    this._container.style.textAlign = "right";
-    this._container.style.paddingRight = "5px";
-    this._container.style.paddingLeft = "5px";
-    this._container.style.color = "#444";
-    this._container.style.backgroundColor = "#ffffff80";
-    this._container.style.float = "right";
-    this._container.style.display = "table";
+    this._container.className = "maplibregl-ctrl";
+    Object.assign(this._container.style, {
+      margin: "0",
+      padding: "0 5px",
+      color: "#444",
+      backgroundColor: "#ffffff80",
+    });
     this._container.textContent = "";
     return this._container;
   }
