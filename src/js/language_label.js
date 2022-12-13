@@ -4,16 +4,23 @@ import * as maplibregl from "maplibre-gl";
 
 var langField = labelControlElement("span", "language-field");
 
-var langChanger = labelControlElement("span", "language-switcher");
-langChanger.innerHTML = '[<a href="">Change</a>]';
+var langChanger = labelControlElement("button", "language-switcher");
+langChanger.textContent = "Change";
 
-var langReset = labelControlElement("span", "language-reset");
-langReset.innerHTML = '[<a href="">Reset</a>]';
+var langAdd = labelControlElement("button", "language-add");
+langAdd.textContent = "Add";
+hide(langAdd);
 
-var langCancel = labelControlElement("span", "language-cancel");
-langCancel.innerHTML = '[<a href="">X</a>]';
+var langReset = labelControlElement("button", "language-reset");
+langReset.textContent = "Reset";
+hide(langReset);
+
+var langCancel = labelControlElement("button", "language-cancel");
+langCancel.textContent = "X";
+hide(langCancel);
 
 var langPicker = labelControlElement("select", "language-picker");
+hide(langPicker);
 
 function addLanguage(name, code) {
   var langEntry = document.createElement("option");
@@ -22,11 +29,95 @@ function addLanguage(name, code) {
   langPicker.appendChild(langEntry);
 }
 
+function hide(element) {
+  Object.assign(element.style, {
+    display: "none",
+    visibility: "hidden",
+  });
+}
+function show(element) {
+  Object.assign(element.style, {
+    display: "initial",
+    visibility: "visible",
+  });
+}
+
 addLanguage("Select...", "");
-addLanguage("English", "en");
-addLanguage("Esperanto", "eo");
-addLanguage("French", "fr");
-addLanguage("Spanish", "es");
+
+let langCodes = [
+  "am",
+  "ar",
+  "az",
+  "be",
+  "bg",
+  "br",
+  "bs",
+  "ca",
+  "co",
+  "cs",
+  "cy",
+  "da",
+  "de",
+  "el",
+  "en",
+  "eo",
+  "es",
+  "et",
+  "eu",
+  "fi",
+  "fr",
+  "fy",
+  "ga",
+  "gd",
+  "he",
+  "hi",
+  "hr",
+  "hu",
+  "hy",
+  "id",
+  "is",
+  "it",
+  "ja",
+  "ja_kana",
+  "ja_rm",
+  "ja-Latn",
+  "ja-Hira",
+  "ka",
+  "kk",
+  "kn",
+  "ko",
+  "ko-Latn",
+  "ku",
+  "la",
+  "lb",
+  "lt",
+  "lv",
+  "mk",
+  "mt",
+  "ml",
+  "nl",
+  "no",
+  "oc",
+  "pl",
+  "pt",
+  "rm",
+  "ro",
+  "ru",
+  "sk",
+  "sl",
+  "sq",
+  "sr",
+  "sr-Latn",
+  "sv",
+  "ta",
+  "te",
+  "th",
+  "tr",
+  "uk",
+  "zh",
+].forEach(lang => {
+  addLanguage(lang, lang);  
+});
 
 function labelControlElement(tag, id) {
   var element = document.createElement(tag);
@@ -37,6 +128,18 @@ function labelControlElement(tag, id) {
   });
   return element;
 }
+
+langChanger.onclick = function () {
+  hide(langField);
+  hide(langChanger);
+  show(langPicker);
+  show(langAdd);
+  show(langCancel);
+};
+
+langAdd.onclick = function () {
+  alert(langPicker.value);
+};
 
 /**
  * Label for displaying the current language being used
@@ -55,8 +158,9 @@ class LanguageControl {
     this._container.textContent = "";
     this._container.appendChild(langField);
     this._container.appendChild(langChanger);
-    this._container.appendChild(langReset);
     this._container.appendChild(langPicker);
+    this._container.appendChild(langAdd);
+    this._container.appendChild(langReset);
     this._container.appendChild(langCancel);
     return this._container;
   }
@@ -75,5 +179,4 @@ export function displayLocales(locales) {
   document.getElementById("language-field").textContent = listFormat.format(
     locales.map((locale) => languageNames.of(locale))
   );
-  //  document.getElementById("language-switcher").innerHTML = '[<a href="https://www.googlefu.com">Change</a>]';
 }
