@@ -111,11 +111,11 @@ export const waterLine = {
 export const waterLineIntermittent = {
   id: "water_line_intermittent",
   type: "line",
+  minzoom: 8,
   filter: [
     "all",
     ["==", ["get", "intermittent"], 1],
     ["==", ["get", "class"], "lake"],
-    [">=", ["zoom"], 8],
   ],
   paint: {
     "line-color": Color.waterLine,

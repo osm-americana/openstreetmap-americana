@@ -13,6 +13,7 @@ import * as lyrBackground from "./layer/background.js";
 import * as lyrBoundary from "./layer/boundary.js";
 import * as lyrConstruction from "./layer/construction.js";
 import * as lyrHighwayShield from "./layer/highway_shield.js";
+import * as lyrLanduse from "./layer/landuse.js";
 import * as lyrOneway from "./layer/oneway.js";
 import * as lyrPark from "./layer/park.js";
 import * as lyrPlace from "./layer/place.js";
@@ -39,6 +40,7 @@ function buildLayers() {
 
   layers.push(
     lyrBackground.base,
+    lyrLanduse.urbanizedArea,
     lyrPark.fill,
     lyrAeroway.fill,
     lyrPark.parkFill,
