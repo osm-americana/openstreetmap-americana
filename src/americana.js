@@ -31,6 +31,7 @@ import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
+import LegendControl from "./js/legend_control.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
@@ -363,6 +364,9 @@ if (config.ATTRIBUTION_LOGO != undefined) {
 
 map.addControl(new search.PhotonSearchControl(), "top-left");
 map.addControl(new maplibregl.NavigationControl(), "top-left");
+
+let legendControl = new LegendControl();
+map.addControl(legendControl, "bottom-left");
 
 // Add our sample data.
 let sampleControl = new SampleControl({ permalinks: true });
