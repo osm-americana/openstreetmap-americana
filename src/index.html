@@ -35,6 +35,14 @@
       .legend-row > .preview {
         text-align: center;
       }
+      .legend-source {
+        font-size: 80%;
+        text-align: right;
+      }
+      .legend-source,
+      .legend-source a {
+        color: #aaa;
+      }
     </style>
     <script type="module" src="americana.js"></script>
     <link rel="stylesheet" href="americana.css" />
@@ -56,7 +64,14 @@
     /></a>
     <template id="legend">
       <h2>Legend</h2>
-      <table></table>
+      <table>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td class="legend-source" colspan="2">Source: <a>Wikidata</a></td>
+          </tr>
+        </tfoot>
+      </table>
     </template>
     <template id="legend-row">
       <tr class="legend-row">

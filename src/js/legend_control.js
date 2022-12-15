@@ -101,10 +101,14 @@ export default class LegendControl {
       .filter((r) => r);
 
     let contents = document.getElementById("legend").content.cloneNode(true);
-    let table = contents.querySelector("table");
+    let tableBody = contents.querySelector("tbody");
     for (let row of rows) {
-      table.appendChild(row);
+      tableBody.appendChild(row);
     }
+    let sourceLink = contents.querySelector(".legend-source a");
+    sourceLink.href = `https://query.wikidata.org/embed.html#${encodeURIComponent(
+      this.getNetworkMetadataQuery()
+    )}`;
 
     return contents;
   }
@@ -181,14 +185,6 @@ export default class LegendControl {
       let binding = networkMetadata[network];
       if (!binding) continue;
 
-      let imageCell = row.querySelector(".preview");
-      let img = imageCell.querySelector("img");
-      img.remove();
-      let link = document.createElement("a");
-      link.href = binding.network.value;
-      link.appendChild(img);
-      imageCell.appendChild(link);
-
       let descriptionCell = row.querySelector(".description");
       descriptionCell.setAttribute("lang", binding.networkLabel["xml:lang"]);
       descriptionCell.textContent = binding.networkLabel.value;
@@ -203,19 +199,8 @@ export default class LegendControl {
       return this._networkMetadata;
     }
 
-    let sparql = `
-SELECT ?value ?network ?networkLabel WHERE {
-  ?network wdt:P1282 ?tag.
-  FILTER(REGEX(?tag, "^Tag:network="))
-  BIND(SUBSTR(?tag, 13) AS ?value)
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${Label.getLocales().join(
-    ","
-  )},en". }
-}
-ORDER BY ?value
-`;
     let url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(
-      sparql
+      this.getNetworkMetadataQuery()
     )}&format=json`;
     const response = await fetch(url);
     const json = await response.json();
@@ -225,5 +210,21 @@ ORDER BY ?value
       })
     );
     return this._networkMetadata;
+  }
+
+  /**
+   * Returns the Wikidata Query Service SPARQL query for network metadata.
+   */
+  getNetworkMetadataQuery() {
+    let locales = Label.getLocales().join(",");
+    return `
+SELECT ?value ?network ?networkLabel WHERE {
+  ?network wdt:P1282 ?tag.
+  FILTER(REGEX(?tag, "^Tag:network="))
+  BIND(SUBSTR(?tag, 13) AS ?value)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${locales},en". }
+}
+ORDER BY ?value
+`;
   }
 }
