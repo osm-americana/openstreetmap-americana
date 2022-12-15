@@ -1,6 +1,7 @@
 "use strict";
 
 import * as ShieldDraw from "./shield_canvas_draw.js";
+import * as Label from "../constants/label.js";
 
 import * as maplibregl from "maplibre-gl";
 
@@ -76,35 +77,44 @@ export default class LegendControl {
       representativeImages.push(image);
       networks.add(image.network);
     }
-    let rows = representativeImages.map((metadata) => {
-      let userImage = this._map.style.getImage(metadata.name).userImage;
-      let imageData = new ImageData(
-        userImage.data,
-        userImage.width,
-        userImage.height
-      );
-      let canvas = document.createElement("canvas");
-      canvas.width = imageData.width;
-      canvas.height = imageData.height;
-      let ctx = canvas.getContext("2d");
-      ctx.putImageData(imageData, 0, 0);
-      let img = new Image(
-        imageData.width / ShieldDraw.PXR,
-        imageData.height / ShieldDraw.PXR
-      );
-      img.src = canvas.toDataURL("image/png");
-      let row = document.createElement("tr");
-      let imageCell = document.createElement("td");
-      imageCell.setAttribute("align", "center");
-      imageCell.appendChild(img);
-      row.appendChild(imageCell);
-      let dfnCell = document.createElement("td");
-      let code = document.createElement("code");
-      code.textContent = metadata.network;
-      dfnCell.appendChild(code);
-      row.appendChild(dfnCell);
-      return row;
-    });
+    let rows = representativeImages
+      .map((metadata) => {
+        let userImage = this._map.style.getImage(metadata.name).userImage;
+        // Skip spacer images representing unsupported networks.
+        if (userImage.width === 1 || userImage.height === 1) return;
+
+        let imageData = new ImageData(
+          userImage.data,
+          userImage.width,
+          userImage.height
+        );
+        let canvas = document.createElement("canvas");
+        canvas.width = imageData.width;
+        canvas.height = imageData.height;
+        let ctx = canvas.getContext("2d");
+        ctx.putImageData(imageData, 0, 0);
+        let img = new Image(
+          imageData.width / ShieldDraw.PXR,
+          imageData.height / ShieldDraw.PXR
+        );
+        img.src = canvas.toDataURL("image/png");
+
+        let row = document.createElement("tr");
+        row.setAttribute("network", metadata.network);
+        row.style.setProperty("vertical-align", "middle");
+
+        let imageCell = document.createElement("td");
+        imageCell.setAttribute("align", "center");
+        imageCell.appendChild(img);
+        row.appendChild(imageCell);
+        let dfnCell = document.createElement("td");
+        let code = document.createElement("code");
+        code.textContent = metadata.network;
+        dfnCell.appendChild(code);
+        row.appendChild(dfnCell);
+        return row;
+      })
+      .filter((r) => r);
     let table = document.createElement("table");
     for (let row of rows) {
       table.appendChild(row);
@@ -113,9 +123,59 @@ export default class LegendControl {
 
     this._popup.setDOMContent(contents);
     this._popup.setLngLat(anchor).addTo(this._map);
+
+    this.prettifyNetworkLabels(rows);
   }
 
   close() {
     this._popup.remove();
+  }
+
+  async prettifyNetworkLabels(rows) {
+    let networkMetadata = await this.getNetworkMetadata();
+    if (!networkMetadata) return;
+
+    for (let row of rows) {
+      let network = row.getAttribute("network");
+      let binding = networkMetadata[network];
+      if (!binding) continue;
+
+      let link = document.createElement("a");
+      link.href = binding.network.value;
+      link.textContent = binding.networkLabel.value;
+      link.setAttribute("lang", binding.networkLabel["xml:lang"]);
+
+      let dfnCell = row.cells[1];
+      dfnCell.replaceChildren(link);
+    }
+  }
+
+  async getNetworkMetadata() {
+    if (this._networkMetadata) {
+      return this._networkMetadata;
+    }
+
+    let sparql = `
+SELECT ?value ?network ?networkLabel WHERE {
+  ?network wdt:P1282 ?tag.
+  FILTER(REGEX(?tag, "^Tag:network="))
+  BIND(SUBSTR(?tag, 13) AS ?value)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${Label.getLocales().join(
+    ","
+  )},en". }
+}
+ORDER BY ?value
+`;
+    let url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(
+      sparql
+    )}&format=json`;
+    const response = await fetch(url);
+    const json = await response.json();
+    this._networkMetadata = Object.fromEntries(
+      json.results.bindings.map((binding) => {
+        return [binding.value.value, binding];
+      })
+    );
+    return this._networkMetadata;
   }
 }
