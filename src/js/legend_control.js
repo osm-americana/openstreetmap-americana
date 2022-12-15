@@ -100,7 +100,7 @@ export default class LegendControl {
         img.src = canvas.toDataURL("image/png");
 
         let row = document.createElement("tr");
-        row.setAttribute("network", metadata.network);
+        row.dataset.network = metadata.network;
         row.style.setProperty("vertical-align", "middle");
 
         let imageCell = document.createElement("td");
@@ -136,17 +136,21 @@ export default class LegendControl {
     if (!networkMetadata) return;
 
     for (let row of rows) {
-      let network = row.getAttribute("network");
+      let network = row.dataset.network;
       let binding = networkMetadata[network];
       if (!binding) continue;
 
+      let imageCell = row.cells[0];
+      let img = imageCell.children[0];
+      img.remove();
       let link = document.createElement("a");
       link.href = binding.network.value;
-      link.textContent = binding.networkLabel.value;
-      link.setAttribute("lang", binding.networkLabel["xml:lang"]);
+      link.appendChild(img);
+      imageCell.appendChild(link);
 
       let dfnCell = row.cells[1];
-      dfnCell.replaceChildren(link);
+      dfnCell.setAttribute("lang", binding.networkLabel["xml:lang"]);
+      dfnCell.textContent = binding.networkLabel.value;
     }
   }
 
