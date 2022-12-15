@@ -27,6 +27,14 @@
       .openmapsamples-control-container {
         margin-left: 70px !important;
       }
+
+      .legend-row,
+      .legend-row img {
+        vertical-align: middle;
+      }
+      .legend-row > .preview {
+        text-align: center;
+      }
     </style>
     <script type="module" src="americana.js"></script>
     <link rel="stylesheet" href="americana.css" />
@@ -46,5 +54,15 @@
         data-recalc-dims="1"
         style="position: absolute; top: 0; right: 0; border: 0; z-index: 100"
     /></a>
+    <template id="legend">
+      <h2>Legend</h2>
+      <table></table>
+    </template>
+    <template id="legend-row">
+      <tr class="legend-row">
+        <td class="preview"></td>
+        <td class="description"></td>
+      </tr>
+    </template>
   </body>
 </html>

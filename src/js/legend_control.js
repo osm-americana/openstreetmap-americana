@@ -34,10 +34,7 @@ export default class LegendControl {
       }
 
       let buttonRect = button.getClientRects()[0];
-      let anchor = map.unproject([
-        buttonRect.x + buttonRect.width / 2,
-        buttonRect.y,
-      ]);
+      let anchor = [buttonRect.x + buttonRect.width / 2, buttonRect.y];
       this.open(anchor);
     });
 
@@ -49,15 +46,37 @@ export default class LegendControl {
     this._map = undefined;
   }
 
+  /**
+   * Opens the legend popup, positioning it to point at the given anchor point.
+   *
+   * @param anchor A screen coordinate for the popup to point to.
+   */
   open(anchor) {
     this.close();
 
-    let contents = document.createElement("div");
+    let contents = this.getContents();
+    let rows = contents.querySelectorAll(".legend-row");
+    this._popup.setDOMContent(contents);
 
-    let caption = document.createElement("h2");
-    caption.textContent = "Legend";
-    contents.appendChild(caption);
+    let anchorCoordinate = this._map.unproject(anchor);
+    this._popup.setLngLat(anchorCoordinate).addTo(this._map);
 
+    this.prettifyNetworkLabels(rows);
+  }
+
+  /**
+   * Closes the legend popup.
+   */
+  close() {
+    this._popup.remove();
+  }
+
+  /**
+   * Returns contents of the popup appropriate to the current viewport.
+   *
+   * @returns A DOM element representing the full contents of the popup.
+   */
+  getContents() {
     let features = this._map.queryRenderedFeatures({
       layers: ["highway_shield"],
     });
@@ -78,59 +97,81 @@ export default class LegendControl {
       networks.add(image.network);
     }
     let rows = representativeImages
-      .map((metadata) => {
-        let userImage = this._map.style.getImage(metadata.name).userImage;
-        // Skip spacer images representing unsupported networks.
-        if (userImage.width === 1 || userImage.height === 1) return;
-
-        let imageData = new ImageData(
-          userImage.data,
-          userImage.width,
-          userImage.height
-        );
-        let canvas = document.createElement("canvas");
-        canvas.width = imageData.width;
-        canvas.height = imageData.height;
-        let ctx = canvas.getContext("2d");
-        ctx.putImageData(imageData, 0, 0);
-        let img = new Image(
-          imageData.width / ShieldDraw.PXR,
-          imageData.height / ShieldDraw.PXR
-        );
-        img.src = canvas.toDataURL("image/png");
-
-        let row = document.createElement("tr");
-        row.dataset.network = metadata.network;
-        row.style.setProperty("vertical-align", "middle");
-
-        let imageCell = document.createElement("td");
-        imageCell.setAttribute("align", "center");
-        imageCell.appendChild(img);
-        row.appendChild(imageCell);
-        let dfnCell = document.createElement("td");
-        let code = document.createElement("code");
-        code.textContent = metadata.network;
-        dfnCell.appendChild(code);
-        row.appendChild(dfnCell);
-        return row;
-      })
+      .map((metadata) => this.getShieldRow(metadata.name, metadata.network))
       .filter((r) => r);
-    let table = document.createElement("table");
+
+    let contents = document.getElementById("legend").content.cloneNode(true);
+    let table = contents.querySelector("table");
     for (let row of rows) {
       table.appendChild(row);
     }
-    contents.appendChild(table);
 
-    this._popup.setDOMContent(contents);
-    this._popup.setLngLat(anchor).addTo(this._map);
-
-    this.prettifyNetworkLabels(rows);
+    return contents;
   }
 
-  close() {
-    this._popup.remove();
+  /**
+   * Returns a table row representing a route shield.
+   *
+   * @param name The style image name.
+   * @param network The `network=*` value associated with the style image.
+   * @returns An HTML table row representing the route shield, or nothing if the style does not render the given network.
+   */
+  getShieldRow(name, network) {
+    let styleImage = this._map.style.getImage(name);
+    let img = this.getImageFromStyle(styleImage);
+    if (!img) return;
+
+    let template = document
+      .getElementById("legend-row")
+      .content.cloneNode(true);
+    let row = template.querySelector("tr");
+    row.dataset.network = network;
+
+    row.querySelector(".preview").appendChild(img);
+
+    let descriptionCell = row.querySelector(".description");
+    let code = document.createElement("code");
+    code.textContent = network;
+    descriptionCell.appendChild(code);
+
+    return row;
   }
 
+  /**
+   * Returns an HTML image element displaying the given style image.
+   *
+   * @param styleImage The style image to display.
+   * @returns An HTML image element, or nothing if the style image is merely a spacer image.
+   */
+  getImageFromStyle(styleImage) {
+    let userImage = styleImage.userImage;
+    // Skip spacer images representing unsupported networks.
+    if (userImage.width === 1 || userImage.height === 1) return;
+
+    let imageData = new ImageData(
+      userImage.data,
+      userImage.width,
+      userImage.height
+    );
+    let canvas = document.createElement("canvas");
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    let ctx = canvas.getContext("2d");
+    ctx.putImageData(imageData, 0, 0);
+    let img = new Image(
+      imageData.width / ShieldDraw.PXR,
+      imageData.height / ShieldDraw.PXR
+    );
+    img.src = canvas.toDataURL("image/png");
+
+    return img;
+  }
+
+  /**
+   * Inserts human-readable descriptions in each of the given table rows.
+   *
+   * @param rows An array of table rows containing placeholders for descriptions.
+   */
   async prettifyNetworkLabels(rows) {
     let networkMetadata = await this.getNetworkMetadata();
     if (!networkMetadata) return;
@@ -140,20 +181,23 @@ export default class LegendControl {
       let binding = networkMetadata[network];
       if (!binding) continue;
 
-      let imageCell = row.cells[0];
-      let img = imageCell.children[0];
+      let imageCell = row.querySelector(".preview");
+      let img = imageCell.querySelector("img");
       img.remove();
       let link = document.createElement("a");
       link.href = binding.network.value;
       link.appendChild(img);
       imageCell.appendChild(link);
 
-      let dfnCell = row.cells[1];
-      dfnCell.setAttribute("lang", binding.networkLabel["xml:lang"]);
-      dfnCell.textContent = binding.networkLabel.value;
+      let descriptionCell = row.querySelector(".description");
+      descriptionCell.setAttribute("lang", binding.networkLabel["xml:lang"]);
+      descriptionCell.textContent = binding.networkLabel.value;
     }
   }
 
+  /**
+   * Returns a mapping from `network=*` values to metadata about these values from Wikidata.
+   */
   async getNetworkMetadata() {
     if (this._networkMetadata) {
       return this._networkMetadata;
