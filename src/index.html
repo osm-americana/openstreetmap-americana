@@ -28,12 +28,21 @@
         margin-left: 70px !important;
       }
 
+      .legend-section > summary {
+        background-color: #eee;
+      }
+      .legend-section table {
+        width: 100%;
+      }
       .legend-row,
       .legend-row img {
         vertical-align: middle;
       }
       .legend-row > .preview {
         text-align: center;
+      }
+      #legend-section-places .preview {
+        text-align: left;
       }
       .legend-source {
         font-size: 80%;
@@ -64,14 +73,23 @@
     /></a>
     <template id="legend">
       <h2>Legend</h2>
-      <table>
-        <tbody></tbody>
-        <tfoot>
-          <tr>
-            <td class="legend-source" colspan="2">Source: <a>Wikidata</a></td>
-          </tr>
-        </tfoot>
-      </table>
+      <details id="legend-section-places" class="legend-section" open>
+        <summary>Places</summary>
+        <table>
+          <tbody></tbody>
+        </table>
+      </details>
+      <details id="legend-section-shields" class="legend-section" open>
+        <summary>Route markers</summary>
+        <table>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td class="legend-source" colspan="2">Source: <a>Wikidata</a></td>
+            </tr>
+          </tfoot>
+        </table>
+      </details>
     </template>
     <template id="legend-row">
       <tr class="legend-row">

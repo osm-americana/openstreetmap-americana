@@ -3,6 +3,9 @@
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Label from "../constants/label.js";
 
+import * as PlaceLayers from "../layer/place.js";
+import * as HighwayShieldLayers from "../layer/highway_shield.js";
+
 import * as maplibregl from "maplibre-gl";
 
 export default class LegendControl {
@@ -24,7 +27,7 @@ export default class LegendControl {
 
     this._popup = new maplibregl.Popup({
       closeOnMove: true,
-      maxWidth: "25em",
+      maxWidth: "30em",
       offset: [0, -4],
     });
     button.addEventListener("click", () => {
@@ -77,10 +80,85 @@ export default class LegendControl {
    * @returns A DOM element representing the full contents of the popup.
    */
   getContents() {
-    let features = this._map.queryRenderedFeatures({
-      layers: ["highway_shield"],
+    let contents = document.getElementById("legend").content.cloneNode(true);
+
+    let placeFeatures = this._map.queryRenderedFeatures({
+      layers: [
+        PlaceLayers.village.id,
+        PlaceLayers.town.id,
+        PlaceLayers.city.id,
+      ],
     });
-    let images = features
+    let placeClasses = [
+      { value: "city", description: "Large city" },
+      { value: "town", description: "Town" },
+      { value: "village", description: "Small village" },
+    ];
+    let placeLabels = [];
+    for (let placeClass of placeClasses) {
+      placeClass.feature = placeFeatures.find(
+        (f) => f.properties.class === placeClass.value && !f.properties.capital
+      );
+      if (placeClass.feature) {
+        placeLabels.push(placeClass);
+      }
+    }
+    let capitalRanks = [
+      { value: 2, description: "National capital" },
+      { value: 3, description: "Regional capital" },
+      { value: 4, description: "State/provincial capital" },
+    ];
+    for (let rank of capitalRanks) {
+      rank.feature = placeFeatures.find(
+        (f) => f.properties.capital === rank.value
+      );
+      if (rank.feature) {
+        placeLabels.push(rank);
+      }
+    }
+    let placeLabelRows = placeLabels.map((label) => {
+      let template = document
+        .getElementById("legend-row")
+        .content.cloneNode(true);
+      let row = template.querySelector("tr");
+
+      let layer = label.feature.layer;
+      let imageName = layer.layout["icon-image"].name;
+      let iconSize = layer.layout["icon-size"];
+      let styleImage = this._map.style.getImage(imageName);
+      let img = this.getImageFromStyle(styleImage, iconSize);
+      let previewCell = row.querySelector(".preview");
+      previewCell.appendChild(img);
+
+      let span = document.createElement("span");
+      span.textContent = layer.layout["text-field"].sections[0].text;
+      Object.assign(span.style, {
+        color: layer.paint["text-color"],
+        fontWeight: "bold",
+        fontSize: `${layer.layout["text-size"]}px`,
+        paddingLeft: `calc(${layer.layout["text-radial-offset"]}em - ${
+          img.width / 2
+        }px)`,
+        verticalAlign: "middle",
+      });
+      previewCell.appendChild(span);
+
+      let descriptionCell = row.querySelector(".description");
+      descriptionCell.textContent = label.description;
+
+      return row;
+    });
+    let placeSection = contents.querySelector("#legend-section-places");
+    if (placeLabelRows.length) {
+      placeSection.querySelector("tbody").replaceChildren(...placeLabelRows);
+    } else {
+      placeSection.remove();
+    }
+
+    let shieldFeatures = this._map.queryRenderedFeatures({
+      layers: [HighwayShieldLayers.shield.id],
+    });
+    let images = shieldFeatures
       .flatMap((f) => f.layer.layout["text-field"].sections)
       .filter((s) => s.image && s.image)
       .map((s) => {
@@ -96,19 +174,20 @@ export default class LegendControl {
       representativeImages.push(image);
       networks.add(image.network);
     }
-    let rows = representativeImages
+    let shieldRows = representativeImages
       .map((metadata) => this.getShieldRow(metadata.name, metadata.network))
       .filter((r) => r);
 
-    let contents = document.getElementById("legend").content.cloneNode(true);
-    let tableBody = contents.querySelector("tbody");
-    for (let row of rows) {
-      tableBody.appendChild(row);
+    let shieldSection = contents.querySelector("#legend-section-shields");
+    if (shieldRows.length) {
+      shieldSection.querySelector("tbody").replaceChildren(...shieldRows);
+      let sourceLink = shieldSection.querySelector(".legend-source a");
+      sourceLink.href = `https://query.wikidata.org/embed.html#${encodeURIComponent(
+        this.getNetworkMetadataQuery()
+      )}`;
+    } else {
+      shieldSection.remove();
     }
-    let sourceLink = contents.querySelector(".legend-source a");
-    sourceLink.href = `https://query.wikidata.org/embed.html#${encodeURIComponent(
-      this.getNetworkMetadataQuery()
-    )}`;
 
     return contents;
   }
@@ -145,26 +224,28 @@ export default class LegendControl {
    * Returns an HTML image element displaying the given style image.
    *
    * @param styleImage The style image to display.
+   * @param iconSize The size factor to apply to the width and height of the image.
    * @returns An HTML image element, or nothing if the style image is merely a spacer image.
    */
-  getImageFromStyle(styleImage) {
+  getImageFromStyle(styleImage, iconSize = 1) {
     let userImage = styleImage.userImage;
     // Skip spacer images representing unsupported networks.
-    if (userImage.width === 1 || userImage.height === 1) return;
+    if (userImage?.width === 1 || userImage?.height === 1) return;
 
     let imageData = new ImageData(
-      userImage.data,
-      userImage.width,
-      userImage.height
+      userImage?.data || new Uint8ClampedArray(styleImage.data.data),
+      userImage?.width || styleImage.data.width,
+      userImage?.height || styleImage.data.height
     );
+
     let canvas = document.createElement("canvas");
     canvas.width = imageData.width;
     canvas.height = imageData.height;
     let ctx = canvas.getContext("2d");
     ctx.putImageData(imageData, 0, 0);
     let img = new Image(
-      imageData.width / ShieldDraw.PXR,
-      imageData.height / ShieldDraw.PXR
+      (imageData.width * iconSize) / ShieldDraw.PXR,
+      (imageData.height * iconSize) / ShieldDraw.PXR
     );
     img.src = canvas.toDataURL("image/png");
 
