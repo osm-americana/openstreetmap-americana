@@ -83,29 +83,65 @@ export default class LegendControl {
    * @returns A DOM element representing the full contents of the popup.
    */
   getContents() {
-    let container = document.getElementById("legend").content.cloneNode(true);
+    let template = document.getElementById("legend").content.cloneNode(true);
 
-    this.populatePlaceTable(container);
-    this.populateShieldTable(container);
+    let sections = [
+      {
+        name: "Places",
+        entries: PlaceLayers.legendEntries,
+        layers: PlaceLayers.legendLayers,
+      },
+      {
+        name: "Route Markers",
+        rows: this.getShieldRows(),
+        source: "Wikidata",
+        sourceURL: `https://query.wikidata.org/embed.html#${encodeURIComponent(
+          this.getNetworkMetadataQuery()
+        )}`,
+      },
+    ];
+    for (let data of sections) {
+      let section = this.getSection(data);
+      if (!section) continue;
 
-    return container;
+      let container = template.getElementById("legend-container");
+      container.appendChild(section);
+
+      if (data.source) {
+        let sourceCell = template.querySelector(".legend-source");
+        sourceCell.textContent = "Source: ";
+
+        let sourceLink = document.createElement("a");
+        sourceLink.href = data.sourceURL;
+        sourceLink.textContent = data.source;
+        sourceCell.append(sourceLink);
+      }
+    }
+
+    return template;
   }
 
   /**
-   * Populates the given container with table rows illustrating kinds of places.
+   * Returns the section representing the given data.
    */
-  populatePlaceTable(container) {
-    let placeEntries = this.matchEntries(
-      PlaceLayers.legendEntries,
-      PlaceLayers.legendLayers
-    );
-    let placeLabelRows = placeEntries.map((entry) => this.getSymbolRow(entry));
-    let placeSection = container.querySelector("#legend-section-places");
-    if (placeLabelRows.length) {
-      placeSection.querySelector("tbody").replaceChildren(...placeLabelRows);
-    } else {
-      placeSection.remove();
+  getSection(data) {
+    let template = document
+      .getElementById("legend-section")
+      .content.cloneNode(true);
+    template.querySelector("summary").textContent = data.name;
+
+    let rows = data.rows;
+    if (!rows && data.entries) {
+      let matchedEntries = this.matchEntries(data.entries, data.layers);
+      rows = matchedEntries.map((entry) => this.getSymbolRow(entry));
     }
+    if (!rows.length) return;
+
+    template.querySelector("tbody").replaceChildren(...rows);
+    if (!data.source) {
+      template.querySelector("tfoot").remove();
+    }
+    return template.querySelector(".legend-section");
   }
 
   /**
@@ -143,10 +179,15 @@ export default class LegendControl {
     let row = template.querySelector("tr");
 
     let previewCell = row.querySelector(".preview");
+    previewCell.style.textAlign = "left";
     let img = this.getIconImageFromSymbol(entry.feature);
-    previewCell.appendChild(img);
+    if (img) {
+      previewCell.appendChild(img);
+    }
     let span = this.getTextSpanFromSymbol(entry.feature);
-    previewCell.appendChild(span);
+    if (span) {
+      previewCell.appendChild(span);
+    }
 
     let descriptionCell = row.querySelector(".description");
     descriptionCell.textContent = entry.description;
@@ -174,32 +215,17 @@ export default class LegendControl {
   getTextSpanFromSymbol(symbol) {
     let span = document.createElement("span");
     span.textContent = symbol.layer.layout["text-field"].sections[0].text;
+    let weight = symbol.layer.layout["text-font"]?.[0]?.endsWith("Bold")
+      ? "bold"
+      : "normal";
     Object.assign(span.style, {
       color: symbol.layer.paint["text-color"],
-      fontWeight: "bold",
+      fontWeight: weight,
       fontSize: `${symbol.layer.layout["text-size"]}px`,
       paddingLeft: `${symbol.layer.layout["text-radial-offset"]}em`,
       verticalAlign: "middle",
     });
     return span;
-  }
-
-  /**
-   * Populates the given container with table rows illustrating route shields.
-   */
-  populateShieldTable(container) {
-    let shieldRows = this.getShieldRows();
-
-    let shieldSection = container.querySelector("#legend-section-shields");
-    if (shieldRows.length) {
-      shieldSection.querySelector("tbody").replaceChildren(...shieldRows);
-      let sourceLink = shieldSection.querySelector(".legend-source a");
-      sourceLink.href = `https://query.wikidata.org/embed.html#${encodeURIComponent(
-        this.getNetworkMetadataQuery()
-      )}`;
-    } else {
-      shieldSection.remove();
-    }
   }
 
   /**
