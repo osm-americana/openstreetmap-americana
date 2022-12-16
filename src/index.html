@@ -28,6 +28,10 @@
         margin-left: 70px !important;
       }
 
+      #legend-container {
+        max-height: 60vh;
+        overflow-y: scroll;
+      }
       .legend-section > summary {
         background-color: #eee;
       }
@@ -73,23 +77,27 @@
     /></a>
     <template id="legend">
       <h2>Legend</h2>
-      <details id="legend-section-places" class="legend-section" open>
-        <summary>Places</summary>
-        <table>
-          <tbody></tbody>
-        </table>
-      </details>
-      <details id="legend-section-shields" class="legend-section" open>
-        <summary>Route markers</summary>
-        <table>
-          <tbody></tbody>
-          <tfoot>
-            <tr>
-              <td class="legend-source" colspan="2">Source: <a>Wikidata</a></td>
-            </tr>
-          </tfoot>
-        </table>
-      </details>
+      <div id="legend-container">
+        <details id="legend-section-places" class="legend-section" open>
+          <summary>Places</summary>
+          <table>
+            <tbody></tbody>
+          </table>
+        </details>
+        <details id="legend-section-shields" class="legend-section" open>
+          <summary>Route markers</summary>
+          <table>
+            <tbody></tbody>
+            <tfoot>
+              <tr>
+                <td class="legend-source" colspan="2">
+                  Source: <a>Wikidata</a>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </details>
+      </div>
     </template>
     <template id="legend-rowgroup">
       <tr class="legend-rowgroup">

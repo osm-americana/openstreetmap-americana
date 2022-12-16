@@ -38,7 +38,7 @@ export default class LegendControl {
       }
 
       let buttonRect = button.getClientRects()[0];
-      let anchor = [buttonRect.x + buttonRect.width / 2, buttonRect.y];
+      let anchor = [buttonRect.x, buttonRect.y];
       this.open(anchor);
     });
 
@@ -66,6 +66,8 @@ export default class LegendControl {
     this._popup.setLngLat(anchorCoordinate).addTo(this._map);
 
     this.prettifyNetworkLabels(rows);
+
+    document.getElementById("legend-container").scrollTop = 0;
   }
 
   /**
@@ -172,7 +174,8 @@ export default class LegendControl {
       .sort((a, b) => a.name.localeCompare(b.name, "en"));
     let networks = new Set();
     let countries = new Set();
-    let shieldRows = [];
+    let shieldRowsByCountry = {};
+    let otherShieldRows = [];
     let countryNames = new Intl.DisplayNames(Label.getLocales(), {
       type: "region",
     });
@@ -182,20 +185,40 @@ export default class LegendControl {
       let row = this.getShieldRow(metadata.name, metadata.network);
       if (!row) continue;
 
-      if (!countries.has(metadata.country)) {
+      if (metadata.country) {
+        if (!(metadata.country in shieldRowsByCountry)) {
+          shieldRowsByCountry[metadata.country] = [];
+        }
+        shieldRowsByCountry[metadata.country].push(row);
+        countries.add(metadata.country);
+      } else {
+        otherShieldRows.push(row);
+      }
+      networks.add(metadata.network);
+    }
+
+    let sortedCountries = [...countries]
+      .map((code) => {
+        let name = countryNames.of(code) ?? code;
+        return { code, name };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+    if (otherShieldRows.length) {
+      sortedCountries.push({ code: "*", name: "Other" });
+      shieldRowsByCountry["*"] = otherShieldRows;
+    }
+    let shieldRows = [];
+    for (let country of sortedCountries) {
+      if (sortedCountries.length > 1) {
         let template = document
           .getElementById("legend-rowgroup")
           .content.cloneNode(true);
-        let row = template.querySelector("tr");
-        let name = metadata.country
-          ? countryNames.of(metadata.country)
-          : metadata.country;
-        row.querySelector("th").textContent = name;
-        shieldRows.push(row);
+        let groupRow = template.querySelector("tr");
+        groupRow.querySelector("th").textContent = country.name;
+        shieldRows.push(groupRow);
       }
-      shieldRows.push(row);
-      networks.add(metadata.network);
-      countries.add(metadata.country);
+
+      shieldRows.push(...shieldRowsByCountry[country.code]);
     }
 
     let shieldSection = contents.querySelector("#legend-section-shields");
