@@ -51,6 +51,8 @@ The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https:
 - Translated name labels from [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) for places, POIs, airports, roads, bodies of water, parks, and mountain peaks.
 - Low-zoom ocean/water, boundary, and urbanized area data from [Natural Earth](https://www.naturalearthdata.com/).
 
+The legend’s “Route markers” section is labeled using labels of Wikidata items that tagged with the [corresponding OSM tag](https://www.wikidata.org/wiki/Property:P1282).
+
 ## Coverage
 
 Americana is compatible with vector tiles covering the entire world.
