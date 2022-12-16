@@ -267,3 +267,25 @@ export const airportGate = {
   metadata: {},
   "source-layer": "aeroway",
 };
+
+export const legendEntries = [
+  {
+    description: "International airport",
+    properties: { class: "international" },
+  },
+  {
+    description: "Public airport",
+    properties: { class: "public" },
+  },
+  {
+    description: "Regional airport",
+    properties: { class: "regional" },
+  },
+  {
+    description: "Airport",
+    properties: { class: "other" },
+  },
+  { description: "Military air base", properties: { class: "military" } },
+];
+
+export const legendLayers = [airportRefLabel.id, airportLabel.id];

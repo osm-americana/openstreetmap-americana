@@ -42,7 +42,12 @@
       .legend-row img {
         vertical-align: middle;
       }
-      .legend-row > .preview {
+      .legend-row > .label {
+        width: 0;
+        text-align: right;
+      }
+      .legend-row > .icon {
+        width: 0;
         text-align: center;
       }
       .legend-source {
@@ -83,7 +88,7 @@
           <tbody></tbody>
           <tfoot>
             <tr>
-              <td class="legend-source" colspan="2"></td>
+              <td class="legend-source" colspan="3"></td>
             </tr>
           </tfoot>
         </table>
@@ -91,12 +96,13 @@
     </template>
     <template id="legend-rowgroup">
       <tr class="legend-rowgroup">
-        <th colspan="2"></th>
+        <th colspan="3"></th>
       </tr>
     </template>
     <template id="legend-row">
       <tr class="legend-row">
-        <td class="preview"></td>
+        <td class="label"></td>
+        <td class="icon"></td>
         <td class="description"></td>
       </tr>
     </template>

@@ -5,6 +5,7 @@ import * as Label from "../constants/label.js";
 
 import * as PlaceLayers from "../layer/place.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
+import * as AerowayLayers from "../layer/aeroway.js";
 
 import * as maplibregl from "maplibre-gl";
 
@@ -87,17 +88,22 @@ export default class LegendControl {
 
     let sections = [
       {
-        name: "Places",
+        name: "Populated places",
         entries: PlaceLayers.legendEntries,
         layers: PlaceLayers.legendLayers,
       },
       {
-        name: "Route Markers",
+        name: "Route markers",
         rows: this.getShieldRows(),
         source: "Wikidata",
         sourceURL: `https://query.wikidata.org/embed.html#${encodeURIComponent(
           this.getNetworkMetadataQuery()
         )}`,
+      },
+      {
+        name: "Aviation",
+        entries: AerowayLayers.legendEntries,
+        layers: AerowayLayers.legendLayers,
       },
     ];
     for (let data of sections) {
@@ -178,15 +184,16 @@ export default class LegendControl {
       .content.cloneNode(true);
     let row = template.querySelector("tr");
 
-    let previewCell = row.querySelector(".preview");
-    previewCell.style.textAlign = "left";
+    let iconCell = row.querySelector(".icon");
     let img = this.getIconImageFromSymbol(entry.feature);
     if (img) {
-      previewCell.appendChild(img);
+      iconCell.appendChild(img);
     }
-    let span = this.getTextSpanFromSymbol(entry.feature);
-    if (span) {
-      previewCell.appendChild(span);
+
+    let labelCell = row.querySelector(".label");
+    let label = this.getTextLabelFromSymbol(entry.feature);
+    if (label) {
+      labelCell.appendChild(label);
     }
 
     let descriptionCell = row.querySelector(".description");
@@ -204,28 +211,30 @@ export default class LegendControl {
     let iconSize = symbol.layer.layout["icon-size"];
     let styleImage = this._map.style.getImage(imageName);
     let img = this.getImageFromStyle(styleImage, iconSize);
-    img.style.marginRight = `${-img.width / ShieldDraw.PXR / 2}px`;
     return img;
   }
 
   /**
-   * Returns an HTML image element that resembles the text of the given feature
+   * Returns an HTML block element that resembles the text of the given feature
    * from a symbol layer.
    */
-  getTextSpanFromSymbol(symbol) {
-    let span = document.createElement("span");
-    span.textContent = symbol.layer.layout["text-field"].sections[0].text;
+  getTextLabelFromSymbol(symbol) {
+    let label = document.createElement("div");
+    label.textContent = symbol.layer.layout["text-field"].sections[0].text;
     let weight = symbol.layer.layout["text-font"]?.[0]?.endsWith("Bold")
       ? "bold"
       : "normal";
-    Object.assign(span.style, {
+    Object.assign(label.style, {
+      display: "inline-block",
       color: symbol.layer.paint["text-color"],
       fontWeight: weight,
       fontSize: `${symbol.layer.layout["text-size"]}px`,
-      paddingLeft: `${symbol.layer.layout["text-radial-offset"]}em`,
+      letterSpacing: `${symbol.layer.layout["text-letter-spacing"]}em`,
+      lineHeight: `${symbol.layer.layout["text-line-height"] || 1.2}em`,
       verticalAlign: "middle",
+      width: `${symbol.layer.layout["text-max-width"] || 10}em`,
     });
-    return span;
+    return label;
   }
 
   /**
@@ -314,7 +323,7 @@ export default class LegendControl {
     let row = template.querySelector("tr");
     row.dataset.network = network;
 
-    row.querySelector(".preview").appendChild(img);
+    row.querySelector(".icon").appendChild(img);
 
     let descriptionCell = row.querySelector(".description");
     let code = document.createElement("code");
@@ -395,6 +404,10 @@ export default class LegendControl {
       })
     );
     return this._networkMetadata;
+  }
+
+  purgeNetworkMetadata() {
+    delete this._networkMetadata;
   }
 
   /**

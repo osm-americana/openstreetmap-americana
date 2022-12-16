@@ -327,10 +327,12 @@ map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
 });
 
+let legendControl = new LegendControl();
 window.addEventListener("languagechange", (event) => {
   console.log(`Changed to ${navigator.languages}`);
   map.setStyle(buildStyle());
   languageLabel.displayLocales(Label.getLocales());
+  legendControl.purgeNetworkMetadata();
 });
 
 window.addEventListener("hashchange", (event) => {
@@ -341,6 +343,7 @@ window.addEventListener("hashchange", (event) => {
     console.log(`Changed to ${newLanguage}`);
     map.setStyle(buildStyle());
     languageLabel.displayLocales(Label.getLocales());
+    legendControl.purgeNetworkMetadata();
   }
 });
 
@@ -365,7 +368,6 @@ if (config.ATTRIBUTION_LOGO != undefined) {
 map.addControl(new search.PhotonSearchControl(), "top-left");
 map.addControl(new maplibregl.NavigationControl(), "top-left");
 
-let legendControl = new LegendControl();
 map.addControl(legendControl, "bottom-left");
 
 // Add our sample data.
