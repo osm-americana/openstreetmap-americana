@@ -83,82 +83,129 @@ export default class LegendControl {
    * @returns A DOM element representing the full contents of the popup.
    */
   getContents() {
-    let contents = document.getElementById("legend").content.cloneNode(true);
+    let container = document.getElementById("legend").content.cloneNode(true);
 
-    let placeFeatures = this._map.queryRenderedFeatures({
-      layers: [
-        PlaceLayers.village.id,
-        PlaceLayers.town.id,
-        PlaceLayers.city.id,
-      ],
-    });
-    let placeClasses = [
-      { value: "city", description: "Large city" },
-      { value: "town", description: "Town" },
-      { value: "village", description: "Small village" },
-    ];
-    let placeLabels = [];
-    for (let placeClass of placeClasses) {
-      placeClass.feature = placeFeatures.find(
-        (f) => f.properties.class === placeClass.value && !f.properties.capital
-      );
-      if (placeClass.feature) {
-        placeLabels.push(placeClass);
-      }
-    }
-    let capitalRanks = [
-      { value: 2, description: "National capital" },
-      { value: 3, description: "Regional capital" },
-      { value: 4, description: "State/provincial capital" },
-    ];
-    for (let rank of capitalRanks) {
-      rank.feature = placeFeatures.find(
-        (f) => f.properties.capital === rank.value
-      );
-      if (rank.feature) {
-        placeLabels.push(rank);
-      }
-    }
-    let placeLabelRows = placeLabels.map((label) => {
-      let template = document
-        .getElementById("legend-row")
-        .content.cloneNode(true);
-      let row = template.querySelector("tr");
+    this.populatePlaceTable(container);
+    this.populateShieldTable(container);
 
-      let layer = label.feature.layer;
-      let imageName = layer.layout["icon-image"].name;
-      let iconSize = layer.layout["icon-size"];
-      let styleImage = this._map.style.getImage(imageName);
-      let img = this.getImageFromStyle(styleImage, iconSize);
-      let previewCell = row.querySelector(".preview");
-      previewCell.appendChild(img);
+    return container;
+  }
 
-      let span = document.createElement("span");
-      span.textContent = layer.layout["text-field"].sections[0].text;
-      let padding = `calc(${layer.layout["text-radial-offset"]}em - ${
-        img.width / 2
-      }px)`;
-      Object.assign(span.style, {
-        color: layer.paint["text-color"],
-        fontWeight: "bold",
-        fontSize: `${layer.layout["text-size"]}px`,
-        paddingLeft: padding,
-        verticalAlign: "middle",
-      });
-      previewCell.appendChild(span);
-
-      let descriptionCell = row.querySelector(".description");
-      descriptionCell.textContent = label.description;
-
-      return row;
-    });
-    let placeSection = contents.querySelector("#legend-section-places");
+  /**
+   * Populates the given container with table rows illustrating kinds of places.
+   */
+  populatePlaceTable(container) {
+    let placeEntries = this.matchEntries(
+      PlaceLayers.legendEntries,
+      PlaceLayers.legendLayers
+    );
+    let placeLabelRows = placeEntries.map((entry) => this.getSymbolRow(entry));
+    let placeSection = container.querySelector("#legend-section-places");
     if (placeLabelRows.length) {
       placeSection.querySelector("tbody").replaceChildren(...placeLabelRows);
     } else {
       placeSection.remove();
     }
+  }
 
+  /**
+   * Returns the given array of legend entries after populating each entry with
+   * a representative feature from the given layers.
+   */
+  matchEntries(entries, layers) {
+    let features = this._map.queryRenderedFeatures({ layers });
+    let matchedEntries = [];
+    for (let entry of entries) {
+      let feature = features.find((feature) => {
+        return Object.entries(entry.properties).every(
+          ([key, expectedValue]) => {
+            if (!expectedValue) {
+              return !(key in feature.properties);
+            }
+            return feature.properties[key] === expectedValue;
+          }
+        );
+      });
+      if (feature) {
+        matchedEntries.push(Object.assign(entry, { feature }));
+      }
+    }
+    return matchedEntries;
+  }
+
+  /**
+   * Returns a table row illustrating the given entry using a symbol.
+   */
+  getSymbolRow(entry) {
+    let template = document
+      .getElementById("legend-row")
+      .content.cloneNode(true);
+    let row = template.querySelector("tr");
+
+    let previewCell = row.querySelector(".preview");
+    let img = this.getIconImageFromSymbol(entry.feature);
+    previewCell.appendChild(img);
+    let span = this.getTextSpanFromSymbol(entry.feature);
+    previewCell.appendChild(span);
+
+    let descriptionCell = row.querySelector(".description");
+    descriptionCell.textContent = entry.description;
+
+    return row;
+  }
+
+  /**
+   * Returns an HTML image element that resembles the icon of the given feature
+   * from a symbol layer.
+   */
+  getIconImageFromSymbol(symbol) {
+    let imageName = symbol.layer.layout["icon-image"].name;
+    let iconSize = symbol.layer.layout["icon-size"];
+    let styleImage = this._map.style.getImage(imageName);
+    let img = this.getImageFromStyle(styleImage, iconSize);
+    img.style.marginRight = `${-img.width / ShieldDraw.PXR / 2}px`;
+    return img;
+  }
+
+  /**
+   * Returns an HTML image element that resembles the text of the given feature
+   * from a symbol layer.
+   */
+  getTextSpanFromSymbol(symbol) {
+    let span = document.createElement("span");
+    span.textContent = symbol.layer.layout["text-field"].sections[0].text;
+    Object.assign(span.style, {
+      color: symbol.layer.paint["text-color"],
+      fontWeight: "bold",
+      fontSize: `${symbol.layer.layout["text-size"]}px`,
+      paddingLeft: `${symbol.layer.layout["text-radial-offset"]}em`,
+      verticalAlign: "middle",
+    });
+    return span;
+  }
+
+  /**
+   * Populates the given container with table rows illustrating route shields.
+   */
+  populateShieldTable(container) {
+    let shieldRows = this.getShieldRows();
+
+    let shieldSection = container.querySelector("#legend-section-shields");
+    if (shieldRows.length) {
+      shieldSection.querySelector("tbody").replaceChildren(...shieldRows);
+      let sourceLink = shieldSection.querySelector(".legend-source a");
+      sourceLink.href = `https://query.wikidata.org/embed.html#${encodeURIComponent(
+        this.getNetworkMetadataQuery()
+      )}`;
+    } else {
+      shieldSection.remove();
+    }
+  }
+
+  /**
+   * Returns table rows illustrating route shields.
+   */
+  getShieldRows() {
     let shieldFeatures = this._map.queryRenderedFeatures({
       layers: [HighwayShieldLayers.shield.id],
     });
@@ -220,19 +267,7 @@ export default class LegendControl {
 
       shieldRows.push(...shieldRowsByCountry[country.code]);
     }
-
-    let shieldSection = contents.querySelector("#legend-section-shields");
-    if (shieldRows.length) {
-      shieldSection.querySelector("tbody").replaceChildren(...shieldRows);
-      let sourceLink = shieldSection.querySelector(".legend-source a");
-      sourceLink.href = `https://query.wikidata.org/embed.html#${encodeURIComponent(
-        this.getNetworkMetadataQuery()
-      )}`;
-    } else {
-      shieldSection.remove();
-    }
-
-    return contents;
+    return shieldRows;
   }
 
   /**

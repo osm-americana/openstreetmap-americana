@@ -424,3 +424,23 @@ export const continent = {
   maxzoom: 1,
   "source-layer": "place",
 };
+
+export const legendEntries = [
+  {
+    description: "Large city",
+    properties: { class: "city", capital: null },
+  },
+  { description: "Town", properties: { class: "town", capital: null } },
+  {
+    description: "Small village",
+    properties: { class: "village", capital: null },
+  },
+  { description: "National capital", properties: { capital: 2 } },
+  { description: "Regional capital", properties: { capital: 3 } },
+  {
+    description: "State or provincial capital",
+    properties: { capital: 4 },
+  },
+];
+
+export const legendLayers = [village.id, town.id, city.id];
