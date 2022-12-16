@@ -27,6 +27,7 @@ export default class LegendControl {
 
     this._popup = new maplibregl.Popup({
       closeOnMove: true,
+      anchor: "bottom-left",
       maxWidth: "30em",
       offset: [0, -4],
     });
@@ -132,13 +133,14 @@ export default class LegendControl {
 
       let span = document.createElement("span");
       span.textContent = layer.layout["text-field"].sections[0].text;
+      let padding = `calc(${layer.layout["text-radial-offset"]}em - ${
+        img.width / 2
+      }px)`;
       Object.assign(span.style, {
         color: layer.paint["text-color"],
         fontWeight: "bold",
         fontSize: `${layer.layout["text-size"]}px`,
-        paddingLeft: `calc(${layer.layout["text-radial-offset"]}em - ${
-          img.width / 2
-        }px)`,
+        paddingLeft: padding,
         verticalAlign: "middle",
       });
       previewCell.appendChild(span);
@@ -164,19 +166,37 @@ export default class LegendControl {
       .map((s) => {
         let name = s.image.name;
         let network = name.split("\n")[1].match(/^(.+?)=/)[1];
-        return { name, network };
+        let country = network.match(/^(\w+):/)?.[1];
+        return { name, network, country };
       })
       .sort((a, b) => a.name.localeCompare(b.name, "en"));
     let networks = new Set();
-    let representativeImages = [];
-    for (let image of images) {
-      if (networks.has(image.network)) continue;
-      representativeImages.push(image);
-      networks.add(image.network);
+    let countries = new Set();
+    let shieldRows = [];
+    let countryNames = new Intl.DisplayNames(Label.getLocales(), {
+      type: "region",
+    });
+    for (let metadata of images) {
+      if (networks.has(metadata.network)) continue;
+
+      let row = this.getShieldRow(metadata.name, metadata.network);
+      if (!row) continue;
+
+      if (!countries.has(metadata.country)) {
+        let template = document
+          .getElementById("legend-rowgroup")
+          .content.cloneNode(true);
+        let row = template.querySelector("tr");
+        let name = metadata.country
+          ? countryNames.of(metadata.country)
+          : metadata.country;
+        row.querySelector("th").textContent = name;
+        shieldRows.push(row);
+      }
+      shieldRows.push(row);
+      networks.add(metadata.network);
+      countries.add(metadata.country);
     }
-    let shieldRows = representativeImages
-      .map((metadata) => this.getShieldRow(metadata.name, metadata.network))
-      .filter((r) => r);
 
     let shieldSection = contents.querySelector("#legend-section-shields");
     if (shieldRows.length) {
