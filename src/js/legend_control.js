@@ -7,6 +7,7 @@ import * as PlaceLayers from "../layer/place.js";
 import * as LanduseLayers from "../layer/landuse.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
+import * as ParkLayers from "../layer/park.js";
 
 import * as maplibregl from "maplibre-gl";
 
@@ -92,8 +93,8 @@ export default class LegendControl {
     let sections = [
       {
         name: "Populated places",
-        entries: [...PlaceLayers.legendEntries, ...LanduseLayers.legendEntries],
-        layers: [...PlaceLayers.legendLayers, ...LanduseLayers.legendLayers],
+        entries: PlaceLayers.legendEntries,
+        layers: PlaceLayers.legendLayers,
       },
       {
         name: "Route markers",
@@ -107,6 +108,11 @@ export default class LegendControl {
         name: "Aviation",
         entries: AerowayLayers.legendEntries,
         layers: AerowayLayers.legendLayers,
+      },
+      {
+        name: "Land use",
+        entries: [...LanduseLayers.legendEntries, ...ParkLayers.legendEntries],
+        layers: [...LanduseLayers.legendLayers, ...ParkLayers.legendLayers],
       },
     ];
     for (let data of sections) {
@@ -171,9 +177,21 @@ export default class LegendControl {
           }
         );
       });
-      if (feature) {
-        matchedEntries.push(Object.assign(entry, { feature }));
+      if (!feature) continue;
+      let matchedEntry = Object.assign(entry, { feature });
+      if (feature.layer.type === "fill") {
+        matchedEntry.fill = feature;
+        matchedEntry.line = features.find(
+          (f) => f.id === feature.id && f.layer.type === "line"
+        );
       }
+      if (feature.layer.type === "line") {
+        matchedEntry.line = feature;
+        matchedEntry.fill = features.find(
+          (f) => f.id === feature.id && f.layer.type === "fill"
+        );
+      }
+      matchedEntries.push(matchedEntry);
     }
     return matchedEntries;
   }
@@ -191,10 +209,6 @@ export default class LegendControl {
     if (layerType === "symbol") {
       let labelCell = row.querySelector(".label");
       this.populateTextLabelFromSymbol(labelCell, entry.feature);
-      //if (label) {
-      //  labelCell.appendChild(label);
-      //  labelCell.style.textAlign = label.style.textAlign;
-      //}
 
       let iconCell = row.querySelector(".icon");
       let img = this.getIconImageFromSymbol(entry.feature);
@@ -206,7 +220,7 @@ export default class LegendControl {
       }
     } else {
       let swatchCell = row.querySelector(".swatch");
-      let swatch = this.getSwatchFromFill(entry.feature);
+      let swatch = this.getSwatchFromFill(entry.fill, entry.line);
       if (swatch) {
         swatchCell.appendChild(swatch);
       }
@@ -263,12 +277,17 @@ export default class LegendControl {
    * Returns an HTML block element that resembles the given fill from a fill
    * layer.
    */
-  getSwatchFromFill(fill) {
+  getSwatchFromFill(fill, line) {
     let swatch = document.createElement("div");
     Object.assign(swatch.style, {
-      backgroundColor: fill.layer.paint["fill-color"],
+      backgroundColor: fill?.layer.paint["fill-color"],
       display: "inline-block",
       height: "1em",
+      minWidth: "1em",
+      outlineColor:
+        line?.layer.paint["line-color"] || fill?.layer.paint["fill-color"],
+      outlineStyle: "solid",
+      outlineWidth: `${line?.layer.paint["line-width"] || 1}px`,
       verticalAlign: "middle",
       width: "100%",
     });

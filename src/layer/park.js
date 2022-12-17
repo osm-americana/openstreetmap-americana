@@ -102,3 +102,12 @@ export const parkLabel = {
   source: "openmaptiles",
   "source-layer": "poi",
 };
+
+export const legendEntries = [
+  {
+    description: "Park",
+    properties: {},
+  },
+];
+
+export const legendLayers = [fill.id, outline.id, parkFill.id, parkOutline.id];
