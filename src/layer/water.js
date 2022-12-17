@@ -230,6 +230,19 @@ export const waterPointLabel = {
 
 export const legendEntries = [
   {
+    description: "Ocean, sea, or bay",
+    properties: {
+      class: "ocean",
+    },
+  },
+  {
+    description: "Lake",
+    properties: {
+      class: "lake",
+      intermittent: null,
+    },
+  },
+  {
     description: "Lake",
     properties: {
       class: "lake",
