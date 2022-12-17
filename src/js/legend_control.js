@@ -10,6 +10,8 @@ import * as AerowayLayers from "../layer/aeroway.js";
 
 import * as maplibregl from "maplibre-gl";
 
+const maxPopupWidth = 30; /* em */
+
 export default class LegendControl {
   onAdd(map) {
     this._map = map;
@@ -30,7 +32,7 @@ export default class LegendControl {
     this._popup = new maplibregl.Popup({
       closeOnMove: true,
       anchor: "bottom-left",
-      maxWidth: "30em",
+      maxWidth: `${maxPopupWidth}em`,
       offset: [0, -4],
     });
     button.addEventListener("click", () => {
@@ -187,16 +189,20 @@ export default class LegendControl {
     let row = template.querySelector("tr");
 
     if (layerType === "symbol") {
+      let labelCell = row.querySelector(".label");
+      this.populateTextLabelFromSymbol(labelCell, entry.feature);
+      //if (label) {
+      //  labelCell.appendChild(label);
+      //  labelCell.style.textAlign = label.style.textAlign;
+      //}
+
       let iconCell = row.querySelector(".icon");
       let img = this.getIconImageFromSymbol(entry.feature);
       if (img) {
         iconCell.appendChild(img);
-      }
-
-      let labelCell = row.querySelector(".label");
-      let label = this.getTextLabelFromSymbol(entry.feature);
-      if (label) {
-        labelCell.appendChild(label);
+      } else {
+        iconCell.remove();
+        labelCell.setAttribute("colspan", 2);
       }
     } else {
       let swatchCell = row.querySelector(".swatch");
@@ -217,7 +223,9 @@ export default class LegendControl {
    * from a symbol layer.
    */
   getIconImageFromSymbol(symbol) {
-    let imageName = symbol.layer.layout["icon-image"].name;
+    let imageName = symbol.layer.layout["icon-image"]?.name;
+    if (!imageName) return;
+
     let iconSize = symbol.layer.layout["icon-size"];
     let styleImage = this._map.style.getImage(imageName);
     let img = this.getImageFromStyle(styleImage, iconSize);
@@ -225,25 +233,30 @@ export default class LegendControl {
   }
 
   /**
-   * Returns an HTML block element that resembles the text of the given feature
+   * Populates an HTML block element to resemble the text of the given feature
    * from a symbol layer.
    */
-  getTextLabelFromSymbol(symbol) {
-    let label = document.createElement("div");
-    label.textContent = symbol.layer.layout["text-field"].sections[0].text;
+  populateTextLabelFromSymbol(container, symbol) {
+    container.textContent = symbol.layer.layout["text-field"].sections[0].text;
     let weight = symbol.layer.layout["text-font"]?.[0]?.endsWith("Bold")
       ? "bold"
       : "normal";
-    Object.assign(label.style, {
+    let justification = symbol.layer.layout["text-justify"] || "center";
+    if (symbol.layer.layout["icon-image"]) {
+      justification = "right";
+    }
+    Object.assign(container.style, {
       color: symbol.layer.paint["text-color"],
       fontWeight: weight,
       fontSize: `${symbol.layer.layout["text-size"] || 16}px`,
       letterSpacing: `${symbol.layer.layout["text-letter-spacing"]}em`,
       lineHeight: `${symbol.layer.layout["text-line-height"] || 1.2}em`,
+      maxWidth: "10vw",
+      textAlign: justification === "auto" ? "right" : justification,
+      textTransform: symbol.layer.layout["text-transform"],
       verticalAlign: "middle",
       width: `${symbol.layer.layout["text-max-width"] || 10}em`,
     });
-    return label;
   }
 
   /**
@@ -257,7 +270,7 @@ export default class LegendControl {
       display: "inline-block",
       height: "1em",
       verticalAlign: "middle",
-      width: "4em",
+      width: "100%",
     });
     return swatch;
   }

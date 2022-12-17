@@ -427,6 +427,18 @@ export const continent = {
 
 export const legendEntries = [
   {
+    description: "Continent",
+    properties: { class: "continent" },
+  },
+  {
+    description: "Country or dependency",
+    properties: { class: "country" },
+  },
+  {
+    description: "State or province",
+    properties: { class: "state" },
+  },
+  {
     description: "Large city",
     properties: { class: "city", capital: null },
   },
@@ -443,4 +455,14 @@ export const legendEntries = [
   },
 ];
 
-export const legendLayers = [village.id, town.id, city.id];
+export const legendLayers = [
+  village.id,
+  town.id,
+  city.id,
+  state.id,
+  countryOther.id,
+  country3.id,
+  country2.id,
+  country1.id,
+  continent.id,
+];
