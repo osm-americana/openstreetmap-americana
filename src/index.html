@@ -40,15 +40,17 @@
         vertical-align: middle;
       }
       .legend-row > .label,
-      .legend-row > .icon,
-      .legend-row > .swatch {
+      .legend-row > .icon {
         width: 0;
         text-align: center;
       }
-      .legend-row > .swatch {
-        border-style: solid;
+      .legend-row > .swatch,
+      .legend-row > .line {
         vertical-align: middle;
         width: 4em;
+      }
+      .legend-row > .swatch {
+        border-style: solid;
       }
       .legend-source {
         font-size: 80%;
@@ -109,6 +111,12 @@
     <template id="legend-row-swatch">
       <tr class="legend-row legend-row-swatch">
         <td class="swatch" colspan="2"></td>
+        <td class="description"></td>
+      </tr>
+    </template>
+    <template id="legend-row-line">
+      <tr class="legend-row legend-row-line">
+        <td class="line" colspan="2"></td>
         <td class="description"></td>
       </tr>
     </template>

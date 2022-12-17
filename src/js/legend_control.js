@@ -174,13 +174,14 @@ export default class LegendControl {
     let matchedEntries = [];
     for (let entry of entries) {
       let feature = features.find((feature) => {
-        return Object.entries(entry.properties).every(
-          ([key, expectedValue]) => {
+        return (
+          Object.entries(entry.properties).every(([key, expectedValue]) => {
             if (expectedValue === null) {
               return !(key in feature.properties);
             }
             return feature.properties[key] === expectedValue;
-          }
+          }) &&
+          (!entry.type || entry.type === feature.geometry.type)
         );
       });
       if (!feature) continue;
@@ -190,8 +191,7 @@ export default class LegendControl {
         matchedEntry.line = features.find(
           (f) => f.id === feature.id && f.layer.type === "line"
         );
-      }
-      if (feature.layer.type === "line") {
+      } else if (feature.layer.type === "line") {
         matchedEntry.line = feature;
         matchedEntry.fill = features.find(
           (f) => f.id === feature.id && f.layer.type === "fill"
@@ -206,13 +206,27 @@ export default class LegendControl {
    * Returns a table row illustrating the given entry.
    */
   getRowForEntry(entry) {
-    let layerType = entry.feature.layer.type;
-    let templateID =
-      layerType === "symbol" ? "legend-row-symbol" : "legend-row-swatch";
+    let templateID = "legend-row-symbol";
+    if (entry.line) {
+      templateID = "legend-row-line";
+    }
+    if (entry.fill) {
+      templateID = "legend-row-swatch";
+    }
     let template = document.getElementById(templateID).content.cloneNode(true);
     let row = template.querySelector("tr");
 
-    if (layerType === "symbol") {
+    if (entry.fill) {
+      let swatchCell = row.querySelector(".swatch");
+      Object.assign(
+        swatchCell.style,
+        this.getSwatchStyle(entry.fill, entry.line)
+      );
+    } else if (entry.line) {
+      let lineCell = row.querySelector(".line");
+      let rule = this.getLineRule(entry.line);
+      lineCell.appendChild(rule);
+    } else {
       let labelCell = row.querySelector(".label");
       this.populateTextLabelFromSymbol(labelCell, entry.feature);
 
@@ -224,12 +238,6 @@ export default class LegendControl {
         iconCell.remove();
         labelCell.setAttribute("colspan", 2);
       }
-    } else {
-      let swatchCell = row.querySelector(".swatch");
-      Object.assign(
-        swatchCell.style,
-        this.getSwatchStyle(entry.fill, entry.line)
-      );
     }
 
     let descriptionCell = row.querySelector(".description");
@@ -292,10 +300,26 @@ export default class LegendControl {
     }
     return {
       backgroundColor: fillColor,
-      borderColor: line?.layer.paint["line-color"] || fillColor,
+      borderColor:
+        line?.layer.paint["line-color"] || fillColor || "transparent",
       borderStyle: line?.layer.paint["line-dasharray"] ? "dashed" : "solid",
       borderWidth: `${line?.layer.paint["line-width"] || 1}px`,
     };
+  }
+
+  /**
+   * Returns style properties resembling the given line.
+   */
+  getLineRule(line) {
+    let rule = document.createElement("hr");
+    Object.assign(rule.style, {
+      borderStyle: "none",
+      borderTopColor: line.layer.paint["line-color"] || fillColor,
+      borderTopStyle: line.layer.paint["line-dasharray"] ? "dashed" : "solid",
+      borderTopWidth: `${line.layer.paint["line-width"] || 1}px`,
+      height: 0,
+    });
+    return rule;
   }
 
   /**

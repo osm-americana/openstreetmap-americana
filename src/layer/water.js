@@ -256,6 +256,33 @@ export const legendEntries = [
       intermittent: 1,
     },
   },
+  {
+    description: "River",
+    type: "LineString",
+    properties: {
+      intermittent: null,
+    },
+  },
+  {
+    description: "River, canal, or creek",
+    type: "LineString",
+    properties: {
+      intermittent: 0,
+    },
+  },
+  {
+    description: "Intermittent river or creek",
+    type: "LineString",
+    properties: {
+      intermittent: 1,
+    },
+  },
 ];
 
-export const legendLayers = [water.id, waterLine.id, waterLineIntermittent.id];
+export const legendLayers = [
+  water.id,
+  waterLine.id,
+  waterLineIntermittent.id,
+  waterway.id,
+  waterwayIntermittent.id,
+];
