@@ -227,3 +227,22 @@ export const waterPointLabel = {
   },
   paint: labelPaintProperties,
 };
+
+export const legendEntries = [
+  {
+    description: "Lake",
+    properties: {
+      class: "lake",
+      intermittent: 0,
+    },
+  },
+  {
+    description: "Intermittent lake",
+    properties: {
+      class: "lake",
+      intermittent: 1,
+    },
+  },
+];
+
+export const legendLayers = [water.id, waterLine.id, waterLineIntermittent.id];

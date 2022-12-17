@@ -8,6 +8,7 @@ import * as LanduseLayers from "../layer/landuse.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
+import * as WaterLayers from "../layer/water.js";
 
 import * as maplibregl from "maplibre-gl";
 
@@ -114,6 +115,11 @@ export default class LegendControl {
         entries: [...LanduseLayers.legendEntries, ...ParkLayers.legendEntries],
         layers: [...LanduseLayers.legendLayers, ...ParkLayers.legendLayers],
       },
+      {
+        name: "Water",
+        entries: WaterLayers.legendEntries,
+        layers: WaterLayers.legendLayers,
+      },
     ];
     for (let data of sections) {
       let section = this.getSection(data);
@@ -170,7 +176,7 @@ export default class LegendControl {
       let feature = features.find((feature) => {
         return Object.entries(entry.properties).every(
           ([key, expectedValue]) => {
-            if (!expectedValue) {
+            if (expectedValue === null) {
               return !(key in feature.properties);
             }
             return feature.properties[key] === expectedValue;
@@ -220,10 +226,10 @@ export default class LegendControl {
       }
     } else {
       let swatchCell = row.querySelector(".swatch");
-      let swatch = this.getSwatchFromFill(entry.fill, entry.line);
-      if (swatch) {
-        swatchCell.appendChild(swatch);
-      }
+      Object.assign(
+        swatchCell.style,
+        this.getSwatchStyle(entry.fill, entry.line)
+      );
     }
 
     let descriptionCell = row.querySelector(".description");
@@ -274,24 +280,22 @@ export default class LegendControl {
   }
 
   /**
-   * Returns an HTML block element that resembles the given fill from a fill
-   * layer.
+   * Returns style properties resembling the given fill and line.
    */
-  getSwatchFromFill(fill, line) {
-    let swatch = document.createElement("div");
-    Object.assign(swatch.style, {
-      backgroundColor: fill?.layer.paint["fill-color"],
-      display: "inline-block",
-      height: "1em",
-      minWidth: "1em",
-      outlineColor:
-        line?.layer.paint["line-color"] || fill?.layer.paint["fill-color"],
-      outlineStyle: "solid",
-      outlineWidth: `${line?.layer.paint["line-width"] || 1}px`,
-      verticalAlign: "middle",
-      width: "100%",
-    });
-    return swatch;
+  getSwatchStyle(fill, line) {
+    let fillColor = fill?.layer.paint["fill-color"];
+    if (fillColor) {
+      let opacity = fill?.layer.paint["fill-opacity"] || 1;
+      fillColor = `rgba(${fillColor.r * 255}, ${fillColor.g * 255}, ${
+        fillColor.b * 255
+      }, ${opacity})`;
+    }
+    return {
+      backgroundColor: fillColor,
+      borderColor: line?.layer.paint["line-color"] || fillColor,
+      borderStyle: line?.layer.paint["line-dasharray"] ? "dashed" : "solid",
+      borderWidth: `${line?.layer.paint["line-width"] || 1}px`,
+    };
   }
 
   /**
