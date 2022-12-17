@@ -4,6 +4,7 @@ import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Label from "../constants/label.js";
 
 import * as PlaceLayers from "../layer/place.js";
+import * as LanduseLayers from "../layer/landuse.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 
@@ -89,8 +90,8 @@ export default class LegendControl {
     let sections = [
       {
         name: "Populated places",
-        entries: PlaceLayers.legendEntries,
-        layers: PlaceLayers.legendLayers,
+        entries: [...PlaceLayers.legendEntries, ...LanduseLayers.legendEntries],
+        layers: [...PlaceLayers.legendLayers, ...LanduseLayers.legendLayers],
       },
       {
         name: "Route markers",
@@ -139,7 +140,7 @@ export default class LegendControl {
     let rows = data.rows;
     if (!rows && data.entries) {
       let matchedEntries = this.matchEntries(data.entries, data.layers);
-      rows = matchedEntries.map((entry) => this.getSymbolRow(entry));
+      rows = matchedEntries.map((entry) => this.getRowForEntry(entry));
     }
     if (!rows.length) return;
 
@@ -176,24 +177,33 @@ export default class LegendControl {
   }
 
   /**
-   * Returns a table row illustrating the given entry using a symbol.
+   * Returns a table row illustrating the given entry.
    */
-  getSymbolRow(entry) {
-    let template = document
-      .getElementById("legend-row")
-      .content.cloneNode(true);
+  getRowForEntry(entry) {
+    let layerType = entry.feature.layer.type;
+    let templateID =
+      layerType === "symbol" ? "legend-row-symbol" : "legend-row-swatch";
+    let template = document.getElementById(templateID).content.cloneNode(true);
     let row = template.querySelector("tr");
 
-    let iconCell = row.querySelector(".icon");
-    let img = this.getIconImageFromSymbol(entry.feature);
-    if (img) {
-      iconCell.appendChild(img);
-    }
+    if (layerType === "symbol") {
+      let iconCell = row.querySelector(".icon");
+      let img = this.getIconImageFromSymbol(entry.feature);
+      if (img) {
+        iconCell.appendChild(img);
+      }
 
-    let labelCell = row.querySelector(".label");
-    let label = this.getTextLabelFromSymbol(entry.feature);
-    if (label) {
-      labelCell.appendChild(label);
+      let labelCell = row.querySelector(".label");
+      let label = this.getTextLabelFromSymbol(entry.feature);
+      if (label) {
+        labelCell.appendChild(label);
+      }
+    } else {
+      let swatchCell = row.querySelector(".swatch");
+      let swatch = this.getSwatchFromFill(entry.feature);
+      if (swatch) {
+        swatchCell.appendChild(swatch);
+      }
     }
 
     let descriptionCell = row.querySelector(".description");
@@ -225,16 +235,31 @@ export default class LegendControl {
       ? "bold"
       : "normal";
     Object.assign(label.style, {
-      display: "inline-block",
       color: symbol.layer.paint["text-color"],
       fontWeight: weight,
-      fontSize: `${symbol.layer.layout["text-size"]}px`,
+      fontSize: `${symbol.layer.layout["text-size"] || 16}px`,
       letterSpacing: `${symbol.layer.layout["text-letter-spacing"]}em`,
       lineHeight: `${symbol.layer.layout["text-line-height"] || 1.2}em`,
       verticalAlign: "middle",
       width: `${symbol.layer.layout["text-max-width"] || 10}em`,
     });
     return label;
+  }
+
+  /**
+   * Returns an HTML block element that resembles the given fill from a fill
+   * layer.
+   */
+  getSwatchFromFill(fill) {
+    let swatch = document.createElement("div");
+    Object.assign(swatch.style, {
+      backgroundColor: fill.layer.paint["fill-color"],
+      display: "inline-block",
+      height: "1em",
+      verticalAlign: "middle",
+      width: "4em",
+    });
+    return swatch;
   }
 
   /**
@@ -318,7 +343,7 @@ export default class LegendControl {
     if (!img) return;
 
     let template = document
-      .getElementById("legend-row")
+      .getElementById("legend-row-symbol")
       .content.cloneNode(true);
     let row = template.querySelector("tr");
     row.dataset.network = network;
