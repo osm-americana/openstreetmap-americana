@@ -8,6 +8,7 @@ import * as LanduseLayers from "../layer/landuse.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
+import * as BuildingLayers from "../layer/building.js";
 import * as WaterLayers from "../layer/water.js";
 import * as FerryLayers from "../layer/ferry.js";
 
@@ -112,6 +113,11 @@ export default class LegendControl {
         layers: AerowayLayers.legendLayers,
       },
       {
+        name: "Structures",
+        entries: BuildingLayers.legendEntries,
+        layers: BuildingLayers.legendLayers,
+      },
+      {
         name: "Land use",
         entries: [...LanduseLayers.legendEntries, ...ParkLayers.legendEntries],
         layers: [...LanduseLayers.legendLayers, ...ParkLayers.legendLayers],
@@ -182,12 +188,16 @@ export default class LegendControl {
             }
             return feature.properties[key] === expectedValue;
           }) &&
+          (!entry.sourceLayer || entry.sourceLayer === feature.sourceLayer) &&
           (!entry.type || entry.type === feature.geometry.type)
         );
       });
       if (!feature) continue;
       let matchedEntry = Object.assign(entry, { feature });
-      if (feature.layer.type === "fill") {
+      if (
+        feature.layer.type === "fill" ||
+        feature.layer.type === "fill-extrusion"
+      ) {
         matchedEntry.fill = feature;
         matchedEntry.line = features.find(
           (f) => f.id === feature.id && f.layer.type === "line"
@@ -195,9 +205,12 @@ export default class LegendControl {
       } else if (feature.layer.type === "line") {
         matchedEntry.line = feature;
         matchedEntry.fill = features.find(
-          (f) => f.id === feature.id && f.layer.type === "fill"
+          (f) =>
+            f.id === feature.id &&
+            (f.layer.type === "fill" || f.layer.type === "fill-extrusion")
         );
       }
+      console.log(matchedEntry);
       matchedEntries.push(matchedEntry);
     }
     return matchedEntries;
@@ -266,7 +279,10 @@ export default class LegendControl {
    * from a symbol layer.
    */
   populateTextLabelFromSymbol(container, symbol) {
-    container.textContent = symbol.layer.layout["text-field"].sections[0].text;
+    let textField = symbol.layer.layout["text-field"];
+    if (!textField) return;
+
+    container.textContent = textField.sections[0].text;
     let weight = symbol.layer.layout["text-font"]?.[0]?.endsWith("Bold")
       ? "bold"
       : "normal";
@@ -292,18 +308,29 @@ export default class LegendControl {
    * Returns style properties resembling the given fill and line.
    */
   getSwatchStyle(fill, line) {
-    let fillColor = fill?.layer.paint["fill-color"];
+    let fillColor =
+      fill?.layer.paint["fill-color"] ||
+      fill?.layer.paint["fill-extrusion-color"];
     if (fillColor) {
-      let opacity = fill?.layer.paint["fill-opacity"] || 1;
+      let opacity =
+        fill?.layer.paint["fill-opacity"] ||
+        fill?.layer.paint["fill-extrusion-opacity"] ||
+        1;
       fillColor = `rgba(${fillColor.r * 255}, ${fillColor.g * 255}, ${
         fillColor.b * 255
       }, ${opacity})`;
+    }
+    let borderStyle = "solid";
+    if (line?.layer.paint["line-dasharray"]) {
+      borderStyle = "dashed";
+    } else if (fill?.layer.paint["fill-extrusion-height"]) {
+      borderStyle = "outset";
     }
     return {
       backgroundColor: fillColor,
       borderColor:
         line?.layer.paint["line-color"] || fillColor || "transparent",
-      borderStyle: line?.layer.paint["line-dasharray"] ? "dashed" : "solid",
+      borderStyle: borderStyle,
       borderWidth: `${line?.layer.paint["line-width"] || 1}px`,
     };
   }
