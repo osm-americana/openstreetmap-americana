@@ -11,9 +11,20 @@ langChanger.textContent = "Change";
 var langPicker = labelControlElement("input", "language-picker");
 hide(langPicker);
 
+var langHeader = labelControlElement("span", "lang-header");
+var langHints = labelControlElement("span", "lang-hints");
+langHints.textContent = "Begin typing to add languages";
+
 var langCancel = labelControlElement("button", "language-cancel");
 langCancel.textContent = "X";
-hide(langCancel);
+Object.assign(langCancel.style, {
+  "margin-top": "0.3em",
+});
+
+langHeader.appendChild(langCancel);
+langHeader.appendChild(langHints);
+
+hide(langHeader);
 
 function hide(element) {
   Object.assign(element.style, {
@@ -110,7 +121,7 @@ var tf = null;
 
 langChanger.onclick = function () {
   hide(langChanger);
-  show(langCancel);
+  show(langHeader);
 
   if (tf == null) {
     tf = new Tokenfield({
@@ -120,8 +131,8 @@ langChanger.onclick = function () {
     });
     document.querySelectorAll(".tokenfield").forEach((e) => {
       Object.assign(e.style, {
-        height: "3.5em",
-        width: "15em",
+        height: "5em",
+        width: "20em",
         "margin-bottom": "4em",
         "margin-top": "0.3em",
       });
@@ -137,6 +148,7 @@ langChanger.onclick = function () {
         langCodes.length > 0 ? `&language=${langQuery}` : "";
       var currentURL = `${window.location.protocol}//${window.location.host}${window.location.pathname}${rawHash}${langQueryString}`;
       window.history.pushState({ path: currentURL }, "", currentURL);
+      updateLanguageLabel();
       hotReloadMap();
     });
   }
@@ -147,7 +159,7 @@ langChanger.onclick = function () {
 
 langCancel.onclick = function () {
   document.querySelectorAll(".tokenfield").forEach((e) => hide(e));
-  hide(langCancel);
+  hide(langHeader);
   updateLanguageLabel();
   show(langChanger);
 };
@@ -167,7 +179,7 @@ class LanguageControl {
       backgroundColor: "#ffffff80",
     });
     this._container.textContent = "";
-    this._container.appendChild(langCancel);
+    this._container.appendChild(langHeader);
     this._container.appendChild(langPicker);
     this._container.appendChild(langField);
     this._container.appendChild(langChanger);
