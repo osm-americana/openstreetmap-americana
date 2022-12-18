@@ -9,6 +9,7 @@ import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
 import * as WaterLayers from "../layer/water.js";
+import * as FerryLayers from "../layer/ferry.js";
 
 import * as maplibregl from "maplibre-gl";
 
@@ -117,8 +118,8 @@ export default class LegendControl {
       },
       {
         name: "Water",
-        entries: WaterLayers.legendEntries,
-        layers: WaterLayers.legendLayers,
+        entries: [...WaterLayers.legendEntries, ...FerryLayers.legendEntries],
+        layers: [...WaterLayers.legendLayers, ...FerryLayers.legendLayers],
       },
     ];
     for (let data of sections) {

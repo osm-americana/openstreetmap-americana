@@ -24,3 +24,14 @@ export const ferry = {
   source: "openmaptiles",
   "source-layer": "transportation",
 };
+
+export const legendEntries = [
+  {
+    description: "Ferry line",
+    properties: {
+      class: "ferry",
+    },
+  },
+];
+
+export const legendLayers = [ferry.id];
