@@ -145,7 +145,9 @@ langChanger.onclick = function () {
       items.forEach((element) => langCodes.push(element.id));
       let langQuery = langCodes.join(",");
       let rawHash = window.location.hash.split("&")[0];
-      var currentURL = `${window.location.protocol}//${window.location.host}${window.location.pathname}${rawHash}&language=${langQuery}`;
+      let langQueryString =
+        langCodes.length > 0 ? `&language=${langQuery}` : "";
+      var currentURL = `${window.location.protocol}//${window.location.host}${window.location.pathname}${rawHash}${langQueryString}`;
       window.history.pushState({ path: currentURL }, "", currentURL);
       hotReloadMap();
     });
