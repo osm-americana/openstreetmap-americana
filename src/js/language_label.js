@@ -1,12 +1,7 @@
 "use strict";
 
 import Tokenfield from "tokenfield";
-import {
-  map,
-  buildStyle,
-  hotReloadMap,
-  updateLanguageLabel,
-} from "../americana";
+import { hotReloadMap, updateLanguageLabel } from "../americana";
 
 var langField = labelControlElement("span", "language-field");
 
@@ -21,8 +16,6 @@ langCancel.textContent = "X";
 hide(langCancel);
 
 function hide(element) {
-  console.log("hide: " + element.id);
-
   Object.assign(element.style, {
     display: "none",
   });
@@ -113,30 +106,26 @@ function labelControlElement(tag, id) {
   return element;
 }
 
-var tf;
+var tf = null;
 
 langChanger.onclick = function () {
-  if (langPicker.style.visibility == "visible") {
-    console.log("nothing to do");
-    return;
-  }
-
-  console.log("field change!");
-
-  hide(langField);
   hide(langChanger);
   show(langCancel);
 
-  langPicker.style.width = "10em";
-
-  if (!tf) {
+  if (tf == null) {
     tf = new Tokenfield({
       el: document.querySelector("#language-picker"), // Attach Tokenfield to the input element with class "text-input"
       items: langCodes,
       newItems: false,
     });
-    Object.assign(tf.style, {
-      height: "15em",
+    document.querySelectorAll(".tokenfield").forEach((e) => {
+      Object.assign(e.style, {
+        height: "3.5em",
+        width: "15em",
+        "margin-bottom": "4em",
+        "margin-top": "0.3em",
+      });
+      e.setAttribute("placeholder", "hi");
     });
     tf.on("change", function () {
       let items = tf.getItems();
@@ -151,6 +140,7 @@ langChanger.onclick = function () {
       hotReloadMap();
     });
   }
+
   document.querySelectorAll(".tokenfield").forEach((e) => show(e));
   tf.focus();
 };
@@ -158,10 +148,7 @@ langChanger.onclick = function () {
 langCancel.onclick = function () {
   document.querySelectorAll(".tokenfield").forEach((e) => hide(e));
   hide(langCancel);
-
   updateLanguageLabel();
-
-  show(langField);
   show(langChanger);
 };
 
@@ -180,10 +167,10 @@ class LanguageControl {
       backgroundColor: "#ffffff80",
     });
     this._container.textContent = "";
-    this._container.appendChild(langField);
-    this._container.appendChild(langPicker);
-    this._container.appendChild(langChanger);
     this._container.appendChild(langCancel);
+    this._container.appendChild(langPicker);
+    this._container.appendChild(langField);
+    this._container.appendChild(langChanger);
     return this._container;
   }
 
