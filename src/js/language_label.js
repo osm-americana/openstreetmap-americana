@@ -153,6 +153,7 @@ langCancel.onclick = function () {
   show(langChanger);
   hide(langPicker);
   hide(langCancel);
+  document.querySelectorAll('.tokenfield').forEach(e => hide(e));
 };
 
 /**
