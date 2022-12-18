@@ -210,7 +210,6 @@ export default class LegendControl {
             (f.layer.type === "fill" || f.layer.type === "fill-extrusion")
         );
       }
-      console.log(matchedEntry);
       matchedEntries.push(matchedEntry);
     }
     return matchedEntries;
