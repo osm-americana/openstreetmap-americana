@@ -260,13 +260,31 @@ export const legendEntries = [
     description: "River",
     type: "LineString",
     properties: {
+      class: "river",
       intermittent: null,
     },
   },
   {
-    description: "River, canal, or creek",
+    description: "River",
     type: "LineString",
     properties: {
+      class: "river",
+      intermittent: 0,
+    },
+  },
+  {
+    description: "Canal",
+    type: "LineString",
+    properties: {
+      class: "canal",
+      intermittent: 0,
+    },
+  },
+  {
+    description: "Creek",
+    type: "LineString",
+    properties: {
+      class: "stream",
       intermittent: 0,
     },
   },
@@ -274,6 +292,7 @@ export const legendEntries = [
     description: "Intermittent river or creek",
     type: "LineString",
     properties: {
+      class: "stream",
       intermittent: 1,
     },
   },
