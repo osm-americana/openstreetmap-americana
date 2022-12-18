@@ -16,10 +16,6 @@ langChanger.textContent = "Change";
 var langPicker = labelControlElement("input", "language-picker");
 hide(langPicker);
 
-var langReset = labelControlElement("button", "language-reset");
-langReset.textContent = "Reset";
-hide(langReset);
-
 var langCancel = labelControlElement("button", "language-cancel");
 langCancel.textContent = "X";
 hide(langCancel);
@@ -139,6 +135,9 @@ langChanger.onclick = function () {
       items: langCodes,
       newItems: false,
     });
+    Object.assign(tf.style, {
+      height: "15em",
+    });
     tf.on("change", function () {
       let items = tf.getItems();
       let langCodes = [];
@@ -184,7 +183,6 @@ class LanguageControl {
     this._container.appendChild(langField);
     this._container.appendChild(langPicker);
     this._container.appendChild(langChanger);
-    this._container.appendChild(langReset);
     this._container.appendChild(langCancel);
     return this._container;
   }
