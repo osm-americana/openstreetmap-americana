@@ -259,12 +259,11 @@ export const airportGate = {
   },
   layout: {
     visibility: "visible",
-    "text-field": "{ref}",
+    "text-field": ["get", "ref"],
     "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aeroway",
 };
 
@@ -286,6 +285,15 @@ export const legendEntries = [
     properties: { class: "other" },
   },
   { description: "Military air base", properties: { class: "military" } },
+  { description: "Runway", properties: { class: "runway" } },
+  { description: "Taxiway", properties: { class: "taxiway" } },
+  { description: "Gate", properties: { class: "gate" } },
 ];
 
-export const legendLayers = [airportRefLabel.id, airportLabel.id];
+export const legendLayers = [
+  airportRefLabel.id,
+  airportLabel.id,
+  runway.id,
+  taxiway.id,
+  airportGate.id,
+];
