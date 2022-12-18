@@ -324,10 +324,18 @@ map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
 });
 
+export function hotReloadMap() {
+  map.setStyle(buildStyle());
+}
+
+export function updateLanguageLabel() {
+  languageLabel.displayLocales(Label.getLocales());
+}
+
 window.addEventListener("languagechange", (event) => {
   console.log(`Changed to ${navigator.languages}`);
-  map.setStyle(buildStyle());
-  languageLabel.displayLocales(Label.getLocales());
+  hotReloadMap();
+  updateLanguageLabel();
 });
 
 window.addEventListener("hashchange", (event) => {
@@ -336,8 +344,8 @@ window.addEventListener("hashchange", (event) => {
   let newLanguage = Label.getLanguageFromURL(new URL(event.newURL));
   if (oldLanguage !== newLanguage) {
     console.log(`Changed to ${newLanguage}`);
-    map.setStyle(buildStyle());
-    languageLabel.displayLocales(Label.getLocales());
+    hotReloadMap();
+    updateLanguageLabel();
   }
 });
 
@@ -371,4 +379,4 @@ map.addControl(sampleControl, "bottom-left");
 
 map.getCanvas().focus();
 
-languageLabel.displayLocales(Label.getLocales());
+updateLanguageLabel();

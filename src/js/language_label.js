@@ -1,7 +1,12 @@
 "use strict";
 
 import Tokenfield from "tokenfield";
-import { map, buildStyle } from "../americana";
+import {
+  map,
+  buildStyle,
+  hotReloadMap,
+  updateLanguageLabel,
+} from "../americana";
 
 var langField = labelControlElement("span", "language-field");
 
@@ -20,16 +25,14 @@ langCancel.textContent = "X";
 hide(langCancel);
 
 function hide(element) {
+  console.log("hide: " + element.id);
+
   Object.assign(element.style, {
     display: "none",
-    visibility: "hidden",
   });
 }
 function show(element) {
-  Object.assign(element.style, {
-    display: "initial",
-    visibility: "visible",
-  });
+  element.style.removeProperty("display");
 }
 
 var langCodes = [
@@ -118,12 +121,14 @@ var tf;
 
 langChanger.onclick = function () {
   if (langPicker.style.visibility == "visible") {
+    console.log("nothing to do");
     return;
   }
 
+  console.log("field change!");
+
   hide(langField);
   hide(langChanger);
-  show(langPicker);
   show(langCancel);
 
   langPicker.style.width = "10em";
@@ -142,18 +147,21 @@ langChanger.onclick = function () {
       let rawHash = window.location.hash.split("&")[0];
       var currentURL = `${window.location.protocol}//${window.location.host}${window.location.pathname}${rawHash}&language=${langQuery}`;
       window.history.pushState({ path: currentURL }, "", currentURL);
-      map.setStyle(buildStyle());
+      hotReloadMap();
     });
   }
+  document.querySelectorAll(".tokenfield").forEach((e) => show(e));
   tf.focus();
 };
 
 langCancel.onclick = function () {
+  document.querySelectorAll(".tokenfield").forEach((e) => hide(e));
+  hide(langCancel);
+
+  updateLanguageLabel();
+
   show(langField);
   show(langChanger);
-  hide(langPicker);
-  hide(langCancel);
-  document.querySelectorAll('.tokenfield').forEach(e => hide(e));
 };
 
 /**
