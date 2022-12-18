@@ -264,7 +264,7 @@ function buildLayers() {
   return layers;
 }
 
-function buildStyle() {
+export function buildStyle() {
   var getUrl = window.location;
   var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
 

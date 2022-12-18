@@ -1,7 +1,7 @@
 "use strict";
 
-import * as maplibregl from "maplibre-gl";
 import Tokenfield from "tokenfield";
+import { map, buildStyle } from "../americana";
 
 var langField = labelControlElement("span", "language-field");
 
@@ -118,10 +118,11 @@ var tf;
 
 langChanger.onclick = function () {
   if (langPicker.style.visibility == "visible") {
-    console.log(tf);
+    return;
   }
 
   hide(langField);
+  hide(langChanger);
   show(langPicker);
   show(langCancel);
 
@@ -138,10 +139,20 @@ langChanger.onclick = function () {
       let langCodes = [];
       items.forEach((element) => langCodes.push(element.id));
       let langQuery = langCodes.join(",");
-      //now add &language={langQuery} and go
+      let rawHash = window.location.hash.split("&")[0];
+      var currentURL = `${window.location.protocol}//${window.location.host}${window.location.pathname}${rawHash}&language=${langQuery}`;
+      window.history.pushState({ path: currentURL }, "", currentURL);
+      map.setStyle(buildStyle());
     });
   }
   tf.focus();
+};
+
+langCancel.onclick = function () {
+  show(langField);
+  show(langChanger);
+  hide(langPicker);
+  hide(langCancel);
 };
 
 /**
