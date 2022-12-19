@@ -111,11 +111,11 @@ export const waterLine = {
 export const waterLineIntermittent = {
   id: "water_line_intermittent",
   type: "line",
+  minzoom: 8,
   filter: [
     "all",
     ["==", ["get", "intermittent"], 1],
     ["==", ["get", "class"], "lake"],
-    [">=", ["zoom"], 8],
   ],
   paint: {
     "line-color": Color.waterLine,
@@ -217,11 +217,11 @@ export const waterPointLabel = {
       ["exponential", 2],
       ["zoom"],
       3,
-      8,
+      ["match", ["get", "class"], "ocean", 16, "sea", 12, 8],
       12,
-      14,
+      ["match", ["get", "class"], "ocean", 28, "sea", 21, 14],
       20,
-      40,
+      ["match", ["get", "class"], "ocean", 80, "sea", 60, 40],
     ],
     "text-letter-spacing": 0.25,
   },
