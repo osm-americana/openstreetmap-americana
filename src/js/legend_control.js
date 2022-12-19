@@ -163,8 +163,10 @@ export default class LegendControl {
 
     let rows = data.rows;
     if (!rows && data.entries) {
-      let matchedEntries = this.matchEntries(data.entries);
-      rows = matchedEntries.map((entry) => this.getRowForEntry(entry));
+      this.matchEntries(data.entries);
+      rows = data.entries
+        .map((entry) => this.getRowForEntry(entry))
+        .filter((r) => r);
     }
     if (!rows.length) return;
 
@@ -176,38 +178,33 @@ export default class LegendControl {
   }
 
   /**
-   * Returns the given array of legend entries after populating each entry with
-   * a representative feature from the given layers.
+   * Populates each of the given entries with a representative visible feature.
    */
   matchEntries(entries) {
-    let matchedEntries = [];
     for (let entry of entries) {
       let features = this._map.queryRenderedFeatures({
         layers: entry.layers,
         filter: entry.filter,
       });
-      let feature = features[0];
-      if (!feature) continue;
-      let matchedEntry = Object.assign(entry, { feature });
+      entry.feature = features[0];
+      if (!entry.feature) continue;
       if (
-        feature.layer.type === "fill" ||
-        feature.layer.type === "fill-extrusion"
+        entry.feature.layer.type === "fill" ||
+        entry.feature.layer.type === "fill-extrusion"
       ) {
-        matchedEntry.fill = feature;
-        matchedEntry.line = features.find(
-          (f) => f.id === feature.id && f.layer.type === "line"
+        entry.fill = entry.feature;
+        entry.line = features.find(
+          (f) => f.id === entry.feature.id && f.layer.type === "line"
         );
-      } else if (feature.layer.type === "line") {
-        matchedEntry.line = feature;
-        matchedEntry.fill = features.find(
+      } else if (entry.feature.layer.type === "line") {
+        entry.line = entry.feature;
+        entry.fill = features.find(
           (f) =>
-            f.id === feature.id &&
+            f.id === entry.feature.id &&
             (f.layer.type === "fill" || f.layer.type === "fill-extrusion")
         );
       }
-      matchedEntries.push(matchedEntry);
     }
-    return matchedEntries;
   }
 
   /**
@@ -234,7 +231,7 @@ export default class LegendControl {
       let lineCell = row.querySelector(".line");
       let rule = this.getLineRule(entry.line);
       lineCell.appendChild(rule);
-    } else {
+    } else if (entry.feature) {
       let labelCell = row.querySelector(".label");
       this.populateTextLabelFromSymbol(labelCell, entry.feature);
 
@@ -246,6 +243,8 @@ export default class LegendControl {
         iconCell.remove();
         labelCell.setAttribute("colspan", 2);
       }
+    } else {
+      return;
     }
 
     let descriptionCell = row.querySelector(".description");
