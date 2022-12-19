@@ -425,44 +425,46 @@ export const continent = {
   "source-layer": "place",
 };
 
+const populatedPlaceLayers = [village.id, town.id, city.id];
+const nonCapitalFilter = ["!", ["has", ["get", "capital"]]];
+
 export const legendEntries = [
   {
     description: "Continent",
-    properties: { class: "continent" },
+    layers: [continent.id],
   },
   {
     description: "Country or dependency",
-    properties: { class: "country" },
+    layers: [countryOther.id, country3.id, country2.id, country1.id],
   },
   {
     description: "State or province",
-    properties: { class: "state" },
+    layers: [state.id],
   },
   {
     description: "Large city",
-    properties: { class: "city", capital: null },
+    layers: [city.id],
+    filter: nonCapitalFilter,
   },
-  { description: "Town", properties: { class: "town", capital: null } },
+  { description: "Town", layers: [town.id], filter: nonCapitalFilter },
   {
     description: "Small village",
-    properties: { class: "village", capital: null },
+    layers: [village.id],
+    filter: nonCapitalFilter,
   },
-  { description: "National capital", properties: { capital: 2 } },
-  { description: "Regional capital", properties: { capital: 3 } },
+  {
+    description: "National capital",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 2],
+  },
+  {
+    description: "Regional capital",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 3],
+  },
   {
     description: "State or provincial capital",
-    properties: { capital: 4 },
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 4],
   },
-];
-
-export const legendLayers = [
-  village.id,
-  town.id,
-  city.id,
-  state.id,
-  countryOther.id,
-  country3.id,
-  country2.id,
-  country1.id,
-  continent.id,
 ];

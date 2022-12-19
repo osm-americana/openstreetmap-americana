@@ -68,8 +68,6 @@ export const parkLabel = {
 export const legendEntries = [
   {
     description: "Park",
-    properties: {},
+    layers: [fill.id, outline.id, parkFill.id, parkOutline.id],
   },
 ];
-
-export const legendLayers = [fill.id, outline.id, parkFill.id, parkOutline.id];

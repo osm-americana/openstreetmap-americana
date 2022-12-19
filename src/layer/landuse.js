@@ -30,8 +30,6 @@ export const urbanizedArea = {
 export const legendEntries = [
   {
     description: "Urban area",
-    properties: { class: "residential" },
+    layers: [urbanizedArea.id],
   },
 ];
-
-export const legendLayers = [urbanizedArea.id];

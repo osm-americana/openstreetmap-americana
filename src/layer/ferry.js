@@ -28,10 +28,6 @@ export const ferry = {
 export const legendEntries = [
   {
     description: "Ferry line",
-    properties: {
-      class: "ferry",
-    },
+    layers: [ferry.id],
   },
 ];
-
-export const legendLayers = [ferry.id];

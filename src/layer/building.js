@@ -26,9 +26,6 @@ export const building = {
 export const legendEntries = [
   {
     description: "Building",
-    sourceLayer: "building",
-    properties: {},
+    layers: [building.id],
   },
 ];
-
-export const legendLayers = [building.id];

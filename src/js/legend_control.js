@@ -57,7 +57,7 @@ export default class LegendControl {
     this._container.parentNode.removeChild(this._container);
     this._map = undefined;
   }
-  
+
   /**
    * Call this method whenever the page's language changes.
    */
@@ -105,7 +105,6 @@ export default class LegendControl {
       {
         name: "Populated places",
         entries: PlaceLayers.legendEntries,
-        layers: PlaceLayers.legendLayers,
       },
       {
         name: "Route markers",
@@ -118,22 +117,18 @@ export default class LegendControl {
       {
         name: "Aviation",
         entries: AerowayLayers.legendEntries,
-        layers: AerowayLayers.legendLayers,
       },
       {
         name: "Structures",
         entries: BuildingLayers.legendEntries,
-        layers: BuildingLayers.legendLayers,
       },
       {
         name: "Land use",
         entries: [...LanduseLayers.legendEntries, ...ParkLayers.legendEntries],
-        layers: [...LanduseLayers.legendLayers, ...ParkLayers.legendLayers],
       },
       {
         name: "Water",
         entries: [...WaterLayers.legendEntries, ...FerryLayers.legendEntries],
-        layers: [...WaterLayers.legendLayers, ...FerryLayers.legendLayers],
       },
     ];
     for (let data of sections) {
@@ -168,7 +163,7 @@ export default class LegendControl {
 
     let rows = data.rows;
     if (!rows && data.entries) {
-      let matchedEntries = this.matchEntries(data.entries, data.layers);
+      let matchedEntries = this.matchEntries(data.entries);
       rows = matchedEntries.map((entry) => this.getRowForEntry(entry));
     }
     if (!rows.length) return;
@@ -184,22 +179,14 @@ export default class LegendControl {
    * Returns the given array of legend entries after populating each entry with
    * a representative feature from the given layers.
    */
-  matchEntries(entries, layers) {
-    let features = this._map.queryRenderedFeatures({ layers });
+  matchEntries(entries) {
     let matchedEntries = [];
     for (let entry of entries) {
-      let feature = features.find((feature) => {
-        return (
-          Object.entries(entry.properties).every(([key, expectedValue]) => {
-            if (expectedValue === null) {
-              return !(key in feature.properties);
-            }
-            return feature.properties[key] === expectedValue;
-          }) &&
-          (!entry.sourceLayer || entry.sourceLayer === feature.sourceLayer) &&
-          (!entry.type || entry.type === feature.geometry.type)
-        );
+      let features = this._map.queryRenderedFeatures({
+        layers: entry.layers,
+        filter: entry.filter,
       });
+      let feature = features[0];
       if (!feature) continue;
       let matchedEntry = Object.assign(entry, { feature });
       if (

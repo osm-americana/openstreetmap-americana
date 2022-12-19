@@ -269,31 +269,16 @@ export const airportGate = {
 
 export const legendEntries = [
   {
-    description: "International airport",
-    properties: { class: "international" },
+    description: "Civilian airport",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["!=", ["get", "class"], "military"],
   },
   {
-    description: "Public airport",
-    properties: { class: "public" },
+    description: "Military air base",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["==", ["get", "class"], "military"],
   },
-  {
-    description: "Regional airport",
-    properties: { class: "regional" },
-  },
-  {
-    description: "Airport",
-    properties: { class: "other" },
-  },
-  { description: "Military air base", properties: { class: "military" } },
-  { description: "Runway", properties: { class: "runway" } },
-  { description: "Taxiway", properties: { class: "taxiway" } },
-  { description: "Gate", properties: { class: "gate" } },
-];
-
-export const legendLayers = [
-  airportRefLabel.id,
-  airportLabel.id,
-  runway.id,
-  taxiway.id,
-  airportGate.id,
+  { description: "Runway", layers: [runway.id] },
+  { description: "Taxiway", layers: [taxiway.id] },
+  { description: "Gate", layers: [airportGate.id] },
 ];
