@@ -146,13 +146,10 @@ langChanger.onclick = function () {
       let langCodes = [];
       items.forEach((element) => langCodes.push(element.id));
       let langQuery = langCodes.join(",");
-      let rawHash = window.location.hash.split("&")[0];
-      let langQueryString =
-        langCodes.length > 0 ? `&language=${langQuery}` : "";
-      var currentURL = `${window.location.protocol}//${window.location.host}${window.location.pathname}${rawHash}${langQueryString}`;
-      window.history.pushState({ path: currentURL }, "", currentURL);
-      updateLanguageLabel();
-      hotReloadMap();
+      let hash = window.location.hash.substr(1); // omit #
+      let searchParams = new URLSearchParams(hash);
+      url.searchParams.set("language", langQuery);
+      window.location.hash = `#${searchParams}`;
     });
   }
 
