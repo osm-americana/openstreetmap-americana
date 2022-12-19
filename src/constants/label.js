@@ -4,7 +4,8 @@
  * Returns a list of languages as a comma-delimited string from the given URL hash.
  */
 export function getLanguageFromURL(url) {
-  return new URLSearchParams(url.hash.substr(1)).get("language");
+  let language = new URLSearchParams(url.hash.substr(1)).get("language");
+  return language === "" ? null : language;
 }
 
 /**
