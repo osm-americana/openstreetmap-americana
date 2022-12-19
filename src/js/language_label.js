@@ -142,7 +142,6 @@ langChanger.onclick = function () {
         "margin-bottom": "4em",
         "margin-top": "0.3em",
       });
-      e.setAttribute("placeholder", "hi");
     });
     tf.on("change", function () {
       let items = tf.getItems();
