@@ -80,7 +80,7 @@ export const label = {
       ["literal", ["OpenHistorical Italic"]],
       ["literal", ["OpenHistorical"]],
     ],
-    "text-field": Label.localizedName,
+    "text-field": [...Label.localizedName],
     "text-max-angle": 20,
     "symbol-placement": "line",
     "text-size": [

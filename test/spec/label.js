@@ -34,7 +34,7 @@ describe("label", function () {
         Label.getLanguageFromURL(
           new URL("http://localhost:1776/#map=1/2/3&language=")
         )
-      ).to.eql("");
+      ).to.be.null;
     });
     it("accepts an ISO 639 code", function () {
       expect(

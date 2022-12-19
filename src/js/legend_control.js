@@ -57,6 +57,14 @@ export default class LegendControl {
     this._container.parentNode.removeChild(this._container);
     this._map = undefined;
   }
+  
+  /**
+   * Call this method whenever the page's language changes.
+   */
+  onLanguageChange() {
+    this.close();
+    this.purgeNetworkMetadata();
+  }
 
   /**
    * Opens the legend popup, positioning it to point at the given anchor point.
