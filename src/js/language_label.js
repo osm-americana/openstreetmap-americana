@@ -2,6 +2,7 @@
 
 import Tokenfield from "tokenfield";
 import { updateLanguageLabel } from "../americana";
+import * as Label from "../constants/label.js";
 
 var langField = labelControlElement("span", "language-field");
 
@@ -35,7 +36,9 @@ function show(element) {
   element.style.removeProperty("display");
 }
 
-let languageNames = new Intl.DisplayNames(locales, { type: "language" });
+let languageNames = new Intl.DisplayNames(Label.getLocales(), {
+  type: "language",
+});
 let langCodes = [
   "am",
   "ar",
