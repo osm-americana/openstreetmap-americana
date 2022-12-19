@@ -151,7 +151,7 @@ langChanger.onclick = function () {
       let langQuery = langCodes.join(",");
       let hash = window.location.hash.substr(1); // omit #
       let searchParams = new URLSearchParams(hash);
-      url.searchParams.set("language", langQuery);
+      searchParams.set("language", langQuery);
       window.location.hash = `#${searchParams}`;
     });
   }
