@@ -1,7 +1,7 @@
 "use strict";
 
 import Tokenfield from "tokenfield";
-import { hotReloadMap, updateLanguageLabel } from "../americana";
+import { updateLanguageLabel } from "../americana";
 
 var langField = labelControlElement("span", "language-field");
 
