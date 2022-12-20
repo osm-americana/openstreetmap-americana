@@ -7,6 +7,7 @@ import * as PlaceLayers from "../layer/place.js";
 import * as LanduseLayers from "../layer/landuse.js";
 import * as BoundaryLayers from "../layer/boundary.js";
 import * as RoadLayers from "../layer/road.js";
+import * as HighwayExitLayers from "../layer/highway_exit.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
@@ -114,7 +115,10 @@ export default class LegendControl {
       },
       {
         name: "Roads",
-        entries: RoadLayers.legendEntries,
+        entries: [
+          ...RoadLayers.legendEntries,
+          ...HighwayExitLayers.legendEntries,
+        ],
       },
       {
         name: "Route markers",
@@ -316,6 +320,8 @@ export default class LegendControl {
       textTransform: symbol.layer.layout["text-transform"],
       verticalAlign: "middle",
       width: `${symbol.layer.layout["text-max-width"] || 10}em`,
+      WebkitTextStrokeColor: symbol.layer.paint["text-halo-color"] || "black",
+      WebkitTextStrokeWidth: `${symbol.layer.paint["text-halo-width"] || 0}px`,
     });
   }
 
