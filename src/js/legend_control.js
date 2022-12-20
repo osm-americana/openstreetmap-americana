@@ -6,6 +6,7 @@ import * as Label from "../constants/label.js";
 import * as PlaceLayers from "../layer/place.js";
 import * as LanduseLayers from "../layer/landuse.js";
 import * as BoundaryLayers from "../layer/boundary.js";
+import * as RoadLayers from "../layer/road.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
@@ -110,6 +111,10 @@ export default class LegendControl {
       {
         name: "Borders",
         entries: BoundaryLayers.legendEntries,
+      },
+      {
+        name: "Roads",
+        entries: RoadLayers.legendEntries,
       },
       {
         name: "Route markers",
@@ -466,6 +471,10 @@ export default class LegendControl {
     let styleImage = this._map.style.getImage(name);
     let img = this.getImageFromStyle(styleImage);
     if (!img) return;
+
+    // On recreational route relations, network=* indicates the network's scope, not the network itself.
+    // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
+    if (/^[lrni][cw]n$/.test(network)) return;
 
     let template = document
       .getElementById("legend-row-symbol")

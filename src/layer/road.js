@@ -1198,3 +1198,16 @@ export const secondaryLinkBridge = new SecondaryLinkBridge();
 export const secondaryLinkTollBridge = new SecondaryLinkTollBridge();
 export const tertiaryLinkBridge = new TertiaryLinkBridge();
 export const tertiaryLinkTollBridge = new TertiaryLinkTollBridge();
+
+export const legendEntries = [
+  {
+    description: "Freeway (divided, controlled access)",
+    layers: [motorway.fill().id, motorway.casing().id],
+    filter: isNotToll,
+  },
+  {
+    description: "Toll road",
+    layers: [motorway.fill().id, motorway.casing().id],
+    filter: isToll,
+  },
+];
