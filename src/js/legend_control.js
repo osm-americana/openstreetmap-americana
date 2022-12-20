@@ -447,7 +447,7 @@ export default class LegendControl {
       })
       .sort((a, b) => a.name.localeCompare(b.name));
     if (otherShieldRows.length) {
-      sortedCountries.push({ code: "*", name: "Other" });
+      sortedCountries.unshift({ code: "*", name: "International" });
       shieldRowsByCountry["*"] = otherShieldRows;
     }
     let shieldRows = [];
