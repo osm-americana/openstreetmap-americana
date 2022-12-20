@@ -259,4 +259,9 @@ export const legendEntries = [
     description: "City, town, or village",
     layers: [city.id],
   },
+  {
+    description: "Disputed border",
+    layers: [countryCasing.id, stateCasing.id, countyCasing.id],
+    filter: ["==", ["get", "disputed"], 1],
+  },
 ];
