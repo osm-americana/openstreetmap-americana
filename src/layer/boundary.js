@@ -31,7 +31,6 @@ export const countyCasing = {
   type: "line",
   paint: {
     "line-color": Color.borderCasing,
-    "line-dasharray": [1],
     "line-width": {
       stops: [
         [11, 5],
@@ -89,7 +88,6 @@ export const stateCasing = {
         [7, `hsl(${Color.hueBorderCasing}, 30%, 90%)`],
       ],
     },
-    "line-dasharray": [1],
     "line-width": {
       base: 1.2,
       stops: [
@@ -243,3 +241,22 @@ export const country = {
   source: "openmaptiles",
   "source-layer": "boundary",
 };
+
+export const legendEntries = [
+  {
+    description: "Country or dependency",
+    layers: [country.id, countryCasing.id],
+  },
+  {
+    description: "State or province",
+    layers: [state.id, stateCasing.id],
+  },
+  {
+    description: "County or county-equivalent",
+    layers: [county.id, countyCasing.id],
+  },
+  {
+    description: "City, town, or village",
+    layers: [city.id],
+  },
+];

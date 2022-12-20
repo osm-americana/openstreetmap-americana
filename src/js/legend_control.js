@@ -5,6 +5,7 @@ import * as Label from "../constants/label.js";
 
 import * as PlaceLayers from "../layer/place.js";
 import * as LanduseLayers from "../layer/landuse.js";
+import * as BoundaryLayers from "../layer/boundary.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
@@ -107,6 +108,10 @@ export default class LegendControl {
         entries: PlaceLayers.legendEntries,
       },
       {
+        name: "Borders",
+        entries: BoundaryLayers.legendEntries,
+      },
+      {
         name: "Route markers",
         rows: this.getShieldRows(),
         source: "Wikidata",
@@ -163,10 +168,10 @@ export default class LegendControl {
 
     let rows = data.rows;
     if (!rows && data.entries) {
-      this.matchEntries(data.entries);
-      rows = data.entries
-        .map((entry) => this.getRowForEntry(entry))
-        .filter((r) => r);
+      let entries = data.entries
+        .map((e) => this.getMatchedEntry(e))
+        .filter((m) => m);
+      rows = entries.map((e) => this.getRowForEntry(e)).filter((r) => r);
     }
     if (!rows.length) return;
 
@@ -178,33 +183,46 @@ export default class LegendControl {
   }
 
   /**
-   * Populates each of the given entries with a representative visible feature.
+   * Populates the given entries with a representative visible feature.
    */
-  matchEntries(entries) {
-    for (let entry of entries) {
-      let features = this._map.queryRenderedFeatures({
-        layers: entry.layers,
-        filter: entry.filter,
-      });
-      entry.feature = features[0];
-      if (!entry.feature) continue;
-      if (
-        entry.feature.layer.type === "fill" ||
-        entry.feature.layer.type === "fill-extrusion"
-      ) {
-        entry.fill = entry.feature;
-        entry.line = features.find(
-          (f) => f.id === entry.feature.id && f.layer.type === "line"
-        );
-      } else if (entry.feature.layer.type === "line") {
-        entry.line = entry.feature;
-        entry.fill = features.find(
-          (f) =>
-            f.id === entry.feature.id &&
-            (f.layer.type === "fill" || f.layer.type === "fill-extrusion")
-        );
-      }
+  getMatchedEntry(entry) {
+    let features = this._map.queryRenderedFeatures({
+      layers: entry.layers,
+      filter: entry.filter,
+    });
+    let feature = features[0];
+    if (!feature) return;
+
+    let matchedEntry = { feature };
+    Object.assign(matchedEntry, entry);
+    if (
+      feature.layer.type === "fill" ||
+      feature.layer.type === "fill-extrusion"
+    ) {
+      matchedEntry.fill = feature;
+      matchedEntry.stroke = features.find(
+        (f) =>
+          f.id === feature.id &&
+          f.layer.id !== feature.layer.id &&
+          f.layer.type === "line"
+      );
+    } else if (feature.layer.type === "line") {
+      matchedEntry.stroke = feature;
+      matchedEntry.casing = features.find(
+        (f) =>
+          f.id === feature.id &&
+          f.layer.id !== feature.layer.id &&
+          f.layer.type === "line"
+      );
+      matchedEntry.fill = features.find(
+        (f) =>
+          f.id === feature.id &&
+          f.layer.id !== feature.layer.id &&
+          (f.layer.type === "fill" || f.layer.type === "fill-extrusion")
+      );
     }
+
+    return matchedEntry;
   }
 
   /**
@@ -212,7 +230,7 @@ export default class LegendControl {
    */
   getRowForEntry(entry) {
     let templateID = "legend-row-symbol";
-    if (entry.line) {
+    if (entry.stroke) {
       templateID = "legend-row-line";
     }
     if (entry.fill) {
@@ -225,12 +243,11 @@ export default class LegendControl {
       let swatchCell = row.querySelector(".swatch");
       Object.assign(
         swatchCell.style,
-        this.getSwatchStyle(entry.fill, entry.line)
+        this.getSwatchStyle(entry.fill, entry.stroke)
       );
-    } else if (entry.line) {
+    } else if (entry.stroke) {
       let lineCell = row.querySelector(".line");
-      let rule = this.getLineRule(entry.line);
-      lineCell.appendChild(rule);
+      this.populateLineCell(lineCell, entry.stroke, entry.casing);
     } else if (entry.feature) {
       let labelCell = row.querySelector(".label");
       this.populateTextLabelFromSymbol(labelCell, entry.feature);
@@ -300,7 +317,7 @@ export default class LegendControl {
   /**
    * Returns style properties resembling the given fill and line.
    */
-  getSwatchStyle(fill, line) {
+  getSwatchStyle(fill, stroke) {
     let fillColor =
       fill?.layer.paint["fill-color"] ||
       fill?.layer.paint["fill-extrusion-color"];
@@ -314,7 +331,7 @@ export default class LegendControl {
       }, ${opacity})`;
     }
     let borderStyle = "solid";
-    if (line?.layer.paint["line-dasharray"]) {
+    if (stroke?.layer.paint["line-dasharray"]) {
       borderStyle = "dashed";
     } else if (fill?.layer.paint["fill-extrusion-height"]) {
       borderStyle = "outset";
@@ -322,25 +339,52 @@ export default class LegendControl {
     return {
       backgroundColor: fillColor,
       borderColor:
-        line?.layer.paint["line-color"] || fillColor || "transparent",
+        stroke?.layer.paint["line-color"] || fillColor || "transparent",
       borderStyle: borderStyle,
-      borderWidth: `${line?.layer.paint["line-width"] || 1}px`,
+      borderWidth: `${stroke?.layer.paint["line-width"] || 1}px`,
     };
   }
 
   /**
-   * Returns style properties resembling the given line.
+   * Populates the given table cell with SVG elements depicting a line.
    */
-  getLineRule(line) {
-    let rule = document.createElement("hr");
-    Object.assign(rule.style, {
-      borderStyle: "none",
-      borderTopColor: line.layer.paint["line-color"] || fillColor,
-      borderTopStyle: line.layer.paint["line-dasharray"] ? "dashed" : "solid",
-      borderTopWidth: `${line.layer.paint["line-width"] || 1}px`,
-      height: 0,
+  populateLineCell(cell, stroke, casing) {
+    let strokeWidth = stroke.layer.paint["line-width"] || 1;
+    let casingWidth = casing?.layer.paint["line-width"] || 1;
+    let height = Math.max(strokeWidth, casingWidth);
+
+    let svg = cell.querySelector("svg");
+    Object.assign(svg.style, {
+      height: `${Math.ceil(height)}px`,
+      verticalAlign: "middle",
+      width: "100%",
     });
-    return rule;
+
+    let strokeLine = cell.querySelector(".stroke");
+    strokeLine.setAttribute("y1", `${height / 2}px`);
+    strokeLine.setAttribute("y2", `${height / 2}px`);
+    strokeLine.setAttribute("x2", "100%");
+
+    let strokeDashArray = stroke.layer.paint["line-dasharray"]?.from;
+    Object.assign(strokeLine.style, {
+      stroke: stroke.layer.paint["line-color"] || fillColor,
+      strokeDasharray: strokeDashArray?.join(" "),
+      strokeWidth: strokeWidth,
+    });
+
+    if (casing) {
+      let casingLine = cell.querySelector(".casing");
+      casingLine.setAttribute("y1", `${height / 2}px`);
+      casingLine.setAttribute("y2", `${height / 2}px`);
+      casingLine.setAttribute("x2", "100%");
+
+      let casingDashArray = casing.layer.paint["line-dasharray"]?.from;
+      Object.assign(casingLine.style, {
+        stroke: casing.layer.paint["line-color"] || fillColor,
+        strokeDasharray: casingDashArray?.join(" "),
+        strokeWidth: casingWidth,
+      });
+    }
   }
 
   /**
