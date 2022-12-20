@@ -309,6 +309,15 @@ export default class LegendControl {
     if (symbol.layer.layout["icon-image"]) {
       justification = "right";
     }
+    let shadowOffset = symbol.layer.paint["text-halo-width"] || 0;
+    let textShadows = [-shadowOffset, shadowOffset].flatMap((x) =>
+      [-shadowOffset, shadowOffset].map(
+        (y) =>
+          `${symbol.layer.paint["text-halo-color"] || "black"} ${x}px ${y}px ${
+            symbol.layer.paint["text-halo-blur"] || 0
+          }px`
+      )
+    );
     Object.assign(container.style, {
       color: symbol.layer.paint["text-color"],
       fontWeight: weight,
@@ -317,11 +326,10 @@ export default class LegendControl {
       lineHeight: `${symbol.layer.layout["text-line-height"] || 1.2}em`,
       maxWidth: "10vw",
       textAlign: justification === "auto" ? "right" : justification,
+      textShadow: textShadows.join(", "),
       textTransform: symbol.layer.layout["text-transform"],
       verticalAlign: "middle",
       width: `${symbol.layer.layout["text-max-width"] || 10}em`,
-      WebkitTextStrokeColor: symbol.layer.paint["text-halo-color"] || "black",
-      WebkitTextStrokeWidth: `${symbol.layer.paint["text-halo-width"] || 0}px`,
     });
   }
 
