@@ -1201,13 +1201,42 @@ export const tertiaryLinkTollBridge = new TertiaryLinkTollBridge();
 
 export const legendEntries = [
   {
-    description: "Freeway (divided, controlled access)",
+    description: "Freeway (controlled access, divided)",
     layers: [motorway.fill().id, motorway.casing().id],
     filter: isNotToll,
   },
   {
+    description: "Principal highway",
+    layers: [trunk.casing().id],
+    filter: isNotToll,
+  },
+  {
+    description: "Major arterial road",
+    layers: [primary.fill().id],
+  },
+  {
+    description: "Minor arterial road",
+    layers: [secondary.fill().id],
+  },
+  {
+    description: "Collector road",
+    layers: [tertiary.fill().id],
+  },
+  {
+    description: "Local road",
+    layers: [minor.fill().id],
+  },
+  {
     description: "Toll road",
-    layers: [motorway.fill().id, motorway.casing().id],
+    layers: [
+      motorway.fill().id,
+      motorway.casing().id,
+      trunk.casing().id,
+      primaryToll.fill().id,
+      secondaryToll.fill().id,
+      tertiaryToll.fill().id,
+      minorToll.fill().id,
+    ],
     filter: isToll,
   },
 ];
