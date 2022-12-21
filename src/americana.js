@@ -206,28 +206,7 @@ function buildLayers() {
     lyrOneway.bridgeLink,
   ];
 
-  //Render bridge without layer on the lowest bridge layer
-  bridgeLayers.forEach((layer) =>
-    layers.push(
-      Util.filteredClone(layer, ["!", ["has", "layer"]], "_layer_bottom")
-    )
-  );
-
-  //One layer at a time to handle stacked bridges
-  for (let i = 1; i <= 4; i++) {
-    bridgeLayers.forEach((layer) => layers.push(Util.restrictLayer(layer, i)));
-  }
-
-  //If layer is more than 5, just give up and render on a single layer.
-  bridgeLayers.forEach((layer) =>
-    layers.push(
-      Util.filteredClone(
-        layer,
-        [">=", ["coalesce", ["get", "layer"], 0], 5],
-        "_layer_top"
-      )
-    )
-  );
+  layers.push(...lyrRail.getLayerSeparatedBridgeLayers(bridgeLayers));
 
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.

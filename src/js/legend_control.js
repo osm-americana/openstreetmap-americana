@@ -10,6 +10,7 @@ import * as RoadLayers from "../layer/road.js";
 import * as ConstructionLayers from "../layer/construction.js";
 import * as HighwayExitLayers from "../layer/highway_exit.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
+import * as RailLayers from "../layer/rail.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
 import * as BuildingLayers from "../layer/building.js";
@@ -131,6 +132,10 @@ export default class LegendControl {
         )}`,
       },
       {
+        name: "Railroads",
+        entries: RailLayers.legendEntries,
+      },
+      {
         name: "Aviation",
         entries: AerowayLayers.legendEntries,
       },
@@ -194,7 +199,8 @@ export default class LegendControl {
   }
 
   /**
-   * Populates the given entries with a representative visible feature.
+   * Returns a copy of the given entry populated with a representative visible
+   * feature.
    */
   getMatchedEntry(entry) {
     let features = this._map.queryRenderedFeatures({
@@ -374,7 +380,10 @@ export default class LegendControl {
     let getLineWidth = (f) => {
       let width = f.layer.paint["line-width"] || 1;
       let gapWidth = f.layer.paint["line-gap-width"];
-      return gapWidth ? width * 2 + gapWidth : width;
+      return Math.max(
+        1 / ShieldDraw.PXR,
+        gapWidth ? width * 2 + gapWidth : width
+      );
     };
     let lineWidths = lineFeatures.map(getLineWidth);
     let height = Math.max(...lineWidths);
@@ -388,7 +397,10 @@ export default class LegendControl {
       line.setAttribute("y2", `${height / 2}px`);
       line.setAttribute("x2", "100%");
 
-      let dashArray = feature.layer.paint["line-dasharray"]?.from;
+      let simpleLineWidth = feature.layer.paint["line-width"] || 1;
+      let dashArray = feature.layer.paint["line-dasharray"]?.from.map(
+        (d) => d * simpleLineWidth
+      );
       Object.assign(line.style, {
         opacity: feature.layer.paint["line-opacity"] || 1,
         stroke: feature.layer.paint["line-color"] || fillColor,
