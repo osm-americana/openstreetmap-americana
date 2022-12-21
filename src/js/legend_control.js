@@ -2,6 +2,7 @@
 
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Label from "../constants/label.js";
+import * as ShieldDef from "./shield_defs.js";
 
 import * as LegendConfig from "./legend_config.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
@@ -95,13 +96,13 @@ export default class LegendControl {
   getContents() {
     let template = document.getElementById("legend").content.cloneNode(true);
 
-    let shieldSection = sections.find((s) => s.id === "shields");
+    let shieldSection = this.sections.find((s) => s.id === "shields");
     shieldSection.rows = this.getShieldRows();
     shieldSection.sourceURL = `https://query.wikidata.org/embed.html#${encodeURIComponent(
       this.getNetworkMetadataQuery()
     )}`;
 
-    for (let data of sections) {
+    for (let data of this.sections) {
       let section = this.getSection(data);
       if (!section) continue;
 
@@ -374,35 +375,47 @@ export default class LegendControl {
       .map((s) => {
         let name = s.image.name;
         let network = name.split("\n")[1].match(/^(.+?)=/)[1];
-        let country = network.match(/^(\w+):/)?.[1];
-        return { name, network, country };
+        return { name, network };
       })
       .sort((a, b) => a.name.localeCompare(b.name, "en"));
-    let networks = new Set();
+    let imageNamesByNetwork = {};
+    let unrecognizedNetworks = [];
+    for (let image of images) {
+      if (image.network in imageNamesByNetwork) continue;
+      imageNamesByNetwork[image.network] = image.name;
+      if (!(image.network in ShieldDef.shields)) {
+        unrecognizedNetworks.push(image.network);
+      }
+    }
+
+    let networks = [
+      ...Object.keys(ShieldDef.shields),
+      ...unrecognizedNetworks.sort(),
+    ];
     let countries = new Set();
     let shieldRowsByCountry = {};
     let otherShieldRows = [];
-    let countryNames = new Intl.DisplayNames(Label.getLocales(), {
-      type: "region",
-    });
-    for (let metadata of images) {
-      if (networks.has(metadata.network)) continue;
+    for (let network of networks) {
+      if (!(network in imageNamesByNetwork)) continue;
 
-      let row = this.getShieldRow(metadata.name, metadata.network);
+      let row = this.getShieldRow(imageNamesByNetwork[network], network);
       if (!row) continue;
 
-      if (metadata.country) {
-        if (!(metadata.country in shieldRowsByCountry)) {
-          shieldRowsByCountry[metadata.country] = [];
+      let country = network.match(/^(\w+):/)?.[1];
+      if (country) {
+        if (!(country in shieldRowsByCountry)) {
+          shieldRowsByCountry[country] = [];
         }
-        shieldRowsByCountry[metadata.country].push(row);
-        countries.add(metadata.country);
+        shieldRowsByCountry[country].push(row);
+        countries.add(country);
       } else {
         otherShieldRows.push(row);
       }
-      networks.add(metadata.network);
     }
 
+    let countryNames = new Intl.DisplayNames(Label.getLocales(), {
+      type: "region",
+    });
     let sortedCountries = [...countries]
       .map((code) => {
         let name = countryNames.of(code) ?? code;
@@ -413,6 +426,7 @@ export default class LegendControl {
       sortedCountries.unshift({ code: "*", name: "International" });
       shieldRowsByCountry["*"] = otherShieldRows;
     }
+
     let shieldRows = [];
     for (let country of sortedCountries) {
       if (sortedCountries.length > 1) {
