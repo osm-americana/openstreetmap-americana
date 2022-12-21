@@ -426,7 +426,7 @@ export const continent = {
 };
 
 const populatedPlaceLayers = [village.id, town.id, city.id];
-const nonCapitalFilter = ["!", ["has", ["get", "capital"]]];
+const nonCapitalFilter = ["!", ["has", "capital"]];
 
 export const legendEntries = [
   {
