@@ -386,6 +386,7 @@ export default class LegendControl {
 
     let strokeDashArray = stroke.layer.paint["line-dasharray"]?.from;
     Object.assign(strokeLine.style, {
+      opacity: stroke.layer.paint["line-opacity"] || 1,
       stroke: stroke.layer.paint["line-color"] || fillColor,
       strokeDasharray: strokeDashArray?.join(" "),
       strokeWidth: strokeWidth,
@@ -399,6 +400,7 @@ export default class LegendControl {
 
       let casingDashArray = casing.layer.paint["line-dasharray"]?.from;
       Object.assign(casingLine.style, {
+        opacity: casing.layer.paint["line-opacity"] || 1,
         stroke: casing.layer.paint["line-color"] || fillColor,
         strokeDasharray: casingDashArray?.join(" "),
         strokeWidth: casingWidth,

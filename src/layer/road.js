@@ -1225,22 +1225,31 @@ export const legendEntries = [
   {
     description: "Major arterial road",
     layers: [primary.fill().id, roadSimpleCasing.casing().id],
-    filter: ["==", ["get", "class"], "primary"],
+    filter: ["==", getClass, "primary"],
   },
   {
     description: "Minor arterial road",
     layers: [secondary.fill().id, roadSimpleCasing.casing().id],
-    filter: ["==", ["get", "class"], "secondary"],
+    filter: ["==", getClass, "secondary"],
   },
   {
     description: "Collector road",
     layers: [tertiary.fill().id, roadSimpleCasing.casing().id],
-    filter: ["==", ["get", "class"], "tertiary"],
+    filter: ["==", getClass, "tertiary"],
   },
   {
     description: "Local road",
     layers: [minor.fill().id, roadSimpleCasing.casing().id],
-    filter: ["match", ["get", "class"], ["minor", "service"], true, false],
+    filter: ["match", getClass, ["minor", "service"], true, false],
+  },
+  {
+    description: "Driveway or parking aisle",
+    layers: [minor.fill().id, roadSimpleCasing.casing().id],
+    filter: [
+      "all",
+      ["==", getClass, "service"],
+      [...smallServiceSelector, true, false],
+    ],
   },
   {
     description: "Toll road",
