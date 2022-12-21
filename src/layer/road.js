@@ -1206,25 +1206,41 @@ export const legendEntries = [
     filter: isNotToll,
   },
   {
+    description: "Expressway (limited access, divided)",
+    layers: [
+      roadSimpleFill.fill().id,
+      roadSimpleCasing.casing().id,
+      primaryExpressway.casing().id,
+      primaryExpressway.casing().id,
+      secondaryExpressway.casing().id,
+      tertiaryExpressway.casing().id,
+    ],
+    filter: ["all", isExpressway, isNotToll],
+  },
+  {
     description: "Principal highway",
     layers: [trunk.casing().id],
     filter: isNotToll,
   },
   {
     description: "Major arterial road",
-    layers: [primary.fill().id],
+    layers: [primary.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", ["get", "class"], "primary"],
   },
   {
     description: "Minor arterial road",
-    layers: [secondary.fill().id],
+    layers: [secondary.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", ["get", "class"], "secondary"],
   },
   {
     description: "Collector road",
-    layers: [tertiary.fill().id],
+    layers: [tertiary.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", ["get", "class"], "tertiary"],
   },
   {
     description: "Local road",
-    layers: [minor.fill().id],
+    layers: [minor.fill().id, roadSimpleCasing.casing().id],
+    filter: ["match", ["get", "class"], ["minor", "service"], true, false],
   },
   {
     description: "Toll road",
@@ -1236,6 +1252,7 @@ export const legendEntries = [
       secondaryToll.fill().id,
       tertiaryToll.fill().id,
       minorToll.fill().id,
+      roadSimpleCasing.casing().id,
     ],
     filter: isToll,
   },
