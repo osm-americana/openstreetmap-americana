@@ -51,6 +51,7 @@ const smallServiceSelector = [
   ["get", "service"],
   ["parking_aisle", "driveway"],
 ];
+const isUnpaved = ["==", ["get", "surface"], "unpaved"];
 
 function combineConstraints(constraint1, constraint2) {
   if (constraint1 == null) {
@@ -472,11 +473,7 @@ class Road {
       Math.max(this.maxZoomCasing, this.maxZoomFill),
       this.constraints
     );
-    layer.filter = combineConstraints(layer.filter, [
-      "==",
-      ["get", "surface"],
-      "unpaved",
-    ]);
+    layer.filter = combineConstraints(layer.filter, isUnpaved);
     layer.layout = {
       "line-cap": "butt",
       "line-join": "round",
@@ -1199,6 +1196,17 @@ export const secondaryLinkTollBridge = new SecondaryLinkTollBridge();
 export const tertiaryLinkBridge = new TertiaryLinkBridge();
 export const tertiaryLinkTollBridge = new TertiaryLinkTollBridge();
 
+const normalRoadLayers = [
+  motorway.fill().id,
+  motorway.casing().id,
+  trunk.casing().id,
+  primaryToll.fill().id,
+  secondaryToll.fill().id,
+  tertiaryToll.fill().id,
+  minorToll.fill().id,
+  roadSimpleCasing.casing().id,
+];
+
 export const legendEntries = [
   {
     description: "Freeway (controlled access, divided)",
@@ -1264,5 +1272,19 @@ export const legendEntries = [
       roadSimpleCasing.casing().id,
     ],
     filter: isToll,
+  },
+  {
+    description: "Unpaved road",
+    layers: [
+      road.surface().id,
+      trunk.casing().id,
+      primary.fill().id,
+      secondary.fill().id,
+      tertiary.fill().id,
+      minor.fill().id,
+      roadSimpleCasing.casing().id,
+    ],
+    hasTexture: true,
+    filter: isUnpaved,
   },
 ];

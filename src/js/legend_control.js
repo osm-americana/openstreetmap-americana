@@ -199,36 +199,38 @@ export default class LegendControl {
       layers: entry.layers,
       filter: entry.filter,
     });
-    let feature = features[0];
-    if (!feature) return;
+    let mainFeature = features[0];
+    if (!mainFeature) return;
 
-    let matchedEntry = { feature };
+    let matchedEntry = { feature: mainFeature };
     Object.assign(matchedEntry, entry);
     if (
-      feature.layer.type === "fill" ||
-      feature.layer.type === "fill-extrusion"
+      mainFeature.layer.type === "fill" ||
+      mainFeature.layer.type === "fill-extrusion"
     ) {
-      matchedEntry.fill = feature;
+      matchedEntry.fill = mainFeature;
       matchedEntry.stroke = features.find(
-        (f) =>
-          f.id === feature.id &&
-          f.layer.id !== feature.layer.id &&
-          f.layer.type === "line"
+        (f) => f.id === mainFeature.id && f.layer.type === "line"
       );
-    } else if (feature.layer.type === "line") {
-      matchedEntry.stroke = feature;
-      matchedEntry.casing = features.find(
-        (f) =>
-          f.id === feature.id &&
-          f.layer.id !== feature.layer.id &&
-          f.layer.type === "line"
-      );
+    } else if (mainFeature.layer.type === "line") {
       matchedEntry.fill = features.find(
         (f) =>
-          f.id === feature.id &&
-          f.layer.id !== feature.layer.id &&
+          f.id === mainFeature.id &&
           (f.layer.type === "fill" || f.layer.type === "fill-extrusion")
       );
+      if (matchedEntry.fill) {
+        matchedEntry.stroke = mainFeature;
+      } else {
+        matchedEntry.lines = [];
+        let layers = new Set();
+        for (let feature of features) {
+          if (feature.id !== mainFeature.id || feature.layer.type !== "line")
+            continue;
+          if (layers.has(feature.layer.id)) continue;
+          layers.add(feature.layer.id);
+          matchedEntry.lines.unshift(feature);
+        }
+      }
     }
 
     return matchedEntry;
@@ -239,10 +241,9 @@ export default class LegendControl {
    */
   getRowForEntry(entry) {
     let templateID = "legend-row-symbol";
-    if (entry.stroke) {
+    if (entry.lines) {
       templateID = "legend-row-line";
-    }
-    if (entry.fill) {
+    } else if (entry.fill) {
       templateID = "legend-row-swatch";
     }
     let template = document.getElementById(templateID).content.cloneNode(true);
@@ -254,9 +255,9 @@ export default class LegendControl {
         swatchCell.style,
         this.getSwatchStyle(entry.fill, entry.stroke)
       );
-    } else if (entry.stroke) {
+    } else if (entry.lines) {
       let lineCell = row.querySelector(".line");
-      this.populateLineCell(lineCell, entry.stroke, entry.casing);
+      this.populateLineCell(lineCell, entry.lines);
     } else if (entry.feature) {
       let labelCell = row.querySelector(".label");
       this.populateTextLabelFromSymbol(labelCell, entry.feature);
@@ -367,44 +368,28 @@ export default class LegendControl {
   /**
    * Populates the given table cell with SVG elements depicting a line.
    */
-  populateLineCell(cell, stroke, casing) {
-    let strokeWidth = stroke.layer.paint["line-width"] || 1;
-    let casingWidth = casing?.layer.paint["line-width"] || 1;
-    let height = Math.max(strokeWidth, casingWidth);
+  populateLineCell(cell, lineFeatures) {
+    let lineWidths = lineFeatures.map((f) => f.layer.paint["line-width"] || 1);
+    let height = Math.max(...lineWidths);
 
     let svg = cell.querySelector("svg");
-    Object.assign(svg.style, {
-      height: `${Math.ceil(height)}px`,
-      verticalAlign: "middle",
-      width: "100%",
-    });
+    svg.style.height = `${Math.ceil(height)}px`;
 
-    let strokeLine = cell.querySelector(".stroke");
-    strokeLine.setAttribute("y1", `${height / 2}px`);
-    strokeLine.setAttribute("y2", `${height / 2}px`);
-    strokeLine.setAttribute("x2", "100%");
+    for (let feature of lineFeatures) {
+      let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("y1", `${height / 2}px`);
+      line.setAttribute("y2", `${height / 2}px`);
+      line.setAttribute("x2", "100%");
 
-    let strokeDashArray = stroke.layer.paint["line-dasharray"]?.from;
-    Object.assign(strokeLine.style, {
-      opacity: stroke.layer.paint["line-opacity"] || 1,
-      stroke: stroke.layer.paint["line-color"] || fillColor,
-      strokeDasharray: strokeDashArray?.join(" "),
-      strokeWidth: strokeWidth,
-    });
-
-    if (casing) {
-      let casingLine = cell.querySelector(".casing");
-      casingLine.setAttribute("y1", `${height / 2}px`);
-      casingLine.setAttribute("y2", `${height / 2}px`);
-      casingLine.setAttribute("x2", "100%");
-
-      let casingDashArray = casing.layer.paint["line-dasharray"]?.from;
-      Object.assign(casingLine.style, {
-        opacity: casing.layer.paint["line-opacity"] || 1,
-        stroke: casing.layer.paint["line-color"] || fillColor,
-        strokeDasharray: casingDashArray?.join(" "),
-        strokeWidth: casingWidth,
+      let dashArray = feature.layer.paint["line-dasharray"]?.from;
+      Object.assign(line.style, {
+        opacity: feature.layer.paint["line-opacity"] || 1,
+        stroke: feature.layer.paint["line-color"] || fillColor,
+        strokeDasharray: dashArray?.join(" "),
+        strokeWidth: feature.layer.paint["line-width"] || 1,
       });
+
+      svg.appendChild(line);
     }
   }
 

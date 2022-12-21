@@ -55,6 +55,10 @@
       .legend-row > .swatch {
         border-style: solid;
       }
+      .legend-row > .line > svg {
+        vertical-align: middle;
+        width: 100%;
+      }
       .legend-source {
         font-size: 80%;
         text-align: right;
@@ -124,10 +128,7 @@
     <template id="legend-row-line">
       <tr class="legend-row legend-row-line">
         <td class="line" colspan="2">
-          <svg>
-            <line class="casing"></line>
-            <line class="stroke"></line>
-          </svg>
+          <svg></svg>
         </td>
         <td class="description"></td>
       </tr>
