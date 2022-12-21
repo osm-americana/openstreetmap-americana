@@ -32,6 +32,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
 import LegendControl from "./js/legend_control.js";
+import LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
@@ -316,6 +317,7 @@ export function updateLanguageLabel() {
 }
 
 let legendControl = new LegendControl();
+legendControl.sections = LegendConfig.sections;
 window.addEventListener("languagechange", (event) => {
   console.log(`Changed to ${navigator.languages}`);
   hotReloadMap();
