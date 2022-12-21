@@ -1284,7 +1284,6 @@ export const legendEntries = [
       minor.fill().id,
       roadSimpleCasing.casing().id,
     ],
-    hasTexture: true,
     filter: isUnpaved,
   },
 ];

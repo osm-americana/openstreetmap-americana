@@ -7,6 +7,7 @@ import * as PlaceLayers from "../layer/place.js";
 import * as LanduseLayers from "../layer/landuse.js";
 import * as BoundaryLayers from "../layer/boundary.js";
 import * as RoadLayers from "../layer/road.js";
+import * as ConstructionLayers from "../layer/construction.js";
 import * as HighwayExitLayers from "../layer/highway_exit.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as AerowayLayers from "../layer/aeroway.js";
@@ -117,6 +118,7 @@ export default class LegendControl {
         name: "Roads",
         entries: [
           ...RoadLayers.legendEntries,
+          ...ConstructionLayers.legendEntries,
           ...HighwayExitLayers.legendEntries,
         ],
       },
@@ -369,7 +371,12 @@ export default class LegendControl {
    * Populates the given table cell with SVG elements depicting a line.
    */
   populateLineCell(cell, lineFeatures) {
-    let lineWidths = lineFeatures.map((f) => f.layer.paint["line-width"] || 1);
+    let getLineWidth = (f) => {
+      let width = f.layer.paint["line-width"] || 1;
+      let gapWidth = f.layer.paint["line-gap-width"];
+      return gapWidth ? width * 2 + gapWidth : width;
+    };
+    let lineWidths = lineFeatures.map(getLineWidth);
     let height = Math.max(...lineWidths);
 
     let svg = cell.querySelector("svg");
@@ -386,7 +393,7 @@ export default class LegendControl {
         opacity: feature.layer.paint["line-opacity"] || 1,
         stroke: feature.layer.paint["line-color"] || fillColor,
         strokeDasharray: dashArray?.join(" "),
-        strokeWidth: feature.layer.paint["line-width"] || 1,
+        strokeWidth: getLineWidth(feature),
       });
 
       svg.appendChild(line);
