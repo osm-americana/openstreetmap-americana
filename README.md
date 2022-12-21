@@ -49,7 +49,7 @@ The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https:
 
 - Feature data from OpenStreetMap
 - Translated name labels from [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) for places, POIs, airports, roads, bodies of water, parks, and mountain peaks.
-- Low-zoom ocean/water and boundary data from [Natural Earth](https://www.naturalearthdata.com/).
+- Low-zoom ocean/water, boundary, and urbanized area data from [Natural Earth](https://www.naturalearthdata.com/).
 
 ## Coverage
 

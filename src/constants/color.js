@@ -1,9 +1,10 @@
 export const backgroundFill = `hsl(30, 44%, 96%)`;
 export const backgroundFillTranslucent = `hsla(30, 44%, 96%, 0.8)`;
 
-export const waterFill = "hsl(211, 42%, 70%)";
-export const waterLine = "hsl(211, 73%, 78%)";
-export const waterIntermittent = "hsl(205, 89%, 83%)";
+export const waterFill = "hsl(211, 50%, 85%)";
+export const waterFillTranslucent = "hsla(211, 50%, 85%, 0.5)";
+export const waterLine = "hsl(211, 42%, 70%)";
+export const waterLineBold = "hsl(211, 42%, 50%)";
 export const waterLabel = "hsl(211, 43%, 28%)";
 
 export const hueBorder = 0;
@@ -13,7 +14,7 @@ export const border = "hsl(0, 2%, 47%)";
 export const borderCasing = `hsl(${hueBorderCasing}, 35%, 86%)`;
 
 export const parkFill = "hsl(136, 41%, 89%)";
-export const parkOutline = "hsl(136, 41%, 79%)";
+export const parkOutline = "hsla(136, 41%, 70%, 50%)";
 export const parkLabel = "hsl(136, 71%, 29%)";
 export const parkLabelHalo = "hsl(90, 27%, 94%)";
 

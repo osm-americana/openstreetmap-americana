@@ -34,13 +34,15 @@
     "chai": "^4.3.7",
     "create-serve": "^1.0.1",
     "esbuild": "^0.15.15",
+    "events": "^3.3.0",
     "maplibre-gl": "^2.1.9",
     "mocha": "^10.1.0",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "prettier": "2.3.2",
     "shx": "^0.3.4",
-    "svgo": "^2.8.0"
+    "svgo": "^2.8.0",
+    "tokenfield": "^1.5.2"
   },
   "engines": {
     "npm": ">=8.3.0",

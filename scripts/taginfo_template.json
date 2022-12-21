@@ -298,6 +298,34 @@
       "object_types": ["way"],
       "description": "Displays railroads with a thinner line width but normal tie spacing.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "natural",
+      "value": "coastline",
+      "object_types": ["way"],
+      "description": "Coastlines are represented by a hairline at all zoom levels, except across the mouth of a river.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "natural",
+      "value": "water",
+      "object_types": ["area"],
+      "description": "Lakeshores and riverbanks are represented by a hairline at high zoom levels.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "intermittent",
+      "value": "yes",
+      "object_types": ["way"],
+      "description": "Intermittent waterways are dashed.",
+      "doc_url": "https://openmaptiles.org/schema/#waterway"
+    },
+    {
+      "key": "intermittent",
+      "value": "yes",
+      "object_types": ["area"],
+      "description": "Intermittent lakes are translucent with a dashed line representing the lakeshore.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
     }
   ]
 }
