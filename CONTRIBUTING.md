@@ -316,3 +316,7 @@ To test with a list of all the supported networks in the style this line can be 
 https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
 
 This results in a very long page and can be quite slow or even crash the browser tab.
+
+## Standalone style.json
+
+We publish a standalone [style.json](https://zelonewolf.github.io/openstreetmap-americana/style.json) for experimentation purposes. Since highway shields are rendered dynamically via MapLibre's `styleimagemissing` event, this style definition by itself won't render shields and will print errors in the javascript console. Additionally, this standalone file is not localized.
