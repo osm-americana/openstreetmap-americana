@@ -5,11 +5,12 @@ _'murica!_
 The style is located within **src/** and is organized as follows:
 
 - **layer/** - Individual style layers, organized by subject area
+- **layer/layers.js** - Layer ordering
 - **icons/** - SVG icons, which get converted into PNG stylesheets
 - **constants/** - Style elements that are frequently re-used
 - **js/** - Dynamic javascript code for highway shields and stylesheet building
 - **config.js** - Configuration settings (MapTiler API key, OpenMapTiles URL, etc)
-- **americana.js** - OpenMapTiles loader with layer ordering
+- **americana.js** - Maplibre loader and dynamic feature setup
 - **index.html** - Demonstration map HTML page
 
 ## Install Node.js
