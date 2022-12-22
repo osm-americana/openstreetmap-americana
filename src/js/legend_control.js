@@ -376,8 +376,7 @@ export default class LegendControl {
         let name = s.image.name;
         let match = name.split("\n")[1].match(/^(.+?)=(.*)/);
         return { name, network: match?.[1], ref: match?.[2] };
-      })
-      .sort((a, b) => a.name.localeCompare(b.name, "en"));
+      });
     let imagesByNetwork = {};
     let unrecognizedNetworks = new Set();
     for (let image of images) {
@@ -432,7 +431,8 @@ export default class LegendControl {
       }
     }
 
-    let countryNames = new Intl.DisplayNames(Label.getLocales(), {
+    let locales = Label.getLocales();
+    let countryNames = new Intl.DisplayNames(locales, {
       type: "region",
     });
     let sortedCountries = [...countries]
@@ -440,7 +440,7 @@ export default class LegendControl {
         let name = countryNames.of(code) ?? code;
         return { code, name };
       })
-      .sort((a, b) => a.name.localeCompare(b.name));
+      .sort((a, b) => a.name.localeCompare(b.name, locales[0]));
     if (otherShieldRows.length) {
       sortedCountries.unshift({ code: "*", name: "International" });
       shieldRowsByCountry["*"] = otherShieldRows;
