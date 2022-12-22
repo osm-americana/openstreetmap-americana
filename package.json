@@ -16,11 +16,12 @@
     "presprites": "shx rm -rf dist/sprites",
     "sprites": "node scripts/sprites.js",
     "status_map": "node scripts/status_map.js",
+    "style_json": "node scripts/style_json.js",
     "taginfo": "node scripts/taginfo.js",
     "start": "run-s clean sprites serve",
     "serve": "node scripts/serve.js",
     "build:code": "node scripts/build.js",
-    "build": "run-s clean sprites build:code taginfo status_map",
+    "build": "run-s clean sprites build:code taginfo style_json status_map",
     "test": "mocha"
   },
   "dependencies": {

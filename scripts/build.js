@@ -1,8 +1,6 @@
-import { copyFile, writeFile, mkdir } from "fs/promises";
+import { copyFile, mkdir } from "fs/promises";
 
 import esbuild from "esbuild";
-
-import { buildLayers } from "../src/layer/layers.js";
 
 const isMain =
   import.meta.url === new URL(`file://${process.argv[1]}`).toString();
@@ -32,7 +30,6 @@ export async function build(updateHook, buildOptions = {}) {
     }),
     copyFile("src/index.html", "dist/index.html"),
     copyFile("src/shieldtest.html", "dist/shieldtest.html"),
-    writeFile("dist/style.json", JSON.stringify(buildLayers())),
   ]);
 }
 
