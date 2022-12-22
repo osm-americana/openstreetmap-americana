@@ -883,6 +883,19 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Mexico
+
+  // Carreteras Federales
+  shields["MX:MX"] = {
+    backgroundImage: shieldImages.shield_mx_mx,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 3,
+      bottom: 2,
+    },
+  };
+
   // United States
 
   // Interstate Highways
