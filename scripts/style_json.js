@@ -1,5 +1,7 @@
 import { copyFile, writeFile, mkdir } from "fs/promises";
 
-import { buildLayers } from "../src/layer/layers.js";
+import { buildLayers } from "../src/layer/index.js";
 
-writeFile("dist/style.json", JSON.stringify(buildLayers()));
+export function generateStyleJSON() {
+  writeFile("dist/style.json", JSON.stringify(buildLayers()));
+}
