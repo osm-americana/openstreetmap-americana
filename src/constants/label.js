@@ -122,7 +122,7 @@ export function localizeLayers(layers, locales) {
 export const localizedName = [
   "let",
   "localizedName",
-  "",
+  ["get", "name"],
   ["var", "localizedName"],
 ];
 
@@ -202,7 +202,7 @@ function overwriteSuffixExpression(target, newSuffix) {
 export const localizedNameWithLocalGloss = [
   "let",
   "localizedName",
-  "",
+  ["get", "name"],
   "localizedCollator",
   ["collator", {}],
   "diacriticInsensitiveCollator",
