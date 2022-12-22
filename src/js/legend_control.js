@@ -374,31 +374,50 @@ export default class LegendControl {
       .filter((s) => s.image && s.image)
       .map((s) => {
         let name = s.image.name;
-        let network = name.split("\n")[1].match(/^(.+?)=/)[1];
-        return { name, network };
+        let match = name.split("\n")[1].match(/^(.+?)=(.*)/);
+        return { name, network: match?.[1], ref: match?.[2] };
       })
       .sort((a, b) => a.name.localeCompare(b.name, "en"));
-    let imageNamesByNetwork = {};
-    let unrecognizedNetworks = [];
+    let imagesByNetwork = {};
+    let unrecognizedNetworks = new Set();
     for (let image of images) {
-      if (image.network in imageNamesByNetwork) continue;
-      imageNamesByNetwork[image.network] = image.name;
-      if (!(image.network in ShieldDef.shields)) {
-        unrecognizedNetworks.push(image.network);
+      if (!(image.network in imagesByNetwork)) {
+        imagesByNetwork[image.network] = { overridesByRef: {} };
+      }
+      let networkImages = imagesByNetwork[image.network];
+      let shieldDef = ShieldDef.shields[image.network];
+      if (image.ref && shieldDef?.overrideByRef?.[image.ref]) {
+        if (!networkImages.overridesByRef[image.ref]) {
+          networkImages.overridesByRef[image.ref] = image.name;
+        }
+      } else if (!networkImages.ref && image.ref) {
+        networkImages.ref = image.name;
+      } else if (!networkImages.noRef && !image.ref) {
+        networkImages.noRef = image.name;
+      }
+
+      if (!shieldDef) {
+        unrecognizedNetworks.add(image.network);
       }
     }
 
     let networks = [
       ...Object.keys(ShieldDef.shields),
-      ...unrecognizedNetworks.sort(),
+      ...[...unrecognizedNetworks.values()].sort(),
     ];
     let countries = new Set();
     let shieldRowsByCountry = {};
     let otherShieldRows = [];
     for (let network of networks) {
-      if (!(network in imageNamesByNetwork)) continue;
+      if (!(network in imagesByNetwork)) continue;
 
-      let row = this.getShieldRow(imageNamesByNetwork[network], network);
+      let images = imagesByNetwork[network];
+      let sortedImages = [
+        images.noRef,
+        images.ref,
+        ...Object.values(images.overridesByRef),
+      ].filter((i) => i);
+      let row = this.getShieldRow(network, sortedImages);
       if (!row) continue;
 
       let country = network.match(/^(\w+):/)?.[1];
@@ -446,18 +465,20 @@ export default class LegendControl {
   /**
    * Returns a table row representing a route shield.
    *
-   * @param name The style image name.
-   * @param network The `network=*` value associated with the style image.
+   * @param network The `network=*` value associated with the style images.
+   * @param names An array of style image names.
    * @returns An HTML table row representing the route shield, or nothing if the style does not render the given network.
    */
-  getShieldRow(name, network) {
-    let styleImage = this._map.style.getImage(name);
-    let img = this.getImageFromStyle(styleImage);
-    if (!img) return;
-
+  getShieldRow(network, names) {
     // On recreational route relations, network=* indicates the network's scope, not the network itself.
     // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
     if (/^[lrni][cw]n$/.test(network)) return;
+
+    let images = names
+      .map((n) => this._map.style.getImage(n))
+      .map((i) => this.getImageFromStyle(i))
+      .filter((i) => i);
+    if (!images.length) return;
 
     let template = document
       .getElementById("legend-row-symbol")
@@ -465,7 +486,7 @@ export default class LegendControl {
     let row = template.querySelector("tr");
     row.dataset.network = network;
 
-    row.querySelector(".icon").appendChild(img);
+    row.querySelector(".icon").replaceChildren(...images);
 
     let descriptionCell = row.querySelector(".description");
     let code = document.createElement("code");
@@ -503,6 +524,7 @@ export default class LegendControl {
       (imageData.height * iconSize) / ShieldDraw.PXR
     );
     img.src = canvas.toDataURL("image/png");
+    img.className = "shield";
 
     return img;
   }
