@@ -319,4 +319,4 @@ This results in a very long page and can be quite slow or even crash the browser
 
 ## Standalone style.json
 
-We publish a standalone [style.json](https://zelonewolf.github.io/openstreetmap-americana/style.json) for experimentation purposes. Since highway shields are rendered dynamically via MapLibre's `styleimagemissing` event, this style definition by itself won't render shields and will print errors in the javascript console. Additionally, this standalone file is not localized.
+We publish a standalone [style.json](https://zelonewolf.github.io/openstreetmap-americana/style.json) for experimentation purposes. Since highway shields are rendered dynamically via MapLibre's `styleimagemissing` event, this style definition by itself won't render shields and will print errors in the javascript console. Additionally, this standalone file is not localized and will display the `name` tag for named objects.
