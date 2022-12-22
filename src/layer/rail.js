@@ -493,22 +493,22 @@ const isTram = ["==", ["get", "subclass"], "tram"];
 
 export const legendEntries = [
   {
-    description: "Mainline tracks",
+    description: "Mainline track",
     layers: [rail.dashes().id, railway.fill().id],
     filter: ["all", isGenericRail, isNotService, isNotCrossover],
   },
   {
-    description: "Siding, spur, or yard tracks",
+    description: "Siding, spur, or yard track",
     layers: [railService.dashes().id, railway.fill().id],
     filter: ["all", isGenericRail, isService],
   },
   {
-    description: "Narrow-gauge mainline tracks",
+    description: "Narrow-gauge mainline track",
     layers: [narrowGauge.dashes().id, railway.fill().id],
     filter: ["all", isNarrowGauge, isGenericRail, isNotService, isNotCrossover],
   },
   {
-    description: "Narrow-gauge siding, spur, or yard tracks",
+    description: "Narrow-gauge siding, spur, or yard track",
     layers: [narrowGaugeService.dashes().id, railway.fill().id],
     filter: ["all", isNarrowGauge, isGenericRail, isService],
   },
@@ -541,7 +541,7 @@ export const legendEntries = [
     filter: ["all", isLightRail, isNotService, isNotCrossover],
   },
   {
-    description: "Light rail siding or yard tracks",
+    description: "Light rail siding or yard track",
     layers: [lightRailTramService.dashes().id, railway.fill().id],
     filter: ["all", isLightRail, isService],
   },
@@ -551,7 +551,7 @@ export const legendEntries = [
     filter: ["all", isTram, isNotService, isNotCrossover],
   },
   {
-    description: "Streetcar siding or yard tracks",
+    description: "Streetcar siding or yard track",
     layers: [lightRailTramService.dashes().id, railway.fill().id],
     filter: ["all", isTram, isService],
   },
