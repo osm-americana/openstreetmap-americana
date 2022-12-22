@@ -891,7 +891,7 @@ export function loadShields(shieldImages) {
     padding: {
       left: 2,
       right: 2,
-      top: 6,
+      top: 3,
       bottom: 2,
     },
   };
