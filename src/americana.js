@@ -8,23 +8,6 @@ import * as Util from "./js/util.js";
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
 
-import * as lyrAeroway from "./layer/aeroway.js";
-import * as lyrBackground from "./layer/background.js";
-import * as lyrBoundary from "./layer/boundary.js";
-import * as lyrConstruction from "./layer/construction.js";
-import * as lyrHighwayShield from "./layer/highway_shield.js";
-import * as lyrLanduse from "./layer/landuse.js";
-import * as lyrOneway from "./layer/oneway.js";
-import * as lyrPark from "./layer/park.js";
-import * as lyrPlace from "./layer/place.js";
-import * as lyrRail from "./layer/rail.js";
-import * as lyrRoad from "./layer/road.js";
-import * as lyrTransportationLabel from "./layer/transportation_label.js";
-import * as lyrWater from "./layer/water.js";
-import * as lyrBuilding from "./layer/building.js";
-import * as lyrHighwayExit from "./layer/highway_exit.js";
-import * as lyrFerry from "./layer/ferry.js";
-
 import * as languageLabel from "./js/language_label.js";
 
 import * as maplibregl from "maplibre-gl";
@@ -33,7 +16,7 @@ import * as search from "./search.js";
 
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
-import { buildLayers } from "./layer/layers.js";
+import { buildLayers } from "./layer/index.js";
 
 export function buildStyle() {
   var getUrl = window.location;
