@@ -419,7 +419,7 @@ export default class LegendControl {
       let row = this.getShieldRow(network, sortedImages);
       if (!row) continue;
 
-      let country = network.match(/^(\w+):/)?.[1]?.toUpperCase();
+      let country = network.match(/^(\w+)(?::|$)/)?.[1]?.toUpperCase();
       if (country) {
         if (!(country in shieldRowsByCountry)) {
           shieldRowsByCountry[country] = [];
