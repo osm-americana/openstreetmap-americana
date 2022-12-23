@@ -13,6 +13,8 @@ function fillPaths(svg, codes) {
     // Routes in United States insular areas use US prefix with the U.S.
     selectors.add(".ust");
   }
+  // Great Britain uses OpenMapTiles special processing
+  selectors.add(".gb");
   return svg.replace(".supported", new Array(...selectors).join(",\n"));
 }
 
