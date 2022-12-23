@@ -538,14 +538,20 @@ export default class LegendControl {
     let networkMetadata = await this.getNetworkMetadata();
     if (!networkMetadata) return;
 
+    let toSentenceCase = (lowerCase, locale) =>
+      lowerCase[0].toLocaleUpperCase(locale) + lowerCase.substring(1);
     for (let row of rows) {
       let network = row.dataset.network;
       let binding = networkMetadata[network];
       if (!binding) continue;
 
+      let locale = binding.networkLabel["xml:lang"];
       let descriptionCell = row.querySelector(".description");
-      descriptionCell.setAttribute("lang", binding.networkLabel["xml:lang"]);
-      descriptionCell.textContent = binding.networkLabel.value;
+      descriptionCell.setAttribute("lang", locale);
+      descriptionCell.textContent = toSentenceCase(
+        binding.networkLabel.value,
+        locale
+      );
     }
   }
 
