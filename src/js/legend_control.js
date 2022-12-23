@@ -472,7 +472,7 @@ export default class LegendControl {
   getShieldRow(network, names) {
     // On recreational route relations, network=* indicates the network's scope, not the network itself.
     // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
-    if (/^[lrni][cw]n$/.test(network)) return;
+    if (/^[lrni][chimpw]n$/.test(network)) return;
 
     let images = names
       .map((n) => this._map.style.getImage(n))
