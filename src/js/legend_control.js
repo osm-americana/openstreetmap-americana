@@ -546,20 +546,28 @@ export default class LegendControl {
     let networkMetadata = await this.getNetworkMetadata();
     if (!networkMetadata) return;
 
+    for (let row of rows) {
+      let network = row.dataset.network;
+      if (network?.startsWith("omt-gb-")) {
+        let ukNetworkMetadata = await this.getUKNetworkMetadata();
+        Object.assign(networkMetadata, ukNetworkMetadata);
+        break;
+      }
+    }
+
     let toSentenceCase = (lowerCase, locale) =>
       lowerCase[0].toLocaleUpperCase(locale) + lowerCase.substring(1);
     for (let row of rows) {
       let network = row.dataset.network;
       let binding = networkMetadata[network];
-      let label =
-        binding?.networkLabel.value || syntheticNetworkLabels[network];
-      if (!label) continue;
+      if (!binding) continue;
 
       let locale = binding?.networkLabel["xml:lang"];
       let descriptionCell = row.querySelector(".description");
       if (locale) {
         descriptionCell.setAttribute("lang", locale);
       }
+      let label = binding.networkLabel.value;
       descriptionCell.textContent = toSentenceCase(label, locale);
     }
   }
@@ -585,20 +593,56 @@ export default class LegendControl {
     return this._networkMetadata;
   }
 
+  /**
+   * Returns a mapping from OpenMapTiles synthesized `network=*` values to
+   * metadata about these values from Wikidata.
+   */
+  async getUKNetworkMetadata() {
+    if (this._ukNetworkMetadata) {
+      return this._ukNetworkMetadata;
+    }
+
+    let url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(
+      this.getNetworkMetadataQuery("GB")
+    )}&format=json`;
+    const response = await fetch(url);
+    const json = await response.json();
+    this._ukNetworkMetadata = Object.fromEntries(
+      json.results.bindings.map((binding) => {
+        return [binding.value.value, binding];
+      })
+    );
+    return this._ukNetworkMetadata;
+  }
+
   purgeNetworkMetadata() {
     delete this._networkMetadata;
+    delete this._ukNetworkMetadata;
   }
 
   /**
    * Returns the Wikidata Query Service SPARQL query for network metadata.
+   *
+   * @param region ISO 3166-1 alpha-2 country code.
    */
-  getNetworkMetadataQuery() {
+  getNetworkMetadataQuery(region) {
     let locales = Label.getLocales().join(",");
+    let triple,
+      filter = "",
+      bind = "";
+    if (region === "GB") {
+      triple =
+        "?network wdt:P361 wd:Q115856945; p:P528 [ ps:P528 ?value; pq:P972 wd:Q110613756 ]";
+    } else {
+      triple = "?network wdt:P1282 ?tag";
+      filter = `FILTER(REGEX(?tag, "^Tag:network="))`;
+      bind = "BIND(SUBSTR(?tag, 13) AS ?value)";
+    }
     return `
 SELECT ?value ?network ?networkLabel WHERE {
-  ?network wdt:P1282 ?tag.
-  FILTER(REGEX(?tag, "^Tag:network="))
-  BIND(SUBSTR(?tag, 13) AS ?value)
+  ${triple}.
+  ${filter}
+  ${bind}
   SERVICE wikibase:label { bd:serviceParam wikibase:language "${locales},en". }
 }
 ORDER BY ?value
