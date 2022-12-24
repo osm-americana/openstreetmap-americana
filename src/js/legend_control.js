@@ -11,6 +11,12 @@ import * as maplibregl from "maplibre-gl";
 
 const maxPopupWidth = 30; /* em */
 
+const syntheticNetworkLabels = {
+  "omt-gb-motorway": "Motorway",
+  "omt-gb-trunk": "Primary route",
+  "omt-gb-primary": "Non-primary route",
+};
+
 export default class LegendControl {
   onAdd(map) {
     this._map = map;
@@ -545,15 +551,16 @@ export default class LegendControl {
     for (let row of rows) {
       let network = row.dataset.network;
       let binding = networkMetadata[network];
-      if (!binding) continue;
+      let label =
+        binding?.networkLabel.value || syntheticNetworkLabels[network];
+      if (!label) continue;
 
-      let locale = binding.networkLabel["xml:lang"];
+      let locale = binding?.networkLabel["xml:lang"];
       let descriptionCell = row.querySelector(".description");
-      descriptionCell.setAttribute("lang", locale);
-      descriptionCell.textContent = toSentenceCase(
-        binding.networkLabel.value,
-        locale
-      );
+      if (locale) {
+        descriptionCell.setAttribute("lang", locale);
+      }
+      descriptionCell.textContent = toSentenceCase(label, locale);
     }
   }
 
