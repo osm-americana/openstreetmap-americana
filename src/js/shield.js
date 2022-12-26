@@ -62,11 +62,15 @@ function compoundShieldSize(dimension, bannerCount) {
   };
 }
 
-function isValidRef(ref) {
-  if (ref == null || ref.length == 0 || ref.length > 6) {
-    return false;
-  }
-  return true;
+export function isValidNetwork(network) {
+  // On recreational route relations, network=* indicates the network's scope,
+  // not the network itself.
+  // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
+  return !/^[lrni][chimpw]n$/.test(network);
+}
+
+export function isValidRef(ref) {
+  return ref !== null && ref.length !== 0 && ref.length <= 6;
 }
 
 /**
@@ -267,7 +271,9 @@ function getShieldDef(routeDef) {
   if (shieldDef == null) {
     // Default to plain black text with halo and no background shield
     console.debug("Generic shield for", JSON.stringify(routeDef));
-    return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
+    return isValidNetwork(routeDef.network) && isValidRef(routeDef.ref)
+      ? ShieldDef.shields.default
+      : null;
   }
 
   if (shieldDef.overrideByRef) {
