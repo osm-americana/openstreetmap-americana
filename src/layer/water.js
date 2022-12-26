@@ -87,15 +87,19 @@ export const waterLine = {
   id: "water_line",
   type: "line",
   filter: [
+    "all",
+    ["!=", ["get", "intermittent"], 1],
+    [
     "match",
     ["get", "class"],
-    bigRivers,
-    [">=", ["zoom"], 8],
-    mediumRivers,
-    [">=", ["zoom"], 16],
-    "lake",
-    ["all", ["!=", ["get", "intermittent"], 1], [">=", ["zoom"], 8]],
+      bigRivers,
+      [">=", ["zoom"], 8],
+      mediumRivers,
+      [">=", ["zoom"], 16],
+      "lake",
+      [">=", ["zoom"], 8],
     true,
+  ],
   ],
   paint: {
     "line-color": Color.waterLineBold,
@@ -112,11 +116,7 @@ export const waterLineIntermittent = {
   id: "water_line_intermittent",
   type: "line",
   minzoom: 8,
-  filter: [
-    "all",
-    ["==", ["get", "intermittent"], 1],
-    ["==", ["get", "class"], "lake"],
-  ],
+  filter: ["all", ["==", ["get", "intermittent"], 1]],
   paint: {
     "line-color": Color.waterLine,
     "line-dasharray": [6, 4],
