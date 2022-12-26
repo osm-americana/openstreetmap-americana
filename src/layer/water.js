@@ -66,16 +66,15 @@ export const water = {
   id: "water",
   type: "fill",
   paint: {
-    "fill-color": Color.waterFill,
-    "fill-opacity": [
+    "fill-color": [
       "case",
       [
         "any",
         ["==", ["get", "intermittent"], 1],
         ["==", ["get", "brunnel"], "tunnel"],
       ],
-      0.3,
-      1,
+      Color.waterIntermittentFill,
+      Color.waterFill,
     ],
     "fill-outline-color": Color.waterFillTranslucent,
   },
@@ -90,16 +89,16 @@ export const waterLine = {
     "all",
     ["!=", ["get", "intermittent"], 1],
     [
-    "match",
-    ["get", "class"],
+      "match",
+      ["get", "class"],
       bigRivers,
       [">=", ["zoom"], 8],
       mediumRivers,
       [">=", ["zoom"], 16],
       "lake",
       [">=", ["zoom"], 8],
-    true,
-  ],
+      true,
+    ],
   ],
   paint: {
     "line-color": Color.waterLineBold,
