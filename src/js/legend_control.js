@@ -294,8 +294,11 @@ export default class LegendControl {
         /\{(\w+)\}/g,
         (match, prop) => symbol.properties[prop] ?? match
       );
-    let weight = symbol.layer.layout["text-font"]?.[0]?.endsWith("Bold")
+    let fontWeight = symbol.layer.layout["text-font"]?.[0]?.match(/\bBold\b/)
       ? "bold"
+      : "normal";
+    let fontStyle = symbol.layer.layout["text-font"]?.[0]?.match(/\bItalic\b/)
+      ? "italic"
       : "normal";
     let justification = symbol.layer.layout["text-justify"] || "center";
     if (symbol.layer.layout["icon-image"]) {
@@ -312,7 +315,8 @@ export default class LegendControl {
     );
     Object.assign(container.style, {
       color: symbol.layer.paint["text-color"],
-      fontWeight: weight,
+      fontWeight,
+      fontStyle,
       fontSize: `${symbol.layer.layout["text-size"] || 16}px`,
       letterSpacing: `${symbol.layer.layout["text-letter-spacing"]}em`,
       lineHeight: `${symbol.layer.layout["text-line-height"] || 1.2}em`,
