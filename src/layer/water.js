@@ -117,8 +117,9 @@ export const waterLineIntermittent = {
   minzoom: 8,
   filter: ["all", ["==", ["get", "intermittent"], 1]],
   paint: {
-    "line-color": Color.waterLine,
-    "line-dasharray": [6, 4],
+    "line-color": Color.waterIntermittentOutline,
+    "line-dasharray": [10, 6],
+    "line-width": 0.5,
   },
   layout: waterLine.layout,
   source: "openmaptiles",
