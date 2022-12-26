@@ -159,6 +159,8 @@ export default class LegendControl {
    * feature.
    */
   getMatchedEntry(entry) {
+    // Query the map for rendered (including transparent) features in the
+    // current viewport that meet the entry's criteria.
     let features = this._map.queryRenderedFeatures({
       layers: entry.layers,
       filter: entry.filter,
@@ -166,21 +168,22 @@ export default class LegendControl {
     let mainFeature = features[0];
     if (!mainFeature) return;
 
+    // Copy the entry, adding the first match, which is from the topmost layer.
     let matchedEntry = { feature: mainFeature };
     Object.assign(matchedEntry, entry);
-<<<<<<< HEAD
-=======
 
->>>>>>> f50242a (Fixed error when text-field uses string interpolation syntax)
     if (
       mainFeature.layer.type === "fill" ||
       mainFeature.layer.type === "fill-extrusion"
     ) {
+      // Pair a fill (extrusion) layer's polygon with some polygon rendered as
+      // an outline.
       matchedEntry.fill = mainFeature;
       matchedEntry.stroke = features.find(
         (f) => f.id === mainFeature.id && f.layer.type === "line"
       );
     } else if (mainFeature.layer.type === "line") {
+      // Pair a line layer's linestring with some polygon rendered as a fill.
       matchedEntry.fill = features.find(
         (f) =>
           f.id === mainFeature.id &&
@@ -189,13 +192,21 @@ export default class LegendControl {
       if (matchedEntry.fill) {
         matchedEntry.stroke = mainFeature;
       } else {
+        // Collect the other linestrings needed to render the entry (casing
+        // etc.).
         matchedEntry.lines = [];
         let layers = new Set();
         for (let feature of features) {
+          // Ignore other features that happen to match the criteria so that the
+          // entry depicts only a single feature.
           if (feature.id !== mainFeature.id || feature.layer.type !== "line")
             continue;
+          // If we've already seen the layer, then this feature represents
+          // another slice of the feature in another tile.
           if (layers.has(feature.layer.id)) continue;
           layers.add(feature.layer.id);
+          // Populate the array of lines in reverse order, because SVG renders
+          // elements according to the painter's algorithm.
           matchedEntry.lines.unshift(feature);
         }
       }
@@ -208,6 +219,8 @@ export default class LegendControl {
    * Returns a table row illustrating the given entry.
    */
   getRowForEntry(entry) {
+    // Choose an HTML template that will display as much information about the
+    // entry as possible.
     let templateID = "legend-row-symbol";
     if (entry.lines) {
       templateID = "legend-row-line";
@@ -217,6 +230,8 @@ export default class LegendControl {
     let template = document.getElementById(templateID).content.cloneNode(true);
     let row = template.querySelector("tr");
 
+    // Populate the template's swatch etc. with an illustration of the matching
+    // feature.
     if (entry.fill) {
       let swatchCell = row.querySelector(".swatch");
       Object.assign(
@@ -270,6 +285,9 @@ export default class LegendControl {
     let textField = symbol.layer.layout["text-field"];
     if (!textField) return;
 
+    // Only render the first text section of a formatted text field. This omits
+    // for example the local-language gloss on city labels, which happily
+    // simplifies the legend.
     container.textContent =
       textField.sections?.[0].text ??
       textField.replace(
