@@ -168,6 +168,10 @@ export default class LegendControl {
 
     let matchedEntry = { feature: mainFeature };
     Object.assign(matchedEntry, entry);
+<<<<<<< HEAD
+=======
+
+>>>>>>> f50242a (Fixed error when text-field uses string interpolation syntax)
     if (
       mainFeature.layer.type === "fill" ||
       mainFeature.layer.type === "fill-extrusion"
@@ -266,7 +270,12 @@ export default class LegendControl {
     let textField = symbol.layer.layout["text-field"];
     if (!textField) return;
 
-    container.textContent = textField.sections[0].text;
+    container.textContent =
+      textField.sections?.[0].text ??
+      textField.replace(
+        /\{(\w+)\}/g,
+        (match, prop) => symbol.properties[prop] ?? match
+      );
     let weight = symbol.layer.layout["text-font"]?.[0]?.endsWith("Bold")
       ? "bold"
       : "normal";
