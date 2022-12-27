@@ -46,6 +46,8 @@ export default class LegendControl {
         return;
       }
 
+      // A popup is normally anchored on a geographic location, but we just want
+      // it to point to the button.
       let buttonRect = button.getClientRects()[0];
       let anchor = [buttonRect.x, buttonRect.y];
       this.open(anchor);
@@ -285,25 +287,33 @@ export default class LegendControl {
     let textField = symbol.layer.layout["text-field"];
     if (!textField) return;
 
-    // Only render the first text section of a formatted text field. This omits
-    // for example the local-language gloss on city labels, which happily
-    // simplifies the legend.
+    // Assume a formatted text field has only one text section. If this isn't
+    // formatted text, fall back to string interpolation syntax.
     container.textContent =
       textField.sections?.[0].text ??
       textField.replace(
         /\{(\w+)\}/g,
         (match, prop) => symbol.properties[prop] ?? match
       );
+
+    // The fontstack name obscures the original font names. Look for words that
+    // conventionally indicate a weight or style.
     let fontWeight = symbol.layer.layout["text-font"]?.[0]?.match(/\bBold\b/)
       ? "bold"
       : "normal";
     let fontStyle = symbol.layer.layout["text-font"]?.[0]?.match(/\bItalic\b/)
       ? "italic"
       : "normal";
+
+    // Force labels to be right-aligned if paired with an icon, which will be in
+    // the column to the right.
     let justification = symbol.layer.layout["text-justify"] || "center";
     if (symbol.layer.layout["icon-image"]) {
       justification = "right";
     }
+
+    // Simulate a text outline by compositing shadows in four directions.
+    // -webkit-text-stroke won't work because it eats into the text fill.
     let shadowOffset = symbol.layer.paint["text-halo-width"] || 0;
     let textShadows = [-shadowOffset, shadowOffset].flatMap((x) =>
       [-shadowOffset, shadowOffset].map(
@@ -313,6 +323,7 @@ export default class LegendControl {
           }px`
       )
     );
+
     Object.assign(container.style, {
       color: symbol.layer.paint["text-color"],
       fontWeight,
@@ -320,7 +331,7 @@ export default class LegendControl {
       fontSize: `${symbol.layer.layout["text-size"] || 16}px`,
       letterSpacing: `${symbol.layer.layout["text-letter-spacing"]}em`,
       lineHeight: `${symbol.layer.layout["text-line-height"] || 1.2}em`,
-      maxWidth: "10vw",
+      maxWidth: "10vw", // prevent label column from taking over popup
       textAlign: justification === "auto" ? "right" : justification,
       textShadow: textShadows.join(", "),
       textTransform: symbol.layer.layout["text-transform"],
@@ -347,8 +358,11 @@ export default class LegendControl {
     }
     let borderStyle = "solid";
     if (stroke?.layer.paint["line-dasharray"]) {
+      // Just give an idea of the outline being dashed.
       borderStyle = "dashed";
     } else if (fill?.layer.paint["fill-extrusion-height"]) {
+      // Assume the only fill extrusion layers are for buildings and that the
+      // height is fixed to a small value.
       borderStyle = "outset";
     }
     return {
@@ -367,6 +381,7 @@ export default class LegendControl {
     let getLineWidth = (f) => {
       let width = f.layer.paint["line-width"] || 1;
       let gapWidth = f.layer.paint["line-gap-width"];
+      // Round the stroke width up to one point to ensure legibility.
       return Math.max(
         1 / ShieldDraw.PXR,
         gapWidth ? width * 2 + gapWidth : width
@@ -384,10 +399,13 @@ export default class LegendControl {
       line.setAttribute("y2", `${height / 2}px`);
       line.setAttribute("x2", "100%");
 
+      // line-dasharray is measured in multiples of line-width, whereas
+      // stroke-dasharray is measured in pixels.
       let simpleLineWidth = feature.layer.paint["line-width"] || 1;
       let dashArray = feature.layer.paint["line-dasharray"]?.from.map(
         (d) => d * simpleLineWidth
       );
+
       Object.assign(line.style, {
         opacity: feature.layer.paint["line-opacity"] || 1,
         stroke: feature.layer.paint["line-color"] || fillColor,
@@ -403,17 +421,19 @@ export default class LegendControl {
    * Returns table rows illustrating route shields.
    */
   getShieldRows() {
+    // Query the map for rendered shield symbols in the current viewport.
     let shieldFeatures = this._map.queryRenderedFeatures({
       layers: [HighwayShieldLayers.shield.id],
     });
+
+    // Extract all the image sections embedded in the symbols and map them to
+    // image metadata (image names and parsed networks and route numbers).
     let images = shieldFeatures
       .flatMap((f) => f.layer.layout["text-field"].sections)
       .filter((s) => s.image && s.image)
-      .map((s) => {
-        let name = s.image.name;
-        let match = name.split("\n")[1].match(/^(.+?)=(.*)/);
-        return { name, network: match?.[1], ref: match?.[2] };
-      });
+      .map((s) => HighwayShieldLayers.parseImageName(s.image.name));
+
+    // Unique the images by network.
     let imagesByNetwork = {};
     let unrecognizedNetworks = new Set();
     for (let image of images) {
@@ -421,22 +441,33 @@ export default class LegendControl {
         imagesByNetwork[image.network] = { overridesByRef: {} };
       }
       let networkImages = imagesByNetwork[image.network];
+
       let shieldDef = ShieldDef.shields[image.network];
       if (image.ref && shieldDef?.overrideByRef?.[image.ref]) {
+        // Store a different image for each override in the shield definition.
         if (!networkImages.overridesByRef[image.ref]) {
-          networkImages.overridesByRef[image.ref] = image.name;
+          networkImages.overridesByRef[image.ref] = image.imageName;
         }
       } else if (!networkImages.ref && image.ref) {
-        networkImages.ref = image.name;
+        // Store the numbered variant of a shield if required by the shield
+        // definition.
+        networkImages.ref = image.imageName;
       } else if (!networkImages.noRef && !image.ref) {
-        networkImages.noRef = image.name;
+        // Store the unnumbered variant of a shield if required by the shield
+        // definition.
+        networkImages.noRef = image.imageName;
       }
 
       if (!shieldDef) {
+        // Keep all unrecognized networks separate so we don't miss them when
+        // sorting the networks by the order in the shield definitions.
         unrecognizedNetworks.add(image.network);
       }
     }
 
+    // For each country, populate an array with shield metadata in the same
+    // order as in the shield definitions, appending all the unrecognized
+    // networks sorted in alphabetical order.
     let networks = [
       ...Object.keys(ShieldDef.shields),
       ...[...unrecognizedNetworks.values()].sort(),
@@ -445,17 +476,22 @@ export default class LegendControl {
     let shieldRowsByCountry = {};
     let otherShieldRows = [];
     for (let network of networks) {
+      // Skip shield definitions for which no shield is currently visible.
       if (!(network in imagesByNetwork)) continue;
 
+      // Get all the relevant images, sorted from generic to specialized.
       let images = imagesByNetwork[network];
       let sortedImages = [
         images.noRef,
         images.ref,
         ...Object.values(images.overridesByRef),
       ].filter((i) => i);
+
       let row = this.getShieldRow(network, sortedImages);
       if (!row) continue;
 
+      // Extract an ISO 3166-1 alpha-2 country code from the network.
+      // OpenMapTiles synthesizes fake networks in some countries.
       let country = network
         .match(/^(?:omt-)?(\w\w)(?:[-:]|$)/)?.[1]
         ?.toUpperCase();
@@ -470,6 +506,8 @@ export default class LegendControl {
       }
     }
 
+    // Map country codes to localized names and sort the lists of networks by
+    // those names.
     let locales = Label.getLocales();
     let countryNames = new Intl.DisplayNames(locales, {
       type: "region",
@@ -480,6 +518,9 @@ export default class LegendControl {
         return { code, name };
       })
       .sort((a, b) => a.name.localeCompare(b.name, locales[0]));
+
+    // List any network without a country code first as an international
+    // network.
     if (otherShieldRows.length) {
       sortedCountries.unshift({ code: "*", name: "International" });
       shieldRowsByCountry["*"] = otherShieldRows;
@@ -547,17 +588,23 @@ export default class LegendControl {
     // Skip spacer images representing unsupported networks.
     if (userImage?.width === 1 || userImage?.height === 1) return;
 
+    // Wrap the style image's raw data as an image data buffer. Images generated
+    // at runtime are stored in a different property than images hard-coded in
+    // the spritesheet.
     let imageData = new ImageData(
       userImage?.data || new Uint8ClampedArray(styleImage.data.data),
       userImage?.width || styleImage.data.width,
       userImage?.height || styleImage.data.height
     );
 
+    // Draw the image onto a canvas of the same size.
     let canvas = document.createElement("canvas");
     canvas.width = imageData.width;
     canvas.height = imageData.height;
     let ctx = canvas.getContext("2d");
     ctx.putImageData(imageData, 0, 0);
+
+    // Embed the canvas in an HTML image of the same size.
     let img = new Image(
       (imageData.width * iconSize) / ShieldDraw.PXR,
       (imageData.height * iconSize) / ShieldDraw.PXR
@@ -577,6 +624,8 @@ export default class LegendControl {
     let networkMetadata = await this.getNetworkMetadata();
     if (!networkMetadata) return;
 
+    // If any synthesized British networks are visible, also query Wikidata for
+    // descriptions of those networks.
     for (let row of rows) {
       let network = row.dataset.network;
       if (network?.startsWith("omt-gb-")) {
@@ -586,6 +635,9 @@ export default class LegendControl {
       }
     }
 
+    // Wikidata labels are normally lowercased so that they can appear in any
+    // context. Convert them to sentence case for consistency with the rest of
+    // the legend.
     let toSentenceCase = (lowerCase, locale) =>
       lowerCase[0].toLocaleUpperCase(locale) + lowerCase.substring(1);
     for (let row of rows) {
