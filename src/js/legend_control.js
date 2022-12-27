@@ -635,6 +635,11 @@ export default class LegendControl {
       }
     }
 
+    let locales = Label.getLocales();
+    let languageNames = new Intl.DisplayNames(locales, {
+      type: "language",
+    });
+
     // Wikidata labels are normally lowercased so that they can appear in any
     // context. Convert them to sentence case for consistency with the rest of
     // the legend.
@@ -645,13 +650,27 @@ export default class LegendControl {
       let binding = networkMetadata[network];
       if (!binding) continue;
 
-      let locale = binding?.networkLabel["xml:lang"];
       let descriptionCell = row.querySelector(".description");
+
+      let link = document.createElement("a");
+      link.href = binding.network.value;
+      link.target = "_blank";
+      let locale = binding.networkLabel["xml:lang"];
+      link.textContent = toSentenceCase(binding.networkLabel.value, locale);
       if (locale) {
-        descriptionCell.setAttribute("lang", locale);
+        link.setAttribute("lang", locale);
+        descriptionCell.replaceChildren(link);
+
+        if (locale.match(/^\w+/)?.[0] !== locales[0].match(/^\w+/)?.[0]) {
+          let languageTag = document.createElement("span");
+          languageTag.className = "language";
+          languageTag.textContent = languageNames.of(locale);
+          descriptionCell.appendChild(document.createTextNode(" "));
+          descriptionCell.appendChild(languageTag);
+        }
+      } else {
+        descriptionCell.querySelector("code").replaceChildren(link);
       }
-      let label = binding.networkLabel.value;
-      descriptionCell.textContent = toSentenceCase(label, locale);
     }
   }
 
