@@ -20,17 +20,12 @@ export const waterway = {
   paint: {
     "line-color": [
       "interpolate",
-      ["exponential", 2],
+      ["exponential", 0.5],
       ["zoom"],
       13,
       Color.waterLine,
-      14,
-      [
-        "case",
-        ["==", ["get", "intermittent"], 1],
-        Color.waterLine,
-        Color.waterFill,
-      ],
+      15,
+      Color.waterFill,
     ],
     "line-width": [
       "interpolate",
