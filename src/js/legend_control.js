@@ -11,12 +11,6 @@ import * as maplibregl from "maplibre-gl";
 
 const maxPopupWidth = 30; /* em */
 
-const syntheticNetworkLabels = {
-  "omt-gb-motorway": "Motorway",
-  "omt-gb-trunk": "Primary route",
-  "omt-gb-primary": "Non-primary route",
-};
-
 export default class LegendControl {
   onAdd(map) {
     this._map = map;
