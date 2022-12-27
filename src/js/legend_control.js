@@ -550,10 +550,6 @@ export default class LegendControl {
    * @returns An HTML table row representing the route shield, or nothing if the style does not render the given network.
    */
   getShieldRow(network, names) {
-    // On recreational route relations, network=* indicates the network's scope, not the network itself.
-    // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
-    if (/^[lrni][chimpw]n$/.test(network)) return;
-
     let images = names
       .map((n) => this._map.style.getImage(n))
       .map((i) => this.getImageFromStyle(i))
