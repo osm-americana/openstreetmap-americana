@@ -308,13 +308,12 @@ export default class LegendControl {
 
     // Simulate a text outline by compositing shadows in four directions.
     // -webkit-text-stroke won't work because it eats into the text fill.
-    let shadowOffset = symbol.layer.paint["text-halo-width"] || 0;
+    let shadowOffset = symbol.layer.paint["text-halo-width"] ?? 0;
+    let haloColor = symbol.layer.paint["text-halo-color"] || "black";
+    let haloBlur = symbol.layer.paint["text-halo-blur"] ?? 0;
     let textShadows = [-shadowOffset, shadowOffset].flatMap((x) =>
       [-shadowOffset, shadowOffset].map(
-        (y) =>
-          `${symbol.layer.paint["text-halo-color"] || "black"} ${x}px ${y}px ${
-            symbol.layer.paint["text-halo-blur"] || 0
-          }px`
+        (y) => `${haloColor} ${x}px ${y}px ${haloBlur}px`
       )
     );
 
@@ -322,15 +321,15 @@ export default class LegendControl {
       color: symbol.layer.paint["text-color"],
       fontWeight,
       fontStyle,
-      fontSize: `${symbol.layer.layout["text-size"] || 16}px`,
+      fontSize: `${symbol.layer.layout["text-size"] ?? 16}px`,
       letterSpacing: `${symbol.layer.layout["text-letter-spacing"]}em`,
-      lineHeight: `${symbol.layer.layout["text-line-height"] || 1.2}em`,
+      lineHeight: `${symbol.layer.layout["text-line-height"] ?? 1.2}em`,
       maxWidth: "10vw", // prevent label column from taking over popup
       textAlign: justification === "auto" ? "right" : justification,
       textShadow: textShadows.join(", "),
       textTransform: symbol.layer.layout["text-transform"],
       verticalAlign: "middle",
-      width: `${symbol.layer.layout["text-max-width"] || 10}em`,
+      width: `${symbol.layer.layout["text-max-width"] ?? 10}em`,
     });
   }
 
@@ -343,8 +342,9 @@ export default class LegendControl {
       fill?.layer.paint["fill-extrusion-color"];
     if (fillColor) {
       let opacity =
-        fill?.layer.paint["fill-opacity"] ||
-        fill?.layer.paint["fill-extrusion-opacity"] ||
+        fill?.layer.paint["fill-opacity"] ??
+        fill?.layer.paint["fill-extrusion-opacity"] ??
+        fillColor.a ??
         1;
       fillColor = `rgba(${fillColor.r * 255}, ${fillColor.g * 255}, ${
         fillColor.b * 255
@@ -364,7 +364,7 @@ export default class LegendControl {
       borderColor:
         stroke?.layer.paint["line-color"] || fillColor || "transparent",
       borderStyle: borderStyle,
-      borderWidth: `${stroke?.layer.paint["line-width"] || 1}px`,
+      borderWidth: `${stroke?.layer.paint["line-width"] ?? 1}px`,
     };
   }
 
@@ -373,7 +373,7 @@ export default class LegendControl {
    */
   populateLineCell(cell, lineFeatures) {
     let getLineWidth = (f) => {
-      let width = f.layer.paint["line-width"] || 1;
+      let width = f.layer.paint["line-width"] ?? 1;
       let gapWidth = f.layer.paint["line-gap-width"];
       // Round the stroke width up to one point to ensure legibility.
       return Math.max(
@@ -395,13 +395,13 @@ export default class LegendControl {
 
       // line-dasharray is measured in multiples of line-width, whereas
       // stroke-dasharray is measured in pixels.
-      let simpleLineWidth = feature.layer.paint["line-width"] || 1;
+      let simpleLineWidth = feature.layer.paint["line-width"] ?? 1;
       let dashArray = feature.layer.paint["line-dasharray"]?.from.map(
         (d) => d * simpleLineWidth
       );
 
       Object.assign(line.style, {
-        opacity: feature.layer.paint["line-opacity"] || 1,
+        opacity: feature.layer.paint["line-opacity"] ?? 1,
         stroke: feature.layer.paint["line-color"] || fillColor,
         strokeDasharray: dashArray?.join(" "),
         strokeWidth: getLineWidth(feature),
