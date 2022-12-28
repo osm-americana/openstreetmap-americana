@@ -1211,7 +1211,7 @@ export const legendEntries = [
   {
     description: "Freeway (controlled access, divided)",
     layers: [motorway.fill().id, motorway.casing().id],
-    filter: isNotToll,
+    filter: ["all", isNotToll, [">", opacity, 0]],
   },
   {
     description: "Expressway (limited access, divided)",
