@@ -3326,12 +3326,18 @@ export function loadShields(shieldImages) {
   );
 
   // Greece
-  shields["GR:motorway"] = shields["GR:national"] = hexagonVerticalShield(
+  shields["GR:motorway"] = hexagonVerticalShield(
     3,
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
     0,
+    34
+  );
+  shields["GR:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
     34
   );
 
