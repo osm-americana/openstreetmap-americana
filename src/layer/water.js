@@ -20,17 +20,12 @@ export const waterway = {
   paint: {
     "line-color": [
       "interpolate",
-      ["exponential", 2],
+      ["exponential", 0.5],
       ["zoom"],
       13,
       Color.waterLine,
-      14,
-      [
-        "case",
-        ["==", ["get", "intermittent"], 1],
-        Color.waterLine,
-        Color.waterFill,
-      ],
+      15,
+      Color.waterFill,
     ],
     "line-width": [
       "interpolate",
@@ -66,16 +61,15 @@ export const water = {
   id: "water",
   type: "fill",
   paint: {
-    "fill-color": Color.waterFill,
-    "fill-opacity": [
+    "fill-color": [
       "case",
       [
         "any",
         ["==", ["get", "intermittent"], 1],
         ["==", ["get", "brunnel"], "tunnel"],
       ],
-      0.3,
-      1,
+      Color.waterIntermittentFill,
+      Color.waterFill,
     ],
     "fill-outline-color": Color.waterFillTranslucent,
   },
@@ -87,15 +81,19 @@ export const waterLine = {
   id: "water_line",
   type: "line",
   filter: [
-    "match",
-    ["get", "class"],
-    bigRivers,
-    [">=", ["zoom"], 8],
-    mediumRivers,
-    [">=", ["zoom"], 16],
-    "lake",
-    ["all", ["!=", ["get", "intermittent"], 1], [">=", ["zoom"], 8]],
-    true,
+    "all",
+    ["!=", ["get", "intermittent"], 1],
+    [
+      "match",
+      ["get", "class"],
+      bigRivers,
+      [">=", ["zoom"], 8],
+      mediumRivers,
+      [">=", ["zoom"], 16],
+      "lake",
+      [">=", ["zoom"], 8],
+      true,
+    ],
   ],
   paint: {
     "line-color": Color.waterLineBold,
@@ -112,14 +110,11 @@ export const waterLineIntermittent = {
   id: "water_line_intermittent",
   type: "line",
   minzoom: 8,
-  filter: [
-    "all",
-    ["==", ["get", "intermittent"], 1],
-    ["==", ["get", "class"], "lake"],
-  ],
+  filter: ["all", ["==", ["get", "intermittent"], 1]],
   paint: {
-    "line-color": Color.waterLine,
-    "line-dasharray": [6, 4],
+    "line-color": Color.waterIntermittentOutline,
+    "line-dasharray": [10, 6],
+    "line-width": 0.5,
   },
   layout: waterLine.layout,
   source: "openmaptiles",
