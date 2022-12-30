@@ -293,6 +293,52 @@ function hexagonHorizontalShield(
 }
 
 /**
+ * Draws a shield with an octagon background
+ *
+ * @param {*} offset - Height of diagonal edges
+ * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} fillColor - Color of octagon background fill
+ * @param {*} strokeColor - Color of octagon outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of octagon (defaults to variable-width)
+ * @param {*} radius - Corner radius of octagon (defaults to 2)
+ * @returns a shield definition object
+ */
+function octagonShield(
+  offset,
+  angle,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius = radius ?? 2;
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.octagon(
+        offset,
+        angle,
+        fillColor,
+        strokeColor,
+        ref,
+        radius,
+        1,
+        rectWidth
+      ),
+    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 2,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
  * Draws a shield with a pill-shaped background
  *
  * @param {*} fillColor - Color of pill background fill
@@ -464,22 +510,6 @@ export function loadShields(shieldImages) {
       shieldImages.shield_pent_brown_2,
       shieldImages.shield_pent_brown_3,
     ],
-  };
-
-  // Octagon shields
-  let octagonShieldGreen = {
-    backgroundImage: [
-      shieldImages.shield_oct_green_2,
-      shieldImages.shield_oct_green_3,
-      shieldImages.shield_oct_green_4,
-    ],
-    textColor: Color.shields.white,
-    padding: {
-      left: 3,
-      right: 3,
-      top: 5,
-      bottom: 5,
-    },
   };
 
   // Other common shield shapes
@@ -3360,7 +3390,14 @@ export function loadShields(shieldImages) {
   );
 
   // Italy
-  shields["IT:A-road"] = octagonShieldGreen;
+  shields["IT:A-road"] = octagonShield(
+    2,
+    10,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0
+  );
 
   // Kosovo
   shields["XK:motorway"] = hexagonVerticalShield(
