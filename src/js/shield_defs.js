@@ -3132,7 +3132,7 @@ export function loadShields(shieldImages) {
     Color.shields.blue
   );
 
-  // Myanmar
+  // Malaysia
   shields["MY:E"] = shields["my:federal"] = hexagonVerticalShield(
     3,
     Color.shields.yellow,
