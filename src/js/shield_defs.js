@@ -3355,6 +3355,17 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Great Britain
+  shields["omt-gb-motorway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
+  shields["omt-gb-trunk"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.yellow
+  );
+
   // Greece
   shields["GR:motorway"] = hexagonVerticalShield(
     3,
