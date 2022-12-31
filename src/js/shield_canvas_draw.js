@@ -529,7 +529,7 @@ export function hexagonHorizontal(
   return ctx;
 }
 
-export function octagon(
+export function octagonVertical(
   offset,
   angle,
   fill,

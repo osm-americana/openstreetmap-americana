@@ -304,7 +304,7 @@ function hexagonHorizontalShield(
  * @param {*} radius - Corner radius of octagon (defaults to 2)
  * @returns a shield definition object
  */
-function octagonShield(
+function octagonVerticalShield(
   offset,
   angle,
   fillColor,
@@ -317,7 +317,7 @@ function octagonShield(
   radius = radius ?? 2;
   return {
     backgroundDraw: (ref) =>
-      ShieldDraw.octagon(
+      ShieldDraw.octagonVertical(
         offset,
         angle,
         fillColor,
@@ -3390,7 +3390,7 @@ export function loadShields(shieldImages) {
   );
 
   // Italy
-  shields["IT:A-road"] = octagonShield(
+  shields["IT:A-road"] = octagonVerticalShield(
     2,
     10,
     Color.shields.green,
