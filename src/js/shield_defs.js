@@ -3292,6 +3292,16 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Cyprus
+  shields["cy:national"] = {
+    ...hexagonVerticalShield,
+    backgroundImage: [
+      shieldImages.shield_hex_vert_green_yellow_2,
+      shieldImages.shield_hex_vert_green_yellow_3,
+    ],
+    textColor: Color.shields.yellow,
+  };
+
   // Czechia
   shields["CZ:national"] = roundedRectShield(
     Color.shields.red,
