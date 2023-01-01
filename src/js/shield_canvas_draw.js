@@ -317,15 +317,24 @@ export function diamond(fill, outline, ref, radius, outlineWidth, rectWidth) {
   return ctx;
 }
 
-export function homePlate(
+export function pentagon(
+  pointUp,
   offset,
+  angle,
   fill,
   outline,
   ref,
-  radius,
+  radius1,
+  radius2,
   outlineWidth,
   rectWidth
 ) {
+  let angleInRadians = (angle * Math.PI) / 180;
+  let angleSign = pointUp ? -1 : 1;
+  let sine = Math.sin(angleSign * angleInRadians);
+  let cosine = Math.cos(angleInRadians);
+  let tangent = Math.tan(angleSign * angleInRadians);
+
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -341,39 +350,51 @@ export function homePlate(
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
-  let drawRadius = radius * PXR;
-  let drawOffset = Math.abs(offset) * PXR;
+  let drawRadius1 = radius1 * PXR;
+  let drawRadius2 = radius2 * PXR;
+  let drawOffset = offset * PXR;
 
   let x0 = lineWidth;
-  let x4 = width - lineWidth;
-  let y0 = lineWidth;
-  let y4 = CS - lineWidth;
+  let x12 = width - lineWidth;
+  let y0 = pointUp ? CS - lineWidth : lineWidth;
+  let y5 = pointUp ? lineWidth : CS - lineWidth;
 
-  let x1 = x0 + drawRadius;
-  let x2 = (x0 + x4) / 2;
-  let x3 = x4 - drawRadius;
-  let y1 = y0 + drawRadius;
-  let y3 = y4 - drawOffset;
+  let y3 = y5 - angleSign * drawOffset;
 
-  let drawOffsetTangent =
-    drawRadius * Math.tan(Math.PI / 4 - Math.asin(drawOffset / (x2 - x0)) / 2);
-  let y2 = y3 - drawOffsetTangent;
+  let x4 = x0 + (y3 - y0) * tangent;
+  let x6 = (x0 + x12) / 2;
+  let x8 = x12 - (y3 - y0) * tangent;
+  let y1 = y0 + angleSign * radius2 * (1 - sine);
 
-  if (offset < 0) {
-    y0 = CS - y0;
-    y1 = CS - y1;
-    y2 = CS - y2;
-    y3 = CS - y3;
-    y4 = CS - y4;
-  }
+  let offsetAngle = Math.atan(drawOffset / (x6 - x0));
+  let offsetSine = Math.sin(offsetAngle);
+  let offsetCosine = Math.cos(offsetAngle);
+
+  let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + angleInRadians) / 2;
+  let halfComplementTangent1 = Math.tan(halfComplementAngle1);
+
+  let halfComplementAngle2 = (Math.PI / 2 - angleInRadians) / 2;
+  let halfComplementTangent2 = Math.tan(halfComplementAngle2);
+
+  let x1 = x0 + drawRadius1 * halfComplementTangent1 * sine;
+  let x2 = x0 + drawRadius1 * halfComplementTangent1 * offsetCosine;
+  let x5 = x4 + drawRadius2 * halfComplementTangent2;
+  let x7 = x8 - drawRadius2 * halfComplementTangent2;
+  let x10 = x12 - drawRadius1 * halfComplementTangent1 * offsetCosine;
+  let x11 = x12 - drawRadius1 * halfComplementTangent1 * sine;
+  let y2 = y3 - angleSign * drawRadius1 * halfComplementTangent1 * cosine;
+  let y4 = y3 + angleSign * drawRadius1 * halfComplementTangent1 * offsetSine;
+
+  let x3 = x5 - drawRadius2 * sine;
+  let x9 = x7 + drawRadius2 * sine;
 
   ctx.beginPath();
-  ctx.moveTo(x2, y4);
-  ctx.arcTo(x0, y3, x0, y2, drawRadius);
-  ctx.arcTo(x0, y0, x1, y0, drawRadius);
-  ctx.lineTo(x3, y0);
-  ctx.arcTo(x4, y0, x4, y2, drawRadius);
-  ctx.arcTo(x4, y3, x2, y4, drawRadius);
+  ctx.moveTo(x6, y5);
+  ctx.arcTo(x0, y3, x1, y2, drawRadius1);
+  ctx.arcTo(x4, y0, x5, y0, drawRadius2);
+  ctx.lineTo(x7, y0);
+  ctx.arcTo(x8, y0, x11, y2, drawRadius2);
+  ctx.arcTo(x12, y3, x6, y5, drawRadius1);
   ctx.closePath();
 
   ctx.lineWidth = lineThick;
