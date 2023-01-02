@@ -364,7 +364,7 @@ export function pentagon(
   let x4 = x0 + (y3 - y0) * tangent;
   let x6 = (x0 + x12) / 2;
   let x8 = x12 - (y3 - y0) * tangent;
-  let y1 = y0 + angleSign * radius2 * (1 - sine);
+  // let y1 = y0 + angleSign * radius2 * (1 - sine);
 
   let offsetAngle = Math.atan(drawOffset / (x6 - x0));
   let offsetSine = Math.sin(offsetAngle);
@@ -377,16 +377,16 @@ export function pentagon(
   let halfComplementTangent2 = Math.tan(halfComplementAngle2);
 
   let x1 = x0 + drawRadius1 * halfComplementTangent1 * sine;
-  let x2 = x0 + drawRadius1 * halfComplementTangent1 * offsetCosine;
+  // let x2 = x0 + drawRadius1 * halfComplementTangent1 * offsetCosine;
   let x5 = x4 + drawRadius2 * halfComplementTangent2;
   let x7 = x8 - drawRadius2 * halfComplementTangent2;
-  let x10 = x12 - drawRadius1 * halfComplementTangent1 * offsetCosine;
+  // let x10 = x12 - drawRadius1 * halfComplementTangent1 * offsetCosine;
   let x11 = x12 - drawRadius1 * halfComplementTangent1 * sine;
   let y2 = y3 - angleSign * drawRadius1 * halfComplementTangent1 * cosine;
-  let y4 = y3 + angleSign * drawRadius1 * halfComplementTangent1 * offsetSine;
+  // let y4 = y3 + angleSign * drawRadius1 * halfComplementTangent1 * offsetSine;
 
-  let x3 = x5 - drawRadius2 * sine;
-  let x9 = x7 + drawRadius2 * sine;
+  // let x3 = x5 - drawRadius2 * sine;
+  // let x9 = x7 + drawRadius2 * sine;
 
   ctx.beginPath();
   ctx.moveTo(x6, y5);
@@ -441,9 +441,9 @@ export function hexagonVertical(
   let y0 = lineWidth;
   let y5 = CS - lineWidth;
 
-  let x1 = x0 + drawRadius;
+  // let x1 = x0 + drawRadius;
   let x2 = (x0 + x4) / 2;
-  let x3 = x4 - drawRadius;
+  // let x3 = x4 - drawRadius;
   let y1 = y0 + drawOffset;
   let y4 = y5 - drawOffset;
 
