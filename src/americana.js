@@ -231,14 +231,16 @@ function buildLayers() {
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.
     lyrWater.waterwayLabel,
-    lyrWater.waterLabel,
-    lyrWater.waterPointLabel,
 
     lyrTransportationLabel.bridgeSpacer,
     lyrTransportationLabel.label,
 
     lyrPark.label,
     lyrPark.parkLabel,
+
+    lyrWater.waterLabel,
+    lyrWater.waterPointLabel,
+
     /* The ref label shows up at lower zoom levels and when the long name doesn't fit */
     lyrAeroway.airportRefLabel,
     lyrAeroway.minorAirportRefLabel,
