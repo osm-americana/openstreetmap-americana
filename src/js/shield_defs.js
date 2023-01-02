@@ -91,17 +91,17 @@ function roundedRectShield(
 }
 
 /**
- * Draws a shield with a trapezoid background
+ * Draws a shield with a trapezoid background, with the short side on bottom
  *
  * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
  * @param {*} fillColor - Color of trapezoid background fill
  * @param {*} strokeColor - Color of trapezoid outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} radius - Corner radius of trapezoid (defaults to 0)
  * @param {*} rectWidth - Width of trapezoid (defaults to variable-width)
- * @param {*} radius - Corner radius of trapezoid (defaults to 2)
  * @returns a shield definition object
  */
-function trapezoidShield(
+function trapezoidDownShield(
   angle,
   fillColor,
   strokeColor,
@@ -109,12 +109,14 @@ function trapezoidShield(
   radius,
   rectWidth
 ) {
+  let angleInRadians = (angle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.trapezoid(
-        angle,
+        false,
+        angleInRadians,
         fillColor,
         strokeColor,
         ref,
@@ -125,10 +127,56 @@ function trapezoidShield(
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
-      left: 3,
-      right: 3,
-      top: 3 - Math.sign(angle),
-      bottom: 3 + Math.sign(angle),
+      left: 2 + 10 * Math.tan(angleInRadians),
+      right: 2 + 10 * Math.tan(angleInRadians),
+      top: 2,
+      bottom: 4,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
+ * Draws a shield with a trapezoid background, with the short side on top
+ *
+ * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} fillColor - Color of trapezoid background fill
+ * @param {*} strokeColor - Color of trapezoid outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} radius - Corner radius of trapezoid (defaults to 0)
+ * @param {*} rectWidth - Width of trapezoid (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function trapezoidUpShield(
+  angle,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius,
+  rectWidth
+) {
+  let angleInRadians = (angle * Math.PI) / 180;
+  textColor = textColor ?? strokeColor;
+  radius = radius ?? 0;
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.trapezoid(
+        true,
+        angleInRadians,
+        fillColor,
+        strokeColor,
+        ref,
+        radius,
+        1,
+        rectWidth
+      ),
+    textLayoutConstraint: (spaceBounds, textBounds) =>
+      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    padding: {
+      left: 2 + 10 * Math.tan(angleInRadians),
+      right: 2 + 10 * Math.tan(angleInRadians),
+      top: 4,
+      bottom: 2,
     },
     textColor: textColor,
   };
@@ -162,7 +210,60 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
 }
 
 /**
- * Draws a shield with a pentagon background
+ * Draws a shield with a pentagon background, pointed downward
+ *
+ * @param {*} offset - Height of diagonal edges
+ * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} fillColor - Color of pentagon background fill
+ * @param {*} strokeColor - Color of pentagon outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of pentagon (defaults to variable-width)
+ * @param {*} radius1 - Corner radius of pointed side of pentagon (defaults to 2)
+ * @param {*} radius2 - Corner radius of flat side of pentagon (defaults to 2)
+ * @returns a shield definition object
+ */
+function pentagonDownShield(
+  offset,
+  angle,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius1,
+  radius2,
+  rectWidth
+) {
+  let angleInRadians = (angle * Math.PI) / 180;
+  textColor = textColor ?? strokeColor;
+  radius1 = radius1 ?? 2;
+  radius2 = radius2 ?? 2;
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.pentagon(
+        false,
+        offset,
+        angleInRadians,
+        fillColor,
+        strokeColor,
+        ref,
+        radius1,
+        radius2,
+        1,
+        rectWidth
+      ),
+    textLayoutConstraint: (spaceBounds, textBounds) =>
+      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
+    padding: {
+      left: 2 + 10 * Math.sin(angleInRadians),
+      right: 2 + 10 * Math.sin(angleInRadians),
+      top: 3,
+      bottom: 2 + offset / 2,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
+ * Draws a shield with a pentagon background, pointed upward
  *
  * @param {*} offset - Height of diagonal edges
  * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
@@ -184,6 +285,7 @@ function pentagonUpShield(
   radius2,
   rectWidth
 ) {
+  let angleInRadians = (angle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 2;
@@ -192,7 +294,7 @@ function pentagonUpShield(
       ShieldDraw.pentagon(
         true,
         offset,
-        angle,
+        angleInRadians,
         fillColor,
         strokeColor,
         ref,
@@ -204,8 +306,8 @@ function pentagonUpShield(
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
     padding: {
-      left: 2 + 10 * Math.sin((angle * Math.PI) / 180),
-      right: 2 + 10 * Math.sin((angle * Math.PI) / 180),
+      left: 2 + 10 * Math.sin(angleInRadians),
+      right: 2 + 10 * Math.sin(angleInRadians),
       top: 1 + offset / 2,
       bottom: 4,
     },
@@ -214,7 +316,7 @@ function pentagonUpShield(
 }
 
 /**
- * Draws a shield with a home plate background
+ * Draws a shield with a home plate background, pointed downward
  *
  * @param {*} offset - Height of diagonal edges
  * @param {*} fillColor - Color of home plate background fill
@@ -258,6 +360,56 @@ function homePlateDownShield(
       right: 2,
       top: 2,
       bottom: 1 + offset,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
+ * Draws a shield with a home plate background, pointed upward
+ *
+ * @param {*} offset - Height of diagonal edges
+ * @param {*} fillColor - Color of home plate background fill
+ * @param {*} strokeColor - Color of home plate outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of home plate (defaults to variable-width)
+ * @param {*} radius1 - Corner radius of pointed side of home plate (defaults to 2)
+ * @param {*} radius2 - Corner radius of flat side of home plate (defaults to 2)
+ * @returns a shield definition object
+ */
+function homePlateUpShield(
+  offset,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius1,
+  radius2,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius1 = radius1 ?? 2;
+  radius2 = radius2 ?? 2;
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.pentagon(
+        true,
+        offset,
+        0,
+        fillColor,
+        strokeColor,
+        ref,
+        radius1,
+        radius2,
+        1,
+        rectWidth
+      ),
+    textLayoutConstraint: (spaceBounds, textBounds) =>
+      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
+    padding: {
+      left: 2,
+      right: 2,
+      top: 1 + offset,
+      bottom: 2,
     },
     textColor: textColor,
   };
@@ -326,12 +478,13 @@ function hexagonHorizontalShield(
   radius,
   rectWidth
 ) {
+  let angleInRadians = (angle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.hexagonHorizontal(
-        angle,
+        angleInRadians,
         fillColor,
         strokeColor,
         ref,
@@ -371,13 +524,14 @@ function octagonVerticalShield(
   radius,
   rectWidth
 ) {
+  let angleInRadians = (angle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
     backgroundDraw: (ref) =>
       ShieldDraw.octagonVertical(
         offset,
-        angle,
+        angleInRadians,
         fillColor,
         strokeColor,
         ref,
@@ -746,8 +900,8 @@ export function loadShields(shieldImages) {
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
     ["ETR"]
   );
-  shields["CA:ON:secondary"] = trapezoidShield(
-    -10,
+  shields["CA:ON:secondary"] = trapezoidUpShield(
+    10,
     Color.shields.white,
     Color.shields.black
   );
@@ -755,24 +909,24 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
-  shields["CA:ON:Halton"] = trapezoidShield(
+  shields["CA:ON:Halton"] = trapezoidDownShield(
     10,
     Color.shields.green,
     Color.shields.yellow
   );
-  shields["CA:ON:Peel"] = trapezoidShield(
+  shields["CA:ON:Peel"] = trapezoidDownShield(
     10,
     Color.shields.black,
     Color.shields.yellow
   );
-  shields["CA:ON:Simcoe"] = trapezoidShield(
+  shields["CA:ON:Simcoe"] = trapezoidDownShield(
     10,
     Color.shields.white,
     Color.shields.blue
   );
   ["Grey", "Hamilton", "Niagara"].forEach(
     (county) =>
-      (shields[`CA:ON:${county}`] = trapezoidShield(
+      (shields[`CA:ON:${county}`] = trapezoidDownShield(
         10,
         Color.shields.blue,
         Color.shields.white
@@ -823,7 +977,7 @@ export function loadShields(shieldImages) {
     "York",
   ].forEach(
     (countyTownshipOrCity) =>
-      (shields[`CA:ON:${countyTownshipOrCity}`] = trapezoidShield(
+      (shields[`CA:ON:${countyTownshipOrCity}`] = trapezoidDownShield(
         10,
         Color.shields.white,
         Color.shields.black
@@ -1819,7 +1973,7 @@ export function loadShields(shieldImages) {
           0
         ),
         roundedRectShield(Color.shields.white, Color.shields.black),
-        trapezoidShield(
+        trapezoidDownShield(
           10,
           Color.shields.brown,
           Color.shields.white,
@@ -2041,7 +2195,7 @@ export function loadShields(shieldImages) {
   );
 
   // Nebraska
-  shields["US:NE"] = trapezoidShield(
+  shields["US:NE"] = trapezoidDownShield(
     10,
     Color.shields.white,
     Color.shields.black

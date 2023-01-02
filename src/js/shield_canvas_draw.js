@@ -181,6 +181,7 @@ export function roundedRectangle(
 }
 
 export function trapezoid(
+  shortSideUp,
   angle,
   fill,
   outline,
@@ -189,11 +190,10 @@ export function trapezoid(
   outlineWidth,
   rectWidth
 ) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  let angleSign = Math.sign(angle);
-  let sine = Math.sin(Math.abs(angleInRadians));
-  let cosine = Math.cos(angleInRadians);
-  let tangent = Math.tan(angleInRadians);
+  let angleSign = shortSideUp ? -1 : 1;
+  let sine = Math.sin(angle);
+  let cosine = Math.cos(angle);
+  let tangent = Math.tan(angle);
 
   if (rectWidth == null) {
     var shieldWidth =
@@ -215,22 +215,23 @@ export function trapezoid(
 
   let x0 = lineWidth;
   let x11 = width - lineWidth;
-  let y0 = angle > 0 ? lineWidth : CS - lineWidth;
-  let y3 = angle > 0 ? CS - lineWidth : lineWidth;
+  let y0 = shortSideUp ? CS - lineWidth : lineWidth;
+  let y3 = shortSideUp ? lineWidth : CS - lineWidth;
 
   let y1 = y0 + angleSign * drawRadius * (1 + sine);
   let y2 = y3 - angleSign * drawRadius * (1 - sine);
 
   let x1 = x0 + (y1 - y0) * tangent;
   let x2 = x1 + drawRadius * cosine;
-  let x3 = x0 + (y2 - y0) * tangent;
-  let x4 = x0 + (y3 - y0) * tangent;
-  let x5 = x3 + drawRadius * cosine;
+  let x3 = x0 + angleSign * (y2 - y0) * tangent;
+  let x4 = x0 + angleSign * (y3 - y0) * tangent;
+  let x5 = x3 + angleSign * drawRadius * cosine;
   // let x6 = width - x5;
   let x7 = width - x4;
   let x8 = width - x3;
   let x9 = width - x2;
   // let x10 = width - x1;
+  console.log([x0, x1, x2, x3, x4, x5, x7, x8, x9, x11]);
 
   ctx.beginPath();
   ctx.moveTo(x9, y0);
@@ -329,11 +330,10 @@ export function pentagon(
   outlineWidth,
   rectWidth
 ) {
-  let angleInRadians = (angle * Math.PI) / 180;
   let angleSign = pointUp ? -1 : 1;
-  let sine = Math.sin(angleSign * angleInRadians);
-  let cosine = Math.cos(angleInRadians);
-  let tangent = Math.tan(angleSign * angleInRadians);
+  let sine = Math.sin(angleSign * angle);
+  let cosine = Math.cos(angle);
+  let tangent = Math.tan(angleSign * angle);
 
   if (rectWidth == null) {
     var shieldWidth =
@@ -370,10 +370,10 @@ export function pentagon(
   let offsetSine = Math.sin(offsetAngle);
   let offsetCosine = Math.cos(offsetAngle);
 
-  let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + angleInRadians) / 2;
+  let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + angle) / 2;
   let halfComplementTangent1 = Math.tan(halfComplementAngle1);
 
-  let halfComplementAngle2 = (Math.PI / 2 - angleInRadians) / 2;
+  let halfComplementAngle2 = (Math.PI / 2 - angle) / 2;
   let halfComplementTangent2 = Math.tan(halfComplementAngle2);
 
   let x1 = x0 + drawRadius1 * halfComplementTangent1 * sine;
@@ -483,11 +483,10 @@ export function hexagonHorizontal(
   outlineWidth,
   rectWidth
 ) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  let sine = Math.sin(Math.abs(angleInRadians));
-  let cosine = Math.cos(angleInRadians);
-  let tangent = Math.tan(angleInRadians);
-  let halfComplementTangent = Math.tan(Math.PI / 4 - angleInRadians / 2);
+  let sine = Math.sin(angle);
+  let cosine = Math.cos(angle);
+  let tangent = Math.tan(angle);
+  let halfComplementTangent = Math.tan(Math.PI / 4 - angle / 2);
 
   if (rectWidth == null) {
     var shieldWidth =
@@ -560,10 +559,9 @@ export function octagonVertical(
   outlineWidth,
   rectWidth
 ) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  let sine = Math.sin(angleInRadians);
-  let cosine = Math.cos(angleInRadians);
-  let tangent = Math.tan(angleInRadians);
+  let sine = Math.sin(angle);
+  let cosine = Math.cos(angle);
+  let tangent = Math.tan(angle);
 
   if (rectWidth == null) {
     var shieldWidth =
@@ -604,15 +602,13 @@ export function octagonVertical(
   let offsetSine = Math.sin(offsetAngle);
   let offsetCosine = Math.cos(offsetAngle);
 
-  let halfComplementAngle = (Math.PI / 2 - angleInRadians - offsetAngle) / 2;
+  let halfComplementAngle = (Math.PI / 2 - angle - offsetAngle) / 2;
   let halfComplementCosine = Math.cos(halfComplementAngle);
 
   let dx =
-    (drawRadius * Math.cos(angleInRadians + halfComplementAngle)) /
-    halfComplementCosine;
+    (drawRadius * Math.cos(angle + halfComplementAngle)) / halfComplementCosine;
   let dy =
-    (drawRadius * Math.sin(angleInRadians + halfComplementAngle)) /
-    halfComplementCosine;
+    (drawRadius * Math.sin(angle + halfComplementAngle)) / halfComplementCosine;
 
   let x2 = x3 + dx - drawRadius * cosine;
   let x4 = x3 + dx - drawRadius * offsetSine;
