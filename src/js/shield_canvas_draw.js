@@ -198,7 +198,7 @@ export function trapezoid(
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-      (2 + (CS * sine) / 2) * PXR;
+      (2 + ((CS / PXR) * tangent) / 2) * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -331,13 +331,14 @@ export function pentagon(
   rectWidth
 ) {
   let angleSign = pointUp ? -1 : 1;
-  let sine = Math.sin(angleSign * angle);
+  let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
-  let tangent = Math.tan(angleSign * angle);
+  let tangent = Math.tan(angle);
 
   if (rectWidth == null) {
     var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
+      (2 + ((CS / PXR - offset) * tangent) / 2) * PXR;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -361,10 +362,10 @@ export function pentagon(
 
   let y3 = y5 - angleSign * drawOffset;
 
-  let x4 = x0 + (y3 - y0) * tangent;
+  let x4 = x0 + angleSign * (y3 - y0) * tangent;
   let x6 = (x0 + x12) / 2;
-  let x8 = x12 - (y3 - y0) * tangent;
-  // let y1 = y0 + angleSign * radius2 * (1 - sine);
+  let x8 = x12 - angleSign * (y3 - y0) * tangent;
+  // let y1 = y0 + radius2 * (1 - sine);
 
   let offsetAngle = Math.atan(drawOffset / (x6 - x0));
   let offsetSine = Math.sin(offsetAngle);
@@ -376,17 +377,17 @@ export function pentagon(
   let halfComplementAngle2 = (Math.PI / 2 - angle) / 2;
   let halfComplementTangent2 = Math.tan(halfComplementAngle2);
 
-  let x1 = x0 + drawRadius1 * halfComplementTangent1 * sine;
+  let x1 = x0 + angleSign * drawRadius1 * halfComplementTangent1 * sine;
   // let x2 = x0 + drawRadius1 * halfComplementTangent1 * offsetCosine;
   let x5 = x4 + drawRadius2 * halfComplementTangent2;
   let x7 = x8 - drawRadius2 * halfComplementTangent2;
   // let x10 = x12 - drawRadius1 * halfComplementTangent1 * offsetCosine;
-  let x11 = x12 - drawRadius1 * halfComplementTangent1 * sine;
+  let x11 = x12 - angleSign * drawRadius1 * halfComplementTangent1 * sine;
   let y2 = y3 - angleSign * drawRadius1 * halfComplementTangent1 * cosine;
   // let y4 = y3 + angleSign * drawRadius1 * halfComplementTangent1 * offsetSine;
 
-  // let x3 = x5 - drawRadius2 * sine;
-  // let x9 = x7 + drawRadius2 * sine;
+  // let x3 = x5 - angleSign * drawRadius2 * sine;
+  // let x9 = x7 + angleSign * drawRadius2 * sine;
 
   ctx.beginPath();
   ctx.moveTo(x6, y5);

@@ -253,8 +253,8 @@ function pentagonDownShield(
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
     padding: {
-      left: 2 + 10 * Math.sin(angleInRadians),
-      right: 2 + 10 * Math.sin(angleInRadians),
+      left: 2 + 10 * Math.tan(angleInRadians),
+      right: 2 + 10 * Math.tan(angleInRadians),
       top: 3,
       bottom: 2 + offset / 2,
     },
@@ -306,10 +306,10 @@ function pentagonUpShield(
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
     padding: {
-      left: 2 + 10 * Math.sin(angleInRadians),
-      right: 2 + 10 * Math.sin(angleInRadians),
+      left: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
+      right: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
       top: 1 + offset / 2,
-      bottom: 4,
+      bottom: 3,
     },
     textColor: textColor,
   };
