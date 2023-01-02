@@ -69,7 +69,7 @@ let networks = [
   "ID:national",
 
   "AU:QLD:MR",
-  "GR:national",
+  "GR:motorway",
   "my:federal",
   "TR:motorway",
   "US:NY",
