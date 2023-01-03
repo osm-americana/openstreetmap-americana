@@ -61,8 +61,8 @@ let networks = [
   "US:CO:Douglas",
   "US:MN:Aitkin:CSAH",
   "AU:ACT:T",
-  "US:TX:Harris:HCTRA",
   "US:NM:San_Juan:NCM",
+  "US:TX:Harris:HCTRA",
 
   "JP:prefectural",
   "PK:national",
