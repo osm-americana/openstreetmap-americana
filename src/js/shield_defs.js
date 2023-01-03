@@ -3627,16 +3627,6 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
-  // Kosovo
-  shields["XK:motorway"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    0,
-    34
-  );
-
   // OCEANIA
 
   // Australia
