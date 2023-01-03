@@ -198,7 +198,8 @@ export function trapezoid(
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-      (2 + ((CS / PXR) * tangent) / 2) * PXR;
+      2 * PXR +
+      (CS * tangent) / 2;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
@@ -338,7 +339,8 @@ export function pentagon(
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-      (2 + ((CS / PXR - offset) * tangent) / 2) * PXR;
+      2 * PXR +
+      ((CS - offset * PXR) * tangent) / 2;
     var width = Math.max(
       minGenericShieldWidth,
       Math.min(maxGenericShieldWidth, shieldWidth)
