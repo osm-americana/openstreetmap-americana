@@ -1883,6 +1883,11 @@ export function loadShields(shieldImages) {
   shields["US:NE:Link"] = banneredShield(shields["US:NE"], ["LINK"]);
   shields["US:NE:Rec"] = banneredShield(shields["US:NE"], ["REC"]);
   shields["US:NE:Spur"] = banneredShield(shields["US:NE"], ["SPUR"]);
+  shields["US:NE:Truck"] = banneredShield(shields["US:NE"], ["TRK"]);
+  shields["US:NE:Scenic"] = {
+    backgroundImage: shieldImages.shield_us_ne_byway_noref,
+    notext: true,
+  };
 
   // New Hampshire
   shields["US:NH"] = {
