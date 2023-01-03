@@ -59,6 +59,7 @@ var defRail = {
 var serviceSelector = ["match", ["get", "service"], ["siding", "spur", "yard"]];
 var isService = [...serviceSelector, true, false];
 var isNotService = [...serviceSelector, false, true];
+let isNotCrossover = ["!=", ["get", "service"], "crossover"];
 
 var lineColor = [
   "match",
@@ -200,7 +201,7 @@ class Railway {
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
     }
-    layer.filter.push(["!=", ["get", "service"], "crossover"]);
+    layer.filter.push(isNotCrossover);
     return layer;
   };
 }
@@ -422,6 +423,35 @@ class LightRailTramServiceTunnel extends LightRailTramService {
   }
 }
 
+export function getLayerSeparatedBridgeLayers(bridgeLayers) {
+  let layers = [];
+
+  //Render bridge without layer on the lowest bridge layer
+  bridgeLayers.forEach((layer) =>
+    layers.push(
+      Util.filteredClone(layer, ["!", ["has", "layer"]], "_layer_bottom")
+    )
+  );
+
+  //One layer at a time to handle stacked bridges
+  for (let i = 1; i <= 4; i++) {
+    bridgeLayers.forEach((layer) => layers.push(Util.restrictLayer(layer, i)));
+  }
+
+  //If layer is more than 5, just give up and render on a single layer.
+  bridgeLayers.forEach((layer) =>
+    layers.push(
+      Util.filteredClone(
+        layer,
+        [">=", ["coalesce", ["get", "layer"], 0], 5],
+        "_layer_top"
+      )
+    )
+  );
+
+  return layers;
+}
+
 export const railway = new Railway();
 export const railwayBridge = new RailwayBridge();
 export const railwayTunnel = new RailwayTunnel();
@@ -453,3 +483,81 @@ export const lightRailTramServiceTunnel = new LightRailTramServiceTunnel();
 export const funicular = new Funicular();
 export const funicularBridge = new FunicularBridge();
 export const funicularTunnel = new FunicularTunnel();
+
+const isGenericRail = ["==", ["get", "subclass"], "rail"];
+const isStandardGauge = ["!=", ["get", "subclass"], "narrow_gauge"];
+const isNarrowGauge = ["==", ["get", "subclass"], "narrow_gauge"];
+const isSubway = ["==", ["get", "subclass"], "subway"];
+const isLightRail = ["==", ["get", "subclass"], "light_rail"];
+const isTram = ["==", ["get", "subclass"], "tram"];
+
+export const legendEntries = [
+  {
+    description: "Mainline track",
+    layers: [rail.dashes().id, railway.fill().id],
+    filter: ["all", isGenericRail, isNotService, isNotCrossover],
+  },
+  {
+    description: "Siding, spur, or yard track",
+    layers: [railService.dashes().id, railway.fill().id],
+    filter: ["all", isGenericRail, isService],
+  },
+  {
+    description: "Narrow-gauge mainline track",
+    layers: [narrowGauge.dashes().id, railway.fill().id],
+    filter: ["all", isNarrowGauge, isGenericRail, isNotService, isNotCrossover],
+  },
+  {
+    description: "Narrow-gauge siding, spur, or yard track",
+    layers: [narrowGaugeService.dashes().id, railway.fill().id],
+    filter: ["all", isNarrowGauge, isGenericRail, isService],
+  },
+  {
+    description: "Subway line",
+    layers: [railwayTunnel.fill().id, railway.fill().id],
+    filter: ["all", isSubway, isNotService, isNotCrossover],
+  },
+  {
+    description: "Subway siding or yard track",
+    layers: [railwayTunnel.fill().id, railway.fill().id],
+    filter: ["all", isSubway, isService],
+  },
+  {
+    description: "Monorail line",
+    layers: [
+      ...getLayerSeparatedBridgeLayers([railwayBridge.fill()]).map((l) => l.id),
+      railway.fill().id,
+    ],
+    filter: [
+      "all",
+      ["==", ["get", "subclass"], "monorail"],
+      isNotService,
+      isNotCrossover,
+    ],
+  },
+  {
+    description: "Light rail line",
+    layers: [lightRailTram.dashes().id, railway.fill().id],
+    filter: ["all", isLightRail, isNotService, isNotCrossover],
+  },
+  {
+    description: "Light rail siding or yard track",
+    layers: [lightRailTramService.dashes().id, railway.fill().id],
+    filter: ["all", isLightRail, isService],
+  },
+  {
+    description: "Streetcar line",
+    layers: [lightRailTram.dashes().id, railway.fill().id],
+    filter: ["all", isTram, isNotService, isNotCrossover],
+  },
+  {
+    description: "Streetcar siding or yard track",
+    layers: [lightRailTramService.dashes().id, railway.fill().id],
+    filter: ["all", isTram, isService],
+  },
+  {
+    description: "Funicular or inclined elevator",
+    layers: [funicular.dashes().id, railway.fill().id],
+    filter: ["==", ["get", "subclass"], "funicular"],
+  },
+];

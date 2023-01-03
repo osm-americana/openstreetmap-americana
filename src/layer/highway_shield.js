@@ -1,31 +1,46 @@
 "use strict";
 
-function routeConcurrency(num) {
+export const namedRouteNetworks = [
+  "US:KY:Parkway",
+  "US:NY:Parkway",
+  "US:TX:Fort_Bend:FBCTRA",
+  "US:TX:Harris:HCTRA",
+];
+
+export function getImageNameExpression(routeIndex) {
+  return [
+    "concat",
+    "shield\n",
+    ["get", "route_" + routeIndex],
+    [
+      "match",
+      ["get", "route_" + routeIndex],
+      namedRouteNetworks.map((n) => n + "="),
+      ["concat", "\n", ["get", "name"]],
+      "",
+    ],
+  ];
+}
+
+function routeConcurrency(routeIndex) {
   return [
     "case",
-    ["!=", ["get", "route_" + num], null],
-    [
-      "image",
-      [
-        "concat",
-        "shield\n",
-        ["get", "route_" + num],
-        [
-          "match",
-          ["get", "route_" + num],
-          [
-            "US:KY:Parkway=",
-            "US:NY:Parkway=",
-            "US:TX:Fort_Bend:FBCTRA=",
-            "US:TX:Harris:HCTRA=",
-          ],
-          ["concat", "\n", ["get", "name"]],
-          "",
-        ],
-      ],
-    ],
+    ["!=", ["get", "route_" + routeIndex], null],
+    ["image", getImageNameExpression(routeIndex)],
     ["literal", ""],
   ];
+}
+
+/**
+ * Returns a structured representation of the given image name.
+ *
+ * @param name An image name in the format returned by `routeConcurrency`.
+ */
+export function parseImageName(imageName) {
+  let lines = imageName.split("\n");
+  let [, network, ref] = lines[1].match(/^(.*?)=(.*)/) || [];
+  let name = lines[2];
+  return { imageName, network, ref, name };
 }
 
 let shieldTextField = ["format"];

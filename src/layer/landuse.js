@@ -26,3 +26,10 @@ export const urbanizedArea = {
   source: "openmaptiles",
   "source-layer": "landuse",
 };
+
+export const legendEntries = [
+  {
+    description: "Urban area",
+    layers: [urbanizedArea.id],
+  },
+];

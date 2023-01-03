@@ -222,3 +222,61 @@ export const waterPointLabel = {
   },
   paint: labelPaintProperties,
 };
+
+export const legendEntries = [
+  {
+    description: "Ocean, sea, or bay",
+    layers: [water.id, waterLine.id],
+    filter: ["==", ["get", "class"], "ocean"],
+  },
+  {
+    description: "Lake or pond",
+    layers: [water.id, waterLine.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "lake"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Intermittent lake or pond",
+    layers: [water.id, waterLineIntermittent.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "lake"],
+      ["==", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "River",
+    layers: [waterway.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "river"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Canal",
+    layers: [waterway.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "canal"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Creek",
+    layers: [waterway.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "stream"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Intermittent river or creek",
+    layers: [waterway.id, waterwayIntermittent.id],
+    filter: ["==", ["get", "intermittent"], 1],
+  },
+];

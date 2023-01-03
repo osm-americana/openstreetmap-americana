@@ -424,3 +424,47 @@ export const continent = {
   maxzoom: 1,
   "source-layer": "place",
 };
+
+const populatedPlaceLayers = [village.id, town.id, city.id];
+const nonCapitalFilter = ["!", ["has", "capital"]];
+
+export const legendEntries = [
+  {
+    description: "Continent",
+    layers: [continent.id],
+  },
+  {
+    description: "Country or dependency",
+    layers: [countryOther.id, country3.id, country2.id, country1.id],
+  },
+  {
+    description: "State or province",
+    layers: [state.id],
+  },
+  {
+    description: "Large city",
+    layers: [city.id],
+    filter: nonCapitalFilter,
+  },
+  { description: "Town", layers: [town.id], filter: nonCapitalFilter },
+  {
+    description: "Small village",
+    layers: [village.id],
+    filter: nonCapitalFilter,
+  },
+  {
+    description: "National capital",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 2],
+  },
+  {
+    description: "Regional capital",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 3],
+  },
+  {
+    description: "State or provincial capital",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 4],
+  },
+];
