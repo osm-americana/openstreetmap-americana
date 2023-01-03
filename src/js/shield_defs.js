@@ -3132,7 +3132,7 @@ export function loadShields(shieldImages) {
     Color.shields.blue
   );
 
-  // Myanmar
+  // Malaysia
   shields["MY:E"] = shields["my:federal"] = hexagonVerticalShield(
     3,
     Color.shields.yellow,
@@ -3627,46 +3627,39 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
-  // Kosovo
-  shields["XK:motorway"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    0,
-    34
-  );
-
   // OCEANIA
 
   // Australia
   ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].forEach(
-    (state_or_territory) =>
-      ([
-        shields[`AU:${state_or_territory}`],
-        shields[`AU:${state_or_territory}:NH`],
-        shields[`AU:${state_or_territory}:NR`],
-        shields[`AU:${state_or_territory}:S`],
-        shields[`AU:${state_or_territory}:T`],
-        shields[`AU:${state_or_territory}:ALT`],
-        shields[`AU:${state_or_territory}:ALT_NR`],
-        shields[`AU:${state_or_territory}:ALT_S`],
-      ] = [
+    (state_or_territory) => {
+      shields[`AU:${state_or_territory}`] = roundedRectShield(
+        Color.shields.green,
+        Color.shields.yellow
+      );
+      shields[`AU:${state_or_territory}:NH`] = homePlateShield(
+        5,
+        Color.shields.green,
+        Color.shields.yellow
+      );
+      shields[`AU:${state_or_territory}:NR`] = homePlateShield(
+        5,
+        Color.shields.white,
+        Color.shields.black
+      );
+      shields[`AU:${state_or_territory}:S`] = fishheadShieldBlue;
+      shields[`AU:${state_or_territory}:T`] = pentagonShieldBrown;
+      shields[`AU:${state_or_territory}:ALT`] = banneredShield(
         roundedRectShield(Color.shields.green, Color.shields.yellow),
-        homePlateShield(5, Color.shields.green, Color.shields.yellow),
+        ["ALT"]
+      );
+      shields[`AU:${state_or_territory}:ALT_NR`] = banneredShield(
         homePlateShield(5, Color.shields.white, Color.shields.black),
-        fishheadShieldBlue,
-        pentagonShieldBrown,
-        banneredShield(
-          roundedRectShield(Color.shields.green, Color.shields.yellow),
-          ["ALT"]
-        ),
-        banneredShield(
-          homePlateShield(5, Color.shields.white, Color.shields.black),
-          ["ALT"]
-        ),
+        ["ALT"]
+      );
+      shields[`AU:${state_or_territory}:ALT_S`] = [
         banneredShield(fishheadShieldBlue, ["ALT"]),
-      ])
+      ];
+    }
   );
 
   shields["AU:QLD:MR"] = hexagonVerticalShield(

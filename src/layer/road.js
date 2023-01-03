@@ -51,6 +51,7 @@ const smallServiceSelector = [
   ["get", "service"],
   ["parking_aisle", "driveway"],
 ];
+const isUnpaved = ["==", ["get", "surface"], "unpaved"];
 
 function combineConstraints(constraint1, constraint2) {
   if (constraint1 == null) {
@@ -472,11 +473,7 @@ class Road {
       Math.max(this.maxZoomCasing, this.maxZoomFill),
       this.constraints
     );
-    layer.filter = combineConstraints(layer.filter, [
-      "==",
-      ["get", "surface"],
-      "unpaved",
-    ]);
+    layer.filter = combineConstraints(layer.filter, isUnpaved);
     layer.layout = {
       "line-cap": "butt",
       "line-join": "round",
@@ -1198,3 +1195,95 @@ export const secondaryLinkBridge = new SecondaryLinkBridge();
 export const secondaryLinkTollBridge = new SecondaryLinkTollBridge();
 export const tertiaryLinkBridge = new TertiaryLinkBridge();
 export const tertiaryLinkTollBridge = new TertiaryLinkTollBridge();
+
+const normalRoadLayers = [
+  motorway.fill().id,
+  motorway.casing().id,
+  trunk.casing().id,
+  primaryToll.fill().id,
+  secondaryToll.fill().id,
+  tertiaryToll.fill().id,
+  minorToll.fill().id,
+  roadSimpleCasing.casing().id,
+];
+
+export const legendEntries = [
+  {
+    description: "Freeway (controlled access, divided)",
+    layers: [motorway.fill().id, motorway.casing().id],
+    filter: ["all", isNotToll, [">", opacity, 0]],
+  },
+  {
+    description: "Expressway (limited access, divided)",
+    layers: [
+      roadSimpleFill.fill().id,
+      roadSimpleCasing.casing().id,
+      primaryExpressway.casing().id,
+      primaryExpressway.casing().id,
+      secondaryExpressway.casing().id,
+      tertiaryExpressway.casing().id,
+    ],
+    filter: ["all", isExpressway, isNotToll],
+  },
+  {
+    description: "Principal highway",
+    layers: [trunk.casing().id],
+    filter: isNotToll,
+  },
+  {
+    description: "Major arterial road",
+    layers: [primary.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", getClass, "primary"],
+  },
+  {
+    description: "Minor arterial road",
+    layers: [secondary.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", getClass, "secondary"],
+  },
+  {
+    description: "Collector road",
+    layers: [tertiary.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", getClass, "tertiary"],
+  },
+  {
+    description: "Local road",
+    layers: [minor.fill().id, roadSimpleCasing.casing().id],
+    filter: ["match", getClass, ["minor", "service"], true, false],
+  },
+  {
+    description: "Driveway or parking aisle",
+    layers: [minor.fill().id, roadSimpleCasing.casing().id],
+    filter: [
+      "all",
+      ["==", getClass, "service"],
+      [...smallServiceSelector, true, false],
+    ],
+  },
+  {
+    description: "Toll road",
+    layers: [
+      motorway.fill().id,
+      motorway.casing().id,
+      trunk.casing().id,
+      primaryToll.fill().id,
+      secondaryToll.fill().id,
+      tertiaryToll.fill().id,
+      minorToll.fill().id,
+      roadSimpleCasing.casing().id,
+    ],
+    filter: isToll,
+  },
+  {
+    description: "Unpaved road",
+    layers: [
+      road.surface().id,
+      trunk.casing().id,
+      primary.fill().id,
+      secondary.fill().id,
+      tertiary.fill().id,
+      minor.fill().id,
+      roadSimpleCasing.casing().id,
+    ],
+    filter: isUnpaved,
+  },
+];

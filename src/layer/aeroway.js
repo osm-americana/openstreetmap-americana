@@ -259,11 +259,26 @@ export const airportGate = {
   },
   layout: {
     visibility: "visible",
-    "text-field": "{ref}",
+    "text-field": ["get", "ref"],
     "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aeroway",
 };
+
+export const legendEntries = [
+  {
+    description: "Civilian airport",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["!=", ["get", "class"], "military"],
+  },
+  {
+    description: "Military air base",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["==", ["get", "class"], "military"],
+  },
+  { description: "Runway", layers: [runway.id] },
+  { description: "Taxiway", layers: [taxiway.id] },
+  { description: "Gate", layers: [airportGate.id] },
+];

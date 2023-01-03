@@ -4,7 +4,6 @@ import config from "./config.js";
 
 import * as Label from "./constants/label.js";
 
-import * as Util from "./js/util.js";
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
 
@@ -31,6 +30,8 @@ import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
+import LegendControl from "./js/legend_control.js";
+import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
@@ -205,28 +206,7 @@ function buildLayers() {
     lyrOneway.bridgeLink,
   ];
 
-  //Render bridge without layer on the lowest bridge layer
-  bridgeLayers.forEach((layer) =>
-    layers.push(
-      Util.filteredClone(layer, ["!", ["has", "layer"]], "_layer_bottom")
-    )
-  );
-
-  //One layer at a time to handle stacked bridges
-  for (let i = 1; i <= 4; i++) {
-    bridgeLayers.forEach((layer) => layers.push(Util.restrictLayer(layer, i)));
-  }
-
-  //If layer is more than 5, just give up and render on a single layer.
-  bridgeLayers.forEach((layer) =>
-    layers.push(
-      Util.filteredClone(
-        layer,
-        [">=", ["coalesce", ["get", "layer"], 0], 5],
-        "_layer_top"
-      )
-    )
-  );
+  layers.push(...lyrRail.getLayerSeparatedBridgeLayers(bridgeLayers));
 
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.
@@ -326,14 +306,17 @@ map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
 });
 
-export function hotReloadMap() {
+function hotReloadMap() {
   map.setStyle(buildStyle());
 }
 
 export function updateLanguageLabel() {
   languageLabel.displayLocales(Label.getLocales());
+  legendControl.onLanguageChange();
 }
 
+let legendControl = new LegendControl();
+legendControl.sections = LegendConfig.sections;
 window.addEventListener("languagechange", (event) => {
   console.log(`Changed to ${navigator.languages}`);
   hotReloadMap();
@@ -371,6 +354,8 @@ if (config.ATTRIBUTION_LOGO != undefined) {
 
 map.addControl(new search.PhotonSearchControl(), "top-left");
 map.addControl(new maplibregl.NavigationControl(), "top-left");
+
+map.addControl(legendControl, "bottom-left");
 
 // Add our sample data.
 let sampleControl = new SampleControl({ permalinks: true });
