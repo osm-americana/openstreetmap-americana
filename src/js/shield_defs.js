@@ -3999,7 +3999,12 @@ export function loadShields(shieldImages) {
         Color.shields.black
       );
       shields[`AU:${state_or_territory}:S`] = fishheadShieldBlue;
-      shields[`AU:${state_or_territory}:T`] = pentagonUpShield(3, 15, Color.shields.brown, Color.shields.white);
+      shields[`AU:${state_or_territory}:T`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.brown,
+        Color.shields.white
+      );
       shields[`AU:${state_or_territory}:ALT`] = banneredShield(
         roundedRectShield(Color.shields.green, Color.shields.yellow),
         ["ALT"]
@@ -4008,7 +4013,10 @@ export function loadShields(shieldImages) {
         homePlateDownShield(5, Color.shields.white, Color.shields.black),
         ["ALT"]
       );
-      shields[`AU:${state_or_territory}:ALT_S`] = banneredShield(fishheadShieldBlue, ["ALT"]) ;
+      shields[`AU:${state_or_territory}:ALT_S`] = banneredShield(
+        fishheadShieldBlue,
+        ["ALT"]
+      );
     }
   );
 

@@ -215,7 +215,7 @@ export function trapezoid(
   let drawRadius = radius * PXR;
 
   let x0 = lineWidth;
-  let x11 = width - lineWidth;
+  let x9 = width - lineWidth;
   let y0 = shortSideUp ? CS - lineWidth : lineWidth;
   let y3 = shortSideUp ? lineWidth : CS - lineWidth;
 
@@ -227,19 +227,16 @@ export function trapezoid(
   let x3 = x0 + angleSign * (y2 - y0) * tangent;
   let x4 = x0 + angleSign * (y3 - y0) * tangent;
   let x5 = x3 + angleSign * drawRadius * cosine;
-  // let x6 = width - x5;
-  let x7 = width - x4;
-  let x8 = width - x3;
-  let x9 = width - x2;
-  // let x10 = width - x1;
-  console.log([x0, x1, x2, x3, x4, x5, x7, x8, x9, x11]);
+  let x6 = width - x4;
+  let x7 = width - x3;
+  let x8 = width - x2;
 
   ctx.beginPath();
-  ctx.moveTo(x9, y0);
-  ctx.arcTo(x11, y0, x8, y2, drawRadius);
-  ctx.arcTo(x7, y3, x5, y3, drawRadius);
+  ctx.moveTo(x8, y0);
+  ctx.arcTo(x9, y0, x7, y2, drawRadius);
+  ctx.arcTo(x6, y3, x5, y3, drawRadius);
   ctx.arcTo(x4, y3, x1, y1, drawRadius);
-  ctx.arcTo(x0, y0, x9, y0, drawRadius);
+  ctx.arcTo(x0, y0, x8, y0, drawRadius);
   ctx.closePath();
 
   ctx.lineWidth = lineThick;
@@ -358,18 +355,17 @@ export function pentagon(
   let drawOffset = offset * PXR;
 
   let x0 = lineWidth;
-  let x12 = width - lineWidth;
+  let x8 = width - lineWidth;
   let y0 = pointUp ? CS - lineWidth : lineWidth;
-  let y5 = pointUp ? lineWidth : CS - lineWidth;
+  let y3 = pointUp ? lineWidth : CS - lineWidth;
 
-  let y3 = y5 - angleSign * drawOffset;
+  let y2 = y3 - angleSign * drawOffset;
 
-  let x4 = x0 + angleSign * (y3 - y0) * tangent;
-  let x6 = (x0 + x12) / 2;
-  let x8 = x12 - angleSign * (y3 - y0) * tangent;
-  // let y1 = y0 + radius2 * (1 - sine);
+  let x2 = x0 + angleSign * (y2 - y0) * tangent;
+  let x4 = (x0 + x8) / 2;
+  let x6 = x8 - angleSign * (y2 - y0) * tangent;
 
-  let offsetAngle = Math.atan(drawOffset / (x6 - x0));
+  let offsetAngle = Math.atan(drawOffset / (x4 - x0));
   let offsetSine = Math.sin(offsetAngle);
   let offsetCosine = Math.cos(offsetAngle);
 
@@ -380,24 +376,18 @@ export function pentagon(
   let halfComplementTangent2 = Math.tan(halfComplementAngle2);
 
   let x1 = x0 + angleSign * drawRadius1 * halfComplementTangent1 * sine;
-  // let x2 = x0 + drawRadius1 * halfComplementTangent1 * offsetCosine;
-  let x5 = x4 + drawRadius2 * halfComplementTangent2;
-  let x7 = x8 - drawRadius2 * halfComplementTangent2;
-  // let x10 = x12 - drawRadius1 * halfComplementTangent1 * offsetCosine;
-  let x11 = x12 - angleSign * drawRadius1 * halfComplementTangent1 * sine;
-  let y2 = y3 - angleSign * drawRadius1 * halfComplementTangent1 * cosine;
-  // let y4 = y3 + angleSign * drawRadius1 * halfComplementTangent1 * offsetSine;
-
-  // let x3 = x5 - angleSign * drawRadius2 * sine;
-  // let x9 = x7 + angleSign * drawRadius2 * sine;
+  let x3 = x2 + drawRadius2 * halfComplementTangent2;
+  let x5 = x6 - drawRadius2 * halfComplementTangent2;
+  let x7 = x8 - angleSign * drawRadius1 * halfComplementTangent1 * sine;
+  let y1 = y2 - angleSign * drawRadius1 * halfComplementTangent1 * cosine;
 
   ctx.beginPath();
-  ctx.moveTo(x6, y5);
-  ctx.arcTo(x0, y3, x1, y2, drawRadius1);
-  ctx.arcTo(x4, y0, x5, y0, drawRadius2);
-  ctx.lineTo(x7, y0);
-  ctx.arcTo(x8, y0, x11, y2, drawRadius2);
-  ctx.arcTo(x12, y3, x6, y5, drawRadius1);
+  ctx.moveTo(x4, y3);
+  ctx.arcTo(x0, y2, x1, y1, drawRadius1);
+  ctx.arcTo(x2, y0, x3, y0, drawRadius2);
+  ctx.lineTo(x5, y0);
+  ctx.arcTo(x6, y0, x7, y1, drawRadius2);
+  ctx.arcTo(x8, y2, x4, y3, drawRadius1);
   ctx.closePath();
 
   ctx.lineWidth = lineThick;
@@ -440,29 +430,27 @@ export function hexagonVertical(
   let drawOffset = offset * PXR;
 
   let x0 = lineWidth;
-  let x4 = width - lineWidth;
+  let x2 = width - lineWidth;
   let y0 = lineWidth;
   let y5 = CS - lineWidth;
 
-  // let x1 = x0 + drawRadius;
-  let x2 = (x0 + x4) / 2;
-  // let x3 = x4 - drawRadius;
+  let x1 = (x0 + x2) / 2;
   let y1 = y0 + drawOffset;
   let y4 = y5 - drawOffset;
 
   let drawOffsetTangent =
-    drawRadius * Math.tan(Math.PI / 4 - Math.asin(drawOffset / (x2 - x0)) / 2);
+    drawRadius * Math.tan(Math.PI / 4 - Math.asin(drawOffset / (x1 - x0)) / 2);
   let y2 = y1 + drawOffsetTangent;
   let y3 = y4 - drawOffsetTangent;
 
   ctx.beginPath();
-  ctx.moveTo(x2, y5);
+  ctx.moveTo(x1, y5);
   ctx.arcTo(x0, y4, x0, y3, drawRadius);
-  ctx.arcTo(x0, y1, x2, y0, drawRadius);
-  ctx.lineTo(x2, y0);
-  ctx.arcTo(x4, y1, x4, y2, drawRadius);
-  ctx.arcTo(x4, y4, x2, y5, drawRadius);
-  ctx.lineTo(x2, y5);
+  ctx.arcTo(x0, y1, x1, y0, drawRadius);
+  ctx.lineTo(x1, y0);
+  ctx.arcTo(x2, y1, x2, y2, drawRadius);
+  ctx.arcTo(x2, y4, x1, y5, drawRadius);
+  ctx.lineTo(x1, y5);
   ctx.closePath();
 
   ctx.lineWidth = lineThick;
