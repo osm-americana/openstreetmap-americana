@@ -1,3 +1,5 @@
+"use strict";
+
 export const exits = {
   id: "highway_exit",
   type: "symbol",
@@ -21,3 +23,10 @@ export const exits = {
     "text-halo-width": 0.75,
   },
 };
+
+export const legendEntries = [
+  {
+    description: "Freeway or expressway exit",
+    layers: [exits.id],
+  },
+];

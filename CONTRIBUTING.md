@@ -160,12 +160,17 @@ boilerplate in `scripts/taginfo_template.json`.
 
 1. Please prettify all files prior to submission. Run `npm run code_format` to
    format code files with [prettier][90] and SVG files with [SVGO][svgo].
-2. If you are introducing a novel approach to depicting a layer or feature
+2. If you are introducing a new kind of feature to the style, add a section to
+   `src/js/legend_config.js` or a legend entry in the corresponding file in
+   `src/layer/` that tells the Legend control how to find and render a
+   representative feature. Also try out the Samples button to catch any visual
+   conflicts.
+3. If you are introducing a novel approach to depicting a layer or feature
    property from the OpenMapTiles schema, document how the corresponding
    OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
-3. If any shield background icons are introduced, add lines to `src/shieldtest.js`
+4. If any shield background icons are introduced, add lines to `src/shieldtest.js`
    to demonstrate overlaid text on each of them.
-4. If you are introducing new JavaScript code that can run independently of a
+5. If you are introducing new JavaScript code that can run independently of a
    browser environment, add automated unit tests for it to `test/spec/`, then
    run `npm test` to ensure that they pass. This project structures unit tests
    using [Chai](https://www.chaijs.com/guide/styles/) for assertions.
