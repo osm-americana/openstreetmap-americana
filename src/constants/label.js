@@ -117,13 +117,134 @@ export function localizeLayers(layers, locales) {
 }
 
 /**
- * The name in the user's preferred language.
+ * Returns an expression that replaces a finite number of occurrences of a
+ * substring expression withing a larger string expression, starting at a given
+ * index.
+ *
+ * This expression nests recursively by the maximum number of replacements. Take
+ * special care to minimize this limit, which exponentially increases the length
+ * of a property value in JSON. Excessive nesting causes acute performance
+ * problems when loading the style.
+ *
+ * The returned expression can be complex, so use it only once within a property
+ * value. To reuse the evaluated value, bind it to a variable in a let
+ * expression.
+ *
+ * @param haystack The overall string expression to search within.
+ * @param needle The string to search for, or an expression that evaluates to
+ *  this string.
+ */
+export function replaceExpression(
+  haystack,
+  needle,
+  replacement,
+  haystackStart,
+  numReplacements = 1
+) {
+  let asIs = ["slice", haystack, haystackStart];
+  if (numReplacements <= 0) {
+    return asIs;
+  }
+
+  let needleStart = ["index-of", needle, haystack, haystackStart];
+  let needleLength =
+    typeof needle === "object" ? ["length", needle] : needle.length;
+  let needleEnd = ["+", needleStart, needleLength];
+  return [
+    "case",
+    [">=", needleStart, 0],
+    [
+      "concat",
+      ["slice", haystack, haystackStart, needleStart],
+      replacement,
+      replaceExpression(
+        haystack,
+        needle,
+        replacement,
+        needleEnd,
+        numReplacements - 1
+      ),
+    ],
+    asIs,
+  ];
+}
+
+/**
+ * Maximum number of values in a semicolon-delimited list of values.
+ *
+ * Increasing this constant deepens recursion for replacing delimiters in the
+ * list, potentially affecting style loading performance.
+ */
+const maxValueListLength = 9;
+
+/**
+ * Returns an expression interpreting the given string as a list of tag values,
+ * pretty-printing the standard semicolon delimiter with the given separator.
+ *
+ * https://wiki.openstreetmap.org/wiki/Semi-colon_value_separator
+ *
+ * The returned expression can be complex, so use it only once within a property
+ * value. To reuse the evaluated value, bind it to a variable in a let
+ * expression.
+ *
+ * @param valueList A semicolon-delimited list of values.
+ * @param separator A string to insert between each value, or an expression that
+ *  evaluates to this string.
+ */
+export function listValuesExpression(valueList, separator) {
+  let maxSeparators = maxValueListLength - 1;
+  // Replace the ;; escape sequence with a placeholder sequence unlikely to
+  // legitimately occur inside a value or separator.
+  const objReplacementChar = "\x91\ufffc\x92"; // https://overpass-turbo.eu/s/1pJx
+  let safeValueList = replaceExpression(
+    valueList,
+    ";;",
+    objReplacementChar,
+    0,
+    maxSeparators
+  );
+  // Pretty-print the ; delimiter.
+  let prettyValueList = replaceExpression(
+    ["var", "safeValueList"],
+    ";",
+    separator,
+    0,
+    maxSeparators
+  );
+  // Replace the placeholder sequence with an unescaped semicolon.
+  let prettySafeValueList = replaceExpression(
+    ["var", "prettyValueList"],
+    objReplacementChar,
+    ";",
+    0,
+    maxSeparators
+  );
+  return [
+    "let",
+    "safeValueList",
+    safeValueList,
+    ["let", "prettyValueList", prettyValueList, prettySafeValueList],
+  ];
+}
+
+/**
+ * The names in the user's preferred language, each on a separate line.
  */
 export const localizedName = [
   "let",
   "localizedName",
   "",
-  ["var", "localizedName"],
+  listValuesExpression(["var", "localizedName"], "\n"),
+];
+
+/**
+ * The names in the user's preferred language, all on the same line.
+ */
+export const localizedNameInline = [
+  "let",
+  "localizedName",
+  "",
+  listValuesExpression(["var", "localizedName"], " \u2022 "),
 ];
 
 /**
@@ -217,7 +338,7 @@ export const localizedNameWithLocalGloss = [
       ["var", "localizedCollator"],
     ],
     // ...just pick one.
-    ["var", "localizedName"],
+    ["format", listValuesExpression(["var", "localizedName"], "\n")],
     // If the name in the preferred language is the same as the name in the
     // local language except for the omission of diacritics and/or the addition
     // of a suffix (e.g., "City" in English)...
@@ -227,7 +348,13 @@ export const localizedNameWithLocalGloss = [
       ["var", "diacriticInsensitiveCollator"]
     ),
     // ...then replace the common prefix with the local name.
-    overwritePrefixExpression(["var", "localizedName"], ["get", "name"]),
+    [
+      "format",
+      overwritePrefixExpression(
+        ["var", "localizedName"],
+        listValuesExpression(["get", "name"], "\n")
+      ),
+    ],
     // If the name in the preferred language is the same as the name in the
     // local language except for the omission of diacritics and/or the addition
     // of a prefix (e.g., "City of" in English or "Ciudad de" in Spanish)...
@@ -237,7 +364,13 @@ export const localizedNameWithLocalGloss = [
       ["var", "diacriticInsensitiveCollator"]
     ),
     // ...then replace the common suffix with the local name.
-    overwriteSuffixExpression(["var", "localizedName"], ["get", "name"]),
+    [
+      "format",
+      overwriteSuffixExpression(
+        ["var", "localizedName"],
+        listValuesExpression(["get", "name"], "\n")
+      ),
+    ],
     // Otherwise, gloss the name in the local language if it differs from the
     // localized name.
     [
@@ -252,7 +385,7 @@ export const localizedNameWithLocalGloss = [
       // bother rendering it.
       ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
       { "font-scale": 0.001 },
-      ["get", "name"],
+      listValuesExpression(["get", "name"], " \u2022 "),
       { "font-scale": 0.8 },
       ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
       { "font-scale": 0.001 },
