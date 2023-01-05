@@ -180,6 +180,71 @@ export function roundedRectangle(
   return ctx;
 }
 
+export function escutcheon(
+  offset,
+  fill,
+  outline,
+  ref,
+  radius,
+  outlineWidth,
+  rectWidth
+) {
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+  let drawOffset = offset * PXR;
+
+  let x0 = lineWidth;
+  let x5 = width - lineWidth;
+
+  let y0 = lineWidth;
+  let y5 = CS - lineWidth;
+
+  let x1 = x0 + drawRadius;
+  let x3 = (x0 + x5) / 2;
+  let y1 = y0 + drawRadius;
+  let y2 = y5 - drawOffset;
+
+  let x2 = (x0 + x3) / 2;
+  let x4 = (x3 + x5) / 2;
+  let y3 = (y2 + y5) / 2;
+
+  let y4 = (y3 + 3 * y5) / 4;
+
+  ctx.beginPath();
+  ctx.moveTo(x3, y5);
+  ctx.bezierCurveTo(x2, y4, x0, y3, x0, y2);
+  ctx.arcTo(x0, y0, x1, y0, drawRadius);
+  ctx.arcTo(x5, y0, x5, y1, drawRadius);
+  ctx.lineTo(x5, y2);
+  ctx.bezierCurveTo(x5, y3, x4, y4, x3, y5);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
 export function trapezoid(
   shortSideUp,
   angle,

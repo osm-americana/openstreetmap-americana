@@ -91,6 +91,50 @@ function roundedRectShield(
 }
 
 /**
+ * Draws a shield with an escutcheon background, pointed downward
+ *
+ * @param {*} offset - Height of curved portion
+ * @param {*} fillColor - Color of escutcheon background fill
+ * @param {*} strokeColor - Color of escutcheon outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} radius - Corner radius of escutcheon (defaults to 0)
+ * @param {*} rectWidth - Width of escutcheon (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function escutcheonDownShield(
+  offset,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius = radius ?? 0;
+  return {
+    backgroundDraw: (ref) =>
+      ShieldDraw.escutcheon(
+        offset,
+        fillColor,
+        strokeColor,
+        ref,
+        radius,
+        1,
+        rectWidth
+      ),
+    textLayoutConstraint: (spaceBounds, textBounds) =>
+      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    padding: {
+      left: 2,
+      right: 2,
+      top: 1,
+      bottom: 1 + offset / 2,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
  * Draws a shield with a trapezoid background, with the short side on bottom
  *
  * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
@@ -690,42 +734,6 @@ export function loadShields(shieldImages) {
       top: 4,
       bottom: 5,
     },
-  };
-
-  let escutcheonShield = {
-    backgroundImage: [
-      shieldImages.shield_escutcheon_2,
-      shieldImages.shield_escutcheon_3,
-    ],
-    textColor: Color.shields.black,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 7,
-    },
-  };
-
-  let escutcheonShieldRounded = {
-    ...escutcheonShield,
-    backgroundImage: [
-      shieldImages.shield_escutcheon_rounded_2,
-      shieldImages.shield_escutcheon_rounded_3,
-    ],
-  };
-
-  let escutcheonShieldYellow = {
-    ...escutcheonShield,
-    backgroundImage: shieldImages.shield_escutcheon_yellow_2,
-  };
-
-  let escutcheonShieldBlue = {
-    ...escutcheonShield,
-    backgroundImage: [
-      shieldImages.shield_escutcheon_blue_2,
-      shieldImages.shield_escutcheon_blue_3,
-    ],
-    textColor: Color.shields.white,
   };
 
   let fishheadShieldRed = {
@@ -2654,8 +2662,16 @@ export function loadShields(shieldImages) {
   shields["US:PA:Allegheny:Belt"] = {}; // See ref-specific cases below
 
   // Puerto Rico
-  shields["US:PR:primary"] = escutcheonShieldBlue;
-  shields["US:PR:primary_urban"] = escutcheonShield;
+  shields["US:PR:primary"] = escutcheonDownShield(
+    10,
+    Color.shields.blue,
+    Color.shields.white
+  );
+  shields["US:PR:primary_urban"] = escutcheonDownShield(
+    10,
+    Color.shields.white,
+    Color.shields.black
+  );
   shields["US:PR:secondary"] = pentagonUpShield(
     3,
     15,
@@ -2955,7 +2971,13 @@ export function loadShields(shieldImages) {
   );
 
   // Virginia
-  shields["US:VA"] = escutcheonShieldRounded;
+  shields["US:VA"] = escutcheonDownShield(
+    10,
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2
+  );
   shields["US:VA:Business"] = banneredShield(shields["US:VA"], ["BUS"]);
   shields["US:VA:Alternate"] = banneredShield(shields["US:VA"], ["ALT"]);
   shields["US:VA:Secondary"] = pillShield(
@@ -3368,7 +3390,11 @@ export function loadShields(shieldImages) {
   );
 
   // Hong Kong
-  shields["HK"] = escutcheonShieldYellow;
+  shields["HK"] = escutcheonDownShield(
+    10,
+    Color.shields.yellow,
+    Color.shields.black
+  );
 
   // Indonesia
   shields["ID:national"] = {
