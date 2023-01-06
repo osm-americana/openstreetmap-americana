@@ -175,7 +175,7 @@ export function replaceExpression(
  * Increasing this constant deepens recursion for replacing delimiters in the
  * list, potentially affecting style loading performance.
  */
-const maxValueListLength = 9;
+const maxValueListLength = 3;
 
 /**
  * Returns an expression interpreting the given string as a list of tag values,

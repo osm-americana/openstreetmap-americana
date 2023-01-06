@@ -518,14 +518,14 @@ describe("label", function () {
           "、"
         )
       ).to.be.eql(
-        "马岔河村、菜园村、刘灿东村、后于口村、王石楼村、李岔河村、岔河新村、富康新村、前鱼口村"
+        "马岔河村、菜园村、刘灿东村;后于口村;王石楼村;李岔河村;岔河新村;富康新村;前鱼口村"
       );
       expect(
         evaluatedExpression(
           "one;two;three;four;five;six;seven;eight;nine;ten",
           ", "
         )
-      ).to.be.eql("one, two, three, four, five, six, seven, eight, nine;ten");
+      ).to.be.eql("one, two, three;four;five;six;seven;eight;nine;ten");
     });
   });
 });
