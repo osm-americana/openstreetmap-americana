@@ -2663,12 +2663,12 @@ export function loadShields(shieldImages) {
 
   // Puerto Rico
   shields["US:PR:primary"] = escutcheonDownShield(
-    10,
+    12,
     Color.shields.blue,
     Color.shields.white
   );
   shields["US:PR:primary_urban"] = escutcheonDownShield(
-    10,
+    12,
     Color.shields.white,
     Color.shields.black
   );
@@ -2972,7 +2972,7 @@ export function loadShields(shieldImages) {
 
   // Virginia
   shields["US:VA"] = escutcheonDownShield(
-    10,
+    12,
     Color.shields.white,
     Color.shields.black,
     Color.shields.black,
@@ -3391,7 +3391,7 @@ export function loadShields(shieldImages) {
 
   // Hong Kong
   shields["HK"] = escutcheonDownShield(
-    10,
+    12,
     Color.shields.yellow,
     Color.shields.black
   );

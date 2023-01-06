@@ -218,11 +218,11 @@ export function escutcheon(
   let y1 = y0 + drawRadius;
   let y2 = y5 - drawOffset;
 
-  let x2 = (x0 + x3) / 2;
-  let x4 = (x3 + x5) / 2;
+  let x2 = (2 * x0 + x3) / 3;
+  let x4 = (x3 + 2 * x5) / 3;
   let y3 = (y2 + y5) / 2;
 
-  let y4 = (y3 + 3 * y5) / 4;
+  let y4 = (y3 + 2 * y5) / 3;
 
   ctx.beginPath();
   ctx.moveTo(x3, y5);
