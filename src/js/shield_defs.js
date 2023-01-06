@@ -127,8 +127,8 @@ function escutcheonDownShield(
     padding: {
       left: 2,
       right: 2,
-      top: 1,
-      bottom: 1 + offset / 2,
+      top: 2,
+      bottom: 0 + offset / 2,
     },
     textColor: textColor,
   };
