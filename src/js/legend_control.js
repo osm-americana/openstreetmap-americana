@@ -340,9 +340,7 @@ export default class LegendControl {
     let fillColor =
       fill?.layer.paint["fill-color"] ||
       fill?.layer.paint["fill-extrusion-color"];
-    let fillOpacity =
-      fill?.layer.paint["fill-opacity"] ??
-      fill?.layer.paint["fill-extrusion-opacity"];
+    let fillOpacity = fill?.layer.paint["fill-opacity"];
     if (fillColor && fillOpacity) {
       let opacity = fillOpacity ?? fillColor.a ?? 1;
       fillColor = `rgba(${(fillColor.r * 255) / opacity}, ${
@@ -364,6 +362,7 @@ export default class LegendControl {
         stroke?.layer.paint["line-color"] || fillColor || "transparent",
       borderStyle: borderStyle,
       borderWidth: `${stroke?.layer.paint["line-width"] ?? 1}px`,
+      opacity: fill?.layer.paint["fill-extrusion-opacity"] ?? 1,
     };
   }
 
