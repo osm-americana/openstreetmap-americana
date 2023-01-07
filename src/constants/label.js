@@ -295,13 +295,18 @@ export const localizedName = [
 ];
 
 /**
+ * The separator to use in inline contexts.
+ */
+const inlineSeparator = " \u2022 ";
+
+/**
  * The names in the user's preferred language, all on the same line.
  */
 export const localizedNameInline = [
   "let",
   "localizedName",
   "",
-  listValuesExpression(["var", "localizedName"], " \u2022 "),
+  listValuesExpression(["var", "localizedName"], inlineSeparator),
 ];
 
 /**
@@ -442,7 +447,7 @@ export const localizedNameWithLocalGloss = [
       // bother rendering it.
       ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
       { "font-scale": 0.001 },
-      listValuesExpression(["get", "name"], " \u2022 ", [
+      listValuesExpression(["get", "name"], inlineSeparator, [
         "var",
         "localizedName",
       ]),
