@@ -117,9 +117,8 @@ export function localizeLayers(layers, locales) {
 }
 
 /**
- * Returns an expression that replaces a finite number of occurrences of a
- * substring expression withing a larger string expression, starting at a given
- * index.
+ * Recursively scans a semicolon-delimited value list, replacing a finite number
+ * of semicolons with a separator, starting from the given index.
  *
  * This expression nests recursively by the maximum number of replacements. Take
  * special care to minimize this limit, which exponentially increases the length
@@ -130,42 +129,118 @@ export function localizeLayers(layers, locales) {
  * value. To reuse the evaluated value, bind it to a variable in a let
  * expression.
  *
- * @param haystack The overall string expression to search within.
- * @param needle The string to search for, or an expression that evaluates to
- *  this string.
+ * @param list The overall string expression to search within.
+ * @param separator A string to insert after the value, or an expression that
+ *  evaluates to this string.
+ * @param listStart A zero-based index into the list at which the search begins.
+ * @param numReplacements The maximum number of replacements remaining.
  */
-export function replaceExpression(
-  haystack,
-  needle,
-  replacement,
-  haystackStart,
-  numReplacements = 1
+function listValueExpression(
+  list,
+  separator,
+  valueToOmit,
+  listStart,
+  numReplacements
 ) {
-  let asIs = ["slice", haystack, haystackStart];
+  let asIs = ["slice", list, listStart];
   if (numReplacements <= 0) {
     return asIs;
   }
 
-  let needleStart = ["index-of", needle, haystack, haystackStart];
-  let needleLength =
-    typeof needle === "object" ? ["length", needle] : needle.length;
-  let needleEnd = ["+", needleStart, needleLength];
+  let iteration = numReplacements;
+  let rawSeparator = ";";
   return [
-    "case",
-    [">=", needleStart, 0],
+    "let",
+    "needleStart" + iteration,
+    ["index-of", rawSeparator, list, listStart],
     [
-      "concat",
-      ["slice", haystack, haystackStart, needleStart],
-      replacement,
-      replaceExpression(
-        haystack,
-        needle,
-        replacement,
-        needleEnd,
-        numReplacements - 1
-      ),
+      "case",
+      [">=", ["var", "needleStart" + iteration], 0],
+      // Found a semicolon.
+      [
+        "let",
+        "value" + iteration,
+        ["slice", list, listStart, ["var", "needleStart" + iteration]],
+        "needleEnd" + iteration,
+        ["+", ["var", "needleStart" + iteration], rawSeparator.length],
+        [
+          "concat",
+          // Start with everything before the semicolon unless it's the value to
+          // omit.
+          [
+            "case",
+            ["==", ["var", "value" + iteration], valueToOmit],
+            "",
+            ["var", "value" + iteration],
+          ],
+          [
+            "let",
+            "lookahead" + iteration,
+            // Look ahead by one character.
+            [
+              "slice",
+              list,
+              ["var", "needleEnd" + iteration],
+              ["+", ["var", "needleEnd" + iteration], rawSeparator.length],
+            ],
+            [
+              "let",
+              // Skip past the current value and semicolon for any subsequent
+              // searches.
+              "nextListStart" + iteration,
+              [
+                "+",
+                ["var", "needleEnd" + iteration],
+                // Also skip past any escaped semicolon or space padding.
+                [
+                  "match",
+                  ["var", "lookahead" + iteration],
+                  [rawSeparator, " "],
+                  rawSeparator.length,
+                  0,
+                ],
+              ],
+              [
+                "case",
+                // If the only remaining value is the value to omit, stop
+                // scanning.
+                [
+                  "==",
+                  ["slice", list, ["var", "nextListStart" + iteration]],
+                  valueToOmit,
+                ],
+                "",
+                [
+                  "concat",
+                  [
+                    "case",
+                    // If the lookahead character is another semicolon, append
+                    // an unescaped semicolon.
+                    ["==", ["var", "lookahead" + iteration], rawSeparator],
+                    rawSeparator,
+                    // Otherwise, if the value is the value to omit, do nothing.
+                    ["==", ["var", "value" + iteration], valueToOmit],
+                    "",
+                    // Otherwise, append the passed-in separator.
+                    separator,
+                  ],
+                  // Recurse for the next value in the value list.
+                  listValueExpression(
+                    list,
+                    separator,
+                    valueToOmit,
+                    ["var", "nextListStart" + iteration],
+                    numReplacements - 1
+                  ),
+                ],
+              ],
+            ],
+          ],
+        ],
+      ],
+      // No semicolons left in the string, so stop looking and append the value as is.
+      asIs,
     ],
-    asIs,
   ];
 }
 
@@ -191,39 +266,21 @@ const maxValueListLength = 3;
  * @param separator A string to insert between each value, or an expression that
  *  evaluates to this string.
  */
-export function listValuesExpression(valueList, separator) {
+export function listValuesExpression(valueList, separator, valueToOmit) {
   let maxSeparators = maxValueListLength - 1;
-  // Replace the ;; escape sequence with a placeholder sequence unlikely to
-  // legitimately occur inside a value or separator.
-  const objReplacementChar = "\x91\ufffc\x92"; // https://overpass-turbo.eu/s/1pJx
-  let safeValueList = replaceExpression(
-    valueList,
-    ";;",
-    objReplacementChar,
-    0,
-    maxSeparators
-  );
-  // Pretty-print the ; delimiter.
-  let prettyValueList = replaceExpression(
-    ["var", "safeValueList"],
-    ";",
-    separator,
-    0,
-    maxSeparators
-  );
-  // Replace the placeholder sequence with an unescaped semicolon.
-  let prettySafeValueList = replaceExpression(
-    ["var", "prettyValueList"],
-    objReplacementChar,
-    ";",
-    0,
-    maxSeparators
-  );
   return [
     "let",
-    "safeValueList",
-    safeValueList,
-    ["let", "prettyValueList", prettyValueList, prettySafeValueList],
+    "valueList",
+    valueList,
+    "valueToOmit",
+    valueToOmit || ";",
+    listValueExpression(
+      ["var", "valueList"],
+      separator,
+      ["var", "valueToOmit"],
+      0,
+      maxSeparators
+    ),
   ];
 }
 
@@ -238,13 +295,18 @@ export const localizedName = [
 ];
 
 /**
+ * The separator to use in inline contexts.
+ */
+const inlineSeparator = " \u2022 ";
+
+/**
  * The names in the user's preferred language, all on the same line.
  */
 export const localizedNameInline = [
   "let",
   "localizedName",
   "",
-  listValuesExpression(["var", "localizedName"], " \u2022 "),
+  listValuesExpression(["var", "localizedName"], inlineSeparator),
 ];
 
 /**
@@ -385,7 +447,10 @@ export const localizedNameWithLocalGloss = [
       // bother rendering it.
       ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
       { "font-scale": 0.001 },
-      listValuesExpression(["get", "name"], " \u2022 "),
+      listValuesExpression(["get", "name"], inlineSeparator, [
+        "var",
+        "localizedName",
+      ]),
       { "font-scale": 0.8 },
       ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
       { "font-scale": 0.001 },
