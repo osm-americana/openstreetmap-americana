@@ -20,7 +20,7 @@ import * as lyrHighwayExit from "./highway_exit.js";
 import * as lyrFerry from "./ferry.js";
 
 /**
- * Builds the Americana layers property without localization.
+ * Builds the Americana layers property.
  * See: https://maplibre.org/maplibre-gl-js-docs/style-spec/layers/
  */
 export function build(locales) {
