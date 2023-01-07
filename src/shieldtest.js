@@ -43,6 +43,7 @@ let networks = [
   "CA:ON:secondary",
   "US:NE",
   "US:MN:Hennepin:Park_Access",
+  "CA:MB:Winnipeg",
   "US:PA",
   "US:PA:Turnpike",
 
@@ -80,31 +81,35 @@ let networks = [
   // Basic Rounded Shapes
   "US:GU",
 
-  "US:HI",
   "US:CA",
-
-  "US:OR",
+  "US:UT",
+  "US:HI",
 
   "JP:national",
   "TW:expressway",
   "US:TX:Fort_Bend:FBCTRA",
+  "US:OR",
+
   "US:VA",
   "US:PR:primary",
   "HK",
-  "PK:motorway",
+  "CA:QC:A",
+  "CA:NS:H",
+
   "NZ:SH",
   "AU:WA:S",
 
-  // Basic shapes with more detail
   "US:I",
   "US:I:Business:Loop",
-
-  "CA:QC:A",
-  "CA:NS:H",
+  "co:national",
+  "US:BIA",
+  "US:MT:secondary",
 
   "CA:PE",
   "US:FL:Toll",
   "CA:BC",
+  "PK:motorway",
+
   "US:US",
   "US:US:Historic",
   "CL:national",
@@ -113,15 +118,10 @@ let networks = [
   "KR:expressway",
   "CA:QC:R",
   "VE:T:AM",
-  "co:national",
-  "US:BIA",
-  "US:MT:secondary",
+  "US:WI",
 
   "TW:freeway",
-  "US:UT",
   "US:MP",
-  "US:WI",
-  "CA:MB:Winnipeg",
   "US:AS",
 
   // Fancy Rectangles
