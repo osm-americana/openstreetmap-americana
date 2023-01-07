@@ -365,11 +365,11 @@ describe("label", function () {
   });
 
   describe("#listValuesExpression", function () {
-    let evaluatedExpression = (valueList, separator) =>
+    let evaluatedExpression = (valueList, separator, valueToOmit) =>
       expression
         .createExpression(
           localizedTextField(
-            [...Label.listValuesExpression(valueList, separator)],
+            [...Label.listValuesExpression(valueList, separator, valueToOmit)],
             ["en"]
           )
         )
@@ -394,6 +394,10 @@ describe("label", function () {
       );
       expect(evaluatedExpression(";ABC;DEF", ", ")).to.be.eql(", ABC, DEF");
       expect(evaluatedExpression("ABC;DEF;", ", ")).to.be.eql("ABC, DEF, ");
+    });
+
+    it("ignores a space after a semicolon", function () {
+      expect(evaluatedExpression("ABC; DEF", ", ")).to.be.eql("ABC, DEF");
     });
 
     it("ignores an escaped semicolon", function () {
@@ -433,6 +437,21 @@ describe("label", function () {
           ", "
         )
       ).to.be.eql("one, two, three;four;five;six;seven;eight;nine;ten");
+    });
+
+    it("omits a specified value", function () {
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "")).to.be.eql(
+        "ABC, DEF, GHI"
+      );
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "ABC")).to.be.eql(
+        "DEF, GHI"
+      );
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "DEF")).to.be.eql(
+        "ABC, GHI"
+      );
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "GHI")).to.be.eql(
+        "ABC, DEF"
+      );
     });
   });
 });

@@ -135,59 +135,110 @@ export function localizeLayers(layers, locales) {
  * @param listStart A zero-based index into the list at which the search begins.
  * @param numReplacements The maximum number of replacements remaining.
  */
-function listValueExpression(list, separator, listStart, numReplacements) {
+function listValueExpression(
+  list,
+  separator,
+  valueToOmit,
+  listStart,
+  numReplacements
+) {
   let asIs = ["slice", list, listStart];
   if (numReplacements <= 0) {
     return asIs;
   }
 
   let iteration = numReplacements;
+  let rawSeparator = ";";
   return [
     "let",
     "needleStart" + iteration,
-    ["index-of", ";", list, listStart],
-    "needleEnd" + iteration,
-    ["+", ["index-of", ";", list, listStart], 1],
+    ["index-of", rawSeparator, list, listStart],
     [
       "case",
       [">=", ["var", "needleStart" + iteration], 0],
       // Found a semicolon.
       [
-        "concat",
-        // Start with everything before the semicolon.
+        "let",
+        "value" + iteration,
         ["slice", list, listStart, ["var", "needleStart" + iteration]],
+        "needleEnd" + iteration,
+        ["+", ["var", "needleStart" + iteration], rawSeparator.length],
         [
-          "let",
-          "lookahead" + iteration,
-          // Look ahead by one character.
+          "concat",
+          // Start with everything before the semicolon unless it's the value to
+          // omit.
           [
-            "slice",
-            list,
-            ["var", "needleEnd" + iteration],
-            ["+", ["var", "needleEnd" + iteration], 1],
+            "case",
+            ["==", ["var", "value" + iteration], valueToOmit],
+            "",
+            ["var", "value" + iteration],
           ],
           [
-            "concat",
-            // If the lookahead character is another semicolon, append an unescaped semicolon.
-            // Otherwise, append the passed-in separator.
-            ["match", ["var", "lookahead" + iteration], ";", ";", separator],
-            // Recurse for the next value in the value list.
-            listValueExpression(
+            "let",
+            "lookahead" + iteration,
+            // Look ahead by one character.
+            [
+              "slice",
               list,
-              separator,
-              // Skip past the current value and semicolon for any subsequent searches.
+              ["var", "needleEnd" + iteration],
+              ["+", ["var", "needleEnd" + iteration], rawSeparator.length],
+            ],
+            [
+              "let",
+              // Skip past the current value and semicolon for any subsequent
+              // searches.
+              "nextListStart" + iteration,
               [
                 "+",
                 ["var", "needleEnd" + iteration],
                 // Also skip past any escaped semicolon or space padding.
-                ["match", ["var", "lookahead" + iteration], [";", " "], 1, 0],
+                [
+                  "match",
+                  ["var", "lookahead" + iteration],
+                  [rawSeparator, " "],
+                  rawSeparator.length,
+                  0,
+                ],
               ],
-              numReplacements - 1
-            ),
+              [
+                "case",
+                // If the only remaining value is the value to omit, stop
+                // scanning.
+                [
+                  "==",
+                  ["slice", list, ["var", "nextListStart" + iteration]],
+                  valueToOmit,
+                ],
+                "",
+                [
+                  "concat",
+                  [
+                    "case",
+                    // If the lookahead character is another semicolon, append
+                    // an unescaped semicolon.
+                    ["==", ["var", "lookahead" + iteration], rawSeparator],
+                    rawSeparator,
+                    // Otherwise, if the value is the value to omit, do nothing.
+                    ["==", ["var", "value" + iteration], valueToOmit],
+                    "",
+                    // Otherwise, append the passed-in separator.
+                    separator,
+                  ],
+                  // Recurse for the next value in the value list.
+                  listValueExpression(
+                    list,
+                    separator,
+                    valueToOmit,
+                    ["var", "nextListStart" + iteration],
+                    numReplacements - 1
+                  ),
+                ],
+              ],
+            ],
           ],
         ],
       ],
-      // No semicolons left in the string, so stop looking.
+      // No semicolons left in the string, so stop looking and append the value as is.
       asIs,
     ],
   ];
@@ -215,13 +266,21 @@ const maxValueListLength = 3;
  * @param separator A string to insert between each value, or an expression that
  *  evaluates to this string.
  */
-export function listValuesExpression(valueList, separator) {
+export function listValuesExpression(valueList, separator, valueToOmit) {
   let maxSeparators = maxValueListLength - 1;
   return [
     "let",
     "valueList",
     valueList,
-    listValueExpression(["var", "valueList"], separator, 0, maxSeparators),
+    "valueToOmit",
+    valueToOmit || ";",
+    listValueExpression(
+      ["var", "valueList"],
+      separator,
+      ["var", "valueToOmit"],
+      0,
+      maxSeparators
+    ),
   ];
 }
 
@@ -383,7 +442,10 @@ export const localizedNameWithLocalGloss = [
       // bother rendering it.
       ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
       { "font-scale": 0.001 },
-      listValuesExpression(["get", "name"], " \u2022 "),
+      listValuesExpression(["get", "name"], " \u2022 ", [
+        "var",
+        "localizedName",
+      ]),
       { "font-scale": 0.8 },
       ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
       { "font-scale": 0.001 },
