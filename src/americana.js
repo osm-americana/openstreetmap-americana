@@ -20,14 +20,6 @@ import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
-function buildLayers() {
-  let layers = Layers.build();
-
-  Label.localizeLayers(layers, Label.getLocales());
-
-  return layers;
-}
-
 export function buildStyle() {
   var getUrl = window.location;
   var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
@@ -37,7 +29,7 @@ export function buildStyle() {
     name: "Americana",
     glyphs:
       "https://openhistoricalmap.github.io/map-styles/fonts/{fontstack}/{range}.pbf",
-    layers: buildLayers(),
+    layers: Layers.build(Label.getLocales()),
     sources: {
       openmaptiles: {
         url: config.OPENMAPTILES_URL,

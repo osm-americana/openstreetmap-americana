@@ -1,5 +1,7 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
+
 import * as lyrAeroway from "./aeroway.js";
 import * as lyrBackground from "./background.js";
 import * as lyrBoundary from "./boundary.js";
@@ -21,7 +23,7 @@ import * as lyrFerry from "./ferry.js";
  * Builds the Americana layers property without localization.
  * See: https://maplibre.org/maplibre-gl-js-docs/style-spec/layers/
  */
-export function build() {
+export function build(locales) {
   // Layers from bottom to top
   let layers = [];
 
@@ -226,6 +228,8 @@ export function build() {
     lyrPlace.country1,
     lyrPlace.continent
   );
+
+  Label.localizeLayers(layers, locales);
 
   return layers;
 }
