@@ -117,13 +117,196 @@ export function localizeLayers(layers, locales) {
 }
 
 /**
- * The name in the user's preferred language.
+ * Recursively scans a semicolon-delimited value list, replacing a finite number
+ * of semicolons with a separator, starting from the given index.
+ *
+ * This expression nests recursively by the maximum number of replacements. Take
+ * special care to minimize this limit, which exponentially increases the length
+ * of a property value in JSON. Excessive nesting causes acute performance
+ * problems when loading the style.
+ *
+ * The returned expression can be complex, so use it only once within a property
+ * value. To reuse the evaluated value, bind it to a variable in a let
+ * expression.
+ *
+ * @param list The overall string expression to search within.
+ * @param separator A string to insert after the value, or an expression that
+ *  evaluates to this string.
+ * @param listStart A zero-based index into the list at which the search begins.
+ * @param numReplacements The maximum number of replacements remaining.
+ */
+function listValueExpression(
+  list,
+  separator,
+  valueToOmit,
+  listStart,
+  numReplacements
+) {
+  let asIs = ["slice", list, listStart];
+  if (numReplacements <= 0) {
+    return asIs;
+  }
+
+  let iteration = numReplacements;
+  let rawSeparator = ";";
+  return [
+    "let",
+    "needleStart" + iteration,
+    ["index-of", rawSeparator, list, listStart],
+    [
+      "case",
+      [">=", ["var", "needleStart" + iteration], 0],
+      // Found a semicolon.
+      [
+        "let",
+        "value" + iteration,
+        ["slice", list, listStart, ["var", "needleStart" + iteration]],
+        "needleEnd" + iteration,
+        ["+", ["var", "needleStart" + iteration], rawSeparator.length],
+        [
+          "concat",
+          // Start with everything before the semicolon unless it's the value to
+          // omit.
+          [
+            "case",
+            ["==", ["var", "value" + iteration], valueToOmit],
+            "",
+            ["var", "value" + iteration],
+          ],
+          [
+            "let",
+            "lookahead" + iteration,
+            // Look ahead by one character.
+            [
+              "slice",
+              list,
+              ["var", "needleEnd" + iteration],
+              ["+", ["var", "needleEnd" + iteration], rawSeparator.length],
+            ],
+            [
+              "let",
+              // Skip past the current value and semicolon for any subsequent
+              // searches.
+              "nextListStart" + iteration,
+              [
+                "+",
+                ["var", "needleEnd" + iteration],
+                // Also skip past any escaped semicolon or space padding.
+                [
+                  "match",
+                  ["var", "lookahead" + iteration],
+                  [rawSeparator, " "],
+                  rawSeparator.length,
+                  0,
+                ],
+              ],
+              [
+                "case",
+                // If the only remaining value is the value to omit, stop
+                // scanning.
+                [
+                  "==",
+                  ["slice", list, ["var", "nextListStart" + iteration]],
+                  valueToOmit,
+                ],
+                "",
+                [
+                  "concat",
+                  [
+                    "case",
+                    // If the lookahead character is another semicolon, append
+                    // an unescaped semicolon.
+                    ["==", ["var", "lookahead" + iteration], rawSeparator],
+                    rawSeparator,
+                    // Otherwise, if the value is the value to omit, do nothing.
+                    ["==", ["var", "value" + iteration], valueToOmit],
+                    "",
+                    // Otherwise, append the passed-in separator.
+                    separator,
+                  ],
+                  // Recurse for the next value in the value list.
+                  listValueExpression(
+                    list,
+                    separator,
+                    valueToOmit,
+                    ["var", "nextListStart" + iteration],
+                    numReplacements - 1
+                  ),
+                ],
+              ],
+            ],
+          ],
+        ],
+      ],
+      // No semicolons left in the string, so stop looking and append the value as is.
+      asIs,
+    ],
+  ];
+}
+
+/**
+ * Maximum number of values in a semicolon-delimited list of values.
+ *
+ * Increasing this constant deepens recursion for replacing delimiters in the
+ * list, potentially affecting style loading performance.
+ */
+const maxValueListLength = 3;
+
+/**
+ * Returns an expression interpreting the given string as a list of tag values,
+ * pretty-printing the standard semicolon delimiter with the given separator.
+ *
+ * https://wiki.openstreetmap.org/wiki/Semi-colon_value_separator
+ *
+ * The returned expression can be complex, so use it only once within a property
+ * value. To reuse the evaluated value, bind it to a variable in a let
+ * expression.
+ *
+ * @param valueList A semicolon-delimited list of values.
+ * @param separator A string to insert between each value, or an expression that
+ *  evaluates to this string.
+ */
+export function listValuesExpression(valueList, separator, valueToOmit) {
+  let maxSeparators = maxValueListLength - 1;
+  return [
+    "let",
+    "valueList",
+    valueList,
+    "valueToOmit",
+    valueToOmit || ";",
+    listValueExpression(
+      ["var", "valueList"],
+      separator,
+      ["var", "valueToOmit"],
+      0,
+      maxSeparators
+    ),
+  ];
+}
+
+/**
+ * The names in the user's preferred language, each on a separate line.
  */
 export const localizedName = [
   "let",
   "localizedName",
   "",
-  ["var", "localizedName"],
+  listValuesExpression(["var", "localizedName"], "\n"),
+];
+
+/**
+ * The separator to use in inline contexts.
+ */
+const inlineSeparator = " \u2022 ";
+
+/**
+ * The names in the user's preferred language, all on the same line.
+ */
+export const localizedNameInline = [
+  "let",
+  "localizedName",
+  "",
+  listValuesExpression(["var", "localizedName"], inlineSeparator),
 ];
 
 /**
@@ -217,7 +400,7 @@ export const localizedNameWithLocalGloss = [
       ["var", "localizedCollator"],
     ],
     // ...just pick one.
-    ["var", "localizedName"],
+    ["format", listValuesExpression(["var", "localizedName"], "\n")],
     // If the name in the preferred language is the same as the name in the
     // local language except for the omission of diacritics and/or the addition
     // of a suffix (e.g., "City" in English)...
@@ -227,7 +410,13 @@ export const localizedNameWithLocalGloss = [
       ["var", "diacriticInsensitiveCollator"]
     ),
     // ...then replace the common prefix with the local name.
-    overwritePrefixExpression(["var", "localizedName"], ["get", "name"]),
+    [
+      "format",
+      overwritePrefixExpression(
+        ["var", "localizedName"],
+        listValuesExpression(["get", "name"], "\n")
+      ),
+    ],
     // If the name in the preferred language is the same as the name in the
     // local language except for the omission of diacritics and/or the addition
     // of a prefix (e.g., "City of" in English or "Ciudad de" in Spanish)...
@@ -237,7 +426,13 @@ export const localizedNameWithLocalGloss = [
       ["var", "diacriticInsensitiveCollator"]
     ),
     // ...then replace the common suffix with the local name.
-    overwriteSuffixExpression(["var", "localizedName"], ["get", "name"]),
+    [
+      "format",
+      overwriteSuffixExpression(
+        ["var", "localizedName"],
+        listValuesExpression(["get", "name"], "\n")
+      ),
+    ],
     // Otherwise, gloss the name in the local language if it differs from the
     // localized name.
     [
@@ -252,7 +447,10 @@ export const localizedNameWithLocalGloss = [
       // bother rendering it.
       ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
       { "font-scale": 0.001 },
-      ["get", "name"],
+      listValuesExpression(["get", "name"], inlineSeparator, [
+        "var",
+        "localizedName",
+      ]),
       { "font-scale": 0.8 },
       ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
       { "font-scale": 0.001 },
