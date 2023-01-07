@@ -364,109 +364,6 @@ describe("label", function () {
     });
   });
 
-  describe("#replaceExpression", function () {
-    let evaluatedExpression = (
-      haystack,
-      needle,
-      replacement,
-      haystackStart,
-      numReplacements
-    ) =>
-      expression
-        .createExpression(
-          localizedTextField(
-            [
-              ...Label.replaceExpression(
-                haystack,
-                needle,
-                replacement,
-                haystackStart,
-                numReplacements
-              ),
-            ],
-            ["en"]
-          )
-        )
-        .value.expression.evaluate(expressionContext({}));
-
-    it("returns the haystack verbatim when there is nothing to replace", function () {
-      expect(evaluatedExpression("ABC;DEF;GHI", ";", "*", 0, -1)).to.be.eql(
-        "ABC;DEF;GHI"
-      );
-      expect(evaluatedExpression("ABC;DEF;GHI", ";", "*", 0, 0)).to.be.eql(
-        "ABC;DEF;GHI"
-      );
-    });
-
-    it("returns an empty haystack verbatim", function () {
-      expect(evaluatedExpression("", ";", "*", 0, -1)).to.be.eql("");
-      expect(evaluatedExpression("", ";", "*", 0, 0)).to.be.eql("");
-      expect(evaluatedExpression("", ";", "*", 0, 1)).to.be.eql("");
-      expect(evaluatedExpression("", ";", "*", 0, 2)).to.be.eql("");
-    });
-
-    it("replaces one occurrence", function () {
-      expect(evaluatedExpression("ABC;DEF;GHI", ";", "*", 0, 1)).to.be.eql(
-        "ABC*DEF;GHI"
-      );
-    });
-
-    it("replaces multiple occurrences", function () {
-      expect(evaluatedExpression("ABC;DEF;GHI", ";", "*", 0, 2)).to.be.eql(
-        "ABC*DEF*GHI"
-      );
-      expect(evaluatedExpression("ABC;DEF;GHI", ";", "*", 0, 3)).to.be.eql(
-        "ABC*DEF*GHI"
-      );
-      expect(evaluatedExpression("ABC;DEF;GHI", ";", "*", 0, 10)).to.be.eql(
-        "ABC*DEF*GHI"
-      );
-    });
-
-    it("replaces adjacent occurrences", function () {
-      expect(evaluatedExpression("ABC;;;DEF;GHI", ";", "*", 0, 2)).to.be.eql(
-        "ABC**;DEF;GHI"
-      );
-    });
-
-    it("replaces at the beginning of the haystack", function () {
-      expect(evaluatedExpression(";DEF;GHI", ";", "*", 0, 1)).to.be.eql(
-        "*DEF;GHI"
-      );
-    });
-
-    it("replaces at the end of the haystack", function () {
-      expect(evaluatedExpression("ABC;", ";", "*", 0, 1)).to.be.eql("ABC*");
-    });
-
-    it("replaces the whole haystack", function () {
-      expect(evaluatedExpression(";", ";", "*", 0, 1)).to.be.eql("*");
-      expect(evaluatedExpression(";;;", ";", "*", 0, 3)).to.be.eql("***");
-    });
-
-    it("is case-sensitive", function () {
-      expect(evaluatedExpression("ABC", "b", "*", 0, 1)).to.be.eql("ABC");
-    });
-
-    it("replaces multiple characters", function () {
-      expect(evaluatedExpression("ABC;;DEF", ";;", "/", 0, 1)).to.be.eql(
-        "ABC/DEF"
-      );
-    });
-
-    it("replaces needle expression", function () {
-      expect(
-        evaluatedExpression("ABC;DEF", ["concat", ";"], "*", 0, 1)
-      ).to.be.eql("ABC*DEF");
-    });
-
-    it("replaces replacement expression", function () {
-      expect(
-        evaluatedExpression("ABC;DEF", ";", ["slice", "*", 0], 0, 1)
-      ).to.be.eql("ABC*DEF");
-    });
-  });
-
   describe("#listValuesExpression", function () {
     let evaluatedExpression = (valueList, separator) =>
       expression
@@ -495,6 +392,8 @@ describe("label", function () {
       expect(evaluatedExpression("ABC;DEF;GHI", ", ")).to.be.eql(
         "ABC, DEF, GHI"
       );
+      expect(evaluatedExpression(";ABC;DEF", ", ")).to.be.eql(", ABC, DEF");
+      expect(evaluatedExpression("ABC;DEF;", ", ")).to.be.eql("ABC, DEF, ");
     });
 
     it("ignores an escaped semicolon", function () {
@@ -507,6 +406,14 @@ describe("label", function () {
       );
       expect(evaluatedExpression("ABC;;DEF;;GHI", ", ")).to.be.eql(
         "ABC;DEF;GHI"
+      );
+      expect(evaluatedExpression("ABC;;;DEF", ", ")).to.be.eql("ABC;, DEF");
+      expect(evaluatedExpression("ABC;;;;DEF", ", ")).to.be.eql("ABC;;DEF");
+    });
+
+    it("accepts an expression as the separator", function () {
+      expect(evaluatedExpression("ABC;DEF", ["concat", ", "])).to.be.eql(
+        "ABC, DEF"
       );
     });
 

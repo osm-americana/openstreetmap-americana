@@ -117,9 +117,8 @@ export function localizeLayers(layers, locales) {
 }
 
 /**
- * Returns an expression that replaces a finite number of occurrences of a
- * substring expression withing a larger string expression, starting at a given
- * index.
+ * Recursively scans a semicolon-delimited value list, replacing a finite number
+ * of semicolons with a separator, starting from the given index.
  *
  * This expression nests recursively by the maximum number of replacements. Take
  * special care to minimize this limit, which exponentially increases the length
@@ -130,42 +129,67 @@ export function localizeLayers(layers, locales) {
  * value. To reuse the evaluated value, bind it to a variable in a let
  * expression.
  *
- * @param haystack The overall string expression to search within.
- * @param needle The string to search for, or an expression that evaluates to
- *  this string.
+ * @param list The overall string expression to search within.
+ * @param separator A string to insert after the value, or an expression that
+ *  evaluates to this string.
+ * @param listStart A zero-based index into the list at which the search begins.
+ * @param numReplacements The maximum number of replacements remaining.
  */
-export function replaceExpression(
-  haystack,
-  needle,
-  replacement,
-  haystackStart,
-  numReplacements = 1
-) {
-  let asIs = ["slice", haystack, haystackStart];
+function listValueExpression(list, separator, listStart, numReplacements) {
+  let asIs = ["slice", list, listStart];
   if (numReplacements <= 0) {
     return asIs;
   }
 
-  let needleStart = ["index-of", needle, haystack, haystackStart];
-  let needleLength =
-    typeof needle === "object" ? ["length", needle] : needle.length;
-  let needleEnd = ["+", needleStart, needleLength];
+  let iteration = numReplacements;
   return [
-    "case",
-    [">=", needleStart, 0],
+    "let",
+    "needleStart" + iteration,
+    ["index-of", ";", list, listStart],
+    "needleEnd" + iteration,
+    ["+", ["index-of", ";", list, listStart], 1],
     [
-      "concat",
-      ["slice", haystack, haystackStart, needleStart],
-      replacement,
-      replaceExpression(
-        haystack,
-        needle,
-        replacement,
-        needleEnd,
-        numReplacements - 1
-      ),
+      "case",
+      [">=", ["var", "needleStart" + iteration], 0],
+      // Found a semicolon.
+      [
+        "concat",
+        // Start with everything before the semicolon.
+        ["slice", list, listStart, ["var", "needleStart" + iteration]],
+        [
+          "let",
+          "lookahead" + iteration,
+          // Look ahead by one character.
+          [
+            "slice",
+            list,
+            ["var", "needleEnd" + iteration],
+            ["+", ["var", "needleEnd" + iteration], 1],
+          ],
+          [
+            "concat",
+            // If the lookahead character is another semicolon, append an unescaped semicolon.
+            // Otherwise, append the passed-in separator.
+            ["match", ["var", "lookahead" + iteration], ";", ";", separator],
+            // Recurse for the next value in the value list.
+            listValueExpression(
+              list,
+              separator,
+              // Skip past the current value and semicolon for any subsequent searches.
+              [
+                "+",
+                ["var", "needleEnd" + iteration],
+                // Also skip past any escaped semicolon or space padding.
+                ["match", ["var", "lookahead" + iteration], [";", " "], 1, 0],
+              ],
+              numReplacements - 1
+            ),
+          ],
+        ],
+      ],
+      // No semicolons left in the string, so stop looking.
+      asIs,
     ],
-    asIs,
   ];
 }
 
@@ -193,37 +217,11 @@ const maxValueListLength = 3;
  */
 export function listValuesExpression(valueList, separator) {
   let maxSeparators = maxValueListLength - 1;
-  // Replace the ;; escape sequence with a placeholder sequence unlikely to
-  // legitimately occur inside a value or separator.
-  const objReplacementChar = "\x91\ufffc\x92"; // https://overpass-turbo.eu/s/1pJx
-  let safeValueList = replaceExpression(
-    valueList,
-    ";;",
-    objReplacementChar,
-    0,
-    maxSeparators
-  );
-  // Pretty-print the ; delimiter.
-  let prettyValueList = replaceExpression(
-    ["var", "safeValueList"],
-    ";",
-    separator,
-    0,
-    maxSeparators
-  );
-  // Replace the placeholder sequence with an unescaped semicolon.
-  let prettySafeValueList = replaceExpression(
-    ["var", "prettyValueList"],
-    objReplacementChar,
-    ";",
-    0,
-    maxSeparators
-  );
   return [
     "let",
-    "safeValueList",
-    safeValueList,
-    ["let", "prettyValueList", prettyValueList, prettySafeValueList],
+    "valueList",
+    valueList,
+    listValueExpression(["var", "valueList"], separator, 0, maxSeparators),
   ];
 }
 
