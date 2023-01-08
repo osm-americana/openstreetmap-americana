@@ -350,22 +350,27 @@ function overwritePrefixExpression(target, newPrefix) {
 function endsWithExpression(target, candidateSuffix, collator) {
   let wordBoundary = " ";
   return [
-    "all",
+    "let",
+    "suffixStart",
+    ["-", ["length", target], ["length", candidateSuffix]],
     [
-      "==",
-      ["slice", target, ["-", ["length", target], ["length", candidateSuffix]]],
-      candidateSuffix,
-      collator,
-    ],
-    [
-      "==",
+      "all",
       [
-        "slice",
-        target,
-        ["-", ["-", ["length", target], ["length", candidateSuffix]], 1],
-        ["-", ["length", target], ["length", candidateSuffix]],
+        "==",
+        ["slice", target, ["var", "suffixStart"]],
+        candidateSuffix,
+        collator,
       ],
-      wordBoundary,
+      [
+        "==",
+        [
+          "slice",
+          target,
+          ["-", ["var", "suffixStart"], 1],
+          ["var", "suffixStart"],
+        ],
+        wordBoundary,
+      ],
     ],
   ];
 }
@@ -391,74 +396,87 @@ export const localizedNameWithLocalGloss = [
   "diacriticInsensitiveCollator",
   ["collator", {}],
   [
-    "case",
-    // If the name in the preferred and local languages match exactly...
+    "let",
+    "localizedNameList",
+    listValuesExpression(["var", "localizedName"], "\n"),
     [
-      "==",
-      ["var", "localizedName"],
-      ["get", "name"],
-      ["var", "localizedCollator"],
-    ],
-    // ...just pick one.
-    ["format", listValuesExpression(["var", "localizedName"], "\n")],
-    // If the name in the preferred language is the same as the name in the
-    // local language except for the omission of diacritics and/or the addition
-    // of a suffix (e.g., "City" in English)...
-    startsWithExpression(
-      ["var", "localizedName"],
-      ["get", "name"],
-      ["var", "diacriticInsensitiveCollator"]
-    ),
-    // ...then replace the common prefix with the local name.
-    [
-      "format",
-      overwritePrefixExpression(
+      "case",
+      // If the name in the preferred and local languages match exactly...
+      [
+        "==",
         ["var", "localizedName"],
-        listValuesExpression(["get", "name"], "\n")
-      ),
-    ],
-    // If the name in the preferred language is the same as the name in the
-    // local language except for the omission of diacritics and/or the addition
-    // of a prefix (e.g., "City of" in English or "Ciudad de" in Spanish)...
-    endsWithExpression(
-      ["var", "localizedName"],
-      ["get", "name"],
-      ["var", "diacriticInsensitiveCollator"]
-    ),
-    // ...then replace the common suffix with the local name.
-    [
-      "format",
-      overwriteSuffixExpression(
-        ["var", "localizedName"],
-        listValuesExpression(["get", "name"], "\n")
-      ),
-    ],
-    // Otherwise, gloss the name in the local language if it differs from the
-    // localized name.
-    [
-      "format",
-      listValuesExpression(["var", "localizedName"], "\n"),
-      "\n",
-      "(\u200B",
-      { "font-scale": 0.8 },
-      // GL JS lacks support for bidirectional isolating characters, so use a
-      // character from the localized name to insulate the parentheses from the
-      // embedded text's writing direction. Make it so small that GL JS doesn't
-      // bother rendering it.
-      ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
-      { "font-scale": 0.001 },
-      listValuesExpression(["get", "name"], inlineSeparator, [
-        "var",
-        "localizedName",
-      ]),
-      { "font-scale": 0.8 },
-      ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
-      { "font-scale": 0.001 },
-      // A ZWSP prevents GL JS from combining this component with the preceding
-      // one, which would cause it to vanish along with the faux isolating
-      // character.
-      "\u200B)",
-      { "font-scale": 0.8 },
+        ["get", "name"],
+        ["var", "localizedCollator"],
+      ],
+      // ...just pick one.
+      ["format", ["var", "localizedNameList"]],
+      [
+        "let",
+        "nameList",
+        listValuesExpression(["get", "name"], "\n"),
+        [
+          "case",
+          // If the name in the preferred language is the same as the name in the
+          // local language except for the omission of diacritics and/or the addition
+          // of a suffix (e.g., "City" in English)...
+          startsWithExpression(
+            ["var", "localizedName"],
+            ["get", "name"],
+            ["var", "diacriticInsensitiveCollator"]
+          ),
+          // ...then replace the common prefix with the local name.
+          [
+            "format",
+            overwritePrefixExpression(
+              ["var", "localizedName"],
+              ["var", "nameList"]
+            ),
+          ],
+          // If the name in the preferred language is the same as the name in the
+          // local language except for the omission of diacritics and/or the addition
+          // of a prefix (e.g., "City of" in English or "Ciudad de" in Spanish)...
+          endsWithExpression(
+            ["var", "localizedName"],
+            ["get", "name"],
+            ["var", "diacriticInsensitiveCollator"]
+          ),
+          // ...then replace the common suffix with the local name.
+          [
+            "format",
+            overwriteSuffixExpression(
+              ["var", "localizedName"],
+              ["var", "nameList"]
+            ),
+          ],
+          // Otherwise, gloss the name in the local language if it differs from the
+          // localized name.
+          [
+            "format",
+            ["var", "localizedNameList"],
+            "\n",
+            "(\u200B",
+            { "font-scale": 0.8 },
+            // GL JS lacks support for bidirectional isolating characters, so use a
+            // character from the localized name to insulate the parentheses from the
+            // embedded text's writing direction. Make it so small that GL JS doesn't
+            // bother rendering it.
+            ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
+            { "font-scale": 0.001 },
+            listValuesExpression(["get", "name"], inlineSeparator, [
+              "var",
+              "localizedName",
+            ]),
+            { "font-scale": 0.8 },
+            ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
+            { "font-scale": 0.001 },
+            // A ZWSP prevents GL JS from combining this component with the preceding
+            // one, which would cause it to vanish along with the faux isolating
+            // character.
+            "\u200B)",
+            { "font-scale": 0.8 },
+          ],
+        ],
+      ],
     ],
   ],
 ];
