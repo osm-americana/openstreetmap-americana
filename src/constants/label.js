@@ -437,7 +437,7 @@ export const localizedNameWithLocalGloss = [
     // localized name.
     [
       "format",
-      ["var", "localizedName"],
+      listValuesExpression(["var", "localizedName"], "\n"),
       "\n",
       "(\u200B",
       { "font-scale": 0.8 },
