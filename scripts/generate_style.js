@@ -8,4 +8,4 @@ let style = Style.build(
   ["mul"]
 );
 
-console.log(JSON.stringify(style));
+console.log("%j", style);
