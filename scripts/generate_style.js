@@ -1,5 +1,3 @@
-"use strict";
-
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
 

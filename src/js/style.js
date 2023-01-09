@@ -1,5 +1,3 @@
-"use strict";
-
 import * as Layers from "../layer/index.js";
 
 // Generate style.json
