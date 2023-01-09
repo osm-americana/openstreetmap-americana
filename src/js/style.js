@@ -5,7 +5,6 @@ import * as Layers from "../layer/index.js";
 // Generate style.json
 export function build(tileURL, spriteURL, locales) {
   return {
-    id: "streets",
     name: "Americana",
     glyphs:
       "https://openhistoricalmap.github.io/map-styles/fonts/{fontstack}/{range}.pbf",
