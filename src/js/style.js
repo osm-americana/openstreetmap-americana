@@ -2,7 +2,7 @@
 
 import * as Layers from "../layer/index.js";
 
-//Generate style.json
+// Generate style.json
 export function build(tileURL, spriteURL, locales) {
   return {
     id: "streets",
