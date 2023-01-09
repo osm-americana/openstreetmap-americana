@@ -1,27 +1,30 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
+import * as fs from "fs";
+import { Command } from "commander";
 
 /**
- * Accepts a list of languages as parameters
- *
- * For example:
- * generate_style.js en de
- *
- * ...will generate a style in English with German fallback
- *
  * Requires mapbox-gl-rtl-text:
  * https://github.com/mapbox/mapbox-gl-rtl-text/
  */
 
-let languages = process.argv.slice(2);
-if (languages.length == 0) {
-  languages = ["mul"];
-}
+const program = new Command();
+program
+  .option("-l, --locales <locale1 locale2...>", "language codes", ["mul"])
+  .option("-o, --outfile <file>", "output file", "-");
+program.parse(process.argv);
+
+let opts = program.opts();
+//console.log("%o", program.opts());
 
 let style = Style.build(
   config.OPENMAPTILES_URL,
   "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
-  languages
+  opts.locales
 );
 
-console.log("%j", style);
+if (opts.outfile == "-") {
+  console.log("%j", style);
+} else {
+  fs.writeFileSync(opts.outfile, JSON.stringify(style));
+}
