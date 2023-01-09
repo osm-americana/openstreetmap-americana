@@ -15,7 +15,6 @@ program
 program.parse(process.argv);
 
 let opts = program.opts();
-//console.log("%o", program.opts());
 
 let style = Style.build(
   config.OPENMAPTILES_URL,
