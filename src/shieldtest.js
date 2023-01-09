@@ -105,6 +105,7 @@ let networks = [
   "CA:PE",
   "US:FL:Toll",
   "CA:BC",
+  "IN:NH",
   "US:US",
   "US:US:Historic",
   "CL:national",
