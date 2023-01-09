@@ -302,6 +302,16 @@ describe("label", function () {
       expect(evaluated.sections.length).to.be.eql(1);
       expect(evaluated.sections[0].text).to.be.eql("Null Island");
     });
+    it("spreads multiple unlocalized names across multiple lines", function () {
+      let evaluated = evaluatedExpression(["en"], {
+        name: "Null Island;Insula Nullius",
+      });
+
+      expect(evaluated.sections.length).to.be.eql(1);
+      expect(evaluated.sections[0].text).to.be.eql(
+        "Null Island\nInsula Nullius"
+      );
+    });
     it("glosses an anglicized name with the local name", function () {
       let evaluated = evaluatedExpression(["en"], {
         "name:en": "Null Island",
@@ -361,6 +371,45 @@ describe("label", function () {
       expectGloss("es", "Quebec", "Québec", "Quebec", "Québec");
       expectGloss("pl", "Ryga", "Rīga", "Ryga", "Rīga");
       expectGloss("pl", "Jurmała", "Jūrmala", "Jurmała", "Jūrmala");
+    });
+    it("glosses multiple local names", function () {
+      expectGloss(
+        "en",
+        "Null Island",
+        "Terra Nullius;空虛島",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+    });
+    it("deduplicates anglicized name and one of the local names", function () {
+      expectGloss(
+        "en",
+        "Null Island",
+        "Null Island;Terra Nullius;空虛島",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+      expectGloss(
+        "en",
+        "Null Island",
+        "Terra Nullius;Null Island;空虛島",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+      expectGloss(
+        "en",
+        "Null Island",
+        "Terra Nullius;空虛島;Null Island",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+      expectGloss(
+        "en",
+        "Null Island",
+        "Null Island;Null Island;Null Island",
+        "Null Island",
+        ""
+      );
     });
   });
 

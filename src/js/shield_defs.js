@@ -3396,6 +3396,22 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
 
+  // India
+  shields["IN:NH"] = {
+    backgroundImage: [
+      shieldImages.shield_in_nh_2,
+      shieldImages.shield_in_nh_3,
+      shieldImages.shield_in_nh_4,
+    ],
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 3,
+      bottom: 7,
+    },
+  };
+
   // Indonesia
   shields["ID:national"] = {
     backgroundImage: [shieldImages.shield_id_national],
