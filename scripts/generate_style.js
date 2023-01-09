@@ -10,6 +10,9 @@ import config from "../src/config.js";
  * generate_style.js en de
  *
  * ...will generate a style in English with German fallback
+ *
+ * Requires mapbox-gl-rtl-text:
+ * https://github.com/mapbox/mapbox-gl-rtl-text/
  */
 
 let languages = process.argv.slice(2);
