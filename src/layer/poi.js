@@ -81,19 +81,19 @@ export const poi = {
 
 export const legendEntries = [
   {
-    description: "Bar or pub",
-    layers: [poi.id],
-    filter: ["in", ["get", "subclass"], ["literal", iconDefs.bar]],
-  },
-  {
     description: "Hospital",
     layers: [poi.id],
     filter: ["==", ["get", "subclass"], iconDefs.hospital],
   },
   {
-    description: "Medical facility",
+    description: "Doctor's office or clinic",
     layers: [poi.id],
     filter: ["in", ["get", "subclass"], ["literal", iconDefs.medical]],
+  },
+  {
+    description: "Bar or pub",
+    layers: [poi.id],
+    filter: ["in", ["get", "subclass"], ["literal", iconDefs.bar]],
   },
   {
     description: "Parking",
