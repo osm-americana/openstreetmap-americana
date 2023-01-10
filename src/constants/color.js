@@ -25,12 +25,14 @@ export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
 export const airportLabel = "hsl(250, 71%, 29%)";
 
+//TODO - rename this variable to "palette"
 export const shields = {
   black: "black",
   blue: "#003f87", // Pantone 294
   brown: "#693f23", // Pantone 469
   green: "#006747", // Pantone 342
   orange: "#f38f00", // Pantone 152
+  strong_orange: "#d45d00", // Pantone 717 C
   pink: "#df4661", // Pantone 198
   purple: "#6d2077", // Pantone 259
   red: "#bf2033", // Pantone 187
@@ -48,3 +50,19 @@ export const lightRailFill = "hsl(0, 0%, 50%)";
 export const tramFill = "hsl(0, 0%, 60%)";
 export const monorailFill = "hsl(0, 0%, 50%)";
 export const funicularFill = "hsl(0, 0%, 50%)";
+
+export const hue = {
+  tollRoad: 48,
+  park: 136,
+  water: 211,
+  transport: 273,
+  borderCasing: 281,
+};
+
+export const poi = {
+  infrastructure: shields.blue,
+  consumer: shields.strong_orange,
+  //outdoor:
+  //attraction:
+  transportation: `hsl(${hue.transport}, 100%, 28%)`,
+};

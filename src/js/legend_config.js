@@ -6,6 +6,7 @@ import * as BoundaryLayers from "../layer/boundary.js";
 import * as RoadLayers from "../layer/road.js";
 import * as ConstructionLayers from "../layer/construction.js";
 import * as HighwayExitLayers from "../layer/highway_exit.js";
+import * as POILayers from "../layer/poi.js";
 import * as RailLayers from "../layer/rail.js";
 import * as AerowayLayers from "../layer/aeroway.js";
 import * as ParkLayers from "../layer/park.js";
@@ -34,6 +35,10 @@ export const sections = [
     id: "shields",
     name: "Route markers",
     source: "Wikidata",
+  },
+  {
+    name: "Points of interest",
+    entries: POILayers.legendEntries,
   },
   {
     name: "Railroads",

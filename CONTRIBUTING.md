@@ -266,7 +266,7 @@ Additionally, **`refsByWayName`** is an object mapping way names to text that ca
 
 `refsByWayName` only works if there is no `ref` tag and the expression in the `routeConcurrency` function in layer/highway_shield.js includes the `name` property in the image name. The network needs to be listed as an input value that causes the `match` expression to append `name` to the image name.
 
-When using `overrideByRef` or `refsByWayName`, make sure to add a line to the bottom section of this page explaining why it is necessary, as they are only intended for use in special cases.
+When using `overrideByRef` or `refsByWayName`, make sure to add a line to the Special Cases section of this page explaining why it is necessary, as they are only intended for use in special cases.
 
 ### Banners
 
@@ -303,6 +303,37 @@ This style strives to draw representative highway shields wherever they are tagg
   - **Italy "Diramazione" (branch) motorways**. Between their main autostrade "A" roads, the Italian motorway network has branch motorways which carry the name of both highways that they connect. For example, the A7 and A26 motorways have a branch motorway named A7/A26, which is correctly tagged `ref=A7/A26` and shown on shields with the two numbers stacked vertically.
   - **West Virginia County Routes**. The West Virginia Department of Transportation posts County Routes, which can have shields with two stacked numbers. For example, in Mercer County, County Route 460/1 is a branch off U.S. Route 460, and County Route 27/6 is a branch off County Route 27. These routes are correctly tagged `ref=460/1` and `ref=27/6` respectively, and shown on shields with the two numbers stacked vertically.
 - The [highway classification system of the United Kingdom](https://wiki.openstreetmap.org/wiki/Roads_in_the_United_Kingdom). In the UK, mappers need to and are able to tag the actual official road classifications independently of route networks. The color and style of route signage is based on a strict 1:1 correspondence with the `highway=*` value of the underlying road, and **not** based on M/A/B highway network type. While "M" roads are always motorways with blue route symbology, "A" roads can anything from primary through motorway, and thus may take one of three colors and may change along a single route. Even if mappers were to create route relations containing all roads with the same route number, these relations would not be usable for determining how to render route symbology. Additionally, there are no route concurrencies in the UK; all roads that are `highway=secondary` or higher carry a single `ref` value that can be directly rendered into a shield without pre-processing. There is established data consumers support for this highway classification-based symbology system, most notably OpenMapTiles, which has provided pseudo-network values for UK routes since the project's inception. Therefore, this project consumes the UK pseudo-network scheme established by OpenMapTiles and colors UK route network symbology strictly based on `highway=<motorway/trunk/primary/secondary>` consistent with UK signage.
+
+## Points of Interest
+
+A "point of interest" or POI is any feature on the map represented by an icon on the map.
+
+### Categories
+
+POIs are broken down into the following broad categories, in order to constrain the number of colors shown on the map. Some features may not cleanly fit into one category or another. Contributors should consider other POIs in the category to determine which category is the best fit.
+
+- **Geographic Place Names**: labels associated with `place=` tags, for countries, cities, locations, etc.
+- **Infrastructure**: features associated with public infrastructure, health, safety, or government.
+- **Consumer**: businesses that provide services to the public, such as shops and restaurants.
+- **Outdoor**: parks, nature reserves, and other outdoorsy features.
+- **Attraction**: places where people go for entertainment, leisure, or curiosity.
+- **Transportation**: places where people can access forms of transportation, such as airports, train stations, bus stops, and other public transit.
+
+### Color Scheme
+
+For consistency, POI icons should use the following color palette:
+
+| Category               | Pantone         | Color                                                                       | RGB         | Hex triplet |
+| ---------------------- | --------------- | --------------------------------------------------------------------------- | ----------- | ----------- |
+| Geographic Place Names | N/A             | <img src="doc-img/black.svg" height=18 width=50 /> Black                    | 0 0 0       | #000000     |
+| Infrastructure         | 294             | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue               | 0 63 135    | #003f87     |
+| Consumer               | 717 C           | <img src="doc-img/pantone_717C.svg" height=18 width=50 /> Orange            | 186 82 5    | #d65c05     |
+| Outdoor                |                 | TBD (green?)                                                                |             |             |
+| Attraction             |                 | TBD (brown?)                                                                |             |             |
+| Transportation         | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
+| Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
+
+POIs without a background fill should have a 2px stroke using the "knockout" color above.
 
 ### Shield Test Gallery
 
