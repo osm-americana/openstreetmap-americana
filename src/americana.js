@@ -3,11 +3,10 @@
 import config from "./config.js";
 
 import * as Label from "./constants/label.js";
+import * as Style from "./js/style.js";
 
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
-
-import * as Layers from "./layer/index.js";
 
 import * as languageLabel from "./js/language_label.js";
 
@@ -23,27 +22,11 @@ import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTi
 export function buildStyle() {
   var getUrl = window.location;
   var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
-
-  return {
-    id: "streets",
-    name: "Americana",
-    glyphs:
-      "https://openhistoricalmap.github.io/map-styles/fonts/{fontstack}/{range}.pbf",
-    layers: Layers.build(Label.getLocales()),
-    sources: {
-      openmaptiles: {
-        url: config.OPENMAPTILES_URL,
-        type: "vector",
-      },
-    },
-    sprite: new URL("sprites/sprite", baseUrl).href,
-    light: {
-      anchor: "viewport",
-      color: "white",
-      intensity: 0.12,
-    },
-    version: 8,
-  };
+  return Style.build(
+    config.OPENMAPTILES_URL,
+    new URL("sprites/sprite", baseUrl).href,
+    Label.getLocales()
+  );
 }
 
 function upgradeLegacyHash() {

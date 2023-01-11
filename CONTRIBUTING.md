@@ -266,7 +266,7 @@ Additionally, **`refsByWayName`** is an object mapping way names to text that ca
 
 `refsByWayName` only works if there is no `ref` tag and the expression in the `routeConcurrency` function in layer/highway_shield.js includes the `name` property in the image name. The network needs to be listed as an input value that causes the `match` expression to append `name` to the image name.
 
-When using `overrideByRef` or `refsByWayName`, make sure to add a line to the bottom section of this page explaining why it is necessary, as they are only intended for use in special cases.
+When using `overrideByRef` or `refsByWayName`, make sure to add a line to the Special Cases section of this page explaining why it is necessary, as they are only intended for use in special cases.
 
 ### Banners
 
@@ -321,3 +321,34 @@ To test with a list of all the supported networks in the style this line can be 
 https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
 
 This results in a very long page and can be quite slow or even crash the browser tab.
+
+## Points of Interest
+
+A "point of interest" or POI is any feature on the map represented by an icon on the map.
+
+### Categories
+
+POIs are broken down into the following broad categories, in order to constrain the number of colors shown on the map. Some features may not cleanly fit into one category or another. Contributors should consider other POIs in the category to determine which category is the best fit.
+
+- **Geographic Place Names**: labels associated with `place=` tags, for countries, cities, locations, etc.
+- **Infrastructure**: features associated with public infrastructure, health, safety, or government.
+- **Consumer**: businesses that provide services to the public, such as shops and restaurants.
+- **Outdoor**: parks, nature reserves, and other outdoorsy features.
+- **Attraction**: places where people go for entertainment, leisure, or curiosity.
+- **Transportation**: places where people can access forms of transportation, such as airports, train stations, bus stops, and other public transit.
+
+### Color Scheme
+
+For consistency, POI icons should use the following color palette:
+
+| Category               | Scheme          | Color                                                                       | RGB         | Hex triplet |
+| ---------------------- | --------------- | --------------------------------------------------------------------------- | ----------- | ----------- |
+| Geographic Place Names | N/A             | <img src="doc-img/black.svg" height=18 width=50 /> Black                    | 0 0 0       | #000000     |
+| Infrastructure         | Pantone 294     | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue               | 0 63 135    | #003f87     |
+| Consumer               | UTexas Orange   | <img src="doc-img/texas_orange.svg" height=18 width=50 /> Orange            | 191 87 0    | #bf5700     |
+| Outdoor                |                 | TBD (green?)                                                                |             |             |
+| Attraction             |                 | TBD (brown?)                                                                |             |             |
+| Transportation         | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
+| Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
+
+POIs without a background fill should have a 2px stroke using the "knockout" color above.

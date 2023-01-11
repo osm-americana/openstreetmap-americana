@@ -8,6 +8,7 @@ import * as ConstructionLayers from "../layer/construction.js";
 import * as HighwayExitLayers from "../layer/highway_exit.js";
 import * as RailLayers from "../layer/rail.js";
 import * as AerowayLayers from "../layer/aeroway.js";
+import * as POILayers from "../layer/poi.js";
 import * as ParkLayers from "../layer/park.js";
 import * as BuildingLayers from "../layer/building.js";
 import * as WaterLayers from "../layer/water.js";
@@ -42,6 +43,10 @@ export const sections = [
   {
     name: "Aviation",
     entries: AerowayLayers.legendEntries,
+  },
+  {
+    name: "Points of interest",
+    entries: POILayers.legendEntries,
   },
   {
     name: "Structures",

@@ -129,7 +129,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "aerodrome:type",
@@ -144,7 +144,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "military",
@@ -152,7 +152,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "aeroway",
