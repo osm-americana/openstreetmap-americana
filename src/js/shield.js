@@ -1,5 +1,7 @@
 "use strict";
 
+import config from "../config.js";
+
 import * as ShieldDef from "./shield_defs.js";
 import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
@@ -60,11 +62,15 @@ function compoundShieldSize(dimension, bannerCount) {
   };
 }
 
-function isValidRef(ref) {
-  if (ref == null || ref.length == 0 || ref.length > 6) {
-    return false;
-  }
-  return true;
+export function isValidNetwork(network) {
+  // On recreational route relations, network=* indicates the network's scope,
+  // not the network itself.
+  // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
+  return !/^[lrni][chimpw]n$/.test(network);
+}
+
+export function isValidRef(ref) {
+  return ref !== null && ref.length !== 0 && ref.length <= 6;
 }
 
 /**
@@ -83,7 +89,7 @@ function getRasterShieldBlank(shieldDef, routeDef) {
 
   //Special case where there's a defined fallback shield when no ref is tagged
   //Example: PA Turnpike
-  if (!isValidRef(routeDef.ref)) {
+  if (!isValidRef(routeDef.ref) && "norefImage" in shieldDef) {
     return shieldDef.norefImage;
   }
 
@@ -212,7 +218,10 @@ function drawShieldText(ctx, shieldDef, routeDef) {
   textLayout.yBaseline +=
     bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
-  if (shieldDef.textHaloColor) {
+  if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
+    ctx.strokeStyle = config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
+    ShieldText.drawShieldHaloText(ctx, routeDef.ref, textLayout);
+  } else if (shieldDef.textHaloColor) {
     ctx.strokeStyle = shieldDef.textHaloColor;
     ShieldText.drawShieldHaloText(ctx, routeDef.ref, textLayout);
   }
@@ -262,7 +271,9 @@ function getShieldDef(routeDef) {
   if (shieldDef == null) {
     // Default to plain black text with halo and no background shield
     console.debug("Generic shield for", JSON.stringify(routeDef));
-    return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
+    return isValidNetwork(routeDef.network) && isValidRef(routeDef.ref)
+      ? ShieldDef.shields.default
+      : null;
   }
 
   if (shieldDef.overrideByRef) {
@@ -303,7 +314,7 @@ function getRouteDef(id) {
   };
 }
 
-function generateShieldCtx(id) {
+export function generateShieldCtx(id) {
   var routeDef = getRouteDef(id);
   var shieldDef = getShieldDef(routeDef);
 

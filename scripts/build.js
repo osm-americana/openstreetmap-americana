@@ -18,7 +18,7 @@ export async function build(updateHook, buildOptions = {}) {
   await mkdir("dist", { recursive: true });
   return await Promise.all([
     esbuild.build({
-      entryPoints: ["src/americana.js"],
+      entryPoints: ["src/americana.js", "src/shieldtest.js"],
       format: "esm",
       bundle: true,
       minify: true,
@@ -29,6 +29,7 @@ export async function build(updateHook, buildOptions = {}) {
       ...buildOptions,
     }),
     copyFile("src/index.html", "dist/index.html"),
+    copyFile("src/shieldtest.html", "dist/shieldtest.html"),
   ]);
 }
 

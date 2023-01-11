@@ -19,8 +19,15 @@ const ATTRIBUTION_LOGO = `
 const ATTRIBUTION_TEXT =
   '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>';
 
+/*
+Uncomment this variable to override the shield text halo color. Useful while testing shield design changes.
+Accepts an HTML color name, hex code, or other CSS color value.
+*/
+const SHIELD_TEXT_HALO_COLOR_OVERRIDE = null;
+
 export default {
   OPENMAPTILES_URL,
   ATTRIBUTION_LOGO,
   ATTRIBUTION_TEXT,
+  SHIELD_TEXT_HALO_COLOR_OVERRIDE,
 };
