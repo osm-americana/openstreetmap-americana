@@ -3,6 +3,7 @@ import * as Color from "../constants/color.js";
 
 var iconDefs = {
   bar: ["bar", "beer", "pub"],
+  coffee: ["cafe"],
   hospital: "hospital",
   medical: ["doctors", "clinic"],
   parking: "parking",
@@ -20,7 +21,7 @@ export const poi = {
     "text-color": [
       "match",
       ["get", "subclass"],
-      [...iconDefs.bar],
+      [...iconDefs.bar, ...iconDefs.coffee],
       Color.poi.consumer,
       ["hospital", "parking"],
       Color.poi.infrastructure,
@@ -35,7 +36,7 @@ export const poi = {
       ["get", "subclass"],
       "hospital",
       15,
-      [...iconDefs.bar],
+      [...iconDefs.bar, ...iconDefs.coffee],
       16,
       ["clinic", "doctors", "parking"],
       17,
@@ -57,6 +58,8 @@ export const poi = {
       ["get", "subclass"],
       iconDefs.bar,
       "poi_martini_glass",
+      iconDefs.coffee,
+      "poi_coffee_cup",
       iconDefs.medical,
       "poi_health_cross",
       iconDefs.hospital,
@@ -89,6 +92,11 @@ export const legendEntries = [
     description: "Doctor's office or clinic",
     layers: [poi.id],
     filter: ["in", ["get", "subclass"], ["literal", iconDefs.medical]],
+  },
+  {
+    description: "Coffee shop",
+    layers: [poi.id],
+    filter: ["in", ["get", "subclass"], ["literal", iconDefs.coffee]],
   },
   {
     description: "Bar or pub",
