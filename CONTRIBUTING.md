@@ -304,6 +304,24 @@ This style strives to draw representative highway shields wherever they are tagg
   - **West Virginia County Routes**. The West Virginia Department of Transportation posts County Routes, which can have shields with two stacked numbers. For example, in Mercer County, County Route 460/1 is a branch off U.S. Route 460, and County Route 27/6 is a branch off County Route 27. These routes are correctly tagged `ref=460/1` and `ref=27/6` respectively, and shown on shields with the two numbers stacked vertically.
 - The [highway classification system of the United Kingdom](https://wiki.openstreetmap.org/wiki/Roads_in_the_United_Kingdom). In the UK, mappers need to and are able to tag the actual official road classifications independently of route networks. The color and style of route signage is based on a strict 1:1 correspondence with the `highway=*` value of the underlying road, and **not** based on M/A/B highway network type. While "M" roads are always motorways with blue route symbology, "A" roads can anything from primary through motorway, and thus may take one of three colors and may change along a single route. Even if mappers were to create route relations containing all roads with the same route number, these relations would not be usable for determining how to render route symbology. Additionally, there are no route concurrencies in the UK; all roads that are `highway=secondary` or higher carry a single `ref` value that can be directly rendered into a shield without pre-processing. There is established data consumers support for this highway classification-based symbology system, most notably OpenMapTiles, which has provided pseudo-network values for UK routes since the project's inception. Therefore, this project consumes the UK pseudo-network scheme established by OpenMapTiles and colors UK route network symbology strictly based on `highway=<motorway/trunk/primary/secondary>` consistent with UK signage.
 
+### Shield Test Gallery
+
+For testing out changes across a variety of different shield designs and ref lengths there is a shield test gallery available:
+
+- In local development: http://localhost:1776/shieldtest.html
+- On the public demo site: https://zelonewolf.github.io/openstreetmap-americana/shieldtest.html
+
+This aims to display a table of all the unique shield designs in the style with some example refs from 1 to 6 characters. The `networks` and `refs` arrays can be modified for testing with a different set of either:
+
+https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L16-L31
+https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L203-L218
+
+To test with a list of all the supported networks in the style this line can be uncommented:
+
+https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
+
+This results in a very long page and can be quite slow or even crash the browser tab.
+
 ## Points of Interest
 
 A "point of interest" or POI is any feature on the map represented by an icon on the map.
@@ -323,32 +341,14 @@ POIs are broken down into the following broad categories, in order to constrain 
 
 For consistency, POI icons should use the following color palette:
 
-| Category               | Pantone         | Color                                                                       | RGB         | Hex triplet |
+| Category               | Scheme          | Color                                                                       | RGB         | Hex triplet |
 | ---------------------- | --------------- | --------------------------------------------------------------------------- | ----------- | ----------- |
 | Geographic Place Names | N/A             | <img src="doc-img/black.svg" height=18 width=50 /> Black                    | 0 0 0       | #000000     |
-| Infrastructure         | 294             | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue               | 0 63 135    | #003f87     |
-| Consumer               | 717 C           | <img src="doc-img/pantone_717C.svg" height=18 width=50 /> Orange            | 186 82 5    | #d65c05     |
+| Infrastructure         | Pantone 294     | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue               | 0 63 135    | #003f87     |
+| Consumer               | UTexas Orange   | <img src="doc-img/texas_orange.svg" height=18 width=50 /> Orange            | 191 87 0    | #bf5700     |
 | Outdoor                |                 | TBD (green?)                                                                |             |             |
 | Attraction             |                 | TBD (brown?)                                                                |             |             |
 | Transportation         | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
 | Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
 
 POIs without a background fill should have a 2px stroke using the "knockout" color above.
-
-### Shield Test Gallery
-
-For testing out changes across a variety of different shield designs and ref lengths there is a shield test gallery available:
-
-- In local development: http://localhost:1776/shieldtest.html
-- On the public demo site: https://zelonewolf.github.io/openstreetmap-americana/shieldtest.html
-
-This aims to display a table of all the unique shield designs in the style with some example refs from 1 to 6 characters. The `networks` and `refs` arrays can be modified for testing with a different set of either:
-
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L16-L31
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L203-L218
-
-To test with a list of all the supported networks in the style this line can be uncommented:
-
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
-
-This results in a very long page and can be quite slow or even crash the browser tab.

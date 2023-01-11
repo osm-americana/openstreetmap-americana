@@ -2,7 +2,7 @@ import * as label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {
-  bar: ["bar", "beer"],
+  bar: ["bar", "beer", "pub"],
   hospital: "hospital",
   medical: ["doctors", "clinic"],
   parking: "parking",
@@ -19,8 +19,8 @@ export const poi = {
     "icon-halo-blur": 0.2,
     "text-color": [
       "match",
-      ["get", "class"],
-      ["bar", "beer"],
+      ["get", "subclass"],
+      [...iconDefs.bar],
       Color.poi.consumer,
       ["hospital", "parking"],
       Color.poi.infrastructure,
@@ -35,7 +35,7 @@ export const poi = {
       ["get", "subclass"],
       "hospital",
       15,
-      ["bar", "beer"],
+      [...iconDefs.bar],
       16,
       ["clinic", "doctors", "parking"],
       17,

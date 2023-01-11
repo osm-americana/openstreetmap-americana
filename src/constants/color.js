@@ -32,7 +32,7 @@ export const palette = {
   brown: "#693f23", // Pantone 469
   green: "#006747", // Pantone 342
   orange: "#f38f00", // Pantone 152
-  strong_orange: "#d45d00", // Pantone 717 C
+  texas_orange: "#bf5700", // UTexas Orange
   pink: "#df4661", // Pantone 198
   purple: "#6d2077", // Pantone 259
   red: "#bf2033", // Pantone 187
@@ -75,7 +75,7 @@ export const hue = {
 
 export const poi = {
   infrastructure: palette.blue,
-  consumer: palette.strong_orange,
+  consumer: palette.texas_orange,
   //outdoor:
   //attraction:
   transportation: `hsl(${hue.transport}, 100%, 28%)`,
