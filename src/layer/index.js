@@ -11,6 +11,7 @@ import * as lyrLanduse from "./landuse.js";
 import * as lyrOneway from "./oneway.js";
 import * as lyrPark from "./park.js";
 import * as lyrPlace from "./place.js";
+import * as lyrPoi from "./poi.js";
 import * as lyrRail from "./rail.js";
 import * as lyrRoad from "./road.js";
 import * as lyrTransportationLabel from "./transportation_label.js";
@@ -217,6 +218,8 @@ export function build(locales) {
     lyrHighwayShield.shield,
 
     lyrHighwayExit.exits,
+
+    lyrPoi.poi,
 
     lyrPlace.state,
     lyrPlace.village,
