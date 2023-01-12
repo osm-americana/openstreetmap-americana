@@ -490,7 +490,6 @@ const isNarrowGauge = ["==", ["get", "subclass"], "narrow_gauge"];
 const isSubway = ["==", ["get", "subclass"], "subway"];
 const isLightRail = ["==", ["get", "subclass"], "light_rail"];
 const isTram = ["==", ["get", "subclass"], "tram"];
-const isNotTransparent = [">", opacity, 0];
 
 export const legendEntries = [
   {
@@ -516,12 +515,12 @@ export const legendEntries = [
   {
     description: "Subway line",
     layers: [railwayTunnel.fill().id, railway.fill().id],
-    filter: ["all", isSubway, isNotService, isNotCrossover, isNotTransparent],
+    filter: ["all", isSubway, isNotService, isNotCrossover],
   },
   {
     description: "Subway siding or yard track",
     layers: [railwayTunnel.fill().id, railway.fill().id],
-    filter: ["all", isSubway, isService, isNotTransparent],
+    filter: ["all", isSubway, isService],
   },
   {
     description: "Monorail line",
@@ -534,38 +533,31 @@ export const legendEntries = [
       ["==", ["get", "subclass"], "monorail"],
       isNotService,
       isNotCrossover,
-      isNotTransparent,
     ],
   },
   {
     description: "Light rail line",
     layers: [lightRailTram.dashes().id, railway.fill().id],
-    filter: [
-      "all",
-      isLightRail,
-      isNotService,
-      isNotCrossover,
-      isNotTransparent,
-    ],
+    filter: ["all", isLightRail, isNotService, isNotCrossover],
   },
   {
     description: "Light rail siding or yard track",
     layers: [lightRailTramService.dashes().id, railway.fill().id],
-    filter: ["all", isLightRail, isService, isNotTransparent],
+    filter: ["all", isLightRail, isService],
   },
   {
     description: "Streetcar line",
     layers: [lightRailTram.dashes().id, railway.fill().id],
-    filter: ["all", isTram, isNotService, isNotCrossover, isNotTransparent],
+    filter: ["all", isTram, isNotService, isNotCrossover],
   },
   {
     description: "Streetcar siding or yard track",
     layers: [lightRailTramService.dashes().id, railway.fill().id],
-    filter: ["all", isTram, isService, isNotTransparent],
+    filter: ["all", isTram, isService],
   },
   {
     description: "Funicular or inclined elevator",
     layers: [funicular.dashes().id, railway.fill().id],
-    filter: ["all", ["==", ["get", "subclass"], "funicular"], isNotTransparent],
+    filter: ["==", ["get", "subclass"], "funicular"],
   },
 ];
