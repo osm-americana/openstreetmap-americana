@@ -1196,6 +1196,7 @@ export const secondaryLinkTollBridge = new SecondaryLinkTollBridge();
 export const tertiaryLinkBridge = new TertiaryLinkBridge();
 export const tertiaryLinkTollBridge = new TertiaryLinkTollBridge();
 
+const isNotTransparent = [">", opacity, 0];
 const normalRoadLayers = [
   motorway.fill().id,
   motorway.casing().id,
@@ -1211,7 +1212,7 @@ export const legendEntries = [
   {
     description: "Freeway (controlled access, divided)",
     layers: [motorway.fill().id, motorway.casing().id],
-    filter: ["all", isNotToll, [">", opacity, 0]],
+    filter: ["all", isNotToll, isNotTransparent],
   },
   {
     description: "Expressway (limited access, divided)",
@@ -1257,6 +1258,7 @@ export const legendEntries = [
       "all",
       ["==", getClass, "service"],
       [...smallServiceSelector, true, false],
+      isNotTransparent,
     ],
   },
   {
@@ -1284,6 +1286,6 @@ export const legendEntries = [
       minor.fill().id,
       roadSimpleCasing.casing().id,
     ],
-    filter: isUnpaved,
+    filter: ["all", isUnpaved, isNotTransparent],
   },
 ];
