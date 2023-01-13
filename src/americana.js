@@ -62,8 +62,8 @@ map.on("styledata", function (event) {
 function getOptionsFromURL() {
   const params = new URLSearchParams(window.location.hash);
   return {
-    shield: params.get('shield')
-  }
+    shield: params.get("shield"),
+  };
 }
 
 var options = getOptionsFromURL();

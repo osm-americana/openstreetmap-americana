@@ -266,10 +266,10 @@ var keys = null;
 // Choose a random network
 // Yes, this is an Easter egg
 var randomNetwork = function () {
-  if(keys == null) {
+  if (keys == null) {
     keys = Object.keys(ShieldDef.shields);
   }
-  return ShieldDef.shields[keys[ keys.length * Math.random() << 0]];
+  return ShieldDef.shields[keys[(keys.length * Math.random()) << 0]];
 };
 
 function getShieldDef(routeDef) {
@@ -329,7 +329,7 @@ export function generateShieldCtx(id, shieldOpt) {
   var routeDef = getRouteDef(id);
 
   var shieldDef;
-  if(shieldOpt == 'random'){
+  if (shieldOpt == "random") {
     //Choose a network at random, in order to get a silly map
     shieldDef = randomNetwork();
   } else {
