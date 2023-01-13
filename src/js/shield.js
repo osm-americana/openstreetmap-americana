@@ -232,16 +232,16 @@ function drawShieldText(ctx, shieldDef, routeDef) {
   return ctx;
 }
 
-export function missingIconHandler(map, e) {
+export function missingIconHandler(map, e, options) {
   try {
-    missingIconLoader(map, e);
+    missingIconLoader(map, e, options);
   } catch (err) {
     console.error(`Exception while loading image ‘${e?.id}’:\n`, err);
   }
 }
 
-export function missingIconLoader(map, e) {
-  let ctx = generateShieldCtx(e.id);
+export function missingIconLoader(map, e, options) {
+  let ctx = generateShieldCtx(e.id, options.shield);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
     console.warn("Didn't produce a shield for", JSON.stringify(e.id));
@@ -260,6 +260,17 @@ export function missingIconLoader(map, e) {
     }
   );
 }
+
+var keys = null;
+
+// Choose a random network
+// Yes, this is an Easter egg
+var randomNetwork = function () {
+  if(keys == null) {
+    keys = Object.keys(ShieldDef.shields);
+  }
+  return ShieldDef.shields[keys[ keys.length * Math.random() << 0]];
+};
 
 function getShieldDef(routeDef) {
   if (routeDef == null) {
@@ -314,9 +325,16 @@ function getRouteDef(id) {
   };
 }
 
-export function generateShieldCtx(id) {
+export function generateShieldCtx(id, shieldOpt) {
   var routeDef = getRouteDef(id);
-  var shieldDef = getShieldDef(routeDef);
+
+  var shieldDef;
+  if(shieldOpt == 'random'){
+    //Choose a network at random, in order to get a silly map
+    shieldDef = randomNetwork();
+  } else {
+    shieldDef = getShieldDef(routeDef);
+  }
 
   if (shieldDef == null) {
     return null;

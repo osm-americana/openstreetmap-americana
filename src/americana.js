@@ -59,8 +59,17 @@ map.on("styledata", function (event) {
   ShieldDef.loadShields(map.style.imageManager.images);
 });
 
+function getOptionsFromURL() {
+  const params = new URLSearchParams(window.location.hash);
+  return {
+    shield: params.get('shield')
+  }
+}
+
+var options = getOptionsFromURL();
+
 map.on("styleimagemissing", function (e) {
-  Shield.missingIconHandler(map, e);
+  Shield.missingIconHandler(map, e, options);
 });
 
 function hotReloadMap() {
