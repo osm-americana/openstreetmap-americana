@@ -440,10 +440,10 @@ export function pentagon(
   let halfComplementAngle2 = (Math.PI / 2 - angle) / 2;
   let halfComplementTangent2 = Math.tan(halfComplementAngle2);
 
-  let x1 = x0 + angleSign * drawRadius1 * halfComplementTangent1 * sine;
+  let x1 = x0 + drawRadius1 * halfComplementTangent1 * sine;
   let x3 = x2 + drawRadius2 * halfComplementTangent2;
   let x5 = x6 - drawRadius2 * halfComplementTangent2;
-  let x7 = x8 - angleSign * drawRadius1 * halfComplementTangent1 * sine;
+  let x7 = x8 - drawRadius1 * halfComplementTangent1 * sine;
   let y1 = y2 - angleSign * drawRadius1 * halfComplementTangent1 * cosine;
 
   ctx.beginPath();
