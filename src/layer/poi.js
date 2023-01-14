@@ -7,6 +7,7 @@ var iconDefs = {
   hospital: "hospital",
   medical: ["doctors", "clinic"],
   parking: "parking",
+  school: "school",
 };
 
 export const poi = {
@@ -23,7 +24,7 @@ export const poi = {
       ["get", "subclass"],
       [...iconDefs.bar, ...iconDefs.coffee],
       Color.poi.consumer,
-      ["hospital", "parking"],
+      ["hospital", "parking", "school"],
       Color.poi.infrastructure,
       Color.poi.infrastructure,
     ],
@@ -34,7 +35,7 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      "hospital",
+      ["hospital", "school"],
       15,
       [...iconDefs.bar, ...iconDefs.coffee],
       16,
@@ -66,6 +67,8 @@ export const poi = {
       "poi_hospital",
       iconDefs.parking,
       "poi_p",
+      iconDefs.school,
+      "poi_school",
       "poi_square_dot", //icon for generic POI, not currently used
     ],
     "icon-size": 1.0,
@@ -107,5 +110,10 @@ export const legendEntries = [
     description: "Parking",
     layers: [poi.id],
     filter: ["==", ["get", "subclass"], iconDefs.parking],
+  },
+  {
+    description: "School",
+    layers: [poi.id],
+    filter: ["==", ["get", "subclass"], iconDefs.school],
   },
 ];
