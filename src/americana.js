@@ -4,7 +4,7 @@ import config from "./config.js";
 
 import * as Label from "./constants/label.js";
 import * as Style from "./js/style.js";
-import * as MouseHandler from "./js/click_actions.js";
+import * as ClickActions from "./js/click_actions.js";
 
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
@@ -125,3 +125,4 @@ map.addControl(sampleControl, "bottom-left");
 map.getCanvas().focus();
 
 updateLanguageLabel();
+ClickActions.attachRightClickMenu();
