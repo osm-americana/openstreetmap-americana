@@ -35,7 +35,7 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      ["hospital", "school"],
+      ["hospital", ...iconDefs.school],
       15,
       [...iconDefs.bar, ...iconDefs.coffee],
       16,
