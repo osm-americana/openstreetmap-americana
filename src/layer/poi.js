@@ -7,7 +7,7 @@ var iconDefs = {
   hospital: "hospital",
   medical: ["doctors", "clinic"],
   parking: "parking",
-  school: "school",
+  school: ["kindergarten", "school", "college", "university"],
 };
 
 export const poi = {
