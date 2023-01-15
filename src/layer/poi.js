@@ -114,6 +114,6 @@ export const legendEntries = [
   {
     description: "School",
     layers: [poi.id],
-    filter: ["==", ["get", "subclass"], iconDefs.school],
+    filter: ["in", ["get", "subclass"], ["literal", iconDefs.school]],
   },
 ];
