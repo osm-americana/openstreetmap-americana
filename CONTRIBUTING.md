@@ -351,4 +351,4 @@ For consistency, POI icons should use the following color palette:
 | Transportation         | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
 | Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
 
-POIs without a background fill should have a 2px stroke using the "knockout" color above.
+POIs without a background fill should have a 1px border using the "knockout" color above.
