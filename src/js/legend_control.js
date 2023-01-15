@@ -164,6 +164,14 @@ export default class LegendControl {
     let mainFeature = features[0];
     if (!mainFeature) return;
 
+    // No point in illustrating an invisible line.
+    if (
+      mainFeature.layer.type === "line" &&
+      mainFeature.layer.paint?.["line-opacity"] === 0
+    ) {
+      return;
+    }
+
     // Copy the entry, adding the first match, which is from the topmost layer.
     let matchedEntry = { feature: mainFeature };
     Object.assign(matchedEntry, entry);
