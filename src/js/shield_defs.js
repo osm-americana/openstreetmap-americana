@@ -81,6 +81,7 @@ function roundedRectShield(
         fillColor: fillColor,
         strokeColor: strokeColor,
         rectWidth: rectWidth,
+        radius: radius,
       },
     },
     textLayoutConstraint: (spaceBounds, textBounds) =>
@@ -3710,14 +3711,6 @@ export function loadShields(shieldImages) {
     34
   );
 
-  // Denmark
-  shields["dk:national"] = roundedRectShield(
-    Color.shields.yellow,
-    Color.shields.black,
-    Color.shields.black,
-    34
-  );
-
   // Estonia
   shields["ee:national"] = roundedRectShield(
     Color.shields.red,
@@ -3772,17 +3765,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     34
-  );
-
-  // Hungary
-  shields["HU:national"] = homePlateDownShield(
-    3,
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    4,
-    0,
-    26
   );
 
   // Iceland
@@ -3852,40 +3834,22 @@ export function loadShields(shieldImages) {
   // Latvia
   shields["lv:national"] = roundedRectShield(
     Color.shields.red,
-    Color.shields.white
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
   shields["lv:regional"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white
-  );
-
-  // Moldova
-  shields["md:national"] = {
-    backgroundImage: shieldImages.shield_ro_trunk_2,
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
-    },
-  };
-
-  // Montenegro
-  shields["ME:Magistralni putevi"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
     34
   );
 
-  // North Macedonia
-  shields["mk:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
+  // Montenegro
+  shields["ME:Magistralni putevi"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    0,
     34
   );
 
@@ -3955,16 +3919,6 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    34
-  );
-
-  // Serbia
-  shields["RS:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    0,
     34
   );
 
