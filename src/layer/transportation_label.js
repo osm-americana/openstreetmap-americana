@@ -1,5 +1,6 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 const highwaySelector = ["match", ["get", "class"]];
@@ -30,13 +31,13 @@ export const label = {
       minorConstruction,
       "slategray",
       "ferry",
-      "hsl(211, 53%, 15%)",
+      Color.waterLineBold,
       "#333",
     ],
     "text-halo-color": [
       ...highwaySelector,
       "ferry",
-      "hsl(211, 70%, 90%)",
+      Color.waterFill,
       Color.backgroundFill,
     ],
     "text-halo-blur": 0.5,
@@ -76,15 +77,10 @@ export const label = {
     "text-font": [
       ...highwaySelector,
       "ferry",
-      ["literal", ["Metropolis Regular Italic"]],
-      ["literal", ["Metropolis Light"]],
+      ["literal", ["OpenHistorical Italic"]],
+      ["literal", ["OpenHistorical"]],
     ],
-    "text-field": [
-      "concat",
-      ["get", "name:latin"],
-      " ",
-      ["get", "name:nonlatin"],
-    ],
+    "text-field": [...Label.localizedNameInline],
     "text-max-angle": 20,
     "symbol-placement": "line",
     "text-size": [

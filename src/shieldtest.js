@@ -28,8 +28,10 @@ let networks = [
   // Rectangles
   "US:CT",
   "US:WY",
-  "US:AR:Lee",
-  "US:AR:Baxter",
+  "AU:QLD",
+  "AU:QLD:SSTR",
+  "CL:regional",
+  "ES:A-road",
   "CA:NS:R",
   "CA:YT",
   "IS",
@@ -41,14 +43,17 @@ let networks = [
   "CA:ON:secondary",
   "US:NE",
   "US:MN:Hennepin:Park_Access",
+  "CA:MB:Winnipeg",
   "US:PA",
   "US:PA:Turnpike",
 
   "CA:AB:primary",
   "CA:SK:tertiary",
   "CA:SK:primary",
+  "AU:WA:NH",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
+  "HU:national",
 
   "US:TN:secondary",
   "US:NC",
@@ -56,13 +61,17 @@ let networks = [
   "US:IA:CR",
   "US:CO:Douglas",
   "US:MN:Aitkin:CSAH",
-  "US:TX:Harris:HCTRA",
+  "AU:ACT:T",
   "US:NM:San_Juan:NCM",
+  "US:TX:Harris:HCTRA",
+  "za:national",
 
   "JP:prefectural",
   "PK:national",
+  "ID:national",
 
-  "GR:national",
+  "AU:QLD:MR",
+  "GR:motorway",
   "my:federal",
   "TR:motorway",
   "US:NY",
@@ -73,30 +82,35 @@ let networks = [
   // Basic Rounded Shapes
   "US:GU",
 
-  "US:HI",
   "US:CA",
-
-  "US:OR",
+  "US:UT",
+  "US:HI",
 
   "JP:national",
   "TW:expressway",
   "US:TX:Fort_Bend:FBCTRA",
+  "US:OR",
+
   "US:VA",
   "US:PR:primary",
   "HK",
-  "PK:motorway",
-  "NZ:SH",
-
-  // Basic shapes with more detail
-  "US:I",
-  "US:I:Business:Loop",
-
   "CA:QC:A",
   "CA:NS:H",
+
+  "NZ:SH",
+  "AU:WA:S",
+
+  "US:I",
+  "US:I:Business:Loop",
+  "co:national",
+  "US:BIA",
+  "US:MT:secondary",
 
   "CA:PE",
   "US:FL:Toll",
   "CA:BC",
+  "IN:NH",
+  "PK:motorway",
   "US:US",
   "US:US:Historic",
   "CL:national",
@@ -105,15 +119,10 @@ let networks = [
   "KR:expressway",
   "CA:QC:R",
   "VE:T:AM",
-  "co:national",
-  "US:BIA",
-  "US:MT:secondary",
+  "US:WI",
 
   "TW:freeway",
-  "US:UT",
   "US:MP",
-  "US:WI",
-  "CA:MB:Winnipeg",
   "US:AS",
 
   // Fancy Rectangles
@@ -139,22 +148,25 @@ let networks = [
   "CN:AH:expressway",
 
   // Detailed Shapes
-  "US:AL",
-  "US:AR",
-
+  "US:NV",
   "US:AZ",
-  "US:GA",
-  "US:LA",
-  "US:MO",
+  "US:NM:Frontage",
 
   "US:ND",
-  "US:NV",
+  "US:SD",
+
+  "US:MO",
+  "US:AR",
+  "US:LA",
+  "US:TX:FM",
+
+  "US:AL",
+  "US:GA",
+
   "US:OH",
   "US:OH:ASD",
   "US:OH:SCI",
   "US:OH:TUS:Salem",
-  "US:SD",
-  "US:TX:FM",
   "US:WA",
   "CA:transcanada",
   "CA:NB:primary",
@@ -195,6 +207,9 @@ let networks = [
   "CA:ON:Waterloo:Wilmot",
   "CA:ON:Brant:Highway",
   "CA:ON:Muskoka:West",
+  "AU:QLD:ALT",
+  "AU:QLD:ALT_S",
+  "AU:VIC:ALT_NR",
 ];
 
 // Uncomment for a list of all supported networks.  This makes for a very long page.

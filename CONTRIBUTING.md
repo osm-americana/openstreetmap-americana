@@ -4,12 +4,12 @@ _'murica!_
 
 The style is located within **src/** and is organized as follows:
 
-- **layer/** - Individual style layers, organized by subject area
+- **layer/** - Individual style layers, organized by subject area. The ordering of layers is specified in `index.js`.
 - **icons/** - SVG icons, which get converted into PNG stylesheets
 - **constants/** - Style elements that are frequently re-used
 - **js/** - Dynamic javascript code for highway shields and stylesheet building
-- **config.js** - Configuration settings (MapTiler API key, OpenMapTiles URL, etc)
-- **americana.js** - OpenMapTiles loader with layer ordering
+- **config.js** - Configuration settings (MapTiler API key, OpenMapTiles tile server URL, etc)
+- **americana.js** - MapLibre loader and configuration for the demo map
 - **index.html** - Demonstration map HTML page
 
 ## Install Node.js
@@ -43,9 +43,9 @@ It may be necessary to prefix these with `sudo` depending where NPM is installed
 
 ## Platform Specific Notes
 
-### MacOS
+### macOS
 
-MacOS doesn't include a default package manager, but Node.js and NPM can be installed via
+macOS doesn't include a default package manager, but Node.js and NPM can be installed via
 [Homebrew][50] or [MacPorts][51]:
 
 - Homebrew - `brew install node`
@@ -160,9 +160,20 @@ boilerplate in `scripts/taginfo_template.json`.
 
 1. Please prettify all files prior to submission. Run `npm run code_format` to
    format code files with [prettier][90] and SVG files with [SVGO][svgo].
-2. If you are introducing a novel approach to depicting a layer or feature
+2. If you are introducing a new kind of feature to the style, add a section to
+   `src/js/legend_config.js` or a legend entry in the corresponding file in
+   `src/layer/` that tells the Legend control how to find and render a
+   representative feature. Also try out the Samples button to catch any visual
+   conflicts.
+3. If you are introducing a novel approach to depicting a layer or feature
    property from the OpenMapTiles schema, document how the corresponding
    OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
+4. If any shield background icons are introduced, add lines to `src/shieldtest.js`
+   to demonstrate overlaid text on each of them.
+5. If you are introducing new JavaScript code that can run independently of a
+   browser environment, add automated unit tests for it to `test/spec/`, then
+   run `npm test` to ensure that they pass. This project structures unit tests
+   using [Chai](https://www.chaijs.com/guide/styles/) for assertions.
 
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
@@ -255,7 +266,7 @@ Additionally, **`refsByWayName`** is an object mapping way names to text that ca
 
 `refsByWayName` only works if there is no `ref` tag and the expression in the `routeConcurrency` function in layer/highway_shield.js includes the `name` property in the image name. The network needs to be listed as an input value that causes the `match` expression to append `name` to the image name.
 
-When using `overrideByRef` or `refsByWayName`, make sure to add a line to the bottom section of this page explaining why it is necessary, as they are only intended for use in special cases.
+When using `overrideByRef` or `refsByWayName`, make sure to add a line to the Special Cases section of this page explaining why it is necessary, as they are only intended for use in special cases.
 
 ### Banners
 
@@ -291,6 +302,7 @@ This style strives to draw representative highway shields wherever they are tagg
 - Shields with a stacked ref configuration, with `/` separating the two lines of text in the `ref` value. Currently, these `ref` values are displayed verbatim on one line, and the code necessary for stacked ref rendering has not been written yet ([#366](https://github.com/ZeLonewolf/openstreetmap-americana/issues/366)). Such cases include:
   - **Italy "Diramazione" (branch) motorways**. Between their main autostrade "A" roads, the Italian motorway network has branch motorways which carry the name of both highways that they connect. For example, the A7 and A26 motorways have a branch motorway named A7/A26, which is correctly tagged `ref=A7/A26` and shown on shields with the two numbers stacked vertically.
   - **West Virginia County Routes**. The West Virginia Department of Transportation posts County Routes, which can have shields with two stacked numbers. For example, in Mercer County, County Route 460/1 is a branch off U.S. Route 460, and County Route 27/6 is a branch off County Route 27. These routes are correctly tagged `ref=460/1` and `ref=27/6` respectively, and shown on shields with the two numbers stacked vertically.
+- The [highway classification system of the United Kingdom](https://wiki.openstreetmap.org/wiki/Roads_in_the_United_Kingdom). In the UK, mappers need to and are able to tag the actual official road classifications independently of route networks. The color and style of route signage is based on a strict 1:1 correspondence with the `highway=*` value of the underlying road, and **not** based on M/A/B highway network type. While "M" roads are always motorways with blue route symbology, "A" roads can anything from primary through motorway, and thus may take one of three colors and may change along a single route. Even if mappers were to create route relations containing all roads with the same route number, these relations would not be usable for determining how to render route symbology. Additionally, there are no route concurrencies in the UK; all roads that are `highway=secondary` or higher carry a single `ref` value that can be directly rendered into a shield without pre-processing. There is established data consumers support for this highway classification-based symbology system, most notably OpenMapTiles, which has provided pseudo-network values for UK routes since the project's inception. Therefore, this project consumes the UK pseudo-network scheme established by OpenMapTiles and colors UK route network symbology strictly based on `highway=<motorway/trunk/primary/secondary>` consistent with UK signage.
 
 ### Shield Test Gallery
 
@@ -309,3 +321,34 @@ To test with a list of all the supported networks in the style this line can be 
 https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
 
 This results in a very long page and can be quite slow or even crash the browser tab.
+
+## Points of Interest
+
+A "point of interest" or POI is any feature on the map represented by an icon on the map.
+
+### Categories
+
+POIs are broken down into the following broad categories, in order to constrain the number of colors shown on the map. Some features may not cleanly fit into one category or another. Contributors should consider other POIs in the category to determine which category is the best fit.
+
+- **Geographic Place Names**: labels associated with `place=` tags, for countries, cities, locations, etc.
+- **Infrastructure**: features associated with public infrastructure, health, safety, or government.
+- **Consumer**: businesses that provide services to the public, such as shops and restaurants.
+- **Outdoor**: parks, nature reserves, and other outdoorsy features.
+- **Attraction**: places where people go for entertainment, leisure, or curiosity.
+- **Transportation**: places where people can access forms of transportation, such as airports, train stations, bus stops, and other public transit.
+
+### Color Scheme
+
+For consistency, POI icons should use the following color palette:
+
+| Category               | Scheme          | Color                                                                       | RGB         | Hex triplet |
+| ---------------------- | --------------- | --------------------------------------------------------------------------- | ----------- | ----------- |
+| Geographic Place Names | N/A             | <img src="doc-img/black.svg" height=18 width=50 /> Black                    | 0 0 0       | #000000     |
+| Infrastructure         | Pantone 294     | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue               | 0 63 135    | #003f87     |
+| Consumer               | UTexas Orange   | <img src="doc-img/texas_orange.svg" height=18 width=50 /> Orange            | 191 87 0    | #bf5700     |
+| Outdoor                |                 | TBD (green?)                                                                |             |             |
+| Attraction             |                 | TBD (brown?)                                                                |             |             |
+| Transportation         | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
+| Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
+
+POIs without a background fill should have a 1px border using the "knockout" color above.
