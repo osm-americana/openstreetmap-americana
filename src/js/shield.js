@@ -136,9 +136,13 @@ function textColor(shieldDef) {
 
 //Temporary fix until we can remove backgroundDraw
 function getDrawFunc(shieldDef) {
-  if (typeof shieldDef.draw != "undefined") {
+  if (typeof shieldDef.canvasDrawnBlank != "undefined") {
     return (ref) =>
-      ShieldDraw.draw(shieldDef.draw.drawFunc, shieldDef.draw.params, ref);
+      ShieldDraw.draw(
+        shieldDef.canvasDrawnBlank.drawFunc,
+        shieldDef.canvasDrawnBlank.params,
+        ref
+      );
   }
 
   //TODO: eliminate backgroundDraw

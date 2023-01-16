@@ -70,7 +70,11 @@ export function bransonRoute(fillColor, strokeColor) {
   return ctx;
 }
 
-export function ellipse(fill, outline, ref, rectWidth) {
+function ellipse(params, ref) {
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let shieldWidth =
     ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
 
@@ -708,3 +712,4 @@ export function registerDrawFunction(name, fxn) {
 
 //Built-in draw functions (standard shapes)
 registerDrawFunction("roundedRectangle", roundedRectangle);
+registerDrawFunction("ellipse", ellipse);
