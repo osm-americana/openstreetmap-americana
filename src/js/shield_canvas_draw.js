@@ -19,7 +19,13 @@ const genericShieldFontSize = 18 * PXR;
 
 // Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
 export function paBelt(fillColor, strokeColor) {
-  var ctx = square();
+  let ctx = roundedRectangle({
+    fillColor: Color.shields.white,
+    strokeColor: Color.shields.black,
+    outlineWidth: 1,
+    radius: 2,
+    rectWidth: 20,
+  });
 
   let lineWidth = 0.5 * PXR;
   let diameter = CS / 3 - lineWidth;
@@ -98,21 +104,6 @@ export function ellipse(fill, outline, ref, rectWidth) {
   ctx.strokeStyle = outline;
   ctx.stroke();
   return ctx;
-}
-
-function square() {
-  return rectangle("");
-}
-
-export function rectangle(ref) {
-  return roundedRectangle(
-    Color.shields.white,
-    Color.shields.black,
-    ref,
-    2,
-    1,
-    null
-  );
 }
 
 export function blank(ref) {
