@@ -3706,12 +3706,12 @@ export function loadShields(shieldImages) {
   );
 
   // Denmark
-  shields["dk:national"] = roundedRectShield(
-    Color.shields.yellow,
-    Color.shields.black,
-    Color.shields.black,
-    34
-  );
+  // shields["dk:national"] = roundedRectShield(
+  //   Color.shields.yellow,
+  //   Color.shields.black,
+  //   Color.shields.black,
+  //   34
+  // );
 
   // Estonia
   shields["ee:national"] = roundedRectShield(
@@ -3770,15 +3770,15 @@ export function loadShields(shieldImages) {
   );
 
   // Hungary
-  shields["HU:national"] = homePlateDownShield(
-    3,
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    4,
-    0,
-    26
-  );
+  // shields["HU:national"] = homePlateDownShield(
+  //   3,
+  //   Color.shields.blue,
+  //   Color.shields.white,
+  //   Color.shields.white,
+  //   4,
+  //   0,
+  //   26
+  // );
 
   // Iceland
   shields["IS"] = roundedRectShield(
@@ -3855,16 +3855,16 @@ export function loadShields(shieldImages) {
   );
 
   // Moldova
-  shields["md:national"] = {
-    backgroundImage: shieldImages.shield_ro_trunk_2,
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
-    },
-  };
+  // shields["md:national"] = {
+  //   backgroundImage: shieldImages.shield_ro_trunk_2,
+  //   textColor: Color.shields.white,
+  //   padding: {
+  //     left: 4,
+  //     right: 4,
+  //     top: 4,
+  //     bottom: 4,
+  //   },
+  // };
 
   // Montenegro
   shields["ME:Magistralni putevi"] = roundedRectShield(
@@ -3875,14 +3875,14 @@ export function loadShields(shieldImages) {
   );
 
   // North Macedonia
-  shields["mk:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    0,
-    34
-  );
+  // shields["mk:national"] = hexagonVerticalShield(
+  //   3,
+  //   Color.shields.green,
+  //   Color.shields.white,
+  //   Color.shields.white,
+  //   0,
+  //   34
+  // );
 
   // Netherlands
   // https://wiki.openstreetmap.org/wiki/The_Netherlands_road_network
@@ -3954,14 +3954,14 @@ export function loadShields(shieldImages) {
   );
 
   // Serbia
-  shields["RS:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    0,
-    34
-  );
+  // shields["RS:national"] = hexagonVerticalShield(
+  //   3,
+  //   Color.shields.green,
+  //   Color.shields.white,
+  //   Color.shields.white,
+  //   0,
+  //   34
+  // );
 
   // Russia
   shields["ru:national"] = roundedRectShield(
