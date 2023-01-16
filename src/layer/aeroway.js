@@ -1,19 +1,13 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
-
-const name_en = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name:latin"],
-  ["get", "name"],
-];
 
 const minorAirport = [
   "any",
   ["!", ["has", "iata"]],
   ["!", ["has", "icao"]],
-  ["in", ["get", "class"], ["literal", ["private"]]],
+  ["==", ["get", "class"], "private"],
 ];
 
 const iconLayout = {
@@ -21,8 +15,8 @@ const iconLayout = {
     "match",
     ["get", "class"],
     "military",
-    "military_airport",
-    "airport",
+    "poi_military_plane",
+    "poi_plane",
   ],
   "text-anchor": "bottom",
   "text-variable-anchor": [
@@ -39,7 +33,7 @@ const iconLayout = {
 export const fill = {
   id: "airport_fill",
   type: "fill",
-  filter: ["==", "class", "aerodrome"],
+  filter: ["==", ["get", "class"], "aerodrome"],
   paint: {
     "fill-color": Color.airportFill,
   },
@@ -54,7 +48,7 @@ export const fill = {
 export const outline = {
   id: "airport_outline",
   type: "line",
-  filter: ["==", "class", "aerodrome"],
+  filter: ["==", ["get", "class"], "aerodrome"],
   paint: {
     "line-color": Color.airportOutline,
   },
@@ -69,7 +63,11 @@ export const outline = {
 export const runway = {
   id: "airport_runway",
   type: "line",
-  filter: ["all", ["==", "class", "runway"], ["==", "$type", "LineString"]],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "runway"],
+    ["==", ["geometry-type"], "LineString"],
+  ],
   paint: {
     "line-color": Color.airportRunway,
     "line-width": {
@@ -93,7 +91,11 @@ export const runway = {
 export const runwayArea = {
   id: "airport_runway_area",
   type: "fill",
-  filter: ["all", ["==", "class", "runway"], ["==", "$type", "Polygon"]],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "runway"],
+    ["==", ["geometry-type"], "Polygon"],
+  ],
   paint: {
     "fill-color": Color.airportRunway,
   },
@@ -108,7 +110,11 @@ export const runwayArea = {
 export const taxiway = {
   id: "airport_taxiway",
   type: "line",
-  filter: ["all", ["==", "class", "taxiway"], ["==", "$type", "LineString"]],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "taxiway"],
+    ["==", ["geometry-type"], "LineString"],
+  ],
   paint: {
     "line-color": Color.airportRunway,
     "line-width": {
@@ -132,7 +138,11 @@ export const taxiway = {
 export const taxiwayArea = {
   id: "airport_taxiway_area",
   type: "fill",
-  filter: ["all", ["==", "class", "taxiway"], ["==", "$type", "Polygon"]],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "taxiway"],
+    ["==", ["geometry-type"], "Polygon"],
+  ],
   paint: {
     "fill-color": Color.airportRunway,
   },
@@ -159,9 +169,8 @@ export const airportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
     ...iconLayout,
   },
   source: "openmaptiles",
@@ -184,9 +193,8 @@ export const minorAirportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
   metadata: {},
@@ -207,14 +215,12 @@ export const airportLabel = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
-    "text-font": ["Metropolis Bold"],
+    "text-field": Label.localizedName,
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
     ...iconLayout,
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aerodrome_label",
 };
 
@@ -232,20 +238,18 @@ export const minorAirportLabel = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
-    "text-font": ["Metropolis Bold"],
+    "text-field": Label.localizedName,
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aerodrome_label",
 };
 
 export const airportGate = {
   id: "airport_gate_label",
   type: "symbol",
-  filter: ["==", "class", "gate"],
+  filter: ["==", ["get", "class"], "gate"],
   minzoom: 15,
   paint: {
     "text-color": Color.airportLabel,
@@ -255,12 +259,26 @@ export const airportGate = {
   },
   layout: {
     visibility: "visible",
-    "text-field": "{ref}",
-    "text-font": ["Metropolis Bold"],
+    "text-field": ["get", "ref"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aeroway",
 };
+
+export const legendEntries = [
+  {
+    description: "Civilian airport",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["!=", ["get", "class"], "military"],
+  },
+  {
+    description: "Military air base",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["==", ["get", "class"], "military"],
+  },
+  { description: "Runway", layers: [runway.id] },
+  { description: "Taxiway", layers: [taxiway.id] },
+  { description: "Gate", layers: [airportGate.id] },
+];

@@ -11,12 +11,33 @@
   },
   "tags": [
     {
+      "key": "name",
+      "object_types": ["node", "way", "relation", "area"],
+      "description": "Labels fall back to the local language if none of the user-preferred languages is available. City labels include the local-language name in parentheses."
+    },
+    {
+      "key": "capital",
+      "value": "yes",
+      "object_types": ["node"],
+      "description": "Marks the city with a national capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_nation_capital.svg"
+    },
+    {
       "key": "capital",
       "value": "2",
       "object_types": ["node"],
       "description": "Marks the city with a national capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_nation_capital.svg"
+    },
+    {
+      "key": "capital",
+      "value": "3",
+      "object_types": ["node"],
+      "description": "Marks the city with a state capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_state_capital.svg"
     },
     {
       "key": "capital",
@@ -66,10 +87,273 @@
       "doc_url": "https://openmaptiles.org/schema/#route_1"
     },
     {
+      "key": "unsigned_ref",
+      "object_types": ["relation"],
+      "description": "Suppresses any shields that would mark the roads carrying the route relation, unless ref=* is also set or the network=* consists of unnumbered routes.",
+      "doc_url": "https://openmaptiles.org/schema/#route_1"
+    },
+    {
+      "key": "ref",
+      "object_types": ["node"],
+      "description": "Freeway and expressway exits are labeled with the exit number.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation_name"
+    },
+    {
       "key": "surface",
       "object_types": ["way"],
       "description": "Unpaved roads have an alternating dash pattern.",
       "doc_url": "https://openmaptiles.org/schema/#surface"
+    },
+    {
+      "key": "iata",
+      "object_types": ["node", "area"],
+      "description": "Airports at low zoom levels are labeled by their IATA codes.",
+      "doc_url": "https://openmaptiles.org/schema/#iata"
+    },
+    {
+      "key": "icao",
+      "object_types": ["node", "area"],
+      "description": "Airports at low zoom levels are labeled by their ICAO codes if they do not have IATA codes.",
+      "doc_url": "https://openmaptiles.org/schema/#icao"
+    },
+    {
+      "key": "aerodrome",
+      "value": "private",
+      "object_types": ["node", "area"],
+      "description": "Private airports first appear at a higher zoom level than public airports.",
+      "doc_url": "https://openmaptiles.org/schema/#class"
+    },
+    {
+      "key": "aerodrome",
+      "value": "military",
+      "object_types": ["node", "area"],
+      "description": "Military air bases are marked by a fighter jet.",
+      "doc_url": "https://openmaptiles.org/schema/#class",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
+    },
+    {
+      "key": "aerodrome:type",
+      "value": "private",
+      "object_types": ["node", "area"],
+      "description": "Private airports first appear at a higher zoom level than public airports.",
+      "doc_url": "https://openmaptiles.org/schema/#class"
+    },
+    {
+      "key": "aerodrome:type",
+      "value": "military",
+      "object_types": ["node", "area"],
+      "description": "Military air bases are marked by a fighter jet.",
+      "doc_url": "https://openmaptiles.org/schema/#class",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
+    },
+    {
+      "key": "military",
+      "value": "airfield",
+      "object_types": ["node", "area"],
+      "description": "Military air bases are marked by a fighter jet.",
+      "doc_url": "https://openmaptiles.org/schema/#class",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
+    },
+    {
+      "key": "aeroway",
+      "value": "runway",
+      "object_types": ["way"],
+      "description": "Runways are thicker than taxiways.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "aeroway",
+      "value": "taxiway",
+      "object_types": ["way"],
+      "description": "Taxiways are thinner than runways.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "aeroway",
+      "value": "gate",
+      "object_types": ["node"],
+      "description": "Airport gates are labeled by the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "ref",
+      "object_types": ["node"],
+      "description": "Labels an airport gate (aeroway=gate).",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "area:aeroway",
+      "value": "runway",
+      "object_types": ["area"],
+      "description": "Runway areas are filled in with the same color as runway lines.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "area:aeroway",
+      "value": "taxiway",
+      "object_types": ["area"],
+      "description": "Taxiway areas are filled in with the same color as taxiway lines.",
+      "doc_url": "https://openmaptiles.org/schema/#aeroway"
+    },
+    {
+      "key": "highway",
+      "value": "construction",
+      "object_types": ["way"],
+      "description": "Roads under construction have a dotted line pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "object_types": ["way"],
+      "description": "Roads under construction have a dotted line pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "value": "motorway",
+      "object_types": ["way"],
+      "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "construction",
+      "value": "trunk",
+      "object_types": ["way"],
+      "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "rail",
+      "object_types": ["way"],
+      "description": "Conventional railroads are represented by a thick light gray line with a sparse tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "narrow_gauge",
+      "object_types": ["way"],
+      "description": "Narrow gauge railroads are represented by a thick light gray line with a sparse doubled tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "subway",
+      "object_types": ["way"],
+      "description": "Subways are represented by a thick dark gray line with no tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "monorail",
+      "object_types": ["way"],
+      "description": "Monorails are represented by a thin dark gray line with no tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "light_rail",
+      "object_types": ["way"],
+      "description": "Light rail is represented by a thin dark gray line with a dense tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "tram",
+      "object_types": ["way"],
+      "description": "Trams are represented by a thin light gray line with a dense tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "railway",
+      "value": "funicular",
+      "object_types": ["way"],
+      "description": "Funiculars are represented by a thin dark gray line with a very dense tie pattern.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "crossover",
+      "object_types": ["way"],
+      "description": "Displays railroads with normal line width but ties removed.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "siding",
+      "object_types": ["way"],
+      "description": "Displays railroads with a thinner line width but normal tie spacing.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "spur",
+      "object_types": ["way"],
+      "description": "Displays railroads with a thinner line width but normal tie spacing.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "service",
+      "value": "yard",
+      "object_types": ["way"],
+      "description": "Displays railroads with a thinner line width but normal tie spacing.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "natural",
+      "value": "coastline",
+      "object_types": ["way"],
+      "description": "Coastlines are represented by a hairline at all zoom levels, except across the mouth of a river.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "natural",
+      "value": "water",
+      "object_types": ["area"],
+      "description": "Lakeshores and riverbanks are represented by a hairline at high zoom levels.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "intermittent",
+      "value": "yes",
+      "object_types": ["way"],
+      "description": "Intermittent waterways are dashed.",
+      "doc_url": "https://openmaptiles.org/schema/#waterway"
+    },
+    {
+      "key": "intermittent",
+      "value": "yes",
+      "object_types": ["area"],
+      "description": "Intermittent lakes are translucent with a dashed line representing the lakeshore.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "amenity",
+      "value": "school",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
+    },
+    {
+      "key": "amenity",
+      "value": "kindergarten",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
+    },
+    {
+      "key": "amenity",
+      "value": "college",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
+    },
+    {
+      "key": "amenity",
+      "value": "university",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
     }
   ]
 }

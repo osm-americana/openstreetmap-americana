@@ -13,9 +13,9 @@ export const city = {
   },
   filter: [
     "all",
-    ["==", "admin_level", 8],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 8],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   minzoom: 11,
   layout: {
@@ -31,7 +31,6 @@ export const countyCasing = {
   type: "line",
   paint: {
     "line-color": Color.borderCasing,
-    "line-dasharray": [1],
     "line-width": {
       stops: [
         [11, 5],
@@ -41,9 +40,9 @@ export const countyCasing = {
   },
   filter: [
     "all",
-    ["==", "admin_level", 6],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 6],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   minzoom: 11,
   layout: {
@@ -65,9 +64,9 @@ export const county = {
   },
   filter: [
     "all",
-    ["==", "admin_level", 6],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 6],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   minzoom: 9,
   layout: {
@@ -89,7 +88,6 @@ export const stateCasing = {
         [7, `hsl(${Color.hueBorderCasing}, 30%, 90%)`],
       ],
     },
-    "line-dasharray": [1],
     "line-width": {
       base: 1.2,
       stops: [
@@ -99,7 +97,11 @@ export const stateCasing = {
       ],
     },
   },
-  filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
+  filter: [
+    "all",
+    ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+    ["==", ["get", "maritime"], 0],
+  ],
   minzoom: 3,
   layout: {
     "line-join": "round",
@@ -137,7 +139,11 @@ export const state = {
     },
     "line-offset": 0,
   },
-  filter: ["all", ["in", "admin_level", 3, 4], ["==", "maritime", 0]],
+  filter: [
+    "all",
+    ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+    ["==", ["get", "maritime"], 0],
+  ],
   minzoom: 3,
   layout: {
     "line-join": "round",
@@ -175,7 +181,11 @@ export const countryCasing = {
       ],
     },
   },
-  filter: ["all", ["in", "admin_level", 2], ["==", "maritime", 0]],
+  filter: [
+    "all",
+    ["==", ["get", "admin_level"], 2],
+    ["==", ["get", "maritime"], 0],
+  ],
   minzoom: 2,
   layout: {
     "line-cap": "round",
@@ -219,9 +229,9 @@ export const country = {
   },
   filter: [
     "all",
-    ["in", "admin_level", 2],
-    ["==", "disputed", 0],
-    ["==", "maritime", 0],
+    ["==", ["get", "admin_level"], 2],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
   ],
   maxzoom: 24,
   layout: {
@@ -231,3 +241,27 @@ export const country = {
   source: "openmaptiles",
   "source-layer": "boundary",
 };
+
+export const legendEntries = [
+  {
+    description: "Country or dependency",
+    layers: [country.id, countryCasing.id],
+  },
+  {
+    description: "State or province",
+    layers: [state.id, stateCasing.id],
+  },
+  {
+    description: "County or county-equivalent",
+    layers: [county.id, countyCasing.id],
+  },
+  {
+    description: "City, town, or village",
+    layers: [city.id],
+  },
+  {
+    description: "Disputed border",
+    layers: [countryCasing.id, stateCasing.id, countyCasing.id],
+    filter: ["==", ["get", "disputed"], 1],
+  },
+];

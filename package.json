@@ -10,8 +10,8 @@
   "scripts": {
     "config": "shx cp src/configs/config.maptiler.js src/config.js",
     "code_format": "run-s code_format:prettier code_format:svgo",
-    "code_format:prettier": "prettier --write .",
-    "code_format:svgo": "svgo -f icons/",
+    "code_format:prettier": "prettier --write --list-different .",
+    "code_format:svgo": "svgo -q -f icons/",
     "clean": "shx rm -rf dist",
     "presprites": "shx rm -rf dist/sprites",
     "sprites": "node scripts/sprites.js",
@@ -20,24 +20,34 @@
     "start": "run-s clean sprites serve",
     "serve": "node scripts/serve.js",
     "build:code": "node scripts/build.js",
-    "build": "run-s clean sprites build:code taginfo status_map"
+    "build": "run-s clean sprites build:code taginfo status_map",
+    "test": "mocha",
+    "style": "node scripts/generate_style.js -o dist/style.json"
   },
   "dependencies": {
     "@basemaps/sprites": "^6.28.1",
+    "commander": "^9.5.0",
     "glob": "^8.0.3",
     "npm-run-all": "^4.1.5",
     "open": "^8.4.0"
   },
   "devDependencies": {
+    "@maplibre/maplibre-gl-style-spec": "^17.0.1",
+    "chai": "^4.3.7",
     "create-serve": "^1.0.1",
-    "esbuild": "^0.14.43",
+    "esbuild": "^0.15.15",
+    "events": "^3.3.0",
     "maplibre-gl": "^2.1.9",
+    "mocha": "^10.1.0",
+    "openmapsamples": "github:adamfranco/OpenMapSamples",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "prettier": "2.3.2",
     "shx": "^0.3.4",
-    "svgo": "^2.8.0"
+    "svgo": "^2.8.0",
+    "tokenfield": "^1.5.2"
   },
   "engines": {
-    "npm": ">=8.3.0"
+    "npm": ">=8.3.0",
+    "node": ">=14"
   }
 }
