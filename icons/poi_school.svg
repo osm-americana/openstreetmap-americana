@@ -1,0 +1,5 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <g style="display:inline;stroke:#000;stroke-opacity:0">
+  <path style="display:inline;fill:#003f87;fill-opacity:1;stroke:#f9f5f0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill" d="M 11,1 3,4 9,6 Z M 5,9 V 19 H 15 V 9 Z M 9,6 v 3 h 2 V 1 Z"/>
+ </g>
+</svg>

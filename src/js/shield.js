@@ -74,6 +74,19 @@ export function isValidRef(ref) {
 }
 
 /**
+ * Get the number of banner placards associated with this shield
+ *
+ * @param {*} shield - Shield definition
+ * @returns the number of banner placards that need to be drawn
+ */
+export function getBannerCount(shield) {
+  if (shield == null || typeof shield.modifiers == "undefined") {
+    return 0; //Unadorned shield
+  }
+  return shield.modifiers.length;
+}
+
+/**
  * Retrieve the shield blank that goes with a particular route.  If there are
  * multiple shields for a route (different widths), it picks the best shield.
  *
@@ -128,7 +141,7 @@ function textColor(shieldDef) {
  * @returns a blank graphics context
  */
 function generateBlankGraphicsContext(shieldDef, routeDef) {
-  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var bannerCount = getBannerCount(shieldDef);
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
   var compoundBounds = null;
 
@@ -148,7 +161,7 @@ function generateBlankGraphicsContext(shieldDef, routeDef) {
 }
 
 function drawShield(ctx, shieldDef, routeDef) {
-  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var bannerCount = getBannerCount(shieldDef);
 
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
 
@@ -172,7 +185,7 @@ function drawShield(ctx, shieldDef, routeDef) {
 }
 
 function drawShieldText(ctx, shieldDef, routeDef) {
-  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var bannerCount = getBannerCount(shieldDef);
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);

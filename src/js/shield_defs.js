@@ -3753,17 +3753,6 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
-  // Great Britain
-  shields["omt-gb-motorway"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.white
-  );
-
-  shields["omt-gb-trunk"] = roundedRectShield(
-    Color.shields.green,
-    Color.shields.yellow
-  );
-
   // Greece
   shields["GR:motorway"] = hexagonVerticalShield(
     3,
@@ -3797,6 +3786,22 @@ export function loadShields(shieldImages) {
     Color.shields.black,
     Color.shields.black,
     34
+  );
+
+  // Ireland
+  shields["omt-ie-motorway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
+  shields["omt-ie-national"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.yellow
+  );
+
+  shields["omt-ie-regional"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
   );
 
   // Italy
@@ -4026,6 +4031,22 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // United Kingdom
+  shields["omt-gb-motorway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
+  shields["omt-gb-trunk"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.yellow
+  );
+
+  shields["omt-gb-primary"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
   // OCEANIA
 
   // Australia
@@ -4200,30 +4221,4 @@ export function loadShields(shieldImages) {
   };
 
   return shields;
-}
-
-/**
- * Determines whether there is a raster shield background for a particular network
- *
- * @param {*} network - Route network
- * @returns true if a raster shield is available
- */
-export function hasShieldArtwork(network) {
-  return (
-    shields[network] != null &&
-    typeof shields[network].backgroundImage !== "undefined"
-  );
-}
-
-/**
- * Get the number of banner placards associated with this shield
- *
- * @param {*} shield - Shield definition
- * @returns the number of banner placards that need to be drawn
- */
-export function getBannerCount(shield) {
-  if (shield == null || typeof shield.modifiers == "undefined") {
-    return 0; //Unadorned shield
-  }
-  return shield.modifiers.length;
 }
