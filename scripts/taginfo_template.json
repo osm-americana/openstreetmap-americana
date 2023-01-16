@@ -13,7 +13,7 @@
     {
       "key": "name",
       "object_types": ["node", "way", "relation", "area"],
-      "description": "Labels fall back to the local language if none of the user-preferred languages is available."
+      "description": "Labels fall back to the local language if none of the user-preferred languages is available. City labels include the local-language name in parentheses."
     },
     {
       "key": "capital",
@@ -129,7 +129,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "aerodrome:type",
@@ -144,7 +144,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "military",
@@ -152,7 +152,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/military_airport.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "aeroway",
@@ -298,6 +298,62 @@
       "object_types": ["way"],
       "description": "Displays railroads with a thinner line width but normal tie spacing.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "natural",
+      "value": "coastline",
+      "object_types": ["way"],
+      "description": "Coastlines are represented by a hairline at all zoom levels, except across the mouth of a river.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "natural",
+      "value": "water",
+      "object_types": ["area"],
+      "description": "Lakeshores and riverbanks are represented by a hairline at high zoom levels.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "intermittent",
+      "value": "yes",
+      "object_types": ["way"],
+      "description": "Intermittent waterways are dashed.",
+      "doc_url": "https://openmaptiles.org/schema/#waterway"
+    },
+    {
+      "key": "intermittent",
+      "value": "yes",
+      "object_types": ["area"],
+      "description": "Intermittent lakes are translucent with a dashed line representing the lakeshore.",
+      "doc_url": "https://openmaptiles.org/schema/#water"
+    },
+    {
+      "key": "amenity",
+      "value": "school",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
+    },
+    {
+      "key": "amenity",
+      "value": "kindergarten",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
+    },
+    {
+      "key": "amenity",
+      "value": "college",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
+    },
+    {
+      "key": "amenity",
+      "value": "university",
+      "object_types": ["node", "area"],
+      "description": "Schools are represented by an icon.",
+      "doc_url": "https://openmaptiles.org/schema/#poi"
     }
   ]
 }

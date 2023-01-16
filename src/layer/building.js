@@ -16,11 +16,16 @@ export const building = {
     "fill-extrusion-height": 3,
     "fill-extrusion-opacity": 0.85,
   },
-  // filter: ["all", ["!=", "intermittent", 1], ["!=", "brunnel", "tunnel"]],
   layout: {
     visibility: "visible",
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "building",
 };
+
+export const legendEntries = [
+  {
+    description: "Building",
+    layers: [building.id],
+  },
+];

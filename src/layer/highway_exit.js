@@ -1,3 +1,7 @@
+"use strict";
+
+import * as Label from "../constants/label.js";
+
 export const exits = {
   id: "highway_exit",
   type: "symbol",
@@ -10,8 +14,8 @@ export const exits = {
   "source-layer": "transportation_name",
   minzoom: 14,
   layout: {
-    "text-field": ["get", "ref"],
-    "text-font": ["Metropolis Black"],
+    "text-field": Label.listValuesExpression(["get", "ref"], "\n"),
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 9,
     "text-line-height": 1,
   },
@@ -21,3 +25,10 @@ export const exits = {
     "text-halo-width": 0.75,
   },
 };
+
+export const legendEntries = [
+  {
+    description: "Freeway or expressway exit",
+    layers: [exits.id],
+  },
+];

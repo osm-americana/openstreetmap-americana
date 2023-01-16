@@ -31,13 +31,13 @@ export const label = {
       minorConstruction,
       "slategray",
       "ferry",
-      "hsl(211, 53%, 15%)",
+      Color.waterLineBold,
       "#333",
     ],
     "text-halo-color": [
       ...highwaySelector,
       "ferry",
-      "hsl(211, 70%, 90%)",
+      Color.waterFill,
       Color.backgroundFill,
     ],
     "text-halo-blur": 0.5,
@@ -77,10 +77,10 @@ export const label = {
     "text-font": [
       ...highwaySelector,
       "ferry",
-      ["literal", ["Metropolis Regular Italic"]],
-      ["literal", ["Metropolis Light"]],
+      ["literal", ["OpenHistorical Italic"]],
+      ["literal", ["OpenHistorical"]],
     ],
-    "text-field": Label.localizedName,
+    "text-field": [...Label.localizedNameInline],
     "text-max-angle": 20,
     "symbol-placement": "line",
     "text-size": [
@@ -119,9 +119,6 @@ export const label = {
   },
   source: "openmaptiles",
   "source-layer": "transportation_name",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 // A spacer label on each bridge to push any waterway label away from the bridge.

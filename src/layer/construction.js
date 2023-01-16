@@ -1,3 +1,5 @@
+"use strict";
+
 const majorConstruction = [
   "match",
   ["get", "class"],
@@ -54,3 +56,10 @@ export const road = {
     ],
   },
 };
+
+export const legendEntries = [
+  {
+    description: "Road under construction",
+    layers: [road.id],
+  },
+];

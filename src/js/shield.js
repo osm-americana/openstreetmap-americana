@@ -62,11 +62,28 @@ function compoundShieldSize(dimension, bannerCount) {
   };
 }
 
-function isValidRef(ref) {
-  if (ref == null || ref.length == 0 || ref.length > 6) {
-    return false;
+export function isValidNetwork(network) {
+  // On recreational route relations, network=* indicates the network's scope,
+  // not the network itself.
+  // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
+  return !/^[lrni][chimpw]n$/.test(network);
+}
+
+export function isValidRef(ref) {
+  return ref !== null && ref.length !== 0 && ref.length <= 6;
+}
+
+/**
+ * Get the number of banner placards associated with this shield
+ *
+ * @param {*} shield - Shield definition
+ * @returns the number of banner placards that need to be drawn
+ */
+export function getBannerCount(shield) {
+  if (shield == null || typeof shield.modifiers == "undefined") {
+    return 0; //Unadorned shield
   }
-  return true;
+  return shield.modifiers.length;
 }
 
 /**
@@ -124,7 +141,7 @@ function textColor(shieldDef) {
  * @returns a blank graphics context
  */
 function generateBlankGraphicsContext(shieldDef, routeDef) {
-  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var bannerCount = getBannerCount(shieldDef);
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
   var compoundBounds = null;
 
@@ -144,7 +161,7 @@ function generateBlankGraphicsContext(shieldDef, routeDef) {
 }
 
 function drawShield(ctx, shieldDef, routeDef) {
-  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var bannerCount = getBannerCount(shieldDef);
 
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
 
@@ -168,7 +185,7 @@ function drawShield(ctx, shieldDef, routeDef) {
 }
 
 function drawShieldText(ctx, shieldDef, routeDef) {
-  var bannerCount = ShieldDef.getBannerCount(shieldDef);
+  var bannerCount = getBannerCount(shieldDef);
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
@@ -267,7 +284,9 @@ function getShieldDef(routeDef) {
   if (shieldDef == null) {
     // Default to plain black text with halo and no background shield
     console.debug("Generic shield for", JSON.stringify(routeDef));
-    return isValidRef(routeDef.ref) ? ShieldDef.shields["default"] : null;
+    return isValidNetwork(routeDef.network) && isValidRef(routeDef.ref)
+      ? ShieldDef.shields.default
+      : null;
   }
 
   if (shieldDef.overrideByRef) {

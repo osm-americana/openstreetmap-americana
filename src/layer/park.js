@@ -9,11 +9,7 @@ export const fill = {
   paint: {
     "fill-color": Color.parkFill,
   },
-  layout: {
-    visibility: "visible",
-  },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "park",
 };
 
@@ -22,9 +18,6 @@ export const outline = {
   type: "line",
   paint: {
     "line-color": Color.parkOutline,
-  },
-  layout: {
-    visibility: "visible",
   },
   source: "openmaptiles",
   metadata: {},
@@ -38,73 +31,43 @@ export const label = {
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.parkLabelHalo,
     "text-halo-width": 1,
   },
   layout: {
-    visibility: "visible",
     "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["OpenHistorical Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
   "source-layer": "park",
 };
 
 export const parkFill = {
+  ...fill,
   id: "park-fill",
-  type: "fill",
   filter: ["==", ["get", "subclass"], "park"],
-  paint: {
-    "fill-color": Color.parkFill,
-  },
-  layout: {
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  metadata: {},
   "source-layer": "landcover",
 };
 
 export const parkOutline = {
+  ...outline,
   id: "park-outline",
-  type: "line",
   filter: ["==", ["get", "subclass"], "park"],
-  paint: {
-    "line-color": Color.parkOutline,
-  },
-  layout: {
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  metadata: {},
   "source-layer": "landcover",
 };
 
 export const parkLabel = {
+  ...label,
   id: "park-label",
-  type: "symbol",
   filter: ["==", ["get", "class"], "park"],
-  paint: {
-    "text-color": Color.parkLabel,
-    "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
-    "text-halo-width": 1,
-  },
-  layout: {
-    visibility: "visible",
-    "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold"],
-    "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
-  },
-  source: "openmaptiles",
-  metadata: {
-    "americana:text-field-localized": true,
-  },
   "source-layer": "poi",
 };
+
+export const legendEntries = [
+  {
+    description: "Park",
+    layers: [fill.id, outline.id, parkFill.id, parkOutline.id],
+  },
+];

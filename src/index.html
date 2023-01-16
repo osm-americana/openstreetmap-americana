@@ -24,12 +24,74 @@
         bottom: 10px;
         z-index: 100;
       }
+      #language-picker {
+        width: 13em;
+      }
       .openmapsamples-control-container {
         margin-left: 70px !important;
+      }
+
+      #legend-container {
+        max-height: 60vh;
+        overflow-y: scroll;
+      }
+      .legend-section > summary {
+        background-color: #eee;
+      }
+      .legend-row,
+      .legend-row img {
+        vertical-align: middle;
+      }
+      .legend-row a {
+        color: black;
+      }
+      .legend-row > .label,
+      .legend-row > .icon {
+        width: 0;
+        text-align: center;
+      }
+      .legend-row > .label {
+        white-space: pre-line;
+      }
+      .legend-row > .icon {
+        white-space: nowrap;
+      }
+      .legend-row .shield + .shield {
+        margin-left: 0.2em;
+      }
+      .legend-row > .swatch,
+      .legend-row > .line {
+        vertical-align: middle;
+        width: 4em;
+      }
+      .legend-row > .swatch {
+        border-style: solid;
+      }
+      .legend-row > .line > svg {
+        vertical-align: middle;
+        width: 100%;
+      }
+      .legend-row .language {
+        font-style: italic;
+        font-size: 80%;
+        line-height: 1;
+        vertical-align: super;
+      }
+      .legend-source {
+        font-size: 80%;
+        text-align: right;
+      }
+      .legend-source,
+      .legend-source a {
+        color: #aaa;
       }
     </style>
     <script type="module" src="americana.js"></script>
     <link rel="stylesheet" href="americana.css" />
+    <link
+      rel="stylesheet"
+      href="https://kanecohen.github.io/tokenfield/css/tokenfield.css"
+    />
   </head>
 
   <body>
@@ -41,10 +103,58 @@
         width="149"
         height="149"
         src="https://github.blog/wp-content/uploads/2008/12/forkme_right_green_007200.png?resize=149%2C149"
-        class="attachment-full size-full"
         alt="Fork me on GitHub"
-        data-recalc-dims="1"
-        style="position: absolute; top: 0; right: 0; border: 0; z-index: 100"
+        style="
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: 0;
+          z-index: 100;
+          clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+        "
     /></a>
+    <template id="legend">
+      <h2>Legend</h2>
+      <div id="legend-container"></div>
+    </template>
+    <template id="legend-section">
+      <details class="legend-section" open>
+        <summary></summary>
+        <table>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td class="legend-source" colspan="3"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </details>
+    </template>
+    <template id="legend-rowgroup">
+      <tr class="legend-rowgroup">
+        <th colspan="3"></th>
+      </tr>
+    </template>
+    <template id="legend-row-symbol">
+      <tr class="legend-row legend-row-symbol">
+        <td class="label"></td>
+        <td class="icon"></td>
+        <td class="description"></td>
+      </tr>
+    </template>
+    <template id="legend-row-swatch">
+      <tr class="legend-row legend-row-swatch">
+        <td class="swatch" colspan="2"></td>
+        <td class="description"></td>
+      </tr>
+    </template>
+    <template id="legend-row-line">
+      <tr class="legend-row legend-row-line">
+        <td class="line" colspan="2">
+          <svg></svg>
+        </td>
+        <td class="description"></td>
+      </tr>
+    </template>
   </body>
 </html>

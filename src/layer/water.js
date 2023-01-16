@@ -18,7 +18,15 @@ export const waterway = {
   },
   filter: ["!=", ["get", "intermittent"], 1],
   paint: {
-    "line-color": Color.waterFill,
+    "line-color": [
+      "interpolate",
+      ["exponential", 0.5],
+      ["zoom"],
+      13,
+      Color.waterLine,
+      15,
+      Color.waterFill,
+    ],
     "line-width": [
       "interpolate",
       ["exponential", 2],
@@ -53,24 +61,74 @@ export const water = {
   id: "water",
   type: "fill",
   paint: {
-    "fill-color": Color.waterFill,
-    "fill-opacity": [
+    "fill-color": [
       "case",
       [
         "any",
         ["==", ["get", "intermittent"], 1],
         ["==", ["get", "brunnel"], "tunnel"],
       ],
-      0.3,
-      1,
+      Color.waterIntermittentFill,
+      Color.waterFill,
     ],
+    "fill-outline-color": Color.waterFillTranslucent,
   },
   source: "openmaptiles",
   "source-layer": "water",
 };
 
+export const waterLine = {
+  id: "water_line",
+  type: "line",
+  filter: [
+    "all",
+    ["!=", ["get", "intermittent"], 1],
+    [
+      "match",
+      ["get", "class"],
+      bigRivers,
+      [">=", ["zoom"], 8],
+      mediumRivers,
+      [">=", ["zoom"], 16],
+      "lake",
+      [">=", ["zoom"], 8],
+      true,
+    ],
+  ],
+  paint: {
+    "line-color": Color.waterLineBold,
+  },
+  layout: {
+    "line-cap": "round",
+    "line-join": "round",
+  },
+  source: "openmaptiles",
+  "source-layer": "water",
+};
+
+export const waterLineIntermittent = {
+  id: "water_line_intermittent",
+  type: "line",
+  minzoom: 8,
+  filter: ["all", ["==", ["get", "intermittent"], 1]],
+  paint: {
+    "line-color": Color.waterIntermittentOutline,
+    "line-dasharray": [10, 6],
+    "line-width": 0.5,
+  },
+  layout: waterLine.layout,
+  source: "openmaptiles",
+  "source-layer": "water",
+};
+
 const labelPaintProperties = {
-  "text-halo-color": "#fff",
+  "text-halo-color": [
+    "match",
+    ["get", "class"],
+    ["sea", "ocean"],
+    Color.waterFill,
+    Color.backgroundFill,
+  ],
   "text-color": Color.waterLabel,
   "text-halo-width": 0.75,
   "text-halo-blur": 0.25,
@@ -78,8 +136,8 @@ const labelPaintProperties = {
 
 const labelLayoutProperties = {
   "symbol-placement": "line",
-  "text-field": Label.localizedName,
-  "text-font": ["Metropolis Bold Italic"],
+  "text-field": Label.localizedNameInline,
+  "text-font": ["OpenHistorical Italic"],
   "text-max-angle": 55,
 };
 
@@ -112,9 +170,6 @@ export const waterwayLabel = {
     "text-letter-spacing": 0.15,
   },
   paint: labelPaintProperties,
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 //Lake labels rendered as a linear feature
@@ -140,9 +195,6 @@ export const waterLabel = {
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
 
 //Lake labels rendered as a point feature
@@ -154,22 +206,77 @@ export const waterPointLabel = {
   filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
     "text-field": Label.localizedName,
-    "text-font": ["Metropolis Bold Italic"],
+    "text-font": ["Open Sans Bold Italic"],
     "text-size": [
       "interpolate",
       ["exponential", 2],
       ["zoom"],
       3,
-      8,
+      ["match", ["get", "class"], "ocean", 16, "sea", 12, 8],
       12,
-      14,
+      ["match", ["get", "class"], "ocean", 28, "sea", 21, 14],
       20,
-      40,
+      ["match", ["get", "class"], "ocean", 80, "sea", 60, 40],
     ],
     "text-letter-spacing": 0.25,
   },
   paint: labelPaintProperties,
-  metadata: {
-    "americana:text-field-localized": true,
-  },
 };
+
+export const legendEntries = [
+  {
+    description: "Ocean, sea, or bay",
+    layers: [water.id, waterLine.id],
+    filter: ["==", ["get", "class"], "ocean"],
+  },
+  {
+    description: "Lake or pond",
+    layers: [water.id, waterLine.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "lake"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Intermittent lake or pond",
+    layers: [water.id, waterLineIntermittent.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "lake"],
+      ["==", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "River",
+    layers: [waterway.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "river"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Canal",
+    layers: [waterway.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "canal"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Creek",
+    layers: [waterway.id],
+    filter: [
+      "all",
+      ["==", ["get", "class"], "stream"],
+      ["!=", ["get", "intermittent"], 1],
+    ],
+  },
+  {
+    description: "Intermittent river or creek",
+    layers: [waterway.id, waterwayIntermittent.id],
+    filter: ["==", ["get", "intermittent"], 1],
+  },
+];
