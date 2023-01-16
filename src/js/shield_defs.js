@@ -4222,29 +4222,3 @@ export function loadShields(shieldImages) {
 
   return shields;
 }
-
-/**
- * Determines whether there is a raster shield background for a particular network
- *
- * @param {*} network - Route network
- * @returns true if a raster shield is available
- */
-export function hasShieldArtwork(network) {
-  return (
-    shields[network] != null &&
-    typeof shields[network].backgroundImage !== "undefined"
-  );
-}
-
-/**
- * Get the number of banner placards associated with this shield
- *
- * @param {*} shield - Shield definition
- * @returns the number of banner placards that need to be drawn
- */
-export function getBannerCount(shield) {
-  if (shield == null || typeof shield.modifiers == "undefined") {
-    return 0; //Unadorned shield
-  }
-  return shield.modifiers.length;
-}
