@@ -3677,8 +3677,14 @@ export function loadShields(shieldImages) {
       roundedRectShield(Color.shields.white, Color.shields.black);
 
   // Bulgaria
-  shields["bg:national"] = roundedRectShield(
+  shields["bg:motorway"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    34
+  );
+  shields["bg:national"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
     34
