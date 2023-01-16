@@ -114,7 +114,6 @@ let networks = [
   "US:US:Historic",
   "CL:national",
 
-  "md:national",
   "KR:expressway",
   "CA:QC:R",
   "VE:T:AM",
