@@ -69,15 +69,15 @@ function roundedRectShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.roundedRectangle(
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    draw: {
+      drawFunc: "roundedRectangle",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        textColor: textColor,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -606,15 +606,15 @@ function octagonVerticalShield(
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.roundedRectangle(
-        fillColor,
-        strokeColor,
-        ref,
-        10,
-        1,
-        rectWidth
-      ),
+    draw: {
+      drawFunc: "roundedRectangle",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: 10,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -3847,11 +3847,15 @@ export function loadShields(shieldImages) {
   // Latvia
   shields["lv:national"] = roundedRectShield(
     Color.shields.red,
-    Color.shields.white
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
   shields["lv:regional"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
 
   // Moldova
