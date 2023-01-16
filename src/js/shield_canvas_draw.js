@@ -125,14 +125,13 @@ export function blank(ref) {
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
-export function roundedRectangle(
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function roundedRectangle(ref, params) {
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 1 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -698,3 +697,23 @@ export function octagonVertical(
 
   return ctx;
 }
+
+export function draw(name, ref, options) {
+  return drawFunctions[name](ref, options);
+}
+
+//Register draw functions
+const drawFunctions = {};
+
+/**
+ * Invoked by a style to implement a custom draw function
+ *
+ * @param {*} name name of the function as referenced by the shield definition
+ * @param {*} fxn callback to the implementing function. Takes two parameters, ref and options
+ */
+export function registerDrawFunction(name, fxn) {
+  drawFunctions[name] = fxn;
+}
+
+//Built-in draw functions (standard shapes)
+registerDrawFunction("roundedRectangle", roundedRectangle);
