@@ -3847,11 +3847,15 @@ export function loadShields(shieldImages) {
   // Latvia
   shields["lv:national"] = roundedRectShield(
     Color.shields.red,
-    Color.shields.white
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
   shields["lv:regional"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
 
   // Moldova
