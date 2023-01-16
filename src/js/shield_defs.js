@@ -74,8 +74,8 @@ function roundedRectShield(
       params: {
         fillColor: fillColor,
         strokeColor: strokeColor,
-        textColor: textColor,
         rectWidth: rectWidth,
+        radius: radius,
       },
     },
     textLayoutConstraint: (spaceBounds, textBounds) =>
