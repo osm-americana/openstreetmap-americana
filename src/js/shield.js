@@ -138,7 +138,7 @@ function textColor(shieldDef) {
 function getDrawFunc(shieldDef) {
   if (typeof shieldDef.draw != "undefined") {
     return (ref) =>
-      ShieldDraw.draw(shieldDef.draw.drawFunc, ref, shieldDef.draw.params);
+      ShieldDraw.draw(shieldDef.draw.drawFunc, shieldDef.draw.params, ref);
   }
 
   //TODO: eliminate backgroundDraw

@@ -37,13 +37,13 @@ export function paBelt(fillColor, strokeColor) {
 
 // Special case for Branson color-coded routes, documented in CONTRIBUTE.md
 export function bransonRoute(fillColor, strokeColor) {
-  var ctx = roundedRectangle(
-    Color.shields.green,
-    Color.shields.white,
-    "",
-    2,
-    1
-  );
+  var ctx = roundedRectangle({
+    fillColor: Color.shields.green,
+    strokeColor: Color.shields.white,
+    outlineWidth: 1,
+    radius: 2,
+    rectWidth: 20,
+  });
 
   let lineWidth = 0.5 * PXR;
   let x = 0.15 * CS + lineWidth;
@@ -125,7 +125,7 @@ export function blank(ref) {
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
-function roundedRectangle(ref, params) {
+function roundedRectangle(params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 1 : params.radius;
@@ -698,8 +698,8 @@ export function octagonVertical(
   return ctx;
 }
 
-export function draw(name, ref, options) {
-  return drawFunctions[name](ref, options);
+export function draw(name, options, ref) {
+  return drawFunctions[name](options, ref);
 }
 
 //Register draw functions
