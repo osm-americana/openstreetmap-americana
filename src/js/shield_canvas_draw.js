@@ -120,7 +120,7 @@ function roundedRectangle(params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 1 : params.radius;
-  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let outlineWidth = params.outlineWidth == undefined ? 0 : params.outlineWidth;
   let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
   if (rectWidth == null) {
