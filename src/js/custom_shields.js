@@ -28,7 +28,7 @@ export function paBelt(params) {
   );
 
   ctx.fillStyle = fillColor;
-  ctx.strokeStyle = Color.shields.black;
+  ctx.strokeStyle = params.strokeColor;
   ctx.fill();
 
   ctx.lineWidth = lineWidth;
@@ -59,7 +59,7 @@ export function bransonRoute(params) {
   ctx.rect(x, y, width, height);
 
   ctx.fillStyle = fillColor;
-  ctx.strokeStyle = Color.shields.white;
+  ctx.strokeStyle = params.strokeColor;
   ctx.fill();
 
   ctx.lineWidth = lineWidth;
