@@ -19,7 +19,13 @@ const genericShieldFontSize = 18 * PXR;
 
 // Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
 export function paBelt(fillColor, strokeColor) {
-  var ctx = square();
+  let ctx = roundedRectangle({
+    fillColor: Color.shields.white,
+    strokeColor: Color.shields.black,
+    outlineWidth: 1,
+    radius: 2,
+    rectWidth: 20,
+  });
 
   let lineWidth = 0.5 * PXR;
   let diameter = CS / 3 - lineWidth;
@@ -37,13 +43,13 @@ export function paBelt(fillColor, strokeColor) {
 
 // Special case for Branson color-coded routes, documented in CONTRIBUTE.md
 export function bransonRoute(fillColor, strokeColor) {
-  var ctx = roundedRectangle(
-    Color.shields.green,
-    Color.shields.white,
-    "",
-    2,
-    1
-  );
+  var ctx = roundedRectangle({
+    fillColor: Color.shields.green,
+    strokeColor: Color.shields.white,
+    outlineWidth: 1,
+    radius: 2,
+    rectWidth: 20,
+  });
 
   let lineWidth = 0.5 * PXR;
   let x = 0.15 * CS + lineWidth;
@@ -64,7 +70,11 @@ export function bransonRoute(fillColor, strokeColor) {
   return ctx;
 }
 
-export function ellipse(fill, outline, ref, rectWidth) {
+function ellipse(params, ref) {
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let shieldWidth =
     ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
 
@@ -100,21 +110,6 @@ export function ellipse(fill, outline, ref, rectWidth) {
   return ctx;
 }
 
-function square() {
-  return rectangle("");
-}
-
-export function rectangle(ref) {
-  return roundedRectangle(
-    Color.shields.white,
-    Color.shields.black,
-    ref,
-    2,
-    1,
-    null
-  );
-}
-
 export function blank(ref) {
   var shieldWidth =
     ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -125,14 +120,13 @@ export function blank(ref) {
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
-export function roundedRectangle(
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function roundedRectangle(params, ref) {
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -698,3 +692,24 @@ export function octagonVertical(
 
   return ctx;
 }
+
+export function draw(name, options, ref) {
+  return drawFunctions[name](options, ref);
+}
+
+//Register draw functions
+const drawFunctions = {};
+
+/**
+ * Invoked by a style to implement a custom draw function
+ *
+ * @param {*} name name of the function as referenced by the shield definition
+ * @param {*} fxn callback to the implementing function. Takes two parameters, ref and options
+ */
+export function registerDrawFunction(name, fxn) {
+  drawFunctions[name] = fxn;
+}
+
+//Built-in draw functions (standard shapes)
+registerDrawFunction("roundedRectangle", roundedRectangle);
+registerDrawFunction("ellipse", ellipse);

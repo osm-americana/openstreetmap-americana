@@ -24,8 +24,14 @@ export const shields = {};
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.ellipse(fillColor, strokeColor, ref, rectWidth),
+    canvasDrawnBlank: {
+      drawFunc: "ellipse",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -69,15 +75,15 @@ function roundedRectShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.roundedRectangle(
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "roundedRectangle",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -606,15 +612,15 @@ function octagonVerticalShield(
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.roundedRectangle(
-        fillColor,
-        strokeColor,
-        ref,
-        10,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "roundedRectangle",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: 10,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -3705,14 +3711,6 @@ export function loadShields(shieldImages) {
     34
   );
 
-  // Denmark
-  shields["dk:national"] = roundedRectShield(
-    Color.shields.yellow,
-    Color.shields.black,
-    Color.shields.black,
-    34
-  );
-
   // Estonia
   shields["ee:national"] = roundedRectShield(
     Color.shields.red,
@@ -3773,17 +3771,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     34
-  );
-
-  // Hungary
-  shields["HU:national"] = homePlateDownShield(
-    3,
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    4,
-    0,
-    26
   );
 
   // Iceland
@@ -3853,40 +3840,22 @@ export function loadShields(shieldImages) {
   // Latvia
   shields["lv:national"] = roundedRectShield(
     Color.shields.red,
-    Color.shields.white
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
   shields["lv:regional"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white
-  );
-
-  // Moldova
-  shields["md:national"] = {
-    backgroundImage: shieldImages.shield_ro_trunk_2,
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
-    },
-  };
-
-  // Montenegro
-  shields["ME:Magistralni putevi"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
     34
   );
 
-  // North Macedonia
-  shields["mk:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
+  // Montenegro
+  shields["ME:Magistralni putevi"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    0,
     34
   );
 
@@ -3956,16 +3925,6 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    34
-  );
-
-  // Serbia
-  shields["RS:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    0,
     34
   );
 
@@ -4227,30 +4186,4 @@ export function loadShields(shieldImages) {
   };
 
   return shields;
-}
-
-/**
- * Determines whether there is a raster shield background for a particular network
- *
- * @param {*} network - Route network
- * @returns true if a raster shield is available
- */
-export function hasShieldArtwork(network) {
-  return (
-    shields[network] != null &&
-    typeof shields[network].backgroundImage !== "undefined"
-  );
-}
-
-/**
- * Get the number of banner placards associated with this shield
- *
- * @param {*} shield - Shield definition
- * @returns the number of banner placards that need to be drawn
- */
-export function getBannerCount(shield) {
-  if (shield == null || typeof shield.modifiers == "undefined") {
-    return 0; //Unadorned shield
-  }
-  return shield.modifiers.length;
 }
