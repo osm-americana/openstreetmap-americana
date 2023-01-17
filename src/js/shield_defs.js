@@ -551,13 +551,17 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
  * Draws a circle icon inside a black-outlined white square shield
  *
  * @param {*} fillColor - Color of circle icon background fill
- * @param {*} strokeColor - Color of circle icon outline stroke
  * @returns a shield definition object
  */
-function paBeltShield(fillColor, strokeColor) {
+function paBeltShield(fillColor) {
   return {
     notext: true,
-    backgroundDraw: (ref) => ShieldDraw.paBelt(fillColor, strokeColor),
+    canvasDrawnBlank: {
+      drawFunc: "paBelt",
+      params: {
+        fillColor: fillColor,
+      },
+    },
   };
 }
 
@@ -565,13 +569,17 @@ function paBeltShield(fillColor, strokeColor) {
  * Draws a rectangle icon inside a white-outlined green square shield
  *
  * @param {*} fillColor - Color of rectangle icon background fill
- * @param {*} strokeColor - Color of rectangle icon outline stroke
  * @returns a shield definition object
  */
-function bransonRouteShield(fillColor, strokeColor) {
+function bransonRouteShield(fillColor) {
   return {
     notext: true,
-    backgroundDraw: (ref) => ShieldDraw.bransonRoute(fillColor, strokeColor),
+    canvasDrawnBlank: {
+      drawFunc: "branson",
+      params: {
+        fillColor: fillColor,
+      },
+    },
   };
 }
 

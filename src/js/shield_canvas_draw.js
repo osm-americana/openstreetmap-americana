@@ -4,71 +4,17 @@
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
-import * as Color from "../constants/color.js";
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldText from "./shield_text.js";
 
 export const PXR = Gfx.getPixelRatio();
 
 // Canvas size in pixels. Length of smallest dimension (typically height)
-const CS = 20 * PXR;
+export const CS = 20 * PXR;
 
 const minGenericShieldWidth = 20 * PXR;
 const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
-
-// Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
-export function paBelt(fillColor, strokeColor) {
-  let ctx = roundedRectangle({
-    fillColor: Color.shields.white,
-    strokeColor: Color.shields.black,
-    outlineWidth: 1,
-    radius: 2,
-    rectWidth: 20,
-  });
-
-  let lineWidth = 0.5 * PXR;
-  let diameter = CS / 3 - lineWidth;
-  ctx.beginPath();
-  ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
-
-  ctx.fillStyle = fillColor;
-  ctx.strokeStyle = strokeColor;
-  ctx.fill();
-
-  ctx.lineWidth = lineWidth;
-  ctx.stroke();
-  return ctx;
-}
-
-// Special case for Branson color-coded routes, documented in CONTRIBUTE.md
-export function bransonRoute(fillColor, strokeColor) {
-  var ctx = roundedRectangle({
-    fillColor: Color.shields.green,
-    strokeColor: Color.shields.white,
-    outlineWidth: 1,
-    radius: 2,
-    rectWidth: 20,
-  });
-
-  let lineWidth = 0.5 * PXR;
-  let x = 0.15 * CS + lineWidth;
-  let width = 0.7 * CS - 2 * lineWidth;
-
-  let y = 0.4 * CS + lineWidth;
-  let height = 0.45 * CS - 2 * lineWidth;
-
-  ctx.beginPath();
-  ctx.rect(x, y, width, height);
-
-  ctx.fillStyle = fillColor;
-  ctx.strokeStyle = strokeColor;
-  ctx.fill();
-
-  ctx.lineWidth = lineWidth;
-  ctx.stroke();
-  return ctx;
-}
 
 function ellipse(params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
@@ -120,7 +66,7 @@ export function blank(ref) {
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
-function roundedRectangle(params, ref) {
+export function roundedRectangle(params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;

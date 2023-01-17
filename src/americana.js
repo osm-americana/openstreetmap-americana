@@ -7,6 +7,7 @@ import * as Style from "./js/style.js";
 
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
+import * as CustomShields from "./js/custom_shields.js";
 
 import * as languageLabel from "./js/language_label.js";
 
@@ -54,6 +55,8 @@ export const map = (window.map = new maplibregl.Map({
   zoom: 4, // starting zoom
   attributionControl: false,
 }));
+
+CustomShields.loadCustomShields();
 
 map.on("styledata", function (event) {
   ShieldDef.loadShields(map.style.imageManager.images);
