@@ -661,7 +661,7 @@ registerDrawFunction("ellipse", ellipse);
 registerDrawFunction("escutcheon", escutcheon);
 registerDrawFunction("hexagonVertical", hexagonVertical);
 registerDrawFunction("hexagonHorizontal", hexagonHorizontal);
-registerDrawFunction("octagonVertical", hexagonVertical);
+registerDrawFunction("octagonVertical", octagonVertical);
 registerDrawFunction("pentagon", pentagon);
 registerDrawFunction("roundedRectangle", roundedRectangle);
 registerDrawFunction("trapezoid", trapezoid);
