@@ -4,71 +4,17 @@
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
-import * as Color from "../constants/color.js";
 import * as Gfx from "./screen_gfx.js";
 import * as ShieldText from "./shield_text.js";
 
 export const PXR = Gfx.getPixelRatio();
 
 // Canvas size in pixels. Length of smallest dimension (typically height)
-const CS = 20 * PXR;
+export const CS = 20 * PXR;
 
 const minGenericShieldWidth = 20 * PXR;
 const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
-
-// Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
-export function paBelt(fillColor, strokeColor) {
-  let ctx = roundedRectangle({
-    fillColor: Color.shields.white,
-    strokeColor: Color.shields.black,
-    outlineWidth: 1,
-    radius: 2,
-    rectWidth: 20,
-  });
-
-  let lineWidth = 0.5 * PXR;
-  let diameter = CS / 3 - lineWidth;
-  ctx.beginPath();
-  ctx.arc(CS / 2, CS / 2, diameter, 0, 2 * Math.PI, false);
-
-  ctx.fillStyle = fillColor;
-  ctx.strokeStyle = strokeColor;
-  ctx.fill();
-
-  ctx.lineWidth = lineWidth;
-  ctx.stroke();
-  return ctx;
-}
-
-// Special case for Branson color-coded routes, documented in CONTRIBUTE.md
-export function bransonRoute(fillColor, strokeColor) {
-  var ctx = roundedRectangle({
-    fillColor: Color.shields.green,
-    strokeColor: Color.shields.white,
-    outlineWidth: 1,
-    radius: 2,
-    rectWidth: 20,
-  });
-
-  let lineWidth = 0.5 * PXR;
-  let x = 0.15 * CS + lineWidth;
-  let width = 0.7 * CS - 2 * lineWidth;
-
-  let y = 0.4 * CS + lineWidth;
-  let height = 0.45 * CS - 2 * lineWidth;
-
-  ctx.beginPath();
-  ctx.rect(x, y, width, height);
-
-  ctx.fillStyle = fillColor;
-  ctx.strokeStyle = strokeColor;
-  ctx.fill();
-
-  ctx.lineWidth = lineWidth;
-  ctx.stroke();
-  return ctx;
-}
 
 function ellipse(params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
@@ -120,7 +66,7 @@ export function blank(ref) {
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
-function roundedRectangle(params, ref) {
+export function roundedRectangle(params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -174,15 +120,14 @@ function roundedRectangle(params, ref) {
   return ctx;
 }
 
-export function escutcheon(
-  offset,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function escutcheon(params, ref) {
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -239,17 +184,17 @@ export function escutcheon(
   return ctx;
 }
 
-export function trapezoid(
-  shortSideUp,
-  angle,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function trapezoid(params, ref) {
+  let shortSideUp =
+    params.shortSideUp == undefined ? false : params.shortSideUp;
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
   let angleSign = shortSideUp ? -1 : 1;
+
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
@@ -310,7 +255,13 @@ export function trapezoid(
   return ctx;
 }
 
-export function diamond(fill, outline, ref, radius, outlineWidth, rectWidth) {
+function diamond(params, ref) {
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let extraSpace = 4 * PXR;
   let height = CS + extraSpace;
 
@@ -375,18 +326,17 @@ export function diamond(fill, outline, ref, radius, outlineWidth, rectWidth) {
   return ctx;
 }
 
-export function pentagon(
-  pointUp,
-  offset,
-  angle,
-  fill,
-  outline,
-  ref,
-  radius1,
-  radius2,
-  outlineWidth,
-  rectWidth
-) {
+function pentagon(params, ref) {
+  let pointUp = params.pointUp == undefined ? true : params.pointUp;
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius1 = params.radius1 == undefined ? 0 : params.radius1;
+  let radius2 = params.radius2 == undefined ? 0 : params.radius2;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let angleSign = pointUp ? -1 : 1;
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
@@ -425,8 +375,6 @@ export function pentagon(
   let x6 = x8 - angleSign * (y2 - y0) * tangent;
 
   let offsetAngle = Math.atan(drawOffset / (x4 - x0));
-  let offsetSine = Math.sin(offsetAngle);
-  let offsetCosine = Math.cos(offsetAngle);
 
   let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + angle) / 2;
   let halfComplementTangent1 = Math.tan(halfComplementAngle1);
@@ -461,15 +409,14 @@ export function pentagon(
   return ctx;
 }
 
-export function hexagonVertical(
-  offset,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function hexagonVertical(params, ref) {
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -524,15 +471,14 @@ export function hexagonVertical(
   return ctx;
 }
 
-export function hexagonHorizontal(
-  angle,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function hexagonHorizontal(params, ref) {
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
@@ -599,16 +545,15 @@ export function hexagonHorizontal(
   return ctx;
 }
 
-export function octagonVertical(
-  offset,
-  angle,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function octagonVertical(params, ref) {
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
@@ -711,5 +656,12 @@ export function registerDrawFunction(name, fxn) {
 }
 
 //Built-in draw functions (standard shapes)
-registerDrawFunction("roundedRectangle", roundedRectangle);
+registerDrawFunction("diamond", diamond);
 registerDrawFunction("ellipse", ellipse);
+registerDrawFunction("escutcheon", escutcheon);
+registerDrawFunction("hexagonVertical", hexagonVertical);
+registerDrawFunction("hexagonHorizontal", hexagonHorizontal);
+registerDrawFunction("octagonVertical", octagonVertical);
+registerDrawFunction("pentagon", pentagon);
+registerDrawFunction("roundedRectangle", roundedRectangle);
+registerDrawFunction("trapezoid", trapezoid);

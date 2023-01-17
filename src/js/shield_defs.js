@@ -118,16 +118,17 @@ function escutcheonDownShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.escutcheon(
-        offset,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "escutcheon",
+      params: {
+        offset: offset,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+        outlineWidth: 1,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -162,18 +163,18 @@ function trapezoidDownShield(
   let angleInRadians = (angle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
+
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.trapezoid(
-        false,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "trapezoid",
+      params: {
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -209,17 +210,17 @@ function trapezoidUpShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.trapezoid(
-        true,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "trapezoid",
+      params: {
+        shortSideUp: true,
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -246,67 +247,21 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.diamond(fillColor, strokeColor, ref, radius, 1, rectWidth),
+    canvasDrawnBlank: {
+      drawFunc: "diamond",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 4.5,
       right: 4.5,
       top: 5,
       bottom: 5,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a pentagon background, pointed downward
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of pentagon background fill
- * @param {*} strokeColor - Color of pentagon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius1 - Corner radius of pointed side of pentagon (defaults to 2)
- * @param {*} radius2 - Corner radius of flat side of pentagon (defaults to 0)
- * @param {*} rectWidth - Width of pentagon (defaults to variable-width)
- * @returns a shield definition object
- */
-function pentagonDownShield(
-  offset,
-  angle,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius1,
-  radius2,
-  rectWidth
-) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  textColor = textColor ?? strokeColor;
-  radius1 = radius1 ?? 2;
-  radius2 = radius2 ?? 0;
-  return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        false,
-        offset,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
-    padding: {
-      left: 2 + 10 * Math.tan(angleInRadians),
-      right: 2 + 10 * Math.tan(angleInRadians),
-      top: 3,
-      bottom: 2 + offset / 2,
     },
     textColor: textColor,
   };
@@ -340,19 +295,18 @@ function pentagonUpShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 0;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        true,
-        offset,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "pentagon",
+      params: {
+        offset: offset,
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius1: radius1,
+        radius2: radius2,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
     padding: {
@@ -390,19 +344,19 @@ function homePlateDownShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        false,
-        offset,
-        0,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "pentagon",
+      params: {
+        pointUp: false,
+        offset: offset,
+        angle: 0,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius1: radius1,
+        radius2: radius2,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
     padding: {
@@ -410,56 +364,6 @@ function homePlateDownShield(
       right: 2,
       top: 2,
       bottom: 1 + offset,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a home plate background, pointed upward
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} fillColor - Color of home plate background fill
- * @param {*} strokeColor - Color of home plate outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius1 - Corner radius of pointed side of home plate (defaults to 2)
- * @param {*} radius2 - Corner radius of flat side of home plate (defaults to 2)
- * @param {*} rectWidth - Width of home plate (defaults to variable-width)
- * @returns a shield definition object
- */
-function homePlateUpShield(
-  offset,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius1,
-  radius2,
-  rectWidth
-) {
-  textColor = textColor ?? strokeColor;
-  radius1 = radius1 ?? 2;
-  radius2 = radius2 ?? 2;
-  return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        true,
-        offset,
-        0,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
-    padding: {
-      left: 2,
-      right: 2,
-      top: 1 + offset,
-      bottom: 2,
     },
     textColor: textColor,
   };
@@ -487,16 +391,16 @@ function hexagonVerticalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.hexagonVertical(
-        offset,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "hexagonVertical",
+      params: {
+        offset: offset,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -532,16 +436,16 @@ function hexagonHorizontalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.hexagonHorizontal(
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "hexagonHorizontal",
+      params: {
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 3,
@@ -578,17 +482,17 @@ function octagonVerticalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.octagonVertical(
-        offset,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "octagonVertical",
+      params: {
+        offset: offset,
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -636,13 +540,19 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
  * Draws a circle icon inside a black-outlined white square shield
  *
  * @param {*} fillColor - Color of circle icon background fill
- * @param {*} strokeColor - Color of circle icon outline stroke
+ * @param {*} strokeColor - Color of circle icon outline
  * @returns a shield definition object
  */
 function paBeltShield(fillColor, strokeColor) {
   return {
     notext: true,
-    backgroundDraw: (ref) => ShieldDraw.paBelt(fillColor, strokeColor),
+    canvasDrawnBlank: {
+      drawFunc: "paBelt",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+      },
+    },
   };
 }
 
@@ -650,13 +560,19 @@ function paBeltShield(fillColor, strokeColor) {
  * Draws a rectangle icon inside a white-outlined green square shield
  *
  * @param {*} fillColor - Color of rectangle icon background fill
- * @param {*} strokeColor - Color of rectangle icon outline stroke
+ * @param {*} strokeColor - Color of rectangle icon outline
  * @returns a shield definition object
  */
 function bransonRouteShield(fillColor, strokeColor) {
   return {
     notext: true,
-    backgroundDraw: (ref) => ShieldDraw.bransonRoute(fillColor, strokeColor),
+    canvasDrawnBlank: {
+      drawFunc: "branson",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+      },
+    },
   };
 }
 
@@ -669,8 +585,8 @@ function bransonRouteShield(fillColor, strokeColor) {
  */
 function banneredShield(baseDef, modifiers) {
   return {
-    ...baseDef,
     modifiers: modifiers,
+    ...baseDef,
   };
 }
 
