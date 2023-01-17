@@ -213,6 +213,7 @@ function trapezoidUpShield(
     canvasDrawnBlank: {
       drawFunc: "trapezoid",
       params: {
+        shortSideUp: true,
         angle: angleInRadians,
         fillColor: fillColor,
         strokeColor: strokeColor,
@@ -255,8 +256,6 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
         rectWidth: rectWidth,
       },
     },
-    backgroundDraw: (ref) =>
-      ShieldDraw.diamond(fillColor, strokeColor, ref, radius, 1, rectWidth),
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 4.5,
@@ -402,16 +401,6 @@ function hexagonVerticalShield(
         rectWidth: rectWidth,
       },
     },
-    backgroundDraw: (ref) =>
-      ShieldDraw.hexagonVertical(
-        offset,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -497,7 +486,7 @@ function octagonVerticalShield(
       drawFunc: "octagonVertical",
       params: {
         offset: offset,
-        angle: 0,
+        angle: angleInRadians,
         fillColor: fillColor,
         strokeColor: strokeColor,
         radius: radius,
@@ -592,8 +581,8 @@ function bransonRouteShield(fillColor) {
  */
 function banneredShield(baseDef, modifiers) {
   return {
-    ...baseDef,
     modifiers: modifiers,
+    ...baseDef,
   };
 }
 

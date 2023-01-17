@@ -327,7 +327,7 @@ function diamond(params, ref) {
 }
 
 function pentagon(params, ref) {
-  let pointUp = params.pointUp == undefined ? false : params.pointUp;
+  let pointUp = params.pointUp == undefined ? true : params.pointUp;
   let offset = params.offset == undefined ? 0 : params.offset;
   let angle = params.angle == undefined ? 0 : params.angle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
