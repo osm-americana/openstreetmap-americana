@@ -174,15 +174,14 @@ function roundedRectangle(params, ref) {
   return ctx;
 }
 
-export function escutcheon(
-  offset,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function escutcheon(params, ref) {
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -239,17 +238,17 @@ export function escutcheon(
   return ctx;
 }
 
-export function trapezoid(
-  shortSideUp,
-  angle,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function trapezoid(params, ref) {
+  let shortSideUp =
+    params.shortSideUp == undefined ? false : params.shortSideUp;
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
   let angleSign = shortSideUp ? -1 : 1;
+
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
@@ -310,7 +309,13 @@ export function trapezoid(
   return ctx;
 }
 
-export function diamond(fill, outline, ref, radius, outlineWidth, rectWidth) {
+function diamond(params, ref) {
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let extraSpace = 4 * PXR;
   let height = CS + extraSpace;
 
@@ -375,18 +380,17 @@ export function diamond(fill, outline, ref, radius, outlineWidth, rectWidth) {
   return ctx;
 }
 
-export function pentagon(
-  pointUp,
-  offset,
-  angle,
-  fill,
-  outline,
-  ref,
-  radius1,
-  radius2,
-  outlineWidth,
-  rectWidth
-) {
+function pentagon(params, ref) {
+  let pointUp = params.pointUp == undefined ? false : params.pointUp;
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius1 = params.radius1 == undefined ? 0 : params.radius1;
+  let radius2 = params.radius2 == undefined ? 0 : params.radius2;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let angleSign = pointUp ? -1 : 1;
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
@@ -425,8 +429,6 @@ export function pentagon(
   let x6 = x8 - angleSign * (y2 - y0) * tangent;
 
   let offsetAngle = Math.atan(drawOffset / (x4 - x0));
-  let offsetSine = Math.sin(offsetAngle);
-  let offsetCosine = Math.cos(offsetAngle);
 
   let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + angle) / 2;
   let halfComplementTangent1 = Math.tan(halfComplementAngle1);
@@ -461,15 +463,14 @@ export function pentagon(
   return ctx;
 }
 
-export function hexagonVertical(
-  offset,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function hexagonVertical(params, ref) {
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   if (rectWidth == null) {
     var shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
@@ -524,15 +525,14 @@ export function hexagonVertical(
   return ctx;
 }
 
-export function hexagonHorizontal(
-  angle,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function hexagonHorizontal(params, ref) {
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
@@ -599,16 +599,15 @@ export function hexagonHorizontal(
   return ctx;
 }
 
-export function octagonVertical(
-  offset,
-  angle,
-  fill,
-  outline,
-  ref,
-  radius,
-  outlineWidth,
-  rectWidth
-) {
+function octagonVertical(params, ref) {
+  let offset = params.offset == undefined ? 0 : params.offset;
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
@@ -711,5 +710,12 @@ export function registerDrawFunction(name, fxn) {
 }
 
 //Built-in draw functions (standard shapes)
-registerDrawFunction("roundedRectangle", roundedRectangle);
+registerDrawFunction("diamond", diamond);
 registerDrawFunction("ellipse", ellipse);
+registerDrawFunction("escutcheon", escutcheon);
+registerDrawFunction("hexagonVertical", hexagonVertical);
+registerDrawFunction("hexagonHorizontal", hexagonHorizontal);
+registerDrawFunction("octagonVertical", hexagonVertical);
+registerDrawFunction("pentagon", pentagon);
+registerDrawFunction("roundedRectangle", roundedRectangle);
+registerDrawFunction("trapezoid", trapezoid);
