@@ -612,7 +612,7 @@ function octagonVerticalShield(
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    draw: {
+    canvasDrawnBlank: {
       drawFunc: "roundedRectangle",
       params: {
         fillColor: fillColor,
