@@ -1,6 +1,8 @@
-# Taken from https://github.com/marketplace/actions/deploy-to-github-pages
+# Taken from https://github.com/actions/upload-pages-artifact/blob/main/action.yml
+# and https://github.com/marketplace/actions/deploy-to-github-pages
 
 name: Build and Deploy
+
 on:
   push:
     branches:
@@ -27,10 +29,25 @@ jobs:
           npm ci --include=dev
           cp src/configs/config.aws.js src/config.js
           npm run build
+      - name: Archive artifact
+        shell: sh
+        run: |
+          chmod -c -R +rX ./dist | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+          tar \
+            --dereference --hard-dereference \
+            --directory ./dist \
+            -cvf "$RUNNER_TEMP/artifact.tar" \
+            --exclude=.git \
+            --exclude=.github \
+            .
+
       - name: Upload 🏗
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@main
         with:
-          path: ./dist
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
       - name: Deploy 🚀
         id: deployment
         uses: actions/deploy-pages@v1
