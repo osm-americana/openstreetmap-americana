@@ -24,8 +24,14 @@ export const shields = {};
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.ellipse(fillColor, strokeColor, ref, rectWidth),
+    canvasDrawnBlank: {
+      drawFunc: "ellipse",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -69,7 +75,7 @@ function roundedRectShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    draw: {
+    canvasDrawnBlank: {
       drawFunc: "roundedRectangle",
       params: {
         fillColor: fillColor,
@@ -606,7 +612,7 @@ function octagonVerticalShield(
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    draw: {
+    canvasDrawnBlank: {
       drawFunc: "roundedRectangle",
       params: {
         fillColor: fillColor,
