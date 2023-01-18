@@ -283,35 +283,43 @@ function diamond(params, ref) {
   let drawRadius = radius * PXR;
 
   let x0 = lineWidth;
-  let x6 = width - lineWidth;
+  let x8 = width - lineWidth;
   let y0 = lineWidth;
-  let y6 = height - lineWidth;
+  let y8 = height - lineWidth;
 
-  let x3 = (x0 + x6) / 2;
-  let y3 = (y0 + y6) / 2;
+  let x4 = (x0 + x8) / 2;
+  let y4 = (y0 + y8) / 2;
 
-  let angle = Math.atan((y6 - y0) / (x6 - x0));
-  let xInnerOffset = drawRadius * Math.sin(angle);
-  let yInnerOffset = drawRadius * Math.cos(angle);
-  let xOuterOffset = yInnerOffset / Math.tan(angle);
-  let yOuterOffset = xInnerOffset * Math.tan(angle);
+  let angle = Math.atan((x4 - drawRadius - x0) / (y8 - drawRadius - y4));
+  let sine = Math.sin(angle);
+  let cosine = Math.cos(angle);
+  let halfTangent = Math.tan(angle / 2);
+  let halfComplementTangent = Math.tan(Math.PI / 4 - angle / 2);
 
-  let x1 = x0 + xOuterOffset;
-  let x2 = x3 - xInnerOffset;
-  let x4 = x3 + xInnerOffset;
-  let x5 = x6 - xOuterOffset;
+  let x1 = x0 + drawRadius * (1 - cosine);
+  let x2 = x4 - drawRadius * cosine;
+  let x3 = x4 - drawRadius * halfComplementTangent;
+  let x5 = x4 + drawRadius * halfComplementTangent;
+  let x6 = x4 + drawRadius * cosine;
+  let x7 = x8 - drawRadius * (1 - cosine);
 
-  let y1 = y0 + yOuterOffset;
-  let y2 = y3 - yInnerOffset;
-  let y4 = y3 + yInnerOffset;
-  let y5 = y6 - yOuterOffset;
+  let y1 = y0 + drawRadius * (1 - sine);
+  let y2 = y4 - drawRadius * sine;
+  let y3 = y4 - drawRadius * halfTangent;
+  let y5 = y4 + drawRadius * halfTangent;
+  let y6 = y4 + drawRadius * sine;
+  let y7 = y8 - drawRadius * (1 - sine);
 
   ctx.beginPath();
-  ctx.moveTo(x1, y2);
-  ctx.arcTo(x3, y0, x4, y1, drawRadius);
-  ctx.arcTo(x6, y3, x5, y4, drawRadius);
-  ctx.arcTo(x3, y6, x2, y5, drawRadius);
-  ctx.arcTo(x0, y3, x1, y2, drawRadius);
+  ctx.moveTo(x4, y8);
+  ctx.arcTo(x3, y8, x1, y6, drawRadius);
+  ctx.arcTo(x0, y5, x0, y4, drawRadius);
+  ctx.arcTo(x0, y3, x2, y1, drawRadius);
+  ctx.arcTo(x3, y0, x4, y0, drawRadius);
+  ctx.arcTo(x5, y0, x7, y2, drawRadius);
+  ctx.arcTo(x8, y3, x8, y4, drawRadius);
+  ctx.arcTo(x8, y5, x6, y7, drawRadius);
+  ctx.arcTo(x5, y8, x4, y8, drawRadius);
   ctx.closePath();
 
   ctx.lineWidth = lineThick;
