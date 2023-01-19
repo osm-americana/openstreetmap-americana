@@ -184,6 +184,79 @@ function escutcheon(params, ref) {
   return ctx;
 }
 
+function triangle(params, ref) {
+  let pointUp = params.pointUp == undefined ? false : params.pointUp;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let radius = params.radius == undefined ? 0 : params.radius;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
+  let angleSign = pointUp ? -1 : 1;
+
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth + 2 * PXR,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+  let drawRadius = radius * PXR;
+
+  let x0 = lineWidth;
+  let x8 = width - lineWidth;
+  let y0 = pointUp ? CS - lineWidth : lineWidth;
+  let y5 = pointUp ? lineWidth : CS - lineWidth;
+
+  let x2 = x0 + drawRadius;
+  let x4 = (x0 + x8) / 2;
+  let x6 = x8 - drawRadius;
+  let y1 = y0 + angleSign * drawRadius;
+
+  let angle = Math.atan((x4 - x2) / Math.abs(y5 - drawRadius - y1));
+  let sine = Math.sin(angle);
+  let cosine = Math.cos(angle);
+  let halfTangent = Math.tan(angle / 2);
+  let halfComplementTangent = Math.tan(Math.PI / 4 - angle / 2);
+
+  let x1 = x2 - drawRadius * cosine;
+  let x3 = x4 - drawRadius * halfComplementTangent;
+  let x5 = x4 + drawRadius * halfComplementTangent;
+  let x7 = x6 + drawRadius * cosine;
+  let y2 = y1 + angleSign * drawRadius * halfTangent;
+  let y3 = y1 + angleSign * drawRadius * sine;
+  let y4 = y5 - angleSign * drawRadius * (1 - sine);
+
+  ctx.beginPath();
+  ctx.moveTo(x4, y5);
+  ctx.arcTo(x3, y5, x1, y3, drawRadius);
+  ctx.arcTo(x0, y2, x0, y1, drawRadius);
+  ctx.arcTo(x0, y0, x2, y0, drawRadius);
+  ctx.arcTo(x8, y0, x8, y1, drawRadius);
+  ctx.arcTo(x8, y2, x7, y3, drawRadius);
+  ctx.arcTo(x5, y5, x4, y5, drawRadius);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
 function trapezoid(params, ref) {
   let shortSideUp =
     params.shortSideUp == undefined ? false : params.shortSideUp;
@@ -673,3 +746,4 @@ registerDrawFunction("octagonVertical", octagonVertical);
 registerDrawFunction("pentagon", pentagon);
 registerDrawFunction("roundedRectangle", roundedRectangle);
 registerDrawFunction("trapezoid", trapezoid);
+registerDrawFunction("triangle", triangle);

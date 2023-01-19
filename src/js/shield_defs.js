@@ -142,6 +142,48 @@ function escutcheonDownShield(
 }
 
 /**
+ * Draws a shield with a triangle background, pointed downward
+ *
+ * @param {*} fillColor - Color of triangle background fill
+ * @param {*} strokeColor - Color of triangle outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} radius - Corner radius of triangle (defaults to 2)
+ * @param {*} rectWidth - Width of triangle (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function triangleDownShield(
+  fillColor,
+  strokeColor,
+  textColor,
+  radius,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius = radius ?? 2;
+
+  return {
+    canvasDrawnBlank: {
+      drawFunc: "triangle",
+      params: {
+        pointUp: false,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    padding: {
+      left: 5,
+      right: 5,
+      top: 2,
+      bottom: 10,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
  * Draws a shield with a trapezoid background, with the short side on bottom
  *
  * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
@@ -594,18 +636,6 @@ export function loadShields() {
   // Multi-use shields
 
   // Triangle shields
-  let triangleRoundedDownShield = {
-    spriteBlank: "shield_tri_rounded",
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.black,
-    padding: {
-      left: 7,
-      right: 7,
-      top: 2,
-      bottom: 7,
-    },
-  };
-
   let triangleConvexDownShield = {
     spriteBlank: ["shield_tri_convex_2", "shield_tri_convex_3"],
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
@@ -2681,7 +2711,10 @@ export function loadShields() {
   shields["US:TN:primary:Truck"] = banneredShield(shields["US:TN:primary"], [
     "TRK",
   ]);
-  shields["US:TN:secondary"] = triangleRoundedDownShield;
+  shields["US:TN:secondary"] = triangleDownShield(
+    Color.shields.white,
+    Color.shields.black
+  );
   shields["US:TN:secondary:Alternate"] = banneredShield(
     shields["US:TN:secondary"],
     ["ALT"]
