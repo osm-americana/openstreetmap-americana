@@ -272,9 +272,9 @@ describe("label", function () {
     let evaluatedLabelAndGloss = (locales, properties) => {
       let evaluated = evaluatedExpression(locales, properties);
       if (typeof evaluated === "string") {
-        return [evaluated, null];
+        return [evaluated];
       }
-      return [evaluated.sections[0].text, evaluated.sections[4].text];
+      return [evaluated.sections[0].text, evaluated.sections[4]?.text];
     };
 
     let expectGloss = (
@@ -295,11 +295,22 @@ describe("label", function () {
     };
 
     it("puts an unlocalized name by itself", function () {
-      expect(
-        evaluatedExpression(["en"], {
-          name: "Null Island",
-        })
-      ).to.be.eql("Null Island");
+      let evaluated = evaluatedExpression(["en"], {
+        name: "Null Island",
+      });
+
+      expect(evaluated.sections.length).to.be.eql(1);
+      expect(evaluated.sections[0].text).to.be.eql("Null Island");
+    });
+    it("spreads multiple unlocalized names across multiple lines", function () {
+      let evaluated = evaluatedExpression(["en"], {
+        name: "Null Island;Insula Nullius",
+      });
+
+      expect(evaluated.sections.length).to.be.eql(1);
+      expect(evaluated.sections[0].text).to.be.eql(
+        "Null Island\nInsula Nullius"
+      );
     });
     it("glosses an anglicized name with the local name", function () {
       let evaluated = evaluatedExpression(["en"], {
@@ -321,26 +332,19 @@ describe("label", function () {
       expect(evaluated.sections[5].scale).to.be.below(0.1);
     });
     it("deduplicates matching anglicized and local names", function () {
-      expectGloss("en", "Null Island", "Null Island", "Null Island", null);
-      expectGloss("en", "Null Island", "NULL Island", "Null Island", null);
-      expectGloss("en", "Montreal", "Montréal", "Montréal", null);
-      expectGloss("en", "Quebec City", "Québec", "Québec City", null);
-      expectGloss("en", "Da Nang", "Đà Nẵng", "Đà Nẵng", null);
-      expectGloss("en", "Nūll Island", "Ñüłl Íşlåńđ", "Ñüłl Íşlåńđ", null);
-      expectGloss("en", "New York City", "New York", "New York City", null);
-      expectGloss(
-        "en",
-        "Washington, D.C.",
-        "Washington",
-        "Washington, D.C.",
-        null
-      );
+      expectGloss("en", "Null Island", "Null Island", "Null Island");
+      expectGloss("en", "Null Island", "NULL Island", "Null Island");
+      expectGloss("en", "Montreal", "Montréal", "Montréal");
+      expectGloss("en", "Quebec City", "Québec", "Québec City");
+      expectGloss("en", "Da Nang", "Đà Nẵng", "Đà Nẵng");
+      expectGloss("en", "Nūll Island", "Ñüłl Íşlåńđ", "Ñüłl Íşlåńđ");
+      expectGloss("en", "New York City", "New York", "New York City");
+      expectGloss("en", "Washington, D.C.", "Washington", "Washington, D.C.");
       expectGloss(
         "en",
         "Santiago de Querétaro",
         "Querétaro",
-        "Santiago de Querétaro",
-        null
+        "Santiago de Querétaro"
       );
 
       // Suboptimal but expected cases
@@ -367,6 +371,136 @@ describe("label", function () {
       expectGloss("es", "Quebec", "Québec", "Quebec", "Québec");
       expectGloss("pl", "Ryga", "Rīga", "Ryga", "Rīga");
       expectGloss("pl", "Jurmała", "Jūrmala", "Jurmała", "Jūrmala");
+    });
+    it("glosses multiple local names", function () {
+      expectGloss(
+        "en",
+        "Null Island",
+        "Terra Nullius;空虛島",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+    });
+    it("deduplicates anglicized name and one of the local names", function () {
+      expectGloss(
+        "en",
+        "Null Island",
+        "Null Island;Terra Nullius;空虛島",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+      expectGloss(
+        "en",
+        "Null Island",
+        "Terra Nullius;Null Island;空虛島",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+      expectGloss(
+        "en",
+        "Null Island",
+        "Terra Nullius;空虛島;Null Island",
+        "Null Island",
+        "Terra Nullius • 空虛島"
+      );
+      expectGloss(
+        "en",
+        "Null Island",
+        "Null Island;Null Island;Null Island",
+        "Null Island",
+        ""
+      );
+    });
+  });
+
+  describe("#listValuesExpression", function () {
+    let evaluatedExpression = (valueList, separator, valueToOmit) =>
+      expression
+        .createExpression(
+          localizedTextField(
+            [...Label.listValuesExpression(valueList, separator, valueToOmit)],
+            ["en"]
+          )
+        )
+        .value.expression.evaluate(expressionContext({}));
+
+    it("lists an empty list", function () {
+      expect(evaluatedExpression("", ", ")).to.be.eql("");
+    });
+
+    it("lists a single value", function () {
+      expect(evaluatedExpression("ABC", ", ")).to.be.eql("ABC");
+    });
+
+    it("lists empty values", function () {
+      expect(evaluatedExpression(";", ", ")).to.be.eql(", ");
+    });
+
+    it("lists multiple values", function () {
+      expect(evaluatedExpression("ABC;DEF", ", ")).to.be.eql("ABC, DEF");
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ")).to.be.eql(
+        "ABC, DEF, GHI"
+      );
+      expect(evaluatedExpression(";ABC;DEF", ", ")).to.be.eql(", ABC, DEF");
+      expect(evaluatedExpression("ABC;DEF;", ", ")).to.be.eql("ABC, DEF, ");
+    });
+
+    it("ignores a space after a semicolon", function () {
+      expect(evaluatedExpression("ABC; DEF", ", ")).to.be.eql("ABC, DEF");
+    });
+
+    it("ignores an escaped semicolon", function () {
+      expect(evaluatedExpression("ABC;;DEF", ", ")).to.be.eql("ABC;DEF");
+      expect(evaluatedExpression("ABC;;DEF;GHI", ", ")).to.be.eql(
+        "ABC;DEF, GHI"
+      );
+      expect(evaluatedExpression("ABC;DEF;;GHI", ", ")).to.be.eql(
+        "ABC, DEF;GHI"
+      );
+      expect(evaluatedExpression("ABC;;DEF;;GHI", ", ")).to.be.eql(
+        "ABC;DEF;GHI"
+      );
+      expect(evaluatedExpression("ABC;;;DEF", ", ")).to.be.eql("ABC;, DEF");
+      expect(evaluatedExpression("ABC;;;;DEF", ", ")).to.be.eql("ABC;;DEF");
+    });
+
+    it("accepts an expression as the separator", function () {
+      expect(evaluatedExpression("ABC;DEF", ["concat", ", "])).to.be.eql(
+        "ABC, DEF"
+      );
+    });
+
+    it("lists a maximum number of values", function () {
+      // https://www.openstreetmap.org/node/9816809799
+      expect(
+        evaluatedExpression(
+          "马岔河村;菜园村;刘灿东村;后于口村;王石楼村;李岔河村;岔河新村;富康新村;前鱼口村",
+          "、"
+        )
+      ).to.be.eql(
+        "马岔河村、菜园村、刘灿东村;后于口村;王石楼村;李岔河村;岔河新村;富康新村;前鱼口村"
+      );
+      expect(
+        evaluatedExpression(
+          "one;two;three;four;five;six;seven;eight;nine;ten",
+          ", "
+        )
+      ).to.be.eql("one, two, three;four;five;six;seven;eight;nine;ten");
+    });
+
+    it("omits a specified value", function () {
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "")).to.be.eql(
+        "ABC, DEF, GHI"
+      );
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "ABC")).to.be.eql(
+        "DEF, GHI"
+      );
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "DEF")).to.be.eql(
+        "ABC, GHI"
+      );
+      expect(evaluatedExpression("ABC;DEF;GHI", ", ", "GHI")).to.be.eql(
+        "ABC, DEF"
+      );
     });
   });
 });

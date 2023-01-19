@@ -136,7 +136,7 @@ const labelPaintProperties = {
 
 const labelLayoutProperties = {
   "symbol-placement": "line",
-  "text-field": Label.localizedName,
+  "text-field": Label.localizedNameInline,
   "text-font": ["OpenHistorical Italic"],
   "text-max-angle": 55,
 };

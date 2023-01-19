@@ -164,6 +164,14 @@ export default class LegendControl {
     let mainFeature = features[0];
     if (!mainFeature) return;
 
+    // No point in illustrating an invisible line.
+    if (
+      mainFeature.layer.type === "line" &&
+      mainFeature.layer.paint?.["line-opacity"] === 0
+    ) {
+      return;
+    }
+
     // Copy the entry, adding the first match, which is from the topmost layer.
     let matchedEntry = { feature: mainFeature };
     Object.assign(matchedEntry, entry);
@@ -340,15 +348,12 @@ export default class LegendControl {
     let fillColor =
       fill?.layer.paint["fill-color"] ||
       fill?.layer.paint["fill-extrusion-color"];
-    if (fillColor) {
-      let opacity =
-        fill?.layer.paint["fill-opacity"] ??
-        fill?.layer.paint["fill-extrusion-opacity"] ??
-        fillColor.a ??
-        1;
-      fillColor = `rgba(${fillColor.r * 255}, ${fillColor.g * 255}, ${
-        fillColor.b * 255
-      }, ${opacity})`;
+    let fillOpacity = fill?.layer.paint["fill-opacity"];
+    if (fillColor && fillOpacity) {
+      let opacity = fillOpacity ?? fillColor.a ?? 1;
+      fillColor = `rgba(${(fillColor.r * 255) / opacity}, ${
+        (fillColor.g * 255) / opacity
+      }, ${(fillColor.b * 255) / opacity}, ${opacity})`;
     }
     let borderStyle = "solid";
     if (stroke?.layer.paint["line-dasharray"]) {
@@ -365,6 +370,7 @@ export default class LegendControl {
         stroke?.layer.paint["line-color"] || fillColor || "transparent",
       borderStyle: borderStyle,
       borderWidth: `${stroke?.layer.paint["line-width"] ?? 1}px`,
+      opacity: fill?.layer.paint["fill-extrusion-opacity"] ?? 1,
     };
   }
 

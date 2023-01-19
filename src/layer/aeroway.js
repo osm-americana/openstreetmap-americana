@@ -15,8 +15,8 @@ const iconLayout = {
     "match",
     ["get", "class"],
     "military",
-    "military_airport",
-    "airport",
+    "poi_military_plane",
+    "poi_plane",
   ],
   "text-anchor": "bottom",
   "text-variable-anchor": [

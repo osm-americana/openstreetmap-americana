@@ -135,7 +135,7 @@ export const town = {
         [11, 0.7],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",

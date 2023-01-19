@@ -50,6 +50,9 @@
         width: 0;
         text-align: center;
       }
+      .legend-row > .label {
+        white-space: pre-line;
+      }
       .legend-row > .icon {
         white-space: nowrap;
       }
@@ -100,10 +103,15 @@
         width="149"
         height="149"
         src="https://github.blog/wp-content/uploads/2008/12/forkme_right_green_007200.png?resize=149%2C149"
-        class="attachment-full size-full"
         alt="Fork me on GitHub"
-        data-recalc-dims="1"
-        style="position: absolute; top: 0; right: 0; border: 0; z-index: 100"
+        style="
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: 0;
+          z-index: 100;
+          clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+        "
     /></a>
     <template id="legend">
       <h2>Legend</h2>
