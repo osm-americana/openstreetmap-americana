@@ -14,6 +14,7 @@ import * as lyrPlace from "./place.js";
 import * as lyrPoi from "./poi.js";
 import * as lyrRail from "./rail.js";
 import * as lyrRoad from "./road.js";
+import * as lyrTrack from "./track.js";
 import * as lyrTransportationLabel from "./transportation_label.js";
 import * as lyrWater from "./water.js";
 import * as lyrBuilding from "./building.js";
@@ -85,6 +86,8 @@ export function build(locales) {
     lyrAeroway.runwayArea,
     lyrAeroway.taxiway,
     lyrAeroway.taxiwayArea,
+
+    lyrTrack.track,
 
     lyrRoad.motorwayLink.casing(),
     lyrRoad.trunkLink.casing(),
