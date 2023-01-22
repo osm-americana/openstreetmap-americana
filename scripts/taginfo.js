@@ -36,6 +36,11 @@ function addNetworkTags(project) {
         ...taginfoEntry,
         icon_url: `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon[0]}.svg`,
       };
+    } else if (icon) {
+      return {
+        ...taginfoEntry,
+        icon_url: `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`,
+      };
     }
 
     return taginfoEntry;
