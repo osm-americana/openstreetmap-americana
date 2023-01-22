@@ -1719,6 +1719,9 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
+  shields["US:MA:Turnpike"] = {
+    norefImage: shieldImages.shield_us_ma_pike,
+  };
 
   // Maryland
   shields["US:MD"] = {
