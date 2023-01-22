@@ -4040,7 +4040,13 @@ export function loadShields() {
   };
 
   shields["US:MI"].overrideByRef = {
-    185: diamondShield(Color.shields.brown, Color.shields.white),
+    185: diamondShield(
+      Color.shields.brown,
+      Color.shields.white,
+      Color.shields.white,
+      0,
+      24
+    ),
   };
 
   shields["US:MO:Taney:Branson"].overrideByRef = {
