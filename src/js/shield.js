@@ -257,7 +257,7 @@ export function missingIconHandler(map, e) {
 }
 
 export function missingIconLoader(map, e) {
-  let ctx = generateShieldCtx(map.style.imageManager.images, e.id);
+  let ctx = generateShieldCtx(map, e.id);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
     console.warn("Didn't produce a shield for", JSON.stringify(e.id));
@@ -330,9 +330,10 @@ function getRouteDef(id) {
   };
 }
 
-export function generateShieldCtx(sprites, id) {
-  var routeDef = getRouteDef(id);
-  var shieldDef = getShieldDef(routeDef);
+export function generateShieldCtx(map, id) {
+  let sprites = map.style.imageManager.images;
+  let routeDef = getRouteDef(id);
+  let shieldDef = getShieldDef(routeDef);
 
   if (shieldDef == null) {
     return null;

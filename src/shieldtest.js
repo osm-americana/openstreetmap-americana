@@ -2,7 +2,6 @@
 
 import { map } from "./americana.js";
 import * as shield from "./js/shield.js";
-import { shields } from "./js/shield_defs.js";
 import * as gfx from "./js/screen_gfx.js";
 
 const once = (emitter, name, { signal } = {}) =>
@@ -229,7 +228,7 @@ let refs = [
 ];
 
 export function getShieldCanvas(shield_id) {
-  let ctx = shield.generateShieldCtx(shield_id);
+  let ctx = shield.generateShieldCtx(map, shield_id);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
     console.warn("Didn't produce a shield for", JSON.stringify(e.id));
