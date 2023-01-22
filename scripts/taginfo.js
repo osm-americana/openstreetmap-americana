@@ -92,8 +92,11 @@ function addNetworkTags(project) {
       shieldGfx.canvas.saveAsSync(save_filename);
     }
 
-    return taginfoEntry;
-  });
+    return {
+      ...taginfoEntry,
+      icon_url: `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename}.svg`,
+    };
+});
   project.tags.push(...tags);
 }
 
