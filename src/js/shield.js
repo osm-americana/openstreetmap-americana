@@ -331,7 +331,10 @@ function getRouteDef(id) {
 }
 
 export function generateShieldCtx(map, id) {
-  let sprites = map.style.imageManager.images;
+  return generateSpriteCtx(map.style.imageManager.images, id);
+}
+
+export function generateSpriteCtx(sprites, id) {
   let routeDef = getRouteDef(id);
   let shieldDef = getShieldDef(routeDef);
 
