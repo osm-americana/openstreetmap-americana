@@ -231,7 +231,7 @@ export function getShieldCanvas(shield_id) {
   let ctx = shield.generateShieldCtx(map, shield_id);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
-    console.warn("Didn't produce a shield for", JSON.stringify(e.id));
+    console.warn("Didn't produce a shield for", JSON.stringify(shield_id));
     ctx = gfx.getGfxContext({ width: 1, height: 1 });
   }
   return ctx.canvas;
