@@ -28,7 +28,7 @@ let shieldImageURLs = Object.fromEntries(
     `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${sprite}.svg`,
   ])
 );
-let shields = ShieldDef.loadShields(shieldImageURLs);
+let shields = ShieldDef.loadShields();
 
 let worldSVG = fs.readFileSync(`${process.cwd()}/scripts/blank_map_world.svg`, {
   encoding: "utf8",

@@ -17,7 +17,7 @@ function addNetworkTags(project, sprites) {
       `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${sprite}.svg`,
     ])
   );
-  let shields = ShieldDef.loadShields(shieldImageURLs);
+  let shields = ShieldDef.loadShields();
 
   // Convert each shield's rendering metadata to an entry that taginfo understands.
   let tags = Object.entries(shields).map((entry) => {
