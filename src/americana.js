@@ -56,9 +56,10 @@ export const map = (window.map = new maplibregl.Map({
   attributionControl: false,
 }));
 
-CustomShields.loadCustomShields();
-
-ShieldDef.loadShields();
+map.on('styledataloading', function() {
+  CustomShields.loadCustomShields();
+  ShieldDef.loadShields();
+});
 
 map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
