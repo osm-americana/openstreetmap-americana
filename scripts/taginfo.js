@@ -30,18 +30,22 @@ function addNetworkTags(project, sprites) {
     }
     description += ".";
 
-    let icon = definition.backgroundImage || definition.norefImage;
-    if (Array.isArray(icon)) {
-      icon = icon[0];
-    }
-
-    return {
+    let taginfoEntry = {
       key: "network",
       value: network,
       object_types: ["relation"],
       description: description,
-      icon_url: icon,
     };
+
+    let icon = definition.spriteBlank || definition.norefImage;
+    if (Array.isArray(icon)) {
+      return {
+        ...taginfoEntry,
+        icon_url: `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon[0]}.svg`,
+      };
+    }
+
+    return taginfoEntry;
   });
   project.tags.push(...tags);
 }
