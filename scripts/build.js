@@ -30,6 +30,7 @@ export async function build(updateHook, buildOptions = {}) {
     }),
     copyFile("src/index.html", "dist/index.html"),
     copyFile("src/shieldtest.html", "dist/shieldtest.html"),
+    copyFile("src/favicon.ico", "dist/favicon.ico"),
   ]);
 }
 
