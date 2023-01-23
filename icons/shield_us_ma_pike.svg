@@ -1,6 +1,11 @@
-<svg width="20.55" height="20.55" viewBox="0 0 10.275 10.275" xmlns="http://www.w3.org/2000/svg">
- <rect x=".388" y=".388" width="9.5" height="9.5" rx=".248" fill="#fff" stroke="#000" stroke-width=".775" style="paint-order:stroke fill markers"/>
- <path d="m3.3875 5.3875 0.48125-4h2.5375l0.48125 4z"/>
- <ellipse cx="5.137" cy="6.929" rx="3.583" ry="1.259" stroke="#000" stroke-width=".363"/>
- <path d="m2.8875 5.8875h4.5" fill="none" stroke="#fff" stroke-width=".979"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20" height="20" version="1.1" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+ <rect x=".25" y=".25" width="9.5" height="9.5" rx=".75" ry=".75" fill="#fff" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+ <path d="m3.25 6 0.48125-4.5h2.5375l0.48125 4.5z" stroke-width="1.0607"/>
+ <ellipse cx="4.9963" cy="7.1258" rx="3.3135" ry="1.206" stroke="#000" stroke-width=".34165"/>
+ <g>
+  <path transform="scale(.5)" d="m6.5 10.5v0.5h-0.5v2h8v-2h-0.5v-0.5h-0.5v0.5h-6v-0.5h-0.5z" fill="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="23.094" style="paint-order:stroke fill markers"/>
+  <path transform="scale(.5)" d="m8 11v2h1 0.5v-0.5h-0.5v-1h0.5v-0.5h-0.5-1zm2.5 0v0.5h0.5v1h-0.5v0.5h0.5 1v-2h-1-0.5z" fill="#131313" style="paint-order:stroke fill markers"/>
+  <path transform="scale(.5)" d="m6 12v0.5 0.5h1v-0.5h-0.5v-0.5h-0.5zm7.5 0v0.5h-0.5v0.5h1v-0.5-0.5h-0.5z" fill="#131313" style="paint-order:stroke fill markers"/>
+ </g>
 </svg>
