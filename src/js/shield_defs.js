@@ -1701,6 +1701,9 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.black
   );
+  shields["US:MA:Turnpike"] = {
+    norefImage: shieldImages.shield_us_ma_pike,
+  };
 
   // Maryland
   shields["US:MD"] = {
@@ -3664,6 +3667,14 @@ export function loadShields() {
   shields["FR:A-road"] = shields["FR:N-road"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
+  );
+
+  // Germany
+  shields["DE:national"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black,
+    34
   );
 
   // Greece
