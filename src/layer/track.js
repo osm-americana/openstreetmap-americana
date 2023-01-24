@@ -12,7 +12,7 @@ export const track = {
   filter: ["in", ["get", "class"], ["literal", ["track"]]],
   minzoom: 12,
   paint: {
-    "line-color": "tan",
+    "line-color": "#d4b791",
     "line-opacity": [
       "interpolate",
       ["exponential", 1.2],
@@ -24,7 +24,7 @@ export const track = {
     ],
     "line-blur": 0.75,
     "line-width": 0.5,
-    "line-dasharray": [7, 5],
+    "line-dasharray": [12, 3],
     "line-offset": 0,
     "line-gap-width": [
       "interpolate",
