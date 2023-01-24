@@ -127,3 +127,9 @@ map.addControl(sampleControl, "bottom-left");
 map.getCanvas().focus();
 
 updateLanguageLabel();
+
+if (window.LIVE_RELOAD) {
+  new EventSource("/esbuild").addEventListener("change", () =>
+    location.reload()
+  );
+}
