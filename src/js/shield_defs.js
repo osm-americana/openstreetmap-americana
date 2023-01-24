@@ -3712,7 +3712,9 @@ export function loadShields(shieldImages) {
   // Germany
   shields["DE:national"] = roundedRectShield(
     Color.shields.yellow,
-    Color.shields.black
+    Color.shields.black,
+    Color.shields.black,
+    34
   );
 
   // Greece
