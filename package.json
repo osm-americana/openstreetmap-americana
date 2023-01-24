@@ -34,8 +34,7 @@
   "devDependencies": {
     "@maplibre/maplibre-gl-style-spec": "^17.0.1",
     "chai": "^4.3.7",
-    "create-serve": "^1.0.1",
-    "esbuild": "^0.15.15",
+    "esbuild": "^0.17.4",
     "events": "^3.3.0",
     "maplibre-gl": "^2.1.9",
     "mocha": "^10.1.0",
