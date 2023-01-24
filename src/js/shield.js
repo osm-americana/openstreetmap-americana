@@ -144,13 +144,7 @@ function getDrawFunc(shieldDef) {
         ref
       );
   }
-
-  //TODO: eliminate backgroundDraw
-  if (typeof shieldDef.backgroundDraw == "undefined") {
-    return ShieldDraw.blank;
-  }
-
-  return shieldDef.backgroundDraw;
+  return ShieldDraw.blank;
 }
 
 /**
