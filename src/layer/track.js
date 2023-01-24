@@ -2,14 +2,16 @@
 
 import * as Color from "../constants/color.js";
 
-const trackSelect = ["match", ["get", "class"], ["track"]];
+const trackSelect = ["==", ["get", "class"], "track"];
+const unpavedSelect = ["!=", ["get", "surface"], "paved"];
+const pavedSelect = ["==", ["get", "surface"], "paved"];
 
 export const track = {
   id: "highway-track",
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["in", ["get", "class"], ["literal", ["track"]]],
+  filter: ["all", trackSelect, unpavedSelect],
   minzoom: 12,
   paint: {
     "line-color": "#d4b791",
@@ -38,9 +40,24 @@ export const track = {
   },
 };
 
+export const pavedTrack = {
+  id: "highway-track-paved",
+  type: "line",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  filter: ["all", trackSelect, pavedSelect],
+  minzoom: 12,
+  paint: { ...track.paint },
+};
+pavedTrack["paint"]["line-dasharray"] = [1, 0];
+
 export const legendEntries = [
   {
     description: "Land access track",
     layers: [track.id],
+  },
+  {
+    description: "Paved land access track",
+    layers: [pavedTrack.id],
   },
 ];

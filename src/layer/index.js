@@ -88,6 +88,7 @@ export function build(locales) {
     lyrAeroway.taxiwayArea,
 
     lyrTrack.track,
+    lyrTrack.pavedTrack,
 
     lyrRoad.motorwayLink.casing(),
     lyrRoad.trunkLink.casing(),

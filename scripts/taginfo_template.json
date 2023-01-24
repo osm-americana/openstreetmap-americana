@@ -226,7 +226,7 @@
       "key": "highway",
       "value": "track",
       "object_types": ["way"],
-      "description": "Track roads have a two-track dashed line pattern.",
+      "description": "Track roads have a two-track line pattern that is dashed if unpaved and solid if paved.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
     },
     {
