@@ -51,7 +51,6 @@ const cyrb53 = function (str, seed = 0) {
  * @param {*} project - The project description object to modify.
  */
 function addNetworkTags(project) {
-  // Inject a map of each sprite ID to an absolute image URL instead of the usual sprite metadata.
   CustomShields.loadCustomShields();
   let shields = ShieldDef.loadShields();
 
