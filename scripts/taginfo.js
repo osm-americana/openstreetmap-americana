@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as ShieldDef from "../src/js/shield_defs.js";
 import * as Shields from "../src/js/shield.js";
 import * as Gfx from "../src/js/screen_gfx.js";
+import * as CustomShields from "../src/js/custom_shields.js";
 import * as skia from "skia-canvas";
 
 if (!fs.existsSync("dist/shield-sample")) {
@@ -51,6 +52,7 @@ const cyrb53 = function (str, seed = 0) {
  */
 function addNetworkTags(project) {
   // Inject a map of each sprite ID to an absolute image URL instead of the usual sprite metadata.
+  CustomShields.loadCustomShields();
   let shields = ShieldDef.loadShields();
 
   // Convert each shield's rendering metadata to an entry that taginfo understands.
@@ -71,7 +73,7 @@ function addNetworkTags(project) {
 
     let icon_url;
 
-    if ((icon = undefined)) {
+    if (icon == undefined) {
       let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
       let network_filename = cyrb53(JSON.stringify(shields[network]));
       let save_filename = `dist/shield-sample/shield_${network_filename}.svg`;
