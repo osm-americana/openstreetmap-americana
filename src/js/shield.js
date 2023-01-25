@@ -245,6 +245,21 @@ function drawShieldText(ctx, shieldDef, routeDef) {
   ctx.fillStyle = textColor(shieldDef);
   ShieldText.drawShieldText(ctx, routeDef.ref, textLayout);
 
+  if (config.SHIELD_TEXT_BBOX_COLOR) {
+    ctx.strokeStyle = config.SHIELD_TEXT_BBOX_COLOR;
+    ctx.lineWidth = ShieldDraw.PXR;
+    ctx.strokeRect(
+      (shieldDef.padding.left - 0.5) * ShieldDraw.PXR,
+      bannerCount * ShieldDef.bannerSizeH +
+        ShieldDef.topPadding +
+        (shieldDef.padding.top - 0.5) * ShieldDraw.PXR,
+      shieldBounds.width -
+        (shieldDef.padding.left + shieldDef.padding.right - 1) * ShieldDraw.PXR,
+      shieldBounds.height -
+        (shieldDef.padding.top + shieldDef.padding.bottom - 1) * ShieldDraw.PXR
+    );
+  }
+
   return ctx;
 }
 
