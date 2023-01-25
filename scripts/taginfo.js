@@ -23,27 +23,20 @@ function addNetworkTags(project) {
     }
     description += ".";
 
-    let taginfoEntry = {
+    let icon = definition.spriteBlank || definition.norefImage;
+    if (Array.isArray(icon)) {
+      icon = icon[0];
+    }
+
+    return {
       key: "network",
       value: network,
       object_types: ["relation"],
       description: description,
+      icon_url: icon
+        ? `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`
+        : undefined,
     };
-
-    let icon = definition.spriteBlank || definition.norefImage;
-    if (Array.isArray(icon)) {
-      return {
-        ...taginfoEntry,
-        icon_url: `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon[0]}.svg`,
-      };
-    } else if (icon) {
-      return {
-        ...taginfoEntry,
-        icon_url: `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`,
-      };
-    }
-
-    return taginfoEntry;
   });
   project.tags.push(...tags);
 }
