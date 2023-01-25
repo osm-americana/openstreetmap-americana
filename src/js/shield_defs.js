@@ -24,8 +24,14 @@ export const shields = {};
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.ellipse(fillColor, strokeColor, ref, rectWidth),
+    canvasDrawnBlank: {
+      drawFunc: "ellipse",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -69,15 +75,15 @@ function roundedRectShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.roundedRectangle(
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "roundedRectangle",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -112,16 +118,17 @@ function escutcheonDownShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.escutcheon(
-        offset,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "escutcheon",
+      params: {
+        offset: offset,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+        outlineWidth: 1,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -129,6 +136,48 @@ function escutcheonDownShield(
       right: 2,
       top: 2,
       bottom: 0 + offset / 2,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
+ * Draws a shield with a triangle background, pointed downward
+ *
+ * @param {*} fillColor - Color of triangle background fill
+ * @param {*} strokeColor - Color of triangle outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} radius - Corner radius of triangle (defaults to 2)
+ * @param {*} rectWidth - Width of triangle (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function triangleDownShield(
+  fillColor,
+  strokeColor,
+  textColor,
+  radius,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius = radius ?? 2;
+
+  return {
+    canvasDrawnBlank: {
+      drawFunc: "triangle",
+      params: {
+        pointUp: false,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
+    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    padding: {
+      left: 5,
+      right: 5,
+      top: 2,
+      bottom: 10,
     },
     textColor: textColor,
   };
@@ -156,18 +205,18 @@ function trapezoidDownShield(
   let angleInRadians = (angle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
+
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.trapezoid(
-        false,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "trapezoid",
+      params: {
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -203,17 +252,17 @@ function trapezoidUpShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.trapezoid(
-        true,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "trapezoid",
+      params: {
+        shortSideUp: true,
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: radius,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -240,67 +289,21 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.diamond(fillColor, strokeColor, ref, radius, 1, rectWidth),
+    canvasDrawnBlank: {
+      drawFunc: "diamond",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 4.5,
       right: 4.5,
       top: 5,
       bottom: 5,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a pentagon background, pointed downward
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of pentagon background fill
- * @param {*} strokeColor - Color of pentagon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius1 - Corner radius of pointed side of pentagon (defaults to 2)
- * @param {*} radius2 - Corner radius of flat side of pentagon (defaults to 0)
- * @param {*} rectWidth - Width of pentagon (defaults to variable-width)
- * @returns a shield definition object
- */
-function pentagonDownShield(
-  offset,
-  angle,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius1,
-  radius2,
-  rectWidth
-) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  textColor = textColor ?? strokeColor;
-  radius1 = radius1 ?? 2;
-  radius2 = radius2 ?? 0;
-  return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        false,
-        offset,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
-    padding: {
-      left: 2 + 10 * Math.tan(angleInRadians),
-      right: 2 + 10 * Math.tan(angleInRadians),
-      top: 3,
-      bottom: 2 + offset / 2,
     },
     textColor: textColor,
   };
@@ -334,19 +337,18 @@ function pentagonUpShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 0;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        true,
-        offset,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "pentagon",
+      params: {
+        offset: offset,
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius1: radius1,
+        radius2: radius2,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
     padding: {
@@ -384,19 +386,19 @@ function homePlateDownShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        false,
-        offset,
-        0,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "pentagon",
+      params: {
+        pointUp: false,
+        offset: offset,
+        angle: 0,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius1: radius1,
+        radius2: radius2,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
     padding: {
@@ -404,56 +406,6 @@ function homePlateDownShield(
       right: 2,
       top: 2,
       bottom: 1 + offset,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a home plate background, pointed upward
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} fillColor - Color of home plate background fill
- * @param {*} strokeColor - Color of home plate outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius1 - Corner radius of pointed side of home plate (defaults to 2)
- * @param {*} radius2 - Corner radius of flat side of home plate (defaults to 2)
- * @param {*} rectWidth - Width of home plate (defaults to variable-width)
- * @returns a shield definition object
- */
-function homePlateUpShield(
-  offset,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius1,
-  radius2,
-  rectWidth
-) {
-  textColor = textColor ?? strokeColor;
-  radius1 = radius1 ?? 2;
-  radius2 = radius2 ?? 2;
-  return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.pentagon(
-        true,
-        offset,
-        0,
-        fillColor,
-        strokeColor,
-        ref,
-        radius1,
-        radius2,
-        1,
-        rectWidth
-      ),
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
-    padding: {
-      left: 2,
-      right: 2,
-      top: 1 + offset,
-      bottom: 2,
     },
     textColor: textColor,
   };
@@ -481,16 +433,16 @@ function hexagonVerticalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.hexagonVertical(
-        offset,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "hexagonVertical",
+      params: {
+        offset: offset,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: (spaceBounds, textBounds) =>
       ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
     padding: {
@@ -526,16 +478,16 @@ function hexagonHorizontalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.hexagonHorizontal(
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "hexagonHorizontal",
+      params: {
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 3,
@@ -572,17 +524,17 @@ function octagonVerticalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.octagonVertical(
-        offset,
-        angleInRadians,
-        fillColor,
-        strokeColor,
-        ref,
-        radius,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "octagonVertical",
+      params: {
+        offset: offset,
+        angle: angleInRadians,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius: radius,
+        rectWidth: rectWidth,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -606,15 +558,15 @@ function octagonVerticalShield(
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    backgroundDraw: (ref) =>
-      ShieldDraw.roundedRectangle(
-        fillColor,
-        strokeColor,
-        ref,
-        10,
-        1,
-        rectWidth
-      ),
+    canvasDrawnBlank: {
+      drawFunc: "roundedRectangle",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        radius: 10,
+      },
+    },
     textLayoutConstraint: ShieldText.ellipseTextConstraint,
     padding: {
       left: 2,
@@ -630,13 +582,19 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
  * Draws a circle icon inside a black-outlined white square shield
  *
  * @param {*} fillColor - Color of circle icon background fill
- * @param {*} strokeColor - Color of circle icon outline stroke
+ * @param {*} strokeColor - Color of circle icon outline
  * @returns a shield definition object
  */
 function paBeltShield(fillColor, strokeColor) {
   return {
     notext: true,
-    backgroundDraw: (ref) => ShieldDraw.paBelt(fillColor, strokeColor),
+    canvasDrawnBlank: {
+      drawFunc: "paBelt",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+      },
+    },
   };
 }
 
@@ -644,13 +602,19 @@ function paBeltShield(fillColor, strokeColor) {
  * Draws a rectangle icon inside a white-outlined green square shield
  *
  * @param {*} fillColor - Color of rectangle icon background fill
- * @param {*} strokeColor - Color of rectangle icon outline stroke
+ * @param {*} strokeColor - Color of rectangle icon outline
  * @returns a shield definition object
  */
 function bransonRouteShield(fillColor, strokeColor) {
   return {
     notext: true,
-    backgroundDraw: (ref) => ShieldDraw.bransonRoute(fillColor, strokeColor),
+    canvasDrawnBlank: {
+      drawFunc: "branson",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+      },
+    },
   };
 }
 
@@ -663,8 +627,8 @@ function bransonRouteShield(fillColor, strokeColor) {
  */
 function banneredShield(baseDef, modifiers) {
   return {
-    ...baseDef,
     modifiers: modifiers,
+    ...baseDef,
   };
 }
 
@@ -672,18 +636,6 @@ export function loadShields(shieldImages) {
   // Multi-use shields
 
   // Triangle shields
-  let triangleRoundedDownShield = {
-    backgroundImage: shieldImages.shield_tri_rounded,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.black,
-    padding: {
-      left: 7,
-      right: 7,
-      top: 2,
-      bottom: 7,
-    },
-  };
-
   let triangleConvexDownShield = {
     backgroundImage: [
       shieldImages.shield_tri_convex_2,
@@ -1767,6 +1719,9 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
+  shields["US:MA:Turnpike"] = {
+    norefImage: shieldImages.shield_us_ma_pike,
+  };
 
   // Maryland
   shields["US:MD"] = {
@@ -2786,7 +2741,10 @@ export function loadShields(shieldImages) {
   shields["US:TN:primary:Truck"] = banneredShield(shields["US:TN:primary"], [
     "TRK",
   ]);
-  shields["US:TN:secondary"] = triangleRoundedDownShield;
+  shields["US:TN:secondary"] = triangleDownShield(
+    Color.shields.white,
+    Color.shields.black
+  );
   shields["US:TN:secondary:Alternate"] = banneredShield(
     shields["US:TN:secondary"],
     ["ALT"]
@@ -3677,8 +3635,14 @@ export function loadShields(shieldImages) {
       roundedRectShield(Color.shields.white, Color.shields.black);
 
   // Bulgaria
-  shields["bg:national"] = roundedRectShield(
+  shields["bg:motorway"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    34
+  );
+  shields["bg:national"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
     34
@@ -3702,14 +3666,6 @@ export function loadShields(shieldImages) {
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    34
-  );
-
-  // Denmark
-  shields["dk:national"] = roundedRectShield(
-    Color.shields.yellow,
-    Color.shields.black,
-    Color.shields.black,
     34
   );
 
@@ -3753,6 +3709,14 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Germany
+  shields["DE:national"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black,
+    34
+  );
+
   // Greece
   shields["GR:motorway"] = hexagonVerticalShield(
     3,
@@ -3767,17 +3731,6 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.white,
     34
-  );
-
-  // Hungary
-  shields["HU:national"] = homePlateDownShield(
-    3,
-    Color.shields.blue,
-    Color.shields.white,
-    Color.shields.white,
-    4,
-    0,
-    26
   );
 
   // Iceland
@@ -3847,40 +3800,22 @@ export function loadShields(shieldImages) {
   // Latvia
   shields["lv:national"] = roundedRectShield(
     Color.shields.red,
-    Color.shields.white
+    Color.shields.white,
+    Color.shields.white,
+    34
   );
   shields["lv:regional"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white
-  );
-
-  // Moldova
-  shields["md:national"] = {
-    backgroundImage: shieldImages.shield_ro_trunk_2,
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
-    },
-  };
-
-  // Montenegro
-  shields["ME:Magistralni putevi"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
     34
   );
 
-  // North Macedonia
-  shields["mk:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
+  // Montenegro
+  shields["ME:Magistralni putevi"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white,
     Color.shields.white,
-    0,
     34
   );
 
@@ -3950,16 +3885,6 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white,
     Color.shields.white,
-    34
-  );
-
-  // Serbia
-  shields["RS:national"] = hexagonVerticalShield(
-    3,
-    Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    0,
     34
   );
 
@@ -4166,7 +4091,13 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:MI"].overrideByRef = {
-    185: diamondShield(Color.shields.brown, Color.shields.white),
+    185: diamondShield(
+      Color.shields.brown,
+      Color.shields.white,
+      Color.shields.white,
+      0,
+      24
+    ),
   };
 
   shields["US:MO:Taney:Branson"].overrideByRef = {

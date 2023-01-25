@@ -134,6 +134,19 @@ function textColor(shieldDef) {
   return "black";
 }
 
+//Temporary fix until we can remove backgroundDraw
+function getDrawFunc(shieldDef) {
+  if (typeof shieldDef.canvasDrawnBlank != "undefined") {
+    return (ref) =>
+      ShieldDraw.draw(
+        shieldDef.canvasDrawnBlank.drawFunc,
+        shieldDef.canvasDrawnBlank.params,
+        ref
+      );
+  }
+  return ShieldDraw.blank;
+}
+
 /**
  * Creates a graphics context of the correct size to hold the shield and banner.
  * @param {*} shieldDef shield definition
@@ -146,12 +159,8 @@ function generateBlankGraphicsContext(shieldDef, routeDef) {
   var compoundBounds = null;
 
   if (shieldArtwork == null) {
-    if (typeof shieldDef.backgroundDraw == "undefined") {
-      shieldDef.backgroundDraw = ShieldDraw.blank;
-    }
-
-    //Do a test background draw to determine drawn size
-    let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
+    let drawFunc = getDrawFunc(shieldDef);
+    let drawnShieldCtx = drawFunc(routeDef.ref);
     compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
   } else {
     compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
@@ -166,11 +175,8 @@ function drawShield(ctx, shieldDef, routeDef) {
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
 
   if (shieldArtwork == null) {
-    if (typeof shieldDef.backgroundDraw == "undefined") {
-      shieldDef.backgroundDraw = ShieldDraw.blank;
-    }
-
-    let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
+    let drawFunc = getDrawFunc(shieldDef);
+    let drawnShieldCtx = drawFunc(routeDef.ref);
 
     ctx.drawImage(
       drawnShieldCtx.canvas,
@@ -191,11 +197,8 @@ function drawShieldText(ctx, shieldDef, routeDef) {
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
 
   if (shieldArtwork == null) {
-    if (typeof shieldDef.backgroundDraw == "undefined") {
-      shieldDef.backgroundDraw = ShieldDraw.blank;
-    }
-
-    let drawnShieldCtx = shieldDef.backgroundDraw(routeDef.ref);
+    let drawFunc = getDrawFunc(shieldDef);
+    let drawnShieldCtx = drawFunc(routeDef.ref);
 
     shieldBounds = {
       width: drawnShieldCtx.canvas.width,

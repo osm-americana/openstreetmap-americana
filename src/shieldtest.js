@@ -35,7 +35,6 @@ let networks = [
   "CA:NS:R",
   "CA:YT",
   "IS",
-  "dk:national",
   "e-road",
   "pl:motorways",
 
@@ -53,7 +52,6 @@ let networks = [
   "AU:WA:NH",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
-  "HU:national",
 
   "US:TN:secondary",
   "US:NC",
@@ -114,7 +112,6 @@ let networks = [
   "US:US:Historic",
   "CL:national",
 
-  "md:national",
   "KR:expressway",
   "CA:QC:R",
   "VE:T:AM",
