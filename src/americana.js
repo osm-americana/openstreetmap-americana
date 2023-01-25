@@ -56,10 +56,8 @@ export const map = (window.map = new maplibregl.Map({
   attributionControl: false,
 }));
 
-map.on("sourcedata", function () {
-  CustomShields.loadCustomShields();
-  ShieldDef.loadShields();
-});
+CustomShields.loadCustomShields();
+ShieldDef.loadShields();
 
 map.on("styleimagemissing", function (e) {
   Shield.missingIconHandler(map, e);
@@ -126,3 +124,9 @@ map.addControl(sampleControl, "bottom-left");
 map.getCanvas().focus();
 
 updateLanguageLabel();
+
+if (window.LIVE_RELOAD) {
+  new EventSource("/esbuild").addEventListener("change", () =>
+    location.reload()
+  );
+}

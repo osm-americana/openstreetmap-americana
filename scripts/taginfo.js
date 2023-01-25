@@ -64,39 +64,34 @@ function addNetworkTags(project) {
     }
     description += ".";
 
-    let taginfoEntry = {
+    let icon = definition.spriteBlank || definition.norefImage;
+    if (Array.isArray(icon)) {
+      icon = icon[0];
+    }
+
+    let icon_url;
+
+    if ((icon = undefined)) {
+      let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
+      let network_filename = cyrb53(JSON.stringify(shields[network]));
+      let save_filename = `dist/shield-sample/shield_${network_filename}.svg`;
+
+      if (!fs.existsSync(save_filename)) {
+        shieldGfx.canvas.saveAsSync(save_filename);
+      }
+      icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename}.svg`;
+    } else {
+      icon_url = `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`;
+    }
+
+    return {
       key: "network",
       value: network,
       object_types: ["relation"],
       description: description,
+      icon_url: icon_url,
     };
-
-    let icon = definition.spriteBlank || definition.norefImage;
-    if (Array.isArray(icon)) {
-      return {
-        ...taginfoEntry,
-        icon_url: `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon[0]}.svg`,
-      };
-    } else if (icon) {
-      return {
-        ...taginfoEntry,
-        icon_url: `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`,
-      };
-    }
-
-    let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
-    let network_filename = cyrb53(JSON.stringify(shields[network]));
-    let save_filename = `dist/shield-sample/shield_${network_filename}.svg`;
-
-    if (!fs.existsSync(save_filename)) {
-      shieldGfx.canvas.saveAsSync(save_filename);
-    }
-
-    return {
-      ...taginfoEntry,
-      icon_url: `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename}.svg`,
-    };
-});
+  });
   project.tags.push(...tags);
 }
 
