@@ -265,5 +265,5 @@ for (let network of networks) {
   let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
   row
     .insertCell()
-    .appendChild(document.createTextNode(`${shieldRate} shields/sec`));
+    .append(`${shieldRate} shields/sec`);
 }
