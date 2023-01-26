@@ -34,7 +34,7 @@ function loadShield(ctx, shield, bannerCount, verticalReflect) {
         drawCtx.canvas.height -
         2 * ShieldDraw.PXR
     );
-    ctx.restore();
+    ctx.reset();
   }
 }
 
@@ -137,9 +137,10 @@ function textColor(shieldDef) {
 //Temporary fix until we can remove backgroundDraw
 function getDrawFunc(shieldDef) {
   if (typeof shieldDef.canvasDrawnBlank != "undefined") {
-    return (ref) =>
+    return (ctx, ref) =>
       ShieldDraw.draw(
         shieldDef.canvasDrawnBlank.drawFunc,
+        ctx,
         shieldDef.canvasDrawnBlank.params,
         ref
       );
@@ -153,6 +154,7 @@ function getDrawFunc(shieldDef) {
  * @param {*} routeDef route definition
  * @returns a blank graphics context
  */
+//Deprecated
 function generateBlankGraphicsContext(shieldDef, routeDef) {
   var bannerCount = getBannerCount(shieldDef);
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
@@ -173,21 +175,17 @@ function drawShield(ctx, shieldDef, routeDef) {
   var bannerCount = getBannerCount(shieldDef);
 
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
+  var yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   if (shieldArtwork == null) {
+    //Shift canvas to draw shield below banner
+    ctx.translate(0, yOffset);
     let drawFunc = getDrawFunc(shieldDef);
-    let drawnShieldCtx = drawFunc(routeDef.ref);
-
-    ctx.drawImage(
-      drawnShieldCtx.canvas,
-      0,
-      bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
-    );
+    drawFunc(ctx, routeDef.ref);
+    ctx.translate(0, -yOffset);
   } else {
     loadShield(ctx, shieldArtwork, bannerCount, shieldDef.verticalReflect);
   }
-
-  return ctx;
 }
 
 function drawShieldText(ctx, shieldDef, routeDef) {
@@ -195,14 +193,17 @@ function drawShieldText(ctx, shieldDef, routeDef) {
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
+  var yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   if (shieldArtwork == null) {
+    ctx.translate(0, yOffset);
     let drawFunc = getDrawFunc(shieldDef);
-    let drawnShieldCtx = drawFunc(routeDef.ref);
+    drawFunc(ctx, routeDef.ref);
+    ctx.translate(0, -yOffset);
 
     shieldBounds = {
-      width: drawnShieldCtx.canvas.width,
-      height: drawnShieldCtx.canvas.height,
+      width: ctx.canvas.width,
+      height: ShieldDraw.CS,
     };
   } else {
     shieldBounds = {
@@ -363,7 +364,32 @@ export function generateShieldCtx(id) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
   }
 
-  var ctx = generateBlankGraphicsContext(shieldDef, routeDef);
+  //Determine overall shield+banner dimensions
+  var bannerCount = getBannerCount(shieldDef);
+
+  var shieldArtwork = getRasterShieldBlank(shieldDef, routeDef);
+
+  var width = ShieldDraw.CS;
+  var height = ShieldDraw.CS;
+
+  if (shieldArtwork == null) {
+    if (typeof shieldDef.canvasDrawnBlank != "undefined") {
+      width = Math.max(ShieldDraw.CS, ShieldDraw.computeWidth(shieldDef.canvasDrawnBlank.params.rectWidth, routeDef.ref));
+    }
+  } else {
+    width = shieldArtwork.width;
+    height = shieldArtwork.height;
+  }
+
+  console.log(`${id} ${width}x${height}`);
+
+  height += bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
+
+  //Generate empty canvas sized to the graphic
+  var ctx = Gfx.getGfxContext({ width: width, height: height });
+
+  ctx.fillStyle = "pink";
+  ctx.fillRect(0,0,width,height);
 
   // Add the halo around modifier plaque text
   drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
@@ -386,7 +412,7 @@ export function generateShieldCtx(id) {
     ctx.drawImage(colorCtx.canvas, 0, 0);
   } else {
     // Draw the shield
-    drawShield(ctx, shieldDef, routeDef);
+    width = drawShield(ctx, shieldDef, routeDef);
   }
 
   // Draw the shield text

@@ -16,22 +16,28 @@ const minGenericShieldWidth = 20 * PXR;
 const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
-function ellipse(params, ref) {
+export function computeWidth(rectWidth, ref) {
+  let limitWidth = rectWidth == undefined ? null : rectWidth;
+
+  //TODO -- some shapes need a different width
+  if (limitWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    return Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    return limitWidth * PXR;
+  }
+}
+
+function ellipse(ctx, params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
-  let shieldWidth =
-    ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+  let width = computeWidth(params.rectWidth, ref);
 
-  let width = rectWidth
-    ? rectWidth * PXR
-    : Math.max(
-        minGenericShieldWidth,
-        Math.min(maxGenericShieldWidth, shieldWidth)
-      );
-
-  let ctx = Gfx.getGfxContext({ width: width, height: CS });
   let lineWidth = PXR;
   let radiusX = width / 2 - lineWidth;
   let radiusY = CS / 2 - lineWidth;
@@ -53,7 +59,8 @@ function ellipse(params, ref) {
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = outline;
   ctx.stroke();
-  return ctx;
+
+  return width;
 }
 
 export function blank(ref) {
@@ -66,25 +73,13 @@ export function blank(ref) {
   return Gfx.getGfxContext({ width: width, height: CS });
 }
 
-export function roundedRectangle(params, ref) {
+export function roundedRectangle(ctx, params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    var width = Math.max(
-      minGenericShieldWidth,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let width = computeWidth(params.rectWidth, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -117,29 +112,17 @@ export function roundedRectangle(params, ref) {
     ctx.stroke();
   }
 
-  return ctx;
+  return width;
 }
 
-function escutcheon(params, ref) {
+function escutcheon(ctx, params, ref) {
   let offset = params.offset == undefined ? 0 : params.offset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    var width = Math.max(
-      minGenericShieldWidth,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let width = computeWidth(params.rectWidth, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -181,31 +164,19 @@ function escutcheon(params, ref) {
     ctx.stroke();
   }
 
-  return ctx;
+  return width;
 }
 
-function triangle(params, ref) {
+function triangle(ctx, params, ref) {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
   let angleSign = pointUp ? -1 : 1;
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    var width = Math.max(
-      minGenericShieldWidth + 2 * PXR,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let width = computeWidth(params.rectWidth, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -254,10 +225,10 @@ function triangle(params, ref) {
     ctx.stroke();
   }
 
-  return ctx;
+  return width;
 }
 
-function trapezoid(params, ref) {
+function trapezoid(ctx, params, ref) {
   let shortSideUp =
     params.shortSideUp == undefined ? false : params.shortSideUp;
   let angle = params.angle == undefined ? 0 : params.angle;
@@ -265,27 +236,13 @@ function trapezoid(params, ref) {
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
   let angleSign = shortSideUp ? -1 : 1;
 
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-      2 * PXR +
-      (CS * tangent) / 2;
-    var width = Math.max(
-      minGenericShieldWidth,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let width = computeWidth(params.rectWidth, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -325,29 +282,19 @@ function trapezoid(params, ref) {
     ctx.stroke();
   }
 
-  return ctx;
+  return width;
 }
 
-function diamond(params, ref) {
+function diamond(ctx, params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
   let extraSpace = 4 * PXR;
   let height = CS + extraSpace;
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    var width = Math.max(
-      minGenericShieldWidth + extraSpace,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
+  let width = computeWidth(params.rectWidth, ref);
 
   var ctx = Gfx.getGfxContext({ width: width, height: height });
 
@@ -403,11 +350,10 @@ function diamond(params, ref) {
     ctx.strokeStyle = outline;
     ctx.stroke();
   }
-
-  return ctx;
+  return width;
 }
 
-function pentagon(params, ref) {
+function pentagon(ctx, params, ref) {
   let pointUp = params.pointUp == undefined ? true : params.pointUp;
   let offset = params.offset == undefined ? 0 : params.offset;
   let angle = params.angle == undefined ? 0 : params.angle;
@@ -416,27 +362,13 @@ function pentagon(params, ref) {
   let radius1 = params.radius1 == undefined ? 0 : params.radius1;
   let radius2 = params.radius2 == undefined ? 0 : params.radius2;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
   let angleSign = pointUp ? -1 : 1;
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) +
-      2 * PXR +
-      ((CS - offset * PXR) * tangent) / 2;
-    var width = Math.max(
-      minGenericShieldWidth,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let width = computeWidth(params.rectWidth, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -486,30 +418,17 @@ function pentagon(params, ref) {
     ctx.strokeStyle = outline;
     ctx.stroke();
   }
-
-  return ctx;
+  return width;
 }
 
-function hexagonVertical(params, ref) {
+function hexagonVertical(ctx, params, ref) {
   let offset = params.offset == undefined ? 0 : params.offset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    var width = Math.max(
-      minGenericShieldWidth,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let width = computeWidth(params.rectWidth, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -548,35 +467,22 @@ function hexagonVertical(params, ref) {
     ctx.strokeStyle = outline;
     ctx.stroke();
   }
-
-  return ctx;
+  return width;
 }
 
-function hexagonHorizontal(params, ref) {
+function hexagonHorizontal(ctx, params, ref) {
   let angle = params.angle == undefined ? 0 : params.angle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
   let halfComplementTangent = Math.tan(Math.PI / 4 - angle / 2);
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    var width = Math.max(
-      minGenericShieldWidth + 4 * PXR,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+  let width = computeWidth(params.rectWidth, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -622,11 +528,10 @@ function hexagonHorizontal(params, ref) {
     ctx.strokeStyle = outline;
     ctx.stroke();
   }
-
-  return ctx;
+  return width;
 }
 
-function octagonVertical(params, ref) {
+function octagonVertical(ctx, params, ref) {
   let offset = params.offset == undefined ? 0 : params.offset;
   let angle = params.angle == undefined ? 0 : params.angle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
@@ -649,8 +554,6 @@ function octagonVertical(params, ref) {
   } else {
     var width = rectWidth * PXR;
   }
-
-  var ctx = Gfx.getGfxContext({ width: width, height: CS });
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -715,12 +618,11 @@ function octagonVertical(params, ref) {
     ctx.strokeStyle = outline;
     ctx.stroke();
   }
-
-  return ctx;
+  return width;
 }
 
-export function draw(name, options, ref) {
-  return drawFunctions[name](options, ref);
+export function draw(name, ctx, options, ref) {
+  return drawFunctions[name](ctx, options, ref);
 }
 
 //Register draw functions

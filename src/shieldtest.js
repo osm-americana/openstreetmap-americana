@@ -109,7 +109,7 @@ let networks = [
   "IN:NH",
   "PK:motorway",
   "US:US",
-  "US:US:Historic",
+//  "US:US:Historic",
   "CL:national",
 
   "KR:expressway",
@@ -165,7 +165,7 @@ let networks = [
   "US:OH:TUS:Salem",
   "US:WA",
   "CA:transcanada",
-  "CA:NB:primary",
+  //"CA:NB:primary",
   "CA:ON:primary",
   "CA:ON:primary:Toll",
 
@@ -182,7 +182,7 @@ let networks = [
   "US:DE:Truck",
   "US:GA:Connector",
   "US:LA:Business",
-  "US:MD:Business",
+  //"US:MD:Business",
   "US:VT:Alternate",
   "US:MO:Spur",
   "US:NC:Bypass",
@@ -243,6 +243,7 @@ const PXR = gfx.getPixelRatio();
 let table = document.querySelector("#shield-table");
 
 for (let network of networks) {
+  console.log(network);
   let row = table.insertRow();
   row.insertCell().appendChild(document.createTextNode(`${network}`));
   for (let ref of refs) {
