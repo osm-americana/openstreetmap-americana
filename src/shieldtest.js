@@ -254,14 +254,16 @@ for (let network of networks) {
     img.width = shieldCanvas.width / PXR;
     img.height = shieldCanvas.height / PXR;
     performance.mark(`stop-${network}`);
-    performance.measure(`${network}`,`start-${network}`,`stop-${network}`);
+    performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
     cell.appendChild(img);
   }
   let perfEntries = performance.getEntriesByName(`${network}`);
-  var perfDuration = 0
-  for(let perf of perfEntries){
+  var perfDuration = 0;
+  for (let perf of perfEntries) {
     perfDuration += perf.duration;
   }
-  let shieldRate = Math.round(1000 * perfEntries.length / perfDuration);
-  row.insertCell().appendChild(document.createTextNode(`${shieldRate} shields/sec`));
+  let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
+  row
+    .insertCell()
+    .appendChild(document.createTextNode(`${shieldRate} shields/sec`));
 }
