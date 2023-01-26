@@ -250,6 +250,7 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 
 - **`backgroundImage`** – A reference to the image file used as the shield background, based on the name of the file in icons/. To use a different image depending on the length of the inscribed text, specify an array of images.
 - **`colorLighten`** – Replace the black portions of the specified background image with this color via a "lighten" operation.
+- **`numberingSystem`** – If the shield should express the route number in Roman numerals for stylistic reasons, even though the same route number is normally expressed in (Western) Arabic numerals in other contexts, set this property to `roman` to automatically convert the `ref` to Roman numerals.
 - **`norefImage`** – A reference to an alternative image file used when there is no `ref`. This is appropriate if some routes in the network have a `ref` tag and others do not, and the routes with no ref need a special shield.
 - **`notext`** – By default, a relation missing a `ref` tag will not appear as a shield. Set this property to `true` to display a shield even if it has no `ref`. This is appropriate for one-off shield networks, which are common for toll roads and touristic routes.
 - **`padding`** – An object that specifies the amount of padding on each side of the inscribed text relative to the background image.
