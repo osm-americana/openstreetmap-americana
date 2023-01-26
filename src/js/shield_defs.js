@@ -2356,7 +2356,6 @@ export function loadShields(shieldImages) {
   // Ohio
   shields["US:OH"] = {
     backgroundImage: [shieldImages.shield_us_oh_2, shieldImages.shield_us_oh_3],
-    norefImage: shieldImages.shield_us_oh_turnpike,
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2367,6 +2366,10 @@ export function loadShields(shieldImages) {
   };
   shields["US:OH:Bypass"] = banneredShield(shields["US:OH"], ["BYP"]);
   shields["US:OH:Business"] = banneredShield(shields["US:OH"], ["BUS"]);
+  shields["US:OH:Turnpike"] = {
+    backgroundImage: shieldImages.shield_us_oh_turnpike,
+    notext: true,
+  };
 
   // Ohio county and township roads
 
