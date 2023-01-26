@@ -243,7 +243,7 @@ let table = document.querySelector("#shield-table");
 
 for (let network of networks) {
   let row = table.insertRow();
-  row.insertCell().appendChild(document.createTextNode(`${network}`));
+  row.insertCell().append(`${network}`);
   for (let ref of refs) {
     performance.mark(`start-${network}`);
     let cell = row.insertCell();
@@ -263,7 +263,5 @@ for (let network of networks) {
     perfDuration += perf.duration;
   }
   let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
-  row
-    .insertCell()
-    .append(`${shieldRate} shields/sec`);
+  row.insertCell().append(`${shieldRate} shields/sec`);
 }
