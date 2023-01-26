@@ -3372,6 +3372,13 @@ export function loadShields(shieldImages) {
       bottom: 7,
     },
   };
+  shields["IN:NE"] = banneredShield(
+    {
+      ...shields["IN:NH"],
+      numberingSystem: "roman",
+    },
+    ["NE"]
+  );
 
   // Indonesia
   shields["ID:national"] = {
