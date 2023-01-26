@@ -2,7 +2,6 @@
 
 import { map } from "./americana.js";
 import * as shield from "./js/shield.js";
-import { shields } from "./js/shield_defs.js";
 import * as gfx from "./js/screen_gfx.js";
 
 const once = (emitter, name, { signal } = {}) =>
@@ -246,6 +245,7 @@ for (let network of networks) {
   let row = table.insertRow();
   row.insertCell().appendChild(document.createTextNode(`${network}`));
   for (let ref of refs) {
+    performance.mark(`start-${network}`);
     let cell = row.insertCell();
     let shield_id = `shield\n${network}=${ref}`;
     let shieldCanvas = getShieldCanvas(shield_id);
@@ -253,6 +253,15 @@ for (let network of networks) {
     img.src = shieldCanvas.toDataURL("image/png");
     img.width = shieldCanvas.width / PXR;
     img.height = shieldCanvas.height / PXR;
+    performance.mark(`stop-${network}`);
+    performance.measure(`${network}`,`start-${network}`,`stop-${network}`);
     cell.appendChild(img);
   }
+  let perfEntries = performance.getEntriesByName(`${network}`);
+  var perfDuration = 0
+  for(let perf of perfEntries){
+    perfDuration += perf.duration;
+  }
+  let shieldRate = Math.round(1000 * perfEntries.length / perfDuration);
+  row.insertCell().appendChild(document.createTextNode(`${shieldRate} shields/sec`));
 }
