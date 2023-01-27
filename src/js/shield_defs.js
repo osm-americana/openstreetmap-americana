@@ -1,7 +1,6 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
-import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as ShieldText from "./shield_text.js";
 import * as Gfx from "./screen_gfx.js";
 
@@ -32,7 +31,7 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
         rectWidth: rectWidth,
       },
     },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
       left: 2,
       right: 2,
@@ -53,6 +52,21 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
  */
 function circleShield(fillColor, strokeColor, textColor) {
   return ovalShield(fillColor, strokeColor, textColor, 20);
+}
+
+function roundedRectTextConstraint(radius) {
+  return {
+    constraintFunc: "roundedRect",
+    options: {
+      radius: radius,
+    },
+  };
+}
+
+function textConstraint(fxn) {
+  return {
+    constraintFunc: fxn,
+  };
 }
 
 /**
@@ -84,8 +98,7 @@ function roundedRectShield(
         radius: radius,
       },
     },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    textLayout: roundedRectTextConstraint(radius),
     padding: {
       left: 3,
       right: 3,
@@ -129,8 +142,7 @@ function escutcheonDownShield(
         outlineWidth: 1,
       },
     },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    textLayout: roundedRectTextConstraint(radius),
     padding: {
       left: 2,
       right: 2,
@@ -172,7 +184,7 @@ function triangleDownShield(
         radius: radius,
       },
     },
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     padding: {
       left: 5,
       right: 5,
@@ -217,8 +229,7 @@ function trapezoidDownShield(
         radius: radius,
       },
     },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    textLayout: roundedRectTextConstraint(radius),
     padding: {
       left: 2 + 10 * Math.tan(angleInRadians),
       right: 2 + 10 * Math.tan(angleInRadians),
@@ -263,8 +274,7 @@ function trapezoidUpShield(
         radius: radius,
       },
     },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    textLayout: roundedRectTextConstraint(radius),
     padding: {
       left: 2 + 10 * Math.tan(angleInRadians),
       right: 2 + 10 * Math.tan(angleInRadians),
@@ -298,7 +308,7 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
         rectWidth: rectWidth,
       },
     },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
       left: 4.5,
       right: 4.5,
@@ -349,8 +359,9 @@ function pentagonUpShield(
         rectWidth: rectWidth,
       },
     },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
+    textLayout: {
+      constraintFunc: "rect",
+    },
     padding: {
       left: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
       right: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
@@ -399,8 +410,7 @@ function homePlateDownShield(
         rectWidth: rectWidth,
       },
     },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
+    textLayout: roundedRectTextConstraint(radius2),
     padding: {
       left: 2,
       right: 2,
@@ -443,8 +453,7 @@ function hexagonVerticalShield(
         rectWidth: rectWidth,
       },
     },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
+    textLayout: roundedRectTextConstraint(radius),
     padding: {
       left: 2,
       right: 2,
@@ -488,7 +497,7 @@ function hexagonHorizontalShield(
         rectWidth: rectWidth,
       },
     },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
       left: 3,
       right: 3,
@@ -535,7 +544,7 @@ function octagonVerticalShield(
         rectWidth: rectWidth,
       },
     },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
       left: 2,
       right: 2,
@@ -567,7 +576,7 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
         radius: 10,
       },
     },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
       left: 2,
       right: 2,
@@ -638,7 +647,7 @@ export function loadShields() {
   // Triangle shields
   let triangleConvexDownShield = {
     spriteBlank: ["shield_tri_convex_2", "shield_tri_convex_3"],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -684,7 +693,7 @@ export function loadShields() {
 
   let fishheadShieldRed = {
     spriteBlank: ["shield_fishhead_red_2", "shield_fishhead_red_3"],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -717,7 +726,7 @@ export function loadShields() {
   // Canada
   shields["CA:transcanada"] = {
     spriteBlank: "shield_ca_tch",
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.green,
     padding: {
       left: 2,
@@ -1044,7 +1053,7 @@ export function loadShields() {
   // Interstate Highways
   shields["US:I"] = {
     spriteBlank: ["shield_us_interstate_2", "shield_us_interstate_3"],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -1114,7 +1123,7 @@ export function loadShields() {
   shields["US:BIA"] = {
     spriteBlank: "shield_us_bia",
     textColor: Color.shields.black,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     padding: {
       left: 4,
       right: 4,
@@ -1496,7 +1505,7 @@ export function loadShields() {
   // Guam
   shields["US:GU"] = {
     spriteBlank: ["shield_us_gu_2", "shield_us_gu_3"],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.white,
     padding: {
       left: 1,
@@ -2755,7 +2764,7 @@ export function loadShields() {
   shields["US:TX:FM"] = shields["US:TX:RM"] = {
     spriteBlank: "shield_us_tx_outline",
     textColor: Color.shields.black,
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
       left: 3,
       right: 0,
@@ -3124,7 +3133,7 @@ export function loadShields() {
   // Colombia
   shields["co:national"] = {
     spriteBlank: ["shield_co_national_2", "shield_co_national_3"],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -3346,7 +3355,7 @@ export function loadShields() {
   // Indonesia
   shields["ID:national"] = {
     spriteBlank: ["shield_id_national"],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -3437,7 +3446,7 @@ export function loadShields() {
   // South Korea
   shields["KR:expressway"] = {
     spriteBlank: ["shield_kr_expressway_2", "shield_kr_expressway_3"],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -3498,7 +3507,7 @@ export function loadShields() {
   );
   shields["PK:motorway"] = {
     spriteBlank: "shield_pk_motorway",
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -3521,7 +3530,7 @@ export function loadShields() {
   // Taiwan
   shields["TW:freeway"] = {
     spriteBlank: "shield_tw_freeway",
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
       left: 4,
