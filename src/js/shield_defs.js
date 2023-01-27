@@ -1,7 +1,6 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
-import * as ShieldText from "./shield_text.js";
 import * as Gfx from "./screen_gfx.js";
 
 //Height of modifier banners
