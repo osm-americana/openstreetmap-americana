@@ -2335,7 +2335,6 @@ export function loadShields() {
   // Ohio
   shields["US:OH"] = {
     spriteBlank: ["shield_us_oh_2", "shield_us_oh_3"],
-    norefImage: "shield_us_oh_turnpike",
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2346,6 +2345,10 @@ export function loadShields() {
   };
   shields["US:OH:Bypass"] = banneredShield(shields["US:OH"], ["BYP"]);
   shields["US:OH:Business"] = banneredShield(shields["US:OH"], ["BUS"]);
+  shields["US:OH:Turnpike"] = {
+    spriteBlank: "shield_us_oh_turnpike",
+    notext: true,
+  };
 
   // Ohio county and township roads
 
@@ -3332,6 +3335,13 @@ export function loadShields() {
       bottom: 7,
     },
   };
+  shields["IN:NE"] = banneredShield(
+    {
+      ...shields["IN:NH"],
+      numberingSystem: "roman",
+    },
+    ["NE"]
+  );
 
   // Indonesia
   shields["ID:national"] = {
