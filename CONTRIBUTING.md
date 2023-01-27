@@ -178,7 +178,9 @@ boilerplate in `scripts/taginfo_template.json`.
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
 
-## Highway Shield Contributor's Guide
+## Highway Shields
+
+See [Developing Highway Shields](SHIELDS.md) for documentation on shield definition objects and draw functions.
 
 Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
 
@@ -235,53 +237,13 @@ Shields should target 8-14px text actual-size character heights for readability:
 
 | Example                                                 | Text height |
 | ------------------------------------------------------- | ----------- |
-| <img src="doc-img/16_px_text.svg" height=20 width=20 /> | 16px        |
 | <img src="doc-img/14_px_text.svg" height=20 width=20 /> | 14px        |
 | <img src="doc-img/12_px_text.svg" height=20 width=20 /> | 12px        |
 | <img src="doc-img/10_px_text.svg" height=20 width=20 /> | 10px        |
 | <img src="doc-img/8_px_text.svg" height=20 width=20 />  | 8px         |
 | <img src="doc-img/6_px_text.svg" height=20 width=20 />  | 6px         |
 
-It is not possible to use font sizes greater than 14px in shields.
-
-### Shield Definitions
-
-The `loadShields` function in js/shield_defs.js contains a definition object for each shield displayed on the map. A definition object can contain the following properties:
-
-- **`backgroundImage`** – A reference to the image file used as the shield background, based on the name of the file in icons/. To use a different image depending on the length of the inscribed text, specify an array of images.
-- **`colorLighten`** – Replace the black portions of the specified background image with this color via a "lighten" operation.
-- **`numberingSystem`** – If the shield should express the route number in Roman numerals for stylistic reasons, even though the same route number is normally expressed in (Western) Arabic numerals in other contexts, set this property to `roman` to automatically convert the `ref` to Roman numerals.
-- **`norefImage`** – A reference to an alternative image file used when there is no `ref`. This is appropriate if some routes in the network have a `ref` tag and others do not, and the routes with no ref need a special shield.
-- **`notext`** – By default, a relation missing a `ref` tag will not appear as a shield. Set this property to `true` to display a shield even if it has no `ref`. This is appropriate for one-off shield networks, which are common for toll roads and touristic routes.
-- **`padding`** – An object that specifies the amount of padding on each side of the inscribed text relative to the background image.
-- **`textColor`** – The color of the inscribed text to superimpose on the background.
-- **`textHaloColor`** – The color of the halo surrounding the inscribed text.
-- **`textLayoutConstraint`** – A strategy for constraining the text within the background image, useful for shields of certain shapes. By default, the text will expand to fill a rectangle bounded by the specified padding while maintaining the same aspect ratio.
-- **`verticalReflect`** – Set this property to `true` to draw the shield image upside-down.
-
-In addition to `textHaloColor`, the config variable **`SHIELD_TEXT_HALO_COLOR_OVERRIDE`** can be used to override the text halo color on all shields. This can be helpful to avoid collisions with other design features when determining padding values. For example, set `SHIELD_TEXT_HALO_COLOR_OVERRIDE` in src/config.js to `"magenta"` to display a magenta halo around all shield text.
-
-If special code is necessary to style a specific `ref` in a particular network, **`overrideByRef`** can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
-
-Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks). In the future, it is expected that these initialisms will be encoded on the server side by processing appropriate tagging which holds the initialism in the database.
-
-`refsByWayName` only works if there is no `ref` tag and the expression in the `routeConcurrency` function in layer/highway_shield.js includes the `name` property in the image name. The network needs to be listed as an input value that causes the `match` expression to append `name` to the image name.
-
-When using `overrideByRef` or `refsByWayName`, make sure to add a line to the Special Cases section of this page explaining why it is necessary, as they are only intended for use in special cases.
-
-### Banners
-
-The shield definition supports a property **`modifiers`** which accepts an array of text strings which will be drawn atop each shield, in 10px height increments. This is used in cases where additional text is needed to differentiate shields with a common symbology, for example for [special routes of the US Numbered Highway System](https://en.wikipedia.org/wiki/List_of_special_routes_of_the_United_States_Numbered_Highway_System):
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Business-alternate-truck_plate.svg" width=40 /><br/><img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/US_30.svg" width=40 />
-
-Banners should be specified in the following cases:
-
-- When a route represents a variant of a main route with which it shares a common shield design. The banner ensures that the variant route information, which is an important component of the route, is visually displayed.
-- When two or more routes from different networks share a common symbology in the map within a common geographical area. Shields which are very similar may be drawn using common graphics for simplicity and readability, for example, when the networks differ only by a difference in text. In these cases, the most significant network should be drawn with no banner, and each of the less significant networks should be drawn with a banner.
-- When a short text of up to 4 characters is a significant stylistic element of a shield that can't reasonably be incorporated into the main shield graphic for aesthetic reasons.
-
-In all cases, banner text should be no more than **4** characters in length.
+14px is the maximum font size at which shield text will display.
 
 ### Special Cases
 
@@ -304,24 +266,6 @@ This style strives to draw representative highway shields wherever they are tagg
   - **Italy "Diramazione" (branch) motorways**. Between their main autostrade "A" roads, the Italian motorway network has branch motorways which carry the name of both highways that they connect. For example, the A7 and A26 motorways have a branch motorway named A7/A26, which is correctly tagged `ref=A7/A26` and shown on shields with the two numbers stacked vertically.
   - **West Virginia County Routes**. The West Virginia Department of Transportation posts County Routes, which can have shields with two stacked numbers. For example, in Mercer County, County Route 460/1 is a branch off U.S. Route 460, and County Route 27/6 is a branch off County Route 27. These routes are correctly tagged `ref=460/1` and `ref=27/6` respectively, and shown on shields with the two numbers stacked vertically.
 - The [highway classification system of the United Kingdom](https://wiki.openstreetmap.org/wiki/Roads_in_the_United_Kingdom). In the UK, mappers need to and are able to tag the actual official road classifications independently of route networks. The color and style of route signage is based on a strict 1:1 correspondence with the `highway=*` value of the underlying road, and **not** based on M/A/B highway network type. While "M" roads are always motorways with blue route symbology, "A" roads can anything from primary through motorway, and thus may take one of three colors and may change along a single route. Even if mappers were to create route relations containing all roads with the same route number, these relations would not be usable for determining how to render route symbology. Additionally, there are no route concurrencies in the UK; all roads that are `highway=secondary` or higher carry a single `ref` value that can be directly rendered into a shield without pre-processing. There is established data consumers support for this highway classification-based symbology system, most notably OpenMapTiles, which has provided pseudo-network values for UK routes since the project's inception. Therefore, this project consumes the UK pseudo-network scheme established by OpenMapTiles and colors UK route network symbology strictly based on `highway=<motorway/trunk/primary/secondary>` consistent with UK signage.
-
-### Shield Test Gallery
-
-For testing out changes across a variety of different shield designs and ref lengths there is a shield test gallery available:
-
-- In local development: http://localhost:1776/shieldtest.html
-- On the public demo site: https://zelonewolf.github.io/openstreetmap-americana/shieldtest.html
-
-This aims to display a table of all the unique shield designs in the style with some example refs from 1 to 6 characters. The `networks` and `refs` arrays can be modified for testing with a different set of either:
-
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L16-L31
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L203-L218
-
-To test with a list of all the supported networks in the style this line can be uncommented:
-
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
-
-This results in a very long page and can be quite slow or even crash the browser tab.
 
 ## Points of Interest
 
