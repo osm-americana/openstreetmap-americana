@@ -3,8 +3,7 @@ import * as fs from "fs";
 import { Command } from "commander";
 
 const program = new Command();
-program
-  .option("-o, --outfile <file>", "output file", "-");
+program.option("-o, --outfile <file>", "output file", "-");
 program.parse(process.argv);
 
 let opts = program.opts();
