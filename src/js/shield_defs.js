@@ -2542,6 +2542,10 @@ export function loadShields() {
   shields["US:OK:Loop"] = banneredShield(shields["US:OK"], ["LOOP"]);
   shields["US:OK:Spur"] = banneredShield(shields["US:OK"], ["SPUR"]);
   shields["US:OK:Truck"] = banneredShield(shields["US:OK"], ["TRK"]);
+  shields["US:OK:Turnpike"] = {
+    spriteBlank: "shield_us_ok_turnpike",
+    notext: true,
+  };
 
   // Oregon
   shields["US:OR"] = {
