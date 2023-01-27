@@ -268,8 +268,9 @@ let table = document.querySelector("#shield-table");
 
 for (let network of networks) {
   let row = table.insertRow();
-  row.insertCell().appendChild(document.createTextNode(`${network}`));
+  row.insertCell().append(`${network}`);
   for (let ref of refs) {
+    performance.mark(`start-${network}`);
     let cell = row.insertCell();
     let shield_id = `shield\n${network}=${ref}`;
     let shieldCanvas = getShieldCanvas(shield_id);
@@ -277,6 +278,15 @@ for (let network of networks) {
     img.src = shieldCanvas.toDataURL("image/png");
     img.width = shieldCanvas.width / PXR;
     img.height = shieldCanvas.height / PXR;
+    performance.mark(`stop-${network}`);
+    performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
     cell.appendChild(img);
   }
+  let perfEntries = performance.getEntriesByName(`${network}`);
+  var perfDuration = 0;
+  for (let perf of perfEntries) {
+    perfDuration += perf.duration;
+  }
+  let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
+  row.insertCell().append(`${shieldRate} shields/sec`);
 }
