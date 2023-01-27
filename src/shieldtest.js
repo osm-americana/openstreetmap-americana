@@ -1,8 +1,33 @@
 "use strict";
 
-import { map } from "./americana.js";
-import * as shield from "./js/shield.js";
+import * as Shield from "./js/shield.js";
 import * as gfx from "./js/screen_gfx.js";
+import * as ShieldDef from "./js/shield_defs.js";
+import * as CustomShields from "./js/custom_shields.js";
+import * as maplibregl from "maplibre-gl";
+
+var getUrl = window.location;
+var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
+
+window.maplibregl = maplibregl;
+export const map = (window.map = new maplibregl.Map({
+  container: "map", // container id
+  hash: "map",
+  antialias: true,
+  style: {
+    version: 8,
+    layers: [],
+    sources: {},
+    sprite: new URL("sprites/sprite", baseUrl).href,
+  },
+}));
+
+CustomShields.loadCustomShields();
+ShieldDef.loadShields();
+
+map.on("styleimagemissing", function (e) {
+  Shield.missingIconHandler(map, e);
+});
 
 const once = (emitter, name, { signal } = {}) =>
   new Promise((resolve, reject) => {
@@ -228,10 +253,10 @@ let refs = [
 ];
 
 export function getShieldCanvas(shield_id) {
-  let ctx = shield.generateShieldCtx(shield_id);
+  let ctx = Shield.generateShieldCtx(map, shield_id);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
-    console.warn("Didn't produce a shield for", JSON.stringify(e.id));
+    console.warn("Didn't produce a shield for", JSON.stringify(shield_id));
     ctx = gfx.getGfxContext({ width: 1, height: 1 });
   }
   return ctx.canvas;

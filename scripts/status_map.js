@@ -19,16 +19,7 @@ function fillPaths(svg, codes) {
 }
 
 // Inject a map of each sprite ID to an absolute image URL instead of the usual sprite metadata.
-let sprites = JSON.parse(
-  fs.readFileSync(`${process.cwd()}/dist/sprites/sprite.json`)
-);
-let shieldImageURLs = Object.fromEntries(
-  Object.keys(sprites).map((sprite) => [
-    sprite,
-    `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${sprite}.svg`,
-  ])
-);
-let shields = ShieldDef.loadShields(shieldImageURLs);
+let shields = ShieldDef.loadShields();
 
 let worldSVG = fs.readFileSync(`${process.cwd()}/scripts/blank_map_world.svg`, {
   encoding: "utf8",
