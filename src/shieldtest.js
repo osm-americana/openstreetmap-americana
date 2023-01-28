@@ -133,7 +133,7 @@ let networks = [
   "IN:NH",
   "PK:motorway",
   "US:US",
-  //  "US:US:Historic",
+  "US:US:Historic",
   "CL:national",
 
   "KR:expressway",
@@ -267,7 +267,6 @@ const PXR = gfx.getPixelRatio();
 let table = document.querySelector("#shield-table");
 
 for (let network of networks) {
-  console.log(network);
   let row = table.insertRow();
   row.insertCell().append(`${network}`);
   for (let ref of refs) {
