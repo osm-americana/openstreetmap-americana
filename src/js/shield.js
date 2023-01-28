@@ -6,8 +6,7 @@ import * as ShieldDef from "./shield_defs.js";
 import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
-
-const rgba = require("color-rgba");
+import * as ColorParse from "color-rgba";
 
 function loadPixel(source, dest, sourceOffset, destOffset, colorLighten) {
   dest[destOffset] = Math.max(source[sourceOffset], colorLighten[0]); //Red
@@ -23,7 +22,7 @@ function loadSprite(ctx, shield, bannerCount, verticalReflect, colorLighten) {
   var lighten = [0, 0, 0, 0]; //colorLighten
 
   if (colorLighten !== undefined) {
-    lighten = rgba(colorLighten);
+    lighten = ColorParse.rgba(colorLighten);
   }
 
   if (verticalReflect == null) {
