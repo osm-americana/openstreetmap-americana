@@ -3107,6 +3107,13 @@ export function loadShields() {
       ))
   );
 
+  // Multistate auto trails
+
+  shields["US:LHT"] = {
+    spriteBlank: "shield_us_lht",
+    notext: true,
+  };
+
   // SOUTH AMERICA
 
   // Chile
