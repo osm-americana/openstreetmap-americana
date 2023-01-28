@@ -27,6 +27,7 @@ jobs:
           npm ci --include=dev
           cp src/configs/config.aws.js src/config.js
           npm run build
+          npm run style
       - name: Upload 🏗
         uses: actions/upload-pages-artifact@v1
         with:
