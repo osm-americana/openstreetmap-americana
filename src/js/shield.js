@@ -6,7 +6,7 @@ import * as ShieldDef from "./shield_defs.js";
 import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
-import * as ColorParse from "color-rgba";
+import rgba from "color-rgba";
 
 function loadPixel(source, dest, sourceOffset, destOffset, colorLighten) {
   dest[destOffset] = Math.max(source[sourceOffset], colorLighten[0]); //Red
@@ -15,24 +15,26 @@ function loadPixel(source, dest, sourceOffset, destOffset, colorLighten) {
   dest[destOffset + 3] = source[sourceOffset + 3]; //Alpha
 }
 
-function loadSprite(ctx, shield, bannerCount, verticalReflect, colorLighten) {
-  var imgData = ctx.createImageData(shield.data.width, shield.data.height);
-
-  var yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
-  var lighten = [0, 0, 0, 0]; //colorLighten
-
-  if (colorLighten !== undefined) {
-    lighten = ColorParse.rgba(colorLighten);
+function rgbaMatrix(colorLighten) {
+  if (typeof colorLighten !== "undefined") {
+    return rgba(colorLighten);
   }
+  return [0, 0, 0, 0];
+}
+
+function loadSprite(ctx, shield, bannerCount, verticalReflect, colorLighten) {
+  let imgData = ctx.createImageData(shield.data.width, shield.data.height);
+  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let lighten = rgbaMatrix(colorLighten);
 
   if (verticalReflect == null) {
-    for (var i = 0; i < shield.data.data.length; i += 4) {
+    for (let i = 0; i < shield.data.data.length; i += 4) {
       loadPixel(shield.data.data, imgData.data, i, i, lighten);
     }
   } else {
     //4 bytes/px, copy in reverse vertical order.
-    for (var y = 0; y < shield.data.height; y++) {
-      for (var x = 0; x < shield.data.width; x++) {
+    for (let y = 0; y < shield.data.height; y++) {
+      for (let x = 0; x < shield.data.width; x++) {
         let destRow = shield.data.height - y - 1;
         let destIdx = (destRow * shield.data.width + x) * 4;
         let srcIdx = (y * shield.data.width + x) * 4;
@@ -155,9 +157,8 @@ function getDrawFunc(shieldDef) {
 }
 
 function drawShield(ctx, shieldDef, routeDef) {
-  var bannerCount = getBannerCount(shieldDef);
-
-  var yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let bannerCount = getBannerCount(shieldDef);
+  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   //Shift canvas to draw shield below banner
   ctx.translate(0, yOffset);
@@ -178,7 +179,7 @@ function drawShieldText(ctx, sprites, shieldDef, routeDef) {
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
-  var yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   if (shieldArtwork == null) {
     ctx.translate(0, yOffset);
@@ -374,12 +375,12 @@ export function generateShieldCtx(map, id) {
   }
 
   //Determine overall shield+banner dimensions
-  var bannerCount = getBannerCount(shieldDef);
+  let bannerCount = getBannerCount(shieldDef);
 
-  var shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
+  let shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
 
-  var width = ShieldDraw.CS;
-  var height = ShieldDraw.CS;
+  let width = ShieldDraw.CS;
+  let height = ShieldDraw.CS;
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.canvasDrawnBlank != "undefined") {
@@ -400,7 +401,7 @@ export function generateShieldCtx(map, id) {
   height += bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   //Generate empty canvas sized to the graphic
-  var ctx = Gfx.getGfxContext({ width: width, height: height });
+  let ctx = Gfx.getGfxContext({ width: width, height: height });
 
   // Convert numbering systems. Normally alternative numbering systems should be
   // tagged directly in ref=*, but some shields use different numbering systems

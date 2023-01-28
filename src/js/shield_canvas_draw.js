@@ -19,9 +19,8 @@ const genericShieldFontSize = 18 * PXR;
 export function computeWidth(rectWidth, ref) {
   let limitWidth = rectWidth == undefined ? null : rectWidth;
 
-  //TODO -- some shapes need a different width
   if (limitWidth == null) {
-    var shieldWidth =
+    let shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
     return Math.max(
       minGenericShieldWidth,
