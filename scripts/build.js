@@ -5,19 +5,19 @@ import esbuild from "esbuild";
 
 const maybeLocalConfig = async (name = "local.config.js") => {
   let exists = await stat(name)
-    .then(st => st.isFile())
-    .catch(err => {
+    .then((st) => st.isFile())
+    .catch((err) => {
       if (err.code !== "ENOENT") throw err;
     });
   if (exists) {
     console.log("Local config in use: %o", name);
     return {
       define: {
-        "CONFIG_PATH": JSON.stringify("../" + name),
+        CONFIG_PATH: JSON.stringify("../" + name),
       },
-    }
+    };
   }
-}
+};
 
 const buildWith = async (key, buildOptions) => {
   await mkdir("dist", { recursive: true });
@@ -44,17 +44,18 @@ const buildWith = async (key, buildOptions) => {
       ...buildOptions?.define,
     },
   };
-  return esbuild[key](options)
-    // esbuild will pretty-print its own error messages;
-    // suppress node.js from printing the exception.
-    .catch(() => process.exit(1));
+  return (
+    esbuild[key](options)
+      // esbuild will pretty-print its own error messages;
+      // suppress node.js from printing the exception.
+      .catch(() => process.exit(1))
+  );
 };
 
 export const buildContext = (buildOptions = {}) =>
   buildWith("context", buildOptions);
 
-export const build = (buildOptions = {}) =>
-  buildWith("build", buildOptions);
+export const build = (buildOptions = {}) => buildWith("build", buildOptions);
 
 const mainModule = pathToFileURL(process.argv[1]).toString();
 const isMain = import.meta.url === mainModule;
