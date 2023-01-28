@@ -406,6 +406,7 @@ export function generateShieldCtx(map, id) {
           routeDef.ref
         )
       );
+      height = ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc);
     }
   } else {
     width = shieldArtwork.data.width;
@@ -416,11 +417,6 @@ export function generateShieldCtx(map, id) {
 
   //Generate empty canvas sized to the graphic
   var ctx = Gfx.getGfxContext({ width: width, height: height });
-
-  //DEBUG
-  ctx.fillStyle = "pink";
-  ctx.fillRect(0, 0, width, height);
-  //END DEBUG
 
   // Convert numbering systems. Normally alternative numbering systems should be
   // tagged directly in ref=*, but some shields use different numbering systems

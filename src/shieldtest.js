@@ -189,7 +189,7 @@ let networks = [
   "US:OH:TUS:Salem",
   "US:WA",
   "CA:transcanada",
-  //"CA:NB:primary",
+  "CA:NB:primary",
   "CA:ON:primary",
   "CA:ON:primary:Toll",
 
@@ -206,7 +206,7 @@ let networks = [
   "US:DE:Truck",
   "US:GA:Connector",
   "US:LA:Business",
-  //"US:MD:Business",
+  "US:MD:Business",
   "US:VT:Alternate",
   "US:MO:Spur",
   "US:NC:Bypass",

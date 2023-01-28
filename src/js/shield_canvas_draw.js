@@ -291,12 +291,8 @@ function diamond(ctx, params, ref) {
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
-  let extraSpace = 4 * PXR;
-  let height = CS + extraSpace;
-
+  let height = shapeHeight("diamond");
   let width = computeWidth(params.rectWidth, ref);
-
-  var ctx = Gfx.getGfxContext({ width: width, height: height });
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -619,6 +615,15 @@ function octagonVertical(ctx, params, ref) {
     ctx.stroke();
   }
   return width;
+}
+
+export function shapeHeight(name) {
+  switch (name) {
+    case "diamond":
+      return CS + 4 * PXR;
+    default:
+      return CS;
+  }
 }
 
 export function draw(name, ctx, options, ref) {
