@@ -182,7 +182,7 @@ function drawShieldText(ctx, sprites, shieldDef, routeDef) {
 
     shieldBounds = {
       width: ctx.canvas.width,
-      height: ShieldDraw.CS,
+      height: ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc),
     };
   } else {
     shieldBounds = {
