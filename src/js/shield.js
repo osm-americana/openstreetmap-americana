@@ -345,6 +345,34 @@ function getRouteDef(id) {
   };
 }
 
+/**
+ * Reformats an alphanumeric ref as Roman numerals, preserving any alphabetic
+ * suffix.
+ */
+export function romanizeRef(ref) {
+  let number = parseInt(ref, 10);
+  if (isNaN(number)) {
+    return ref;
+  }
+
+  let roman =
+    "M".repeat(number / 1000) +
+    "D".repeat((number % 1000) / 500) +
+    "C".repeat((number % 500) / 100) +
+    "L".repeat((number % 100) / 50) +
+    "X".repeat((number % 50) / 10) +
+    "V".repeat((number % 10) / 5) +
+    "I".repeat(number % 5);
+  roman = roman
+    .replace("DCCCC", "CM")
+    .replace("CCCC", "CD")
+    .replace("LXXXX", "XC")
+    .replace("XXXX", "XL")
+    .replace("VIIII", "IX")
+    .replace("IIII", "IV");
+  return roman + ref.slice(number.toString().length);
+}
+
 export function generateShieldCtx(map, id) {
   return generateSpriteCtx(map.style.imageManager.images, id);
 }
@@ -365,6 +393,13 @@ export function generateSpriteCtx(sprites, id) {
   // Handle special case for manually-applied abbreviations
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
+  }
+
+  // Convert numbering systems. Normally alternative numbering systems should be
+  // tagged directly in ref=*, but some shields use different numbering systems
+  // for aesthetic reasons only.
+  if (routeDef.ref && shieldDef.numberingSystem === "roman") {
+    routeDef.ref = romanizeRef(routeDef.ref);
   }
 
   var ctx = generateBlankGraphicsContext(sprites, shieldDef, routeDef);

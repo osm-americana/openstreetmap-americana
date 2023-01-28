@@ -10,12 +10,22 @@
       href="https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=block"
       rel="stylesheet"
     />
-    <style></style>
+    <style>
+      th {
+        border-bottom: 1px solid #b8b8b8;
+      }
+    </style>
     <script type="module" src="shieldtest.js"></script>
   </head>
 
   <body style="background: #faf6f2">
-    <table id="shield-table"></table>
+    <table id="shield-table">
+      <tr>
+        <th>Network</th>
+        <th colspan="14">Graphic</th>
+        <th>Performance</th>
+      </tr>
+    </table>
 
     <p style="font-family: Overpass; visibility: hidden">
       Invisible text so the font will load early
