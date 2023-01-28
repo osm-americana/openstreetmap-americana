@@ -104,7 +104,9 @@ and re-running `npm install`.
 Environment specific settings go in the untracked file `config.js`. Copy from one of
 the templates in the configs/ folder `config.*.js` and rename it `config.js` in
 the src/ root. The variables in this file can then be changed without the risk of
-accidentally comitting to the main repo.
+accidentally committing to the main repo. By default, the repository `config.js` points
+to a development tile server operated by the project maintainers. It is free to use
+for development purposes but service is not guaranteed.
 
 You can create a new copy of the config file by running `npm run config`
 
