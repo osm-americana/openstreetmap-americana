@@ -7,17 +7,10 @@ import * as ShieldDef from "../src/js/shield_defs.js";
  * Adds documentation about network=* tags to a project description object, modifying it in place.
  *
  * @param {*} project - The project description object to modify.
- * @param {*} sprites - Sprite metadata object parsed from a JSON spritesheet.
  */
-function addNetworkTags(project, sprites) {
+function addNetworkTags(project) {
   // Inject a map of each sprite ID to an absolute image URL instead of the usual sprite metadata.
-  let shieldImageURLs = Object.fromEntries(
-    Object.keys(sprites).map((sprite) => [
-      sprite,
-      `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${sprite}.svg`,
-    ])
-  );
-  let shields = ShieldDef.loadShields(shieldImageURLs);
+  let shields = ShieldDef.loadShields();
 
   // Convert each shield's rendering metadata to an entry that taginfo understands.
   let tags = Object.entries(shields).map((entry) => {
@@ -30,7 +23,7 @@ function addNetworkTags(project, sprites) {
     }
     description += ".";
 
-    let icon = definition.backgroundImage || definition.norefImage;
+    let icon = definition.spriteBlank || definition.norefImage;
     if (Array.isArray(icon)) {
       icon = icon[0];
     }
@@ -40,7 +33,9 @@ function addNetworkTags(project, sprites) {
       value: network,
       object_types: ["relation"],
       description: description,
-      icon_url: icon,
+      icon_url: icon
+        ? `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`
+        : undefined,
     };
   });
   project.tags.push(...tags);
@@ -49,10 +44,7 @@ function addNetworkTags(project, sprites) {
 let project = JSON.parse(
   fs.readFileSync(`${process.cwd()}/scripts/taginfo_template.json`)
 );
-let sprites = JSON.parse(
-  fs.readFileSync(`${process.cwd()}/dist/sprites/sprite.json`)
-);
-addNetworkTags(project, sprites);
+addNetworkTags(project);
 fs.writeFileSync(
   `${process.cwd()}/dist/taginfo.json`,
   JSON.stringify(project, null, 2)
