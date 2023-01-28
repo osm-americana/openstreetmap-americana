@@ -155,28 +155,6 @@ function getDrawFunc(shieldDef) {
   return ShieldDraw.blank;
 }
 
-/**
- * Creates a graphics context of the correct size to hold the shield and banner.
- * @param {*} shieldDef shield definition
- * @param {*} routeDef route definition
- * @returns a blank graphics context
- */
-function generateBlankGraphicsContext(sprites, shieldDef, routeDef) {
-  var bannerCount = getBannerCount(shieldDef);
-  var shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
-  var compoundBounds = null;
-
-  if (shieldArtwork == null) {
-    let drawFunc = getDrawFunc(shieldDef);
-    let drawnShieldCtx = drawFunc(routeDef.ref);
-    compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
-  } else {
-    compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-  }
-
-  return Gfx.getGfxContext(compoundBounds);
-}
-
 function drawShield(ctx, shieldDef, routeDef) {
   var bannerCount = getBannerCount(shieldDef);
 
