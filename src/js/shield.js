@@ -401,7 +401,7 @@ export function generateShieldCtx(map, id) {
   height += bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   //Generate empty canvas sized to the graphic
-  let ctx = Gfx.getGfxContext({ width: width, height: height });
+  let ctx = Gfx.getGfxContext({ width, height });
 
   // Convert numbering systems. Normally alternative numbering systems should be
   // tagged directly in ref=*, but some shields use different numbering systems
