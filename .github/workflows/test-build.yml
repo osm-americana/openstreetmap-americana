@@ -18,7 +18,8 @@ jobs:
         run: |
           npm ci --include=dev
           cp src/configs/config.aws.js src/config.js
-          npm run build style
+          npm run build
+          npm run style
       - name: Test 🧪
         run: |
           npm test
