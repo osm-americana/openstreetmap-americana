@@ -167,6 +167,13 @@ function drawShield(ctx, shieldDef, routeDef) {
   ctx.translate(0, -yOffset);
 }
 
+function getDrawHeight(shieldDef) {
+  if (typeof shieldDef.canvasDrawnBlank != "undefined") {
+    return ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc);
+  }
+  return ShieldDraw.CS;
+}
+
 function drawShieldText(ctx, sprites, shieldDef, routeDef) {
   var bannerCount = getBannerCount(shieldDef);
   var shieldBounds = null;
@@ -182,7 +189,7 @@ function drawShieldText(ctx, sprites, shieldDef, routeDef) {
 
     shieldBounds = {
       width: ctx.canvas.width,
-      height: ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc),
+      height: getDrawHeight(shieldDef),
     };
   } else {
     shieldBounds = {
