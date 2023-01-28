@@ -161,10 +161,11 @@ function drawShield(ctx, shieldDef, routeDef) {
   let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   //Shift canvas to draw shield below banner
+  ctx.save();
   ctx.translate(0, yOffset);
   let drawFunc = getDrawFunc(shieldDef);
   drawFunc(ctx, routeDef.ref);
-  ctx.translate(0, -yOffset);
+  ctx.restore();
 }
 
 function getDrawHeight(shieldDef) {
