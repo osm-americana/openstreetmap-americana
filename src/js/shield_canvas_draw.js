@@ -46,7 +46,7 @@ function ellipse(ctx, params, ref) {
 
   ctx.ellipse(
     ctx.canvas.width / 2,
-    ctx.canvas.height / 2,
+    CS / 2,
     radiusX,
     radiusY,
     0,
