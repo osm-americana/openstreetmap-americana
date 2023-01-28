@@ -20,16 +20,15 @@ function loadSprite(ctx, shield, bannerCount, verticalReflect, colorLighten) {
   var imgData = ctx.createImageData(shield.data.width, shield.data.height);
 
   var yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
-  var [r, g, b, alpha] = [0, 0, 0, 0]; //colorLighten
+  var lighten = [0, 0, 0, 0]; //colorLighten
 
   if (colorLighten !== undefined) {
-    [r, g, b, alpha] = rgba(colorLighten);
-    console.log(`${r} ${g} ${b} ${alpha}`);
+    lighten = rgba(colorLighten);
   }
 
   if (verticalReflect == null) {
     for (var i = 0; i < shield.data.data.length; i += 4) {
-      loadPixel(shield.data.data, imgData.data, i, i, [r, g, b, alpha]);
+      loadPixel(shield.data.data, imgData.data, i, i, lighten);
     }
   } else {
     //4 bytes/px, copy in reverse vertical order.
@@ -38,12 +37,7 @@ function loadSprite(ctx, shield, bannerCount, verticalReflect, colorLighten) {
         let destRow = shield.data.height - y - 1;
         let destIdx = (destRow * shield.data.width + x) * 4;
         let srcIdx = (y * shield.data.width + x) * 4;
-        loadPixel(shield.data.data, imgData.data, srcIdx, destIdx, [
-          r,
-          g,
-          b,
-          alpha,
-        ]);
+        loadPixel(shield.data.data, imgData.data, srcIdx, destIdx, lighten);
       }
     }
   }
@@ -390,11 +384,6 @@ export function generateShieldCtx(map, id) {
     return null;
   }
 
-  // Swap black with a different color for certain shields.
-  // The secondary canvas is necessary here for some reason. Without it,
-  // the recolored shield gets an opaque instead of transparent background.
-  var colorLighten = shieldDef.colorLighten;
-
   // Handle special case for manually-applied abbreviations
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
@@ -433,16 +422,6 @@ export function generateShieldCtx(map, id) {
   ctx.fillRect(0, 0, width, height);
   //END DEBUG
 
-  if (shieldArtwork != null) {
-    loadSprite(
-      ctx,
-      shieldArtwork,
-      bannerCount,
-      shieldDef.verticalReflect,
-      shieldDef.colorLighten
-    );
-  }
-
   // Convert numbering systems. Normally alternative numbering systems should be
   // tagged directly in ref=*, but some shields use different numbering systems
   // for aesthetic reasons only.
@@ -453,28 +432,17 @@ export function generateShieldCtx(map, id) {
   // Add the halo around modifier plaque text
   drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
 
-  // Draw the shield
-  // if (colorLighten) {
-  //   // Draw a color-composited version of the shield and shield text
-  //   let shieldCtx = generateBlankGraphicsContext(sprites, shieldDef, routeDef);
-  //   drawShield(shieldCtx, shieldDef, routeDef);
-
-  //   let colorCtx = generateBlankGraphicsContext(sprites, shieldDef, routeDef);
-  //   drawShield(colorCtx, shieldDef, routeDef);
-  //   colorCtx.drawImage(ctx.canvas, 0, 0);
-  //   colorCtx.globalCompositeOperation = "lighten";
-  //   colorCtx.fillStyle = colorLighten;
-  //   colorCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  //   colorCtx.globalCompositeOperation = "destination-atop";
-  //   colorCtx.drawImage(shieldCtx.canvas, 0, 0);
-
-  //   ctx.drawImage(colorCtx.canvas, 0, 0);
-  // } else {
-  // Draw the shield
   if (shieldArtwork == null) {
-    width = drawShield(ctx, shieldDef, routeDef);
+    drawShield(ctx, shieldDef, routeDef);
+  } else {
+    loadSprite(
+      ctx,
+      shieldArtwork,
+      bannerCount,
+      shieldDef.verticalReflect,
+      shieldDef.colorLighten
+    );
   }
-  // }
 
   // Draw the shield text
   drawShieldText(ctx, sprites, shieldDef, routeDef);
