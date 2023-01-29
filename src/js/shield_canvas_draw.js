@@ -184,6 +184,72 @@ function escutcheon(params, ref) {
   return ctx;
 }
 
+function fishhead(params, ref) {
+  let pointUp = params.pointUp == undefined ? false : params.pointUp;
+  let fill = params.fillColor == undefined ? "white" : params.fillColor;
+  let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
+  let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+
+  let angleSign = pointUp ? -1 : 1;
+
+  if (rectWidth == null) {
+    var shieldWidth =
+      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
+    var width = Math.max(
+      minGenericShieldWidth,
+      Math.min(maxGenericShieldWidth, shieldWidth)
+    );
+  } else {
+    var width = rectWidth * PXR;
+  }
+
+  var ctx = Gfx.getGfxContext({ width: width, height: CS });
+
+  let lineThick = outlineWidth * PXR;
+  let lineWidth = lineThick / 2;
+
+  let x0 = lineWidth;
+  let x8 = width - lineWidth;
+
+  let y0 = pointUp ? CS - lineWidth : lineWidth;
+  let y6 = pointUp ? lineWidth : CS - lineWidth;
+
+  let x1 = x0 + PXR;
+  let x2 = x0 + 2.5 * PXR;
+  let x4 = (x0 + x8) / 2;
+  let x6 = x8 - 2.5 * PXR;
+  let x7 = x8 - PXR;
+  let y1 = y0 + angleSign * 2 * PXR;
+  let y2 = y0 + angleSign * 4.5 * PXR;
+  let y3 = y0 + angleSign * 7 * PXR;
+  let y4 = y6 - angleSign * 6 * PXR;
+  let y5 = y6 - angleSign * PXR;
+
+  let x3 = (x0 + x4) / 2;
+  let x5 = (x4 + x8) / 2;
+
+  ctx.beginPath();
+  ctx.moveTo(x4, y6);
+  ctx.bezierCurveTo(x3, y5, x0, y4, x0, y3);
+  ctx.bezierCurveTo(x0, y2, x1, y1, x2, y0);
+  ctx.lineTo(x6, y0);
+  ctx.bezierCurveTo(x7, y1, x8, y2, x8, y3);
+  ctx.bezierCurveTo(x8, y4, x5, y5, x4, y6);
+  ctx.closePath();
+
+  ctx.lineWidth = lineThick;
+  ctx.fillStyle = fill;
+  ctx.fill();
+
+  if (outline != null) {
+    ctx.strokeStyle = outline;
+    ctx.stroke();
+  }
+
+  return ctx;
+}
+
 function triangle(params, ref) {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
@@ -740,6 +806,7 @@ export function registerDrawFunction(name, fxn) {
 registerDrawFunction("diamond", diamond);
 registerDrawFunction("ellipse", ellipse);
 registerDrawFunction("escutcheon", escutcheon);
+registerDrawFunction("fishhead", fishhead);
 registerDrawFunction("hexagonVertical", hexagonVertical);
 registerDrawFunction("hexagonHorizontal", hexagonHorizontal);
 registerDrawFunction("octagonVertical", octagonVertical);
