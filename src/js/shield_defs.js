@@ -153,6 +153,38 @@ function escutcheonDownShield(
 }
 
 /**
+ * Draws a shield with a fishhead background, pointed downward
+ *
+ * @param {*} fillColor - Color of fishhead background fill
+ * @param {*} strokeColor - Color of fishhead outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} rectWidth - Width of fishhead (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function fishheadDownShield(fillColor, strokeColor, textColor, rectWidth) {
+  textColor = textColor ?? strokeColor;
+  return {
+    canvasDrawnBlank: {
+      drawFunc: "fishhead",
+      params: {
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        rectWidth: rectWidth,
+        outlineWidth: 1,
+      },
+    },
+    textLayoutConstraint: ShieldText.southHalfEllipseTextConstraint,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 2,
+      bottom: 7,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
  * Draws a shield with a triangle background, pointed downward
  *
  * @param {*} fillColor - Color of triangle background fill
@@ -688,23 +720,6 @@ export function loadShields() {
       top: 4,
       bottom: 5,
     },
-  };
-
-  let fishheadShieldRed = {
-    spriteBlank: ["shield_fishhead_red_2", "shield_fishhead_red_3"],
-    textLayout: textConstraint("southHalfEllipse"),
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 3,
-      bottom: 5,
-    },
-  };
-
-  let fishheadShieldBlue = {
-    ...fishheadShieldRed,
-    spriteBlank: ["shield_fishhead_blue_2", "shield_fishhead_blue_3"],
   };
 
   // Default
@@ -3115,6 +3130,13 @@ export function loadShields() {
       ))
   );
 
+  // Multistate auto trails
+
+  shields["US:LHT"] = {
+    spriteBlank: "shield_us_lht",
+    notext: true,
+  };
+
   // SOUTH AMERICA
 
   // Chile
@@ -3973,7 +3995,10 @@ export function loadShields() {
         Color.shields.white,
         Color.shields.black
       );
-      shields[`AU:${state_or_territory}:S`] = fishheadShieldBlue;
+      shields[`AU:${state_or_territory}:S`] = fishheadDownShield(
+        Color.shields.blue,
+        Color.shields.white
+      );
       shields[`AU:${state_or_territory}:T`] = pentagonUpShield(
         3,
         15,
@@ -3989,7 +4014,7 @@ export function loadShields() {
         ["ALT"]
       );
       shields[`AU:${state_or_territory}:ALT_S`] = banneredShield(
-        fishheadShieldBlue,
+        fishheadDownShield(Color.shields.blue, Color.shields.white),
         ["ALT"]
       );
     }
@@ -4009,7 +4034,7 @@ export function loadShields() {
   );
 
   // New Zealand
-  shields["NZ:SH"] = fishheadShieldRed;
+  shields["NZ:SH"] = fishheadDownShield(Color.shields.red, Color.shields.white);
   shields["NZ:UR"] = homePlateDownShield(
     5,
     Color.shields.white,
