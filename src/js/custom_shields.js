@@ -4,8 +4,8 @@ import * as Color from "../constants/color.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
 
 // Special case for Allegheny, PA Belt System, documented in CONTRIBUTE.md
-export function paBelt(params) {
-  let ctx = ShieldDraw.roundedRectangle({
+export function paBelt(ctx, params) {
+  ShieldDraw.roundedRectangle(ctx, {
     fillColor: Color.shields.white,
     strokeColor: Color.shields.black,
     outlineWidth: 1,
@@ -37,8 +37,8 @@ export function paBelt(params) {
 }
 
 // Special case for Branson color-coded routes, documented in CONTRIBUTE.md
-export function bransonRoute(params) {
-  var ctx = ShieldDraw.roundedRectangle({
+export function bransonRoute(ctx, params) {
+  ShieldDraw.roundedRectangle(ctx, {
     fillColor: Color.shields.green,
     strokeColor: Color.shields.white,
     outlineWidth: 1,

@@ -6,36 +6,44 @@ import * as ShieldDef from "./shield_defs.js";
 import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
+import rgba from "color-rgba";
 
-function loadShield(ctx, shield, bannerCount, verticalReflect) {
-  var drawCtx = Gfx.getGfxContext(shield.data);
-  var imgData = drawCtx.createImageData(shield.data.width, shield.data.height);
+function loadPixel(source, dest, sourceOffset, destOffset, colorLighten) {
+  dest[destOffset] = Math.max(source[sourceOffset], colorLighten[0]); //Red
+  dest[destOffset + 1] = Math.max(source[sourceOffset + 1], colorLighten[1]); //Green
+  dest[destOffset + 2] = Math.max(source[sourceOffset + 2], colorLighten[2]); //Blue
+  dest[destOffset + 3] = source[sourceOffset + 3]; //Alpha
+}
 
-  for (var i = 0; i < shield.data.data.length; i++) {
-    imgData.data[i] = shield.data.data[i];
+function rgbaMatrix(colorLighten) {
+  if (typeof colorLighten !== "undefined") {
+    return rgba(colorLighten);
   }
+  return [0, 0, 0, 0];
+}
 
-  drawCtx.putImageData(imgData, 0, 0);
+function loadSprite(ctx, shield, bannerCount, verticalReflect, colorLighten) {
+  let imgData = ctx.createImageData(shield.data.width, shield.data.height);
+  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let lighten = rgbaMatrix(colorLighten);
 
   if (verticalReflect == null) {
-    ctx.drawImage(
-      drawCtx.canvas,
-      0,
-      bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
-    );
+    for (let i = 0; i < shield.data.data.length; i += 4) {
+      loadPixel(shield.data.data, imgData.data, i, i, lighten);
+    }
   } else {
-    ctx.save();
-    ctx.scale(1, -1);
-    ctx.drawImage(
-      drawCtx.canvas,
-      0,
-      bannerCount * ShieldDef.bannerSizeH +
-        ShieldDef.topPadding -
-        drawCtx.canvas.height -
-        2 * ShieldDraw.PXR
-    );
-    ctx.restore();
+    //4 bytes/px, copy in reverse vertical order.
+    for (let y = 0; y < shield.data.height; y++) {
+      for (let x = 0; x < shield.data.width; x++) {
+        let destRow = shield.data.height - y - 1;
+        let destIdx = (destRow * shield.data.width + x) * 4;
+        let srcIdx = (y * shield.data.width + x) * 4;
+        loadPixel(shield.data.data, imgData.data, srcIdx, destIdx, lighten);
+      }
+    }
   }
+
+  ctx.putImageData(imgData, 0, yOffset);
 }
 
 function drawBannerPart(ctx, network, drawFunc) {
@@ -137,9 +145,10 @@ function textColor(shieldDef) {
 
 function getDrawFunc(shieldDef) {
   if (typeof shieldDef.canvasDrawnBlank != "undefined") {
-    return (ref) =>
+    return (ctx, ref) =>
       ShieldDraw.draw(
         shieldDef.canvasDrawnBlank.drawFunc,
+        ctx,
         shieldDef.canvasDrawnBlank.params,
         ref
       );
@@ -147,47 +156,23 @@ function getDrawFunc(shieldDef) {
   return ShieldDraw.blank;
 }
 
-/**
- * Creates a graphics context of the correct size to hold the shield and banner.
- * @param {*} shieldDef shield definition
- * @param {*} routeDef route definition
- * @returns a blank graphics context
- */
-function generateBlankGraphicsContext(sprites, shieldDef, routeDef) {
-  var bannerCount = getBannerCount(shieldDef);
-  var shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
-  var compoundBounds = null;
+function drawShield(ctx, shieldDef, routeDef) {
+  let bannerCount = getBannerCount(shieldDef);
+  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
-  if (shieldArtwork == null) {
-    let drawFunc = getDrawFunc(shieldDef);
-    let drawnShieldCtx = drawFunc(routeDef.ref);
-    compoundBounds = compoundShieldSize(drawnShieldCtx.canvas, bannerCount);
-  } else {
-    compoundBounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-  }
-
-  return Gfx.getGfxContext(compoundBounds);
+  //Shift canvas to draw shield below banner
+  ctx.save();
+  ctx.translate(0, yOffset);
+  let drawFunc = getDrawFunc(shieldDef);
+  drawFunc(ctx, routeDef.ref);
+  ctx.restore();
 }
 
-function drawShield(ctx, sprites, shieldDef, routeDef) {
-  var bannerCount = getBannerCount(shieldDef);
-
-  var shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
-
-  if (shieldArtwork == null) {
-    let drawFunc = getDrawFunc(shieldDef);
-    let drawnShieldCtx = drawFunc(routeDef.ref);
-
-    ctx.drawImage(
-      drawnShieldCtx.canvas,
-      0,
-      bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding
-    );
-  } else {
-    loadShield(ctx, shieldArtwork, bannerCount, shieldDef.verticalReflect);
+function getDrawHeight(shieldDef) {
+  if (typeof shieldDef.canvasDrawnBlank != "undefined") {
+    return ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc);
   }
-
-  return ctx;
+  return ShieldDraw.CS;
 }
 
 function drawShieldText(ctx, sprites, shieldDef, routeDef) {
@@ -195,14 +180,17 @@ function drawShieldText(ctx, sprites, shieldDef, routeDef) {
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
+  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
   if (shieldArtwork == null) {
+    ctx.translate(0, yOffset);
     let drawFunc = getDrawFunc(shieldDef);
-    let drawnShieldCtx = drawFunc(routeDef.ref);
+    drawFunc(ctx, routeDef.ref);
+    ctx.translate(0, -yOffset);
 
     shieldBounds = {
-      width: drawnShieldCtx.canvas.width,
-      height: drawnShieldCtx.canvas.height,
+      width: ctx.canvas.width,
+      height: getDrawHeight(shieldDef),
     };
   } else {
     shieldBounds = {
@@ -385,15 +373,40 @@ export function generateSpriteCtx(sprites, id) {
     return null;
   }
 
-  // Swap black with a different color for certain shields.
-  // The secondary canvas is necessary here for some reason. Without it,
-  // the recolored shield gets an opaque instead of transparent background.
-  var colorLighten = shieldDef.colorLighten;
-
   // Handle special case for manually-applied abbreviations
   if (routeDef.ref === "" && shieldDef.refsByWayName) {
     routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
   }
+
+  //Determine overall shield+banner dimensions
+  let bannerCount = getBannerCount(shieldDef);
+
+  let shieldArtwork = getRasterShieldBlank(sprites, shieldDef, routeDef);
+
+  let width = ShieldDraw.CS;
+  let height = ShieldDraw.CS;
+
+  if (shieldArtwork == null) {
+    if (typeof shieldDef.canvasDrawnBlank != "undefined") {
+      width = Math.max(
+        ShieldDraw.CS,
+        ShieldDraw.computeWidth(
+          shieldDef.canvasDrawnBlank.params,
+          routeDef.ref,
+          shieldDef.canvasDrawnBlank.drawFunc
+        )
+      );
+      height = ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc);
+    }
+  } else {
+    width = shieldArtwork.data.width;
+    height = shieldArtwork.data.height;
+  }
+
+  height += bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+
+  //Generate empty canvas sized to the graphic
+  let ctx = Gfx.getGfxContext({ width, height });
 
   // Convert numbering systems. Normally alternative numbering systems should be
   // tagged directly in ref=*, but some shields use different numbering systems
@@ -402,30 +415,19 @@ export function generateSpriteCtx(sprites, id) {
     routeDef.ref = romanizeRef(routeDef.ref);
   }
 
-  var ctx = generateBlankGraphicsContext(sprites, shieldDef, routeDef);
-
   // Add the halo around modifier plaque text
   drawBannerPart(ctx, routeDef.network, ShieldText.drawBannerHaloText);
 
-  // Draw the shield
-  if (colorLighten) {
-    // Draw a color-composited version of the shield and shield text
-    let shieldCtx = generateBlankGraphicsContext(sprites, shieldDef, routeDef);
-    drawShield(shieldCtx, sprites, shieldDef, routeDef);
-
-    let colorCtx = generateBlankGraphicsContext(sprites, shieldDef, routeDef);
-    drawShield(colorCtx, sprites, shieldDef, routeDef);
-    colorCtx.drawImage(ctx.canvas, 0, 0);
-    colorCtx.globalCompositeOperation = "lighten";
-    colorCtx.fillStyle = colorLighten;
-    colorCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    colorCtx.globalCompositeOperation = "destination-atop";
-    colorCtx.drawImage(shieldCtx.canvas, 0, 0);
-
-    ctx.drawImage(colorCtx.canvas, 0, 0);
+  if (shieldArtwork == null) {
+    drawShield(ctx, shieldDef, routeDef);
   } else {
-    // Draw the shield
-    drawShield(ctx, sprites, shieldDef, routeDef);
+    loadSprite(
+      ctx,
+      shieldArtwork,
+      bannerCount,
+      shieldDef.verticalReflect,
+      shieldDef.colorLighten
+    );
   }
 
   // Draw the shield text
