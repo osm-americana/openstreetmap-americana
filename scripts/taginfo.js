@@ -47,79 +47,83 @@ function addNetworkTags(project) {
   let shields = ShieldDef.loadShields();
 
   // Convert each shield's rendering metadata to an entry that taginfo understands.
-  let tags = Object.entries(shields).map((entry) => {
-    let network = entry[0],
-      definition = entry[1];
+  let tags = Object.entries(shields)
+    .filter((entry) => !entry[0].match(/^omt-/))
+    .map((entry) => {
+      let network = entry[0],
+        definition = entry[1];
 
-    let icon = definition.spriteBlank || definition.norefImage;
-    if (Array.isArray(icon)) {
-      icon = icon[0];
-    }
-
-    let icon_url;
-
-    if (icon == undefined) {
-      let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
-      let def = JSON.stringify(shields[network]);
-
-      if (!shieldGfxMap.has(def)) {
-        shieldGfxMap.set(def, shieldGfxMap.size);
+      let icon = definition.spriteBlank || definition.norefImage;
+      if (Array.isArray(icon)) {
+        icon = icon[0];
       }
 
-      let network_filename_id = shieldGfxMap.get(def);
-      let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
+      let icon_url;
 
-      if (!fs.existsSync(save_filename)) {
-        shieldGfx.canvas.saveAsSync(save_filename);
+      if (icon == undefined) {
+        let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
+        let def = JSON.stringify(shields[network]);
+
+        if (!shieldGfxMap.has(def)) {
+          shieldGfxMap.set(def, shieldGfxMap.size);
+        }
+
+        let network_filename_id = shieldGfxMap.get(def);
+        let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
+
+        if (!fs.existsSync(save_filename)) {
+          shieldGfx.canvas.saveAsSync(save_filename);
+        }
+        icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
+      } else {
+        icon_url = `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`;
       }
-      icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
-    } else {
-      icon_url = `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`;
-    }
 
-    let description = `Roads carrying routes in this network are marked by `;
-    if (definition.canvasDrawnBlank) {
-      let shapeDef = definition.canvasDrawnBlank;
-      let prettyShapeName = `${shapeDef.drawFunc}`;
-      let prettyFillColor = getNamedColor(shapeDef.params.fillColor, "white");
-      let prettyStrokeColor = getNamedColor(
-        shapeDef.params.strokeColor,
-        "black"
-      );
+      let description = `Roads carrying routes in this network are marked by `;
+      if (definition.canvasDrawnBlank) {
+        let shapeDef = definition.canvasDrawnBlank;
+        let prettyShapeName = `${shapeDef.drawFunc}`;
+        let prettyFillColor = getNamedColor(shapeDef.params.fillColor, "white");
+        let prettyStrokeColor = getNamedColor(
+          shapeDef.params.strokeColor,
+          "black"
+        );
 
-      switch (shapeDef.drawFunc) {
-        case "roundedRectangle":
-          if (shapeDef.params.radius == 10) {
-            prettyShapeName = "pill";
-          } else {
-            prettyShapeName = "rectangle";
-          }
-          break;
-        case "hexagonVertical":
-          prettyShapeName = "vertical hexagon";
-          break;
-        case "hexagonHorizontal":
-          prettyShapeName = "horizontal hexagon";
-          break;
+        switch (shapeDef.drawFunc) {
+          case "roundedRectangle":
+            if (shapeDef.params.radius == 10) {
+              prettyShapeName = "pill";
+            } else {
+              prettyShapeName = "rectangle";
+            }
+            break;
+          case "hexagonVertical":
+            prettyShapeName = "vertical hexagon";
+            break;
+          case "hexagonHorizontal":
+            prettyShapeName = "horizontal hexagon";
+            break;
+        }
+        description += `${prettyFillColor} ${prettyShapeName}-shaped shields with ${prettyStrokeColor} borders`;
+      } else {
+        description += "shields";
       }
-      description += `${prettyFillColor} ${prettyShapeName}-shaped shields with ${prettyStrokeColor} borders`;
-    } else {
-      description += "shields";
-    }
 
-    if (definition.modifiers && definition.modifiers.length > 0) {
-      description += ` modified by ${definition.modifiers.join(", ")} banners`;
-    }
-    description += ".";
+      if (definition.modifiers && definition.modifiers.length > 0) {
+        description += ` modified by ${definition.modifiers.join(
+          ", "
+        )} banners`;
+      }
+      description += ".";
 
-    return {
-      key: "network",
-      value: network,
-      object_types: ["relation"],
-      description: description,
-      icon_url: icon_url,
-    };
-  });
+      return {
+        key: "network",
+        value: network,
+        object_types: ["relation"],
+        description: description,
+        icon_url: icon_url,
+      };
+    });
   project.tags.push(...tags);
 }
 
