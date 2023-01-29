@@ -6,6 +6,7 @@ import * as Shields from "../src/js/shield.js";
 import * as Gfx from "../src/js/screen_gfx.js";
 import * as CustomShields from "../src/js/custom_shields.js";
 import * as skia from "skia-canvas";
+import namer from "color-namer";
 
 if (!fs.existsSync("dist/shield-sample")) {
   fs.mkdirSync("dist/shield-sample", true);
@@ -23,27 +24,18 @@ Gfx.setGfxFactory((bounds) => {
   return ctx;
 });
 
-//Hash function to elminiate duplicate shield graphics
-/*
-    Released into public comain by bryc (github.com/bryc)
-    Source: https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
-*/
-const cyrb53 = function (str, seed = 0) {
-  let h1 = 0xdeadbeef ^ seed,
-    h2 = 0x41c6ce57 ^ seed;
-  for (let i = 0, ch; i < str.length; i++) {
-    ch = str.charCodeAt(i);
-    h1 = Math.imul(h1 ^ ch, 2654435761);
-    h2 = Math.imul(h2 ^ ch, 1597334677);
+const shieldGfxMap = new Map();
+
+function getNamedColor(colorString, defaultColor) {
+  if (colorString) {
+    if (colorString.startsWith("#")) {
+      return namer(colorString)["pantone"][0].name.toLowerCase();
+    } else {
+      return colorString;
+    }
   }
-  h1 =
-    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
-    Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-  h2 =
-    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
-    Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-  return 4294967296 * (2097151 & h2) + (h1 >>> 0);
-};
+  return defaultColor;
+}
 
 /**
  * Adds documentation about network=* tags to a project description object, modifying it in place.
@@ -59,12 +51,6 @@ function addNetworkTags(project) {
     let network = entry[0],
       definition = entry[1];
 
-    let description = `Roads carrying routes in this network are marked by shields`;
-    if (definition.modifiers && definition.modifiers.length > 0) {
-      description += ` modified by ${definition.modifiers.join(", ")} banners`;
-    }
-    description += ".";
-
     let icon = definition.spriteBlank || definition.norefImage;
     if (Array.isArray(icon)) {
       icon = icon[0];
@@ -74,16 +60,57 @@ function addNetworkTags(project) {
 
     if (icon == undefined) {
       let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
-      let network_filename = cyrb53(JSON.stringify(shields[network]));
-      let save_filename = `dist/shield-sample/shield_${network_filename}.svg`;
+      let def = JSON.stringify(shields[network]);
+
+      if (!shieldGfxMap.has(def)) {
+        shieldGfxMap.set(def, shieldGfxMap.size);
+      }
+
+      let network_filename_id = shieldGfxMap.get(def);
+      let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
 
       if (!fs.existsSync(save_filename)) {
         shieldGfx.canvas.saveAsSync(save_filename);
       }
-      icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename}.svg`;
+      icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
     } else {
       icon_url = `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`;
     }
+
+    let description = `Roads carrying routes in this network are marked by `;
+    if (definition.canvasDrawnBlank) {
+      let shapeDef = definition.canvasDrawnBlank;
+      let prettyShapeName = `${shapeDef.drawFunc}`;
+      let prettyFillColor = getNamedColor(shapeDef.params.fillColor, "white");
+      let prettyStrokeColor = getNamedColor(
+        shapeDef.params.strokeColor,
+        "black"
+      );
+
+      switch (shapeDef.drawFunc) {
+        case "roundedRectangle":
+          if (shapeDef.params.radius == 10) {
+            prettyShapeName = "pill";
+          } else {
+            prettyShapeName = "rectangle";
+          }
+          break;
+        case "hexagonVertical":
+          prettyShapeName = "vertical hexagon";
+          break;
+        case "hexagonHorizontal":
+          prettyShapeName = "horizontal hexagon";
+          break;
+      }
+      description += `${prettyFillColor} ${prettyShapeName}-shaped shields with ${prettyStrokeColor} borders`;
+    } else {
+      description += "shields";
+    }
+
+    if (definition.modifiers && definition.modifiers.length > 0) {
+      description += ` modified by ${definition.modifiers.join(", ")} banners`;
+    }
+    description += ".";
 
     return {
       key: "network",
