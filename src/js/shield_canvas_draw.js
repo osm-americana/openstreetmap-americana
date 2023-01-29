@@ -16,18 +16,36 @@ const minGenericShieldWidth = 20 * PXR;
 const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
-export function computeWidth(rectWidth, ref) {
-  let limitWidth = rectWidth == undefined ? null : rectWidth;
+export function computeWidth(params, ref, shape) {
+  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
+  let angle = params.angle == undefined ? 0 : params.angle;
+  let tangent = Math.tan(angle);
 
-  if (limitWidth == null) {
+  if (rectWidth == null) {
     let shieldWidth =
       ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    return Math.max(
-      minGenericShieldWidth,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
+    let minWidth = minGenericShieldWidth;
+
+    //Shape-specific width adjustments
+    switch (shape) {
+      case "pentagon":
+        let offset = params.offset == undefined ? 0 : params.offset;
+        shieldWidth += ((CS - offset * PXR) * tangent) / 2;
+        break;
+      case "trapezoid":
+        shieldWidth += (CS * tangent) / 2;
+        break;
+      case "triangle":
+        minWidth += 2 * PXR;
+        break;
+      case "hexagonHorizontal":
+        minWidth += 4 * PXR;
+        break;
+    }
+
+    return Math.max(minWidth, Math.min(maxGenericShieldWidth, shieldWidth));
   } else {
-    return limitWidth * PXR;
+    return rectWidth * PXR;
   }
 }
 
@@ -35,7 +53,7 @@ function ellipse(ctx, params, ref) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref);
 
   let lineWidth = PXR;
   let radiusX = width / 2 - lineWidth;
@@ -78,7 +96,7 @@ export function roundedRectangle(ctx, params, ref) {
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -121,7 +139,7 @@ function escutcheon(ctx, params, ref) {
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -175,7 +193,7 @@ function triangle(ctx, params, ref) {
 
   let angleSign = pointUp ? -1 : 1;
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref, "triangle");
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -241,7 +259,7 @@ function trapezoid(ctx, params, ref) {
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref, "trapezoid");
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -291,7 +309,7 @@ function diamond(ctx, params, ref) {
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
   let height = shapeHeight("diamond");
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -363,7 +381,7 @@ function pentagon(ctx, params, ref) {
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref, "pentagon");
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -423,7 +441,7 @@ function hexagonVertical(ctx, params, ref) {
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -477,7 +495,7 @@ function hexagonHorizontal(ctx, params, ref) {
   let tangent = Math.tan(angle);
   let halfComplementTangent = Math.tan(Math.PI / 4 - angle / 2);
 
-  let width = computeWidth(params.rectWidth, ref);
+  let width = computeWidth(params, ref, "hexagonHorizontal");
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
@@ -533,22 +551,12 @@ function octagonVertical(ctx, params, ref) {
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
-  let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
 
   let sine = Math.sin(angle);
   let cosine = Math.cos(angle);
   let tangent = Math.tan(angle);
 
-  if (rectWidth == null) {
-    var shieldWidth =
-      ShieldText.calculateTextWidth(ref, genericShieldFontSize) + 2 * PXR;
-    var width = Math.max(
-      minGenericShieldWidth,
-      Math.min(maxGenericShieldWidth, shieldWidth)
-    );
-  } else {
-    var width = rectWidth * PXR;
-  }
+  let width = computeWidth(params, ref);
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;

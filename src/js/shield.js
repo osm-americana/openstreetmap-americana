@@ -388,8 +388,9 @@ export function generateShieldCtx(map, id) {
       width = Math.max(
         ShieldDraw.CS,
         ShieldDraw.computeWidth(
-          shieldDef.canvasDrawnBlank.params.rectWidth,
-          routeDef.ref
+          shieldDef.canvasDrawnBlank.params,
+          routeDef.ref,
+          shieldDef.canvasDrawnBlank.drawFunc
         )
       );
       height = ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc);
