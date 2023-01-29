@@ -13,31 +13,35 @@ function addNetworkTags(project) {
   let shields = ShieldDef.loadShields();
 
   // Convert each shield's rendering metadata to an entry that taginfo understands.
-  let tags = Object.entries(shields).map((entry) => {
-    let network = entry[0],
-      definition = entry[1];
+  let tags = Object.entries(shields)
+    .filter((entry) => !entry[0].match(/^omt-/))
+    .map((entry) => {
+      let network = entry[0],
+        definition = entry[1];
 
-    let description = `Roads carrying routes in this network are marked by shields`;
-    if (definition.modifiers && definition.modifiers.length > 0) {
-      description += ` modified by ${definition.modifiers.join(", ")} banners`;
-    }
-    description += ".";
+      let description = `Roads carrying routes in this network are marked by shields`;
+      if (definition.modifiers && definition.modifiers.length > 0) {
+        description += ` modified by ${definition.modifiers.join(
+          ", "
+        )} banners`;
+      }
+      description += ".";
 
-    let icon = definition.spriteBlank || definition.norefImage;
-    if (Array.isArray(icon)) {
-      icon = icon[0];
-    }
+      let icon = definition.spriteBlank || definition.norefImage;
+      if (Array.isArray(icon)) {
+        icon = icon[0];
+      }
 
-    return {
-      key: "network",
-      value: network,
-      object_types: ["relation"],
-      description: description,
-      icon_url: icon
-        ? `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`
-        : undefined,
-    };
-  });
+      return {
+        key: "network",
+        value: network,
+        object_types: ["relation"],
+        description: description,
+        icon_url: icon
+          ? `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`
+          : undefined,
+      };
+    });
   project.tags.push(...tags);
 }
 

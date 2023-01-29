@@ -354,6 +354,41 @@
       "object_types": ["node", "area"],
       "description": "Schools are represented by an icon.",
       "doc_url": "https://openmaptiles.org/schema/#poi"
+    },
+    {
+      "key": "highway",
+      "value": "motorway",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Motorways are marked by a colored patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "trunk",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Roads belonging to primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "primary",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "secondary",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "tertiary",
+      "object_types": ["way"],
+      "description": "🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
     }
   ]
 }
