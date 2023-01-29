@@ -173,7 +173,7 @@ function fishheadDownShield(fillColor, strokeColor, textColor, rectWidth) {
         outlineWidth: 1,
       },
     },
-    textLayoutConstraint: ShieldText.southHalfEllipseTextConstraint,
+    textLayout: textConstraint("southHalfEllipse"),
     padding: {
       left: 4,
       right: 4,
