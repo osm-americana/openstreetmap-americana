@@ -12,7 +12,6 @@ var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
 window.maplibregl = maplibregl;
 export const map = (window.map = new maplibregl.Map({
   container: "map", // container id
-  hash: "map",
   antialias: true,
   style: {
     version: 8,
@@ -273,46 +272,77 @@ function addShield(row, network, ref) {
   cell.appendChild(img);
 }
 
-const PXR = gfx.getPixelRatio();
-
-let table = document.querySelector("#shield-table");
-
-for (let network of networks) {
-  let row = table.insertRow();
-  row.insertCell().append(`${network}`);
-  for (let ref of refs) {
-    performance.mark(`start-${network}`);
-    let cell = row.insertCell();
-    let shield_id = `shield\n${network}=${ref}`;
-    let shieldCanvas = getShieldCanvas(shield_id);
-    let img = document.createElement("img");
-    img.src = shieldCanvas.toDataURL("image/png");
-    img.width = shieldCanvas.width / PXR;
-    img.height = shieldCanvas.height / PXR;
-    performance.mark(`stop-${network}`);
-    performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
-    cell.appendChild(img);
-  }
-  let perfEntries = performance.getEntriesByName(`${network}`);
-  var perfDuration = 0;
-  for (let perf of perfEntries) {
-    perfDuration += perf.duration;
-  }
-  let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
-  row.insertCell().append(`${shieldRate} shields/sec`);
+function getShieldImage(network, ref) {
+  let shield_id = `shield\n${network}=${ref}`;
+  let shieldCanvas = getShieldCanvas(shield_id);
+  let img = document.createElement("img");
+  img.srcset = `${shieldCanvas.toDataURL("image/png")} ${PXR}x`;
+  return img;
 }
 
-let row = table.insertRow();
-row.insertCell().append(`Pittsburgh`);
-addShield(row, "US:PA:Allegheny:Belt", "Red Belt");
-addShield(row, "US:PA:Allegheny:Belt", "Orange Belt");
-addShield(row, "US:PA:Allegheny:Belt", "Yellow Belt");
-addShield(row, "US:PA:Allegheny:Belt", "Green Belt");
-addShield(row, "US:PA:Allegheny:Belt", "Blue Belt");
-addShield(row, "US:PA:Allegheny:Belt", "Purple Belt");
+const PXR = gfx.getPixelRatio();
 
-row = table.insertRow();
-row.insertCell().append(`Branson, MO`);
-addShield(row, "US:MO:Taney:Branson", "Red Route");
-addShield(row, "US:MO:Taney:Branson", "Yellow Route");
-addShield(row, "US:MO:Taney:Branson", "Blue Route");
+const iterShields = function* () {
+  for (const network of networks) {
+    yield { network, refs };
+  }
+  yield {
+    network: "US:PA:Allegheny:Belt",
+    refs: [
+      "Red Belt",
+      "Orange Belt",
+      "Yellow Belt",
+      "Green Belt",
+      "Blue Belt",
+      "Purple Belt",
+    ],
+  };
+  yield {
+    network: "US:MO:Taney:Branson",
+    refs: ["Red Route", "Yellow Route", "Blue Route"],
+  };
+};
+
+const renderAllShields = async () => {
+  const allShields = Array.from(iterShields());
+  const progress = document.querySelector("#progress-overlay progress");
+  progress.max = allShields.flatMap((d) => d.refs).length;
+  const columns = Math.max(...allShields.flatMap((d) => d.refs.length));
+  const table = document.querySelector("#shield-table").createTBody();
+  for (const { network, refs } of allShields) {
+    const tr = table.insertRow();
+    tr.insertCell().append(`${network}`);
+    for (const ref of refs) {
+      performance.mark(`start-${network}`);
+      tr.insertCell().append(getShieldImage(network, ref));
+      progress.value += 1;
+      performance.mark(`stop-${network}`);
+      performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
+    }
+    let perfEntries = performance.getEntriesByName(`${network}`);
+    var perfDuration = 0;
+    for (let perf of perfEntries) {
+      perfDuration += perf.duration;
+    }
+    let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
+    if (tr.cells.length < 1 + columns) {
+      const gap = columns - tr.cells.length + 1;
+      tr.insertCell().colSpan = gap;
+    }
+    tr.insertCell().append(`${shieldRate} shields/sec`);
+
+    await Promise.all(
+      Array.from(tr.querySelectorAll("img"), (img) =>
+        img.decode().catch(
+          () =>
+            /* occasionally fails for no reason */
+            new Promise(requestAnimationFrame)
+        )
+      )
+    );
+  }
+};
+
+await renderAllShields().finally(() =>
+  document.querySelector("#progress-overlay").remove()
+);
