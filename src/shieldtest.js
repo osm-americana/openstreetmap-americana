@@ -262,6 +262,17 @@ export function getShieldCanvas(shield_id) {
   return ctx.canvas;
 }
 
+function addShield(row, network, ref) {
+  let cell = row.insertCell();
+  let shield_id = `shield\n${network}=${ref}`;
+  let shieldCanvas = getShieldCanvas(shield_id);
+  let img = document.createElement("img");
+  img.src = shieldCanvas.toDataURL("image/png");
+  img.width = shieldCanvas.width / PXR;
+  img.height = shieldCanvas.height / PXR;
+  cell.appendChild(img);
+}
+
 const PXR = gfx.getPixelRatio();
 
 let table = document.querySelector("#shield-table");
@@ -290,3 +301,18 @@ for (let network of networks) {
   let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
   row.insertCell().append(`${shieldRate} shields/sec`);
 }
+
+let row = table.insertRow();
+row.insertCell().append(`Pittsburgh`);
+addShield(row, "US:PA:Allegheny:Belt", "Red Belt");
+addShield(row, "US:PA:Allegheny:Belt", "Orange Belt");
+addShield(row, "US:PA:Allegheny:Belt", "Yellow Belt");
+addShield(row, "US:PA:Allegheny:Belt", "Green Belt");
+addShield(row, "US:PA:Allegheny:Belt", "Blue Belt");
+addShield(row, "US:PA:Allegheny:Belt", "Purple Belt");
+
+row = table.insertRow();
+row.insertCell().append(`Branson, MO`);
+addShield(row, "US:MO:Taney:Branson", "Red Route");
+addShield(row, "US:MO:Taney:Branson", "Yellow Route");
+addShield(row, "US:MO:Taney:Branson", "Blue Route");
