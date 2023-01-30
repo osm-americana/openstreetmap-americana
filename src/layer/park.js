@@ -4,7 +4,7 @@ import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 export const fill = {
-  id: "protected-area-fill",
+  id: "protected-area_fill",
   type: "fill",
   paint: {
     "fill-color": Color.parkFill,
@@ -14,7 +14,7 @@ export const fill = {
 };
 
 export const outline = {
-  id: "protected-area-outline",
+  id: "protected-area_outline",
   type: "line",
   paint: {
     "line-color": Color.parkOutline,
@@ -25,7 +25,7 @@ export const outline = {
 };
 
 export const label = {
-  id: "protected-area-label",
+  id: "protected-area_label",
   type: "symbol",
   filter: ["has", "rank"],
   paint: {
@@ -46,21 +46,21 @@ export const label = {
 
 export const parkFill = {
   ...fill,
-  id: "park-fill",
+  id: "park_fill",
   filter: ["==", ["get", "subclass"], "park"],
   "source-layer": "landcover",
 };
 
 export const parkOutline = {
   ...outline,
-  id: "park-outline",
+  id: "park_outline",
   filter: ["==", ["get", "subclass"], "park"],
   "source-layer": "landcover",
 };
 
 export const parkLabel = {
   ...label,
-  id: "park-label",
+  id: "park_label",
   filter: ["==", ["get", "class"], "park"],
   "source-layer": "poi",
 };

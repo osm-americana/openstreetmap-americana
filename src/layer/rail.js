@@ -106,7 +106,7 @@ var opacity = [
 // Bridge casing layers
 export const bridgeCasing = {
   ...defRail,
-  id: "railway-bridge-casing",
+  id: "rail_bridge-casing",
   filter: [
     "all",
     ["==", ["get", "brunnel"], "bridge"],

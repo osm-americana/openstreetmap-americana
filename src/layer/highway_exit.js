@@ -3,7 +3,7 @@
 import * as Label from "../constants/label.js";
 
 export const exits = {
-  id: "highway_exit",
+  id: "highway-exit",
   type: "symbol",
   filter: [
     "all",
