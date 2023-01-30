@@ -188,6 +188,7 @@ There is a "stats" script that will generate various statistics about layer comp
 
 - `npm run stats -- -a -s` - overall size and breakdown of layers
 - `npm run stats -- -c` - total layer count
+- `npm run stats -- -h` - list all options
 
 ## Highway Shield Contributor's Guide
 
