@@ -180,6 +180,15 @@ boilerplate in `scripts/taginfo_template.json`.
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
 
+### Style complexity checks
+
+When adding or changing style layer code, it can be helpful to assess the change in size and complexity. In general, higher layer counts and higher layer size have a negative impact in performance. Contributors should attempt to consolidate layers when possible.
+
+There is a "stats" script that will generate various statistics about layer composition and complexity:
+
+- `npm run stats -- -a -s` - overall size and breakdown of layers
+- `npm run stats -- -c` - total layer count
+
 ## Highway Shield Contributor's Guide
 
 Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
