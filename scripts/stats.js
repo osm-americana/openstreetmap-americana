@@ -6,6 +6,7 @@ const program = new Command();
 program
   .option("-a, --all-layers", "summary layer stats")
   .option("-c, --layer-count", "count number of layers")
+  .option("-s, --layer-size", "size of all layers")
   .option("-l, --layer <layer id>", "stats about one layer")
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
   .option("-pp, --pretty", "pretty-print JSON output")
@@ -26,6 +27,7 @@ let style = Style.build(
 
 const layers = style.layers;
 const layerCount = layers.length;
+const layerSize = JSON.stringify(layers).length;
 
 const layerMap = new Map();
 const layerGroupMap = new Map();
@@ -58,6 +60,10 @@ for (let i = 0; i < layers.length; i++) {
 
 if (opts.layerCount) {
   console.log(`${layerCount} layers`);
+}
+
+if (opts.layerSize) {
+  console.log(`Total layer size ${layerSize.toLocaleString("en-US")} bytes`);
 }
 
 if (opts.allLayers) {

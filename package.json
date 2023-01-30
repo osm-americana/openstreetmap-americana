@@ -22,7 +22,7 @@
     "build:code": "node scripts/build.js",
     "build": "run-s clean sprites build:code taginfo status_map",
     "test": "mocha",
-    "stats": "node scripts/stats.js",
+    "stats": "node scripts/stats.js -a -s",
     "style": "node scripts/generate_style.js -o dist/style.json"
   },
   "dependencies": {
