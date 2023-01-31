@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16"
+   height="20"
+   viewBox="0 0 4.234 5.292"
+   version="1.1"
+   id="svg6877"
+   sodipodi:docname="shield_in_ah_2.svg"
+   inkscape:version="1.2.1 (9c6d41e4, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6881" />
+  <sodipodi:namedview
+     id="namedview6879"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="11.8"
+     inkscape:cx="4.7881356"
+     inkscape:cy="10"
+     inkscape:window-width="1440"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg6877" />
+  <path
+     d="m 0.1325948,0.1320625 c 0,0 -1.9653e-4,2.117 -2.948e-4,3.1755 -9.853e-5,1.0613204 1.0797551,1.8523765 1.9847,1.852375 0.9049417,-1.5e-6 1.9846867,-0.7926582 1.984687,-1.852375 3e-7,-1.0585193 1e-6,-3.17555788 1e-6,-3.17555788 z"
+     fill="#ffcd00"
+     stroke="#000"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width=".265"
+     style="fill:#006747;stroke:#ffffff;stroke-width:0.2646;stroke-miterlimit:4;stroke-dasharray:none"
+     id="path6875"
+     sodipodi:nodetypes="csascc" />
+</svg>
