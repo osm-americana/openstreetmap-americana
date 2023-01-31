@@ -301,6 +301,12 @@ function getShieldDef(routeDef) {
       ...shieldDef.overrideByRef[routeDef.ref],
     };
   }
+  if (shieldDef.overrideByName) {
+    shieldDef = {
+      ...shieldDef,
+      ...shieldDef.overrideByName[routeDef.wayName],
+    };
+  }
 
   //Determine whether a route without a ref gets drawn
   if (

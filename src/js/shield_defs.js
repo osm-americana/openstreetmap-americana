@@ -3238,6 +3238,32 @@ export function loadShields() {
 
   // ASIA
 
+  // Asian Highway Network
+  shields["AsianHighway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+  shields["AsianHighway"].overrideByName = {
+    green: roundedRectShield(Color.shields.green, Color.shields.white),
+    green_in: {
+      spriteBlank: ["shield_in_ah_2", "shield_in_ah_3", "shield_in_ah_4"],
+      textColor: Color.shields.white,
+      padding: {
+        left: 2,
+        right: 2,
+        top: 2,
+        bottom: 7,
+      },
+    },
+    white: roundedRectShield(Color.shields.white, Color.shields.black),
+    white_id: roundedRectShield(
+      Color.shields.white,
+      Color.shields.green,
+      Color.shields.black
+    ),
+  };
+  shields["AH"] = shields["AsianHighway"];
+
   // Armenia
   shields["am:national"] = roundedRectShield(
     Color.shields.blue,

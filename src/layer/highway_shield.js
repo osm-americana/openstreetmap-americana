@@ -7,17 +7,71 @@ export const namedRouteNetworks = [
   "US:TX:Harris:HCTRA",
 ];
 
+let AsianHighwayBorders = {};
+
+export async function fetchFeatures(baseURL) {
+  if (Object.keys(AsianHighwayBorders).length !== 0) {
+    return;
+  }
+  
+  let fetchFile = async function (name) {
+    let response = await fetch(`features/${name}.geojson`);
+    if (response.ok) {
+      AsianHighwayBorders[name] = await response.json();
+    } else {
+      throw response;
+    }
+  };
+  await Promise.all([
+    "az-cn-ir", "id", "in", "jp-kr",
+  ].map(f => fetchFile(f)));
+}
+
 export function getImageNameExpression(routeIndex) {
+  const nullIsland = {type: "Polygon", coordinates: [[[0, 0], [0, 0], [0, 0]]]};
+  
   return [
-    "concat",
-    "shield\n",
+    "let",
+    "route",
     ["get", "route_" + routeIndex],
     [
-      "match",
-      ["get", "route_" + routeIndex],
-      namedRouteNetworks.map((n) => n + "="),
-      ["concat", "\n", ["get", "name"]],
-      "",
+      "concat",
+      "shield\n",
+      ["var", "route"],
+      [
+        "match",
+        ["var", "route"],
+        namedRouteNetworks.map((n) => n + "="),
+        ["concat", "\n", ["get", "name"]],
+        "",
+      ],
+      [
+        "match",
+        ["slice", ["var", "route"], 0, ["index-of", "=", ["var", "route"]]],
+        ["AsianHighway", "AH"],
+        [
+          "concat",
+          "\n",
+          [
+            "case",
+            // Azerbaijan, China, Iran
+            ["within", AsianHighwayBorders["az-cn-ir"] || nullIsland],
+            "green",
+            // Japan, South Korea
+            ["within", AsianHighwayBorders["jp-kr"] || nullIsland],
+            "white",
+            // Indonesia
+            ["within", AsianHighwayBorders.id || nullIsland],
+            "white_id",
+            // India
+            ["within", AsianHighwayBorders.in || nullIsland],
+            "green_in",
+            // Armenia, Cambodia, Malaysia, Myanmar, Philippines, Russia, Thailand, Vietnam
+            "blue",
+          ],
+        ],
+        "",
+      ],
     ],
   ];
 }
@@ -43,6 +97,7 @@ export function parseImageName(imageName) {
   return { imageName, network, ref, name };
 }
 
+await fetchFeatures();
 let shieldTextField = ["format"];
 for (var i = 1; i <= 6; i++) {
   shieldTextField.push(routeConcurrency(i));
