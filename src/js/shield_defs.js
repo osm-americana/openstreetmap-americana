@@ -1142,6 +1142,12 @@ export function loadShields() {
     notext: true,
   };
 
+  shields["GLCT"] = {
+    notext: true,
+  };
+
+  shields["GLCT:Loop"] = banneredShield(shields["GLCT"], ["LOOP"]);
+
   // Alaska
   shields["US:AK"] = {
     spriteBlank: "shield_us_ak",
@@ -4151,6 +4157,27 @@ export function loadShields() {
     "Hardy Toll Road": "HTR",
     "Tomball Tollway": "TBT",
     "Westpark Tollway": "WPT",
+  };
+
+  shields["GLCT"].overrideByRef = {
+    LECT: {
+      spriteBlank: "shield_glct_lect",
+    },
+    LHCT: {
+      spriteBlank: "shield_glct_lhct",
+    },
+    LMCT: {
+      spriteBlank: "shield_glct_lmct",
+    },
+    LSCT: {
+      spriteBlank: "shield_glct_lsct",
+    },
+  };
+
+  shields["GLCT:Loop"].overrideByRef = {
+    LMCT: {
+      spriteBlank: "shield_glct_loop_lmct",
+    },
   };
 
   return shields;
