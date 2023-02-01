@@ -155,6 +155,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .de,
 .gr,
 .is,
+.ie,
 .it,
 .xk,
 .lt,
@@ -170,11 +171,11 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .si,
 .sk,
 .ua,
+.gb,
 .au,
 .nz,
 .cw,
-.ust,
-.gb { fill: #8250df; }
+.ust { fill: #8250df; }
 
 /* Color individual borders
 For example, to color the border between Angola and Namibia in green, add this line in the space below:

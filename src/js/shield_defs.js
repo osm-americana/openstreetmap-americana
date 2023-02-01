@@ -1709,6 +1709,10 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
+  shields["US:LA:Causeway"] = {
+    spriteBlank: "shield_us_la_causeway",
+    notext: true,
+  };
 
   // Massachusetts
   shields["US:MA"] = roundedRectShield(

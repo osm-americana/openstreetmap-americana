@@ -16,6 +16,9 @@ export function getGfxContext(bounds) {
 
 export function getDocumentGfxContext(bounds) {
   var ctx = document.createElement("canvas").getContext("2d");
+  var ctx = document
+    .createElement("canvas")
+    .getContext("2d", { willReadFrequently: true });
   ctx.imageSmoothingQuality = "high";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";

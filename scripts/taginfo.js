@@ -7,10 +7,9 @@ import * as Gfx from "../src/js/screen_gfx.js";
 import * as CustomShields from "../src/js/custom_shields.js";
 import * as skia from "skia-canvas";
 import namer from "color-namer";
+import { mkdir } from "node:fs/promises";
 
-if (!fs.existsSync("dist/shield-sample")) {
-  fs.mkdirSync("dist/shield-sample", true);
-}
+await mkdir("dist/shield-sample", { recursive: true });
 
 //Headless graphics context
 Gfx.setGfxFactory((bounds) => {
