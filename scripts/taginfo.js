@@ -100,9 +100,20 @@ function addNetworkTags(project) {
           case "hexagonVertical":
             prettyShapeName = "vertical hexagon";
             break;
+          case "octagonVertical":
+            prettyShapeName = "vertical octagon";
+            break;
           case "hexagonHorizontal":
             prettyShapeName = "horizontal hexagon";
             break;
+          case "ellipse":
+            if (shapeDef.params.rectWidth == 20) {
+              prettyShapeName = "circle";
+            }
+          case "pentagon":
+            if (shapeDef.params.angle == 0) {
+              prettyShapeName = "home plate";
+            }
         }
         description += `${prettyFillColor} ${prettyShapeName}-shaped shields with ${prettyStrokeColor} borders`;
       } else {
