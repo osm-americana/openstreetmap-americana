@@ -1142,7 +1142,9 @@ export function loadShields() {
     notext: true,
   };
 
-  shields["GLCT"] = {};
+  shields["GLCT"] = {
+    notext: true,
+  };
 
   // Alaska
   shields["US:AK"] = {
@@ -4158,19 +4160,15 @@ export function loadShields() {
   shields["GLCT"].overrideByRef = {
     LECT: {
       spriteBlank: "shield_glct_lect",
-      notext: true,
     },
     LHCT: {
       spriteBlank: "shield_glct_lhct",
-      notext: true,
     },
     LMCT: {
       spriteBlank: "shield_glct_lmct",
-      notext: true,
     },
     LSCT: {
       spriteBlank: "shield_glct_lsct",
-      notext: true,
     },
   };
 
