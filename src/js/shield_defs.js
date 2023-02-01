@@ -1146,6 +1146,8 @@ export function loadShields() {
     notext: true,
   };
 
+  shields["GLCT:Loop"] = banneredShield(shields["GLCT"], ["LOOP"]);
+
   // Alaska
   shields["US:AK"] = {
     spriteBlank: "shield_us_ak",
@@ -4169,6 +4171,12 @@ export function loadShields() {
     },
     LSCT: {
       spriteBlank: "shield_glct_lsct",
+    },
+  };
+
+  shields["GLCT:Loop"].overrideByRef = {
+    LMCT: {
+      spriteBlank: "shield_glct_loop_lmct",
     },
   };
 
