@@ -5,7 +5,9 @@ export const shieldFont = (size) => `bold ${size}px ${fontFamily}`;
 export const fontSizeThreshold = 12;
 
 export function getGfxContext(bounds) {
-  var ctx = document.createElement("canvas").getContext("2d");
+  var ctx = document
+    .createElement("canvas")
+    .getContext("2d", { willReadFrequently: true });
   ctx.imageSmoothingQuality = "high";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
