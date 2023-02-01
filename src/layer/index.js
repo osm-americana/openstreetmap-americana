@@ -2,6 +2,7 @@
 
 import * as Label from "../constants/label.js";
 
+import * as lyrAerialway from "./aerialway.js";
 import * as lyrAeroway from "./aeroway.js";
 import * as lyrBackground from "./background.js";
 import * as lyrBoundary from "./boundary.js";
@@ -199,6 +200,10 @@ export function build(locales) {
 
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.
+    lyrAerialway.casing,
+    lyrAerialway.dragLift,
+    lyrAerialway.lift,
+
     lyrWater.waterwayLabel,
 
     lyrTransportationLabel.bridgeSpacer,
