@@ -4157,19 +4157,19 @@ export function loadShields() {
 
   shields["GLCT"].overrideByRef = {
     LECT: {
-      spriteBlank: "shield_us_glct_lect",
+      spriteBlank: "shield_glct_lect",
       notext: true,
     },
     LHCT: {
-      spriteBlank: "shield_us_glct_lhct",
+      spriteBlank: "shield_glct_lhct",
       notext: true,
     },
     LMCT: {
-      spriteBlank: "shield_us_glct_lmct",
+      spriteBlank: "shield_glct_lmct",
       notext: true,
     },
     LSCT: {
-      spriteBlank: "shield_us_glct_lsct",
+      spriteBlank: "shield_glct_lsct",
       notext: true,
     },
   };
