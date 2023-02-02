@@ -1766,6 +1766,10 @@ export function loadShields() {
     Color.shields.black
   );
   shields["US:ME:Business"] = banneredShield(shields["US:ME"], ["BUS"]);
+  shields["US:ME:Turnpike"] = {
+    spriteBlank: "shield_us_me_turnpike",
+    notext: true,
+  };
 
   // Michigan
   shields["US:MI"] = diamondShield(
