@@ -235,16 +235,16 @@ describe("label", function () {
     it("updates country names in English", function () {
       Label.localizeLayers([], ["en-US"]);
       expect(Object.keys(Label.countryNamesByCode).length).to.be.at.least(200);
-      expect(Label.countryNamesByCode.MEX).to.be.eql("Mexico");
+      expect(Label.countryNamesByCode.MEX).to.be.eql("MEXICO");
     });
     it("updates country names in a language other than English", function () {
       Label.localizeLayers([], ["eo"]);
       expect(Object.keys(Label.countryNamesByCode).length).to.be.at.least(200);
-      expect(Label.countryNamesByCode.USA).to.be.eql("Usono");
+      expect(Label.countryNamesByCode.USA).to.be.eql("USONO");
     });
     it("widens spaces", function () {
       Label.localizeLayers([], ["en-US"]);
-      expect(Label.countryNamesByCode.USA).to.be.eql("United  States");
+      expect(Label.countryNamesByCode.USA).to.be.eql("UNITED  STATES");
     });
     it("returns undefined for a nonexistent country", function () {
       Label.localizeLayers([], ["en-US"]);

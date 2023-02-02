@@ -122,8 +122,12 @@ export function localizeLayers(layers, locales) {
   let localizedCountryNamesByCode = Object.fromEntries(
     Object.entries(iso3166_1_alpha_2_by_3).map((e) => [
       e[0],
-      // Word boundaries are less discernible in uppercase text, so pad each word by an additional space.
-      countryNames.of(e[1])?.replaceAll(" ", "  "),
+      countryNames
+        .of(e[1])
+        // Neither the upcase expression operator nor the text-transform layout property is locale-aware, so uppercase the name upfront.
+        ?.toLocaleUpperCase(locales)
+        // Word boundaries are less discernible in uppercase text, so pad each word by an additional space.
+        .replaceAll(" ", "  "),
     ])
   );
   Object.assign(countryNamesByCode, localizedCountryNamesByCode);

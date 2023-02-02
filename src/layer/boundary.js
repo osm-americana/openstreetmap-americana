@@ -290,7 +290,6 @@ export const countryLabelLeft = {
     "text-field": getCountryName(["get", "adm0_l"]),
     "text-offset": [0, -1],
     "text-max-angle": 30,
-    "text-transform": "uppercase",
     "text-letter-spacing": 0.1,
   },
   filter: ["==", ["get", "maritime"], 0],
