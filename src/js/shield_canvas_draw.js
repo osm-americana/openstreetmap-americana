@@ -38,6 +38,7 @@ export function computeWidth(params, ref, shape) {
       case "triangle":
         minWidth += 2 * PXR;
         break;
+      case "diamond":
       case "hexagonHorizontal":
         minWidth += 4 * PXR;
         break;
@@ -361,7 +362,7 @@ function diamond(ctx, params, ref) {
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
   let height = shapeHeight("diamond");
-  let width = computeWidth(params, ref);
+  let width = computeWidth(params, ref, "diamond");
 
   let lineThick = outlineWidth * PXR;
   let lineWidth = lineThick / 2;
