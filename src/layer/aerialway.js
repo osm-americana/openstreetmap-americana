@@ -15,9 +15,9 @@ export const lift = {
       ["exponential", aerialwayExp],
       ["zoom"],
       12,
-      1,
+      0.6,
       20,
-      2,
+      2.4,
     ],
     "line-gap-width": [
       "interpolate",
