@@ -42,7 +42,7 @@ export const sections = [
     entries: RailLayers.legendEntries,
   },
   {
-    name: "Aerialways",
+    name: "Aerial lifts",
     entries: AerialwayLayers.legendEntries,
   },
   {
