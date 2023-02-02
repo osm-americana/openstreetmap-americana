@@ -61,6 +61,7 @@ function addNetworkTags(project) {
 
       if (icon == undefined) {
         let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
+        delete shields[network].modifiers;
         let def = JSON.stringify(shields[network]);
 
         if (!shieldGfxMap.has(def)) {
@@ -81,7 +82,7 @@ function addNetworkTags(project) {
       let description = `Roads carrying routes in this network are marked by `;
       if (definition.canvasDrawnBlank) {
         let shapeDef = definition.canvasDrawnBlank;
-        let prettyShapeName = `${shapeDef.drawFunc}`;
+        let prettyShapeName = `${shapeDef.drawFunc}-shaped`;
         let prettyFillColor = getNamedColor(shapeDef.params.fillColor, "white");
         let prettyStrokeColor = getNamedColor(
           shapeDef.params.strokeColor,
@@ -91,30 +92,32 @@ function addNetworkTags(project) {
         switch (shapeDef.drawFunc) {
           case "roundedRectangle":
             if (shapeDef.params.radius == 10) {
-              prettyShapeName = "pill";
+              prettyShapeName = "pill-shaped";
             } else {
-              prettyShapeName = "rectangle";
+              prettyShapeName = "rectangular";
             }
             break;
           case "hexagonVertical":
-            prettyShapeName = "vertical hexagon";
+            prettyShapeName = "vertical hexagonal";
             break;
           case "octagonVertical":
-            prettyShapeName = "vertical octagon";
+            prettyShapeName = "vertical octagonal";
             break;
           case "hexagonHorizontal":
-            prettyShapeName = "horizontal hexagon";
+            prettyShapeName = "horizontal hexagonal";
             break;
           case "ellipse":
             if (shapeDef.params.rectWidth == 20) {
-              prettyShapeName = "circle";
+              prettyShapeName = "circular";
+            } else {
+              prettyShapeName = "elliptical";
             }
           case "pentagon":
             if (shapeDef.params.angle == 0) {
               prettyShapeName = "home plate";
             }
         }
-        description += `${prettyFillColor} ${prettyShapeName}-shaped shields with ${prettyStrokeColor} borders`;
+        description += `${prettyFillColor} ${prettyShapeName} shields with ${prettyStrokeColor} borders`;
       } else {
         description += "shields";
       }
