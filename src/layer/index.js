@@ -194,7 +194,6 @@ export function build(locales) {
 
     lyrOneway.bridge,
     lyrOneway.bridgeLink,
-    lyrAerialway.dragLiftCasing,
     lyrAerialway.dragLift,
   ];
 
