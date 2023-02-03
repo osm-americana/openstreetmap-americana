@@ -19,6 +19,8 @@ program.parse(process.argv);
 
 let opts = program.opts();
 
+if (Object.keys(opts).length === 1) program.help();
+
 let style = Style.build(
   config.OPENMAPTILES_URL,
   "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
