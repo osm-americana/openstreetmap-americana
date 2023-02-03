@@ -33,7 +33,7 @@ export const label = {
       "ferry",
       Color.waterLineBold,
       "aerialway",
-      Color.aerialwayLine,
+      Color.aerialwayLabel,
       "#333",
     ],
     "text-halo-color": [

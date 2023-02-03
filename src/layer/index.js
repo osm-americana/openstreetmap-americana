@@ -194,14 +194,15 @@ export function build(locales) {
 
     lyrOneway.bridge,
     lyrOneway.bridgeLink,
+    lyrAerialway.dragLiftCasing,
+    lyrAerialway.dragLift,
   ];
 
   layers.push(...lyrRail.getLayerSeparatedBridgeLayers(bridgeLayers));
 
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.
-    lyrAerialway.casing,
-    lyrAerialway.dragLift,
+    lyrAerialway.liftCasing,
     lyrAerialway.lift,
 
     lyrWater.waterwayLabel,

@@ -77,8 +77,8 @@ export const dragLift = {
   "source-layer": "transportation",
 };
 
-export const casing = {
-  id: "aerialway_casing",
+export const liftCasing = {
+  id: "lift_casing",
   type: "line",
   paint: {
     "line-color": Color.backgroundFill,
@@ -92,7 +92,46 @@ export const casing = {
       10,
     ],
   },
-  filter: ["==", ["get", "class"], "aerialway"],
+  filter: [
+    "all",
+    ["==", ["get", "class"], "aerialway"],
+    [
+      "in",
+      ["get", "subclass"],
+      ["literal", ["chair_lift", "cable_car", "gondola", "mixed_lift"]],
+    ],
+  ],
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  "source-layer": "transportation",
+};
+
+export const dragLiftCasing = {
+  id: "lift_casing",
+  type: "line",
+  paint: {
+    "line-color": Color.backgroundFill,
+    "line-width": [
+      "interpolate",
+      ["exponential", aerialwayExp],
+      ["zoom"],
+      12,
+      2.5,
+      20,
+      10,
+    ],
+  },
+  filter: [
+    "all",
+    ["==", ["get", "class"], "aerialway"],
+    [
+      "in",
+      ["get", "subclass"],
+      ["literal", ["drag_lift", "platter", "j-bar", "t-bar"]],
+    ],
+  ],
   layout: {
     visibility: "visible",
   },
