@@ -147,6 +147,9 @@ export function build(locales) {
   var bridgeLayers = [
     lyrRail.bridgeCasing,
 
+    lyrTrack.bridgeCasing,
+    lyrTrack.bridgeFill,
+
     lyrRoad.trunkLinkBridge.casing(),
     lyrRoad.motorwayLinkBridge.casing(),
 
@@ -181,6 +184,9 @@ export function build(locales) {
     lyrRoad.motorwayBridge.fill(),
 
     lyrRoad.roadBridge.surface(),
+
+    lyrTrack.trackBridge,
+    lyrTrack.pavedTrackBridge,
 
     lyrRail.railBridge.dashes(),
     lyrRail.railServiceBridge.dashes(),
