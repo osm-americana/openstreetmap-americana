@@ -23,6 +23,9 @@ export function layerClone(def, id) {
 //Make a clone of a layer definition, with a filter added
 export function filteredClone(def, filterStep, idSuffix) {
   var clone = layerClone(def, def.id + idSuffix);
+  if (!["all", "any"].includes(clone.filter[0])) {
+    throw new TypeError("Unlikely filter");
+  }
   clone.filter.push(filterStep);
   return clone;
 }
