@@ -8,10 +8,16 @@ import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
 import rgba from "color-rgba";
 
+// Replaces `sourceVal` with `lightenVal` in inverse proportion to the brightness;
+// i.e. white remains white, black becomes `lightenVal`, and anit-aliased pixels remain anit-aliased
+function lightenedColor(sourceVal, lightenVal) {
+  return 255 - (1-sourceVal/255)*(255-lightenVal);
+}
+
 function loadPixel(source, dest, sourceOffset, destOffset, colorLighten) {
-  dest[destOffset] = Math.max(source[sourceOffset], colorLighten[0]); //Red
-  dest[destOffset + 1] = Math.max(source[sourceOffset + 1], colorLighten[1]); //Green
-  dest[destOffset + 2] = Math.max(source[sourceOffset + 2], colorLighten[2]); //Blue
+  dest[destOffset] = colorLighten ? lightenedColor(source[sourceOffset], colorLighten[0]) : source[sourceOffset]; //Red
+  dest[destOffset + 1] = colorLighten ? lightenedColor(source[sourceOffset + 1], colorLighten[1]) : source[sourceOffset + 1]; //Green
+  dest[destOffset + 2] = colorLighten ? lightenedColor(source[sourceOffset + 2], colorLighten[2]) : source[sourceOffset + 2]; //Blue
   dest[destOffset + 3] = source[sourceOffset + 3]; //Alpha
 }
 
@@ -19,7 +25,7 @@ function rgbaMatrix(colorLighten) {
   if (typeof colorLighten !== "undefined") {
     return rgba(colorLighten);
   }
-  return [0, 0, 0, 0];
+  return null;
 }
 
 function loadSprite(ctx, shield, bannerCount, verticalReflect, colorLighten) {
