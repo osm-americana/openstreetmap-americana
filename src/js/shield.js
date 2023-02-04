@@ -15,16 +15,20 @@ function lightenedColor(sourceVal, lightenVal) {
 }
 
 function loadPixel(source, dest, sourceOffset, destOffset, colorLighten) {
+  //Red
   dest[destOffset] = colorLighten
     ? lightenedColor(source[sourceOffset], colorLighten[0])
-    : source[sourceOffset]; //Red
+    : source[sourceOffset];
+  //Green
   dest[destOffset + 1] = colorLighten
     ? lightenedColor(source[sourceOffset + 1], colorLighten[1])
-    : source[sourceOffset + 1]; //Green
+    : source[sourceOffset + 1];
+  //Blue
   dest[destOffset + 2] = colorLighten
     ? lightenedColor(source[sourceOffset + 2], colorLighten[2])
-    : source[sourceOffset + 2]; //Blue
-  dest[destOffset + 3] = source[sourceOffset + 3]; //Alpha
+    : source[sourceOffset + 2];
+  //Alpha
+  dest[destOffset + 3] = source[sourceOffset + 3];
 }
 
 function rgbaMatrix(colorLighten) {
