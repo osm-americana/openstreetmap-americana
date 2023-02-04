@@ -4,7 +4,18 @@ const fontFamily = '"sans-serif-condensed", "Arial Narrow", sans-serif';
 export const shieldFont = (size) => `bold ${size}px ${fontFamily}`;
 export const fontSizeThreshold = 12;
 
+var gfxFactory = getDocumentGfxContext;
+
+export function setGfxFactory(factory) {
+  gfxFactory = factory;
+}
+
 export function getGfxContext(bounds) {
+  return gfxFactory(bounds);
+}
+
+export function getDocumentGfxContext(bounds) {
+  var ctx = document.createElement("canvas").getContext("2d");
   var ctx = document
     .createElement("canvas")
     .getContext("2d", { willReadFrequently: true });
