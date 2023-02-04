@@ -291,6 +291,7 @@ export const countryLabelLeft = {
     "text-offset": [0, -1],
     "text-max-angle": 30,
     "text-letter-spacing": 0.1,
+    "text-ignore-placement": true,
   },
   filter: ["==", ["get", "maritime"], 0],
   maxzoom: 24,
