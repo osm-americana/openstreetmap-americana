@@ -139,37 +139,18 @@ export function listValuesExpression(valueList, separator, valueToOmit) {
   // Collapse any space following the delimiter.
   let collapsedValueList = ["replace-all", escapedValueList, "; ", ";"];
 
-  return [
-    "let",
-    "values",
-    ["split", collapsedValueList, ";"],
-    [
-      "let",
-      "omissionIndex",
-      ["index-of", valueToOmit, ["var", "values"]],
-      [
-        "let",
-        "abridgedValues",
-        [
-          "match",
-          ["var", "omissionIndex"],
-          -1,
-          ["var", "values"],
-          [
-            "concat",
-            ["slice", ["var", "values"], 0, ["var", "omissionIndex"]],
-            ["slice", ["var", "values"], ["+", ["var", "omissionIndex"], 1]],
-          ],
-        ],
-        [
-          "replace-all",
-          ["join", ["var", "abridgedValues"], separator],
-          objReplacementChar,
-          ";",
-        ],
-      ],
-    ],
+  let splitValueList = ["split", collapsedValueList, ";"];
+
+  let filteredValueList = [
+    "filter",
+    splitValueList,
+    "value",
+    ["!=", ["var", "value"], valueToOmit],
   ];
+
+  let joinedValueList = ["join", filteredValueList, separator];
+
+  return ["replace-all", joinedValueList, objReplacementChar, ";"];
 }
 
 /**
