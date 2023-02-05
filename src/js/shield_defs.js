@@ -4181,6 +4181,7 @@ export function loadShields() {
     },
     LMCT: {
       spriteBlank: "shield_glct_lmct",
+      colorLighten: Color.shields.green,
     },
     LSCT: {
       spriteBlank: "shield_glct_lsct",
@@ -4189,7 +4190,8 @@ export function loadShields() {
 
   shields["GLCT:Loop"].overrideByRef = {
     LMCT: {
-      spriteBlank: "shield_glct_loop_lmct",
+      spriteBlank: "shield_glct_lmct",
+      colorLighten: Color.shields.brown,
     },
   };
 
