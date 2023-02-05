@@ -157,17 +157,8 @@ export function listValuesExpression(valueList, separator, valueToOmit) {
           ["var", "values"],
           [
             "concat",
-            [
-              "join",
-              ["slice", ["var", "values"], 0, ["var", "omissionIndex"]],
-              separator,
-            ],
-            separator,
-            [
-              "join",
-              ["slice", ["var", "values"], ["+", ["var", "omissionIndex"], 1]],
-              separator,
-            ],
+            ["slice", ["var", "values"], 0, ["var", "omissionIndex"]],
+            ["slice", ["var", "values"], ["+", ["var", "omissionIndex"], 1]],
           ],
         ],
         [
