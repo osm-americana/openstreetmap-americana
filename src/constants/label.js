@@ -136,24 +136,49 @@ export function listValuesExpression(valueList, separator, valueToOmit) {
   const objReplacementChar = "\x91\ufffc\x92"; // https://overpass-turbo.eu/s/1pJx
   let escapedValueList = ["replace-all", valueList, ";;", objReplacementChar];
 
-  // Remove the value to omit. Temporarily stick a semicolon in front to make whole values easier to search for.
-  let bookendedValueList = ["concat", ";", escapedValueList];
-  let abridgedValueList = [
-    "replace-all",
-    bookendedValueList,
-    ["concat", ";", valueToOmit, ";"],
-    "",
-  ];
-  let unbookendedValueList = ["slice", abridgedValueList, 1];
-
   // Collapse any space following the delimiter.
-  let collapsedValueList = ["replace-all", unbookendedValueList, "; ", ";"];
+  let collapsedValueList = ["replace-all", escapedValueList, "; ", ";"];
 
-  // Pretty-print the ; delimiter.
-  let prettyValueList = ["replace-all", collapsedValueList, ";", separator];
-
-  // Replace the placeholder sequence with an unescaped semicolon.
-  return ["replace-all", prettyValueList, objReplacementChar, ";"];
+  return [
+    "let",
+    "values",
+    ["split", collapsedValueList, ";"],
+    [
+      "let",
+      "omissionIndex",
+      ["index-of", valueToOmit, ["var", "values"]],
+      [
+        "let",
+        "abridgedValues",
+        [
+          "match",
+          ["var", "omissionIndex"],
+          -1,
+          ["var", "values"],
+          [
+            "concat",
+            [
+              "join",
+              ["slice", ["var", "values"], 0, ["var", "omissionIndex"]],
+              separator,
+            ],
+            separator,
+            [
+              "join",
+              ["slice", ["var", "values"], ["+", ["var", "omissionIndex"], 1]],
+              separator,
+            ],
+          ],
+        ],
+        [
+          "replace-all",
+          ["join", ["var", "abridgedValues"], separator],
+          objReplacementChar,
+          ";",
+        ],
+      ],
+    ],
+  ];
 }
 
 /**
