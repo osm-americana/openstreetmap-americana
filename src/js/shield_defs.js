@@ -1142,6 +1142,11 @@ export function loadShields() {
     notext: true,
   };
 
+  shields["US:NPS:Natchez_Trace"] = {
+    norefImage: "shield_us_nps_ntp",
+    notext: true,
+  };
+
   shields["GLCT"] = {
     notext: true,
   };
