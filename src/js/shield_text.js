@@ -59,38 +59,57 @@ function roundedRectTextConstraint(spaceBounds, textBounds, options) {
 }
 
 function widthOfChar(char) {
-  switch(char) {
+  switch (char) {
     // skinny
-    case 'I': case '-':
-      return 1/3;
+    case "I":
+    case "-":
+      return 1 / 3;
     // Numbers tend to be skinnier than cap letters.
     // Treat all numbers the same since we want all number-only refs with the same number of digits to have the same font size
-    case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case '0':
-      return 1/2.75;
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+    case "0":
+      return 1 / 2.75;
     // wide
-    case 'B': case 'C': case 'E': case 'H': case 'K': case 'L': case 'M': case 'N': case 'O': case 'R':
-      return 1/1.9;
+    case "B":
+    case "C":
+    case "E":
+    case "H":
+    case "K":
+    case "L":
+    case "M":
+    case "N":
+    case "O":
+    case "R":
+      return 1 / 1.9;
     // extra wide
-    case 'W':
-      return 1/1.5;
+    case "W":
+      return 1 / 1.5;
     // average
     default:
-      return 1/2.2;
-  } 
-} 
+      return 1 / 2.2;
+  }
+}
 
 function widthOfText(text, fontSize) {
   var len = 0;
   // add space between characters
-  len += (text.length - 1) * 1/12;
+  len += ((text.length - 1) * 1) / 12;
   for (var i in text) {
     len += widthOfChar(text[i]);
   }
-  return fontSize*len;
+  return fontSize * len;
 }
 
 function emHeightForFontSize(fontSize) {
-  return fontSize * 3/4;
+  return (fontSize * 3) / 4;
 }
 
 /**
@@ -116,7 +135,7 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
   //Temporary canvas for text measurment
   var ctx = Gfx.getGfxContext(
     // text size can overflow the bounds, so use a larger canvas to make sure we get accurate measurements
-    {height: bounds.height*2, width: bounds.width*2}
+    { height: bounds.height * 2, width: bounds.width * 2 }
   );
 
   var fontSize = Gfx.fontSizeThreshold;
@@ -137,14 +156,13 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
   );
 
   //If size-to-fill shield text is too big, shrink it
-  fontSize = Math.min(
-    maxFont,
-    Gfx.fontSizeThreshold * textConstraint.scale
-  );
+  fontSize = Math.min(maxFont, Gfx.fontSizeThreshold * textConstraint.scale);
   textHeight = emHeightForFontSize(fontSize);
 
   // some browsers, but not others, round off the `y` parameter of `ctx.fillText`, so do it manually for consistency
-  var yBaseline = Math.round(padTop + (availHeight-textHeight)/2 + textHeight);
+  var yBaseline = Math.round(
+    padTop + (availHeight - textHeight) / 2 + textHeight
+  );
 
   return {
     xBaseline: xBaseline,
