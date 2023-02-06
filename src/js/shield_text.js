@@ -53,55 +53,39 @@ export function roundedRectTextConstraint(spaceBounds, textBounds, radius) {
   );
 }
 
-function measureTextHeight(ctx, text) {
+function widthOfChar(char) {
+  switch(char) {
+    // skinny
+    case 'I': case '-':
+      return 1/3;
+    // Numbers tend to be skinnier than cap letters.
+    // Treat all numbers the same since we want all number-only refs with the same number of digits to have the same font size
+    case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case '0':
+      return 1/2.75;
+    // wide
+    case 'B': case 'C': case 'E': case 'H': case 'K': case 'L': case 'M': case 'N': case 'O': case 'R':
+      return 1/1.9;
+    // extra wide
+    case 'W':
+      return 1/1.5;
+    // average
+    default:
+      return 1/2.2;
+  } 
+} 
 
-  // this function counts whole pixels, but we can fake higher precision through scaling
-  var precison = 0.5;
-  
-  ctx.save();
-  ctx.scale(1/precison, 1/precison);
-
-  var width = ctx.canvas.width;
-  var height = ctx.canvas.height;
-
-  // Draw the text
-  ctx.fillText(text, 0, 0);
-
-  // Get the pixel data from the canvas
-  var data = ctx.getImageData(0, 0, width, height).data;
-
-  ctx.restore();
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-  var first, last;
-
-  // Find the first line with a non-white pixel
-  var row = 0;
-  while(!first && row < height) {
-    for(var col = 0; col < width; col++) {
-      if(data[row * width * 4 + col * 4 + 3]) {
-        first = row;
-        break;
-      }
-    }
-    row+=1;
+function widthOfText(text, fontSize) {
+  var len = 0;
+  // add space between characters
+  len += (text.length - 1) * 1/12;
+  for (var i in text) {
+    len += widthOfChar(text[i]);
   }
+  return fontSize*len;
+}
 
-  // Find the last line with a non-white pixel
-  row = height-1;
-  while(first && !last && row >= 0) {
-    for(var col = 0; col < width; col++) {
-      if(data[row * width * 4 + col * 4 + 3]) {
-        last = row;
-        break;
-      }
-    }
-    row-=1;
-  }
-
-  var textHeight = first && last && first <= last ? last - first : 0;
-
-  return textHeight * precison;
+function emHeightForFontSize(fontSize) {
+  return fontSize * 3/4;
 }
 
 /**
@@ -131,13 +115,8 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   );
 
   var fontSize = Gfx.fontSizeThreshold;
-
-  ctx.font = Gfx.shieldFont(fontSize);
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
-  var metrics = ctx.measureText(text);
-  var textWidth = metrics.width;
-  var textHeight = measureTextHeight(ctx, text);
+  var textWidth = widthOfText(text, fontSize);
+  var textHeight = emHeightForFontSize(fontSize);
 
   var availHeight = bounds.height - padTop - padBot;
   var availWidth = bounds.width - padLeft - padRight;
@@ -152,13 +131,11 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   //If size-to-fill shield text is too big, shrink it
   fontSize = Math.min(
     maxFont,
-    Math.round(Gfx.fontSizeThreshold * textConstraint.scale)
+    Gfx.fontSizeThreshold * textConstraint.scale
   );
+  textHeight = emHeightForFontSize(fontSize);
 
-  ctx.font = Gfx.shieldFont(fontSize);
-  textHeight = measureTextHeight(ctx, text);
-
-  // some browsers, but not others, round off for `ctx.fillText`, so do it manually for consistency
+  // some browsers, but not others, round off the `y` parameter of `ctx.fillText`, so do it manually for consistency
   var yBaseline = Math.round(padTop + (availHeight-textHeight)/2 + textHeight);
 
   return {
@@ -219,8 +196,6 @@ export function drawShieldText(ctx, text, textLayout) {
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
-  console.log(text);
-  console.log(textLayout);
 
   ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
 }

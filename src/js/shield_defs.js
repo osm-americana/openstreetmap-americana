@@ -253,7 +253,7 @@ function trapezoidDownShield(
     padding: {
       left: 2 + 10 * Math.tan(angleInRadians),
       right: 2 + 10 * Math.tan(angleInRadians),
-      top: 2,
+      top: 3,
       bottom: 4,
     },
     textColor: textColor,
@@ -994,8 +994,8 @@ export function loadShields() {
     padding: {
       left: 2,
       right: 2,
-      top: 5.5,
-      bottom: 4,
+      top: 6,
+      bottom: 4.5,
     },
   };
   shields["CA:QC:R"] = {
