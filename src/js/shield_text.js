@@ -6,12 +6,6 @@ import * as ShieldDef from "./shield_defs.js";
 
 export const PXR = Gfx.getPixelRatio();
 
-const VerticalAlignment = {
-  Middle: "middle",
-  Top: "top",
-  Bottom: "bottom",
-};
-
 function ellipseScale(spaceBounds, textBounds) {
   //Math derived from https://mathworld.wolfram.com/Ellipse-LineIntersection.html
   var a = spaceBounds.width;
@@ -26,7 +20,6 @@ function ellipseScale(spaceBounds, textBounds) {
 export function ellipseTextConstraint(spaceBounds, textBounds) {
   return {
     scale: ellipseScale(spaceBounds, textBounds),
-    valign: VerticalAlignment.Middle,
   };
 }
 
@@ -37,7 +30,6 @@ export function southHalfellipseTextConstraint(spaceBounds, textBounds) {
       height: textBounds.width / 2,
       width: textBounds.height,
     }),
-    valign: VerticalAlignment.Top,
   };
 }
 
@@ -47,7 +39,6 @@ export function rectTextConstraint(spaceBounds, textBounds) {
 
   return {
     scale: Math.min(scaleWidth, scaleHeight),
-    valign: VerticalAlignment.Middle,
   };
 }
 
@@ -60,6 +51,57 @@ export function roundedRectTextConstraint(spaceBounds, textBounds, radius) {
     },
     textBounds
   );
+}
+
+function measureTextHeight(ctx, text) {
+
+  // this function counts whole pixels, but we can fake higher precision through scaling
+  var precison = 0.5;
+  
+  ctx.save();
+  ctx.scale(1/precison, 1/precison);
+
+  var width = ctx.canvas.width;
+  var height = ctx.canvas.height;
+
+  // Draw the text
+  ctx.fillText(text, 0, 0);
+
+  // Get the pixel data from the canvas
+  var data = ctx.getImageData(0, 0, width, height).data;
+
+  ctx.restore();
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+  var first, last;
+
+  // Find the first line with a non-white pixel
+  var row = 0;
+  while(!first && row < height) {
+    for(var col = 0; col < width; col++) {
+      if(data[row * width * 4 + col * 4 + 3]) {
+        first = row;
+        break;
+      }
+    }
+    row+=1;
+  }
+
+  // Find the last line with a non-white pixel
+  row = height-1;
+  while(first && !last && row >= 0) {
+    for(var col = 0; col < width; col++) {
+      if(data[row * width * 4 + col * 4 + 3]) {
+        last = row;
+        break;
+      }
+    }
+    row-=1;
+  }
+
+  var textHeight = first && last && first <= last ? last - first : 0;
+
+  return textHeight * precison;
 }
 
 /**
@@ -83,16 +125,19 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
 
   var maxFont = maxFontSize * PXR;
   //Temporary canvas for text measurment
-  var ctx = Gfx.getGfxContext(bounds);
+  var ctx = Gfx.getGfxContext(
+    // text size can overflow the bounds, so use a larger canvas to make sure we get accurate measurements
+    {height: bounds.height*2, width: bounds.width*2}
+  );
 
-  ctx.font = Gfx.shieldFont(Gfx.fontSizeThreshold);
+  var fontSize = Gfx.fontSizeThreshold;
+
+  ctx.font = Gfx.shieldFont(fontSize);
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-
   var metrics = ctx.measureText(text);
-
   var textWidth = metrics.width;
-  var textHeight = metrics.actualBoundingBoxDescent;
+  var textHeight = measureTextHeight(ctx, text);
 
   var availHeight = bounds.height - padTop - padBot;
   var availWidth = bounds.width - padLeft - padRight;
@@ -105,32 +150,16 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
   );
 
   //If size-to-fill shield text is too big, shrink it
-  var fontSize = Math.min(
+  fontSize = Math.min(
     maxFont,
-    Gfx.fontSizeThreshold * textConstraint.scale
+    Math.round(Gfx.fontSizeThreshold * textConstraint.scale)
   );
 
   ctx.font = Gfx.shieldFont(fontSize);
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
+  textHeight = measureTextHeight(ctx, text);
 
-  metrics = ctx.measureText(text);
-  textHeight = metrics.actualBoundingBoxDescent;
-
-  var yBaseline;
-
-  switch (textConstraint.valign) {
-    case VerticalAlignment.Top:
-      yBaseline = padTop;
-      break;
-    case VerticalAlignment.Bottom:
-      yBaseline = padTop + availHeight - textHeight;
-      break;
-    case VerticalAlignment.Middle:
-    default:
-      yBaseline = padTop + (availHeight - textHeight) / 2;
-      break;
-  }
+  // some browsers, but not others, round off for `ctx.fillText`, so do it manually for consistency
+  var yBaseline = Math.round(padTop + (availHeight-textHeight)/2 + textHeight);
 
   return {
     xBaseline: xBaseline,
@@ -188,8 +217,10 @@ export function layoutShieldTextFromDef(text, def, bounds) {
 export function drawShieldText(ctx, text, textLayout) {
   //Text color is set by fillStyle
   ctx.textAlign = "center";
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "alphabetic";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
+  console.log(text);
+  console.log(textLayout);
 
   ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
 }
@@ -204,7 +235,7 @@ export function drawShieldText(ctx, text, textLayout) {
 export function drawShieldHaloText(ctx, text, textLayout) {
   //Stroke color is set by strokeStyle
   ctx.textAlign = "center";
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "alphabetic";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
 
   ctx.shadowColor = ctx.strokeStyle;
@@ -232,7 +263,7 @@ export function drawBannerText(ctx, text, bannerIndex) {
   ctx.fillStyle = "black";
 
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "alphabetic";
   ctx.textAlign = "center";
 
   ctx.fillText(
@@ -260,7 +291,7 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
 
   (ctx.shadowColor = Color.backgroundFill), (ctx.strokeStyle = ctx.shadowColor);
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "alphabetic";
   ctx.textAlign = "center";
   ctx.shadowBlur = 0;
   ctx.lineWidth = 2 * PXR;

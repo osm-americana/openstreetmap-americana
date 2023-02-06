@@ -165,7 +165,7 @@ function fishheadDownShield(fillColor, strokeColor, textColor, rectWidth) {
     padding: {
       left: 4,
       right: 4,
-      top: 2,
+      top: 4,
       bottom: 7,
     },
     textColor: textColor,
@@ -207,7 +207,7 @@ function triangleDownShield(
     padding: {
       left: 5,
       right: 5,
-      top: 2,
+      top: 3,
       bottom: 10,
     },
     textColor: textColor,
@@ -674,7 +674,7 @@ export function loadShields() {
     padding: {
       left: 2,
       right: 2,
-      top: 1,
+      top: 2,
       bottom: 5,
     },
   };
@@ -737,7 +737,7 @@ export function loadShields() {
       left: 2,
       right: 2,
       top: 5,
-      bottom: 4,
+      bottom: 5,
     },
   };
   shields["CA:transcanada:namedRoute"] = {
@@ -1063,7 +1063,7 @@ export function loadShields() {
     padding: {
       left: 4,
       right: 4,
-      top: 6,
+      top: 7,
       bottom: 5,
     },
   };
@@ -1139,6 +1139,11 @@ export function loadShields() {
 
   shields["US:NPS:Blue_Ridge"] = {
     norefImage: "shield_us_nps_brp",
+    notext: true,
+  };
+
+  shields["US:NPS:Natchez_Trace"] = {
+    norefImage: "shield_us_nps_ntp",
     notext: true,
   };
 
@@ -2012,7 +2017,7 @@ export function loadShields() {
     padding: {
       left: 2,
       right: 2,
-      top: 0,
+      top: 2,
       bottom: 6,
     },
   };
@@ -2839,8 +2844,8 @@ export function loadShields() {
     padding: {
       left: 3,
       right: 3,
-      top: 2,
-      bottom: 8,
+      top: 4,
+      bottom: 7,
     },
   };
   shields["US:TX:Harris:HCTRA"] = pentagonUpShield(
@@ -3481,8 +3486,8 @@ export function loadShields() {
     padding: {
       left: 4,
       right: 4,
-      top: 8,
-      bottom: 4,
+      top: 9,
+      bottom: 5,
     },
   };
   shields["KR:national"] = ovalShield(
