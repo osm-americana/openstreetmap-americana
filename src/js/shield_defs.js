@@ -715,8 +715,8 @@ export function loadShields() {
     spriteBlank: ["shield_badge_2", "shield_badge_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 2,
+      left: 3,
+      right: 3,
       top: 4,
       bottom: 5,
     },
