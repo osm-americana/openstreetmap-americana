@@ -125,22 +125,22 @@ export const bridgeFill = {
 
 export const legendEntries = [
   {
-    description: "Land access track",
+    description: "Unpaved track",
     layers: [track.id],
     filter: notFordSelect,
   },
   {
-    description: "Land access track - ford",
+    description: "Unpaved track - ford",
     layers: [track.id],
     filter: fordSelect,
   },
   {
-    description: "Paved land access track",
+    description: "Paved track",
     layers: [pavedTrack.id],
     filter: notFordSelect,
   },
   {
-    description: "Paved land access track - ford",
+    description: "Paved track - ford",
     layers: [pavedTrack.id],
     filter: fordSelect,
   },
