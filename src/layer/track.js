@@ -19,13 +19,7 @@ export const track = {
   filter: ["all", trackSelect, unpavedSelect],
   minzoom: 12,
   paint: {
-    "line-color": [
-      "match",
-      getBrunnel,
-      "ford",
-      Color.waterLine,
-      "#d4b791",
-    ],
+    "line-color": ["match", getBrunnel, "ford", Color.waterLine, "#d4b791"],
     "line-opacity": opacity,
     "line-blur": 0.75,
     "line-width": 0.5,
