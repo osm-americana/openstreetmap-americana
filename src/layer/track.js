@@ -6,7 +6,10 @@ const trackSelect = ["==", ["get", "class"], "track"];
 const unpavedSelect = ["!=", ["get", "surface"], "paved"];
 const pavedSelect = ["==", ["get", "surface"], "paved"];
 const bridgeSelect = ["==", ["get", "brunnel"], "bridge"];
+const fordSelect = ["==", ["get", "brunnel"], "ford"];
+const notFordSelect = ["!=", ["get", "brunnel"], "ford"];
 const opacity = ["interpolate", ["exponential", 1.2], ["zoom"], 12, 0, 13, 1];
+const getBrunnel = ["get", "brunnel"];
 
 export const track = {
   id: "highway-track",
@@ -16,7 +19,13 @@ export const track = {
   filter: ["all", trackSelect, unpavedSelect],
   minzoom: 12,
   paint: {
-    "line-color": "#d4b791",
+    "line-color": [
+      "match",
+      getBrunnel,
+      "ford",
+      Color.waterLine,
+      "#d4b791",
+    ],
     "line-opacity": opacity,
     "line-blur": 0.75,
     "line-width": 0.5,
@@ -124,9 +133,21 @@ export const legendEntries = [
   {
     description: "Land access track",
     layers: [track.id],
+    filter: notFordSelect,
+  },
+  {
+    description: "Land access track - ford",
+    layers: [track.id],
+    filter: fordSelect,
   },
   {
     description: "Paved land access track",
     layers: [pavedTrack.id],
+    filter: notFordSelect,
+  },
+  {
+    description: "Paved land access track - ford",
+    layers: [pavedTrack.id],
+    filter: fordSelect,
   },
 ];
