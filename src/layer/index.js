@@ -136,7 +136,9 @@ export function build(locales) {
     lyrRail.railway.fill(),
 
     lyrOneway.road,
-    lyrOneway.link
+    lyrOneway.link,
+
+    lyrAerialway.dragLift
   );
 
   layers.push(lyrBuilding.building);
@@ -194,7 +196,6 @@ export function build(locales) {
 
     lyrOneway.bridge,
     lyrOneway.bridgeLink,
-    lyrAerialway.dragLift,
   ];
 
   layers.push(...lyrRail.getLayerSeparatedBridgeLayers(bridgeLayers));
