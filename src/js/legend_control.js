@@ -417,11 +417,29 @@ export default class LegendControl {
         (d) => d * simpleLineWidth
       );
 
+      let lineWidth = getLineWidth(feature);
+      let gapWidth = feature.layer.paint["line-gap-width"];
+      let clipPath;
+      if (gapWidth) {
+        let points = [
+          [0, -lineWidth / 2.0],
+          [100, -lineWidth / 2.0],
+          [100, (-lineWidth + gapWidth) / 2.0],
+          [0, (-lineWidth + gapWidth) / 2.0],
+          [0, gapWidth / 2.0],
+          [100, gapWidth / 2.0],
+          [100, lineWidth / 2.0],
+          [0, lineWidth / 2.0],
+        ].map((p) => `${p[0]}% ${p[1]}px`);
+        clipPath = `polygon(evenodd, ${points.join(", ")})`;
+      }
+
       Object.assign(line.style, {
         opacity: feature.layer.paint["line-opacity"] ?? 1,
         stroke: feature.layer.paint["line-color"] || fillColor,
         strokeDasharray: dashArray?.join(" "),
-        strokeWidth: getLineWidth(feature),
+        strokeWidth: lineWidth,
+        clipPath: clipPath,
       });
 
       svg.appendChild(line);
