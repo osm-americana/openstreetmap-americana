@@ -11,6 +11,15 @@ import * as maplibregl from "maplibre-gl";
 
 const maxPopupWidth = 30; /* em */
 
+/**
+ * Wikidata labels are normally lowercased so that they can appear in any
+ * context. Convert them to sentence case for consistency with the rest of the
+ * legend.
+ */
+function toSentenceCase(lowerCase, locale) {
+  return lowerCase[0].toLocaleUpperCase(locale) + lowerCase.substring(1);
+}
+
 export default class LegendControl {
   onAdd(map) {
     this._map = map;
@@ -72,13 +81,12 @@ export default class LegendControl {
     this.close();
 
     let contents = this.getContents();
-    let rows = contents.querySelectorAll(".legend-row");
     this._popup.setDOMContent(contents);
 
     let anchorCoordinate = this._map.unproject(anchor);
     this._popup.setLngLat(anchorCoordinate).addTo(this._map);
 
-    this.prettifyNetworkLabels(rows);
+    this.completeNetworkLabels();
 
     document.getElementById("legend-container").scrollTop = 0;
   }
@@ -107,6 +115,9 @@ export default class LegendControl {
     for (let data of this.sections) {
       let section = this.getSection(data);
       if (!section) continue;
+      if (data.id) {
+        section.id = `legend-section-${data.id}`;
+      }
 
       let container = template.getElementById("legend-container");
       container.appendChild(section);
@@ -143,7 +154,7 @@ export default class LegendControl {
     }
     if (!rows.length) return;
 
-    template.querySelector("tbody").replaceChildren(...rows);
+    template.querySelector(".legend-row-container").replaceChildren(...rows);
     if (!data.source) {
       template.querySelector("tfoot").remove();
     }
@@ -569,7 +580,47 @@ export default class LegendControl {
     code.textContent = network;
     descriptionCell.appendChild(code);
 
+    this.prettifyNetworkLabel(row);
+
     return row;
+  }
+
+  /**
+   * Inserts a human-readable description in the given table row.
+   */
+  prettifyNetworkLabel(row) {
+    let network = row.dataset.network;
+    let binding =
+      this._networkMetadata?.[network] || this._ukNetworkMetadata?.[network];
+    row.dataset.pending = !binding;
+    if (!binding) return;
+
+    let descriptionCell = row.querySelector(".description");
+
+    let link = document.createElement("a");
+    link.href = binding.network.value;
+    link.target = "_blank";
+    let locale = binding.networkLabel["xml:lang"];
+    link.textContent = toSentenceCase(binding.networkLabel.value, locale);
+    if (locale) {
+      link.setAttribute("lang", locale);
+      descriptionCell.replaceChildren(link);
+
+      let locales = Label.getLocales();
+      if (locale.match(/^\w+/)?.[0] !== locales[0].match(/^\w+/)?.[0]) {
+        let languageTag = document.createElement("span");
+        languageTag.className = "language";
+
+        let languageNames = new Intl.DisplayNames(locales, {
+          type: "language",
+        });
+        languageTag.textContent = languageNames.of(locale);
+        descriptionCell.appendChild(document.createTextNode(" "));
+        descriptionCell.appendChild(languageTag);
+      }
+    } else {
+      descriptionCell.querySelector("code").replaceChildren(link);
+    }
   }
 
   /**
@@ -613,16 +664,19 @@ export default class LegendControl {
 
   /**
    * Inserts human-readable descriptions in each of the given table rows.
-   *
-   * @param rows An array of table rows containing placeholders for descriptions.
    */
-  async prettifyNetworkLabels(rows) {
+  async completeNetworkLabels() {
     let networkMetadata = await this.getNetworkMetadata();
     if (!networkMetadata) return;
 
+    let section = document.getElementById("legend-section-shields");
+    let rowContainer = section.querySelector(".legend-row-container");
+    let pendingRows = rowContainer.querySelectorAll('[data-pending="true"]');
+    if (pendingRows.length === 0) return;
+
     // If any synthesized British networks are visible, also query Wikidata for
     // descriptions of those networks.
-    for (let row of rows) {
+    for (let row of pendingRows) {
       let network = row.dataset.network;
       if (network?.startsWith("omt-gb-")) {
         let ukNetworkMetadata = await this.getUKNetworkMetadata();
@@ -631,43 +685,7 @@ export default class LegendControl {
       }
     }
 
-    let locales = Label.getLocales();
-    let languageNames = new Intl.DisplayNames(locales, {
-      type: "language",
-    });
-
-    // Wikidata labels are normally lowercased so that they can appear in any
-    // context. Convert them to sentence case for consistency with the rest of
-    // the legend.
-    let toSentenceCase = (lowerCase, locale) =>
-      lowerCase[0].toLocaleUpperCase(locale) + lowerCase.substring(1);
-    for (let row of rows) {
-      let network = row.dataset.network;
-      let binding = networkMetadata[network];
-      if (!binding) continue;
-
-      let descriptionCell = row.querySelector(".description");
-
-      let link = document.createElement("a");
-      link.href = binding.network.value;
-      link.target = "_blank";
-      let locale = binding.networkLabel["xml:lang"];
-      link.textContent = toSentenceCase(binding.networkLabel.value, locale);
-      if (locale) {
-        link.setAttribute("lang", locale);
-        descriptionCell.replaceChildren(link);
-
-        if (locale.match(/^\w+/)?.[0] !== locales[0].match(/^\w+/)?.[0]) {
-          let languageTag = document.createElement("span");
-          languageTag.className = "language";
-          languageTag.textContent = languageNames.of(locale);
-          descriptionCell.appendChild(document.createTextNode(" "));
-          descriptionCell.appendChild(languageTag);
-        }
-      } else {
-        descriptionCell.querySelector("code").replaceChildren(link);
-      }
-    }
+    rowContainer.replaceChildren(...this.getShieldRows());
   }
 
   /**
