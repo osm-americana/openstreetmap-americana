@@ -476,6 +476,16 @@ export default class LegendControl {
       }
     }
 
+    // Gets all the relevant images, sorted from generic to specialized.
+    let getSortedImages = (network) => {
+      let images = imagesByNetwork[network];
+      return [
+        images.noRef,
+        images.ref,
+        ...Object.values(images.overridesByRef),
+      ].filter((i) => i);
+    };
+
     // For each country, populate an array with shield metadata in the same
     // order as in the shield definitions, appending all the unrecognized
     // networks sorted in alphabetical order.
@@ -486,19 +496,27 @@ export default class LegendControl {
     let countries = new Set();
     let shieldRowsByCountry = {};
     let otherShieldRows = [];
+    let seenQIDs = new Set();
     for (let network of networks) {
       // Skip shield definitions for which no shield is currently visible.
       if (!(network in imagesByNetwork)) continue;
 
-      // Get all the relevant images, sorted from generic to specialized.
-      let images = imagesByNetwork[network];
-      let sortedImages = [
-        images.noRef,
-        images.ref,
-        ...Object.values(images.overridesByRef),
-      ].filter((i) => i);
+      // Skip any network whose Wikidata QID has already been added.
+      let binding =
+        this._networkMetadata?.[network] || this._ukNetworkMetadata?.[network];
+      let qid = binding?.network.value;
+      if (qid) {
+        if (seenQIDs.has(qid)) continue;
+        seenQIDs.add(qid);
+      }
 
-      let row = this.getShieldRow(network, sortedImages);
+      // Add the images for this network and any network associated with the same QID.
+      let relatedNetworks = (qid && this._networksByQID[qid]) || [network];
+      let sortedImages = relatedNetworks.flatMap((network) =>
+        getSortedImages(network)
+      );
+
+      let row = this.getShieldRow(network, sortedImages, binding);
       if (!row) continue;
 
       // Extract an ISO 3166-1 alpha-2 country code from the network.
@@ -558,9 +576,10 @@ export default class LegendControl {
    *
    * @param network The `network=*` value associated with the style images.
    * @param names An array of style image names.
+   * @param binding Wikidata metadata about the network.
    * @returns An HTML table row representing the route shield, or nothing if the style does not render the given network.
    */
-  getShieldRow(network, names) {
+  getShieldRow(network, names, binding) {
     let images = names
       .map((n) => this._map.style.getImage(n))
       .map((i) => this.getImageFromStyle(i))
@@ -580,7 +599,7 @@ export default class LegendControl {
     code.textContent = network;
     descriptionCell.appendChild(code);
 
-    this.prettifyNetworkLabel(row);
+    this.prettifyNetworkLabel(row, binding);
 
     return row;
   }
@@ -588,10 +607,7 @@ export default class LegendControl {
   /**
    * Inserts a human-readable description in the given table row.
    */
-  prettifyNetworkLabel(row) {
-    let network = row.dataset.network;
-    let binding =
-      this._networkMetadata?.[network] || this._ukNetworkMetadata?.[network];
+  prettifyNetworkLabel(row, binding) {
     row.dataset.pending = !binding;
     if (!binding) return;
 
@@ -679,8 +695,7 @@ export default class LegendControl {
     for (let row of pendingRows) {
       let network = row.dataset.network;
       if (network?.startsWith("omt-gb-")) {
-        let ukNetworkMetadata = await this.getUKNetworkMetadata();
-        Object.assign(networkMetadata, ukNetworkMetadata);
+        await this.getUKNetworkMetadata();
         break;
       }
     }
@@ -706,6 +721,17 @@ export default class LegendControl {
         return [binding.value.value, binding];
       })
     );
+
+    let networksByQID = {};
+    for (let binding of json.results.bindings) {
+      let qid = binding.network.value;
+      if (!(qid in networksByQID)) {
+        networksByQID[qid] = [];
+      }
+      networksByQID[qid].push(binding.value.value);
+    }
+    this._networksByQID = networksByQID;
+
     return this._networkMetadata;
   }
 
@@ -734,6 +760,7 @@ export default class LegendControl {
   purgeNetworkMetadata() {
     delete this._networkMetadata;
     delete this._ukNetworkMetadata;
+    delete this._networksByQID;
   }
 
   /**
