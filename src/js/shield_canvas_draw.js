@@ -17,6 +17,10 @@ const maxGenericShieldWidth = 34 * PXR;
 const genericShieldFontSize = 18 * PXR;
 
 export function computeWidth(params, ref, shape) {
+  if (fixedWidthDefinitions[shape] !== undefined) {
+    return fixedWidthDefinitions[shape];
+  }
+
   let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
   let angle = params.angle == undefined ? 0 : params.angle;
   let tangent = Math.tan(angle);
@@ -693,14 +697,21 @@ export function draw(name, ctx, options, ref) {
 //Register draw functions
 const drawFunctions = {};
 
+//Register fixed width values
+const fixedWidthDefinitions = {};
+
 /**
  * Invoked by a style to implement a custom draw function
  *
  * @param {*} name name of the function as referenced by the shield definition
  * @param {*} fxn callback to the implementing function. Takes two parameters, ref and options
+ * @param {*} fixedWidth if set, indicates that this function draws to a fixed width
  */
-export function registerDrawFunction(name, fxn) {
+export function registerDrawFunction(name, fxn, fixedWidth) {
   drawFunctions[name] = fxn;
+  if (typeof fixedWidth !== undefined) {
+    fixedWidthDefinitions[name] = fixedWidth;
+  }
 }
 
 //Built-in draw functions (standard shapes)
