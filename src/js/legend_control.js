@@ -632,8 +632,7 @@ export default class LegendControl {
           type: "language",
         });
         languageTag.textContent = languageNames.of(locale);
-        descriptionCell.appendChild(document.createTextNode(" "));
-        descriptionCell.appendChild(languageTag);
+        descriptionCell.append(" ", languageTag);
       }
     } else {
       descriptionCell.querySelector("code").replaceChildren(link);
