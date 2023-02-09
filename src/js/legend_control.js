@@ -402,7 +402,7 @@ export default class LegendControl {
     let height = Math.max(...lineWidths);
 
     let svg = cell.querySelector("svg");
-    svg.style.height = `${Math.ceil(height)}px`;
+    svg.style.height = `${height}px`;
 
     for (let feature of lineFeatures) {
       let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -424,8 +424,8 @@ export default class LegendControl {
         let points = [
           [0, -lineWidth / 2.0],
           [100, -lineWidth / 2.0],
-          [100, (-lineWidth + gapWidth) / 2.0],
-          [0, (-lineWidth + gapWidth) / 2.0],
+          [100, -gapWidth / 2.0],
+          [0, -gapWidth / 2.0],
           [0, gapWidth / 2.0],
           [100, gapWidth / 2.0],
           [100, lineWidth / 2.0],
