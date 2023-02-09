@@ -10,6 +10,55 @@ var iconDefs = {
   school: ["kindergarten", "school", "college", "university"],
 };
 
+var iconImages = {
+  bar: {
+    sprite: "poi_martini_glass",
+    color: Color.poi.consumer,
+  },
+  coffee: {
+    sprite: "poi_coffee_cup",
+    color: Color.poi.consumer,
+  },
+  hospital: {
+    sprite: "poi_hospital",
+    color: Color.poi.infrastructure,
+  },
+  medical: {
+    sprite: "poi_health_cross",
+    color: Color.poi.infrastructure,
+  },
+  parking: {
+    sprite: "poi_p",
+    color: Color.poi.infrastructure,
+  },
+  school: {
+    sprite: "poi_school",
+    color: Color.poi.infrastructure,
+  },
+};
+
+function keysByValuesDef() {
+  var out = [];
+  for (var key in iconDefs) {
+    out.push(iconDefs[key]);
+    out.push(
+      "sprite=" + iconImages[key].sprite + "\ncolor=" + iconImages[key].color
+    );
+  }
+  return out;
+}
+
+var imageExpression = [
+  "concat",
+  "poi\n",
+  [
+    "match",
+    ["get", "subclass"],
+    ...keysByValuesDef(iconDefs),
+    "poi", //icon for generic POI, not currently used
+  ],
+];
+
 export const poi = {
   id: "poi",
   type: "symbol",
@@ -54,23 +103,7 @@ export const poi = {
         [17, 12],
       ],
     },
-    "icon-image": [
-      "match",
-      ["get", "subclass"],
-      iconDefs.bar,
-      "poi_martini_glass",
-      iconDefs.coffee,
-      "poi_coffee_cup",
-      iconDefs.medical,
-      "poi_health_cross",
-      iconDefs.hospital,
-      "poi_hospital",
-      iconDefs.parking,
-      "poi_p",
-      iconDefs.school,
-      "poi_school",
-      "poi_square_dot", //icon for generic POI, not currently used
-    ],
+    "icon-image": imageExpression,
     "icon-size": 1.0,
     "text-field": label.localizedName,
     "text-variable-anchor": ["left", "right", "bottom"],
