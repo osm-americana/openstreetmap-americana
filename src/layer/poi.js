@@ -37,7 +37,7 @@ var iconImages = {
   },
 };
 
-function keysByValuesDef() {
+function iconImageDefs() {
   var out = [];
   for (var key in iconDefs) {
     out.push(iconDefs[key]);
@@ -54,7 +54,7 @@ var imageExpression = [
   [
     "match",
     ["get", "subclass"],
-    ...keysByValuesDef(iconDefs),
+    ...iconImageDefs(),
     "poi", //icon for generic POI, not currently used
   ],
 ];
