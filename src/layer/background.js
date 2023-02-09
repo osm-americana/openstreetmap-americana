@@ -20,7 +20,7 @@ export const base = {
 };
 
 export const pierArea = {
-  id: "pierArea",
+  id: "pier_area",
   type: "fill",
   source: "openmaptiles",
   "source-layer": "transportation",
@@ -36,7 +36,7 @@ export const pierArea = {
 };
 
 export const pierLine = {
-  id: "pierLine",
+  id: "pier_line",
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
