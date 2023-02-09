@@ -479,6 +479,7 @@ export default class LegendControl {
     // Gets all the relevant images, sorted from generic to specialized.
     let getSortedImages = (network) => {
       let images = imagesByNetwork[network];
+      if (!images) return [];
       return [
         images.noRef,
         images.ref,
