@@ -59,8 +59,19 @@ function addNetworkTags(project) {
 
       let icon_url;
 
-      if (icon == undefined) {
-        let shieldGfx = Shields.generateSpriteCtx({}, `shield\n${network}= `);
+      //Shield ID with ref as a single space character
+      let id = `shield\n${network}= `;
+
+      let routeDef = Shields.getRouteDef(id);
+      let shieldDef = Shields.getShieldDef(routeDef);
+
+      if (icon == undefined && shieldDef.canvasDrawnBlank !== undefined) {
+        //Generate empty canvas sized to the graphic
+        let shieldGfx = Gfx.getGfxContext(Shields.getDrawnShieldBounds(id));
+
+        //Draw shield to the canvas
+        Shields.drawShield(shieldGfx, shieldDef, routeDef);
+
         delete shields[network].modifiers;
         let def = JSON.stringify(shields[network]);
 

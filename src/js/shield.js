@@ -172,7 +172,7 @@ function getDrawFunc(shieldDef) {
   return ShieldDraw.blank;
 }
 
-function drawShield(ctx, shieldDef, routeDef) {
+export function drawShield(ctx, shieldDef, routeDef) {
   let bannerCount = getBannerCount(shieldDef);
   let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
 
@@ -296,7 +296,7 @@ export function missingIconLoader(map, e) {
   );
 }
 
-function getShieldDef(routeDef) {
+export function getShieldDef(routeDef) {
   if (routeDef == null) {
     return null;
   }
@@ -331,7 +331,7 @@ function getShieldDef(routeDef) {
   return shieldDef;
 }
 
-function getRouteDef(id) {
+export function getRouteDef(id) {
   if (id == "shield_") {
     return null;
   }
@@ -377,6 +377,22 @@ export function romanizeRef(ref) {
   return roman + ref.slice(number.toString().length);
 }
 
+export function getDrawnShieldBounds(id) {
+  let routeDef = getRouteDef(id);
+  let shieldDef = getShieldDef(routeDef);
+
+  let width = Math.max(
+    ShieldDraw.CS,
+    ShieldDraw.computeWidth(
+      shieldDef.canvasDrawnBlank.params,
+      routeDef.ref,
+      shieldDef.canvasDrawnBlank.drawFunc
+    )
+  );
+  let height = ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc);
+  return { width, height };
+}
+
 export function generateShieldCtx(map, id) {
   let routeDef = getRouteDef(id);
   let shieldDef = getShieldDef(routeDef);
@@ -400,15 +416,9 @@ export function generateShieldCtx(map, id) {
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.canvasDrawnBlank != "undefined") {
-      width = Math.max(
-        ShieldDraw.CS,
-        ShieldDraw.computeWidth(
-          shieldDef.canvasDrawnBlank.params,
-          routeDef.ref,
-          shieldDef.canvasDrawnBlank.drawFunc
-        )
-      );
-      height = ShieldDraw.shapeHeight(shieldDef.canvasDrawnBlank.drawFunc);
+      let bounds = getDrawnShieldBounds(id);
+      width = bounds.width;
+      height = bounds.height;
     }
   } else {
     width = shieldArtwork.data.width;
