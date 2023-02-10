@@ -704,8 +704,9 @@ export default class LegendControl {
     if (!networkMetadata) return;
 
     let section = document.getElementById("legend-section-shields");
-    let rowContainer = section.querySelector(".legend-row-container");
-    let pendingRows = rowContainer.querySelectorAll('[data-pending="true"]');
+    let rowContainer = section?.querySelector(".legend-row-container");
+    let pendingRows =
+      rowContainer?.querySelectorAll('[data-pending="true"]') ?? [];
     if (pendingRows.length === 0) return;
 
     // If any synthesized British networks are visible, also query Wikidata for
