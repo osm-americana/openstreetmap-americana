@@ -12,7 +12,7 @@ import * as CustomShields from "./js/custom_shields.js";
 import * as languageLabel from "./js/language_label.js";
 
 import * as maplibregl from "maplibre-gl";
-//import "maplibre-gl/dist/maplibre-gl.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
 import LegendControl from "./js/legend_control.js";
