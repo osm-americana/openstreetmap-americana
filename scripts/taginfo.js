@@ -67,7 +67,7 @@ function addNetworkTags(project) {
 
       if (icon == undefined && shieldDef.canvasDrawnBlank !== undefined) {
         //Generate empty canvas sized to the graphic
-        let shieldGfx = Gfx.getGfxContext(Shields.getDrawnShieldBounds(id));
+        let shieldGfx = Gfx.getGfxContext(Shields.getDrawnShieldBounds(shieldDef, " "));
 
         //Draw shield to the canvas
         Shields.drawShield(shieldGfx, shieldDef, routeDef);

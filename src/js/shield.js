@@ -377,15 +377,12 @@ export function romanizeRef(ref) {
   return roman + ref.slice(number.toString().length);
 }
 
-export function getDrawnShieldBounds(id) {
-  let routeDef = getRouteDef(id);
-  let shieldDef = getShieldDef(routeDef);
-
+export function getDrawnShieldBounds(shieldDef, ref) {
   let width = Math.max(
     ShieldDraw.CS,
     ShieldDraw.computeWidth(
       shieldDef.canvasDrawnBlank.params,
-      routeDef.ref,
+      ref,
       shieldDef.canvasDrawnBlank.drawFunc
     )
   );
@@ -416,7 +413,7 @@ export function generateShieldCtx(map, id) {
 
   if (shieldArtwork == null) {
     if (typeof shieldDef.canvasDrawnBlank != "undefined") {
-      let bounds = getDrawnShieldBounds(id);
+      let bounds = getDrawnShieldBounds(shieldDef, routeDef.ref);
       width = bounds.width;
       height = bounds.height;
     }
