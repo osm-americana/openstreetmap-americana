@@ -32,6 +32,7 @@ const tunDashArray = [
 const getBrunnel = ["get", "brunnel"];
 const getClass = ["get", "class"];
 const getExpressway = ["coalesce", ["get", "expressway"], 0];
+const getLayer = ["coalesce", ["get", "layer"], 0];
 const getRamp = ["coalesce", ["get", "ramp"], 0];
 const getToll = ["coalesce", ["get", "toll"], 0];
 
@@ -93,24 +94,25 @@ const opacity = [
 
 const layerSortKey = [
   "+",
-  ["*", -28, getRamp],
+  getLayer,
+  ["*", -0.28, getRamp],
   [
     "*",
-    4,
+    0.04,
     [
       ...classSelector,
       "motorway",
-      6,
+      0.06,
       "trunk",
-      5,
+      0.05,
       "primary",
-      4,
+      0.04,
       "secondary",
-      3,
+      0.03,
       "tertiary",
-      2,
+      0.02,
       "minor",
-      1,
+      0.01,
       0,
     ],
   ],
