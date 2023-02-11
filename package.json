@@ -41,7 +41,7 @@
     "chai": "^4.3.7",
     "esbuild": "^0.17.4",
     "events": "^3.3.0",
-    "maplibre-gl": "^2.1.9",
+    "maplibre-gl": "^2.4.0",
     "mocha": "^10.1.0",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
