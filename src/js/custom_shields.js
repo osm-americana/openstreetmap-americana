@@ -68,6 +68,6 @@ export function bransonRoute(ctx, params) {
 }
 
 export function loadCustomShields() {
-  ShieldDraw.registerDrawFunction("branson", bransonRoute);
-  ShieldDraw.registerDrawFunction("paBelt", paBelt);
+  ShieldDraw.registerDrawFunction("branson", bransonRoute, 20);
+  ShieldDraw.registerDrawFunction("paBelt", paBelt, 20);
 }
