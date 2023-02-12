@@ -267,7 +267,7 @@ export const state = {
   "source-layer": "place",
 };
 export const countryOther = {
-  id: "country_other",
+  id: "place_country-other",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -296,7 +296,7 @@ export const countryOther = {
   "source-layer": "place",
 };
 export const country3 = {
-  id: "country_3",
+  id: "place_country-3",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -326,7 +326,7 @@ export const country3 = {
   "source-layer": "place",
 };
 export const country2 = {
-  id: "country_2",
+  id: "place_country-2",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -356,7 +356,7 @@ export const country2 = {
   "source-layer": "place",
 };
 export const country1 = {
-  id: "country_1",
+  id: "place_country-1",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -404,7 +404,7 @@ export const country1 = {
   "source-layer": "place",
 };
 export const continent = {
-  id: "continent",
+  id: "place_continent",
   type: "symbol",
   paint: {
     "text-color": "#633",
