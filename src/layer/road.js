@@ -92,32 +92,21 @@ const opacity = [
   1,
 ];
 
-const layerSortKey = [
+const motorwaySortKey = [
   "+",
   getLayer,
-  ["*", -0.28, getRamp],
-  [
-    "*",
-    0.04,
-    [
-      ...classSelector,
-      "motorway",
-      0.06,
-      "trunk",
-      0.05,
-      "primary",
-      0.04,
-      "secondary",
-      0.03,
-      "tertiary",
-      0.02,
-      "minor",
-      0.01,
-      0,
-    ],
-  ],
-  ["*", 2, getExpressway],
-  getToll,
+  0.1,
+  ["*", -0.1, getRamp],
+  ["*", 0.2, getToll],
+];
+
+const expresswaySortKey = [
+  "+",
+  getLayer,
+  0.1,
+  ["*", -0.1, getRamp],
+  ["*", 0.2, getToll],
+  ["*", 0.4, getExpressway],
 ];
 
 //Helper function to create a "filter" block for a particular road class.
@@ -408,6 +397,7 @@ class Road {
     this.minZoomCasing = 4;
     this.casingColor = roadCasingColor;
     this.fillColor = highwayFillColor;
+    this.sortKey = expresswaySortKey;
   }
   fill = function () {
     var layer = baseRoadLayer(
@@ -421,7 +411,7 @@ class Road {
       "line-cap": "round",
       "line-join": "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -448,7 +438,7 @@ class Road {
       "line-cap": this.brunnel === "bridge" ? "butt" : "round",
       "line-join": this.brunnel === "bridge" ? "bevel" : "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -480,7 +470,7 @@ class Road {
       "line-cap": "butt",
       "line-join": "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -595,7 +585,7 @@ class Motorway extends Road {
   constructor() {
     super();
     this.constraints = ["all", ["==", getClass, "motorway"], isNotLink];
-
+    this.sortKey = motorwaySortKey;
     this.minZoomFill = minZoomAllRoads;
     this.minZoomCasing = minZoomAllRoads;
 
