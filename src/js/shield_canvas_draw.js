@@ -709,8 +709,8 @@ const fixedWidthDefinitions = {};
  */
 export function registerDrawFunction(name, fxn, fixedWidth) {
   drawFunctions[name] = fxn;
-  if (typeof fixedWidth !== undefined) {
-    fixedWidthDefinitions[name] = fixedWidth;
+  if (fixedWidth !== undefined) {
+    fixedWidthDefinitions[name] = fixedWidth * PXR;
   }
 }
 
