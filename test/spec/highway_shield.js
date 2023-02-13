@@ -1,6 +1,6 @@
 "use strict";
 
-import chai, { expect } from "chai";
+import { expect } from "chai";
 import * as HighwayShieldLayers from "../../src/layer/highway_shield.js";
 import { expression } from "@maplibre/maplibre-gl-style-spec";
 
