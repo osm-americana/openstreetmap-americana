@@ -17,7 +17,7 @@ export const ferry = {
       "step",
       ["zoom"],
       ["literal", [1, 0]],
-      15,
+      13,
       ["literal", [7, 5]],
     ],
     "line-width": [
