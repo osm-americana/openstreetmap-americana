@@ -4,7 +4,6 @@ import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Label from "../constants/label.js";
 import * as ShieldDef from "./shield_defs.js";
 
-import * as LegendConfig from "./legend_config.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 
 import * as maplibregl from "maplibre-gl";
