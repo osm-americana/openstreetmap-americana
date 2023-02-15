@@ -12,7 +12,7 @@ export const ferry = {
   id: "ferry",
   type: "line",
   paint: {
-    "line-color": Color.waterLineBold,
+    "line-color": Color.ferry,
     "line-dasharray": [
       "step",
       ["zoom"],

@@ -31,7 +31,7 @@ export const label = {
       minorConstruction,
       "slategray",
       "ferry",
-      Color.waterLineBold,
+      Color.ferry,
       "#333",
     ],
     "text-halo-color": [
