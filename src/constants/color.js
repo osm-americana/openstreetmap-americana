@@ -25,7 +25,7 @@ export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
 export const airportLabel = "hsl(250, 71%, 29%)";
 
-export const ferry = `hsl(250, 36%, 50%)`;
+export const ferry = `hsl(250, 41%, 54%)`;
 
 //TODO - rename this variable to "palette"
 export const palette = {
