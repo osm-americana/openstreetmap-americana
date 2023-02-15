@@ -13,7 +13,7 @@ export const ferry = {
   type: "line",
   paint: {
     "line-color": Color.waterLineBold,
-    "line-dasharray": ["literal", [7, 5]],
+    "line-dasharray": [7, 5],
     "line-width": [
       "interpolate",
       ["exponential", ferryExp],
