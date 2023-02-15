@@ -12,14 +12,8 @@ export const ferry = {
   id: "ferry",
   type: "line",
   paint: {
-    "line-color": Color.ferry,
-    "line-dasharray": [
-      "step",
-      ["zoom"],
-      ["literal", [1, 0]],
-      13,
-      ["literal", [7, 5]],
-    ],
+    "line-color": Color.waterLineBold,
+    "line-dasharray": ["literal", [7, 5]],
     "line-width": [
       "interpolate",
       ["exponential", ferryExp],
