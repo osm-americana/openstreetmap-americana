@@ -15,8 +15,8 @@ const iconLayout = {
     "match",
     ["get", "class"],
     "military",
-    "poi_military_plane",
-    "poi_plane",
+    "poi\nsprite=poi_military_plane\ncolor=" + Color.poi.transport,
+    "poi\nsprite=poi_plane\ncolor=" + Color.poi.transport,
   ],
   "text-anchor": "bottom",
   "text-variable-anchor": [
@@ -179,7 +179,7 @@ export const airportRefLabel = {
 };
 
 export const minorAirportRefLabel = {
-  id: "minor_airport_ref_label",
+  id: "airport_ref_label_minor",
   type: "symbol",
   minzoom: 13,
   maxzoom: 15,
@@ -225,7 +225,7 @@ export const airportLabel = {
 };
 
 export const minorAirportLabel = {
-  id: "minor_airport_label",
+  id: "airport_label_minor",
   type: "symbol",
   minzoom: 13,
   maxzoom: 15,

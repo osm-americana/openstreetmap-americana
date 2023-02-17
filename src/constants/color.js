@@ -78,5 +78,5 @@ export const poi = {
   consumer: palette.texas_orange,
   //outdoor:
   //attraction:
-  transportation: `hsl(${hue.transport}, 100%, 28%)`,
+  transport: `hsl(${hue.transport}, 100%, 28%)`,
 };

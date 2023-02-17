@@ -199,6 +199,8 @@ export function build(locales) {
 
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.
+    lyrBoundary.countryLabelLeft,
+    lyrBoundary.countryLabelRight,
     lyrWater.waterwayLabel,
 
     lyrTransportationLabel.bridgeSpacer,

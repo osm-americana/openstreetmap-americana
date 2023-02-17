@@ -180,6 +180,24 @@ boilerplate in `scripts/taginfo_template.json`.
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
 
+### Style complexity checks
+
+When adding or changing style layer code, it can be helpful to assess the change in size and complexity. In general, higher layer counts and higher layer size have a negative impact in performance. Contributors should attempt to consolidate layers when possible.
+
+There is a "stats" script that will generate various statistics about layer composition and complexity:
+
+- `npm run stats -- -a -s` - overall size and breakdown of layers
+- `npm run stats -- -c` - total layer count
+- `npm run stats -- -h` - list all options
+
+## Layers
+
+1. Layers should be named as followed: `<group>_<layer-name>`, wher the "group" should match the file name that the layer is contained in. This naming convention is needed by the layer statistic script.
+2. For performance reasons, it is better to have fewer layers with filters than multiple, simpler layers.
+3. Layers are drawn in the order specified in `layer/index.js` using the [Painter's Algorithm](https://en.wikipedia.org/wiki/Painter%27s_algorithm).
+
+To see layer statistics, run `npm run stats` to get a list of options.
+
 ## Highway Shield Contributor's Guide
 
 Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
@@ -329,7 +347,11 @@ This results in a very long page and can be quite slow or even crash the browser
 
 ## Points of Interest
 
-A "point of interest" or POI is any feature on the map represented by an icon on the map.
+A "point of interest" or POI is any feature on the map represented by an icon on the map. To add a new POI:
+
+1. Identify the `subclass` of the POI you are adding from the [OpenMapTiles schema](https://openmaptiles.org/schema/#poi).
+2. Place the icon file under [/icons](/icons) using the `poi_` prefix. Icons should have a black fill and may have a 1px white halo.
+3. In [poi.js](/src/layer/poi.js), add an entry to `iconDefs` with the `subclass`, sprite name, color category (see below), and legend description. Also update the `paint` and `filter` statements with the new `subclass`.
 
 ### Categories
 
@@ -340,11 +362,11 @@ POIs are broken down into the following broad categories, in order to constrain 
 - **Consumer**: businesses that provide services to the public, such as shops and restaurants.
 - **Outdoor**: parks, nature reserves, and other outdoorsy features.
 - **Attraction**: places where people go for entertainment, leisure, or curiosity.
-- **Transportation**: places where people can access forms of transportation, such as airports, train stations, bus stops, and other public transit.
+- **Transport**: places where people can access forms of transportation, such as airports, train stations, bus stops, and other public transit.
 
 ### Color Scheme
 
-For consistency, POI icons should use the following color palette:
+For consistency, POI icons use the following color palette:
 
 | Category               | Scheme          | Color                                                                       | RGB         | Hex triplet |
 | ---------------------- | --------------- | --------------------------------------------------------------------------- | ----------- | ----------- |
@@ -353,7 +375,5 @@ For consistency, POI icons should use the following color palette:
 | Consumer               | UTexas Orange   | <img src="doc-img/texas_orange.svg" height=18 width=50 /> Orange            | 191 87 0    | #bf5700     |
 | Outdoor                |                 | TBD (green?)                                                                |             |             |
 | Attraction             |                 | TBD (brown?)                                                                |             |             |
-| Transportation         | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
+| Transport              | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
 | Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
-
-POIs without a background fill should have a 1px border using the "knockout" color above.
