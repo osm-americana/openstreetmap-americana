@@ -241,6 +241,18 @@ export function missingIconLoader(map, e) {
   );
 }
 
+function refForDefs(routeDef, shieldDef) {
+  // Handle special case for manually-applied abbreviations
+  if (
+    shieldDef.refsByWayName &&
+    routeDef.wayName &&
+    shieldDef.refsByWayName[routeDef.wayName]
+  ) {
+    return shieldDef.refsByWayName[routeDef.wayName];
+  }
+  return routeDef.ref;
+}
+
 export function getShieldDef(routeDef) {
   if (routeDef == null) {
     return null;
@@ -256,16 +268,18 @@ export function getShieldDef(routeDef) {
       : null;
   }
 
+  var ref = refForDefs(routeDef, shieldDef);
+
   if (shieldDef.overrideByRef) {
     shieldDef = {
       ...shieldDef,
-      ...shieldDef.overrideByRef[routeDef.ref],
+      ...shieldDef.overrideByRef[ref],
     };
   }
 
   //Determine whether a route without a ref gets drawn
   if (
-    !isValidRef(routeDef.ref) &&
+    !isValidRef(ref) &&
     !shieldDef.notext &&
     !("norefImage" in shieldDef) &&
     !(shieldDef.refsByWayName && routeDef.wayName)
@@ -343,10 +357,7 @@ export function generateShieldCtx(map, id) {
     return null;
   }
 
-  // Handle special case for manually-applied abbreviations
-  if (routeDef.ref === "" && shieldDef.refsByWayName) {
-    routeDef.ref = shieldDef.refsByWayName[routeDef.wayName];
-  }
+  routeDef.ref = refForDefs(routeDef, shieldDef);
 
   //Determine overall shield+banner dimensions
   let bannerCount = getBannerCount(shieldDef);
