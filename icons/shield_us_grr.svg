@@ -1,0 +1,40 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <path d="M7.76121526,1.6447416 L12.2387847,18.3552584" id="a"/>
+  <path d="M12.2387847,1.6447416 L7.76121526,18.3552584" id="b"/>
+  <path d="M16.1164737,3.88352634 L3.88352634,16.1164737" id="c"/>
+  <path d="M18.3552584,7.76121526 L1.6447416,12.2387847" id="d"/>
+  <path d="M18.3552584,12.2387847 L1.6447416,7.76121526" id="e"/>
+  <path d="M16.1164737,16.1164737 L3.88352634,3.88352634" id="f"/>
+ </defs>
+ <g fill="none" fill-rule="evenodd">
+  <circle stroke="#FFF" stroke-width=".75" fill="#006747" cx="10" cy="10" r="7.875"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+   <use stroke="#FFF" stroke-width="3.25" xlink:href="#a"/>
+   <use stroke="#006747" stroke-width="1.5" xlink:href="#a"/>
+  </g>
+  <g stroke-linecap="round" stroke-linejoin="round">
+   <use stroke="#FFF" stroke-width="3.25" xlink:href="#b"/>
+   <use stroke="#006747" stroke-width="1.5" xlink:href="#b"/>
+  </g>
+  <g stroke-linecap="round" stroke-linejoin="round">
+   <use stroke="#FFF" stroke-width="3.25" xlink:href="#c"/>
+   <use stroke="#006747" stroke-width="1.5" xlink:href="#c"/>
+  </g>
+  <g stroke-linecap="round" stroke-linejoin="round">
+   <use stroke="#FFF" stroke-width="3.25" xlink:href="#d"/>
+   <use stroke="#006747" stroke-width="1.5" xlink:href="#d"/>
+  </g>
+  <g stroke-linecap="round" stroke-linejoin="round">
+   <use stroke="#FFF" stroke-width="3.25" xlink:href="#e"/>
+   <use stroke="#006747" stroke-width="1.5" xlink:href="#e"/>
+  </g>
+  <g stroke-linecap="round" stroke-linejoin="round">
+   <use stroke="#FFF" stroke-width="3.25" xlink:href="#f"/>
+   <use stroke="#006747" stroke-width="1.5" xlink:href="#f"/>
+  </g>
+  <circle fill="#006747" cx="10" cy="10" r="7.5"/>
+  <circle fill="#FFF" cx="10" cy="10" r="4"/>
+  <circle stroke="#FFF" stroke-width=".5" cx="10" cy="10" r="6.75"/>
+ </g>
+</svg>
