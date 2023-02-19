@@ -58,56 +58,6 @@ function roundedRectTextConstraint(spaceBounds, textBounds, options) {
   );
 }
 
-function widthOfChar(char) {
-  switch (char) {
-    // skinny
-    case "I":
-    case "-":
-      return 1 / 3;
-    // Numbers tend to be skinnier than cap letters.
-    // Treat all numbers the same since we want all number-only refs with the same number of digits to have the same font size
-    case "1":
-    case "2":
-    case "3":
-    case "4":
-    case "5":
-    case "6":
-    case "7":
-    case "8":
-    case "9":
-    case "0":
-      return 1 / 2.75;
-    // wide
-    case "B":
-    case "C":
-    case "E":
-    case "H":
-    case "K":
-    case "L":
-    case "M":
-    case "N":
-    case "O":
-    case "R":
-      return 1 / 1.9;
-    // extra wide
-    case "W":
-      return 1 / 1.5;
-    // average
-    default:
-      return 1 / 2.2;
-  }
-}
-
-function widthOfText(text, fontSize) {
-  var len = 0;
-  // add space between characters
-  len += ((text.length - 1) * 1) / 12;
-  for (var i in text) {
-    len += widthOfChar(text[i]);
-  }
-  return fontSize * len;
-}
-
 function emHeightForFontSize(fontSize) {
   return (fontSize * 3) / 4;
 }
@@ -132,14 +82,9 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
   var padRight = padding.right * PXR || 0;
 
   var maxFont = maxFontSize * PXR;
-  //Temporary canvas for text measurment
-  var ctx = Gfx.getGfxContext(
-    // text size can overflow the bounds, so use a larger canvas to make sure we get accurate measurements
-    { height: bounds.height * 2, width: bounds.width * 2 }
-  );
-
   var fontSize = Gfx.fontSizeThreshold;
-  var textWidth = widthOfText(text, fontSize);
+
+  var textWidth = calculateTextWidth(text, fontSize);
   var textHeight = emHeightForFontSize(fontSize);
 
   var availHeight = bounds.height - padTop - padBot;
