@@ -1156,6 +1156,11 @@ export function loadShields() {
     notext: true,
   };
 
+  shields["US:GLST"] = {
+    norefImage: "shield_us_glst",
+    notext: true,
+  };
+
   shields["GLCT"] = {
     notext: true,
   };
