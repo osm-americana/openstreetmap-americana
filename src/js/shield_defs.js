@@ -4130,12 +4130,8 @@ export function loadShields() {
     "Western Kentucky Pkwy": "WK",
   };
 
-  shields["US:CT:Parkway"].refsByWayName = {
-    "Merritt Parkway": "MP",
-  };
-
-  shields["US:CT:Parkway"].overrideByRef = {
-    MP: {
+  shields["US:CT:Parkway"].overrideByWayName = {
+    "Merritt Parkway": {
       spriteBlank: "shield_us_ct_parkway_merritt",
     },
   };

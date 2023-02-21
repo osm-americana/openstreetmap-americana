@@ -277,6 +277,13 @@ export function getShieldDef(routeDef) {
     };
   }
 
+  if (shieldDef.overrideByWayName) {
+    shieldDef = {
+      ...shieldDef,
+      ...shieldDef.overrideByWayName[routeDef.wayName || ""],
+    };
+  }
+
   //Determine whether a route without a ref gets drawn
   if (
     !isValidRef(ref) &&
