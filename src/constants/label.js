@@ -333,14 +333,13 @@ export const localizedNameInline = [
 function startsWithExpression(target, candidatePrefix, collator) {
   // "Quebec City" vs. "Québec", "Washington, D.C." vs. "Washington"
   let wordBoundaries = " ,";
+  let candidateLength =
+    typeof candidatePrefix === "string"
+      ? candidatePrefix.length
+      : ["length", candidatePrefix];
   return [
     "all",
-    [
-      "==",
-      ["slice", target, 0, ["length", candidatePrefix]],
-      candidatePrefix,
-      collator,
-    ],
+    ["==", ["slice", target, 0, candidateLength], candidatePrefix, collator],
     [
       "in",
       [
@@ -348,8 +347,8 @@ function startsWithExpression(target, candidatePrefix, collator) {
         // Pad the target in case the prefix matches exactly.
         // "Montreal " vs. "Montréal"
         ["concat", target, wordBoundaries[0]],
-        ["length", candidatePrefix],
-        ["+", ["length", candidatePrefix], 1],
+        candidateLength,
+        ["+", candidateLength, 1],
       ],
       wordBoundaries,
     ],
@@ -366,10 +365,14 @@ function overwritePrefixExpression(target, newPrefix) {
  */
 function endsWithExpression(target, candidateSuffix, collator) {
   let wordBoundary = " ";
+  let candidateLength =
+    typeof candidateSuffix === "string"
+      ? candidateSuffix.length
+      : ["length", candidateSuffix];
   return [
     "let",
     "suffixStart",
-    ["-", ["length", target], ["length", candidateSuffix]],
+    ["-", ["length", target], candidateLength],
     [
       "all",
       [
