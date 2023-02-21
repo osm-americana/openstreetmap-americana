@@ -32,6 +32,30 @@ export function getLocales() {
 }
 
 /**
+ * Returns an array of candidate fields for obtaining a feature's name in a
+ * language that the user prefers.
+ *
+ * @param {[string]} locales - Locales of the name fields to include.
+ * @param {boolean} includesLegacyFields - Whether to include the older fields
+ *  that include underscores, for layers that have not transitioned to the
+ *  colon syntax.
+ * @return The field name and locale code of each candidate field.
+ */
+export function getLocalizedNameFields(locales, includesLegacyFields) {
+  return [
+    ...locales.flatMap((l) => {
+      let fields = [[`name:${l}`, l]];
+      // transportation_label uses an underscore instead of a colon.
+      // https://github.com/openmaptiles/openmaptiles/issues/769
+      if (includesLegacyFields && (l === "de" || l === "en"))
+        fields.push([`name_${l}`, l]);
+      return fields;
+    }),
+    ["name", "mul"],
+  ];
+}
+
+/**
  * Returns a `coalesce` expression that resolves to the feature's name in a
  * language that the user prefers.
  *
@@ -40,19 +64,23 @@ export function getLocales() {
  *  that include underscores, for layers that have not transitioned to the
  *  colon syntax.
  */
-export function getLocalizedNameExpression(locales, includesLegacyFields) {
-  let nameFields = [
-    ...locales.flatMap((l) => {
-      let fields = [`name:${l}`];
-      // transportation_label uses an underscore instead of a colon.
-      // https://github.com/openmaptiles/openmaptiles/issues/769
-      if (includesLegacyFields && (l === "de" || l === "en"))
-        fields.push(`name_${l}`);
-      return fields;
-    }),
-    "name",
-  ];
-  return ["coalesce", ...nameFields.map((f) => ["get", f])];
+function getLocalizedNameExpression(locales, includesLegacyFields) {
+  let nameFields = getLocalizedNameFields(locales, includesLegacyFields);
+  return ["coalesce", ...nameFields.map((f) => ["get", f[0]])];
+}
+
+/**
+ * Returns a `case` expression that resolves to the field that contains the
+ * feature's name in a language that the user prefers.
+ *
+ * @param {[string]} locales - Locales of the name fields to include.
+ * @param {boolean} includesLegacyFields - Whether to include the older fields
+ *  that include underscores, for layers that have not transitioned to the
+ *  colon syntax.
+ */
+function getLocalizedNameFieldExpression(locales, includesLegacyFields) {
+  let nameFields = getLocalizedNameFields(locales, includesLegacyFields);
+  return ["case", ...nameFields.flatMap((f) => [["has", f[0]], f[1]]), ""];
 }
 
 /**
@@ -80,6 +108,14 @@ export function updateVariable(letExpr, variable, value) {
 export function localizeLayers(layers, locales) {
   let localizedNameExpression = getLocalizedNameExpression(locales, false);
   let legacyLocalizedNameExpression = getLocalizedNameExpression(locales, true);
+  let localizedNameFieldExpression = getLocalizedNameFieldExpression(
+    locales,
+    false
+  );
+  let legacyLocalizedNameFieldExpression = getLocalizedNameFieldExpression(
+    locales,
+    true
+  );
 
   for (let layer of layers) {
     if ("layout" in layer && "text-field" in layer.layout) {
@@ -92,6 +128,15 @@ export function localizeLayers(layers, locales) {
         layer["source-layer"] === "transportation_name"
           ? legacyLocalizedNameExpression
           : localizedNameExpression
+      );
+
+      updateVariable(
+        textField,
+        "localizedNameField",
+        // https://github.com/openmaptiles/openmaptiles/issues/769
+        layer["source-layer"] === "transportation_name"
+          ? legacyLocalizedNameFieldExpression
+          : localizedNameFieldExpression
       );
 
       updateVariable(textField, "localizedCollator", [

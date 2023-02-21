@@ -77,29 +77,25 @@ describe("label", function () {
     });
   });
 
-  describe("#getLocalizedNameExpression", function () {
+  describe("#getLocalizedNameFields", function () {
     it("coalesces names in each locale", function () {
-      expect(
-        Label.getLocalizedNameExpression(["en-US", "en", "fr"], false)
-      ).to.eql([
-        "coalesce",
-        ["get", "name:en-US"],
-        ["get", "name:en"],
-        ["get", "name:fr"],
-        ["get", "name"],
-      ]);
+      expect(Label.getLocalizedNameFields(["en-US", "en", "fr"], false)).to.eql(
+        [
+          ["name:en-US", "en-US"],
+          ["name:en", "en"],
+          ["name:fr", "fr"],
+          ["name", "mul"],
+        ]
+      );
     });
     it("includes legacy fields", function () {
-      expect(
-        Label.getLocalizedNameExpression(["en-US", "en", "de"], true)
-      ).to.eql([
-        "coalesce",
-        ["get", "name:en-US"],
-        ["get", "name:en"],
-        ["get", "name_en"],
-        ["get", "name:de"],
-        ["get", "name_de"],
-        ["get", "name"],
+      expect(Label.getLocalizedNameFields(["en-US", "en", "de"], true)).to.eql([
+        ["name:en-US", "en-US"],
+        ["name:en", "en"],
+        ["name_en", "en"],
+        ["name:de", "de"],
+        ["name_de", "de"],
+        ["name", "mul"],
       ]);
     });
   });
