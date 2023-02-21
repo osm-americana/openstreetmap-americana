@@ -84,7 +84,7 @@ export const label = {
       ["literal", ["Americana-Regular"]],
     ],
     "text-field": [...Label.localizedNameInline],
-    "text-max-angle": 20,
+    "text-max-angle": 30,
     "symbol-placement": "line",
     "text-size": [
       "step",
