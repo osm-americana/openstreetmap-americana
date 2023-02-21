@@ -212,6 +212,7 @@ export function build(locales) {
     lyrWater.waterwayLabel,
 
     lyrTransportationLabel.bridgeSpacer,
+    lyrTransportationLabel.narrowLabel,
     lyrTransportationLabel.label,
 
     lyrPark.label,

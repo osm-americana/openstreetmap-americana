@@ -166,6 +166,19 @@ export const label = {
   "source-layer": "transportation_name",
 };
 
+export const narrowLabel = {
+  ...label,
+  id: "narrow_road_label",
+  minzoom: 13,
+  filter: ["match", ["get", "class"], ["minor", "service"], true, false],
+  layout: {
+    ...label.layout,
+    "text-letter-spacing": -0.08,
+    "text-max-angle": 20,
+    "symbol-spacing": ["interpolate", ["linear"], ["zoom"], 12, 350, 16, 450],
+  },
+};
+
 // A spacer label on each bridge to push any waterway label away from the bridge.
 // https://github.com/ZeLonewolf/openstreetmap-americana/issues/198
 export const bridgeSpacer = {
