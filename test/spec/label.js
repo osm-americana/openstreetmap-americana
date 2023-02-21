@@ -275,6 +275,52 @@ describe("label", function () {
     });
   });
 
+  describe("#localizedNameAbridged", function () {
+    let evaluatedExpression = (locales, properties) =>
+      expression
+        .createExpression(
+          localizedTextField([...Label.localizedNameAbridged], ["en"])
+        )
+        .value.expression.evaluate(expressionContext(properties));
+
+    it("keeps only the first name in a list", function () {
+      expect(
+        evaluatedExpression(["en"], {
+          "name:en": "Null Island;Infinite Loop",
+        })
+      ).to.be.eql("Null Island");
+    });
+    it("drops boring street suffixes", function () {
+      expect(
+        evaluatedExpression(["en"], {
+          "name:en": "Main Street",
+        })
+      ).to.be.eql("Main");
+      expect(
+        evaluatedExpression(["en"], {
+          "name:en": "Rocky Road",
+        })
+      ).to.be.eql("Rocky");
+      expect(
+        evaluatedExpression(["en"], {
+          "name:en": "Floppy Drive",
+        })
+      ).to.be.eql("Floppy");
+    });
+    it("drops directional prefixes and suffixes", function () {
+      expect(
+        evaluatedExpression(["en"], {
+          "name:en": "North County Road 1000 East",
+        })
+      ).to.be.eql("County Road 1000");
+      expect(
+        evaluatedExpression(["en"], {
+          "name:en": "Then Drive Northwest",
+        })
+      ).to.be.eql("Then Drive");
+    });
+  });
+
   describe("#localizedNameWithLocalGloss", function () {
     let evaluatedExpression = (locales, properties) =>
       expression

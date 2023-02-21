@@ -371,6 +371,100 @@ export const localizedNameInline = [
   listValuesExpression(["var", "localizedName"], inlineSeparator),
 ];
 
+const roadNamePrefixesByLanguage = {
+  en: [
+    "North",
+    "South",
+    "East",
+    "West",
+    "Northeast",
+    "Northwest",
+    "Southeast",
+    "Southwest",
+  ],
+};
+
+const roadNameSuffixesByLanguage = {
+  en: ["Street", "Road", "Drive", ...roadNamePrefixesByLanguage.en],
+};
+
+/**
+ * The name in the user's preferred language without certain common prefixes or suffixes.
+ */
+export const localizedNameAbridged = [
+  "let",
+  "localizedName",
+  "",
+  "localizedNameField",
+  "",
+  "localizedCollator",
+  ["collator", {}],
+  [
+    "let",
+    // If there are multiple names, keep only the first one for brevity.
+    "firstName",
+    [
+      "case",
+      [">=", ["index-of", ";", ["var", "localizedName"]], 0],
+      [
+        "slice",
+        ["var", "localizedName"],
+        0,
+        ["index-of", ";", ["var", "localizedName"]],
+      ],
+      ["var", "localizedName"],
+    ],
+    [
+      "let",
+      "prefixLength",
+      [
+        "match",
+        ["var", "localizedNameField"],
+        "en",
+        [
+          "case",
+          ...roadNamePrefixesByLanguage.en.flatMap((p) => [
+            ["==", ["slice", ["var", "firstName"], 0, p.length + 1], `${p} `],
+            p.length + 1,
+          ]),
+          0,
+        ],
+        0,
+      ],
+      "suffixLength",
+      [
+        "match",
+        ["var", "localizedNameField"],
+        "en",
+        [
+          "case",
+          // Remove common, unremarkable street suffixes and directional quadrant suffixes.
+          ...roadNameSuffixesByLanguage.en.flatMap((p) => [
+            [
+              "==",
+              [
+                "slice",
+                ["var", "firstName"],
+                ["-", ["length", ["var", "firstName"]], p.length + 1],
+              ],
+              ` ${p}`,
+            ],
+            1 + p.length,
+          ]),
+          0,
+        ],
+        0,
+      ],
+      [
+        "slice",
+        ["var", "firstName"],
+        ["var", "prefixLength"],
+        ["-", ["length", ["var", "firstName"]], ["var", "suffixLength"]],
+      ],
+    ],
+  ],
+];
+
 /**
  * Returns an expression that tests whether the target has the given prefix,
  * respecting word boundaries.

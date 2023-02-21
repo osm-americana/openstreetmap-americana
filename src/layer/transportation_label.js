@@ -166,16 +166,25 @@ export const label = {
   "source-layer": "transportation_name",
 };
 
-export const narrowLabel = {
+export const abridgedLabel = {
   ...label,
-  id: "narrow_road_label",
+  id: "abridged_road_label",
   minzoom: 13,
   filter: ["match", ["get", "class"], ["minor", "service"], true, false],
   layout: {
     ...label.layout,
+    "text-field": [...Label.localizedNameAbridged],
+    "symbol-spacing": ["interpolate", ["linear"], ["zoom"], 12, 350, 16, 450],
+  },
+};
+
+export const narrowLabel = {
+  ...abridgedLabel,
+  id: "narrow_road_label",
+  layout: {
+    ...abridgedLabel.layout,
     "text-letter-spacing": -0.08,
     "text-max-angle": 20,
-    "symbol-spacing": ["interpolate", ["linear"], ["zoom"], 12, 350, 16, 450],
   },
 };
 

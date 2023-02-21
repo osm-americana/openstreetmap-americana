@@ -213,6 +213,7 @@ export function build(locales) {
 
     lyrTransportationLabel.bridgeSpacer,
     lyrTransportationLabel.narrowLabel,
+    lyrTransportationLabel.abridgedLabel,
     lyrTransportationLabel.label,
 
     lyrPark.label,
