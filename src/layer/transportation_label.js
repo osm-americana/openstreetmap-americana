@@ -89,11 +89,11 @@ export const label = {
     "text-size": [
       "step",
       ["zoom"],
-      12,
+      11,
       16,
-      [...classSelector, motorwayToTrunk, 10, 12],
+      [...classSelector, motorwayToTrunk, 10, 11],
       17,
-      [...classSelector, motorwayToSecondary, 10, 12],
+      [...classSelector, motorwayToSecondary, 10, 11],
     ],
     "text-anchor": [
       "step",
