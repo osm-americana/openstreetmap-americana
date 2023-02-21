@@ -160,6 +160,7 @@ export const label = {
       5,
       6,
     ],
+    "symbol-spacing": ["interpolate", ["linear"], ["zoom"], 12, 100, 16, 250],
   },
   source: "openmaptiles",
   "source-layer": "transportation_name",
