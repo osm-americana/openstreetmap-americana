@@ -1465,6 +1465,10 @@ export function loadShields() {
     Color.shields.black
   );
 
+  shields["US:CT:Parkway"] = {
+    notext: true,
+  };
+
   // Washington, D.C.
   shields["US:DC"] = {
     spriteBlank: "shield_us_dc",
@@ -4124,6 +4128,12 @@ export function loadShields() {
     "Purchase Pkwy": "JC",
     "Western Kentucky Parkway": "WK",
     "Western Kentucky Pkwy": "WK",
+  };
+
+  shields["US:CT:Parkway"].overrideByWayName = {
+    "Merritt Parkway": {
+      spriteBlank: "shield_us_ct_parkway_merritt",
+    },
   };
 
   shields["US:MI"].overrideByRef = {
