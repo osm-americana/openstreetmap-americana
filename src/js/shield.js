@@ -404,7 +404,8 @@ export function generateShieldCtx(map, id) {
       sourceSprite,
       bannerHeight,
       shieldDef.verticalReflect,
-      shieldDef.colorLighten
+      shieldDef.colorLighten,
+      shieldDef.colorDarken
     );
   }
 

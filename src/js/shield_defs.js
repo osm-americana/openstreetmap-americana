@@ -689,13 +689,15 @@ export function loadShields() {
 
   let triangleConvexDownShieldBlue = {
     ...triangleConvexDownShield,
-    spriteBlank: ["shield_tri_convex_blue_2", "shield_tri_convex_blue_3"],
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.blue,
   };
 
   let triangleConvexDownShieldRedBlue = {
     ...triangleConvexDownShieldBlue,
-    spriteBlank: "shield_tri_convex_red_blue_2",
+    colorLighten: Color.shields.blue,
+    colorDarken: Color.shields.red,
   };
 
   let triangleConvexUpShield = {
@@ -863,8 +865,9 @@ export function loadShields() {
   };
   shields["CA:ON:primary:Toll"] = {
     ...shields["CA:ON:primary"],
-    spriteBlank: "shield_ca_on_primary_toll",
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.blue,
   };
   shields["CA:ON:private_toll"] = banneredShield(
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
@@ -2319,8 +2322,9 @@ export function loadShields() {
   };
   shields["US:NY:Parkway"] = {
     ...shields["US:NY"],
-    spriteBlank: ["shield_us_ny_parkway_2", "shield_us_ny_parkway_3"],
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
   };
   shields["US:NY:Parkway:NYC"] = {
     spriteBlank: "shield_us_ny_parkway_nyc",
@@ -2639,7 +2643,7 @@ export function loadShields() {
   shields["US:PA:Business"] = banneredShield(shields["US:PA"], ["BUS"]);
   shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
   shields["US:PA:Turnpike"] = {
-    spriteBlank: ["shield_us_pa_turnpike_2", "shield_us_pa_turnpike_3"],
+    spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
     norefImage: "shield_us_pa_turnpike_noref",
     textColor: Color.shields.white,
     padding: {
@@ -2648,6 +2652,8 @@ export function loadShields() {
       top: 5,
       bottom: 5,
     },
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
   };
   shields["US:PA:Allegheny:Belt"] = {}; // See ref-specific cases below
 
@@ -3173,7 +3179,7 @@ export function loadShields() {
 
   // Chile
   shields["CL:national"] = {
-    spriteBlank: ["shield_cl_national_2", "shield_cl_national_3"],
+    spriteBlank: ["shield_badge_2", "shield_badge_3"],
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -3181,6 +3187,8 @@ export function loadShields() {
       top: 4,
       bottom: 5,
     },
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
   };
   shields["CL:regional"] = roundedRectShield(
     Color.shields.green,
@@ -3298,9 +3306,9 @@ export function loadShields() {
   );
   shields["CN:expressway"] = {
     spriteBlank: [
-      "shield_cn_national_expressway_2",
-      "shield_cn_national_expressway_3",
-      "shield_cn_national_expressway_4",
+      "shield_cn_expressway_2",
+      "shield_cn_expressway_3",
+      "shield_cn_expressway_4",
     ],
     textColor: Color.shields.white,
     padding: {
@@ -3309,6 +3317,8 @@ export function loadShields() {
       top: 6,
       bottom: 2,
     },
+    colorLighten: Color.shields.red,
+    colorDarken: Color.shields.green,
   };
   [
     "AH",
@@ -3349,9 +3359,9 @@ export function loadShields() {
     );
     shields[`CN:${province}:expressway`] = {
       spriteBlank: [
-        "shield_cn_regional_expressway_2",
-        "shield_cn_regional_expressway_3",
-        "shield_cn_regional_expressway_4",
+        "shield_cn_expressway_2",
+        "shield_cn_expressway_3",
+        "shield_cn_expressway_4",
       ],
       textColor: Color.shields.white,
       padding: {
@@ -3360,6 +3370,8 @@ export function loadShields() {
         top: 6,
         bottom: 2,
       },
+      colorLighten: Color.shields.yellow,
+      colorDarken: Color.shields.green,
     };
   });
   [
@@ -4078,8 +4090,9 @@ export function loadShields() {
 
   shields["CA:ON:primary"].overrideByRef = {
     QEW: {
-      spriteBlank: "shield_ca_on_primary_qew",
       textColor: Color.shields.blue,
+      colorLighten: Color.shields.blue,
+      colorDarken: Color.shields.yellow,
     },
   };
 
@@ -4093,8 +4106,9 @@ export function loadShields() {
 
   shields["US:AR"].overrideByRef = {
     980: {
-      spriteBlank: "shield_us_ar_980",
       textColor: Color.shields.white,
+      colorLighten: Color.shields.white,
+      colorDarken: Color.shields.blue,
     },
   };
 
