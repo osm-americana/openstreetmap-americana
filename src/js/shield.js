@@ -24,10 +24,7 @@ function drawBannerPart(ctx, network, drawFunc) {
 function compoundShieldSize(dimension, bannerCount) {
   return {
     width: dimension.width,
-    height:
-      dimension.height +
-      bannerCount * ShieldDef.bannerSizeH +
-      ShieldDef.topPadding,
+    height: dimension.height + bannerCount * ShieldDef.bannerSizeH,
   };
 }
 
@@ -119,7 +116,7 @@ function getDrawFunc(shieldDef) {
 
 export function drawShield(ctx, shieldDef, routeDef) {
   let bannerCount = getBannerCount(shieldDef);
-  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let yOffset = bannerCount * ShieldDef.bannerSizeH;
 
   //Shift canvas to draw shield below banner
   ctx.save();
@@ -141,7 +138,7 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(map, shieldDef, routeDef);
-  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let yOffset = bannerCount * ShieldDef.bannerSizeH;
 
   if (shieldArtwork == null) {
     ctx.translate(0, yOffset);
@@ -180,8 +177,7 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
     shieldBounds
   );
 
-  textLayout.yBaseline +=
-    bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 
   if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
     ctx.strokeStyle = config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
@@ -200,7 +196,6 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
     ctx.strokeRect(
       (shieldDef.padding.left - 0.5) * ShieldDraw.PXR,
       bannerCount * ShieldDef.bannerSizeH +
-        ShieldDef.topPadding +
         (shieldDef.padding.top - 0.5) * ShieldDraw.PXR,
       shieldBounds.width -
         (shieldDef.padding.left + shieldDef.padding.right - 1) * ShieldDraw.PXR,
@@ -385,7 +380,7 @@ export function generateShieldCtx(map, id) {
     height = sourceSprite.data.height;
   }
 
-  let bannerHeight = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let bannerHeight = bannerCount * ShieldDef.bannerSizeH;
   height += bannerHeight;
 
   //Generate empty canvas sized to the graphic

@@ -251,8 +251,7 @@ export function drawBannerText(ctx, text, bannerIndex) {
     textLayout.xBaseline,
     textLayout.yBaseline +
       bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding +
-      ShieldDef.topPadding
+      ShieldDef.bannerPadding
   );
 }
 
@@ -281,8 +280,7 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
     textLayout.xBaseline,
     textLayout.yBaseline +
       bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding +
-      ShieldDef.topPadding
+      ShieldDef.bannerPadding
   );
   ctx.shadowColor = null;
   ctx.shadowBlur = null;
