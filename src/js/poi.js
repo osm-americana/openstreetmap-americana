@@ -19,7 +19,7 @@ export function missingIconLoader(map, e) {
   var height = sourceSprite.data.height;
 
   var ctx = Gfx.getGfxContext({ width, height });
-  Gfx.copyImageData(ctx, sourceSprite, 0, false, color, null);
+  Gfx.copyImageData(ctx, sourceSprite, 0, false, color);
 
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
