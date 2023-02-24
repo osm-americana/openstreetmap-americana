@@ -104,7 +104,9 @@ and re-running `npm install`.
 Environment specific settings go in the untracked file `config.js`. Copy from one of
 the templates in the configs/ folder `config.*.js` and rename it `config.js` in
 the src/ root. The variables in this file can then be changed without the risk of
-accidentally comitting to the main repo.
+accidentally committing to the main repo. By default, the repository `config.js` points
+to a development tile server operated by the project maintainers. It is free to use
+for development purposes but service is not guaranteed.
 
 You can create a new copy of the config file by running `npm run config`
 
@@ -178,6 +180,24 @@ boilerplate in `scripts/taginfo_template.json`.
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
 
+### Style complexity checks
+
+When adding or changing style layer code, it can be helpful to assess the change in size and complexity. In general, higher layer counts and higher layer size have a negative impact in performance. Contributors should attempt to consolidate layers when possible.
+
+There is a "stats" script that will generate various statistics about layer composition and complexity:
+
+- `npm run stats -- -a -s` - overall size and breakdown of layers
+- `npm run stats -- -c` - total layer count
+- `npm run stats -- -h` - list all options
+
+## Layers
+
+1. Layers should be named as followed: `<group>_<layer-name>`, wher the "group" should match the file name that the layer is contained in. This naming convention is needed by the layer statistic script.
+2. For performance reasons, it is better to have fewer layers with filters than multiple, simpler layers.
+3. Layers are drawn in the order specified in `layer/index.js` using the [Painter's Algorithm](https://en.wikipedia.org/wiki/Painter%27s_algorithm).
+
+To see layer statistics, run `npm run stats` to get a list of options.
+
 ## Highway Shield Contributor's Guide
 
 Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
@@ -250,6 +270,7 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 
 - **`backgroundImage`** – A reference to the image file used as the shield background, based on the name of the file in icons/. To use a different image depending on the length of the inscribed text, specify an array of images.
 - **`colorLighten`** – Replace the black portions of the specified background image with this color via a "lighten" operation.
+- **`numberingSystem`** – If the shield should express the route number in Roman numerals for stylistic reasons, even though the same route number is normally expressed in (Western) Arabic numerals in other contexts, set this property to `roman` to automatically convert the `ref` to Roman numerals.
 - **`norefImage`** – A reference to an alternative image file used when there is no `ref`. This is appropriate if some routes in the network have a `ref` tag and others do not, and the routes with no ref need a special shield.
 - **`notext`** – By default, a relation missing a `ref` tag will not appear as a shield. Set this property to `true` to display a shield even if it has no `ref`. This is appropriate for one-off shield networks, which are common for toll roads and touristic routes.
 - **`padding`** – An object that specifies the amount of padding on each side of the inscribed text relative to the background image.
@@ -260,7 +281,7 @@ The `loadShields` function in js/shield_defs.js contains a definition object for
 
 In addition to `textHaloColor`, the config variable **`SHIELD_TEXT_HALO_COLOR_OVERRIDE`** can be used to override the text halo color on all shields. This can be helpful to avoid collisions with other design features when determining padding values. For example, set `SHIELD_TEXT_HALO_COLOR_OVERRIDE` in src/config.js to `"magenta"` to display a magenta halo around all shield text.
 
-If special code is necessary to style a specific `ref` in a particular network, **`overrideByRef`** can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. If necessary, this can be used to override the entire shield definition.
+If special code is necessary to style a route with a specific `ref` or `name` in a particular network, **`overrideByRef`** or **`overrideByWayName`** can be used to define and override any of the above properties. `overrideByRef` is an object mapping `ref` values to partial shield definition objects, containing whichever properties are to be overridden for that particular `ref` value. `overrideByWayName` does the same for `name` values. If necessary, these parameters can be used to override the entire shield definition.
 
 Additionally, **`refsByWayName`** is an object mapping way names to text that can be superimposed on the background as a fallback for a missing `ref` value. (`refsByWayName` implies `notext`.) This temporary fallback is designed for use in [limited situations](https://wiki.openstreetmap.org/wiki/United_States/Unusual_highway_networks). In the future, it is expected that these initialisms will be encoded on the server side by processing appropriate tagging which holds the initialism in the database.
 
@@ -286,6 +307,8 @@ In all cases, banner text should be no more than **4** characters in length.
 
 This style strives to draw representative highway shields wherever they are tagged on road route relations consistently with international norms. This style operates on the expectation that the `network` value on a route relation corresponds to the shield design that will be drawn, and the `ref` value will contain the text which is drawn on the shield. In order to give appropriate mapper feedback, this style will add support for special cases only when the complexity of the route network and shield styling cannot be adequately expressed via `network` and `ref` alone. These special cases should be exceptionally rare and documented in the list below. PRs to add special case code should also add an entry below justifying its inclusion. For all other `network` and `ref` combinations, the style will draw a "generic" shield displaying the `ref` value.
 
+- Shields of individual routes that have unique design elements while sharing an overall theme. Such cases include:
+  - **Great Lakes Circle Tour**. Each shield shows a ribbon encircling another graphic representing one of the Great Lakes.
 - Shields of individual routes having a special color scheme (and possibly additional artwork or text omitted for the purposes of this project), but otherwise matching the shape of shields for the rest of the network. Such cases include:
   - **Arkansas Highway 980**. Highway 980 is a designation applied to various short state highways leading to airports. It has a unique shield based on the state route shield, with a white-on-blue color scheme and additional artwork.
   - **Georgia State Routes 515 and 520**. Highway shields for Georgia State Routes 515 and 520 are colored in blue and green respectively, rather than the usual black, for their entire length. This is done because these roads are part of the Governor's Road Improvement Program (GRIP).
@@ -296,6 +319,7 @@ This style strives to draw representative highway shields wherever they are tagg
   - **Houston, TX toll roads**. Harris and Fort Bend Counties each sign a network of toll roads which use a common shield styling, but with full-text names of the highways on the shields. Because these counties' toll road systems are clearly common networks due to their common shield symbology, special code is needed to convert toll road names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
   - **Kentucky Parkways**. Kentucky signs a network of state highways which use a common shield styling, but with full-text names of the parkways on the shields. In addition, these routes are locally known by initialisms. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
   - **New York Parkways**. The State of New York signs a network of highways which use a common shield styling, but with full-text names of the parkways on the shields. The first letter of each word in a parkway's name is capitalized and in a larger font, making initialisms easily recognizable. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their initialisms. Because the initialisms are present on shields, but only as part of the full name, it would not be appropriate to encode this data in the `ref` tag.
+  - **Connecticut Parkways**. Connecticut has several state-designated parkways that share the `network=US:CT:Parkway` tag but have no parkway-specific `ref` tags. The Merritt Parkway is the only of these to be signed with a route shield. Special code is needed to differentiate the Merritt from the state's other parkways.
 - Shields for route networks where each individual route is identified by a color, rather than a number or letter. Such cases include:
   - **Allegheny County, PA Belt Routes**. Shields for this system use colors, with a colored circle and the words "<COLOR> BELT". These shields are drawn as squares with colored circles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (white shield with colored circle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
   - **Branson, MO color-coded routes**. Shields for this system use colors, with a colored rectangle and the words "<COLOR> ROUTE". These shields are drawn as squares with colored rectangles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (green shield with colored rectangle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
@@ -324,7 +348,11 @@ This results in a very long page and can be quite slow or even crash the browser
 
 ## Points of Interest
 
-A "point of interest" or POI is any feature on the map represented by an icon on the map.
+A "point of interest" or POI is any feature on the map represented by an icon on the map. To add a new POI:
+
+1. Identify the `subclass` of the POI you are adding from the [OpenMapTiles schema](https://openmaptiles.org/schema/#poi).
+2. Place the icon file under [/icons](/icons) using the `poi_` prefix. Icons should have a black fill and may have a 1px white halo.
+3. In [poi.js](/src/layer/poi.js), add an entry to `iconDefs` with the `subclass`, sprite name, color category (see below), and legend description. Also update the `paint` and `filter` statements with the new `subclass`.
 
 ### Categories
 
@@ -335,11 +363,11 @@ POIs are broken down into the following broad categories, in order to constrain 
 - **Consumer**: businesses that provide services to the public, such as shops and restaurants.
 - **Outdoor**: parks, nature reserves, and other outdoorsy features.
 - **Attraction**: places where people go for entertainment, leisure, or curiosity.
-- **Transportation**: places where people can access forms of transportation, such as airports, train stations, bus stops, and other public transit.
+- **Transport**: places where people can access forms of transportation, such as airports, train stations, bus stops, and other public transit.
 
 ### Color Scheme
 
-For consistency, POI icons should use the following color palette:
+For consistency, POI icons use the following color palette:
 
 | Category               | Scheme          | Color                                                                       | RGB         | Hex triplet |
 | ---------------------- | --------------- | --------------------------------------------------------------------------- | ----------- | ----------- |
@@ -348,7 +376,5 @@ For consistency, POI icons should use the following color palette:
 | Consumer               | UTexas Orange   | <img src="doc-img/texas_orange.svg" height=18 width=50 /> Orange            | 191 87 0    | #bf5700     |
 | Outdoor                |                 | TBD (green?)                                                                |             |             |
 | Attraction             |                 | TBD (brown?)                                                                |             |             |
-| Transportation         | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
+| Transport              | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
 | Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
-
-POIs without a background fill should have a 1px border using the "knockout" color above.

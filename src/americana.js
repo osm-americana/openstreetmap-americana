@@ -7,6 +7,9 @@ import * as Style from "./js/style.js";
 
 import * as Shield from "./js/shield.js";
 import * as ShieldDef from "./js/shield_defs.js";
+import * as CustomShields from "./js/custom_shields.js";
+
+import * as Poi from "./js/poi.js";
 
 import * as languageLabel from "./js/language_label.js";
 
@@ -55,12 +58,21 @@ export const map = (window.map = new maplibregl.Map({
   attributionControl: false,
 }));
 
-map.on("styledata", function (event) {
-  ShieldDef.loadShields(map.style.imageManager.images);
-});
+CustomShields.loadCustomShields();
+ShieldDef.loadShields();
 
 map.on("styleimagemissing", function (e) {
-  Shield.missingIconHandler(map, e);
+  switch (e.id.split("\n")[0]) {
+    case "shield":
+      Shield.missingIconHandler(map, e);
+      break;
+    case "poi":
+      Poi.missingIconHandler(map, e);
+      break;
+    default:
+      console.warn("Image id not recognized:", JSON.stringify(e.id));
+      break;
+  }
 });
 
 function hotReloadMap() {
@@ -124,3 +136,9 @@ map.addControl(sampleControl, "bottom-left");
 map.getCanvas().focus();
 
 updateLanguageLabel();
+
+if (window.LIVE_RELOAD) {
+  new EventSource("/esbuild").addEventListener("change", () =>
+    location.reload()
+  );
+}

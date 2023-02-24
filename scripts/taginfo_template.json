@@ -331,29 +331,124 @@
       "key": "amenity",
       "value": "school",
       "object_types": ["node", "area"],
-      "description": "Schools are represented by an icon.",
-      "doc_url": "https://openmaptiles.org/schema/#poi"
+      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
     },
     {
       "key": "amenity",
       "value": "kindergarten",
       "object_types": ["node", "area"],
-      "description": "Schools are represented by an icon.",
-      "doc_url": "https://openmaptiles.org/schema/#poi"
+      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
     },
     {
       "key": "amenity",
       "value": "college",
       "object_types": ["node", "area"],
-      "description": "Schools are represented by an icon.",
-      "doc_url": "https://openmaptiles.org/schema/#poi"
+      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
     },
     {
       "key": "amenity",
       "value": "university",
       "object_types": ["node", "area"],
-      "description": "Schools are represented by an icon.",
-      "doc_url": "https://openmaptiles.org/schema/#poi"
+      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "cafe",
+      "object_types": ["node", "area"],
+      "description": "Cafes are marked by an icon representing a coffee cup.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_coffee_cup.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "bar",
+      "object_types": ["node", "area"],
+      "description": "Bars are marked by an icon representing a martini glass.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_martini_glass.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "pub",
+      "object_types": ["node", "area"],
+      "description": "Bars are marked by an icon representing a martini glass.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_martini_glass.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "hospital",
+      "object_types": ["node", "area"],
+      "description": "Hospitals are marked by a white letter 'H' in a blue shield.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hospital.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "doctors",
+      "object_types": ["node", "area"],
+      "description": "Medical offices are marked by a white cross in a blue shield.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_health_cross.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "clinic",
+      "object_types": ["node", "area"],
+      "description": "Medical offices are marked by a white cross in a blue shield.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_health_cross.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "parking",
+      "object_types": ["node", "area"],
+      "description": "Parking lots are marked by a blue letter 'P'.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_p.svg"
+    },
+    {
+      "key": "highway",
+      "value": "motorway",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Motorways are marked by a colored patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "trunk",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Roads belonging to primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "primary",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "secondary",
+      "object_types": ["way"],
+      "description": "🇬🇧🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "tertiary",
+      "object_types": ["way"],
+      "description": "🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
     }
   ]
 }

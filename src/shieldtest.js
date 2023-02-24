@@ -1,9 +1,32 @@
 "use strict";
 
-import { map } from "./americana.js";
-import * as shield from "./js/shield.js";
-import { shields } from "./js/shield_defs.js";
+import * as Shield from "./js/shield.js";
 import * as gfx from "./js/screen_gfx.js";
+import * as ShieldDef from "./js/shield_defs.js";
+import * as CustomShields from "./js/custom_shields.js";
+import * as maplibregl from "maplibre-gl";
+
+var getUrl = window.location;
+var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
+
+window.maplibregl = maplibregl;
+export const map = (window.map = new maplibregl.Map({
+  container: "map", // container id
+  antialias: true,
+  style: {
+    version: 8,
+    layers: [],
+    sources: {},
+    sprite: new URL("sprites/sprite", baseUrl).href,
+  },
+}));
+
+CustomShields.loadCustomShields();
+ShieldDef.loadShields();
+
+map.on("styleimagemissing", function (e) {
+  Shield.missingIconHandler(map, e);
+});
 
 const once = (emitter, name, { signal } = {}) =>
   new Promise((resolve, reject) => {
@@ -35,7 +58,6 @@ let networks = [
   "CA:NS:R",
   "CA:YT",
   "IS",
-  "dk:national",
   "e-road",
   "pl:motorways",
 
@@ -53,7 +75,6 @@ let networks = [
   "AU:WA:NH",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
-  "HU:national",
 
   "US:TN:secondary",
   "US:NC",
@@ -114,7 +135,6 @@ let networks = [
   "US:US:Historic",
   "CL:national",
 
-  "md:national",
   "KR:expressway",
   "CA:QC:R",
   "VE:T:AM",
@@ -232,30 +252,97 @@ let refs = [
 ];
 
 export function getShieldCanvas(shield_id) {
-  let ctx = shield.generateShieldCtx(shield_id);
+  let ctx = Shield.generateShieldCtx(map, shield_id);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
-    console.warn("Didn't produce a shield for", JSON.stringify(e.id));
+    console.warn("Didn't produce a shield for", JSON.stringify(shield_id));
     ctx = gfx.getGfxContext({ width: 1, height: 1 });
   }
   return ctx.canvas;
 }
 
+function addShield(row, network, ref) {
+  let cell = row.insertCell();
+  let shield_id = `shield\n${network}=${ref}`;
+  let shieldCanvas = getShieldCanvas(shield_id);
+  let img = document.createElement("img");
+  img.src = shieldCanvas.toDataURL("image/png");
+  img.width = shieldCanvas.width / PXR;
+  img.height = shieldCanvas.height / PXR;
+  cell.appendChild(img);
+}
+
+function getShieldImage(network, ref) {
+  let shield_id = `shield\n${network}=${ref}`;
+  let shieldCanvas = getShieldCanvas(shield_id);
+  let img = document.createElement("img");
+  img.srcset = `${shieldCanvas.toDataURL("image/png")} ${PXR}x`;
+  return img;
+}
+
 const PXR = gfx.getPixelRatio();
 
-let table = document.querySelector("#shield-table");
-
-for (let network of networks) {
-  let row = table.insertRow();
-  row.insertCell().appendChild(document.createTextNode(`${network}`));
-  for (let ref of refs) {
-    let cell = row.insertCell();
-    let shield_id = `shield\n${network}=${ref}`;
-    let shieldCanvas = getShieldCanvas(shield_id);
-    let img = document.createElement("img");
-    img.src = shieldCanvas.toDataURL("image/png");
-    img.width = shieldCanvas.width / PXR;
-    img.height = shieldCanvas.height / PXR;
-    cell.appendChild(img);
+const iterShields = function* () {
+  for (const network of networks) {
+    yield { network, refs };
   }
-}
+  yield {
+    network: "US:PA:Allegheny:Belt",
+    refs: [
+      "Red Belt",
+      "Orange Belt",
+      "Yellow Belt",
+      "Green Belt",
+      "Blue Belt",
+      "Purple Belt",
+    ],
+  };
+  yield {
+    network: "US:MO:Taney:Branson",
+    refs: ["Red Route", "Yellow Route", "Blue Route"],
+  };
+};
+
+const renderAllShields = async () => {
+  const allShields = Array.from(iterShields());
+  const progress = document.querySelector("#progress-overlay progress");
+  progress.max = allShields.flatMap((d) => d.refs).length;
+  const columns = Math.max(...allShields.flatMap((d) => d.refs.length));
+  const table = document.querySelector("#shield-table").createTBody();
+  for (const { network, refs } of allShields) {
+    const tr = table.insertRow();
+    tr.insertCell().append(`${network}`);
+    for (const ref of refs) {
+      performance.mark(`start-${network}`);
+      tr.insertCell().append(getShieldImage(network, ref));
+      progress.value += 1;
+      performance.mark(`stop-${network}`);
+      performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
+    }
+    let perfEntries = performance.getEntriesByName(`${network}`);
+    var perfDuration = 0;
+    for (let perf of perfEntries) {
+      perfDuration += perf.duration;
+    }
+    let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
+    if (tr.cells.length < 1 + columns) {
+      const gap = columns - tr.cells.length + 1;
+      tr.insertCell().colSpan = gap;
+    }
+    tr.insertCell().append(`${shieldRate} shields/sec`);
+
+    await Promise.all(
+      Array.from(tr.querySelectorAll("img"), (img) =>
+        img.decode().catch(
+          () =>
+            /* occasionally fails for no reason */
+            new Promise(requestAnimationFrame)
+        )
+      )
+    );
+  }
+};
+
+await renderAllShields().finally(() =>
+  document.querySelector("#progress-overlay").remove()
+);

@@ -32,6 +32,7 @@ const tunDashArray = [
 const getBrunnel = ["get", "brunnel"];
 const getClass = ["get", "class"];
 const getExpressway = ["coalesce", ["get", "expressway"], 0];
+const getLayer = ["coalesce", ["get", "layer"], 0];
 const getRamp = ["coalesce", ["get", "ramp"], 0];
 const getToll = ["coalesce", ["get", "toll"], 0];
 
@@ -91,31 +92,21 @@ const opacity = [
   1,
 ];
 
-const layerSortKey = [
+const motorwaySortKey = [
   "+",
-  ["*", -28, getRamp],
-  [
-    "*",
-    4,
-    [
-      ...classSelector,
-      "motorway",
-      6,
-      "trunk",
-      5,
-      "primary",
-      4,
-      "secondary",
-      3,
-      "tertiary",
-      2,
-      "minor",
-      1,
-      0,
-    ],
-  ],
-  ["*", 2, getExpressway],
-  getToll,
+  getLayer,
+  0.1,
+  ["*", -0.1, getRamp],
+  ["*", 0.2, getToll],
+];
+
+const expresswaySortKey = [
+  "+",
+  getLayer,
+  0.1,
+  ["*", -0.1, getRamp],
+  ["*", 0.2, getToll],
+  ["*", 0.4, getExpressway],
 ];
 
 //Helper function to create a "filter" block for a particular road class.
@@ -406,6 +397,7 @@ class Road {
     this.minZoomCasing = 4;
     this.casingColor = roadCasingColor;
     this.fillColor = highwayFillColor;
+    this.sortKey = expresswaySortKey;
   }
   fill = function () {
     var layer = baseRoadLayer(
@@ -419,7 +411,7 @@ class Road {
       "line-cap": "round",
       "line-join": "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -446,7 +438,7 @@ class Road {
       "line-cap": this.brunnel === "bridge" ? "butt" : "round",
       "line-join": this.brunnel === "bridge" ? "bevel" : "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -478,7 +470,7 @@ class Road {
       "line-cap": "butt",
       "line-join": "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -593,7 +585,7 @@ class Motorway extends Road {
   constructor() {
     super();
     this.constraints = ["all", ["==", getClass, "motorway"], isNotLink];
-
+    this.sortKey = motorwaySortKey;
     this.minZoomFill = minZoomAllRoads;
     this.minZoomCasing = minZoomAllRoads;
 

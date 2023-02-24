@@ -2,13 +2,65 @@ import * as label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {
-  bar: ["bar", "beer", "pub"],
-  coffee: ["cafe"],
-  hospital: "hospital",
-  medical: ["doctors", "clinic"],
-  parking: "parking",
-  school: ["kindergarten", "school", "college", "university"],
+  bar: {
+    subclasses: ["bar", "beer", "pub"],
+    sprite: "poi_martini_glass",
+    color: Color.poi.consumer,
+    description: "Bar or pub",
+  },
+  coffee: {
+    subclasses: ["cafe"],
+    sprite: "poi_coffee_cup",
+    color: Color.poi.consumer,
+    description: "Coffee shop",
+  },
+  hospital: {
+    subclasses: ["hospital"],
+    sprite: "poi_hospital",
+    color: Color.poi.infrastructure,
+    description: "Hospital",
+  },
+  medical: {
+    subclasses: ["doctors", "clinic"],
+    sprite: "poi_health_cross",
+    color: Color.poi.infrastructure,
+    description: "Doctor's office or clinic",
+  },
+  parking: {
+    subclasses: ["parking"],
+    sprite: "poi_p",
+    color: Color.poi.infrastructure,
+    description: "Parking",
+  },
+  school: {
+    subclasses: ["kindergarten", "school", "college", "university"],
+    sprite: "poi_school",
+    color: Color.poi.infrastructure,
+    description: "School",
+  },
 };
+
+function iconImageDefs() {
+  var out = [];
+  for (var key in iconDefs) {
+    out.push(iconDefs[key].subclasses);
+    out.push(
+      "sprite=" + iconDefs[key].sprite + "\ncolor=" + iconDefs[key].color
+    );
+  }
+  return out;
+}
+
+var imageExpression = [
+  "concat",
+  "poi\n",
+  [
+    "match",
+    ["get", "subclass"],
+    ...iconImageDefs(),
+    "poi", //icon for generic POI, not currently used
+  ],
+];
 
 export const poi = {
   id: "poi",
@@ -22,7 +74,7 @@ export const poi = {
     "text-color": [
       "match",
       ["get", "subclass"],
-      [...iconDefs.bar, ...iconDefs.coffee],
+      [...iconDefs.bar.subclasses, ...iconDefs.coffee.subclasses],
       Color.poi.consumer,
       ["hospital", "parking", "school"],
       Color.poi.infrastructure,
@@ -35,9 +87,9 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      ["hospital", ...iconDefs.school],
+      ["hospital", ...iconDefs.school.subclasses],
       15,
-      [...iconDefs.bar, ...iconDefs.coffee],
+      [...iconDefs.bar.subclasses, ...iconDefs.coffee.subclasses],
       16,
       ["clinic", "doctors", "parking"],
       17,
@@ -54,23 +106,7 @@ export const poi = {
         [17, 12],
       ],
     },
-    "icon-image": [
-      "match",
-      ["get", "subclass"],
-      iconDefs.bar,
-      "poi_martini_glass",
-      iconDefs.coffee,
-      "poi_coffee_cup",
-      iconDefs.medical,
-      "poi_health_cross",
-      iconDefs.hospital,
-      "poi_hospital",
-      iconDefs.parking,
-      "poi_p",
-      iconDefs.school,
-      "poi_school",
-      "poi_square_dot", //icon for generic POI, not currently used
-    ],
+    "icon-image": imageExpression,
     "icon-size": 1.0,
     "text-field": label.localizedName,
     "text-variable-anchor": ["left", "right", "bottom"],
@@ -80,40 +116,16 @@ export const poi = {
     "icon-padding": 0,
     "text-padding": 0,
     "icon-allow-overlap": false,
+    "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
   "source-layer": "poi",
 };
 
-export const legendEntries = [
-  {
-    description: "Hospital",
+export const legendEntries = Object.keys(iconDefs).map(function (id) {
+  return {
+    description: iconDefs[id].description,
     layers: [poi.id],
-    filter: ["==", ["get", "subclass"], iconDefs.hospital],
-  },
-  {
-    description: "Doctor's office or clinic",
-    layers: [poi.id],
-    filter: ["in", ["get", "subclass"], ["literal", iconDefs.medical]],
-  },
-  {
-    description: "Coffee shop",
-    layers: [poi.id],
-    filter: ["in", ["get", "subclass"], ["literal", iconDefs.coffee]],
-  },
-  {
-    description: "Bar or pub",
-    layers: [poi.id],
-    filter: ["in", ["get", "subclass"], ["literal", iconDefs.bar]],
-  },
-  {
-    description: "Parking",
-    layers: [poi.id],
-    filter: ["==", ["get", "subclass"], iconDefs.parking],
-  },
-  {
-    description: "School",
-    layers: [poi.id],
-    filter: ["in", ["get", "subclass"], ["literal", iconDefs.school]],
-  },
-];
+    filter: ["in", ["get", "subclass"], ["literal", iconDefs[id].subclasses]],
+  };
+});

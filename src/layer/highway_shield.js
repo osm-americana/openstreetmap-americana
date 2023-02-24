@@ -1,6 +1,7 @@
 "use strict";
 
 export const namedRouteNetworks = [
+  "US:CT:Parkway",
   "US:KY:Parkway",
   "US:NY:Parkway",
   "US:TX:Fort_Bend:FBCTRA",
@@ -78,7 +79,7 @@ export const shield = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "transportation_name",
-  id: "highway_shield",
+  id: "highway-shield",
   layout: shieldLayout,
   paint: {
     "text-opacity": [

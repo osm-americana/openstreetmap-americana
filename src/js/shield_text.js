@@ -23,14 +23,14 @@ function ellipseScale(spaceBounds, textBounds) {
   return (a * b) / Math.sqrt(a * a * y0 * y0 + b * b * x0 * x0);
 }
 
-export function ellipseTextConstraint(spaceBounds, textBounds) {
+function ellipseTextConstraint(spaceBounds, textBounds) {
   return {
     scale: ellipseScale(spaceBounds, textBounds),
     valign: VerticalAlignment.Middle,
   };
 }
 
-export function southHalfellipseTextConstraint(spaceBounds, textBounds) {
+function southHalfEllipseTextConstraint(spaceBounds, textBounds) {
   return {
     scale: ellipseScale(spaceBounds, {
       //Turn ellipse 90 degrees
@@ -41,7 +41,7 @@ export function southHalfellipseTextConstraint(spaceBounds, textBounds) {
   };
 }
 
-export function rectTextConstraint(spaceBounds, textBounds) {
+function rectTextConstraint(spaceBounds, textBounds) {
   var scaleHeight = spaceBounds.height / textBounds.height;
   var scaleWidth = spaceBounds.width / textBounds.width;
 
@@ -51,12 +51,17 @@ export function rectTextConstraint(spaceBounds, textBounds) {
   };
 }
 
-export function roundedRectTextConstraint(spaceBounds, textBounds, radius) {
+function roundedRectTextConstraint(spaceBounds, textBounds, options) {
   //Shrink space bounds so that corners hit the arcs
+  let constraintRadius = 2;
+  if (options !== undefined && options.radius !== undefined) {
+    constraintRadius = options.radius;
+  }
+
   return rectTextConstraint(
     {
-      width: spaceBounds.width - radius * (2 - Math.sqrt(2)),
-      height: spaceBounds.height - radius * (2 - Math.sqrt(2)),
+      width: spaceBounds.width - constraintRadius * (2 - Math.sqrt(2)),
+      height: spaceBounds.height - constraintRadius * (2 - Math.sqrt(2)),
     },
     textBounds
   );
@@ -69,11 +74,11 @@ export function roundedRectTextConstraint(spaceBounds, textBounds, radius) {
  * @param {*} text - text to draw
  * @param {*} padding - top/bottom/left/right padding around text
  * @param {*} bounds - size of the overall graphics area
- * @param {*} textLayoutFunc - algorithm for text scaling
+ * @param {*} textLayoutDef - algorithm definition for text scaling
  * @param {*} maxFontSize - maximum font size
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
+function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
   const PXR = Gfx.getPixelRatio();
 
   var padTop = padding.top * PXR || 0;
@@ -99,9 +104,12 @@ function layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize) {
 
   var xBaseline = padLeft + availWidth / 2;
 
-  var textConstraint = textLayoutFunc(
+  let textLayoutFunc = drawTextFunctions[textLayoutDef.constraintFunc];
+
+  let textConstraint = textLayoutFunc(
     { height: availHeight, width: availWidth },
-    { height: textHeight, width: textWidth }
+    { height: textHeight, width: textWidth },
+    textLayoutDef.options
   );
 
   //If size-to-fill shield text is too big, shrink it
@@ -164,18 +172,21 @@ export function layoutShieldTextFromDef(text, def, bounds) {
 
   var padding = def.padding || {};
 
-  var textLayoutFunc = rectTextConstraint;
+  var textLayoutDef = {
+    constraintFunc: "rect",
+  };
+
   var maxFontSize = 14; // default max size
 
-  if (typeof def.textLayoutConstraint != "undefined") {
-    textLayoutFunc = def.textLayoutConstraint;
+  if (typeof def.textLayout != "undefined") {
+    textLayoutDef = def.textLayout;
   }
 
   if (typeof def.maxFontSize != "undefined") {
     maxFontSize = Math.min(maxFontSize, def.maxFontSize); // shield definition cannot set max size higher than default
   }
 
-  return layoutShieldText(text, padding, bounds, textLayoutFunc, maxFontSize);
+  return layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize);
 }
 
 /**
@@ -240,8 +251,7 @@ export function drawBannerText(ctx, text, bannerIndex) {
     textLayout.xBaseline,
     textLayout.yBaseline +
       bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding +
-      ShieldDef.topPadding
+      ShieldDef.bannerPadding
   );
 }
 
@@ -270,8 +280,7 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
     textLayout.xBaseline,
     textLayout.yBaseline +
       bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding +
-      ShieldDef.topPadding
+      ShieldDef.bannerPadding
   );
   ctx.shadowColor = null;
   ctx.shadowBlur = null;
@@ -282,3 +291,26 @@ export function calculateTextWidth(text, fontSize) {
   ctx.font = Gfx.shieldFont(fontSize);
   return Math.ceil(ctx.measureText(text).width);
 }
+
+export function drawText(name, options, ref) {
+  return drawTextFunctions[name](options, ref);
+}
+
+//Register text draw functions
+const drawTextFunctions = {};
+
+/**
+ * Invoked by a style to implement a custom draw function
+ *
+ * @param {*} name name of the function as referenced by the shield definition
+ * @param {*} fxn callback to the implementing function. Takes two parameters, ref and options
+ */
+function registerDrawTextFunction(name, fxn) {
+  drawTextFunctions[name] = fxn;
+}
+
+//Built-in draw functions (standard shapes)
+registerDrawTextFunction("ellipse", ellipseTextConstraint);
+registerDrawTextFunction("rect", rectTextConstraint);
+registerDrawTextFunction("roundedRect", roundedRectTextConstraint);
+registerDrawTextFunction("southHalfEllipse", southHalfEllipseTextConstraint);
