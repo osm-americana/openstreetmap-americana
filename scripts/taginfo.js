@@ -52,7 +52,7 @@ function addNetworkTags(project) {
       let network = entry[0],
         definition = entry[1];
 
-      let icon = definition.spriteBlank || definition.norefImage;
+      let icon = definition.spriteBlank || definition.noref?.spriteBlank;
       if (Array.isArray(icon)) {
         icon = icon[0];
       }
