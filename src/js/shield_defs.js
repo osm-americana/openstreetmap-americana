@@ -751,8 +751,9 @@ export function loadShields() {
     },
   };
   shields["CA:transcanada:namedRoute"] = {
-    norefImage: "shield_ca_tch",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_ca_tch",
+    },
   };
 
   // Alberta
@@ -1149,23 +1150,27 @@ export function loadShields() {
   };
 
   shields["US:NPS:Blue_Ridge"] = {
-    norefImage: "shield_us_nps_brp",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_nps_brp",
+    },
   };
 
   shields["US:NPS:Natchez_Trace"] = {
-    norefImage: "shield_us_nps_ntp",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_nps_ntp",
+    },
   };
 
   shields["US:GRR"] = {
-    norefImage: "shield_us_grr",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_grr",
+    },
   };
 
   shields["US:GLST"] = {
-    norefImage: "shield_us_glst",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_glst",
+    },
   };
 
   shields["GLCT"] = {
@@ -1511,8 +1516,9 @@ export function loadShields() {
     },
   };
   shields["US:FL:Turnpike"] = {
-    norefImage: "shield_us_fl_turnpike",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_fl_turnpike",
+    },
   };
   shields["US:FL:CR"] = pentagonUpShield(
     3,
@@ -1637,8 +1643,9 @@ export function loadShields() {
       ))
   );
   shields["US:IL:Cook:Chicago:Skyway"] = {
-    norefImage: "shield_us_il_skyway",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_il_skyway",
+    },
   };
 
   // Indiana
@@ -1647,8 +1654,9 @@ export function loadShields() {
     Color.shields.black
   );
   shields["US:IN:Toll"] = {
-    norefImage: "shield_us_in_toll",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_in_toll",
+    },
   };
 
   // Kansas
@@ -1663,8 +1671,9 @@ export function loadShields() {
     },
   };
   shields["US:KS:Turnpike"] = {
-    norefImage: "shield_us_ks_turnpike",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ks_turnpike",
+    },
   };
   [
     "Clay",
@@ -1756,7 +1765,9 @@ export function loadShields() {
     Color.shields.black
   );
   shields["US:MA:Turnpike"] = {
-    norefImage: "shield_us_ma_pike",
+    noref: {
+      spriteBlank: "shield_us_ma_pike",
+    },
   };
 
   // Maryland
@@ -2313,12 +2324,14 @@ export function loadShields() {
     },
   };
   shields["US:NY:Thruway"] = {
-    norefImage: "shield_us_ny_thruway",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ny_thruway",
+    },
   };
   shields["US:NY:STE"] = {
-    norefImage: "shield_us_ny_ste",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ny_ste",
+    },
   };
   shields["US:NY:Parkway"] = {
     ...shields["US:NY"],
@@ -2644,7 +2657,6 @@ export function loadShields() {
   shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
   shields["US:PA:Turnpike"] = {
     spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
-    norefImage: "shield_us_pa_turnpike_noref",
     textColor: Color.shields.white,
     padding: {
       left: 3,
@@ -2654,6 +2666,11 @@ export function loadShields() {
     },
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
+    noref: {
+      spriteBlank: "shield_us_pa_turnpike_noref",
+      colorLighten: Color.shields.white,
+      colorDarken: Color.shields.green,
+    },
   };
   shields["US:PA:Allegheny:Belt"] = {}; // See ref-specific cases below
 

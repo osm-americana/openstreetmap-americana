@@ -67,12 +67,6 @@ function getRasterShieldBlank(map, shieldDef, routeDef) {
   var bannerCount = 0;
   var bounds;
 
-  //Special case where there's a defined fallback shield when no ref is tagged
-  //Example: PA Turnpike
-  if (!isValidRef(routeDef.ref) && "norefImage" in shieldDef) {
-    return map.style.getImage(shieldDef.norefImage);
-  }
-
   if (Array.isArray(shieldDef.spriteBlank)) {
     for (var i = 0; i < shieldDef.spriteBlank.length; i++) {
       shieldArtwork = map.style.getImage(shieldDef.spriteBlank[i]);
@@ -155,14 +149,6 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
       width: shieldArtwork.data.width,
       height: shieldArtwork.data.height,
     };
-  }
-
-  if (
-    (!isValidRef(routeDef.ref) && "norefImage" in shieldDef) ||
-    (shieldDef.notext && "spriteBlank" in shieldDef)
-  ) {
-    //Pictoral shield with no ref to draw
-    return ctx;
   }
 
   if (shieldDef.notext) {
@@ -279,11 +265,18 @@ export function getShieldDef(routeDef) {
     };
   }
 
+  //Special case where there's a defined fallback shield when no ref is tagged
+  //Example: PA Turnpike
+  if (!isValidRef(ref) && "noref" in shieldDef) {
+    shieldDef = shieldDef.noref;
+    // noref implies notext
+    shieldDef.notext = true;
+  }
+
   //Determine whether a route without a ref gets drawn
   if (
     !isValidRef(ref) &&
     !shieldDef.notext &&
-    !("norefImage" in shieldDef) &&
     !(shieldDef.refsByWayName && routeDef.wayName)
   ) {
     return null;
