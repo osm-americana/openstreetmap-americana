@@ -1,6 +1,7 @@
 "use strict";
 
 export const namedRouteNetworks = [
+  "US:CT:Parkway",
   "US:KY:Parkway",
   "US:NY:Parkway",
   "US:TX:Fort_Bend:FBCTRA",

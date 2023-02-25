@@ -6,7 +6,6 @@ import * as Gfx from "./screen_gfx.js";
 //Height of modifier banners
 export const bannerSizeH = 9 * Gfx.getPixelRatio();
 export const bannerPadding = 0.5 * Gfx.getPixelRatio();
-export const topPadding = 1 * Gfx.getPixelRatio();
 
 export const shields = {};
 
@@ -1464,6 +1463,10 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.black
   );
+
+  shields["US:CT:Parkway"] = {
+    notext: true,
+  };
 
   // Washington, D.C.
   shields["US:DC"] = {
@@ -4124,6 +4127,12 @@ export function loadShields() {
     "Purchase Pkwy": "JC",
     "Western Kentucky Parkway": "WK",
     "Western Kentucky Pkwy": "WK",
+  };
+
+  shields["US:CT:Parkway"].overrideByWayName = {
+    "Merritt Parkway": {
+      spriteBlank: "shield_us_ct_parkway_merritt",
+    },
   };
 
   shields["US:MI"].overrideByRef = {
