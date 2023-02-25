@@ -38,6 +38,12 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "School",
   },
+  townhall: {
+    subclasses: ["townhall"],
+    sprite: "poi_town_hall",
+    color: Color.poi.infrastructure,
+    description: "Town hall",
+  },
 };
 
 function iconImageDefs() {
@@ -76,7 +82,7 @@ export const poi = {
       ["get", "subclass"],
       [...iconDefs.bar.subclasses, ...iconDefs.coffee.subclasses],
       Color.poi.consumer,
-      ["hospital", "parking", "school"],
+      ["hospital", "parking", "school", "townhall"],
       Color.poi.infrastructure,
       Color.poi.infrastructure,
     ],
@@ -87,7 +93,7 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      ["hospital", ...iconDefs.school.subclasses],
+      ["hospital", ...iconDefs.school.subclasses, "townhall"],
       15,
       [...iconDefs.bar.subclasses, ...iconDefs.coffee.subclasses],
       16,
