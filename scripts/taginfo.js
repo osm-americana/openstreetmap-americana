@@ -52,7 +52,7 @@ function addNetworkTags(project) {
       let network = entry[0],
         definition = entry[1];
 
-      let icon = definition.spriteBlank || definition.norefImage;
+      let icon = definition.spriteBlank || definition.noref?.spriteBlank;
       if (Array.isArray(icon)) {
         icon = icon[0];
       }
@@ -86,6 +86,35 @@ function addNetworkTags(project) {
 
         if (!fs.existsSync(save_filename)) {
           shieldGfx.canvas.saveAsSync(save_filename);
+        }
+        icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
+      } else if (
+        icon !== undefined &&
+        (shieldDef.colorLighten !== undefined ||
+          shieldDef.colorDarken !== undefined)
+      ) {
+        let svgText = fs.readFileSync(`${process.cwd()}/icons/${icon}.svg`, {
+          encoding: "utf8",
+        });
+        if (shieldDef.colorLighten) {
+          svgText = svgText.replace(/#000/gi, shieldDef.colorLighten);
+        }
+        if (shieldDef.colorDarken) {
+          svgText = svgText.replace(/#fff/gi, shieldDef.colorDarken);
+        }
+
+        delete shields[network].modifiers;
+        let def = JSON.stringify(shields[network]);
+
+        if (!shieldGfxMap.has(def)) {
+          shieldGfxMap.set(def, shieldGfxMap.size);
+        }
+
+        let network_filename_id = shieldGfxMap.get(def);
+        let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
+
+        if (!fs.existsSync(save_filename)) {
+          fs.writeFileSync(`${process.cwd()}/${save_filename}`, svgText);
         }
         icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
       } else {
