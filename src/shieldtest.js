@@ -301,6 +301,34 @@ const iterShields = function* () {
     network: "US:MO:Taney:Branson",
     refs: ["Red Route", "Yellow Route", "Blue Route"],
   };
+  yield {
+    network: "CA:ON:primary",
+    refs: ["QEW"],
+  };
+  yield {
+    network: "GLCT",
+    refs: ["LECT", "LHCT", "LMCT", "LSCT"],
+  };
+  yield {
+    network: "GLCT:Loop",
+    refs: ["LMCT"],
+  };
+  yield {
+    network: "US:PA:Turnpike",
+    refs: [""],
+  };
+  yield {
+    network: "US:NE:Scenic",
+    refs: [""],
+  };
+  yield {
+    network: "US:NY:STE",
+    refs: [""],
+  };
+  yield {
+    network: "US:NY:Thruway",
+    refs: [""],
+  };
 };
 
 const renderAllShields = async () => {
