@@ -16,6 +16,7 @@ jobs:
           node-version: 18.x
       - name: Install and Build 🔧
         run: |
+          npm install -g google-font-installer
           npm ci --include=dev
           npm run build
           npm run style

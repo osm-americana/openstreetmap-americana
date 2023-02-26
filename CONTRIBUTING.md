@@ -89,6 +89,12 @@ and `package-lock.json` files. Run this command to install them in the project d
 
 `npm install`
 
+### Fonts
+
+In order to build the project's [fonts](scripts/FONTS.md), install the `google-font-installer` package into npm with:
+
+`npm install -g google-font-installer`
+
 ### NPM Troubleshooting
 
 If you run into permissions errors with NPM, setting the user with this command may
