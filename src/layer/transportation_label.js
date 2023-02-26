@@ -104,6 +104,27 @@ export const label = {
       17,
       [...classSelector, motorwayToSecondary, "center", "bottom"],
     ],
+    "text-offset": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      15,
+      ["literal", [0, 0]],
+      16,
+      [
+        ...classSelector,
+        "aerialway",
+        ["literal", [0, 0.2]],
+        ["literal", [0, 0]],
+      ],
+      20,
+      [
+        ...classSelector,
+        "aerialway",
+        ["literal", [0, 0.8]],
+        ["literal", [0, 0]],
+      ],
+    ],
     "symbol-sort-key": [
       // TODO busway
       ...classSelector,
