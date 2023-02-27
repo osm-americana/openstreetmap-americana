@@ -18,19 +18,19 @@ function loadGoogleFonts(fontSpec, destFolder) {
     const variants = fontSpec[fontFamily].join(",");
     execSync(
       //Requires google-font-installer
-      `gfi download "${fontFamily}" -v ${variants} -d ${destFolder}`,
+      `npm exec gfi download "${fontFamily}" -v ${variants} -d ${destFolder}`,
       (error, stdout, stderr) => {
         if (error) {
           console.log(`error: ${error.message}`);
           console.log(
-            `Is google-font-installer present? Install with "npm install -g google-font-installer`
+            `Is google-font-installer present? Install with "npm install google-font-installer`
           );
           return;
         }
         if (stderr) {
           console.log(`stderr: ${stderr}`);
           console.log(
-            `Is google-font-installer present? Install with "npm install -g google-font-installer`
+            `Is google-font-installer present? Install with "npm install google-font-installer`
           );
           return;
         }
