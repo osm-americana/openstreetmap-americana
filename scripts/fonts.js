@@ -18,7 +18,7 @@ function loadGoogleFonts(fontSpec, destFolder) {
     const variants = fontSpec[fontFamily].join(",");
     execSync(
       //Requires google-font-installer
-      `npm exec gfi download "${fontFamily}" -v ${variants} -d ${destFolder}`,
+      `npm exec -- gfi download "${fontFamily}" -v ${variants} -d ${destFolder}`,
       (error, stdout, stderr) => {
         if (error) {
           console.log(`error: ${error.message}`);
