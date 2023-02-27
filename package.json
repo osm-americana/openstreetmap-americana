@@ -34,7 +34,6 @@
     "color-rgba": "^2.4.0",
     "events": "^3.3.0",
     "fonteditor-core": "^2.1.11",
-    "glob": "^8.0.3",
     "maplibre-gl": "^2.4.0",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
