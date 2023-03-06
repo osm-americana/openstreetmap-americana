@@ -114,14 +114,14 @@ export const label = {
       [
         ...classSelector,
         "aerialway",
-        ["literal", [0, 0.2]],
+        ["literal", [0, -0.2]],
         ["literal", [0, 0]],
       ],
       20,
       [
         ...classSelector,
         "aerialway",
-        ["literal", [0, 0.8]],
+        ["literal", [0, -0.8]],
         ["literal", [0, 0]],
       ],
     ],
