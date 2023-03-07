@@ -13,6 +13,7 @@ import * as ParkLayers from "../layer/park.js";
 import * as BuildingLayers from "../layer/building.js";
 import * as WaterLayers from "../layer/water.js";
 import * as FerryLayers from "../layer/ferry.js";
+import * as AerialwayLayers from "../layer/aerialway.js";
 
 export const sections = [
   {
@@ -39,6 +40,10 @@ export const sections = [
   {
     name: "Railroads",
     entries: RailLayers.legendEntries,
+  },
+  {
+    name: "Aerial lifts",
+    entries: AerialwayLayers.legendEntries,
   },
   {
     name: "Aviation",
