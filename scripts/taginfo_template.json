@@ -155,6 +155,62 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
+      "key": "aerialway",
+      "value": "cable_car",
+      "object_types": ["way"],
+      "description": "Cable cars are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "chair_lift",
+      "object_types": ["way"],
+      "description": "Chairlifts are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "gondola",
+      "object_types": ["way"],
+      "description": "Aerial gondolas are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "mixed_lift",
+      "object_types": ["way"],
+      "description": "Mixed aerial lifts are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "drag_lift",
+      "object_types": ["way"],
+      "description": "Drag lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "platter",
+      "object_types": ["way"],
+      "description": "Platter lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "j-bar",
+      "object_types": ["way"],
+      "description": "J-bar lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "t-bar",
+      "object_types": ["way"],
+      "description": "T-bar lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
       "key": "aeroway",
       "value": "runway",
       "object_types": ["way"],
