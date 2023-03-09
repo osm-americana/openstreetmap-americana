@@ -25,10 +25,18 @@ Gfx.setGfxFactory((bounds) => {
 
 const shieldGfxMap = new Map();
 
+const colorNames = new Map();
+
 function getNamedColor(colorString, defaultColor) {
   if (colorString) {
     if (colorString.startsWith("#")) {
-      return namer(colorString)["pantone"][0].name.toLowerCase();
+      if (colorNames.has(colorString)) {
+        return colorNames.get(colorString);
+      } else {
+        const result = namer(colorString)["pantone"][0].name.toLowerCase();
+        colorNames.set(colorString, result);
+        return result;
+      }
     } else {
       return colorString;
     }
