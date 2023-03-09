@@ -5,7 +5,7 @@ import * as ShieldDef from "../src/js/shield_defs.js";
 import * as Shields from "../src/js/shield.js";
 import * as Gfx from "../src/js/screen_gfx.js";
 import * as CustomShields from "../src/js/custom_shields.js";
-import * as skia from "skia-canvas";
+import { Canvas } from "canvas";
 import namer from "color-namer";
 import { mkdir } from "node:fs/promises";
 
@@ -13,7 +13,7 @@ await mkdir("dist/shield-sample", { recursive: true });
 
 //Headless graphics context
 Gfx.setGfxFactory((bounds) => {
-  let canvas = new skia.Canvas(bounds.width, bounds.height);
+  let canvas = new Canvas(bounds.width, bounds.height, 'svg');
   let ctx = canvas.getContext("2d");
   ctx.imageSmoothingQuality = "high";
   ctx.textAlign = "center";
