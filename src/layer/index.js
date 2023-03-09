@@ -2,6 +2,7 @@
 
 import * as Label from "../constants/label.js";
 
+import * as lyrAerialway from "./aerialway.js";
 import * as lyrAeroway from "./aeroway.js";
 import * as lyrBackground from "./background.js";
 import * as lyrBoundary from "./boundary.js";
@@ -135,7 +136,9 @@ export function build(locales) {
     lyrRail.railway.fill(),
 
     lyrOneway.road,
-    lyrOneway.link
+    lyrOneway.link,
+
+    lyrAerialway.dragLift
   );
 
   layers.push(lyrBuilding.building);
@@ -199,6 +202,9 @@ export function build(locales) {
 
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.
+    lyrAerialway.liftCasing,
+    lyrAerialway.lift,
+
     lyrBoundary.countryLabelLeft,
     lyrBoundary.countryLabelRight,
     lyrWater.waterwayLabel,
