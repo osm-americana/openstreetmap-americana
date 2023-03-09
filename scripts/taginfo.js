@@ -13,7 +13,7 @@ await mkdir("dist/shield-sample", { recursive: true });
 
 //Headless graphics context
 Gfx.setGfxFactory((bounds) => {
-  let canvas = new Canvas(bounds.width, bounds.height, 'svg');
+  let canvas = new Canvas(bounds.width, bounds.height, "svg");
   let ctx = canvas.getContext("2d");
   ctx.imageSmoothingQuality = "high";
   ctx.textAlign = "center";
