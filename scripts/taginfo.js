@@ -18,8 +18,7 @@ Gfx.setGfxFactory((bounds) => {
   ctx.imageSmoothingQuality = "high";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  ctx.canvas.width = bounds.width;
-  ctx.canvas.height = bounds.height;
+  ctx.canvas = canvas;
   return ctx;
 });
 
@@ -85,7 +84,7 @@ function addNetworkTags(project) {
         let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
 
         if (!fs.existsSync(save_filename)) {
-          shieldGfx.canvas.saveAsSync(save_filename);
+          fs.writeFileSync(save_filename, shieldGfx.canvas.toBuffer());
         }
         icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
       } else if (
