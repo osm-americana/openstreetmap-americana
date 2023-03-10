@@ -824,6 +824,14 @@ export function loadShields() {
     colorLighten: Color.shields.green,
   };
 
+  // Newfoundland and Labrador
+  shields["CA:NL"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.green,
+    Color.shields.black,
+    26
+  );
+
   // Nova Scotia
   shields["CA:NS:H"] = {
     spriteBlank: "shield_ca_ns_h",
