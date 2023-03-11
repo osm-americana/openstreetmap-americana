@@ -6,7 +6,6 @@ import * as Gfx from "./screen_gfx.js";
 //Height of modifier banners
 export const bannerSizeH = 9 * Gfx.getPixelRatio();
 export const bannerPadding = 0.5 * Gfx.getPixelRatio();
-export const topPadding = 1 * Gfx.getPixelRatio();
 
 export const shields = {};
 
@@ -690,13 +689,15 @@ export function loadShields() {
 
   let triangleConvexDownShieldBlue = {
     ...triangleConvexDownShield,
-    spriteBlank: ["shield_tri_convex_blue_2", "shield_tri_convex_blue_3"],
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.blue,
   };
 
   let triangleConvexDownShieldRedBlue = {
     ...triangleConvexDownShieldBlue,
-    spriteBlank: "shield_tri_convex_red_blue_2",
+    colorLighten: Color.shields.blue,
+    colorDarken: Color.shields.red,
   };
 
   let triangleConvexUpShield = {
@@ -750,8 +751,9 @@ export function loadShields() {
     },
   };
   shields["CA:transcanada:namedRoute"] = {
-    norefImage: "shield_ca_tch",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_ca_tch",
+    },
   };
 
   // Alberta
@@ -864,8 +866,9 @@ export function loadShields() {
   };
   shields["CA:ON:primary:Toll"] = {
     ...shields["CA:ON:primary"],
-    spriteBlank: "shield_ca_on_primary_toll",
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.blue,
   };
   shields["CA:ON:private_toll"] = banneredShield(
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
@@ -1147,23 +1150,27 @@ export function loadShields() {
   };
 
   shields["US:NPS:Blue_Ridge"] = {
-    norefImage: "shield_us_nps_brp",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_nps_brp",
+    },
   };
 
   shields["US:NPS:Natchez_Trace"] = {
-    norefImage: "shield_us_nps_ntp",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_nps_ntp",
+    },
   };
 
   shields["US:GRR"] = {
-    norefImage: "shield_us_grr",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_grr",
+    },
   };
 
   shields["US:GLST"] = {
-    norefImage: "shield_us_glst",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_glst",
+    },
   };
 
   shields["GLCT"] = {
@@ -1509,8 +1516,9 @@ export function loadShields() {
     },
   };
   shields["US:FL:Turnpike"] = {
-    norefImage: "shield_us_fl_turnpike",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_fl_turnpike",
+    },
   };
   shields["US:FL:CR"] = pentagonUpShield(
     3,
@@ -1635,8 +1643,9 @@ export function loadShields() {
       ))
   );
   shields["US:IL:Cook:Chicago:Skyway"] = {
-    norefImage: "shield_us_il_skyway",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_il_skyway",
+    },
   };
 
   // Indiana
@@ -1645,8 +1654,9 @@ export function loadShields() {
     Color.shields.black
   );
   shields["US:IN:Toll"] = {
-    norefImage: "shield_us_in_toll",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_in_toll",
+    },
   };
 
   // Kansas
@@ -1661,8 +1671,9 @@ export function loadShields() {
     },
   };
   shields["US:KS:Turnpike"] = {
-    norefImage: "shield_us_ks_turnpike",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ks_turnpike",
+    },
   };
   [
     "Clay",
@@ -1754,7 +1765,9 @@ export function loadShields() {
     Color.shields.black
   );
   shields["US:MA:Turnpike"] = {
-    norefImage: "shield_us_ma_pike",
+    noref: {
+      spriteBlank: "shield_us_ma_pike",
+    },
   };
 
   // Maryland
@@ -2311,17 +2324,20 @@ export function loadShields() {
     },
   };
   shields["US:NY:Thruway"] = {
-    norefImage: "shield_us_ny_thruway",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ny_thruway",
+    },
   };
   shields["US:NY:STE"] = {
-    norefImage: "shield_us_ny_ste",
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ny_ste",
+    },
   };
   shields["US:NY:Parkway"] = {
     ...shields["US:NY"],
-    spriteBlank: ["shield_us_ny_parkway_2", "shield_us_ny_parkway_3"],
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
   };
   shields["US:NY:Parkway:NYC"] = {
     spriteBlank: "shield_us_ny_parkway_nyc",
@@ -2403,6 +2419,10 @@ export function loadShields() {
   shields["US:OH:Business"] = banneredShield(shields["US:OH"], ["BUS"]);
   shields["US:OH:Turnpike"] = {
     spriteBlank: "shield_us_oh_turnpike",
+    notext: true,
+  };
+  shields["US:OH:OEC"] = {
+    spriteBlank: "shield_us_oh_oec",
     notext: true,
   };
 
@@ -2640,14 +2660,20 @@ export function loadShields() {
   shields["US:PA:Business"] = banneredShield(shields["US:PA"], ["BUS"]);
   shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
   shields["US:PA:Turnpike"] = {
-    spriteBlank: ["shield_us_pa_turnpike_2", "shield_us_pa_turnpike_3"],
-    norefImage: "shield_us_pa_turnpike_noref",
+    spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
     textColor: Color.shields.white,
     padding: {
       left: 3,
       right: 3,
       top: 5,
       bottom: 5,
+    },
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
+    noref: {
+      spriteBlank: "shield_us_pa_turnpike_noref",
+      colorLighten: Color.shields.white,
+      colorDarken: Color.shields.green,
     },
   };
   shields["US:PA:Allegheny:Belt"] = {}; // See ref-specific cases below
@@ -3174,7 +3200,7 @@ export function loadShields() {
 
   // Chile
   shields["CL:national"] = {
-    spriteBlank: ["shield_cl_national_2", "shield_cl_national_3"],
+    spriteBlank: ["shield_badge_2", "shield_badge_3"],
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -3182,6 +3208,8 @@ export function loadShields() {
       top: 4,
       bottom: 5,
     },
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
   };
   shields["CL:regional"] = roundedRectShield(
     Color.shields.green,
@@ -3299,9 +3327,9 @@ export function loadShields() {
   );
   shields["CN:expressway"] = {
     spriteBlank: [
-      "shield_cn_national_expressway_2",
-      "shield_cn_national_expressway_3",
-      "shield_cn_national_expressway_4",
+      "shield_cn_expressway_2",
+      "shield_cn_expressway_3",
+      "shield_cn_expressway_4",
     ],
     textColor: Color.shields.white,
     padding: {
@@ -3310,6 +3338,8 @@ export function loadShields() {
       top: 6,
       bottom: 2,
     },
+    colorLighten: Color.shields.red,
+    colorDarken: Color.shields.green,
   };
   [
     "AH",
@@ -3350,9 +3380,9 @@ export function loadShields() {
     );
     shields[`CN:${province}:expressway`] = {
       spriteBlank: [
-        "shield_cn_regional_expressway_2",
-        "shield_cn_regional_expressway_3",
-        "shield_cn_regional_expressway_4",
+        "shield_cn_expressway_2",
+        "shield_cn_expressway_3",
+        "shield_cn_expressway_4",
       ],
       textColor: Color.shields.white,
       padding: {
@@ -3361,6 +3391,8 @@ export function loadShields() {
         top: 6,
         bottom: 2,
       },
+      colorLighten: Color.shields.yellow,
+      colorDarken: Color.shields.green,
     };
   });
   [
@@ -4079,8 +4111,9 @@ export function loadShields() {
 
   shields["CA:ON:primary"].overrideByRef = {
     QEW: {
-      spriteBlank: "shield_ca_on_primary_qew",
       textColor: Color.shields.blue,
+      colorLighten: Color.shields.blue,
+      colorDarken: Color.shields.yellow,
     },
   };
 
@@ -4094,8 +4127,9 @@ export function loadShields() {
 
   shields["US:AR"].overrideByRef = {
     980: {
-      spriteBlank: "shield_us_ar_980",
       textColor: Color.shields.white,
+      colorLighten: Color.shields.white,
+      colorDarken: Color.shields.blue,
     },
   };
 

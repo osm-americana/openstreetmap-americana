@@ -24,10 +24,7 @@ function drawBannerPart(ctx, network, drawFunc) {
 function compoundShieldSize(dimension, bannerCount) {
   return {
     width: dimension.width,
-    height:
-      dimension.height +
-      bannerCount * ShieldDef.bannerSizeH +
-      ShieldDef.topPadding,
+    height: dimension.height + bannerCount * ShieldDef.bannerSizeH,
   };
 }
 
@@ -69,12 +66,6 @@ function getRasterShieldBlank(map, shieldDef, routeDef) {
   var textLayout;
   var bannerCount = 0;
   var bounds;
-
-  //Special case where there's a defined fallback shield when no ref is tagged
-  //Example: PA Turnpike
-  if (!isValidRef(routeDef.ref) && "norefImage" in shieldDef) {
-    return map.style.getImage(shieldDef.norefImage);
-  }
 
   if (Array.isArray(shieldDef.spriteBlank)) {
     for (var i = 0; i < shieldDef.spriteBlank.length; i++) {
@@ -119,7 +110,7 @@ function getDrawFunc(shieldDef) {
 
 export function drawShield(ctx, shieldDef, routeDef) {
   let bannerCount = getBannerCount(shieldDef);
-  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let yOffset = bannerCount * ShieldDef.bannerSizeH;
 
   //Shift canvas to draw shield below banner
   ctx.save();
@@ -141,7 +132,7 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(map, shieldDef, routeDef);
-  let yOffset = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let yOffset = bannerCount * ShieldDef.bannerSizeH;
 
   if (shieldArtwork == null) {
     ctx.translate(0, yOffset);
@@ -160,14 +151,6 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
     };
   }
 
-  if (
-    (!isValidRef(routeDef.ref) && "norefImage" in shieldDef) ||
-    (shieldDef.notext && "spriteBlank" in shieldDef)
-  ) {
-    //Pictoral shield with no ref to draw
-    return ctx;
-  }
-
   if (shieldDef.notext) {
     //If the shield definition says not to draw a ref, ignore ref
     return ctx;
@@ -180,8 +163,7 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
     shieldBounds
   );
 
-  textLayout.yBaseline +=
-    bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  textLayout.yBaseline += bannerCount * ShieldDef.bannerSizeH;
 
   if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
     ctx.strokeStyle = config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
@@ -200,7 +182,6 @@ function drawShieldText(ctx, map, shieldDef, routeDef) {
     ctx.strokeRect(
       (shieldDef.padding.left - 0.5) * ShieldDraw.PXR,
       bannerCount * ShieldDef.bannerSizeH +
-        ShieldDef.topPadding +
         (shieldDef.padding.top - 0.5) * ShieldDraw.PXR,
       shieldBounds.width -
         (shieldDef.padding.left + shieldDef.padding.right - 1) * ShieldDraw.PXR,
@@ -284,11 +265,18 @@ export function getShieldDef(routeDef) {
     };
   }
 
+  //Special case where there's a defined fallback shield when no ref is tagged
+  //Example: PA Turnpike
+  if (!isValidRef(ref) && "noref" in shieldDef) {
+    shieldDef = shieldDef.noref;
+    // noref implies notext
+    shieldDef.notext = true;
+  }
+
   //Determine whether a route without a ref gets drawn
   if (
     !isValidRef(ref) &&
     !shieldDef.notext &&
-    !("norefImage" in shieldDef) &&
     !(shieldDef.refsByWayName && routeDef.wayName)
   ) {
     return null;
@@ -385,7 +373,7 @@ export function generateShieldCtx(map, id) {
     height = sourceSprite.data.height;
   }
 
-  let bannerHeight = bannerCount * ShieldDef.bannerSizeH + ShieldDef.topPadding;
+  let bannerHeight = bannerCount * ShieldDef.bannerSizeH;
   height += bannerHeight;
 
   //Generate empty canvas sized to the graphic
@@ -409,7 +397,8 @@ export function generateShieldCtx(map, id) {
       sourceSprite,
       bannerHeight,
       shieldDef.verticalReflect,
-      shieldDef.colorLighten
+      shieldDef.colorLighten,
+      shieldDef.colorDarken
     );
   }
 
