@@ -29,12 +29,11 @@ function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
         rectWidth: rectWidth,
       },
     },
-    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 2,
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 3,
     },
     textColor: textColor,
   };
@@ -606,10 +605,9 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
         radius: 10,
       },
     },
-    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 2,
-      right: 2,
+      left: 3,
+      right: 3,
       top: 2,
       bottom: 2,
     },
@@ -680,9 +678,9 @@ export function loadShields() {
     textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 2,
-      top: 2,
+      left: 3.5,
+      right: 3.5,
+      top: 1.5,
       bottom: 5,
     },
   };
@@ -692,12 +690,6 @@ export function loadShields() {
     textColor: Color.shields.white,
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.blue,
-  };
-
-  let triangleConvexDownShieldRedBlue = {
-    ...triangleConvexDownShieldBlue,
-    colorLighten: Color.shields.blue,
-    colorDarken: Color.shields.red,
   };
 
   let triangleConvexUpShield = {
@@ -810,7 +802,7 @@ export function loadShields() {
     textColor: Color.shields.black,
     padding: {
       left: 4,
-      right: 4,
+      right: 5,
       top: 5,
       bottom: 5,
     },
@@ -1664,10 +1656,10 @@ export function loadShields() {
     spriteBlank: ["shield_us_ks_2", "shield_us_ks_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
+      left: 3.5,
+      right: 3.5,
+      top: 3.5,
+      bottom: 3.5,
     },
   };
   shields["US:KS:Turnpike"] = {
@@ -2521,8 +2513,8 @@ export function loadShields() {
     spriteBlank: ["shield_us_oh_asd"],
     textColor: Color.shields.green,
     padding: {
-      left: 6,
-      right: 3,
+      left: 5,
+      right: 4,
       top: 4,
       bottom: 7,
     },
@@ -3200,14 +3192,8 @@ export function loadShields() {
 
   // Chile
   shields["CL:national"] = {
-    spriteBlank: ["shield_badge_2", "shield_badge_3"],
+    ...badgeShield,
     textColor: Color.shields.white,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 4,
-      bottom: 5,
-    },
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
   };
@@ -3448,8 +3434,8 @@ export function loadShields() {
     textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
-      left: 3,
-      right: 3,
+      left: 4,
+      right: 4,
       top: 4,
       bottom: 2,
     },
@@ -3541,8 +3527,8 @@ export function loadShields() {
     padding: {
       left: 4,
       right: 4,
-      top: 9,
-      bottom: 5,
+      top: 8.5,
+      bottom: 4.5,
     },
   };
   shields["KR:national"] = ovalShield(
@@ -3630,7 +3616,12 @@ export function loadShields() {
     },
   };
   shields["TW:provincial"] = triangleConvexDownShieldBlue;
-  shields["TW:expressway"] = triangleConvexDownShieldRedBlue;
+  shields["TW:expressway"] = {
+    ...triangleConvexDownShield,
+    textColor: Color.shields.white,
+    colorLighten: Color.shields.blue,
+    colorDarken: Color.shields.red,
+  };
   ["city", "county", "district", "township"].forEach(
     (type) =>
       (shields[`TW:${type}`] = roundedRectShield(

@@ -63,29 +63,24 @@ export function getBannerCount(shield) {
  */
 function getRasterShieldBlank(map, shieldDef, routeDef) {
   var shieldArtwork = null;
-  var textLayout;
-  var bannerCount = 0;
-  var bounds;
-
   if (Array.isArray(shieldDef.spriteBlank)) {
-    for (var i = 0; i < shieldDef.spriteBlank.length; i++) {
-      shieldArtwork = map.style.getImage(shieldDef.spriteBlank[i]);
-
-      bounds = compoundShieldSize(shieldArtwork.data, bannerCount);
-      textLayout = ShieldText.layoutShieldTextFromDef(
-        routeDef.ref,
-        shieldDef,
-        bounds
-      );
-      if (textLayout.fontPx > Gfx.fontSizeThreshold * Gfx.getPixelRatio()) {
+    // When multiple shield widths are available, the first should be for up to
+    // 2 characters.  Each size larger should accomodate an additional character.
+    // If the ref is longer than optimalCharacters of the widest available shield
+    // the text will be condensed to fit.
+    let optimalCharCount = 2;
+    for (let image of shieldDef.spriteBlank) {
+      shieldArtwork = image;
+      if (routeDef.ref.length <= optimalCharCount) {
         break;
       }
+      optimalCharCount += 1;
     }
   } else {
-    shieldArtwork = map.style.getImage(shieldDef.spriteBlank);
+    shieldArtwork = shieldDef.spriteBlank;
   }
 
-  return shieldArtwork;
+  return shieldArtwork && map.style.getImage(shieldArtwork);
 }
 
 function textColor(shieldDef) {

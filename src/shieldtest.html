@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <title>Shield Test</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com" />
+    <link rel="preload" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=block"
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@600;700&display=block"
       rel="stylesheet"
     />
     <style>
@@ -47,8 +47,8 @@
       </thead>
     </table>
 
-    <p style="font-family: Overpass; visibility: hidden">
-      Invisible text so the font will load early
+    <p style="font-family: Overpass; font-weight: 600; visibility: hidden">
+      <b style="font-weight: 700;">Invisible</b> text so the font will load early
     </p>
     <div id="map" style="display: none"></div>
 

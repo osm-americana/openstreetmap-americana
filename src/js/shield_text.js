@@ -80,6 +80,10 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
   var padBot = padding.bottom * PXR || 0;
   var padLeft = padding.left * PXR || 0;
   var padRight = padding.right * PXR || 0;
+  var availHeight = bounds.height - padTop - padBot;
+  var availWidth = bounds.width - padLeft - padRight;
+
+  var xBaseline = padLeft + availWidth / 2;
 
   var maxFont = maxFontSize * PXR;
   var fontSize = Gfx.fontSizeThreshold;
@@ -87,21 +91,18 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
   var textWidth = calculateTextWidth(text, fontSize);
   var textHeight = emHeightForFontSize(fontSize);
 
-  var availHeight = bounds.height - padTop - padBot;
-  var availWidth = bounds.width - padLeft - padRight;
-
-  var xBaseline = padLeft + availWidth / 2;
-
   let textLayoutFunc = drawTextFunctions[textLayoutDef.constraintFunc];
-
   let textConstraint = textLayoutFunc(
     { height: availHeight, width: availWidth },
     { height: textHeight, width: textWidth },
     textLayoutDef.options
   );
 
-  //If size-to-fill shield text is too big, shrink it
-  fontSize = Math.min(maxFont, Gfx.fontSizeThreshold * textConstraint.scale);
+  // Some browsers (Safari), but not others (Firefox), round off canvas font sizes, so do it manually for consistency
+  fontSize = Math.round(
+    // If size-to-fill shield text is too big, shrink it
+    Math.min(maxFont, Gfx.fontSizeThreshold * textConstraint.scale)
+  );
   textHeight = emHeightForFontSize(fontSize);
 
   // some browsers, but not others, round off the `y` parameter of `ctx.fillText`, so do it manually for consistency
@@ -113,6 +114,7 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
     xBaseline: xBaseline,
     yBaseline: yBaseline,
     fontPx: fontSize,
+    maxWidth: availWidth,
   };
 }
 
@@ -171,7 +173,7 @@ export function drawShieldText(ctx, text, textLayout) {
   ctx.textBaseline = "alphabetic";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
 
-  ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
+  ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline, textLayout.maxWidth);
 }
 
 /**
@@ -220,7 +222,9 @@ export function drawBannerText(ctx, text, bannerIndex) {
     textLayout.xBaseline,
     textLayout.yBaseline +
       bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding
+      ShieldDef.bannerPadding,
+    // maxWidth
+    ctx.canvas.width
   );
 }
 
@@ -256,6 +260,14 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
 }
 
 export function calculateTextWidth(text, fontSize) {
+  // We want all one- and two-character refs to be sized identically
+  // (overflow is condensed automatically by `fillText`)
+  if (text.length <= 2) {
+    text = '2';
+  // Ditto with three-character refs
+  } else if (text.length == 3) {
+    text = '22';
+  }
   var ctx = Gfx.getGfxContext({ width: 1, height: 1 }); //dummy canvas
   ctx.font = Gfx.shieldFont(fontSize);
   return Math.ceil(ctx.measureText(text).width);
