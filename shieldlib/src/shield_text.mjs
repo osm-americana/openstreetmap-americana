@@ -1,10 +1,7 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
 import * as Gfx from "./screen_gfx.js";
-import * as ShieldDef from "./shield_defs.js";
-
-export const PXR = Gfx.getPixelRatio();
+import * as Shield from "./shield.js";
 
 const VerticalAlignment = {
   Middle: "middle",
@@ -71,6 +68,7 @@ function roundedRectTextConstraint(spaceBounds, textBounds, options) {
  * Determines the position and font size to draw text so that it fits within
  * a bounding box.
  *
+ * @param {*} r - rendering context
  * @param {*} text - text to draw
  * @param {*} padding - top/bottom/left/right padding around text
  * @param {*} bounds - size of the overall graphics area
@@ -78,19 +76,24 @@ function roundedRectTextConstraint(spaceBounds, textBounds, options) {
  * @param {*} maxFontSize - maximum font size
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
-  const PXR = Gfx.getPixelRatio();
+function layoutShieldText(
+  r,
+  text,
+  padding,
+  bounds,
+  textLayoutDef,
+  maxFontSize
+) {
+  var padTop = r.px(padding.top) || 0;
+  var padBot = r.px(padding.bottom) || 0;
+  var padLeft = r.px(padding.left) || 0;
+  var padRight = r.px(padding.right) || 0;
 
-  var padTop = padding.top * PXR || 0;
-  var padBot = padding.bottom * PXR || 0;
-  var padLeft = padding.left * PXR || 0;
-  var padRight = padding.right * PXR || 0;
-
-  var maxFont = maxFontSize * PXR;
+  var maxFont = r.px(maxFontSize);
   //Temporary canvas for text measurment
-  var ctx = Gfx.getGfxContext(bounds);
+  var ctx = r.gfxFactory.createGraphics(bounds);
 
-  ctx.font = Gfx.shieldFont(Gfx.fontSizeThreshold);
+  ctx.font = Gfx.shieldFont(Gfx.fontSizeThreshold, r.options.shieldFont);
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
@@ -118,7 +121,7 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
     Gfx.fontSizeThreshold * textConstraint.scale
   );
 
-  ctx.font = Gfx.shieldFont(fontSize);
+  ctx.font = Gfx.shieldFont(fontSize, r.options.shieldFont);
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
@@ -160,12 +163,14 @@ const defaultDefForLayout = {
  * Determines the position and font size to draw text so that it fits within
  * a bounding box.
  *
+ * @param {*} r - rendering context
  * @param {*} text - text to draw
  * @param {*} def - shield definition
  * @param {*} bounds - size of the overall graphics area
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-export function layoutShieldTextFromDef(text, def, bounds) {
+export function layoutShieldTextFromDef(r, text, def, bounds) {
+  //FIX
   if (def == null) {
     def = defaultDefForLayout;
   }
@@ -186,21 +191,20 @@ export function layoutShieldTextFromDef(text, def, bounds) {
     maxFontSize = Math.min(maxFontSize, def.maxFontSize); // shield definition cannot set max size higher than default
   }
 
-  return layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize);
+  return layoutShieldText(r, text, padding, bounds, textLayoutDef, maxFontSize);
 }
 
 /**
  * Draw text on a shield
  *
+ * @param {*} r - rendering context
  * @param {*} ctx - graphics context to draw to
  * @param {*} text - text to draw
  * @param {*} textLayout - location to draw text
  */
-export function drawShieldText(ctx, text, textLayout) {
+export function renderShieldText(r, ctx, text, textLayout) {
   //Text color is set by fillStyle
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
-  ctx.font = Gfx.shieldFont(textLayout.fontPx);
+  configureShieldText(r, ctx, textLayout);
 
   ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
 }
@@ -208,41 +212,47 @@ export function drawShieldText(ctx, text, textLayout) {
 /**
  * Draw drop shadow for text on a shield
  *
+ * @param {*} r - rendering context
  * @param {*} ctx - graphics context to draw to
  * @param {*} text - text to draw
  * @param {*} textLayout - location to draw text
  */
-export function drawShieldHaloText(ctx, text, textLayout) {
+export function drawShieldHaloText(r, ctx, text, textLayout) {
   //Stroke color is set by strokeStyle
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
-  ctx.font = Gfx.shieldFont(textLayout.fontPx);
+  configureShieldText(r, ctx, textLayout);
 
   ctx.shadowColor = ctx.strokeStyle;
   ctx.shadowBlur = 0;
-  ctx.lineWidth = 2 * PXR;
+  ctx.lineWidth = r.px(2);
 
   ctx.strokeText(text, textLayout.xBaseline, textLayout.yBaseline);
   ctx.shadowColor = null;
   ctx.shadowBlur = null;
 }
 
+function configureShieldText(r, ctx, textLayout) {
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+  ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
+}
+
 /**
  * Draw text on a modifier plate above a shield
  *
+ * @param {*} r - rendering context
  * @param {*} ctx - graphics context to draw to
  * @param {*} text - text to draw
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
-export function drawBannerText(ctx, text, bannerIndex) {
-  var textLayout = layoutShieldTextFromDef(text, null, {
+export function drawBannerText(r, ctx, text, bannerIndex) {
+  var textLayout = layoutShieldTextFromDef(r, text, null, {
     width: ctx.canvas.width,
-    height: ShieldDef.bannerSizeH - ShieldDef.bannerPadding,
+    height: Shield.bannerSizeH - Shield.bannerPadding,
   });
 
-  ctx.fillStyle = "black";
+  ctx.fillStyle = r.options.bannerTextColor;
 
-  ctx.font = Gfx.shieldFont(textLayout.fontPx);
+  ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
 
@@ -250,45 +260,48 @@ export function drawBannerText(ctx, text, bannerIndex) {
     text,
     textLayout.xBaseline,
     textLayout.yBaseline +
-      bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding
+      bannerIndex * Shield.bannerSizeH -
+      Shield.bannerPadding
   );
 }
 
 /**
  * Draw drop shadow for text on a modifier plate above a shield
  *
+ * @param {*} r - rendering context
  * @param {*} ctx - graphics context to draw to
  * @param {*} text - text to draw
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
-export function drawBannerHaloText(ctx, text, bannerIndex) {
-  var textLayout = layoutShieldTextFromDef(text, null, {
+export function drawBannerHaloText(r, ctx, text, bannerIndex) {
+  //FIX
+  var textLayout = layoutShieldTextFromDef(r, text, null, {
     width: ctx.canvas.width,
-    height: ShieldDef.bannerSizeH - ShieldDef.bannerPadding,
+    height: Shield.bannerSizeH - Shield.bannerPadding,
   });
 
-  (ctx.shadowColor = Color.backgroundFill), (ctx.strokeStyle = ctx.shadowColor);
-  ctx.font = Gfx.shieldFont(textLayout.fontPx);
+  //TODO - pass backgroundFill as a parameter
+  ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
+  ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
   ctx.shadowBlur = 0;
-  ctx.lineWidth = 2 * PXR;
+  ctx.lineWidth = r.px(2);
 
   ctx.strokeText(
     text,
     textLayout.xBaseline,
     textLayout.yBaseline +
-      bannerIndex * ShieldDef.bannerSizeH -
-      ShieldDef.bannerPadding
+      bannerIndex * Shield.bannerSizeH -
+      Shield.bannerPadding
   );
   ctx.shadowColor = null;
   ctx.shadowBlur = null;
 }
 
-export function calculateTextWidth(text, fontSize) {
-  var ctx = Gfx.getGfxContext({ width: 1, height: 1 }); //dummy canvas
-  ctx.font = Gfx.shieldFont(fontSize);
+export function calculateTextWidth(r, text, fontSize) {
+  var ctx = r.emptySprite(); //dummy canvas
+  ctx.font = Gfx.shieldFont(fontSize, r.options.shieldFont);
   return Math.ceil(ctx.measureText(text).width);
 }
 

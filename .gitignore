@@ -6,4 +6,8 @@ rebusurance.zip
 config.js
 .parcel-cache
 dist/
-local.config.js
+dist-shieldjs/
+download/
+src/local.config.js
+shieldlib/dist
+shieldlib/node_modules

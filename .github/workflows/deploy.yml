@@ -22,6 +22,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - name: Build Shield Library 🛡️
+        run: |
+          cd shieldlib
+          npm ci --include=dev
+          npm run build
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev

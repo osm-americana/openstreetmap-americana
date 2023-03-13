@@ -1,7 +1,7 @@
 import { stat, copyFile, mkdir } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
-import esbuild from "esbuild";
+import esbuild, { BuildContext, BuildOptions } from "esbuild";
 
 const maybeLocalConfig = async (name = "local.config.js") => {
   let exists = await stat(name)
@@ -19,8 +19,12 @@ const maybeLocalConfig = async (name = "local.config.js") => {
   }
 };
 
-const buildWith = async (key, buildOptions) => {
+const buildWith = async (
+  key: string,
+  buildOptions: BuildOptions
+): Promise<BuildContext[]> => {
   await mkdir("dist", { recursive: true });
+
   await Promise.all(
     ["index.html", "shieldtest.html", "favicon.ico"].map((f) =>
       copyFile(`src/${f}`, `dist/${f}`)
@@ -44,18 +48,40 @@ const buildWith = async (key, buildOptions) => {
       ...buildOptions?.define,
     },
   };
-  return (
-    esbuild[key](options)
-      // esbuild will pretty-print its own error messages;
-      // suppress node.js from printing the exception.
-      .catch(() => process.exit(1))
-  );
+
+  const shieldLibOptions = {
+    entryPoints: ["shieldlib/src/index.ts"],
+    format: "esm",
+    bundle: true,
+    minify: true,
+    sourcemap: true,
+    outdir: "shieldlib/dist",
+    logLevel: "info",
+    ...localConfig,
+    ...buildOptions,
+    define: {
+      ...localConfig?.define,
+      ...buildOptions?.define,
+    },
+  };
+
+  // esbuild will pretty-print its own error messages;
+  // suppress node.js from printing the exception.
+  const suppressErrors = () => process.exit(1);
+
+  return await Promise.all([
+    esbuild[key](options).catch(suppressErrors),
+    esbuild[key](shieldLibOptions).catch(suppressErrors),
+  ]);
 };
 
-export const buildContext = (buildOptions = {}) =>
-  buildWith("context", buildOptions);
+export const buildContext = (
+  buildOptions: BuildOptions = {}
+): Promise<BuildContext[]> => buildWith("context", buildOptions);
 
-export const build = (buildOptions = {}) => buildWith("build", buildOptions);
+export const build = (
+  buildOptions: BuildOptions = {}
+): Promise<BuildContext[]> => buildWith("build", buildOptions);
 
 const mainModule = pathToFileURL(process.argv[1]).toString();
 const isMain = import.meta.url === mainModule;

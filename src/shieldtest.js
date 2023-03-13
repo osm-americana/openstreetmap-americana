@@ -1,10 +1,13 @@
 "use strict";
 
-import * as Shield from "./js/shield.js";
-import * as gfx from "./js/screen_gfx.js";
 import * as ShieldDef from "./js/shield_defs.js";
-import * as CustomShields from "./js/custom_shields.js";
 import * as maplibregl from "maplibre-gl";
+import { ShieldRenderer } from "@americana/maplibre-shield-generator";
+import {
+  shieldPredicate,
+  networkPredicate,
+  routeParser,
+} from "./js/shield_format.js";
 
 var getUrl = window.location;
 var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
@@ -21,12 +24,12 @@ export const map = (window.map = new maplibregl.Map({
   },
 }));
 
-CustomShields.loadCustomShields();
-ShieldDef.loadShields();
+const shields = ShieldDef.loadShields();
 
-map.on("styleimagemissing", function (e) {
-  Shield.missingIconHandler(map, e);
-});
+const shieldRenderer = new ShieldRenderer(shields, routeParser)
+  .filterImageID(shieldPredicate)
+  .filterNetwork(networkPredicate)
+  .renderOnMaplibreGL(map);
 
 const once = (emitter, name, { signal } = {}) =>
   new Promise((resolve, reject) => {
@@ -251,36 +254,24 @@ let refs = [
   "A26/A7",
 ];
 
-export function getShieldCanvas(shield_id) {
-  let ctx = Shield.generateShieldCtx(map, shield_id);
+export function getShieldCanvas(network, ref, name) {
+  let ctx = shieldRenderer.getGraphicForRoute(network, ref, name);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
     console.warn("Didn't produce a shield for", JSON.stringify(shield_id));
-    ctx = gfx.getGfxContext({ width: 1, height: 1 });
+    ctx = shieldRenderer.emptySprite();
   }
   return ctx.canvas;
 }
 
-function addShield(row, network, ref) {
-  let cell = row.insertCell();
-  let shield_id = `shield\n${network}=${ref}`;
-  let shieldCanvas = getShieldCanvas(shield_id);
+function getShieldImage(network, ref, name) {
+  let shieldCanvas = getShieldCanvas(network, ref, name);
   let img = document.createElement("img");
-  img.src = shieldCanvas.toDataURL("image/png");
-  img.width = shieldCanvas.width / PXR;
-  img.height = shieldCanvas.height / PXR;
-  cell.appendChild(img);
-}
-
-function getShieldImage(network, ref) {
-  let shield_id = `shield\n${network}=${ref}`;
-  let shieldCanvas = getShieldCanvas(shield_id);
-  let img = document.createElement("img");
-  img.srcset = `${shieldCanvas.toDataURL("image/png")} ${PXR}x`;
+  img.srcset = `${shieldCanvas.toDataURL("image/png")} ${pxr}x`;
   return img;
 }
 
-const PXR = gfx.getPixelRatio();
+const pxr = shieldRenderer.pixelRatio();
 
 const iterShields = function* () {
   for (const network of networks) {
@@ -329,23 +320,55 @@ const iterShields = function* () {
     network: "US:NY:Thruway",
     refs: [""],
   };
+  yield {
+    network: "US:KY:Parkway",
+    names: [
+      "Audubon Parkway",
+      "Bluegrass Parkway",
+      "Cumberland Parkway",
+      "Hal Rogers Parkway",
+      "Mountain Parkway",
+      "Purchase Parkway",
+      "Western Kentucky Parkway",
+    ],
+  };
+  yield {
+    network: "US:CT:Parkway",
+    names: ["Wilbur Cross Parkway", "Milford Parkway", "Merritt Parkway"],
+  };
 };
 
 const renderAllShields = async () => {
   const allShields = Array.from(iterShields());
   const progress = document.querySelector("#progress-overlay progress");
-  progress.max = allShields.flatMap((d) => d.refs).length;
-  const columns = Math.max(...allShields.flatMap((d) => d.refs.length));
+  progress.max = allShields.flatMap((d) => mergeArrays(d.refs, d.names)).length;
+  const columns = Math.max(
+    ...allShields.flatMap((d) => mergeArrays(d.refs, d.names).length)
+  );
   const table = document.querySelector("#shield-table").createTBody();
-  for (const { network, refs } of allShields) {
+  for (const { network, refs, names } of allShields) {
     const tr = table.insertRow();
     tr.insertCell().append(`${network}`);
-    for (const ref of refs) {
-      performance.mark(`start-${network}`);
-      tr.insertCell().append(getShieldImage(network, ref));
-      progress.value += 1;
-      performance.mark(`stop-${network}`);
-      performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
+    if (refs) {
+      for (const ref of refs) {
+        renderAndRecordPerformance(
+          tr,
+          performance,
+          progress,
+          () => getShieldImage(network, ref),
+          network
+        );
+      }
+    } else if (names) {
+      for (const name of names) {
+        renderAndRecordPerformance(
+          tr,
+          performance,
+          progress,
+          () => getShieldImage(network, "", name),
+          network
+        );
+      }
     }
     let perfEntries = performance.getEntriesByName(`${network}`);
     var perfDuration = 0;
@@ -370,6 +393,31 @@ const renderAllShields = async () => {
     );
   }
 };
+
+function renderAndRecordPerformance(
+  tr,
+  performance,
+  progress,
+  shieldFunc,
+  network
+) {
+  performance.mark(`start-${network}`);
+  tr.insertCell().append(shieldFunc());
+  progress.value += 1;
+  performance.mark(`stop-${network}`);
+  performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
+}
+
+function mergeArrays(arr1, arr2) {
+  let ret = [];
+  if (arr1) {
+    ret = ret.concat(arr1);
+  }
+  if (arr2) {
+    ret = ret.concat(arr2);
+  }
+  return ret;
+}
 
 await renderAllShields().finally(() =>
   document.querySelector("#progress-overlay").remove()

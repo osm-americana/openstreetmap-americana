@@ -47,6 +47,8 @@ The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
 
+The dynamic shield generator is included as a [module](shieldlib/README.md) in this repository and also [published to npm](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
+
 ## Data sources
 
 The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https://openmaptiles.org/schema/), which includes:

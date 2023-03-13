@@ -1,6 +1,6 @@
 "use strict";
 
-import * as ShieldDraw from "./shield_canvas_draw.js";
+import { getDOMPixelRatio } from "@americana/maplibre-shield-generator";
 import * as Label from "../constants/label.js";
 import * as ShieldDef from "./shield_defs.js";
 
@@ -9,7 +9,7 @@ import * as HighwayShieldLayers from "../layer/highway_shield.js";
 import * as maplibregl from "maplibre-gl";
 
 const maxPopupWidth = 30; /* em */
-
+const PXR = getDOMPixelRatio();
 /**
  * Wikidata labels are normally lowercased so that they can appear in any
  * context. Convert them to sentence case for consistency with the rest of the
@@ -392,10 +392,7 @@ export default class LegendControl {
       let width = f.layer.paint["line-width"] ?? 1;
       let gapWidth = f.layer.paint["line-gap-width"];
       // Round the stroke width up to one point to ensure legibility.
-      return Math.max(
-        1 / ShieldDraw.PXR,
-        gapWidth ? width * 2 + gapWidth : width
-      );
+      return Math.max(1 / PXR, gapWidth ? width * 2 + gapWidth : width);
     };
     let lineWidths = lineFeatures.map(getLineWidth);
     let height = Math.max(...lineWidths);
@@ -686,8 +683,8 @@ export default class LegendControl {
 
     // Embed the canvas in an HTML image of the same size.
     let img = new Image(
-      (imageData.width * iconSize) / ShieldDraw.PXR,
-      (imageData.height * iconSize) / ShieldDraw.PXR
+      (imageData.width * iconSize) / PXR,
+      (imageData.height * iconSize) / PXR
     );
     img.src = canvas.toDataURL("image/png");
     img.className = "shield";
