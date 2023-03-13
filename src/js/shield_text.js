@@ -114,7 +114,6 @@ function layoutShieldText(text, padding, bounds, textLayoutDef, maxFontSize) {
     xBaseline: xBaseline,
     yBaseline: yBaseline,
     fontPx: fontSize,
-    maxWidth: availWidth,
   };
 }
 
@@ -173,7 +172,7 @@ export function drawShieldText(ctx, text, textLayout) {
   ctx.textBaseline = "alphabetic";
   ctx.font = Gfx.shieldFont(textLayout.fontPx);
 
-  ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline, textLayout.maxWidth);
+  ctx.fillText(text, textLayout.xBaseline, textLayout.yBaseline);
 }
 
 /**
@@ -260,13 +259,14 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
 }
 
 export function calculateTextWidth(text, fontSize) {
-  // We want all one- and two-character refs to be sized identically
-  // (overflow is condensed automatically by `fillText`)
-  if (text.length <= 2) {
-    text = '2';
-  // Ditto with three-character refs
-  } else if (text.length == 3) {
+  // We want all refs of three characters or less to be 
+  // sized identically to other refs of the same char count
+  if (text.length == 1) {
     text = '22';
+  } else if (text.length == 2) {
+    text = '22';
+  } else if (text.length == 3) {
+    text = '222';
   }
   var ctx = Gfx.getGfxContext({ width: 1, height: 1 }); //dummy canvas
   ctx.font = Gfx.shieldFont(fontSize);

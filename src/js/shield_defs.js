@@ -217,8 +217,8 @@ function triangleDownShield(
     padding: {
       left: 5,
       right: 5,
-      top: 3,
-      bottom: 10,
+      top: 2.5,
+      bottom: 9.5,
     },
     textColor: textColor,
   };
@@ -339,10 +339,10 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
     },
     textLayout: textConstraint("ellipse"),
     padding: {
-      left: 4.5,
-      right: 4.5,
-      top: 5,
-      bottom: 5,
+      left: 3.5,
+      right: 3.5,
+      top: 3.5,
+      bottom: 3.5,
     },
     textColor: textColor,
   };
@@ -484,8 +484,8 @@ function hexagonVerticalShield(
     },
     textLayout: roundedRectTextConstraint(radius),
     padding: {
-      left: 2,
-      right: 2,
+      left: 1.5,
+      right: 1.5,
       top: 1 + offset,
       bottom: 1 + offset,
     },
@@ -678,8 +678,8 @@ export function loadShields() {
     textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
-      left: 3.5,
-      right: 3.5,
+      left: 3,
+      right: 3,
       top: 1.5,
       bottom: 5,
     },
@@ -710,8 +710,8 @@ export function loadShields() {
     padding: {
       left: 3,
       right: 3,
-      top: 4,
-      bottom: 5,
+      top: 3,
+      bottom: 4,
     },
   };
 
@@ -739,7 +739,7 @@ export function loadShields() {
       left: 2,
       right: 2,
       top: 5,
-      bottom: 5,
+      bottom: 4.5,
     },
   };
   shields["CA:transcanada:namedRoute"] = {
@@ -1008,8 +1008,8 @@ export function loadShields() {
     padding: {
       left: 2,
       right: 2,
-      top: 5,
-      bottom: 5,
+      top: 5.5,
+      bottom: 5.5,
     },
   };
 
@@ -1065,10 +1065,10 @@ export function loadShields() {
     textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
-      left: 4,
-      right: 4,
-      top: 7,
-      bottom: 5,
+      left: 5,
+      right: 5,
+      top: 6,
+      bottom: 4,
     },
   };
 
@@ -1132,12 +1132,11 @@ export function loadShields() {
   shields["US:BIA"] = {
     spriteBlank: "shield_us_bia",
     textColor: Color.shields.black,
-    textLayout: textConstraint("southHalfEllipse"),
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 5,
+      left: 2.5,
+      right: 2.5,
+      top: 3.5,
+      bottom: 4.5,
     },
   };
 
@@ -1375,10 +1374,10 @@ export function loadShields() {
     spriteBlank: ["shield_us_ca_2", "shield_us_ca_3"],
     textColor: Color.shields.white,
     padding: {
-      left: 4,
-      right: 4,
+      left: 3,
+      right: 3,
       top: 6,
-      bottom: 4,
+      bottom: 3.5,
     },
   };
   shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
@@ -1656,10 +1655,10 @@ export function loadShields() {
     spriteBlank: ["shield_us_ks_2", "shield_us_ks_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 3.5,
-      right: 3.5,
-      top: 3.5,
-      bottom: 3.5,
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 3,
     },
   };
   shields["US:KS:Turnpike"] = {
@@ -1767,10 +1766,10 @@ export function loadShields() {
     spriteBlank: ["shield_us_md_2", "shield_us_md_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 7,
-      bottom: 3,
+      left: 2,
+      right: 2,
+      top: 6,
+      bottom: 2,
     },
   };
   shields["US:MD:Alternate"] = banneredShield(shields["US:MD"], ["ALT"]);
@@ -2620,8 +2619,8 @@ export function loadShields() {
     spriteBlank: ["shield_us_or_2", "shield_us_or_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 3,
-      right: 3,
+      left: 2,
+      right: 2,
       top: 4,
       bottom: 6.5,
     },
@@ -2642,8 +2641,8 @@ export function loadShields() {
     spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 3,
-      right: 3,
+      left: 2.5,
+      right: 2.5,
       top: 5,
       bottom: 5,
     },
@@ -3208,10 +3207,10 @@ export function loadShields() {
     textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 3,
-      bottom: 6,
+      left: 2.5,
+      right: 2.5,
+      top: 4,
+      bottom: 6.5,
     },
   };
 
@@ -3414,8 +3413,8 @@ export function loadShields() {
     spriteBlank: ["shield_in_nh_2", "shield_in_nh_3", "shield_in_nh_4"],
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 2,
+      left: 1.5,
+      right: 1.5,
       top: 3,
       bottom: 7,
     },
@@ -3609,10 +3608,10 @@ export function loadShields() {
     textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
+      left: 3,
+      right: 3,
+      top: 3,
+      bottom: 3,
     },
   };
   shields["TW:provincial"] = triangleConvexDownShieldBlue;
