@@ -2429,6 +2429,10 @@ export function loadShields() {
     spriteBlank: "shield_us_oh_turnpike",
     notext: true,
   };
+  shields["US:OH:OEC"] = {
+    spriteBlank: "shield_us_oh_oec",
+    notext: true,
+  };
 
   // Ohio county and township roads
 
