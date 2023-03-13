@@ -123,21 +123,7 @@ for (const stack in customFontStacks) {
 }
 
 //Binary download.  Temporary hack until https://github.com/stadiamaps/build_pbf_glyphs/issues/4 is resolved
-const pbfBuilderURL =
-  "https://github.com/linz/action-build-pbf-glyphs/raw/master/static/build_pbf_glyphs";
-const pbfBuilderFilename = "build/font/build_pbf_glyphs";
-
-const res = request("GET", pbfBuilderURL);
-if (res.statusCode === 200) {
-  fs.writeFileSync(pbfBuilderFilename, res.getBody());
-  console.log(`Downloaded ${pbfBuilderURL}`);
-} else {
-  console.error(`Error downloading ${pbfBuilderURL}: ${res.statusCode}`);
-  process.exit(-1);
-}
-
-// Make executable
-fs.chmodSync(pbfBuilderFilename, fs.statSync(pbfBuilderFilename).mode | 0o111);
+const pbfBuilderFilename = "~/.cargo/bin/build_pbf_glyphs";
 
 execSync(
   `${pbfBuilderFilename} ${ttfFontFolder} ${distFontFolder}`,
