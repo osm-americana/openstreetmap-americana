@@ -1,10 +1,7 @@
-import fs from "fs/promises";
-import path from "path";
-import util from "util";
+import fs from "node:fs/promises";
+import path from "node:path";
 
-import g from "glob";
-const glob = util.promisify(g);
-
+import glob from "glob";
 import { Sprites } from "@basemaps/sprites";
 
 await fs.mkdir("./dist/sprites/", { recursive: true });
