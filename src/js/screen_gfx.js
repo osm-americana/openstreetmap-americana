@@ -2,12 +2,13 @@
 
 import rgba from "color-rgba";
 
-const shieldFontFamily = 'Overpass, "sans-serif-condensed", "Arial Narrow", sans-serif';
+const shieldFontFamily =
+  'Overpass, "sans-serif-condensed", "Arial Narrow", sans-serif';
 export const shieldFont = (size) => {
   // use a bolder font for smaller text to keep the apparent weight consistent
-  var weight = size <= 10 ? '700' : '600';
+  var weight = size <= 10 ? "700" : "600";
   return `${weight} ${size}px ${shieldFontFamily}`;
-}
+};
 export const fontSizeThreshold = 11;
 
 var gfxFactory = getDocumentGfxContext;

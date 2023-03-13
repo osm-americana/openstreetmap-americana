@@ -259,14 +259,14 @@ export function drawBannerHaloText(ctx, text, bannerIndex) {
 }
 
 export function calculateTextWidth(text, fontSize) {
-  // We want all refs of three characters or less to be 
+  // We want all refs of three characters or less to be
   // sized identically to other refs of the same char count
   if (text.length == 1) {
-    text = '22';
+    text = "22";
   } else if (text.length == 2) {
-    text = '22';
+    text = "22";
   } else if (text.length == 3) {
-    text = '222';
+    text = "222";
   }
   var ctx = Gfx.getGfxContext({ width: 1, height: 1 }); //dummy canvas
   ctx.font = Gfx.shieldFont(fontSize);
