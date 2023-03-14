@@ -2,7 +2,8 @@
 import { Font } from "fonteditor-core";
 import fs from "fs";
 import { execSync } from "child_process";
-import request from "sync-request";
+import { promisify } from "util";
+import { exec } from "child_process";
 
 function createRangeArray(start, end) {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
@@ -122,22 +123,23 @@ for (const stack in customFontStacks) {
   console.log(`Built ${ttfFile}`);
 }
 
-//Binary download.  Temporary hack until https://github.com/stadiamaps/build_pbf_glyphs/issues/4 is resolved
 const pbfBuilderFilename = "~/.cargo/bin/build_pbf_glyphs";
 
-execSync(
-  `${pbfBuilderFilename} ${ttfFontFolder} ${distFontFolder}`,
-  (error, stdout, stderr) => {
-    if (error) {
-      console.log(`PBF build error: ${error.message}`);
-      process.exit(-1);
-    }
+async function buildPbf() {
+  try {
+    const { stdout, stderr } = await promisify(exec)(
+      `${pbfBuilderFilename} ${ttfFontFolder} ${distFontFolder}`
+    );
+    console.log(`${stdout}`);
     if (stderr) {
       console.log(`PBF stderr: ${stderr}`);
-      process.exit(-1);
     }
-    console.log(`${stdout}`);
+  } catch (error) {
+    console.log(`PBF build error: ${error.message}`);
+    process.exit(-1);
   }
-);
+}
+
+buildPbf();
 
 console.log("Generated PBF fontstack.");
