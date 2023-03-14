@@ -44,7 +44,7 @@ const ttfFontFolder = "build/font/ttf";
 
 [downloadFolder, ttfFontFolder, distFontFolder, downloadLockFolder].forEach(
   (folder) => {
-    fs.mkdirSync(folder, { recursive: true }, (e) => {});
+    fs.mkdirSync(folder, { recursive: true });
   }
 );
 
