@@ -16,6 +16,7 @@
     "Noto Sans Malayalam": ["regular", "700"],
     "Noto Sans Myanmar": ["regular", "700"],
     "Noto Sans Tamil": ["regular", "700"],
+    "Noto Sans Thaana": ["regular", "700"],
     "Noto Sans Tifinagh": ["regular", "400"],
     "Noto Sans Telugu": ["regular", "700"],
     "Noto Sans Thai": ["regular", "700"]
@@ -120,6 +121,7 @@
     "space": [[32, 32]],
     "tamil": [[2944, 3071]],
     "telugu": [[3072, 3199]],
+    "thaana": [[1920, 1983]],
     "tifinagh": [[11568, 11631]],
     "thai": [[3584, 3711]]
   },
@@ -188,6 +190,10 @@
       {
         "file": "NotoSansTelugu-regular",
         "ranges": ["telugu"]
+      },
+      {
+        "file": "NotoSansThaana-regular",
+        "ranges": ["thaana"]
       },
       {
         "file": "NotoSansThai-regular",
@@ -268,6 +274,10 @@
         "ranges": ["telugu"]
       },
       {
+        "file": "NotoSansThaana-700",
+        "ranges": ["thaana"]
+      },
+      {
         "file": "NotoSansThai-700",
         "ranges": ["thai"]
       },
@@ -336,6 +346,10 @@
       {
         "file": "NotoSansTelugu-regular",
         "ranges": ["telugu"]
+      },
+      {
+        "file": "NotoSansThaana-regular",
+        "ranges": ["thaana"]
       },
       {
         "file": "NotoSansThai-regular",
@@ -414,6 +428,10 @@
       {
         "file": "NotoSansTelugu-700",
         "ranges": ["telugu"]
+      },
+      {
+        "file": "NotoSansThaana-700",
+        "ranges": ["thaana"]
       },
       {
         "file": "NotoSansThai-700",
