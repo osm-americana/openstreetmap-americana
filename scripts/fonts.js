@@ -23,16 +23,10 @@ function loadGoogleFonts(fontSpec, destFolder) {
       (error, stdout, stderr) => {
         if (error) {
           console.log(`error: ${error.message}`);
-          console.log(
-            `Is google-font-installer present? Install with "npm install google-font-installer`
-          );
           return;
         }
         if (stderr) {
           console.log(`stderr: ${stderr}`);
-          console.log(
-            `Is google-font-installer present? Install with "npm install google-font-installer`
-          );
           return;
         }
         console.log(`stdout: ${stdout}`);
