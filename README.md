@@ -31,7 +31,7 @@ The repository is organized as follows:
 - **src/** - The map style. See [CONTRIBUTING.md](CONTRIBUTING.md).
 - **dev/** - Development tools used for style development. See [Style Developer Tools](dev/README.md)
 - **test/** - Automated unit tests.
-- **shieldlib/** - Maplibre [shield rendering library](shieldlib/README.md) ([npm entry](https://www.npmjs.com/package/@americana/maplibre-shield-generator?activeTab=readme)).
+- _Coming soon! Other customized parts of the tech stack._
 
 Some general guidelines:
 
