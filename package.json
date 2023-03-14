@@ -15,7 +15,7 @@
     "clean": "run-s clean-download clean-build",
     "clean-download": "shx rm -rf download",
     "clean-build": "shx rm -rf dist build",
-    "fonts:install_glyph_builder": "cargo install --git https://github.com/stadiamaps/build_pbf_glyphs build_pbf_glyphs",
+    "fonts:install_glyph_builder": "cargo install build_pbf_glyphs@1.3.0",
     "fonts:build": "node scripts/fonts",
     "fonts": "run-s fonts:install_glyph_builder fonts:build",
     "presprites": "shx rm -rf dist/sprites",
