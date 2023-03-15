@@ -71,9 +71,9 @@ function loadGoogleFonts(fontSpec, destFolder) {
   }
 }
 
-[downloadFolder, ttfFontFolder, distFontFolder].forEach((folder) => {
-  fs.mkdirSync(folder, { recursive: true });
-});
+[downloadFolder, ttfFontFolder, distFontFolder, bundleFontFolder].forEach(
+  (folder) => fs.mkdirSync(folder, { recursive: true })
+);
 
 const fontDef = JSON.parse(fs.readFileSync("scripts/fonts.json"));
 const fontRanges = fontDef["glyph-ranges"];
