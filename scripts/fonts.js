@@ -4,19 +4,54 @@ import fs from "fs";
 import { execSync } from "child_process";
 import { promisify } from "util";
 import { exec } from "child_process";
+import path from "path";
 
 function createRangeArray(start, end) {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 }
 
+function countFilesMatchingRegex(folderPath, regexPattern) {
+  return fs.readdirSync(folderPath).filter((file) => regexPattern.test(file))
+    .length;
+}
+
+function fontRegex(fontName) {
+  return new RegExp(
+    `^${fontName.replace(/\s+/g, "")}-([1-9]00)?(regular|italic)?\\.[ot]tf$`,
+    "i"
+  );
+}
+
+function copyFolderContents(sourceFolder, destinationFolder) {
+  const files = fs.readdirSync(sourceFolder);
+  return Promise.all(
+    files.map((file) =>
+      fs.promises.copyFile(
+        path.join(sourceFolder, file),
+        path.join(destinationFolder, file)
+      )
+    )
+  );
+}
+
+const downloadFolder = "download/font";
+const distFontFolder = "dist/fonts";
+const ttfFontFolder = "build/font/ttf";
+const bundleFontFolder = "download/font-bundle";
+
 function loadGoogleFonts(fontSpec, destFolder) {
   for (const fontFamily in fontSpec) {
-    const downloadLockFile = `${downloadLockFolder}/${fontFamily}.lock`;
-    if (fs.existsSync(downloadLockFile)) {
+    if (
+      fontSpec[fontFamily].length ==
+      countFilesMatchingRegex(downloadFolder, fontRegex(fontFamily)) +
+        countFilesMatchingRegex(bundleFontFolder, fontRegex(fontFamily))
+    ) {
       console.log(`Already downloaded ${fontFamily}`);
       continue;
     }
+
     const variants = fontSpec[fontFamily].join(",");
+
     execSync(
       //Requires google-font-installer
       `npm exec -- gfi download "${fontFamily}" -v ${variants} -d ${destFolder}`,
@@ -33,20 +68,12 @@ function loadGoogleFonts(fontSpec, destFolder) {
       }
     );
     console.log(`Downloaded ${fontFamily}`);
-    fs.writeFileSync(downloadLockFile, "");
   }
 }
 
-const downloadLockFolder = "download/font-lock";
-const downloadFolder = "download/font";
-const distFontFolder = "dist/fonts";
-const ttfFontFolder = "build/font/ttf";
-
-[downloadFolder, ttfFontFolder, distFontFolder, downloadLockFolder].forEach(
-  (folder) => {
-    fs.mkdirSync(folder, { recursive: true });
-  }
-);
+[downloadFolder, ttfFontFolder, distFontFolder].forEach((folder) => {
+  fs.mkdirSync(folder, { recursive: true });
+});
 
 const fontDef = JSON.parse(fs.readFileSync("scripts/fonts.json"));
 const fontRanges = fontDef["glyph-ranges"];
@@ -57,7 +84,9 @@ const fontFamilies = fontDef["font-families"];
 loadGoogleFonts(fontFamilies, downloadFolder);
 
 //Just copy fonts that are used unmodified
-loadGoogleFonts(bundleFontStacks, ttfFontFolder);
+loadGoogleFonts(bundleFontStacks, bundleFontFolder);
+
+copyFolderContents(bundleFontFolder, ttfFontFolder);
 
 for (const stack in customFontStacks) {
   let font;
