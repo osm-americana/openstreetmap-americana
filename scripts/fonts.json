@@ -4,6 +4,7 @@
     "M PLUS Rounded 1c": ["regular", "700"],
     "Noto Sans": ["regular", "700", "italic", "700italic"],
     "Noto Sans Arabic": ["regular", "700"],
+    "Noto Naskh Arabic": ["regular", "700"],
     "Noto Sans Armenian": ["regular", "700"],
     "Noto Sans Bengali": ["regular", "700"],
     "Noto Sans Devanagari": ["regular", "700"],
@@ -308,6 +309,14 @@
       {
         "file": "MPlusRounded1C-regular",
         "ranges": ["hiragana", "kanbun", "katakana"]
+      },
+      {
+        "file": "NotoSansArabic-regular",
+        "ranges": ["arabic"]
+      },
+      {
+        "file": "NotoSansArmenian-regular",
+        "ranges": ["armenian"]
       },
       {
         "file": "NotoSansBengali-regular",
