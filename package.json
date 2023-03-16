@@ -25,7 +25,7 @@
     "start": "run-s clean-build sprites fonts serve",
     "serve": "node scripts/serve.js",
     "build:code": "node scripts/build.js",
-    "build": "run-s clean sprites fonts build:code taginfo status_map",
+    "build": "run-s clean-build sprites fonts build:code taginfo status_map",
     "test": "mocha",
     "shields": "node scripts/generate_shield_defs.js -o dist/shields.json",
     "stats": "node scripts/stats.js",
