@@ -12,6 +12,7 @@
     "Noto Sans Gurmukhi": ["regular", "700"],
     "Noto Sans Hebrew": ["regular", "700"],
     "Noto Sans Kannada": ["regular", "700"],
+    "Noto Sans Khmer": ["regular", "700"],
     "Noto Sans Lao": ["regular", "700"],
     "Noto Sans Malayalam": ["regular", "700"],
     "Noto Sans Myanmar": ["regular", "700"],
@@ -103,6 +104,7 @@
       [12448, 12543],
       [12784, 12799]
     ],
+    "khmer": [[6016, 6911]],
     "latin": [
       [33, 767],
       [7424, 7615],
@@ -170,6 +172,10 @@
       {
         "file": "NotoSansKannada-regular",
         "ranges": ["kannada"]
+      },
+      {
+        "file": "NotoSansKhmer-regular",
+        "ranges": ["khmer"]
       },
       {
         "file": "NotoSansLao-regular",
@@ -254,6 +260,10 @@
         "ranges": ["hebrew"]
       },
       {
+        "file": "NotoSansKhmer-700",
+        "ranges": ["khmer"]
+      },
+      {
         "file": "NotoSansLao-700",
         "ranges": ["lao"]
       },
@@ -322,6 +332,10 @@
       {
         "file": "NotoSansKannada-regular",
         "ranges": ["kannada"]
+      },
+      {
+        "file": "NotoSansKhmer-regular",
+        "ranges": ["khmer"]
       },
       {
         "file": "NotoSansLao-regular",
@@ -404,6 +418,10 @@
       {
         "file": "NotoSansKannada-700",
         "ranges": ["kannada"]
+      },
+      {
+        "file": "NotoSansKhmer-700",
+        "ranges": ["khmer"]
       },
       {
         "file": "NotoSansLao-700",
