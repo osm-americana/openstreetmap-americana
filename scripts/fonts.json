@@ -12,6 +12,7 @@
     "Noto Sans Georgian": ["regular", "700"],
     "Noto Sans Gurmukhi": ["regular", "700"],
     "Noto Sans Hebrew": ["regular", "700"],
+    "Noto Rashi Hebrew": ["regular", "700"],
     "Noto Sans Kannada": ["regular", "700"],
     "Noto Sans Khmer": ["regular", "700"],
     "Noto Sans Lao": ["regular", "700"],
@@ -351,7 +352,7 @@
         "ranges": ["lao"]
       },
       {
-        "file": "NotoSansHebrew-regular",
+        "file": "NotoRashiHebrew-regular",
         "ranges": ["hebrew"]
       },
       {
@@ -437,7 +438,7 @@
         "ranges": ["lao"]
       },
       {
-        "file": "NotoSansHebrew-700",
+        "file": "NotoRashiHebrew-700",
         "ranges": ["hebrew"]
       },
       {
