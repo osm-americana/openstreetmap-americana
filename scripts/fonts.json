@@ -7,6 +7,7 @@
     "Noto Naskh Arabic": ["regular", "700"],
     "Noto Sans Armenian": ["regular", "700"],
     "Noto Sans Bengali": ["regular", "700"],
+    "Noto Sans Canadian Aboriginal": ["regular", "700"],
     "Noto Sans Devanagari": ["regular", "700"],
     "Noto Sans Ethiopic": ["regular", "600"],
     "Noto Sans Georgian": ["regular", "700"],
@@ -152,6 +153,10 @@
         "ranges": ["bengali"]
       },
       {
+        "file": "NotoSansCanadianAboriginal-regular",
+        "ranges": ["canadian_aboriginal"]
+      },
+      {
         "file": "NotoSansDevanagari-regular",
         "ranges": ["devanagari"]
       },
@@ -236,6 +241,10 @@
       {
         "file": "NotoSansBengali-700",
         "ranges": ["bengali"]
+      },
+      {
+        "file": "NotoSansCanadianAboriginal-700",
+        "ranges": ["canadian_aboriginal"]
       },
       {
         "file": "NotoSansDevanagari-700",
@@ -324,6 +333,10 @@
         "ranges": ["bengali"]
       },
       {
+        "file": "NotoSansCanadianAboriginal-regular",
+        "ranges": ["canadian_aboriginal"]
+      },
+      {
         "file": "NotoSansDevanagari-regular",
         "ranges": ["devanagari"]
       },
@@ -408,6 +421,10 @@
       {
         "file": "NotoSansBengali-700",
         "ranges": ["bengali"]
+      },
+      {
+        "file": "NotoSansCanadianAboriginal-700",
+        "ranges": ["canadian_aboriginal"]
       },
       {
         "file": "NotoSansDevanagari-700",
