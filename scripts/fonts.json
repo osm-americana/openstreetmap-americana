@@ -19,6 +19,7 @@
     "Noto Sans Lao": ["regular", "700"],
     "Noto Sans Malayalam": ["regular", "700"],
     "Noto Sans Myanmar": ["regular", "700"],
+    "Noto Sans Sinhala": ["regular", "700"],
     "Noto Sans Tamil": ["regular", "700"],
     "Noto Sans Thaana": ["regular", "700"],
     "Noto Serif Tibetan": ["regular", "700"],
@@ -124,6 +125,7 @@
     ],
     "lao": [[3712, 3839]],
     "malayalam": [[3328, 3455]],
+    "sinhala": [[3456, 3583]],
     "space": [[32, 32]],
     "tamil": [[2944, 3071]],
     "telugu": [[3072, 3199]],
@@ -197,6 +199,10 @@
       {
         "file": "NotoSansMyanmar-regular",
         "ranges": ["burmese"]
+      },
+      {
+        "file": "NotoSansSinhala-regular",
+        "ranges": ["sinhala"]
       },
       {
         "file": "NotoSansTamil-regular",
@@ -293,6 +299,10 @@
         "ranges": ["burmese"]
       },
       {
+        "file": "NotoSansSinhala-700",
+        "ranges": ["sinhala"]
+      },
+      {
         "file": "NotoSansTamil-700",
         "ranges": ["tamil"]
       },
@@ -387,6 +397,10 @@
         "ranges": ["burmese"]
       },
       {
+        "file": "NotoSansSinhala-regular",
+        "ranges": ["sinhala"]
+      },
+      {
         "file": "NotoSansTamil-regular",
         "ranges": ["tamil"]
       },
@@ -479,6 +493,10 @@
       {
         "file": "NotoSansMyanmar-700",
         "ranges": ["burmese"]
+      },
+      {
+        "file": "NotoSansSinhala-700",
+        "ranges": ["sinhala"]
       },
       {
         "file": "NotoSansTamil-700",
