@@ -21,6 +21,7 @@
     "Noto Sans Myanmar": ["regular", "700"],
     "Noto Sans Tamil": ["regular", "700"],
     "Noto Sans Thaana": ["regular", "700"],
+    "Noto Serif Tibetan": ["regular", "700"],
     "Noto Sans Tifinagh": ["regular"],
     "Noto Sans Telugu": ["regular", "700"],
     "Noto Sans Thai": ["regular", "700"]
@@ -127,6 +128,7 @@
     "tamil": [[2944, 3071]],
     "telugu": [[3072, 3199]],
     "thaana": [[1920, 1983]],
+    "tibetan": [[3840, 4095]],
     "tifinagh": [[11568, 11631]],
     "thai": [[3584, 3711]]
   },
@@ -211,6 +213,10 @@
       {
         "file": "NotoSansThai-regular",
         "ranges": ["thai"]
+      },
+      {
+        "file": "NotoSerifTibetan-regular",
+        "ranges": ["tibetan"]
       },
       {
         "file": "NotoSansTifinagh-regular",
@@ -303,6 +309,10 @@
         "ranges": ["thai"]
       },
       {
+        "file": "NotoSerifTibetan-700",
+        "ranges": ["tibetan"]
+      },
+      {
         "file": "NotoSansTifinagh-regular",
         "ranges": ["tifinagh"]
       },
@@ -393,6 +403,10 @@
         "ranges": ["thai"]
       },
       {
+        "file": "NotoSerifTibetan-regular",
+        "ranges": ["tibetan"]
+      },
+      {
         "file": "NotoSansTifinagh-regular",
         "ranges": ["tifinagh"]
       },
@@ -481,6 +495,10 @@
       {
         "file": "NotoSansThai-700",
         "ranges": ["thai"]
+      },
+      {
+        "file": "NotoSerifTibetan-700",
+        "ranges": ["tibetan"]
       },
       {
         "file": "NotoSansTifinagh-regular",
