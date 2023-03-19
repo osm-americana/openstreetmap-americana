@@ -11,6 +11,7 @@
     "Noto Sans Devanagari": ["regular", "700"],
     "Noto Sans Ethiopic": ["regular", "600"],
     "Noto Sans Georgian": ["regular", "700"],
+    "Noto Sans Gujarati": ["regular", "700"],
     "Noto Sans Gurmukhi": ["regular", "700"],
     "Noto Sans Hebrew": ["regular", "700"],
     "Noto Rashi Hebrew": ["regular", "700"],
@@ -85,6 +86,7 @@
       [11520, 11567]
     ],
     "gurmukhi": [[2560, 2687]],
+    "gujarati": [[2688, 2751]],
     "han": [
       [11904, 12031],
       [12032, 12245],
@@ -173,6 +175,10 @@
       {
         "file": "NotoSansGeorgian-regular",
         "ranges": ["georgian"]
+      },
+      {
+        "file": "NotoSansGujarati-regular",
+        "ranges": ["gujarati"]
       },
       {
         "file": "NotoSansGurmukhi-regular",
@@ -277,6 +283,10 @@
         "ranges": ["georgian"]
       },
       {
+        "file": "NotoSansGujarati-700",
+        "ranges": ["gujarati"]
+      },
+      {
         "file": "NotoSansGurmukhi-700",
         "ranges": ["gurmukhi"]
       },
@@ -379,6 +389,10 @@
         "ranges": ["georgian"]
       },
       {
+        "file": "NotoSansGujarati-regular",
+        "ranges": ["gujarati"]
+      },
+      {
         "file": "NotoSansGurmukhi-regular",
         "ranges": ["gurmukhi"]
       },
@@ -479,6 +493,10 @@
       {
         "file": "NotoSansGeorgian-700",
         "ranges": ["georgian"]
+      },
+      {
+        "file": "NotoSansGujarati-700",
+        "ranges": ["gujarati"]
       },
       {
         "file": "NotoSansGurmukhi-700",
