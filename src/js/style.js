@@ -4,8 +4,7 @@ import * as Layers from "../layer/index.js";
 export function build(tileURL, spriteURL, locales) {
   return {
     name: "Americana",
-    glyphs:
-      "https://openhistoricalmap.github.io/map-styles/fonts/{fontstack}/{range}.pbf",
+    glyphs: "/fonts/{fontstack}/{range}.pbf",
     layers: Layers.build(locales),
     sources: {
       openmaptiles: {
