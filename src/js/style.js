@@ -4,7 +4,8 @@ import * as Layers from "../layer/index.js";
 export function build(tileURL, spriteURL, locales) {
   return {
     name: "Americana",
-    glyphs: "fonts/{fontstack}/{range}.pbf",
+    glyphs:
+      "https://zelonewolf.github.io/openstreetmap-americana/fonts/{fontstack}/{range}.pbf",
     layers: Layers.build(locales),
     sources: {
       openmaptiles: {
