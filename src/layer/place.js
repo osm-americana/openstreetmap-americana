@@ -54,7 +54,7 @@ export const village = {
     ],
   ],
   layout: {
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": {
       base: 1.0,
       stops: [
@@ -117,7 +117,7 @@ export const town = {
     ],
   ],
   layout: {
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": {
       base: 1.2,
       stops: [
@@ -176,7 +176,7 @@ export const city = {
     ],
   ],
   layout: {
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": {
       base: 1.2,
       stops: [
@@ -237,7 +237,7 @@ export const state = {
   },
   filter: ["==", ["get", "class"], "state"],
   layout: {
-    "text-font": ["OpenHistorical"],
+    "text-font": ["Americana-Regular"],
     "text-size": {
       base: 1.2,
       stops: [
@@ -281,7 +281,7 @@ export const countryOther = {
     ["!", ["has", "iso_a2"]],
   ],
   layout: {
-    "text-font": ["OpenHistorical"],
+    "text-font": ["Americana-Regular"],
     "text-size": {
       stops: [
         [3, 9],
@@ -311,7 +311,7 @@ export const country3 = {
     ["has", "iso_a2"],
   ],
   layout: {
-    "text-font": ["OpenHistorical"],
+    "text-font": ["Americana-Regular"],
     "text-size": {
       stops: [
         [3, 11],
@@ -341,7 +341,7 @@ export const country2 = {
     ["has", "iso_a2"],
   ],
   layout: {
-    "text-font": ["OpenHistorical"],
+    "text-font": ["Americana-Regular"],
     "text-size": {
       stops: [
         [2, 11],
@@ -381,7 +381,7 @@ export const country1 = {
     ["has", "iso_a2"],
   ],
   layout: {
-    "text-font": ["OpenHistorical"],
+    "text-font": ["Americana-Regular"],
     "text-size": {
       stops: [
         [1, 11],
@@ -414,7 +414,7 @@ export const continent = {
   },
   filter: ["==", ["get", "class"], "continent"],
   layout: {
-    "text-font": ["OpenHistorical"],
+    "text-font": ["Americana-Regular"],
     "text-size": 13,
     "text-field": Label.localizedName,
     "text-justify": "center",

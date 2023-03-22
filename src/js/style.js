@@ -5,7 +5,7 @@ export function build(tileURL, spriteURL, locales) {
   return {
     name: "Americana",
     glyphs:
-      "https://openhistoricalmap.github.io/map-styles/fonts/{fontstack}/{range}.pbf",
+      "https://zelonewolf.github.io/openstreetmap-americana/fonts/{fontstack}/{range}.pbf",
     layers: Layers.build(locales),
     sources: {
       openmaptiles: {

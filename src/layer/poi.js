@@ -97,7 +97,7 @@ export const poi = {
     ],
   ],
   layout: {
-    "text-font": ["OpenHistorical"],
+    "text-font": ["Americana-Regular"],
     "icon-optional": false,
     "text-size": {
       base: 1.0,
