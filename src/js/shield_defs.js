@@ -828,8 +828,7 @@ export function loadShields() {
   shields["CA:NL"] = roundedRectShield(
     Color.shields.white,
     Color.shields.green,
-    Color.shields.black,
-    26
+    Color.shields.black
   );
 
   // Nova Scotia
