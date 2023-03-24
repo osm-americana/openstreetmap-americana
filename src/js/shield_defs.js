@@ -1480,6 +1480,7 @@ export function loadShields() {
   shields["US:DC"] = {
     spriteBlank: "shield_us_dc",
     textColor: Color.shields.black,
+    textHaloColor: Color.shields.white,
     padding: {
       left: 2,
       right: 2,
