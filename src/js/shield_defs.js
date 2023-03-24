@@ -2447,7 +2447,6 @@ export function loadShields() {
     "GAL",
     "HAS",
     "HOC",
-    "HOL",
     "KNO",
     "LAW",
     "LIC",
@@ -2529,6 +2528,16 @@ export function loadShields() {
       bottom: 7,
     },
   };
+  shields["US:OH:HOL"] = {
+    spriteBlank: ["shield_us_oh_hol"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 3,
+      top: 2,
+      bottom: 2,
+    },
+  };
   shields["US:OH:SCI"] = {
     spriteBlank: ["shield_us_oh_sci_2", "shield_us_oh_sci_3"],
     textColor: Color.shields.black,
@@ -2566,12 +2575,6 @@ export function loadShields() {
     ["ASD", "TWP"],
     ["ATH", "Trimble"],
     ["FAI", "Violet"],
-    ["HOL", "Berlin"],
-    ["HOL", "Clark"],
-    ["HOL", "Knox"],
-    ["HOL", "Monroe"], // No black border in reality, but a border is needed for contrast.
-    ["HOL", "Paint"],
-    ["HOL", "Salt_Creek"],
     ["KNO", "Liberty"],
     ["KNO", "Milford"],
     ["LIC", "Jersey"],
