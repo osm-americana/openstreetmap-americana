@@ -280,7 +280,7 @@ export const countryLabelLeft = {
   },
   layout: {
     "symbol-placement": "line",
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": {
       stops: [
         [3, 6],

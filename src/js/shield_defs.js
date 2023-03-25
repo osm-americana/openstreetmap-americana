@@ -819,6 +819,13 @@ export function loadShields() {
     colorLighten: Color.shields.green,
   };
 
+  // Newfoundland and Labrador
+  shields["CA:NL"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.green,
+    Color.shields.black
+  );
+
   // Nova Scotia
   shields["CA:NS:H"] = {
     spriteBlank: "shield_ca_ns_h",
@@ -1475,6 +1482,7 @@ export function loadShields() {
   shields["US:DC"] = {
     spriteBlank: "shield_us_dc",
     textColor: Color.shields.black,
+    textHaloColor: Color.shields.white,
     padding: {
       left: 2,
       right: 2,
@@ -1799,13 +1807,7 @@ export function loadShields() {
   };
 
   // Michigan
-  shields["US:MI"] = diamondShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    24
-  );
+  shields["US:MI"] = diamondShield(Color.shields.white, Color.shields.black);
   ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
     (county) =>
       (shields[`US:MI:${county}`] = pentagonUpShield(

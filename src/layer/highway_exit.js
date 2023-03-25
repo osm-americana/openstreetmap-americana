@@ -15,7 +15,7 @@ export const exits = {
   minzoom: 14,
   layout: {
     "text-field": Label.listValuesExpression(["get", "ref"], "\n"),
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 9,
     "text-line-height": 1,
   },
