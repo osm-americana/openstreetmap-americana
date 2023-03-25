@@ -1812,13 +1812,7 @@ export function loadShields() {
   };
 
   // Michigan
-  shields["US:MI"] = diamondShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    24
-  );
+  shields["US:MI"] = diamondShield(Color.shields.white, Color.shields.black);
   ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
     (county) =>
       (shields[`US:MI:${county}`] = pentagonUpShield(
