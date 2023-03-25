@@ -127,7 +127,7 @@ export function localizeLayers(layers, locales) {
         // Neither the upcase expression operator nor the text-transform layout property is locale-aware, so uppercase the name upfront.
         ?.toLocaleUpperCase(locales)
         // Word boundaries are less discernible in uppercase text, so pad each word by an additional space.
-        .replaceAll(" ", "  "),
+        .replaceAll(" ", "  ") ?? null,
     ])
   );
   Object.assign(countryNamesByCode, localizedCountryNamesByCode);

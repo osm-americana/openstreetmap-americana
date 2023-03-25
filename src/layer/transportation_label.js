@@ -80,8 +80,8 @@ export const label = {
     "text-font": [
       ...classSelector,
       ["ferry", "aerialway"],
-      ["literal", ["OpenHistorical Italic"]],
-      ["literal", ["OpenHistorical"]],
+      ["literal", ["Americana-Italic"]],
+      ["literal", ["Americana-Regular"]],
     ],
     "text-field": [...Label.localizedNameInline],
     "text-max-angle": 20,

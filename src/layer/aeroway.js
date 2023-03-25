@@ -15,8 +15,8 @@ const iconLayout = {
     "match",
     ["get", "class"],
     "military",
-    "poi\nsprite=poi_military_plane\ncolor=" + Color.poi.transport,
-    "poi\nsprite=poi_plane\ncolor=" + Color.poi.transport,
+    "poi\nsprite=poi_military_plane\ncolor=" + Color.poi.airport,
+    "poi\nsprite=poi_plane\ncolor=" + Color.poi.airport,
   ],
   "text-anchor": "bottom",
   "text-variable-anchor": [
@@ -169,7 +169,7 @@ export const airportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
     ...iconLayout,
   },
@@ -193,7 +193,7 @@ export const minorAirportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
@@ -216,7 +216,7 @@ export const airportLabel = {
   layout: {
     visibility: "visible",
     "text-field": Label.localizedName,
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
     ...iconLayout,
   },
@@ -239,7 +239,7 @@ export const minorAirportLabel = {
   layout: {
     visibility: "visible",
     "text-field": Label.localizedName,
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
@@ -260,7 +260,7 @@ export const airportGate = {
   layout: {
     visibility: "visible",
     "text-field": ["get", "ref"],
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
