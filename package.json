@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/zelonewolf/openstreetmap-americana.git"
   },
+  "workspaces": [
+    "shieldlib"
+  ],
   "scripts": {
     "build:shieldlib": "cd shieldlib && node scripts/build.js",
     "build:code": "exec ts-node scripts/build",

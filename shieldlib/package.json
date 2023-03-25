@@ -48,5 +48,8 @@
   "dependencies": {
     "color-rgba": "^2.4.0",
     "maplibre-gl": "^2.4.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }
