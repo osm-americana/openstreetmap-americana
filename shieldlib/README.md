@@ -291,8 +291,9 @@ If `shapeBlank` is specified, the shield will be drawn as a shape. This needs to
 
 The following `params` options can be specified:
 
-- `angle` - applies to several shape types, indicates the key angle in degrees.
+- `angle` - indicates angle (in degrees) at which side edges deviate from vertical. Applies to `trapezoid`, `pentagon`, `hexagonHorizontal`, `octagonVertical`.
 - `fill` - specifies the internal fill color.
+- `offset` - indicates height (in pixels) at which the bottom and/or top edges deviate from horizontal. Applies to `escutcheon`, `pentagon`, `hexagonVertical`, `octagonVertical`.
 - `outline` - specifies the outline color.
 - `outlineWidth` - specifies the width of the outline.
 - `pointUp` - applies to several shape types and specifies whether the pointy side is up.
