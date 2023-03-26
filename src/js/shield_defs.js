@@ -4256,6 +4256,8 @@ export function loadShields() {
     options: {
       bannerTextColor: Color.palette.black,
       bannerTextHaloColor: Color.backgroundFill,
+      bannerHeight: 9,
+      bannerPadding: 1,
       shieldFont: '"sans-serif-condensed", "Arial Narrow", sans-serif',
       shieldSize: 20,
     },

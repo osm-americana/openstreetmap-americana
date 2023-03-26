@@ -1,7 +1,6 @@
 "use strict";
 
 import * as Gfx from "./screen_gfx.js";
-import * as Shield from "./shield.js";
 
 const VerticalAlignment = {
   Middle: "middle",
@@ -245,9 +244,17 @@ function configureShieldText(r, ctx, textLayout) {
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
 export function drawBannerText(r, ctx, text, bannerIndex) {
-  var textLayout = layoutShieldTextFromDef(r, text, null, {
+  const bannerPadding = {
+    padding: {
+      top: r.options.bannerPadding,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
+  };
+  var textLayout = layoutShieldTextFromDef(r, text, bannerPadding, {
     width: ctx.canvas.width,
-    height: Shield.bannerSizeH - Shield.bannerPadding,
+    height: r.options.bannerHeight - r.options.bannerPadding,
   });
 
   ctx.fillStyle = r.options.bannerTextColor;
@@ -260,8 +267,8 @@ export function drawBannerText(r, ctx, text, bannerIndex) {
     text,
     textLayout.xBaseline,
     textLayout.yBaseline +
-      bannerIndex * Shield.bannerSizeH -
-      Shield.bannerPadding
+      bannerIndex * r.options.bannerHeight -
+      r.options.bannerPadding
   );
 }
 
@@ -274,13 +281,19 @@ export function drawBannerText(r, ctx, text, bannerIndex) {
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
 export function drawBannerHaloText(r, ctx, text, bannerIndex) {
-  //FIX
-  var textLayout = layoutShieldTextFromDef(r, text, null, {
+  const bannerPadding = {
+    padding: {
+      top: r.options.bannerPadding,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
+  };
+  var textLayout = layoutShieldTextFromDef(r, text, bannerPadding, {
     width: ctx.canvas.width,
-    height: Shield.bannerSizeH - Shield.bannerPadding,
+    height: r.options.bannerHeight - r.options.bannerPadding,
   });
 
-  //TODO - pass backgroundFill as a parameter
   ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
   ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
   ctx.textBaseline = "top";
@@ -292,9 +305,10 @@ export function drawBannerHaloText(r, ctx, text, bannerIndex) {
     text,
     textLayout.xBaseline,
     textLayout.yBaseline +
-      bannerIndex * Shield.bannerSizeH -
-      Shield.bannerPadding
+      bannerIndex * r.options.bannerHeight -
+      r.options.bannerPadding
   );
+
   ctx.shadowColor = null;
   ctx.shadowBlur = null;
 }

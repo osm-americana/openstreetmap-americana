@@ -81,6 +81,8 @@ The structure is as follows:
 ```json
 {
     "options": {
+      "bannerHeight": 9,
+      "bannerPadding": 1,
       "bannerTextColor": "black",
       "bannerTextHaloColor": "white",
       "shieldFont": "sans-serif-condensed, 'Arial Narrow', sans-serif",
@@ -96,6 +98,8 @@ The structure is as follows:
 
 The options block contains global parameters that apply across all shield drawing:
 
+- **`bannerHeight`**: height of each text banner
+- **`bannerPadding`**: padding between each banner
 - **`bannerTextColor`**: color to draw text banners above the shield
 - **`bannerTextHaloColor`**: color to draw an outline around the text banner
 - **`shieldFont`**: font to use for shield text and banners

@@ -48,6 +48,8 @@ export interface ShieldDefinitions {
 export interface DebugOptions {}
 
 export interface ShieldOptions {
+  bannerHeight: number;
+  bannerPadding: number;
   bannerTextColor: string;
   bannerTextHaloColor: string;
   shieldFont: string;

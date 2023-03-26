@@ -4,9 +4,6 @@ import * as ShieldText from "./shield_text.mjs";
 import * as ShieldDraw from "./shield_canvas_draw.mjs";
 import * as Gfx from "./screen_gfx.js";
 
-//Height of modifier banners
-export const bannerSizeH = 9;
-
 function drawBannerPart(r, ctx, shieldDef, drawFunc) {
   if (shieldDef == null || typeof shieldDef.banners == "undefined") {
     return ctx; //Unadorned shield
@@ -22,7 +19,9 @@ function drawBannerPart(r, ctx, shieldDef, drawFunc) {
 function compoundShieldSize(r, dimension, bannerCount) {
   return {
     width: dimension.width,
-    height: dimension.height + bannerCount * r.px(bannerSizeH),
+    height:
+      dimension.height +
+      bannerCount * r.px(r.options.bannerHeight + r.options.bannerPadding),
   };
 }
 
@@ -103,7 +102,7 @@ function getDrawFunc(shieldDef) {
 
 function drawShield(r, ctx, shieldDef, routeDef) {
   let bannerCount = getBannerCount(shieldDef);
-  let yOffset = bannerCount * r.px(bannerSizeH);
+  let yOffset = bannerCount * r.px(r.options.bannerHeight);
 
   //Shift canvas to draw shield below banner
   ctx.save();
@@ -125,7 +124,7 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(r, shieldDef, routeDef);
-  let yOffset = bannerCount * r.px(bannerSizeH);
+  let yOffset = bannerCount * r.px(r.options.bannerHeight);
 
   if (shieldArtwork == null) {
     ctx.translate(0, yOffset);
@@ -157,7 +156,7 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
     shieldBounds
   );
 
-  textLayout.yBaseline += bannerCount * r.px(bannerSizeH);
+  textLayout.yBaseline += bannerCount * r.px(r.options.bannerHeight);
 
   if (typeof r.options.SHIELD_TEXT_HALO_COLOR_OVERRIDE !== "undefined") {
     ctx.strokeStyle = options.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
@@ -175,7 +174,8 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
     ctx.lineWidth = r.px(1);
     ctx.strokeRect(
       r.px(shieldDef.padding.left - 0.5),
-      bannerCount * r.px(bannerSizeH) + r.px(shieldDef.padding.top - 0.5),
+      bannerCount * r.px(r.options.bannerHeight) +
+        r.px(shieldDef.padding.top - 0.5),
       shieldBounds.width -
         r.px(shieldDef.padding.left + shieldDef.padding.right - 1),
       shieldBounds.height -
@@ -345,7 +345,7 @@ export function generateShieldCtx(r, routeDef) {
     height = sourceSprite.data.height;
   }
 
-  let bannerHeight = bannerCount * r.px(bannerSizeH);
+  let bannerHeight = bannerCount * r.px(r.options.bannerHeight);
   height += bannerHeight;
 
   //Generate empty canvas sized to the graphic
