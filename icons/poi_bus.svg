@@ -1,8 +1,5 @@
 <svg width="17" height="19" xmlns="http://www.w3.org/2000/svg">
- <path d="m3 0.5h11c1.5 0 2.5 1 2.5 2.5v10c0 1.5-1 2.5-2.5 2.5h-11c-1.5 0-2.5-1-2.5-2.5v-10c0-1.5 1-2.5 2.5-2.5z" stroke="#fff"/>
- <path d="m2.5 15.5v1.5s0 1.5 1.5 1.5 1.5-1.5 1.5-1.5v-1.5z" stroke="#fff"/>
- <path d="m11.5 15.5v1.5s0 1.5 1.5 1.5 1.5-1.5 1.5-1.5v-1.5z" stroke="#fff"/>
+ <path d="M3 .5h11c1.5 0 2.5 1 2.5 2.5v10c0 1.5-1 2.5-2.5 2.5h-11c-1.5 0-2.5-1-2.5-2.5v-10c0-1.5 1-2.5 2.5-2.5zM2.5 15.5v1.5s0 1.5 1.5 1.5 1.5-1.5 1.5-1.5v-1.5zM11.5 15.5v1.5s0 1.5 1.5 1.5 1.5-1.5 1.5-1.5v-1.5z" stroke="#fff"/>
  <path d="m4 2.5h9c1 0 1.5 0.5 1.5 1.5v3c0 1-0.5 1.5-1.5 1.5h-9c-1 0-1.5-0.5-1.5-1.5v-3c0-1 0.5-1.5 1.5-1.5z" fill="#fff" stroke="#fff"/>
- <path d="m2.5 10.5v0.5c0 1 0.5 1.5 1.5 1.5h3z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
- <path d="m14.5 10.5v0.5c0 1-0.5 1.5-1.5 1.5h-3z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M2.5 10.5v.5c0 1 .5 1.5 1.5 1.5h3zM14.5 10.5v.5c0 1-.5 1.5-1.5 1.5h-3z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
