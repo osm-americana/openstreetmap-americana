@@ -11,6 +11,12 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Bar or pub",
   },
+  bus: {
+    subclasses: ["bus_station", "bus_stop"],
+    sprite: "poi_bus",
+    color: Color.poi.transport,
+    description: "Bus station or stop",
+  },
   coffee: {
     classes: {
       cafe: ["cafe"],
@@ -43,6 +49,12 @@ var iconDefs = {
     sprite: "poi_p",
     color: Color.poi.infrastructure,
     description: "Parking",
+  },
+  railway: {
+    subclasses: ["station", "halt", "tram_stop", "subway"],
+    sprite: "poi_rail",
+    color: Color.poi.transport,
+    description: "Train station, tram or subway stop",
   },
   school: {
     classes: {
@@ -105,6 +117,8 @@ export const poi = {
       ["get", "subclass"],
       [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
       Color.poi.consumer,
+      [...iconDefs.bus.subclasses, ...iconDefs.railway.subclasses],
+      Color.poi.transport,
       ["hospital", "parking", "school"],
       Color.poi.infrastructure,
       Color.poi.infrastructure,
@@ -118,7 +132,12 @@ export const poi = {
       ["get", "subclass"],
       ["hospital", ...getSubclasses(iconDefs.school)],
       15,
-      [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
+      [
+        ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.bus),
+        ...getSubclasses(iconDefs.coffee),
+        ...getSubclasses(iconDefs.railway),
+      ],
       16,
       ["clinic", "doctors", "parking"],
       17,
