@@ -29,7 +29,8 @@ export function buildStyle() {
   var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
   return Style.build(
     config.OPENMAPTILES_URL,
-    new URL("sprites/sprite", baseUrl).href,
+    `${baseUrl}/sprites/sprite`,
+    `${baseUrl}/fonts/{fontstack}/{range}.pbf`,
     Label.getLocales()
   );
 }
