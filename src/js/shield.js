@@ -379,13 +379,6 @@ export function generateShieldCtx(map, id) {
   //Generate empty canvas sized to the graphic
   let ctx = Gfx.getGfxContext({ width, height });
 
-  if (
-    routeDef.network.startsWith("AU:") ||
-    routeDef.network.startsWith("NZ:")
-  ) {
-    ctx.setTransform(-1, 0, 0, -1, width, height);
-  }
-
   // Convert numbering systems. Normally alternative numbering systems should be
   // tagged directly in ref=*, but some shields use different numbering systems
   // for aesthetic reasons only.
