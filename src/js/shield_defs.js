@@ -445,6 +445,55 @@ function homePlateDownShield(
 }
 
 /**
+ * Draws a shield with a home plate background, pointed upward
+ *
+ * @param {*} offset - Height of diagonal edges
+ * @param {*} fillColor - Color of home plate background fill
+ * @param {*} strokeColor - Color of home plate outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} radius1 - Corner radius of pointed side of home plate (defaults to 2)
+ * @param {*} radius2 - Corner radius of flat side of home plate (defaults to 2)
+ * @param {*} rectWidth - Width of home plate (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function homePlateUpShield(
+  offset,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius1,
+  radius2,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius1 = radius1 ?? 2;
+  radius2 = radius2 ?? 2;
+  return {
+    canvasDrawnBlank: {
+      drawFunc: "pentagon",
+      params: {
+        pointUp: true,
+        offset: offset,
+        angle: 0,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius1: radius1,
+        radius2: radius2,
+        rectWidth: rectWidth,
+      },
+    },
+    textLayout: roundedRectTextConstraint(radius2),
+    padding: {
+      left: 2,
+      right: 2,
+      top: 1 + offset,
+      bottom: 2,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
  * Draws a shield with a vertically-aligned hexagon background
  *
  * @param {*} offset - Height of diagonal edges
@@ -3158,6 +3207,11 @@ export function loadShields() {
     Color.shields.black
   );
   shields["US:WV:County"] = pillShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+  shields["US:WV:HARP"] = homePlateUpShield(
+    5,
     Color.shields.white,
     Color.shields.black
   );
