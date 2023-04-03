@@ -63,6 +63,26 @@ function roundedRectTextConstraint(spaceBounds, textBounds, options) {
   );
 }
 
+function diamondTextConstraint(spaceBounds, textBounds) {
+  let a = spaceBounds.width;
+  let b = spaceBounds.height;
+
+  let x0 = textBounds.width;
+  let y0 = textBounds.height;
+
+  return {
+    scale: (a * b) / (b * x0 + a * y0),
+    valign: VerticalAlignment.Middle,
+  };
+}
+
+function triangleDownTextConstraint(spaceBounds, textBounds) {
+  return {
+    scale: diamondTextConstraint(spaceBounds, textBounds).scale,
+    valign: VerticalAlignment.Top,
+  };
+}
+
 /**
  * Determines the position and font size to draw text so that it fits within
  * a bounding box.
@@ -337,7 +357,9 @@ function registerDrawTextFunction(name, fxn) {
 }
 
 //Built-in draw functions (standard shapes)
+registerDrawTextFunction("diamond", diamondTextConstraint);
 registerDrawTextFunction("ellipse", ellipseTextConstraint);
 registerDrawTextFunction("rect", rectTextConstraint);
 registerDrawTextFunction("roundedRect", roundedRectTextConstraint);
 registerDrawTextFunction("southHalfEllipse", southHalfEllipseTextConstraint);
+registerDrawTextFunction("triangleDown", triangleDownTextConstraint);
