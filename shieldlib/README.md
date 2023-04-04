@@ -17,23 +17,23 @@ Rendering shields requires the following compoments:
    1. The `ref` string, which defines a text sequence that should be drawn on top of the shield graphic
    1. The `name` string, which defines a name, separate from the ref, that is used to determine which graphic to draw
 
-```typescript
-let routeParser = {
-  //format is `shield|${network}=${ref}|${name}`
-  parse: (id: string) => {
-    let id_parts = id.split("|");
-    let network_ref = id_parts[1].split("=");
+    ```typescript
+    let routeParser = {
+      //format is `shield|${network}=${ref}|${name}`
+      parse: (id: string) => {
+        let id_parts = id.split("|");
+        let network_ref = id_parts[1].split("=");
 
-    return {
-      network: network_ref[0],
-      ref: network_ref[1],
-      name: id_parts[2],
+        return {
+          network: network_ref[0],
+          ref: network_ref[1],
+          name: id_parts[2],
+        };
+      },
+      format: (network: string, ref: string, name: string) =>
+        `shield|${network}=${ref}|${name}`,
     };
-  },
-  format: (network: string, ref: string, name: string) =>
-    `shield|${network}=${ref}|${name}`,
-};
-```
+    ```
 
 4. **(Optional) Create predicates that define which shields will be handled**. For example, if all sprite IDs in your style that need a shield begin with the string `shield|`, this would look like:
 
