@@ -53,19 +53,19 @@ let networkPredicate = (network: string) => !/^[lrni][chimpw]n$/.test(network);
 
 6. **Hook up the shield generator to a maplibre-gl-js map**. Pass either the URL of the JSON shield definition or create an object in javascript code. There are two separate classes for each approach.
 
-```typescript
-new URLShieldRenderer("shields.json", routeParser)
-  .filterImageID(shieldPredicate)
-  .filterNetwork(networkPredicate)
-  .renderOnMaplibreGL(map);
-```
+    ```typescript
+    new URLShieldRenderer("shields.json", routeParser)
+      .filterImageID(shieldPredicate)
+      .filterNetwork(networkPredicate)
+      .renderOnMaplibreGL(map);
+    ```
 
-```typescript
-new ShieldRenderer(shields, routeParser)
-  .filterImageID(shieldPredicate)
-  .filterNetwork(networkPredicate)
-  .renderOnMaplibreGL(map);
-```
+    ```typescript
+    new ShieldRenderer(shields, routeParser)
+      .filterImageID(shieldPredicate)
+      .filterNetwork(networkPredicate)
+      .renderOnMaplibreGL(map);
+    ```
 
 ## Shield Definition
 
