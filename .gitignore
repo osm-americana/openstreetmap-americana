@@ -4,11 +4,6 @@ build
 .DS_Store
 config.js
 .parcel-cache
-dist/
-dist-shieldjs/
-download/
-src/local.config.js
-shieldlib/dist
-shieldlib/node_modules
-download/
+dist
+download
 local.config.js
