@@ -469,7 +469,7 @@ function homePlateUpShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "pentagon",
       params: {
         pointUp: true,
