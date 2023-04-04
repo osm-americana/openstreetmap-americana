@@ -38,17 +38,18 @@ Rendering shields requires the following compoments:
 
 4. **(Optional) Create predicates that define which shields will be handled**. For example, if all sprite IDs in your style that need a shield begin with the string `shield|`, this would look like:
 
-    ```typescript
-    let shieldPredicate = (imageID: string) => imageID.startsWith("shield");
-    ```
+   ```typescript
+   let shieldPredicate = (imageID: string) => imageID.startsWith("shield");
+   ```
 
-    This step can be skipped if all unhandled image IDs are shields.
+   This step can be skipped if all unhandled image IDs are shields.
 
-    Additionally, you can specify which networks will be handled. The example below ignores all `nwn`, `lwn`, `ncn`, etc. network values:
+   Additionally, you can specify which networks will be handled. The example below ignores all `nwn`, `lwn`, `ncn`, etc. network values:
 
-    ```typescript
-    let networkPredicate = (network: string) => !/^[lrni][chimpw]n$/.test(network);
-    ```
+   ```typescript
+   let networkPredicate = (network: string) =>
+     !/^[lrni][chimpw]n$/.test(network);
+   ```
 
 5. **Create shield definitions and artwork**. The shield definition is expressed as a JSON file along with a set of sprites containing any raster artwork used for the shields. It can be generated as an object or hosted as a JSON file accessible by URL. See the next section for how to create this definition.
 
