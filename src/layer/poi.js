@@ -29,7 +29,8 @@ var iconDefs = {
   },
   medical: {
     classes: {
-      hospital: ["doctors", "clinic"],
+      hospital: ["clinic"],
+      doctors: ["doctors"],
     },
     sprite: "poi_health_cross",
     color: Color.poi.infrastructure,
