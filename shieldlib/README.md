@@ -272,10 +272,12 @@ Not all constraints are center-specified. For example, the `southHalfEllipse` co
 
 The supported text constraints are:
 
+- `diamond`
 - `ellipse`
 - `rect`
 - `roundedRect`
 - `southHalfEllipse`
+- `triangleDown`
 
 ### Defining drawn shield shapes
 
