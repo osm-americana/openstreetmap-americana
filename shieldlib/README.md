@@ -13,27 +13,28 @@ Rendering shields requires the following compoments:
 2. **Expose shield information in a style layer**. Next, route information must be exposed in a maplibre expression using [image](https://maplibre.org/maplibre-gl-js-docs/style-spec/expressions/#types-image) in a structured string containing the route information. For example, you might encode Interstate 95 as an image named `shield|US:I=95`. Normally, the image expression is used to point to pre-designated sprites in a sprite sheet, but in this case, we're pointing to a sprite which doesn't exist called `shield|US:I=95`. This will trigger a `styleimagemissing` event which allows the shield renderer to create the required graphic on the fly. As an example of how to encode shield information, see OSM Americana's [`highway_shield`](https://github.com/ZeLonewolf/openstreetmap-americana/blob/main/src/layer/highway_shield.js) style layer.
 
 3. **Define a parser that describes how route information is encoded**. There are three parts to a route definition:
+
    1. The `network` string, which defines a network with a common shield shape, graphic, and color
    1. The `ref` string, which defines a text sequence that should be drawn on top of the shield graphic
    1. The `name` string, which defines a name, separate from the ref, that is used to determine which graphic to draw
 
-    ```typescript
-    let routeParser = {
-      //format is `shield|${network}=${ref}|${name}`
-      parse: (id: string) => {
-        let id_parts = id.split("|");
-        let network_ref = id_parts[1].split("=");
+   ```typescript
+   let routeParser = {
+     //format is `shield|${network}=${ref}|${name}`
+     parse: (id: string) => {
+       let id_parts = id.split("|");
+       let network_ref = id_parts[1].split("=");
 
-        return {
-          network: network_ref[0],
-          ref: network_ref[1],
-          name: id_parts[2],
-        };
-      },
-      format: (network: string, ref: string, name: string) =>
-        `shield|${network}=${ref}|${name}`,
-    };
-    ```
+       return {
+         network: network_ref[0],
+         ref: network_ref[1],
+         name: id_parts[2],
+       };
+     },
+     format: (network: string, ref: string, name: string) =>
+       `shield|${network}=${ref}|${name}`,
+   };
+   ```
 
 4. **(Optional) Create predicates that define which shields will be handled**. For example, if all sprite IDs in your style that need a shield begin with the string `shield|`, this would look like:
 
@@ -53,19 +54,19 @@ let networkPredicate = (network: string) => !/^[lrni][chimpw]n$/.test(network);
 
 6. **Hook up the shield generator to a maplibre-gl-js map**. Pass either the URL of the JSON shield definition or create an object in javascript code. There are two separate classes for each approach.
 
-    ```typescript
-    new URLShieldRenderer("shields.json", routeParser)
-      .filterImageID(shieldPredicate)
-      .filterNetwork(networkPredicate)
-      .renderOnMaplibreGL(map);
-    ```
+   ```typescript
+   new URLShieldRenderer("shields.json", routeParser)
+     .filterImageID(shieldPredicate)
+     .filterNetwork(networkPredicate)
+     .renderOnMaplibreGL(map);
+   ```
 
-    ```typescript
-    new ShieldRenderer(shields, routeParser)
-      .filterImageID(shieldPredicate)
-      .filterNetwork(networkPredicate)
-      .renderOnMaplibreGL(map);
-    ```
+   ```typescript
+   new ShieldRenderer(shields, routeParser)
+     .filterImageID(shieldPredicate)
+     .filterNetwork(networkPredicate)
+     .renderOnMaplibreGL(map);
+   ```
 
 ## Shield Definition
 
