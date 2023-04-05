@@ -11,11 +11,21 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Bar or pub",
   },
-  bus: {
-    subclasses: ["bus_station", "bus_stop"],
+  bus_station: {
+    classes: {
+      bus: ["bus_station"],
+    },
+    sprite: "poi_bus_circle",
+    color: Color.poi.transport,
+    description: "Bus station",
+  },
+  bus_stop: {
+    classes: {
+      bus: ["bus_stop"],
+    },
     sprite: "poi_bus",
     color: Color.poi.transport,
-    description: "Bus station or stop",
+    description: "Bus stop",
   },
   coffee: {
     classes: {
@@ -50,11 +60,21 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Parking",
   },
-  railway: {
-    subclasses: ["station", "halt", "tram_stop", "subway"],
+  railway_station: {
+    classes: {
+      railway: ["station", "subway"],
+    },
+    sprite: "poi_rail_circle",
+    color: Color.poi.transport,
+    description: "Train or subway station",
+  },
+  railway_stop: {
+    classes: {
+      railway: ["halt", "tram_stop"],
+    },
     sprite: "poi_rail",
     color: Color.poi.transport,
-    description: "Train station, tram or subway stop",
+    description: "Tram stop or train halt",
   },
   school: {
     classes: {
@@ -117,7 +137,12 @@ export const poi = {
       ["get", "subclass"],
       [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
       Color.poi.consumer,
-      [...iconDefs.bus.subclasses, ...iconDefs.railway.subclasses],
+      [
+        "bus_station",
+        "bus_stop",
+        ...getSubclasses(iconDefs.railway_station),
+        ...getSubclasses(iconDefs.railway_stop),
+      ],
       Color.poi.transport,
       ["hospital", "parking", "school"],
       Color.poi.infrastructure,
@@ -139,7 +164,8 @@ export const poi = {
         "halt",
         "hospital",
         "tram_stop",
-        ...getSubclasses(iconDefs.school)],
+        ...getSubclasses(iconDefs.school),
+      ],
       15,
       [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
       16,
