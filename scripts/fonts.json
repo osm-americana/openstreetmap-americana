@@ -8,6 +8,7 @@
     "Noto Sans Armenian": ["regular", "700"],
     "Noto Sans Bengali": ["regular", "700"],
     "Noto Sans Canadian Aboriginal": ["regular", "700"],
+    "Noto Sans Cherokee": ["regular", "700"],
     "Noto Sans Devanagari": ["regular", "700"],
     "Noto Sans Ethiopic": ["regular", "600"],
     "Noto Sans Georgian": ["regular", "700"],
@@ -61,6 +62,10 @@
       [6928, 6975],
       [71216, 71231]
     ],
+    "cherokee": [
+      [5024, 5119],
+      [43888, 43967]
+    ],
     "cyrillic": [
       [1024, 1327],
       [7296, 7311],
@@ -83,6 +88,7 @@
     ],
     "georgian": [
       [4256, 4351],
+      [7312, 7359],
       [11520, 11567]
     ],
     "gurmukhi": [[2560, 2687]],
@@ -163,6 +169,10 @@
       {
         "file": "NotoSansCanadianAboriginal-regular",
         "ranges": ["canadian_aboriginal"]
+      },
+      {
+        "file": "NotoSansCherokee-regular",
+        "ranges": ["cherokee"]
       },
       {
         "file": "NotoSansDevanagari-regular",
@@ -271,6 +281,10 @@
         "ranges": ["canadian_aboriginal"]
       },
       {
+        "file": "NotoSansCherokee-700",
+        "ranges": ["cherokee"]
+      },
+      {
         "file": "NotoSansDevanagari-700",
         "ranges": ["devanagari"]
       },
@@ -377,6 +391,10 @@
         "ranges": ["canadian_aboriginal"]
       },
       {
+        "file": "NotoSansCherokee-regular",
+        "ranges": ["cherokee"]
+      },
+      {
         "file": "NotoSansDevanagari-regular",
         "ranges": ["devanagari"]
       },
@@ -481,6 +499,10 @@
       {
         "file": "NotoSansCanadianAboriginal-700",
         "ranges": ["canadian_aboriginal"]
+      },
+      {
+        "file": "NotoSansCherokee-700",
+        "ranges": ["cherokee"]
       },
       {
         "file": "NotoSansDevanagari-700",

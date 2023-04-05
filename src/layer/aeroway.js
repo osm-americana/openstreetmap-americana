@@ -15,8 +15,8 @@ const iconLayout = {
     "match",
     ["get", "class"],
     "military",
-    "poi\nsprite=poi_military_plane\ncolor=" + Color.poi.transport,
-    "poi\nsprite=poi_plane\ncolor=" + Color.poi.transport,
+    "poi\nsprite=poi_military_plane\ncolor=" + Color.poi.airport,
+    "poi\nsprite=poi_plane\ncolor=" + Color.poi.airport,
   ],
   "text-anchor": "bottom",
   "text-variable-anchor": [
