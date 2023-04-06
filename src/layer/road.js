@@ -81,7 +81,15 @@ const opacity = [
   minZoomTertiary,
   [
     ...classSelector,
-    ["motorway", "trunk", "primary", "secondary", "tertiary", "busway"],
+    [
+      "motorway",
+      "trunk",
+      "primary",
+      "secondary",
+      "tertiary",
+      "busway",
+      "bus_guideway",
+    ],
     1,
     0,
   ],
@@ -124,6 +132,7 @@ function filterRoad(brunnel, constraints) {
         "secondary",
         "tertiary",
         "busway",
+        "bus_guideway",
         "minor",
         "service",
       ],
@@ -181,7 +190,7 @@ const widthFactor = [
   [...linkSelector, 0.45, 0.9],
   "secondary",
   [...linkSelector, 0.3, [...expresswaySelector, 0.7, 0.6]],
-  ["tertiary", "busway"],
+  ["tertiary", "busway", "bus_guideway"],
   [...linkSelector, 0.25, 0.5],
   "minor",
   0.3,
@@ -240,7 +249,7 @@ const roadCasingColorTunnel = [
       ],
       `hsl(${roadHue}, 41%, 80%)`,
     ],
-    ["primary", "secondary", "tertiary", "busway"],
+    ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
     "hsl(0, 0%, 80%)",
     "hsl(0, 0%, 90%)",
   ],
@@ -288,7 +297,7 @@ const roadFillColorTunnel = [
       `hsl(${tollRoadHue}, 77%, 90%)`,
       `hsl(${roadHue}, 77%, 90%)`,
     ],
-    "busway",
+    ["busway", "bus_guideway"],
     `hsl(${buswayHue}, 25%, 93%)`,
     [
       ...tollSelector,
@@ -531,7 +540,10 @@ class RoadSimpleFill extends Road {
         [
           "in",
           getClass,
-          ["literal", ["primary", "secondary", "tertiary", "busway"]],
+          [
+            "literal",
+            ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
+          ],
         ],
         isExpressway,
       ],
@@ -878,7 +890,11 @@ class TertiaryExpressway extends Tertiary {
 class Busway extends Tertiary {
   constructor() {
     super();
-    this.constraints = ["==", getClass, "busway"];
+    this.constraints = [
+      "in",
+      getClass,
+      ["literal", ["busway", "bus_guideway"]],
+    ];
 
     this.minZoomFill = minZoomTertiary;
     this.minZoomCasing = minZoomTertiary;
