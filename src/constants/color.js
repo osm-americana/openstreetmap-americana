@@ -20,6 +20,9 @@ export const parkOutline = "hsla(136, 41%, 70%, 50%)";
 export const parkLabel = "hsl(136, 71%, 29%)";
 export const parkLabelHalo = "hsl(90, 27%, 94%)";
 
+export const aerialwayLine = "hsl(310, 41%, 59%)";
+export const aerialwayLabel = "hsl(310, 71%, 29%)";
+
 export const airportFill = "hsl(250, 41%, 95%)";
 export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
@@ -31,6 +34,7 @@ export const palette = {
   blue: "#003f87", // Pantone 294
   brown: "#693f23", // Pantone 469
   green: "#006747", // Pantone 342
+  mauve: "#a20067", // Pantone 234 C
   orange: "#f38f00", // Pantone 152
   texas_orange: "#bf5700", // UTexas Orange
   pink: "#df4661", // Pantone 198
@@ -69,7 +73,7 @@ export const hue = {
   tollRoad: 48,
   park: 136,
   water: 211,
-  transport: 273,
+  airport: 273,
   borderCasing: 281,
 };
 
@@ -78,5 +82,6 @@ export const poi = {
   consumer: palette.texas_orange,
   //outdoor:
   //attraction:
-  transportation: `hsl(${hue.transport}, 100%, 28%)`,
+  airport: `hsl(${hue.airport}, 100%, 28%)`,
+  transport: palette.mauve,
 };

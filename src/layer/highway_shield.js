@@ -1,6 +1,7 @@
 "use strict";
 
 export const namedRouteNetworks = [
+  "US:CT:Parkway",
   "US:KY:Parkway",
   "US:NY:Parkway",
   "US:TX:Fort_Bend:FBCTRA",
@@ -50,7 +51,7 @@ for (var i = 1; i <= 6; i++) {
 
 let shieldLayout = {
   "text-rotation-alignment": "viewport-glyph",
-  "text-font": ["OpenHistorical"],
+  "text-font": ["Americana-Regular"],
   "text-field": shieldTextField,
   "text-anchor": "center",
   "text-letter-spacing": 0.7,
@@ -78,7 +79,7 @@ export const shield = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "transportation_name",
-  id: "highway_shield",
+  id: "highway-shield",
   layout: shieldLayout,
   paint: {
     "text-opacity": [

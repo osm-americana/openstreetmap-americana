@@ -1,6 +1,6 @@
 "use strict";
 
-import chai, { expect } from "chai";
+import { expect } from "chai";
 import * as Label from "../../src/constants/label.js";
 import { expression } from "@maplibre/maplibre-gl-style-spec";
 
@@ -231,6 +231,24 @@ describe("label", function () {
       Label.localizeLayers(layers, ["enm"]);
       expect(layers[0].layout["text-field"][2][1]["diacritic-sensitive"]).to.be
         .true;
+    });
+    it("updates country names in English", function () {
+      Label.localizeLayers([], ["en-US"]);
+      expect(Object.keys(Label.countryNamesByCode).length).to.be.at.least(200);
+      expect(Label.countryNamesByCode.MEX).to.be.eql("MEXICO");
+    });
+    it("updates country names in a language other than English", function () {
+      Label.localizeLayers([], ["eo"]);
+      expect(Object.keys(Label.countryNamesByCode).length).to.be.at.least(200);
+      expect(Label.countryNamesByCode.USA).to.be.eql("USONO");
+    });
+    it("widens spaces", function () {
+      Label.localizeLayers([], ["en-US"]);
+      expect(Label.countryNamesByCode.USA).to.be.eql("UNITED  STATES");
+    });
+    it("returns undefined for a nonexistent country", function () {
+      Label.localizeLayers([], ["en-US"]);
+      expect(Label.countryNamesByCode.UNO).to.be.undefined;
     });
   });
 
