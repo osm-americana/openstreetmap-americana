@@ -472,6 +472,54 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_p.svg"
     },
     {
+      "key": "amenity",
+      "value": "bus_station",
+      "object_types": ["node", "area"],
+      "description": "Bus stations are marked by an icon depicting the front of a bus.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+    },
+    {
+      "key": "highway",
+      "value": "bus_stop",
+      "object_types": ["node"],
+      "description": "Bus stops are marked by an icon depicting the front of a bus.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+    },
+    {
+      "key": "railway",
+      "value": "halt",
+      "object_types": ["node"],
+      "description": "Rail halts are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "railway",
+      "value": "station",
+      "object_types": ["node", "area"],
+      "description": "Rail stations are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "railway",
+      "value": "tram_stop",
+      "object_types": ["node"],
+      "description": "Tram stops are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "station",
+      "value": "subway",
+      "object_types": ["node"],
+      "description": "Subway stations are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
       "key": "highway",
       "value": "motorway",
       "object_types": ["way"],
