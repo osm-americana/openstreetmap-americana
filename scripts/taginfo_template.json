@@ -459,7 +459,7 @@
       "key": "amenity",
       "value": "townhall",
       "object_types": ["node", "area"],
-      "description": "Town halls are marked by an icon representing a domed building with a rectangular flag raised above it.",
+      "description": "City halls are marked by an icon representing a domed building with a rectangular flag raised above it.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_town_hall.svg"
     },
