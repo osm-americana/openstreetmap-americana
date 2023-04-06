@@ -19,6 +19,7 @@ const roadExp = 1.2;
 
 const roadHue = 0;
 const tollRoadHue = 48;
+const buswayHue = 322;
 
 //Tunnel casing dash pattern
 const tunDashArray = [
@@ -287,6 +288,8 @@ const roadFillColorTunnel = [
       `hsl(${tollRoadHue}, 77%, 90%)`,
       `hsl(${roadHue}, 77%, 90%)`,
     ],
+    "busway",
+    `hsl(${buswayHue}, 25%, 93%)`,
     [
       ...tollSelector,
       `hsl(${tollRoadHue}, 100%, 95%)`,
@@ -885,13 +888,13 @@ class Busway extends Tertiary {
       ["exponential", roadExp],
       ["zoom"],
       this.minZoomFill,
-      `hsl(0, 0%, 85%)`,
+      `hsl(${buswayHue}, 25%, 85%)`,
       this.minZoomFill + 2,
-      `hsl(0, 0%, 75%)`,
+      `hsl(${buswayHue}, 25%, 75%)`,
       14.9999,
-      `hsl(0, 0%, 75%)`,
+      `hsl(${buswayHue}, 25%, 75%)`,
       15,
-      `hsl(0, 0%, 80%)`,
+      `hsl(${buswayHue}, 25%, 80%)`,
     ];
     this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
