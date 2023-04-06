@@ -1325,6 +1325,11 @@ export const legendEntries = [
     filter: isToll,
   },
   {
+    description: "Busway",
+    layers: [busway.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", getClass, "busway"],
+  },
+  {
     description: "Unpaved road",
     layers: [
       road.surface().id,
