@@ -59,7 +59,7 @@ var iconDefs = {
     },
     sprite: "poi_town_hall",
     color: Color.poi.infrastructure,
-    description: "Town hall",
+    description: "City hall",
   },
 };
 
