@@ -2390,6 +2390,21 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
   };
+  shields["US:NY:Parkway:LI"] = {
+    spriteBlank: "shield_us_ny_parkway_li",
+    textColor: Color.shields.black,
+    padding: {
+      left: 6,
+      right: 2,
+      top: 2,
+      bottom: 8,
+    },
+  };
+  shields["US:NY:Parkway:LOSP"] = {
+    noref: {
+      spriteBlank: "shield_us_ny_parkway_losp",
+    },
+  };
   shields["US:NY:Parkway:NYC"] = {
     spriteBlank: "shield_us_ny_parkway_nyc",
     textColor: Color.shields.black,
