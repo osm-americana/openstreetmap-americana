@@ -155,6 +155,62 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
+      "key": "aerialway",
+      "value": "cable_car",
+      "object_types": ["way"],
+      "description": "Cable cars are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "chair_lift",
+      "object_types": ["way"],
+      "description": "Chairlifts are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "gondola",
+      "object_types": ["way"],
+      "description": "Aerial gondolas are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "mixed_lift",
+      "object_types": ["way"],
+      "description": "Mixed aerial lifts are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "drag_lift",
+      "object_types": ["way"],
+      "description": "Drag lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "platter",
+      "object_types": ["way"],
+      "description": "Platter lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "j-bar",
+      "object_types": ["way"],
+      "description": "J-bar lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "t-bar",
+      "object_types": ["way"],
+      "description": "T-bar lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
       "key": "aeroway",
       "value": "runway",
       "object_types": ["way"],
@@ -414,6 +470,54 @@
       "description": "Parking lots are marked by a blue letter 'P'.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_p.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "bus_station",
+      "object_types": ["node", "area"],
+      "description": "Bus stations are marked by an icon depicting the front of a bus.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+    },
+    {
+      "key": "highway",
+      "value": "bus_stop",
+      "object_types": ["node"],
+      "description": "Bus stops are marked by an icon depicting the front of a bus.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+    },
+    {
+      "key": "railway",
+      "value": "halt",
+      "object_types": ["node"],
+      "description": "Rail halts are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "railway",
+      "value": "station",
+      "object_types": ["node", "area"],
+      "description": "Rail stations are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "railway",
+      "value": "tram_stop",
+      "object_types": ["node"],
+      "description": "Tram stops are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "station",
+      "value": "subway",
+      "object_types": ["node"],
+      "description": "Subway stations are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
     },
     {
       "key": "highway",

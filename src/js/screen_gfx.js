@@ -38,40 +38,55 @@ export function getPixelRatio() {
   return (typeof window !== "undefined" && window.devicePixelRatio) > 1 ? 2 : 1;
 }
 
-// Replaces `sourceVal` with `lightenVal` in inverse proportion to the brightness;
-// i.e. white remains white, black becomes `lightenVal`, and anit-aliased pixels remain anit-aliased
-export function lightenedColor(sourceVal, lightenVal) {
-  return 255 - (1 - sourceVal / 255) * (255 - lightenVal);
+// Replaces `sourceVal` with a blend of `lightenVal` and `darkenVal` proportional to the brightness;
+// i.e. white becomes `darkenVal`, black becomes `lightenVal`, and anit-aliased pixels remain anit-aliased
+export function blendedColorVal(sourceVal, lightenVal, darkenVal) {
+  return (
+    255 -
+    (sourceVal / 255) * (255 - darkenVal) -
+    (1 - sourceVal / 255) * (255 - lightenVal)
+  );
 }
 
-export function copyPixel(
-  source,
-  dest,
-  sourceOffset,
-  destOffset,
-  colorLighten
-) {
+export function copyPixel(source, dest, sourceOffset, destOffset) {
   //Red
-  dest[destOffset] = colorLighten
-    ? lightenedColor(source[sourceOffset], colorLighten[0])
-    : source[sourceOffset];
+  dest[destOffset] = source[sourceOffset];
   //Green
-  dest[destOffset + 1] = colorLighten
-    ? lightenedColor(source[sourceOffset + 1], colorLighten[1])
-    : source[sourceOffset + 1];
+  dest[destOffset + 1] = source[sourceOffset + 1];
   //Blue
-  dest[destOffset + 2] = colorLighten
-    ? lightenedColor(source[sourceOffset + 2], colorLighten[2])
-    : source[sourceOffset + 2];
+  dest[destOffset + 2] = source[sourceOffset + 2];
   //Alpha
   dest[destOffset + 3] = source[sourceOffset + 3];
 }
 
-export function rgbaMatrix(colorLighten) {
-  if (typeof colorLighten !== "undefined") {
-    return rgba(colorLighten);
-  }
-  return null;
+export function copyAndRecolorPixel(
+  source,
+  dest,
+  sourceOffset,
+  destOffset,
+  colorLighten,
+  colorDarken
+) {
+  //Red
+  dest[destOffset] = blendedColorVal(
+    source[sourceOffset],
+    colorLighten[0],
+    colorDarken[0]
+  );
+  //Green
+  dest[destOffset + 1] = blendedColorVal(
+    source[sourceOffset + 1],
+    colorLighten[1],
+    colorDarken[1]
+  );
+  //Blue
+  dest[destOffset + 2] = blendedColorVal(
+    source[sourceOffset + 2],
+    colorLighten[2],
+    colorDarken[2]
+  );
+  //Alpha
+  dest[destOffset + 3] = source[sourceOffset + 3];
 }
 
 export function copyImageData(
@@ -79,17 +94,23 @@ export function copyImageData(
   sourceImage,
   yOffset,
   verticalReflect,
-  colorLighten
+  colorLighten,
+  colorDarken
 ) {
   let imgData = ctx.createImageData(
     sourceImage.data.width,
     sourceImage.data.height
   );
-  let lighten = rgbaMatrix(colorLighten);
+
+  let pixelCopyFn =
+    colorLighten || colorDarken ? copyAndRecolorPixel : copyPixel;
+
+  let lighten = colorLighten ? rgba(colorLighten) : rgba("#000");
+  let darken = colorDarken ? rgba(colorDarken) : rgba("#fff");
 
   if (!verticalReflect) {
     for (let i = 0; i < sourceImage.data.data.length; i += 4) {
-      copyPixel(sourceImage.data.data, imgData.data, i, i, lighten);
+      pixelCopyFn(sourceImage.data.data, imgData.data, i, i, lighten, darken);
     }
   } else {
     //4 bytes/px, copy in reverse vertical order.
@@ -98,12 +119,13 @@ export function copyImageData(
         let destRow = sourceImage.data.height - y - 1;
         let destIdx = (destRow * sourceImage.data.width + x) * 4;
         let srcIdx = (y * sourceImage.data.width + x) * 4;
-        copyPixel(
+        pixelCopyFn(
           sourceImage.data.data,
           imgData.data,
           srcIdx,
           destIdx,
-          lighten
+          lighten,
+          darken
         );
       }
     }

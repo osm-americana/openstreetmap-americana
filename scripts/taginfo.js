@@ -5,7 +5,7 @@ import * as ShieldDef from "../src/js/shield_defs.js";
 import * as Shields from "../src/js/shield.js";
 import * as Gfx from "../src/js/screen_gfx.js";
 import * as CustomShields from "../src/js/custom_shields.js";
-import * as skia from "skia-canvas";
+import { Canvas } from "canvas";
 import namer from "color-namer";
 import { mkdir } from "node:fs/promises";
 
@@ -13,22 +13,29 @@ await mkdir("dist/shield-sample", { recursive: true });
 
 //Headless graphics context
 Gfx.setGfxFactory((bounds) => {
-  let canvas = new skia.Canvas(bounds.width, bounds.height);
+  let canvas = new Canvas(bounds.width, bounds.height, "svg");
   let ctx = canvas.getContext("2d");
   ctx.imageSmoothingQuality = "high";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  ctx.canvas.width = bounds.width;
-  ctx.canvas.height = bounds.height;
+  ctx.canvas = canvas;
   return ctx;
 });
 
 const shieldGfxMap = new Map();
 
+const colorNames = new Map();
+
 function getNamedColor(colorString, defaultColor) {
   if (colorString) {
     if (colorString.startsWith("#")) {
-      return namer(colorString)["pantone"][0].name.toLowerCase();
+      if (colorNames.has(colorString)) {
+        return colorNames.get(colorString);
+      } else {
+        const result = namer(colorString)["pantone"][0].name.toLowerCase();
+        colorNames.set(colorString, result);
+        return result;
+      }
     } else {
       return colorString;
     }
@@ -52,7 +59,7 @@ function addNetworkTags(project) {
       let network = entry[0],
         definition = entry[1];
 
-      let icon = definition.spriteBlank || definition.norefImage;
+      let icon = definition.spriteBlank || definition.noref?.spriteBlank;
       if (Array.isArray(icon)) {
         icon = icon[0];
       }
@@ -85,7 +92,36 @@ function addNetworkTags(project) {
         let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
 
         if (!fs.existsSync(save_filename)) {
-          shieldGfx.canvas.saveAsSync(save_filename);
+          fs.writeFileSync(save_filename, shieldGfx.canvas.toBuffer());
+        }
+        icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
+      } else if (
+        icon !== undefined &&
+        (shieldDef.colorLighten !== undefined ||
+          shieldDef.colorDarken !== undefined)
+      ) {
+        let svgText = fs.readFileSync(`${process.cwd()}/icons/${icon}.svg`, {
+          encoding: "utf8",
+        });
+        if (shieldDef.colorLighten) {
+          svgText = svgText.replace(/#000/gi, shieldDef.colorLighten);
+        }
+        if (shieldDef.colorDarken) {
+          svgText = svgText.replace(/#fff/gi, shieldDef.colorDarken);
+        }
+
+        delete shields[network].modifiers;
+        let def = JSON.stringify(shields[network]);
+
+        if (!shieldGfxMap.has(def)) {
+          shieldGfxMap.set(def, shieldGfxMap.size);
+        }
+
+        let network_filename_id = shieldGfxMap.get(def);
+        let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
+
+        if (!fs.existsSync(save_filename)) {
+          fs.writeFileSync(`${process.cwd()}/${save_filename}`, svgText);
         }
         icon_url = `https://zelonewolf.github.io/openstreetmap-americana/shield-sample/shield_${network_filename_id}.svg`;
       } else {

@@ -75,8 +75,10 @@ let networks = [
   "AU:WA:NH",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
+  "US:WV:HARP",
 
   "US:TN:secondary",
+  "US:MI",
   "US:NC",
 
   "US:IA:CR",
@@ -155,6 +157,7 @@ let networks = [
   "US:DC",
   "US:FL",
   "US:NH",
+  "US:NY:Parkway:LI",
   "US:NY:Parkway:NYC",
   "US:OK",
   "US:SC",
@@ -300,6 +303,34 @@ const iterShields = function* () {
   yield {
     network: "US:MO:Taney:Branson",
     refs: ["Red Route", "Yellow Route", "Blue Route"],
+  };
+  yield {
+    network: "CA:ON:primary",
+    refs: ["QEW"],
+  };
+  yield {
+    network: "GLCT",
+    refs: ["LECT", "LHCT", "LMCT", "LSCT"],
+  };
+  yield {
+    network: "GLCT:Loop",
+    refs: ["LMCT"],
+  };
+  yield {
+    network: "US:PA:Turnpike",
+    refs: [""],
+  };
+  yield {
+    network: "US:NE:Scenic",
+    refs: [""],
+  };
+  yield {
+    network: "US:NY:STE",
+    refs: [""],
+  };
+  yield {
+    network: "US:NY:Thruway",
+    refs: [""],
   };
 };
 

@@ -137,7 +137,7 @@ const labelPaintProperties = {
 const labelLayoutProperties = {
   "symbol-placement": "line",
   "text-field": Label.localizedNameInline,
-  "text-font": ["OpenHistorical Italic"],
+  "text-font": ["Americana-Italic"],
   "text-max-angle": 55,
 };
 
@@ -206,7 +206,7 @@ export const waterPointLabel = {
   filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
     "text-field": Label.localizedName,
-    "text-font": ["Open Sans Bold Italic"],
+    "text-font": ["Americana-Bold-Italic"],
     "text-size": [
       "interpolate",
       ["exponential", 2],
