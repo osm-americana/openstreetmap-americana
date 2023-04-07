@@ -2400,6 +2400,11 @@ export function loadShields() {
       bottom: 8,
     },
   };
+  shields["US:NY:Parkway:LOSP"] = {
+    noref: {
+      spriteBlank: "shield_us_ny_parkway_losp",
+    },
+  };
   shields["US:NY:Parkway:NYC"] = {
     spriteBlank: "shield_us_ny_parkway_nyc",
     textColor: Color.shields.black,
