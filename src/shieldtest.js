@@ -160,6 +160,7 @@ let networks = [
   "US:DC",
   "US:FL",
   "US:NH",
+  "US:NY:Parkway:LI",
   "US:NY:Parkway:NYC",
   "US:OK",
   "US:SC",
