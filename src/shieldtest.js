@@ -232,6 +232,10 @@ let networks = [
   "AU:QLD:ALT",
   "AU:QLD:ALT_S",
   "AU:VIC:ALT_NR",
+
+  // With other numeral systems
+  "IN:NE",
+  "SA:national",
 ];
 
 // Uncomment for a list of all supported networks.  This makes for a very long page.
