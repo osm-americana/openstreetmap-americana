@@ -111,6 +111,7 @@ export function build(locales) {
 
     lyrRoad.minor.fill(),
     lyrRoad.minorToll.fill(),
+    lyrRoad.busway.fill(),
     lyrRoad.tertiary.fill(),
     lyrRoad.tertiaryToll.fill(),
     lyrRoad.secondary.fill(),
@@ -170,6 +171,7 @@ export function build(locales) {
 
     lyrRoad.minorBridge.fill(),
     lyrRoad.minorTollBridge.fill(),
+    lyrRoad.buswayBridge.fill(),
     lyrRoad.tertiaryBridge.fill(),
     lyrRoad.tertiaryTollBridge.fill(),
     lyrRoad.secondaryBridge.fill(),
