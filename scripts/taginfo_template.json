@@ -457,6 +457,14 @@
     },
     {
       "key": "amenity",
+      "value": "townhall",
+      "object_types": ["node", "area"],
+      "description": "City halls are marked by an icon representing a domed building with a rectangular flag raised above it.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_town_hall.svg"
+    },
+    {
+      "key": "amenity",
       "value": "clinic",
       "object_types": ["node", "area"],
       "description": "Medical offices are marked by a white cross in a blue shield.",
@@ -552,6 +560,20 @@
       "value": "tertiary",
       "object_types": ["way"],
       "description": "🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "busway",
+      "object_types": ["way"],
+      "description": "Busways are styled with a purple solid line.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "bus_guideway",
+      "object_types": ["way"],
+      "description": "Bus guideways are styled with a purple solid line.",
       "doc_url": "https://openmaptiles.org/schema/#network"
     }
   ]
