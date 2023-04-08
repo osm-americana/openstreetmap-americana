@@ -173,7 +173,7 @@ export const poi = {
         "hospital",
         "tram_stop",
         ...getSubclasses(iconDefs.school),
-        "townhall"
+        "townhall",
       ],
       15,
       [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
