@@ -3803,6 +3803,12 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Switzerland
+  shields["ch:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Czechia
   shields["CZ:national"] = roundedRectShield(
     Color.shields.red,
