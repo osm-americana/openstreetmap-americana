@@ -308,17 +308,7 @@ export function getRouteDef(id) {
  * alphabetic suffix.
  */
 export const latinToArabicDigits = (ref) =>
-  `${ref}`
-    .replaceAll("0", "\u0660")
-    .replaceAll("1", "\u0661")
-    .replaceAll("2", "\u0662")
-    .replaceAll("3", "\u0663")
-    .replaceAll("4", "\u0664")
-    .replaceAll("5", "\u0665")
-    .replaceAll("6", "\u0666")
-    .replaceAll("7", "\u0667")
-    .replaceAll("8", "\u0668")
-    .replaceAll("9", "\u0669");
+  ref.replaceAll(/[0-9]/g, m => String.fromCharCode(0x0660 + parseInt(m)));
 
 /**
  * Reformats an alphanumeric ref as Roman numerals, preserving any alphabetic
