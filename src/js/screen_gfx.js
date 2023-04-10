@@ -2,9 +2,9 @@
 
 import rgba from "color-rgba";
 
-const naskhFonts =
-  '"Noto Naskh Arabic", KacstNaskh, "Sakkal Majalla", "DecoType Naskh Regular"';
-const fontFamily = `"sans-serif-condensed", "Arial Narrow", ${naskhFonts}, sans-serif`;
+const nonLatinFonts =
+  '"Noto Naskh Arabic", "Noto Sans Armenian", "Noto Sans Georgian"';
+const fontFamily = `"sans-serif-condensed", "Arial Narrow", ${nonLatinFonts}, sans-serif`;
 export const shieldFont = (size) => `bold ${size}px ${fontFamily}`;
 export const fontSizeThreshold = 12;
 

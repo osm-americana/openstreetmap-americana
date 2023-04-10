@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <title>OpenStreetMap Americana</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <meta
       name="viewport"
@@ -93,6 +95,10 @@
       rel="stylesheet"
       href="https://kanecohen.github.io/tokenfield/css/tokenfield.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto+Naskh+Arabic|Noto+Sans+Armenian|Noto+Sans+Georgian"
+    />
   </head>
 
   <body>
@@ -157,5 +163,31 @@
         <td class="description"></td>
       </tr>
     </template>
+    <p style="font-size: 0; font-family: Overpass; visibility: hidden">
+      Invisible text so the font will load early
+    </p>
+    <p
+      style="font-size: 0; font-family: 'Noto Naskh Arabic'; visibility: hidden"
+    >
+      Invisible text so the font will load early
+    </p>
+    <p
+      style="
+        font-size: 0;
+        font-family: 'Noto Sans Armenian';
+        visibility: hidden;
+      "
+    >
+      Invisible text so the font will load early
+    </p>
+    <p
+      style="
+        font-size: 0;
+        font-family: 'Noto Sans Georgian';
+        visibility: hidden;
+      "
+    >
+      Invisible text so the font will load early
+    </p>
   </body>
 </html>
