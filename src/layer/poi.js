@@ -70,7 +70,7 @@ var iconDefs = {
   },
   railway_station: {
     classes: {
-      railway: ["station", "subway"],
+      railway: ["station", "halt", "subway"],
     },
     sprite: "poi_rail_circle",
     color: Color.poi.transport,
@@ -78,11 +78,11 @@ var iconDefs = {
   },
   railway_stop: {
     classes: {
-      railway: ["halt", "tram_stop"],
+      railway: ["tram_stop"],
     },
     sprite: "poi_rail",
     color: Color.poi.transport,
-    description: "Tram stop or train halt",
+    description: "Tram stop",
   },
   school: {
     classes: {
@@ -171,13 +171,12 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      ["station"],
+      ["station", "halt"],
       12,
       ["bus_station", "subway"],
       14,
       [
         "bus_stop",
-        "halt",
         "hospital",
         "tram_stop",
         ...getSubclasses(iconDefs.school),
