@@ -23,6 +23,7 @@
     "Noto Sans Myanmar": ["regular", "700"],
     "Noto Sans Oriya": ["regular", "700"],
     "Noto Sans Sinhala": ["regular", "700"],
+    "Noto Sans Symbols": ["regular", "700"],
     "Noto Sans Tamil": ["regular", "700"],
     "Noto Sans Thaana": ["regular", "700"],
     "Noto Serif Tibetan": ["regular", "700"],
@@ -50,7 +51,10 @@
       [126208, 126287],
       [126464, 126719]
     ],
-    "armenian": [[1328, 1423]],
+    "armenian": [
+      [1328, 1423],
+      [64272, 64279]
+    ],
     "bengali": [[2432, 2559]],
     "bopomofo": [
       [12544, 12591],
@@ -80,6 +84,7 @@
       [11648, 11743],
       [43776, 43823]
     ],
+    "fullwidth": [[65280, 65519]],
     "greek": [
       [880, 1023],
       [7936, 8191],
@@ -108,7 +113,7 @@
     ],
     "hebrew": [
       [1424, 1535],
-      [64285, 64331]
+      [64280, 64335]
     ],
     "hiragana": [[12352, 12447]],
     "kanbun": [[12688, 12703]],
@@ -120,15 +125,14 @@
     ],
     "khmer": [[6016, 6911]],
     "latin": [
-      [33, 767],
+      [33, 879],
       [7424, 7615],
       [7680, 7935],
-      [8304, 8591],
+      [8192, 8591],
       [11360, 11391],
       [42784, 43007],
       [43824, 43887],
-      [64256, 64335],
-      [65280, 65519],
+      [64256, 64271],
       [67456, 67519],
       [122624, 122879]
     ],
@@ -137,6 +141,7 @@
     "oriya": [[2816, 2943]],
     "sinhala": [[3456, 3583]],
     "space": [[32, 32]],
+    "symbols": [[8592, 8703]],
     "tamil": [[2944, 3071]],
     "telugu": [[3072, 3199]],
     "thaana": [[1920, 1983]],
@@ -152,7 +157,7 @@
       },
       {
         "file": "MPlusRounded1C-regular",
-        "ranges": ["hiragana", "kanbun", "katakana"]
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
       },
       {
         "file": "NotoSansArabic-regular",
@@ -227,6 +232,10 @@
         "ranges": ["sinhala"]
       },
       {
+        "file": "NotoSansSymbols-regular",
+        "ranges": ["symbols"]
+      },
+      {
         "file": "NotoSansTamil-regular",
         "ranges": ["tamil"]
       },
@@ -262,7 +271,7 @@
       },
       {
         "file": "MPlusRounded1C-700",
-        "ranges": ["hiragana", "kanbun", "katakana"]
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
       },
       {
         "file": "NotoSansArabic-700",
@@ -337,6 +346,10 @@
         "ranges": ["sinhala"]
       },
       {
+        "file": "NotoSansSymbols-700",
+        "ranges": ["symbols"]
+      },
+      {
         "file": "NotoSansTamil-700",
         "ranges": ["tamil"]
       },
@@ -372,7 +385,7 @@
       },
       {
         "file": "MPlusRounded1C-regular",
-        "ranges": ["hiragana", "kanbun", "katakana"]
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
       },
       {
         "file": "NotoSansArabic-regular",
@@ -447,6 +460,10 @@
         "ranges": ["sinhala"]
       },
       {
+        "file": "NotoSansSymbols-regular",
+        "ranges": ["symbols"]
+      },
+      {
         "file": "NotoSansTamil-regular",
         "ranges": ["tamil"]
       },
@@ -482,7 +499,7 @@
       },
       {
         "file": "MPlusRounded1C-700",
-        "ranges": ["hiragana", "kanbun", "katakana"]
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
       },
       {
         "file": "NotoSansArabic-700",
@@ -555,6 +572,10 @@
       {
         "file": "NotoSansSinhala-700",
         "ranges": ["sinhala"]
+      },
+      {
+        "file": "NotoSansSymbols-700",
+        "ranges": ["symbols"]
       },
       {
         "file": "NotoSansTamil-700",
