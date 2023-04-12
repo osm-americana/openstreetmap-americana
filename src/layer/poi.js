@@ -2,6 +2,14 @@ import * as label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {
+  aerialway_station: {
+    classes: {
+      aerialway: ["station"],
+    },
+    sprite: "poi_aerialway_circle",
+    color: Color.poi.transport,
+    description: "Aerial lift station",
+  },
   bar: {
     classes: {
       bar: ["bar"],
