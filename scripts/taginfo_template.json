@@ -464,6 +464,15 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_town_hall.svg"
     },
     {
+      "key": "tourism",
+      "value": "museum",
+      "object_types": ["node", "area"],
+      "description": "Museums are marked by an icon representing a Classical columned building.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_museum.svg"
+    },
+
+    {
       "key": "amenity",
       "value": "clinic",
       "object_types": ["node", "area"],
