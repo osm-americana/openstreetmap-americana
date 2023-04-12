@@ -214,12 +214,12 @@ function triangleDownShield(
         radius: radius,
       },
     },
-    textLayout: textConstraint("southHalfEllipse"),
+    textLayout: textConstraint("triangleDown"),
     padding: {
-      left: 5,
-      right: 5,
+      left: 1,
+      right: 1,
       top: 2,
-      bottom: 10,
+      bottom: 1,
     },
     textColor: textColor,
   };
@@ -338,12 +338,12 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
         rectWidth: rectWidth,
       },
     },
-    textLayout: textConstraint("ellipse"),
+    textLayout: textConstraint("diamond"),
     padding: {
-      left: 4.5,
-      right: 4.5,
-      top: 5,
-      bottom: 5,
+      left: 1,
+      right: 1,
+      top: 1,
+      bottom: 1,
     },
     textColor: textColor,
   };
@@ -446,6 +446,55 @@ function homePlateDownShield(
       right: 2,
       top: 2,
       bottom: 1 + offset,
+    },
+    textColor: textColor,
+  };
+}
+
+/**
+ * Draws a shield with a home plate background, pointed upward
+ *
+ * @param {*} offset - Height of diagonal edges
+ * @param {*} fillColor - Color of home plate background fill
+ * @param {*} strokeColor - Color of home plate outline stroke
+ * @param {*} textColor - Color of text (defaults to strokeColor)
+ * @param {*} radius1 - Corner radius of pointed side of home plate (defaults to 2)
+ * @param {*} radius2 - Corner radius of flat side of home plate (defaults to 2)
+ * @param {*} rectWidth - Width of home plate (defaults to variable-width)
+ * @returns a shield definition object
+ */
+function homePlateUpShield(
+  offset,
+  fillColor,
+  strokeColor,
+  textColor,
+  radius1,
+  radius2,
+  rectWidth
+) {
+  textColor = textColor ?? strokeColor;
+  radius1 = radius1 ?? 2;
+  radius2 = radius2 ?? 2;
+  return {
+    canvasDrawnBlank: {
+      drawFunc: "pentagon",
+      params: {
+        pointUp: true,
+        offset: offset,
+        angle: 0,
+        fillColor: fillColor,
+        strokeColor: strokeColor,
+        radius1: radius1,
+        radius2: radius2,
+        rectWidth: rectWidth,
+      },
+    },
+    textLayout: roundedRectTextConstraint(radius2),
+    padding: {
+      left: 2,
+      right: 2,
+      top: 1 + offset,
+      bottom: 2,
     },
     textColor: textColor,
   };
@@ -823,6 +872,13 @@ export function loadShields() {
     ...shields["CA:NB:tertiary"],
     colorLighten: Color.shields.green,
   };
+
+  // Newfoundland and Labrador
+  shields["CA:NL"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.green,
+    Color.shields.black
+  );
 
   // Nova Scotia
   shields["CA:NS:H"] = {
@@ -1480,6 +1536,7 @@ export function loadShields() {
   shields["US:DC"] = {
     spriteBlank: "shield_us_dc",
     textColor: Color.shields.black,
+    textHaloColor: Color.shields.white,
     padding: {
       left: 2,
       right: 2,
@@ -1804,13 +1861,9 @@ export function loadShields() {
   };
 
   // Michigan
-  shields["US:MI"] = diamondShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    24
-  );
+  shields["US:MI"] = diamondShield(Color.shields.white, Color.shields.black);
+  shields["US:MI:Business"] = banneredShield(shields["US:MI"], ["BUS"]);
+  shields["US:MI:Connector"] = banneredShield(shields["US:MI"], ["CONN"]);
   ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
     (county) =>
       (shields[`US:MI:${county}`] = pentagonUpShield(
@@ -2339,6 +2392,21 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
   };
+  shields["US:NY:Parkway:LI"] = {
+    spriteBlank: "shield_us_ny_parkway_li",
+    textColor: Color.shields.black,
+    padding: {
+      left: 6,
+      right: 2,
+      top: 2,
+      bottom: 8,
+    },
+  };
+  shields["US:NY:Parkway:LOSP"] = {
+    noref: {
+      spriteBlank: "shield_us_ny_parkway_losp",
+    },
+  };
   shields["US:NY:Parkway:NYC"] = {
     spriteBlank: "shield_us_ny_parkway_nyc",
     textColor: Color.shields.black,
@@ -2421,6 +2489,10 @@ export function loadShields() {
     spriteBlank: "shield_us_oh_turnpike",
     notext: true,
   };
+  shields["US:OH:OEC"] = {
+    spriteBlank: "shield_us_oh_oec",
+    notext: true,
+  };
 
   // Ohio county and township roads
 
@@ -2441,7 +2513,6 @@ export function loadShields() {
     "GAL",
     "HAS",
     "HOC",
-    "HOL",
     "KNO",
     "LAW",
     "LIC",
@@ -2480,6 +2551,12 @@ export function loadShields() {
     "WYA",
     "COS:Jackson",
     "FAI:Greenfield",
+    "HOL:Berlin",
+    "HOL:Clark",
+    "HOL:Knox",
+    "HOL:Monroe", // No black border in reality, but a border is needed for contrast.
+    "HOL:Paint",
+    "HOL:Salt_Creek",
     "JEF:Knox",
     "LOG:Bokescreek",
     "LOG:Pleasant",
@@ -2523,6 +2600,16 @@ export function loadShields() {
       bottom: 7,
     },
   };
+  shields["US:OH:HOL"] = {
+    spriteBlank: ["shield_us_oh_hol"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 3,
+      top: 2,
+      bottom: 2,
+    },
+  };
   shields["US:OH:SCI"] = {
     spriteBlank: ["shield_us_oh_sci_2", "shield_us_oh_sci_3"],
     textColor: Color.shields.black,
@@ -2560,12 +2647,6 @@ export function loadShields() {
     ["ASD", "TWP"],
     ["ATH", "Trimble"],
     ["FAI", "Violet"],
-    ["HOL", "Berlin"],
-    ["HOL", "Clark"],
-    ["HOL", "Knox"],
-    ["HOL", "Monroe"], // No black border in reality, but a border is needed for contrast.
-    ["HOL", "Paint"],
-    ["HOL", "Salt_Creek"],
     ["KNO", "Liberty"],
     ["KNO", "Milford"],
     ["LIC", "Jersey"],
@@ -3151,6 +3232,11 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.black
   );
+  shields["US:WV:HARP"] = homePlateUpShield(
+    5,
+    Color.shields.white,
+    Color.shields.black
+  );
 
   // Wyoming
   shields["US:WY"] = roundedRectShield(
@@ -3716,6 +3802,12 @@ export function loadShields() {
   // Belarus
   shields["by:national"] = roundedRectShield(
     Color.shields.red,
+    Color.shields.white
+  );
+
+  // Switzerland
+  shields["ch:national"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white
   );
 

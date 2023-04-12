@@ -1,0 +1,610 @@
+{
+  "font-families": {
+    "Gothic A1": ["regular", "700"],
+    "M PLUS Rounded 1c": ["regular", "700"],
+    "Noto Sans": ["regular", "700", "italic", "700italic"],
+    "Noto Sans Arabic": ["regular", "700"],
+    "Noto Naskh Arabic": ["regular", "700"],
+    "Noto Sans Armenian": ["regular", "700"],
+    "Noto Sans Bengali": ["regular", "700"],
+    "Noto Sans Canadian Aboriginal": ["regular", "700"],
+    "Noto Sans Cherokee": ["regular", "700"],
+    "Noto Sans Devanagari": ["regular", "700"],
+    "Noto Sans Ethiopic": ["regular", "600"],
+    "Noto Sans Georgian": ["regular", "700"],
+    "Noto Sans Gujarati": ["regular", "700"],
+    "Noto Sans Gurmukhi": ["regular", "700"],
+    "Noto Sans Hebrew": ["regular", "700"],
+    "Noto Rashi Hebrew": ["regular", "700"],
+    "Noto Sans Kannada": ["regular", "700"],
+    "Noto Sans Khmer": ["regular", "700"],
+    "Noto Sans Lao": ["regular", "700"],
+    "Noto Sans Malayalam": ["regular", "700"],
+    "Noto Sans Myanmar": ["regular", "700"],
+    "Noto Sans Oriya": ["regular", "700"],
+    "Noto Sans Sinhala": ["regular", "700"],
+    "Noto Sans Symbols": ["regular", "700"],
+    "Noto Sans Tamil": ["regular", "700"],
+    "Noto Sans Thaana": ["regular", "700"],
+    "Noto Serif Tibetan": ["regular", "700"],
+    "Noto Sans Tifinagh": ["regular"],
+    "Noto Sans Telugu": ["regular", "700"],
+    "Noto Sans Thai": ["regular", "700"]
+  },
+  "bundle-font-stacks": {
+    "Noto Sans HK": ["regular", "700"],
+    "Noto Sans JP": ["regular", "700"],
+    "Noto Sans KR": ["regular", "700"],
+    "Noto Sans SC": ["regular", "700"],
+    "Noto Sans TC": ["regular", "700"]
+  },
+  "glyph-ranges": {
+    "arabic": [
+      [1536, 1791],
+      [1872, 1919],
+      [2160, 2303],
+      [64336, 65023],
+      [65136, 65279],
+      [69216, 69247],
+      [69312, 69375],
+      [126064, 126143],
+      [126208, 126287],
+      [126464, 126719]
+    ],
+    "armenian": [
+      [1328, 1423],
+      [64272, 64279]
+    ],
+    "bengali": [[2432, 2559]],
+    "bopomofo": [
+      [12544, 12591],
+      [12704, 12735]
+    ],
+    "burmese": [[4096, 4255]],
+    "canadian_aboriginal": [
+      [5120, 5487],
+      [6928, 6975],
+      [71216, 71231]
+    ],
+    "cherokee": [
+      [5024, 5119],
+      [43888, 43967]
+    ],
+    "cyrillic": [
+      [1024, 1327],
+      [7296, 7311],
+      [11744, 11775],
+      [42560, 42655],
+      [65070, 65071],
+      [122928, 123023]
+    ],
+    "devanagari": [[2304, 2431]],
+    "ethiopic": [
+      [4608, 5017],
+      [11648, 11743],
+      [43776, 43823]
+    ],
+    "fullwidth": [[65280, 65519]],
+    "greek": [
+      [880, 1023],
+      [7936, 8191],
+      [65856, 65999],
+      [119296, 119375]
+    ],
+    "georgian": [
+      [4256, 4351],
+      [7312, 7359],
+      [11520, 11567]
+    ],
+    "gurmukhi": [[2560, 2687]],
+    "gujarati": [[2688, 2751]],
+    "han": [
+      [11904, 12031],
+      [12032, 12245],
+      [12272, 12283],
+      [12284, 12287],
+      [12288, 12351]
+    ],
+    "hangul": [
+      [4352, 4607],
+      [12592, 12687],
+      [43360, 43391],
+      [55216, 55295]
+    ],
+    "hebrew": [
+      [1424, 1535],
+      [64280, 64335]
+    ],
+    "hiragana": [[12352, 12447]],
+    "kanbun": [[12688, 12703]],
+    "kannada": [[3200, 3327]],
+    "kanji": [[19968, 40959]],
+    "katakana": [
+      [12448, 12543],
+      [12784, 12799]
+    ],
+    "khmer": [[6016, 6911]],
+    "latin": [
+      [33, 879],
+      [7424, 7615],
+      [7680, 7935],
+      [8192, 8591],
+      [11360, 11391],
+      [42784, 43007],
+      [43824, 43887],
+      [64256, 64271],
+      [67456, 67519],
+      [122624, 122879]
+    ],
+    "lao": [[3712, 3839]],
+    "malayalam": [[3328, 3455]],
+    "oriya": [[2816, 2943]],
+    "sinhala": [[3456, 3583]],
+    "space": [[32, 32]],
+    "symbols": [[8592, 8703]],
+    "tamil": [[2944, 3071]],
+    "telugu": [[3072, 3199]],
+    "thaana": [[1920, 1983]],
+    "tibetan": [[3840, 4095]],
+    "tifinagh": [[11568, 11631]],
+    "thai": [[3584, 3711]]
+  },
+  "custom-font-stacks": {
+    "Americana-Regular": [
+      {
+        "file": "GothicA1-regular",
+        "ranges": ["space", "hangul"]
+      },
+      {
+        "file": "MPlusRounded1C-regular",
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
+      },
+      {
+        "file": "NotoSansArabic-regular",
+        "ranges": ["arabic"]
+      },
+      {
+        "file": "NotoSansArmenian-regular",
+        "ranges": ["armenian"]
+      },
+      {
+        "file": "NotoSansBengali-regular",
+        "ranges": ["bengali"]
+      },
+      {
+        "file": "NotoSansCanadianAboriginal-regular",
+        "ranges": ["canadian_aboriginal"]
+      },
+      {
+        "file": "NotoSansCherokee-regular",
+        "ranges": ["cherokee"]
+      },
+      {
+        "file": "NotoSansDevanagari-regular",
+        "ranges": ["devanagari"]
+      },
+      {
+        "file": "NotoSansEthiopic-regular",
+        "ranges": ["ethiopic"]
+      },
+      {
+        "file": "NotoSansGeorgian-regular",
+        "ranges": ["georgian"]
+      },
+      {
+        "file": "NotoSansGujarati-regular",
+        "ranges": ["gujarati"]
+      },
+      {
+        "file": "NotoSansGurmukhi-regular",
+        "ranges": ["gurmukhi"]
+      },
+      {
+        "file": "NotoSansHebrew-regular",
+        "ranges": ["hebrew"]
+      },
+      {
+        "file": "NotoSansKannada-regular",
+        "ranges": ["kannada"]
+      },
+      {
+        "file": "NotoSansKhmer-regular",
+        "ranges": ["khmer"]
+      },
+      {
+        "file": "NotoSansLao-regular",
+        "ranges": ["lao"]
+      },
+      {
+        "file": "NotoSansMalayalam-regular",
+        "ranges": ["malayalam"]
+      },
+      {
+        "file": "NotoSansMyanmar-regular",
+        "ranges": ["burmese"]
+      },
+      {
+        "file": "NotoSansOriya-regular",
+        "ranges": ["oriya"]
+      },
+      {
+        "file": "NotoSansSinhala-regular",
+        "ranges": ["sinhala"]
+      },
+      {
+        "file": "NotoSansSymbols-regular",
+        "ranges": ["symbols"]
+      },
+      {
+        "file": "NotoSansTamil-regular",
+        "ranges": ["tamil"]
+      },
+      {
+        "file": "NotoSansTelugu-regular",
+        "ranges": ["telugu"]
+      },
+      {
+        "file": "NotoSansThaana-regular",
+        "ranges": ["thaana"]
+      },
+      {
+        "file": "NotoSansThai-regular",
+        "ranges": ["thai"]
+      },
+      {
+        "file": "NotoSerifTibetan-regular",
+        "ranges": ["tibetan"]
+      },
+      {
+        "file": "NotoSansTifinagh-regular",
+        "ranges": ["tifinagh"]
+      },
+      {
+        "file": "NotoSans-regular",
+        "ranges": ["cyrillic", "greek", "latin"]
+      }
+    ],
+    "Americana-Bold": [
+      {
+        "file": "GothicA1-700",
+        "ranges": ["space", "hangul"]
+      },
+      {
+        "file": "MPlusRounded1C-700",
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
+      },
+      {
+        "file": "NotoSansArabic-700",
+        "ranges": ["arabic"]
+      },
+      {
+        "file": "NotoSansArmenian-700",
+        "ranges": ["armenian"]
+      },
+      {
+        "file": "NotoSansBengali-700",
+        "ranges": ["bengali"]
+      },
+      {
+        "file": "NotoSansCanadianAboriginal-700",
+        "ranges": ["canadian_aboriginal"]
+      },
+      {
+        "file": "NotoSansCherokee-700",
+        "ranges": ["cherokee"]
+      },
+      {
+        "file": "NotoSansDevanagari-700",
+        "ranges": ["devanagari"]
+      },
+      {
+        "file": "NotoSansEthiopic-600",
+        "ranges": ["ethiopic"]
+      },
+      {
+        "file": "NotoSansGeorgian-700",
+        "ranges": ["georgian"]
+      },
+      {
+        "file": "NotoSansGujarati-700",
+        "ranges": ["gujarati"]
+      },
+      {
+        "file": "NotoSansGurmukhi-700",
+        "ranges": ["gurmukhi"]
+      },
+      {
+        "file": "NotoSansKannada-700",
+        "ranges": ["kannada"]
+      },
+      {
+        "file": "NotoSansHebrew-700",
+        "ranges": ["hebrew"]
+      },
+      {
+        "file": "NotoSansKhmer-700",
+        "ranges": ["khmer"]
+      },
+      {
+        "file": "NotoSansLao-700",
+        "ranges": ["lao"]
+      },
+      {
+        "file": "NotoSansMalayalam-700",
+        "ranges": ["malayalam"]
+      },
+      {
+        "file": "NotoSansMyanmar-700",
+        "ranges": ["burmese"]
+      },
+      {
+        "file": "NotoSansOriya-700",
+        "ranges": ["oriya"]
+      },
+      {
+        "file": "NotoSansSinhala-700",
+        "ranges": ["sinhala"]
+      },
+      {
+        "file": "NotoSansSymbols-700",
+        "ranges": ["symbols"]
+      },
+      {
+        "file": "NotoSansTamil-700",
+        "ranges": ["tamil"]
+      },
+      {
+        "file": "NotoSansTelugu-700",
+        "ranges": ["telugu"]
+      },
+      {
+        "file": "NotoSansThaana-700",
+        "ranges": ["thaana"]
+      },
+      {
+        "file": "NotoSansThai-700",
+        "ranges": ["thai"]
+      },
+      {
+        "file": "NotoSerifTibetan-700",
+        "ranges": ["tibetan"]
+      },
+      {
+        "file": "NotoSansTifinagh-regular",
+        "ranges": ["tifinagh"]
+      },
+      {
+        "file": "NotoSans-700",
+        "ranges": ["cyrillic", "greek", "latin"]
+      }
+    ],
+    "Americana-Italic": [
+      {
+        "file": "GothicA1-regular",
+        "ranges": ["space", "hangul"]
+      },
+      {
+        "file": "MPlusRounded1C-regular",
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
+      },
+      {
+        "file": "NotoSansArabic-regular",
+        "ranges": ["arabic"]
+      },
+      {
+        "file": "NotoSansArmenian-regular",
+        "ranges": ["armenian"]
+      },
+      {
+        "file": "NotoSansBengali-regular",
+        "ranges": ["bengali"]
+      },
+      {
+        "file": "NotoSansCanadianAboriginal-regular",
+        "ranges": ["canadian_aboriginal"]
+      },
+      {
+        "file": "NotoSansCherokee-regular",
+        "ranges": ["cherokee"]
+      },
+      {
+        "file": "NotoSansDevanagari-regular",
+        "ranges": ["devanagari"]
+      },
+      {
+        "file": "NotoSansEthiopic-regular",
+        "ranges": ["ethiopic"]
+      },
+      {
+        "file": "NotoSansGeorgian-regular",
+        "ranges": ["georgian"]
+      },
+      {
+        "file": "NotoSansGujarati-regular",
+        "ranges": ["gujarati"]
+      },
+      {
+        "file": "NotoSansGurmukhi-regular",
+        "ranges": ["gurmukhi"]
+      },
+      {
+        "file": "NotoSansKannada-regular",
+        "ranges": ["kannada"]
+      },
+      {
+        "file": "NotoSansKhmer-regular",
+        "ranges": ["khmer"]
+      },
+      {
+        "file": "NotoSansLao-regular",
+        "ranges": ["lao"]
+      },
+      {
+        "file": "NotoRashiHebrew-regular",
+        "ranges": ["hebrew"]
+      },
+      {
+        "file": "NotoSansMalayalam-regular",
+        "ranges": ["malayalam"]
+      },
+      {
+        "file": "NotoSansMyanmar-regular",
+        "ranges": ["burmese"]
+      },
+      {
+        "file": "NotoSansOriya-regular",
+        "ranges": ["oriya"]
+      },
+      {
+        "file": "NotoSansSinhala-regular",
+        "ranges": ["sinhala"]
+      },
+      {
+        "file": "NotoSansSymbols-regular",
+        "ranges": ["symbols"]
+      },
+      {
+        "file": "NotoSansTamil-regular",
+        "ranges": ["tamil"]
+      },
+      {
+        "file": "NotoSansTelugu-regular",
+        "ranges": ["telugu"]
+      },
+      {
+        "file": "NotoSansThaana-regular",
+        "ranges": ["thaana"]
+      },
+      {
+        "file": "NotoSansThai-regular",
+        "ranges": ["thai"]
+      },
+      {
+        "file": "NotoSerifTibetan-regular",
+        "ranges": ["tibetan"]
+      },
+      {
+        "file": "NotoSansTifinagh-regular",
+        "ranges": ["tifinagh"]
+      },
+      {
+        "file": "NotoSans-italic",
+        "ranges": ["cyrillic", "greek", "latin"]
+      }
+    ],
+    "Americana-Bold-Italic": [
+      {
+        "file": "GothicA1-700",
+        "ranges": ["space", "hangul"]
+      },
+      {
+        "file": "MPlusRounded1C-700",
+        "ranges": ["fullwidth", "hiragana", "kanbun", "katakana"]
+      },
+      {
+        "file": "NotoSansArabic-700",
+        "ranges": ["arabic"]
+      },
+      {
+        "file": "NotoSansArmenian-700",
+        "ranges": ["armenian"]
+      },
+      {
+        "file": "NotoSansBengali-700",
+        "ranges": ["bengali"]
+      },
+      {
+        "file": "NotoSansCanadianAboriginal-700",
+        "ranges": ["canadian_aboriginal"]
+      },
+      {
+        "file": "NotoSansCherokee-700",
+        "ranges": ["cherokee"]
+      },
+      {
+        "file": "NotoSansDevanagari-700",
+        "ranges": ["devanagari"]
+      },
+      {
+        "file": "NotoSansEthiopic-600",
+        "ranges": ["ethiopic"]
+      },
+      {
+        "file": "NotoSansGeorgian-700",
+        "ranges": ["georgian"]
+      },
+      {
+        "file": "NotoSansGujarati-700",
+        "ranges": ["gujarati"]
+      },
+      {
+        "file": "NotoSansGurmukhi-700",
+        "ranges": ["gurmukhi"]
+      },
+      {
+        "file": "NotoSansKannada-700",
+        "ranges": ["kannada"]
+      },
+      {
+        "file": "NotoSansKhmer-700",
+        "ranges": ["khmer"]
+      },
+      {
+        "file": "NotoSansLao-700",
+        "ranges": ["lao"]
+      },
+      {
+        "file": "NotoRashiHebrew-700",
+        "ranges": ["hebrew"]
+      },
+      {
+        "file": "NotoSansMalayalam-700",
+        "ranges": ["malayalam"]
+      },
+      {
+        "file": "NotoSansMyanmar-700",
+        "ranges": ["burmese"]
+      },
+      {
+        "file": "NotoSansOriya-700",
+        "ranges": ["oriya"]
+      },
+      {
+        "file": "NotoSansSinhala-700",
+        "ranges": ["sinhala"]
+      },
+      {
+        "file": "NotoSansSymbols-700",
+        "ranges": ["symbols"]
+      },
+      {
+        "file": "NotoSansTamil-700",
+        "ranges": ["tamil"]
+      },
+      {
+        "file": "NotoSansTelugu-700",
+        "ranges": ["telugu"]
+      },
+      {
+        "file": "NotoSansThaana-700",
+        "ranges": ["thaana"]
+      },
+      {
+        "file": "NotoSansThai-700",
+        "ranges": ["thai"]
+      },
+      {
+        "file": "NotoSerifTibetan-700",
+        "ranges": ["tibetan"]
+      },
+      {
+        "file": "NotoSansTifinagh-regular",
+        "ranges": ["tifinagh"]
+      },
+      {
+        "file": "NotoSans-700italic",
+        "ranges": ["cyrillic", "greek", "latin"]
+      }
+    ]
+  }
+}

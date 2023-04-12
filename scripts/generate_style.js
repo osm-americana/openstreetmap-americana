@@ -22,6 +22,7 @@ let opts = program.opts();
 let style = Style.build(
   config.OPENMAPTILES_URL,
   "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
+  "https://zelonewolf.github.io/openstreetmap-americana/fonts/{fontstack}/{range}.pbf",
   opts.locales
 );
 

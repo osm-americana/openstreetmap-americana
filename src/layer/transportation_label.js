@@ -3,12 +3,12 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
-const highwaySelector = ["match", ["get", "class"]];
+const classSelector = ["match", ["get", "class"]];
 
 const motorwayToTrunk = ["motorway", "trunk"];
 const motorwayToPrimary = [...motorwayToTrunk, "primary"];
 const motorwayToSecondary = [...motorwayToPrimary, "secondary"];
-const motorwayToMinor = [...motorwayToSecondary, "tertiary", "minor"];
+const motorwayToMinor = [...motorwayToSecondary, "tertiary", "minor", "busway"];
 const motorwayToService = [...motorwayToMinor, "service"];
 
 const majorConstruction = ["motorway_construction", "trunk_construction"];
@@ -25,17 +25,19 @@ export const label = {
   type: "symbol",
   paint: {
     "text-color": [
-      ...highwaySelector,
+      ...classSelector,
       majorConstruction,
       "maroon",
       minorConstruction,
       "slategray",
       "ferry",
       Color.waterLineBold,
+      "aerialway",
+      Color.aerialwayLabel,
       "#333",
     ],
     "text-halo-color": [
-      ...highwaySelector,
+      ...classSelector,
       "ferry",
       Color.waterFill,
       Color.backgroundFill,
@@ -45,17 +47,17 @@ export const label = {
     "text-opacity": [
       "step",
       ["zoom"],
-      [...highwaySelector, "motorway", 1, 0],
+      [...classSelector, "motorway", 1, 0],
       10,
-      [...highwaySelector, motorwayToTrunk, 1, 0],
+      [...classSelector, motorwayToTrunk, 1, 0],
       11,
-      [...highwaySelector, motorwayToPrimary, 1, "ferry", 1, 0],
+      [...classSelector, motorwayToPrimary, 1, "ferry", 1, 0],
       12,
-      [...highwaySelector, motorwayToSecondary, 1, "ferry", 1, 0],
+      [...classSelector, motorwayToSecondary, 1, ["ferry", "aerialway"], 1, 0],
       13,
-      [...highwaySelector, motorwayToMinor, 1, "ferry", 1, 0],
+      [...classSelector, motorwayToMinor, 1, ["ferry", "aerialway"], 1, 0],
       14,
-      [...highwaySelector, motorwayToService, 1, "ferry", 1, 0],
+      [...classSelector, motorwayToService, 1, ["ferry", "aerialway"], 1, 0],
       15,
       1,
     ],
@@ -70,15 +72,16 @@ export const label = {
         ...majorConstruction,
         ...minorConstruction,
         "ferry",
+        "aerialway",
       ],
     ],
   ],
   layout: {
     "text-font": [
-      ...highwaySelector,
-      "ferry",
-      ["literal", ["OpenHistorical Italic"]],
-      ["literal", ["OpenHistorical"]],
+      ...classSelector,
+      ["ferry", "aerialway"],
+      ["literal", ["Americana-Italic"]],
+      ["literal", ["Americana-Regular"]],
     ],
     "text-field": [...Label.localizedNameInline],
     "text-max-angle": 20,
@@ -88,33 +91,74 @@ export const label = {
       ["zoom"],
       12,
       16,
-      [...highwaySelector, motorwayToTrunk, 10, 12],
+      [...classSelector, motorwayToTrunk, 10, 12],
       17,
-      [...highwaySelector, motorwayToSecondary, 10, 12],
+      [...classSelector, motorwayToSecondary, 10, 12],
     ],
     "text-anchor": [
       "step",
       ["zoom"],
-      "bottom",
+      [...classSelector, "aerialway", "center", "bottom"],
       16,
-      [...highwaySelector, motorwayToTrunk, "center", "bottom"],
+      [
+        ...classSelector,
+        "aerialway",
+        "center",
+        motorwayToTrunk,
+        "center",
+        "bottom",
+      ],
       17,
-      [...highwaySelector, motorwayToSecondary, "center", "bottom"],
+      [
+        ...classSelector,
+        "aerialway",
+        "center",
+        motorwayToSecondary,
+        "center",
+        "bottom",
+      ],
+    ],
+    "text-offset": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      15,
+      [
+        ...classSelector,
+        "aerialway",
+        ["literal", [0, -0.7]],
+        ["literal", [0, 0]],
+      ],
+      16,
+      [
+        ...classSelector,
+        "aerialway",
+        ["literal", [0, -0.9]],
+        ["literal", [0, 0]],
+      ],
+      20,
+      [
+        ...classSelector,
+        "aerialway",
+        ["literal", [0, -1.5]],
+        ["literal", [0, 0]],
+      ],
     ],
     "symbol-sort-key": [
-      // TODO busway
-      ...highwaySelector,
-      "motorway",
+      ...classSelector,
+      "aerialway",
       0,
-      "trunk",
+      "motorway",
       1,
-      ["primary", "ferry"],
+      "trunk",
       2,
-      "secondary",
+      ["primary", "ferry"],
       3,
-      ["tertiary", "minor"],
+      "secondary",
       4,
+      ["tertiary", "minor", "busway"],
       5,
+      6,
     ],
   },
   source: "openmaptiles",

@@ -36,7 +36,7 @@ export const label = {
   },
   layout: {
     "text-field": Label.localizedName,
-    "text-font": ["OpenHistorical Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
   },
