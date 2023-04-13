@@ -2,6 +2,14 @@ import * as label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {
+  aerialway_station: {
+    classes: {
+      aerialway: ["station"],
+    },
+    sprite: "poi_aerialway_circle",
+    color: Color.poi.transport,
+    description: "Aerial lift station",
+  },
   bar: {
     classes: {
       bar: ["bar"],
@@ -52,6 +60,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Doctor's office or clinic",
   },
+  museum: {
+    classes: {
+      museum: ["museum"],
+    },
+    sprite: "poi_museum",
+    color: Color.poi.attraction,
+    description: "Museum",
+  },
   parking: {
     classes: {
       parking: ["parking"],
@@ -62,7 +78,7 @@ var iconDefs = {
   },
   railway_station: {
     classes: {
-      railway: ["station", "subway"],
+      railway: ["station", "halt", "subway"],
     },
     sprite: "poi_rail_circle",
     color: Color.poi.transport,
@@ -70,11 +86,11 @@ var iconDefs = {
   },
   railway_stop: {
     classes: {
-      railway: ["halt", "tram_stop"],
+      railway: ["tram_stop"],
     },
     sprite: "poi_rail",
     color: Color.poi.transport,
-    description: "Tram stop or train halt",
+    description: "Tram stop",
   },
   school: {
     classes: {
@@ -84,6 +100,14 @@ var iconDefs = {
     sprite: "poi_school",
     color: Color.poi.infrastructure,
     description: "School",
+  },
+  townhall: {
+    classes: {
+      town_hall: ["townhall"],
+    },
+    sprite: "poi_town_hall",
+    color: Color.poi.infrastructure,
+    description: "City hall",
   },
 };
 
@@ -144,7 +168,9 @@ export const poi = {
         ...getSubclasses(iconDefs.railway_stop),
       ],
       Color.poi.transport,
-      ["hospital", "parking", "school"],
+      ["museum"],
+      Color.poi.attraction,
+      ["hospital", "parking", "school", "townhall"],
       Color.poi.infrastructure,
       Color.poi.infrastructure,
     ],
@@ -155,16 +181,17 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      ["station"],
+      ["station", "halt"],
       12,
       ["bus_station", "subway"],
       14,
       [
         "bus_stop",
-        "halt",
         "hospital",
-        "tram_stop",
+        "museum",
         ...getSubclasses(iconDefs.school),
+        "townhall",
+        "tram_stop",
       ],
       15,
       [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
@@ -186,7 +213,21 @@ export const poi = {
     },
     "icon-image": imageExpression,
     "icon-size": 1.0,
-    "text-field": label.localizedName,
+    "text-field": [
+      "step",
+      ["zoom"],
+      [
+        "match",
+        ["get", "subclass"],
+        ["bus_stop", "tram_stop"],
+        "",
+        label.localizedName,
+      ],
+      16,
+      ["match", ["get", "subclass"], ["bus_stop"], "", label.localizedName],
+      17,
+      label.localizedName,
+    ],
     "text-variable-anchor": ["left", "right", "bottom"],
     "text-justify": "auto",
     "text-radial-offset": 1.2,

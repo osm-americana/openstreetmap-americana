@@ -81,7 +81,7 @@ export const poi = {
   infrastructure: palette.blue,
   consumer: palette.texas_orange,
   //outdoor:
-  //attraction:
+  attraction: palette.brown,
   airport: `hsl(${hue.airport}, 100%, 28%)`,
   transport: palette.mauve,
 };

@@ -1857,6 +1857,8 @@ export function loadShields() {
 
   // Michigan
   shields["US:MI"] = diamondShield(Color.shields.white, Color.shields.black);
+  shields["US:MI:Business"] = banneredShield(shields["US:MI"], ["BUS"]);
+  shields["US:MI:Connector"] = banneredShield(shields["US:MI"], ["CONN"]);
   ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
     (county) =>
       (shields[`US:MI:${county}`] = pentagonUpShield(
@@ -3795,6 +3797,12 @@ export function loadShields() {
   // Belarus
   shields["by:national"] = roundedRectShield(
     Color.shields.red,
+    Color.shields.white
+  );
+
+  // Switzerland
+  shields["ch:national"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white
   );
 

@@ -376,7 +376,7 @@ For consistency, POI icons use the following color palette:
 | Infrastructure         | Pantone 294     | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue               | 0 63 135    | #003f87     |
 | Consumer               | UTexas Orange   | <img src="doc-img/texas_orange.svg" height=18 width=50 /> Orange            | 191 87 0    | #bf5700     |
 | Outdoor                |                 | TBD (green?)                                                                |             |             |
-| Attraction             |                 | TBD (brown?)                                                                |             |             |
+| Attraction             | Pantone 469     | <img src="doc-img/pantone_469.svg" height=18 width=50 /> Brown              | 105 63 35   | #693f23     |
 | Airport                | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
 | Transport              | Pantone 234 C   | <img src="doc-img/pantone_234_c.svg" height=18 width=50 /> Mauve            | 162 0 103   | #a20067     |
 | Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
