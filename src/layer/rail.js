@@ -493,7 +493,7 @@ const isTram = ["==", ["get", "subclass"], "tram"];
 
 export const legendEntries = [
   {
-    description: "Mainline track",
+    description: "Main or branch line track",
     layers: [rail.dashes().id, railway.fill().id],
     filter: ["all", isGenericRail, isNotService, isNotCrossover],
   },

@@ -2,6 +2,14 @@ import * as label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {
+  aerialway_station: {
+    classes: {
+      aerialway: ["station"],
+    },
+    sprite: "poi_aerialway_circle",
+    color: Color.poi.transport,
+    description: "Aerial lift station",
+  },
   bar: {
     classes: {
       bar: ["bar"],
@@ -205,7 +213,21 @@ export const poi = {
     },
     "icon-image": imageExpression,
     "icon-size": 1.0,
-    "text-field": label.localizedName,
+    "text-field": [
+      "step",
+      ["zoom"],
+      [
+        "match",
+        ["get", "subclass"],
+        ["bus_stop", "tram_stop"],
+        "",
+        label.localizedName,
+      ],
+      16,
+      ["match", ["get", "subclass"], ["bus_stop"], "", label.localizedName],
+      17,
+      label.localizedName,
+    ],
     "text-variable-anchor": ["left", "right", "bottom"],
     "text-justify": "auto",
     "text-radial-offset": 1.2,
