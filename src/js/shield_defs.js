@@ -4285,6 +4285,7 @@ export function loadShields() {
     "Hutchinson River Parkway": "HRP",
     "Korean War Veterans Parkway": "KWVP",
     "Mosholu Parkway": "MP",
+    "Niagara Scenic Parkway": "NSP",
     "Pelham Parkway": "PP",
     "Saw Mill River Parkway": "SMP",
     "Sprain Brook Parkway": "SBP",
