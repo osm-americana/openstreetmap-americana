@@ -76,6 +76,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Parking",
   },
+  police: {
+    classes: {
+      police: ["police"],
+    },
+    sprite: "poi_police_shield",
+    color: Color.poi.infrastructure,
+    description: "Police station",
+  },
   railway_station: {
     classes: {
       railway: ["station", "halt", "subway"],
@@ -170,7 +178,7 @@ export const poi = {
       Color.poi.transport,
       ["museum"],
       Color.poi.attraction,
-      ["hospital", "parking", "school", "townhall"],
+      ["hospital", "parking", "police", "school", "townhall"],
       Color.poi.infrastructure,
       Color.poi.infrastructure,
     ],
@@ -189,6 +197,7 @@ export const poi = {
         "bus_stop",
         "hospital",
         "museum",
+        "police",
         ...getSubclasses(iconDefs.school),
         "townhall",
         "tram_stop",

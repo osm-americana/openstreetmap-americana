@@ -457,6 +457,14 @@
     },
     {
       "key": "amenity",
+      "value": "police",
+      "object_types": ["node", "area"],
+      "description": "Police stations are marked by an icon representing a police badge.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_police_shield.svg"
+    },
+    {
+      "key": "amenity",
       "value": "townhall",
       "object_types": ["node", "area"],
       "description": "City halls are marked by an icon representing a domed building with a rectangular flag raised above it.",
