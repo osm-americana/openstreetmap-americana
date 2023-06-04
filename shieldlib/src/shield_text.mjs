@@ -307,7 +307,7 @@ function drawBannerTextComponent(r, ctx, text, bannerIndex, textComponent) {
   ctx.textAlign = "center";
 
   if (textComponent) {
-    ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor; //HALO
+    ctx.fillStyle = r.options.bannerTextColor;
     ctx.fillText(
       text,
       textLayout.xBaseline,
@@ -315,10 +315,9 @@ function drawBannerTextComponent(r, ctx, text, bannerIndex, textComponent) {
         bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
     );
   } else {
-    ctx.fillStyle = r.options.bannerTextColor; //TEXT
+    ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
     ctx.shadowBlur = 0;
     ctx.lineWidth = r.px(2);
-
     ctx.strokeText(
       text,
       textLayout.xBaseline,
@@ -326,7 +325,7 @@ function drawBannerTextComponent(r, ctx, text, bannerIndex, textComponent) {
         bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
     );
 
-    ctx.shadowColor = null; //HALO
+    ctx.shadowColor = null;
     ctx.shadowBlur = null;
   }
 }
