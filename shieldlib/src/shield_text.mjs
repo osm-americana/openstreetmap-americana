@@ -274,7 +274,7 @@ export function drawBannerText(r, ctx, text, bannerIndex) {
   };
   var textLayout = layoutShieldTextFromDef(r, text, bannerPadding, {
     width: ctx.canvas.width,
-    height: r.options.bannerHeight - r.options.bannerPadding,
+    height: r.px(r.options.bannerHeight - r.options.bannerPadding),
   });
 
   ctx.fillStyle = r.options.bannerTextColor;
@@ -287,8 +287,8 @@ export function drawBannerText(r, ctx, text, bannerIndex) {
     text,
     textLayout.xBaseline,
     textLayout.yBaseline +
-      bannerIndex * r.options.bannerHeight -
-      r.options.bannerPadding
+      bannerIndex * r.px(r.options.bannerHeight -
+      r.options.bannerPadding)
   );
 }
 
@@ -311,7 +311,7 @@ export function drawBannerHaloText(r, ctx, text, bannerIndex) {
   };
   var textLayout = layoutShieldTextFromDef(r, text, bannerPadding, {
     width: ctx.canvas.width,
-    height: r.options.bannerHeight - r.options.bannerPadding,
+    height: r.px(r.options.bannerHeight - r.options.bannerPadding),
   });
 
   ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
@@ -325,8 +325,8 @@ export function drawBannerHaloText(r, ctx, text, bannerIndex) {
     text,
     textLayout.xBaseline,
     textLayout.yBaseline +
-      bannerIndex * r.options.bannerHeight -
-      r.options.bannerPadding
+      bannerIndex * r.px(r.options.bannerHeight -
+      r.options.bannerPadding)
   );
 
   ctx.shadowColor = null;
