@@ -264,32 +264,7 @@ function configureShieldText(r, ctx, textLayout) {
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
 export function drawBannerText(r, ctx, text, bannerIndex) {
-  const bannerPadding = {
-    padding: {
-      top: r.options.bannerPadding,
-      bottom: 0,
-      left: 0,
-      right: 0,
-    },
-  };
-  var textLayout = layoutShieldTextFromDef(r, text, bannerPadding, {
-    width: ctx.canvas.width,
-    height: r.px(r.options.bannerHeight - r.options.bannerPadding),
-  });
-
-  ctx.fillStyle = r.options.bannerTextColor;
-
-  ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
-  ctx.textBaseline = "top";
-  ctx.textAlign = "center";
-
-  ctx.fillText(
-    text,
-    textLayout.xBaseline,
-    textLayout.yBaseline +
-      bannerIndex * r.px(r.options.bannerHeight -
-      r.options.bannerPadding)
-  );
+  drawBannerTextComponent(r, ctx, text, bannerIndex, true);
 }
 
 /**
@@ -301,6 +276,19 @@ export function drawBannerText(r, ctx, text, bannerIndex) {
  * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
  */
 export function drawBannerHaloText(r, ctx, text, bannerIndex) {
+  drawBannerTextComponent(r, ctx, text, bannerIndex, false);
+}
+
+/**
+ * Banners are composed of two components: text on top, and a shadow beneath.
+ *
+ * @param {*} r - rendering context
+ * @param {*} ctx - graphics context to draw to
+ * @param {*} text - text to draw
+ * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
+ * @param {*} textComponent - if true, draw the text.  If false, draw the halo
+ */
+function drawBannerTextComponent(r, ctx, text, bannerIndex, textComponent) {
   const bannerPadding = {
     padding: {
       top: r.options.bannerPadding,
@@ -314,23 +302,33 @@ export function drawBannerHaloText(r, ctx, text, bannerIndex) {
     height: r.px(r.options.bannerHeight - r.options.bannerPadding),
   });
 
-  ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
   ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
-  ctx.shadowBlur = 0;
-  ctx.lineWidth = r.px(2);
 
-  ctx.strokeText(
-    text,
-    textLayout.xBaseline,
-    textLayout.yBaseline +
-      bannerIndex * r.px(r.options.bannerHeight -
-      r.options.bannerPadding)
-  );
+  if (textComponent) {
+    ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor; //HALO
+    ctx.fillText(
+      text,
+      textLayout.xBaseline,
+      textLayout.yBaseline +
+        bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
+    );
+  } else {
+    ctx.fillStyle = r.options.bannerTextColor; //TEXT
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = r.px(2);
 
-  ctx.shadowColor = null;
-  ctx.shadowBlur = null;
+    ctx.strokeText(
+      text,
+      textLayout.xBaseline,
+      textLayout.yBaseline +
+        bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
+    );
+
+    ctx.shadowColor = null; //HALO
+    ctx.shadowBlur = null;
+  }
 }
 
 export function calculateTextWidth(r, text, fontSize) {
