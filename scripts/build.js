@@ -1,4 +1,4 @@
-import { stat, copyFile, mkdir } from "node:fs/promises";
+import { stat, copyFile, cp, mkdir } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
 import esbuild from "esbuild";
@@ -20,12 +20,13 @@ const maybeLocalConfig = async (name = "local.config.js") => {
 };
 
 const buildWith = async (key, buildOptions) => {
-  await mkdir("dist", { recursive: true });
+  await mkdir("dist/features", { recursive: true });
   await Promise.all(
     ["index.html", "shieldtest.html", "favicon.ico"].map((f) =>
       copyFile(`src/${f}`, `dist/${f}`)
     )
   );
+  await cp("features", "dist/features", {recursive: true});
 
   const localConfig = await maybeLocalConfig();
 

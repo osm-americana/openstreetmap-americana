@@ -257,6 +257,12 @@ export function getShieldDef(routeDef) {
       ...shieldDef.overrideByRef[ref],
     };
   }
+  if (shieldDef.overrideByName) {
+    shieldDef = {
+      ...shieldDef,
+      ...shieldDef.overrideByName[routeDef.wayName],
+    };
+  }
 
   if (shieldDef.overrideByWayName) {
     shieldDef = {
