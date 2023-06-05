@@ -5,10 +5,6 @@ import config from "./config.js";
 import * as Label from "./constants/label.js";
 import * as Style from "./js/style.js";
 
-import * as Shield from "./js/shield.js";
-import * as ShieldDef from "./js/shield_defs.js";
-import * as CustomShields from "./js/custom_shields.js";
-
 import * as Poi from "./js/poi.js";
 
 import * as languageLabel from "./js/language_label.js";
@@ -21,6 +17,12 @@ import LegendControl from "./js/legend_control.js";
 import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
+import { URLShieldRenderer } from "@americana/maplibre-shield-generator";
+import {
+  shieldPredicate,
+  networkPredicate,
+  routeParser,
+} from "./js/shield_format.js";
 
 export function buildStyle() {
   var getUrl = window.location;
@@ -59,16 +61,24 @@ export const map = (window.map = new maplibregl.Map({
   attributionControl: false,
 }));
 
-CustomShields.loadCustomShields();
-ShieldDef.loadShields();
+let options = {};
+
+if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
+  options["SHIELD_TEXT_HALO_COLOR_OVERRIDE"] =
+    config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
+}
+
+const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
+  .filterImageID(shieldPredicate)
+  .filterNetwork(networkPredicate)
+  .renderOnMaplibreGL(map);
 
 map.on("styleimagemissing", function (e) {
   switch (e.id.split("\n")[0]) {
     case "shield":
-      Shield.missingIconHandler(map, e);
       break;
     case "poi":
-      Poi.missingIconHandler(map, e);
+      Poi.missingIconHandler(shieldRenderer, map, e);
       break;
     default:
       console.warn("Image id not recognized:", JSON.stringify(e.id));

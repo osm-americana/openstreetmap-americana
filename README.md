@@ -31,7 +31,7 @@ The repository is organized as follows:
 - **src/** - The map style. See [CONTRIBUTING.md](CONTRIBUTING.md).
 - **dev/** - Development tools used for style development. See [Style Developer Tools](dev/README.md)
 - **test/** - Automated unit tests.
-- _Coming soon! Other customized parts of the tech stack._
+- **shieldlib/** - Maplibre [shield rendering library](shieldlib/README.md) ([npm entry](https://www.npmjs.com/package/@americana/maplibre-shield-generator?activeTab=readme)).
 
 Some general guidelines:
 
@@ -46,6 +46,8 @@ Some general guidelines:
 The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
+
+The dynamic shield generator is included as a [module](shieldlib/README.md) in this repository and also [published to npm](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
 
 ## Data sources
 

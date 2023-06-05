@@ -1,13 +1,6 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
-import * as Gfx from "./screen_gfx.js";
-
-//Height of modifier banners
-export const bannerSizeH = 9 * Gfx.getPixelRatio();
-export const bannerPadding = 0.5 * Gfx.getPixelRatio();
-
-export const shields = {};
 
 /**
  * Draws a shield with an ellipse background
@@ -21,7 +14,7 @@ export const shields = {};
 function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "ellipse",
       params: {
         fillColor: fillColor,
@@ -87,7 +80,7 @@ function roundedRectShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "roundedRectangle",
       params: {
         fillColor: fillColor,
@@ -129,7 +122,7 @@ function escutcheonDownShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "escutcheon",
       params: {
         offset: offset,
@@ -163,7 +156,7 @@ function escutcheonDownShield(
 function fishheadDownShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "fishhead",
       params: {
         fillColor: fillColor,
@@ -204,7 +197,7 @@ function triangleDownShield(
   radius = radius ?? 2;
 
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "triangle",
       params: {
         pointUp: false,
@@ -249,7 +242,7 @@ function trapezoidDownShield(
   radius = radius ?? 0;
 
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "trapezoid",
       params: {
         angle: angleInRadians,
@@ -293,7 +286,7 @@ function trapezoidUpShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "trapezoid",
       params: {
         shortSideUp: true,
@@ -329,7 +322,7 @@ function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "diamond",
       params: {
         fillColor: fillColor,
@@ -377,7 +370,7 @@ function pentagonUpShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 0;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "pentagon",
       params: {
         offset: offset,
@@ -427,7 +420,7 @@ function homePlateDownShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "pentagon",
       params: {
         pointUp: false,
@@ -476,7 +469,7 @@ function homePlateUpShield(
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "pentagon",
       params: {
         pointUp: true,
@@ -522,7 +515,7 @@ function hexagonVerticalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "hexagonVertical",
       params: {
         offset: offset,
@@ -566,7 +559,7 @@ function hexagonHorizontalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "hexagonHorizontal",
       params: {
         angle: angleInRadians,
@@ -612,7 +605,7 @@ function octagonVerticalShield(
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "octagonVertical",
       params: {
         offset: offset,
@@ -646,7 +639,7 @@ function octagonVerticalShield(
 function pillShield(fillColor, strokeColor, textColor, rectWidth) {
   textColor = textColor ?? strokeColor;
   return {
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "roundedRectangle",
       params: {
         fillColor: fillColor,
@@ -676,7 +669,7 @@ function pillShield(fillColor, strokeColor, textColor, rectWidth) {
 function paBeltShield(fillColor, strokeColor) {
   return {
     notext: true,
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "paBelt",
       params: {
         fillColor: fillColor,
@@ -696,7 +689,7 @@ function paBeltShield(fillColor, strokeColor) {
 function bransonRouteShield(fillColor, strokeColor) {
   return {
     notext: true,
-    canvasDrawnBlank: {
+    shapeBlank: {
       drawFunc: "branson",
       params: {
         fillColor: fillColor,
@@ -710,17 +703,19 @@ function bransonRouteShield(fillColor, strokeColor) {
  * Adds banner text above a shield
  *
  * @param {*} baseDef - Shield definition object
- * @param {*} modifiers - Array of strings to be displayed above shield
+ * @param {*} banners - Array of strings to be displayed above shield
  * @returns a shield definition object
  */
-function banneredShield(baseDef, modifiers) {
+function banneredShield(baseDef, banners) {
   return {
-    modifiers: modifiers,
+    banners: banners,
     ...baseDef,
   };
 }
 
 export function loadShields() {
+  const shields = {};
+
   // Multi-use shields
 
   // Triangle shields
@@ -4232,7 +4227,7 @@ export function loadShields() {
     },
   };
 
-  shields["US:KY:Parkway"].refsByWayName = {
+  shields["US:KY:Parkway"].refsByName = {
     // FIXME: This object contains both spelled-out and abbreviated road
     // names to accommodate both the abbreviated names from OpenMapTiles and
     // the spelled-out names from Planetiler.
@@ -4252,7 +4247,7 @@ export function loadShields() {
     "Western Kentucky Pkwy": "WK",
   };
 
-  shields["US:CT:Parkway"].overrideByWayName = {
+  shields["US:CT:Parkway"].overrideByName = {
     "Merritt Parkway": {
       spriteBlank: "shield_us_ct_parkway_merritt",
     },
@@ -4277,7 +4272,7 @@ export function loadShields() {
     "Blue Route": bransonRouteShield(Color.shields.blue, Color.shields.white),
   };
 
-  shields["US:NY:Parkway"].refsByWayName = {
+  shields["US:NY:Parkway"].refsByName = {
     "Bear Mountain Parkway": "BMP",
     "Bronx and Pelham Parkway": "PP",
     "Bronx River Parkway": "BRP",
@@ -4301,11 +4296,11 @@ export function loadShields() {
     "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
   };
 
-  shields["US:TX:Fort_Bend:FBCTRA"].refsByWayName = {
+  shields["US:TX:Fort_Bend:FBCTRA"].refsByName = {
     "Fort Bend Parkway Toll Road": "FBP",
     "Fort Bend Westpark Tollway": "WPT",
   };
-  shields["US:TX:Harris:HCTRA"].refsByWayName = {
+  shields["US:TX:Harris:HCTRA"].refsByName = {
     "East Sam Houston Tollway North": "SHT",
     "East Sam Houston Tollway South": "SHT",
     "North Sam Houston Tollway East": "SHT",
@@ -4343,5 +4338,15 @@ export function loadShields() {
     },
   };
 
-  return shields;
+  return {
+    networks: shields,
+    options: {
+      bannerTextColor: Color.palette.black,
+      bannerTextHaloColor: Color.backgroundFill,
+      bannerHeight: 9,
+      bannerPadding: 1,
+      shieldFont: '"sans-serif-condensed", "Arial Narrow", sans-serif',
+      shieldSize: 20,
+    },
+  };
 }
