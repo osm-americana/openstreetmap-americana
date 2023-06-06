@@ -75,6 +75,10 @@ const buildWith = async (
   ]);
 };
 
+export const buildContext = (
+  buildOptions: BuildOptions = {}
+): Promise<BuildContext[]> => buildWith("context", buildOptions);
+
 export const build = (
   buildOptions: BuildOptions = {}
 ): Promise<BuildContext[]> => buildWith("build", buildOptions);
