@@ -31,13 +31,7 @@
     "Noto Sans Telugu": ["regular", "700"],
     "Noto Sans Thai": ["regular", "700"]
   },
-  "bundle-font-stacks": {
-    "Noto Sans HK": ["regular", "700"],
-    "Noto Sans JP": ["regular", "700"],
-    "Noto Sans KR": ["regular", "700"],
-    "Noto Sans SC": ["regular", "700"],
-    "Noto Sans TC": ["regular", "700"]
-  },
+  "bundle-font-stacks": {},
   "glyph-ranges": {
     "arabic": [
       [1536, 1791],

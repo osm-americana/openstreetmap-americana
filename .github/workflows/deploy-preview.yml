@@ -37,3 +37,15 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
           server-dir: pr/${{ github.event.pull_request.number }}/
+      - name: Comment Pull Request
+        uses: thollander/actions-comment-pull-request@v2.3.1
+        with:
+          message: |
+            PR Preview:
+            * [Map](https://tile.ourmap.us/pr/${{ github.event.pull_request.number }}/)
+            * [Shield Test](https://tile.ourmap.us/pr/${{ github.event.pull_request.number }}/shieldtest.html)
+            * [Sprites 1x](https://tile.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite.png)
+            * [Sprites 2x](https://tile.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite@2x.png)
+            * [style.json](https://tile.ourmap.us/pr/${{ github.event.pull_request.number }}/style.json)
+            * [taginfo.json](https://tile.ourmap.us/pr/${{ github.event.pull_request.number }}/taginfo.json)
+          comment_tag: pr_preview
