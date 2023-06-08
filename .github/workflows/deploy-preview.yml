@@ -5,7 +5,7 @@ on:
 permissions:
   contents: read
   pages: write
-  id-token: write
+  pull-requests: write
 concurrency: preview-${{ github.ref }}
 jobs:
   build-and-deploy:
