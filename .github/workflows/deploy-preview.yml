@@ -1,10 +1,7 @@
-# Taken from https://github.com/marketplace/actions/deploy-to-github-pages
-
-name: Build and Deploy
+name: Deploy PR Preview
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [main]
 permissions:
   contents: read
   pages: write
@@ -29,10 +26,7 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           npm run build
           npm run style
-      - name: Upload 🏗
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1
         with:
-          path: ./dist
-      - name: Deploy 🚀
-        id: deployment
-        uses: actions/deploy-pages@v1
+          source-dir: ./dist
