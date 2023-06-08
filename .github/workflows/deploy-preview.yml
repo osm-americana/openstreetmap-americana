@@ -2,17 +2,19 @@ name: Deploy PR Preview
 on:
   pull_request:
     branches: [main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
 permissions:
   contents: read
   pages: write
   pull-requests: write
 concurrency: preview-${{ github.ref }}
 jobs:
-  build-and-deploy:
+  deploy-preview:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -29,4 +31,4 @@ jobs:
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: dist
+          source-dir: ./dist/
