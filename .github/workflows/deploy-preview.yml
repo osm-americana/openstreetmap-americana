@@ -36,4 +36,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: pr/${{ steps.pr.outputs.pull_request_number }}/
+          server-dir: pr/${{ github.event.pull_request.number }}/
