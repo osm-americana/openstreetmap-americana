@@ -30,7 +30,7 @@ jobs:
           npm run style
           cp src/configs/config.aws.js src/config.js
       - name: Deploy via FTP
-        uses: genietim/ftp-action@v4
+        uses: GenieTim/ftp-action@v4.0.1
         with:
           host: ${{ secrets.FTP_SERVER }}
           user: ${{ secrets.FTP_USERNAME }}
