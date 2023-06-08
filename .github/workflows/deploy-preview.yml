@@ -11,6 +11,7 @@ permissions:
   contents: read
   pages: write
   pull-requests: write
+  id-token: write
 concurrency: preview-${{ github.ref }}
 jobs:
   deploy-preview:
@@ -28,7 +29,11 @@ jobs:
           npm run build
           npm run style
           cp src/configs/config.aws.js src/config.js
-      - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
+      - name: Deploy via FTP
+        uses: genietim/ftp-action@releases/v4
         with:
-          source-dir: ./dist/
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: dist/
+          remoteDir: pr/${{ steps.pr.outputs.pull_request_number }}/
