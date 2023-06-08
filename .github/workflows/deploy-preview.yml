@@ -23,10 +23,10 @@ jobs:
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev
-          cp src/configs/config.aws.js src/config.js
           npm run build
           npm run style
+          cp src/configs/config.aws.js src/config.js
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: ./dist
+          source-dir: dist
