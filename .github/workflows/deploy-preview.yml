@@ -28,7 +28,7 @@ jobs:
           npm run build
           npm run style
           cp src/configs/config.aws.js src/config.js
-      - name: ftp-delete-action
+      - name: Remove prior FTP preview
         uses: StephanThierry/ftp-delete-action@v2.1
         with:
           host: ${{ secrets.FTP_SERVER }}
