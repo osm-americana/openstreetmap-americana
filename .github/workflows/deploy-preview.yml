@@ -43,6 +43,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
           server-dir: pr/${{ github.event.pull_request.number }}/
+          dangerous-clean-slate: true
       - name: Comment Pull Request
         uses: thollander/actions-comment-pull-request@v2.3.1
         with:
