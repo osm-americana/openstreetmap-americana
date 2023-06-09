@@ -50,8 +50,8 @@ jobs:
             PR Preview:
             * [Map](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/)
             * [Shield Test](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/shieldtest.html)
-            * [Sprites 1x](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite.png)
-            * [Sprites 2x](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite@2x.png)
             * [style.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/style.json)
             * [taginfo.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/taginfo.json)
+            * ![Sprites 1x][https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite.png]
+            * ![Sprites 2x][https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite@2x.png]
           comment_tag: pr_preview
