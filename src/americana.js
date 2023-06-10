@@ -68,10 +68,60 @@ if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
     config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
 }
 
+// Add our sample data.
+let sampleControl = new SampleControl({ permalinks: true });
+OpenMapTilesSamples.forEach((sample, i) => {
+  sampleControl.addSample(sample);
+});
+
+let legendControl;
+
 const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
   .filterImageID(shieldPredicate)
   .filterNetwork(networkPredicate)
-  .renderOnMaplibreGL(map);
+  .renderOnMaplibreGL(map)
+  .onShieldDefLoad((shields) => shieldDefLoad(shields));
+
+function shieldDefLoad(shields) {
+
+  legendControl = new LegendControl(shields);
+  legendControl.sections = LegendConfig.sections;
+  map.addControl(legendControl, "bottom-left");
+  map.addControl(sampleControl, "bottom-left");
+
+  map.getCanvas().focus();
+
+  map.addControl(new maplibregl.AttributionControl(attributionConfig));
+  map.addControl(languageLabel.label, "bottom-right");
+
+  map.addControl(new search.PhotonSearchControl(), "top-left");
+  map.addControl(new maplibregl.NavigationControl(), "top-left");
+
+  window.addEventListener("languagechange", (event) => {
+    console.log(`Changed to ${navigator.languages}`);
+    hotReloadMap();
+    updateLanguageLabel();
+  });
+
+  window.addEventListener("hashchange", (event) => {
+    upgradeLegacyHash();
+    let oldLanguage = Label.getLanguageFromURL(new URL(event.oldURL));
+    let newLanguage = Label.getLanguageFromURL(new URL(event.newURL));
+    if (oldLanguage !== newLanguage) {
+      console.log(`Changed to ${newLanguage}`);
+      hotReloadMap();
+      updateLanguageLabel();
+    }
+  });
+
+  updateLanguageLabel();
+
+  if (window.LIVE_RELOAD) {
+    new EventSource("/esbuild").addEventListener("change", () =>
+      location.reload()
+    );
+  }
+}
 
 map.on("styleimagemissing", function (e) {
   switch (e.id.split("\n")[0]) {
@@ -95,25 +145,6 @@ export function updateLanguageLabel() {
   legendControl.onLanguageChange();
 }
 
-let legendControl = new LegendControl();
-legendControl.sections = LegendConfig.sections;
-window.addEventListener("languagechange", (event) => {
-  console.log(`Changed to ${navigator.languages}`);
-  hotReloadMap();
-  updateLanguageLabel();
-});
-
-window.addEventListener("hashchange", (event) => {
-  upgradeLegacyHash();
-  let oldLanguage = Label.getLanguageFromURL(new URL(event.oldURL));
-  let newLanguage = Label.getLanguageFromURL(new URL(event.newURL));
-  if (oldLanguage !== newLanguage) {
-    console.log(`Changed to ${newLanguage}`);
-    hotReloadMap();
-    updateLanguageLabel();
-  }
-});
-
 let attributionConfig = {
   customAttribution: "",
 };
@@ -124,32 +155,7 @@ if (config.ATTRIBUTION_TEXT != undefined) {
   };
 }
 
-map.addControl(new maplibregl.AttributionControl(attributionConfig));
-map.addControl(languageLabel.label, "bottom-right");
-
 if (config.ATTRIBUTION_LOGO != undefined) {
   document.getElementById("attribution-logo").innerHTML =
     config.ATTRIBUTION_LOGO;
-}
-
-map.addControl(new search.PhotonSearchControl(), "top-left");
-map.addControl(new maplibregl.NavigationControl(), "top-left");
-
-map.addControl(legendControl, "bottom-left");
-
-// Add our sample data.
-let sampleControl = new SampleControl({ permalinks: true });
-OpenMapTilesSamples.forEach((sample, i) => {
-  sampleControl.addSample(sample);
-});
-map.addControl(sampleControl, "bottom-left");
-
-map.getCanvas().focus();
-
-updateLanguageLabel();
-
-if (window.LIVE_RELOAD) {
-  new EventSource("/esbuild").addEventListener("change", () =>
-    location.reload()
-  );
 }

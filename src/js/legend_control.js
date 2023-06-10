@@ -2,7 +2,6 @@
 
 import { getDOMPixelRatio } from "@americana/maplibre-shield-generator";
 import * as Label from "../constants/label.js";
-import * as ShieldDef from "./shield_defs.js";
 
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 
@@ -20,6 +19,10 @@ function toSentenceCase(lowerCase, locale) {
 }
 
 export default class LegendControl {
+  constructor(shieldDefs) {
+    this._shieldDefs = shieldDefs;
+  }
+
   onAdd(map) {
     this._map = map;
 
@@ -467,7 +470,7 @@ export default class LegendControl {
       }
       let networkImages = imagesByNetwork[image.network];
 
-      let shieldDef = ShieldDef.shields[image.network];
+      let shieldDef = this._shieldDefs[image.network];
       if (image.ref && shieldDef?.overrideByRef?.[image.ref]) {
         // Store a different image for each override in the shield definition.
         if (!networkImages.overridesByRef[image.ref]) {
@@ -505,7 +508,7 @@ export default class LegendControl {
     // order as in the shield definitions, appending all the unrecognized
     // networks sorted in alphabetical order.
     let networks = [
-      ...Object.keys(ShieldDef.shields),
+      ...Object.keys(this._shieldDefs),
       ...[...unrecognizedNetworks.values()].sort(),
     ];
     let countries = new Set();

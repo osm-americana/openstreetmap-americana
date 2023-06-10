@@ -61,6 +61,7 @@ class AbstractShieldRenderer {
   private _networkPredicate: StringPredicate = () => true;
   private _routeParser: RouteParser;
   private _renderContext: ShieldRenderingContext;
+  private _shieldDefCallbacks = [];
 
   constructor(routeParser: RouteParser) {
     this._routeParser = routeParser;
@@ -71,6 +72,13 @@ class AbstractShieldRenderer {
   protected setShields(shieldSpec: ShieldSpecification) {
     this._renderContext.options = shieldSpec.options;
     this._renderContext.shieldDef = shieldSpec.networks;
+    this._shieldDefCallbacks.forEach((callback) =>
+      callback(shieldSpec.networks)
+    );
+  }
+
+  public getShieldDefinitions(): ShieldDefinitions {
+    return this._renderContext.shieldDef;
   }
 
   public debugOptions(debugOptions: DebugOptions): AbstractShieldRenderer {
@@ -100,6 +108,17 @@ class AbstractShieldRenderer {
   public renderOnMaplibreGL(map: Map): AbstractShieldRenderer {
     this.renderOnRepository(new MaplibreGLSpriteRepository(map));
     map.on("styleimagemissing", this.getStyleImageMissingHandler());
+    return this;
+  }
+
+  public onShieldDefLoad(
+    callback: (shields: ShieldDefinitions) => void
+  ): AbstractShieldRenderer {
+    if (this._renderContext.shieldDef) {
+      callback(this._renderContext.shieldDef);
+    } else {
+      this._shieldDefCallbacks.push(callback);
+    }
     return this;
   }
 
