@@ -83,7 +83,6 @@ const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
   .onShieldDefLoad((shields) => shieldDefLoad(shields));
 
 function shieldDefLoad(shields) {
-
   legendControl = new LegendControl(shields);
   legendControl.sections = LegendConfig.sections;
   map.addControl(legendControl, "bottom-left");
