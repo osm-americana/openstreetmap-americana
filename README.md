@@ -68,3 +68,7 @@ Americana displays custom route shields for routes in all U.S. states and territ
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
 
 We are hoping that it will support more countries; you can [help us](https://github.com/ZeLonewolf/openstreetmap-americana/projects/1)!
+
+## Tile Server
+
+Americana's GitHub map uses a privately-donated community [tile server](https://tile.ourmap.us). It is available for use by other hobbyist and community projects. See also the [tile server usage policy](TILE_USAGE.md).
