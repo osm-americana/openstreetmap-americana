@@ -71,4 +71,4 @@ We are hoping that it will support more countries; you can [help us](https://git
 
 ## Tile Server
 
-While the source code in this repository remains dedicated to the public domain under a CC0 waiver, Americana's GitHub map uses a privately-donated community [tile server](https://tile.ourmap.us) to run the live map. This server is available for use by other hobbyist and community projects with constraints. See the [tile server usage policy](TILE_USAGE.md) for more details. This usage policy describes the allowable usage of the tiles for other projects, separate from this style or the application being developed in this repository.
+Although the source code in this repository is dedicated to the public domain under a CC0 waiver, it is configured by default to load map tiles from a privately-donated community [tile server](https://tile.ourmap.us). This server is available for use by other hobbyist and community projects with constraints. See the [tile server usage policy](TILE_USAGE.md) for more details. This usage policy describes the allowable usage of the tiles for other projects, separate from this style or the application being developed in this repository.
