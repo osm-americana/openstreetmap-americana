@@ -7,7 +7,7 @@ Tile Usage Policy for OpenStreetMap Americana Community Vector Tile Server
 Thank you for using the OpenStreetMap Americana [Community Vector Tile Server](https://tile.ourmap.us) (referred to as "the Server"). By accessing and using the tiles provided by the Server, you agree to comply with the following Tile Usage Policy:
 
 1. Purpose:
-    The Server aims to support hobbyists, small community groups, and individuals who require vector tiles for their projects or development of custom map styles. The Server is a community resource provided at no cost, but limitations may apply based on server capacity and financial constraints.
+   The Server aims to support hobbyists, small community groups, and individuals who require vector tiles for their projects or development of custom map styles. The Server is a community resource provided at no cost, but limitations may apply based on server capacity and financial constraints.
 
 2. Attribution:
    When using tiles from the Server, you must provide proper attribution to OpenStreetMap and OpenMapTiles as required by their respective attribution policies.
