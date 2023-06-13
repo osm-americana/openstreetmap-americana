@@ -10,7 +10,7 @@ Thank you for using the OpenStreetMap Americana [Community Vector Tile Server](h
    The Server aims to support hobbyists, small community groups, and individuals who require vector tiles for their projects or development of custom map styles. The Server is a community resource provided at no cost, but limitations may apply based on server capacity and financial constraints.
 
 2. Attribution:
-   When using tiles from the Server, you must provide proper attribution to OpenStreetMap and OpenMapTiles as required by their respective attribution policies.
+   When using tiles from the Server, you must provide proper attribution to [OpenStreetMap](https://wiki.osmfoundation.org/wiki/Licence/Attribution_Guidelines#OpenStreetMap_Attribution_Guideline) and [OpenMapTiles](https://github.com/openmaptiles/openmaptiles/blob/master/LICENSE.md) as required by their respective attribution policies.
 
 3. Personal and Non-Commercial Use:
    The Server is primarily intended for personal, non-commercial use. You are welcome to use the tiles for personal or community projects, educational purposes, or non-profit initiatives that do not generate revenue. There are several [guides](https://www.openstreetmap.org/user/ZeLonewolf/diary/401697) available for commercial users that desire to run a vector tile server at low cost.
