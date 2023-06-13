@@ -71,4 +71,4 @@ We are hoping that it will support more countries; you can [help us](https://git
 
 ## Tile Server
 
-Americana's GitHub map uses a privately-donated community [tile server](https://tile.ourmap.us). It is available for use by other hobbyist and community projects. See also the [tile server usage policy](TILE_USAGE.md).
+Americana's GitHub map uses a privately-donated community [tile server](https://tile.ourmap.us). It is available for use by other hobbyist and community projects. See also the [tile server usage policy](TILE_USAGE.md).  The usage policy describes the allowable usage of the tiles, irrespective of use of the style or application being developed in this repository.
