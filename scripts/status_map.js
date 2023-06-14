@@ -24,7 +24,7 @@ let worldSVG = fs.readFileSync(`${process.cwd()}/scripts/blank_map_world.svg`, {
 });
 worldSVG = fillPaths(
   worldSVG,
-  Object.keys(shields)
+  Object.keys(shields.networks)
     .map((network) => network.match(/^(\w\w)(?::|$)|^omt-(\w\w)-/))
     .filter((m) => m)
     .map((m) => m[1] || m[2])
