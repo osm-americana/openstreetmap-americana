@@ -112,7 +112,7 @@ var iconDefs = {
     classes: {
       college: ["college", "university"],
     },
-    sprite: "poi_college",
+    sprite: "poi_mortarboard",
     color: Color.poi.infrastructure,
     description: "College or university",
   },
