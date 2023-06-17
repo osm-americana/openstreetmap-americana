@@ -1,13 +1,7 @@
 "use strict";
 
+import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
-
-const name_en = [
-  "coalesce",
-  ["get", "name:en"],
-  ["get", "name:latin"],
-  ["get", "name"],
-];
 
 const minorAirport = [
   "any",
@@ -21,8 +15,8 @@ const iconLayout = {
     "match",
     ["get", "class"],
     "military",
-    "military_airport",
-    "airport",
+    "poi\nsprite=poi_military_plane\ncolor=" + Color.poi.airport,
+    "poi\nsprite=poi_plane\ncolor=" + Color.poi.airport,
   ],
   "text-anchor": "bottom",
   "text-variable-anchor": [
@@ -175,7 +169,7 @@ export const airportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
     ...iconLayout,
   },
@@ -185,7 +179,7 @@ export const airportRefLabel = {
 };
 
 export const minorAirportRefLabel = {
-  id: "minor_airport_ref_label",
+  id: "airport_ref_label_minor",
   type: "symbol",
   minzoom: 13,
   maxzoom: 15,
@@ -199,7 +193,7 @@ export const minorAirportRefLabel = {
   layout: {
     visibility: "visible",
     "text-field": ["coalesce", ["get", "iata"], ["get", "icao"]],
-    "text-font": ["Metropolis Bold"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
@@ -221,18 +215,17 @@ export const airportLabel = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
-    "text-font": ["Metropolis Bold"],
+    "text-field": Label.localizedName,
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
     ...iconLayout,
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aerodrome_label",
 };
 
 export const minorAirportLabel = {
-  id: "minor_airport_label",
+  id: "airport_label_minor",
   type: "symbol",
   minzoom: 13,
   maxzoom: 15,
@@ -245,12 +238,11 @@ export const minorAirportLabel = {
   },
   layout: {
     visibility: "visible",
-    "text-field": name_en,
-    "text-font": ["Metropolis Bold"],
+    "text-field": Label.localizedName,
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aerodrome_label",
 };
 
@@ -267,11 +259,26 @@ export const airportGate = {
   },
   layout: {
     visibility: "visible",
-    "text-field": "{ref}",
-    "text-font": ["Metropolis Bold"],
+    "text-field": ["get", "ref"],
+    "text-font": ["Americana-Bold"],
     "text-size": 10,
   },
   source: "openmaptiles",
-  metadata: {},
   "source-layer": "aeroway",
 };
+
+export const legendEntries = [
+  {
+    description: "Civilian airport",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["!=", ["get", "class"], "military"],
+  },
+  {
+    description: "Military air base",
+    layers: [airportRefLabel.id, airportLabel.id],
+    filter: ["==", ["get", "class"], "military"],
+  },
+  { description: "Runway", layers: [runway.id] },
+  { description: "Taxiway", layers: [taxiway.id] },
+  { description: "Gate", layers: [airportGate.id] },
+];

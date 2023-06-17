@@ -1,0 +1,4 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <path style="paint-order:stroke fill markers" d="M0 0H20V20H0z"/>
+ <path d="M 7,2 V 7 H 2 v 6 h 5 v 5 h 6 v -5 h 5 V 7 H 13 V 2 Z" fill="#fff" fill-rule="evenodd"/>
+</svg>

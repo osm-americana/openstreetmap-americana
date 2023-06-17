@@ -1,31 +1,47 @@
 "use strict";
 
-function routeConcurrency(num) {
+export const namedRouteNetworks = [
+  "US:CT:Parkway",
+  "US:KY:Parkway",
+  "US:NY:Parkway",
+  "US:TX:Fort_Bend:FBCTRA",
+  "US:TX:Harris:HCTRA",
+];
+
+export function getImageNameExpression(routeIndex) {
+  return [
+    "concat",
+    "shield\n",
+    ["get", "route_" + routeIndex],
+    [
+      "match",
+      ["get", "route_" + routeIndex],
+      namedRouteNetworks.map((n) => n + "="),
+      ["concat", "\n", ["get", "name"]],
+      "",
+    ],
+  ];
+}
+
+function routeConcurrency(routeIndex) {
   return [
     "case",
-    ["!=", ["get", "route_" + num], null],
-    [
-      "image",
-      [
-        "concat",
-        "shield\n",
-        ["get", "route_" + num],
-        [
-          "match",
-          ["get", "route_" + num],
-          [
-            "US:KY:Parkway=",
-            "US:NY:Parkway=",
-            "US:TX:Fort_Bend:FBCTRA=",
-            "US:TX:Harris:HCTRA=",
-          ],
-          ["concat", "\n", ["get", "name"]],
-          "",
-        ],
-      ],
-    ],
+    ["!=", ["get", "route_" + routeIndex], null],
+    ["image", getImageNameExpression(routeIndex)],
     ["literal", ""],
   ];
+}
+
+/**
+ * Returns a structured representation of the given image name.
+ *
+ * @param name An image name in the format returned by `routeConcurrency`.
+ */
+export function parseImageName(imageName) {
+  let lines = imageName.split("\n");
+  let [, network, ref] = lines[1].match(/^(.*?)=(.*)/) || [];
+  let name = lines[2];
+  return { imageName, network, ref, name };
 }
 
 let shieldTextField = ["format"];
@@ -35,7 +51,7 @@ for (var i = 1; i <= 6; i++) {
 
 let shieldLayout = {
   "text-rotation-alignment": "viewport-glyph",
-  "text-font": ["Metropolis Light"],
+  "text-font": ["Americana-Regular"],
   "text-field": shieldTextField,
   "text-anchor": "center",
   "text-letter-spacing": 0.7,
@@ -63,7 +79,7 @@ export const shield = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "transportation_name",
-  id: "highway_shield",
+  id: "highway-shield",
   layout: shieldLayout,
   paint: {
     "text-opacity": [

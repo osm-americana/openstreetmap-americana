@@ -15,7 +15,6 @@ export const surface = {
   "source-layer": "transportation",
   type: "symbol",
   minzoom: 15,
-  maxzoom: 20, // Removing this may affect performance
 
   layout: {
     "icon-size": [

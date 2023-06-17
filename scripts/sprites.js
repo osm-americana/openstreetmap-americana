@@ -1,10 +1,7 @@
-import fs from "fs/promises";
-import path from "path";
-import util from "util";
+import fs from "node:fs/promises";
+import path from "node:path";
 
-import g from "glob";
-const glob = util.promisify(g);
-
+import glob from "glob";
 import { Sprites } from "@basemaps/sprites";
 
 await fs.mkdir("./dist/sprites/", { recursive: true });
@@ -19,6 +16,8 @@ const sprites = await Promise.all(
   })
 );
 
+console.log(`Building ${sprites.length} sprites`);
+
 const generated = await Sprites.generate(sprites, [1, 2]);
 
 for (const result of generated) {
@@ -28,4 +27,6 @@ for (const result of generated) {
 
   await fs.writeFile(outputPng, result.buffer);
   await fs.writeFile(outputJson, JSON.stringify(result.layout, null, 2));
+  const kb = (result.buffer.length / 1024).toFixed(1);
+  console.log(`Wrote ${kb}KiB to ${outputPng}`);
 }

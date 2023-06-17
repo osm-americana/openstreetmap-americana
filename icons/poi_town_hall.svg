@@ -1,0 +1,5 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <g style="stroke-width:2;stroke-dasharray:none">
+  <path style="color:#000;fill:#000;stroke:#f9f5f0;stroke-width:2;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" d="M 9 1 L 9 7.0957031 A 5.9999943 6.0000048 0 0 0 7.0195312 7.7929688 A 5.9999943 6.0000048 0 0 0 4 13 L 2 13 L 2 19 L 18 19 L 18 13 L 16 13 A 5.9999943 6.0000048 0 0 0 13.046875 7.8320312 A 5.9999943 6.0000048 0 0 0 10 7.0019531 L 10 5 L 16 5 L 16 1 L 9 1 z"/>
+ </g>
+</svg>

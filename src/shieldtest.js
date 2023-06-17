@@ -1,9 +1,35 @@
 "use strict";
 
-import { map } from "./americana.js";
-import * as shield from "./js/shield.js";
-import { shields } from "./js/shield_defs.js";
-import * as gfx from "./js/screen_gfx.js";
+import * as ShieldDef from "./js/shield_defs.js";
+import * as maplibregl from "maplibre-gl";
+import { ShieldRenderer } from "@americana/maplibre-shield-generator";
+import {
+  shieldPredicate,
+  networkPredicate,
+  routeParser,
+} from "./js/shield_format.js";
+
+var getUrl = window.location;
+var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
+
+window.maplibregl = maplibregl;
+export const map = (window.map = new maplibregl.Map({
+  container: "map", // container id
+  antialias: true,
+  style: {
+    version: 8,
+    layers: [],
+    sources: {},
+    sprite: new URL("sprites/sprite", baseUrl).href,
+  },
+}));
+
+const shields = ShieldDef.loadShields();
+
+const shieldRenderer = new ShieldRenderer(shields, routeParser)
+  .filterImageID(shieldPredicate)
+  .filterNetwork(networkPredicate)
+  .renderOnMaplibreGL(map);
 
 const once = (emitter, name, { signal } = {}) =>
   new Promise((resolve, reject) => {
@@ -35,7 +61,6 @@ let networks = [
   "CA:NS:R",
   "CA:YT",
   "IS",
-  "dk:national",
   "e-road",
   "pl:motorways",
 
@@ -43,6 +68,7 @@ let networks = [
   "CA:ON:secondary",
   "US:NE",
   "US:MN:Hennepin:Park_Access",
+  "CA:MB:Winnipeg",
   "US:PA",
   "US:PA:Turnpike",
 
@@ -52,22 +78,25 @@ let networks = [
   "AU:WA:NH",
   "PH:E",
   "US:TX:Montgomery:MCTRA",
+  "US:WV:HARP",
 
   "US:TN:secondary",
+  "US:MI",
   "US:NC",
 
   "US:IA:CR",
   "US:CO:Douglas",
   "US:MN:Aitkin:CSAH",
   "AU:ACT:T",
-  "US:TX:Harris:HCTRA",
   "US:NM:San_Juan:NCM",
+  "US:TX:Harris:HCTRA",
 
   "JP:prefectural",
   "PK:national",
+  "ID:national",
 
   "AU:QLD:MR",
-  "GR:national",
+  "GR:motorway",
   "my:federal",
   "TR:motorway",
   "US:NY",
@@ -78,48 +107,46 @@ let networks = [
   // Basic Rounded Shapes
   "US:GU",
 
-  "US:HI",
   "US:CA",
-
-  "US:OR",
+  "US:UT",
+  "US:HI",
 
   "JP:national",
   "TW:expressway",
   "US:TX:Fort_Bend:FBCTRA",
+  "US:OR",
+
   "US:VA",
   "US:PR:primary",
   "HK",
-  "PK:motorway",
-  "NZ:SH",
-  "AU:WA:S",
-
-  // Basic shapes with more detail
-  "US:I",
-  "US:I:Business:Loop",
-
   "CA:QC:A",
   "CA:NS:H",
 
-  "CA:PE",
-  "US:FL:Toll",
-  "CA:BC",
-  "US:US",
-  "US:US:Historic",
-  "CL:national",
+  "NZ:SH",
+  "AU:WA:S",
 
-  "md:national",
-  "KR:expressway",
-  "CA:QC:R",
-  "VE:T:AM",
+  "US:I",
+  "US:I:Business:Loop",
   "co:national",
   "US:BIA",
   "US:MT:secondary",
 
-  "TW:freeway",
-  "US:UT",
-  "US:MP",
+  "CA:PE",
+  "US:FL:Toll",
+  "CA:BC",
+  "IN:NH",
+  "PK:motorway",
+  "US:US",
+  "US:US:Historic",
+  "CL:national",
+
+  "KR:expressway",
+  "CA:QC:R",
+  "VE:T:AM",
   "US:WI",
-  "CA:MB:Winnipeg",
+
+  "TW:freeway",
+  "US:MP",
   "US:AS",
 
   // Fancy Rectangles
@@ -133,6 +160,7 @@ let networks = [
   "US:DC",
   "US:FL",
   "US:NH",
+  "US:NY:Parkway:LI",
   "US:NY:Parkway:NYC",
   "US:OK",
   "US:SC",
@@ -229,31 +257,171 @@ let refs = [
   "A26/A7",
 ];
 
-export function getShieldCanvas(shield_id) {
-  let ctx = shield.generateShieldCtx(shield_id);
+export function getShieldCanvas(network, ref, name) {
+  let ctx = shieldRenderer.getGraphicForRoute(network, ref, name);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
-    console.warn("Didn't produce a shield for", JSON.stringify(e.id));
-    ctx = gfx.getGfxContext({ width: 1, height: 1 });
+    console.warn("Didn't produce a shield for", JSON.stringify(shield_id));
+    ctx = shieldRenderer.emptySprite();
   }
   return ctx.canvas;
 }
 
-const PXR = gfx.getPixelRatio();
-
-let table = document.querySelector("#shield-table");
-
-for (let network of networks) {
-  let row = table.insertRow();
-  row.insertCell().appendChild(document.createTextNode(`${network}`));
-  for (let ref of refs) {
-    let cell = row.insertCell();
-    let shield_id = `shield\n${network}=${ref}`;
-    let shieldCanvas = getShieldCanvas(shield_id);
-    let img = document.createElement("img");
-    img.src = shieldCanvas.toDataURL("image/png");
-    img.width = shieldCanvas.width / PXR;
-    img.height = shieldCanvas.height / PXR;
-    cell.appendChild(img);
-  }
+function getShieldImage(network, ref, name) {
+  let shieldCanvas = getShieldCanvas(network, ref, name);
+  let img = document.createElement("img");
+  img.srcset = `${shieldCanvas.toDataURL("image/png")} ${pxr}x`;
+  return img;
 }
+
+const pxr = shieldRenderer.pixelRatio();
+
+const iterShields = function* () {
+  for (const network of networks) {
+    yield { network, refs };
+  }
+  yield {
+    network: "US:PA:Allegheny:Belt",
+    refs: [
+      "Red Belt",
+      "Orange Belt",
+      "Yellow Belt",
+      "Green Belt",
+      "Blue Belt",
+      "Purple Belt",
+    ],
+  };
+  yield {
+    network: "US:MO:Taney:Branson",
+    refs: ["Red Route", "Yellow Route", "Blue Route"],
+  };
+  yield {
+    network: "CA:ON:primary",
+    refs: ["QEW"],
+  };
+  yield {
+    network: "GLCT",
+    refs: ["LECT", "LHCT", "LMCT", "LSCT"],
+  };
+  yield {
+    network: "GLCT:Loop",
+    refs: ["LMCT"],
+  };
+  yield {
+    network: "US:PA:Turnpike",
+    refs: [""],
+  };
+  yield {
+    network: "US:NE:Scenic",
+    refs: [""],
+  };
+  yield {
+    network: "US:NY:STE",
+    refs: [""],
+  };
+  yield {
+    network: "US:NY:Thruway",
+    refs: [""],
+  };
+  yield {
+    network: "US:KY:Parkway",
+    names: [
+      "Audubon Parkway",
+      "Bluegrass Parkway",
+      "Cumberland Parkway",
+      "Hal Rogers Parkway",
+      "Mountain Parkway",
+      "Purchase Parkway",
+      "Western Kentucky Parkway",
+    ],
+  };
+  yield {
+    network: "US:CT:Parkway",
+    names: ["Wilbur Cross Parkway", "Milford Parkway", "Merritt Parkway"],
+  };
+};
+
+const renderAllShields = async () => {
+  const allShields = Array.from(iterShields());
+  const progress = document.querySelector("#progress-overlay progress");
+  progress.max = allShields.flatMap((d) => mergeArrays(d.refs, d.names)).length;
+  const columns = Math.max(
+    ...allShields.flatMap((d) => mergeArrays(d.refs, d.names).length)
+  );
+  const table = document.querySelector("#shield-table").createTBody();
+  for (const { network, refs, names } of allShields) {
+    const tr = table.insertRow();
+    tr.insertCell().append(`${network}`);
+    if (refs) {
+      for (const ref of refs) {
+        renderAndRecordPerformance(
+          tr,
+          performance,
+          progress,
+          () => getShieldImage(network, ref),
+          network
+        );
+      }
+    } else if (names) {
+      for (const name of names) {
+        renderAndRecordPerformance(
+          tr,
+          performance,
+          progress,
+          () => getShieldImage(network, "", name),
+          network
+        );
+      }
+    }
+    let perfEntries = performance.getEntriesByName(`${network}`);
+    var perfDuration = 0;
+    for (let perf of perfEntries) {
+      perfDuration += perf.duration;
+    }
+    let shieldRate = Math.round((1000 * perfEntries.length) / perfDuration);
+    if (tr.cells.length < 1 + columns) {
+      const gap = columns - tr.cells.length + 1;
+      tr.insertCell().colSpan = gap;
+    }
+    tr.insertCell().append(`${shieldRate} shields/sec`);
+
+    await Promise.all(
+      Array.from(tr.querySelectorAll("img"), (img) =>
+        img.decode().catch(
+          () =>
+            /* occasionally fails for no reason */
+            new Promise(requestAnimationFrame)
+        )
+      )
+    );
+  }
+};
+
+function renderAndRecordPerformance(
+  tr,
+  performance,
+  progress,
+  shieldFunc,
+  network
+) {
+  performance.mark(`start-${network}`);
+  tr.insertCell().append(shieldFunc());
+  progress.value += 1;
+  performance.mark(`stop-${network}`);
+  performance.measure(`${network}`, `start-${network}`, `stop-${network}`);
+}
+
+function mergeArrays(arr1, arr2) {
+  let ret = [];
+  if (arr1) {
+    ret = ret.concat(arr1);
+  }
+  if (arr2) {
+    ret = ret.concat(arr2);
+  }
+  return ret;
+}
+
+await renderAllShields().finally(() =>
+  document.querySelector("#progress-overlay").remove()
+);

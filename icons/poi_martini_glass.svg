@@ -1,0 +1,5 @@
+<svg width="16" height="20" xmlns="http://www.w3.org/2000/svg">
+ <path d="m 11,4.5 2,-3" stroke="#fff" stroke-linecap="round" style="stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none"/>
+ <path d="M 1.0000004,5.0000005 6.999999,12.777292 7,17 4.5000012,17.000001 4.5000002,19 H 11.499999 L 11.5,17 H 9 l -10e-7,-4.222708 6,-7.7772915 z" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"/>
+ <path d="m 11,4.5 2,-3" stroke="#000" style="stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"/>
+</svg>
