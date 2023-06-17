@@ -37,7 +37,7 @@ export const surface = {
         1,
         "secondary",
         0.8,
-        "tertiary",
+        ["tertiary", "busway"],
         0.6,
         0.3,
       ],
