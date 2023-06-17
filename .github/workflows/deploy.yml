@@ -11,16 +11,7 @@ permissions:
   id-token: write
 concurrency: preview-${{ github.ref }}
 jobs:
-  cleanup-preview:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Remove prior FTP preview
-        uses: StephanThierry/ftp-delete-action@v2.1
-        with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          remoteDirectories: pr/${{ github.event.pull_request.number }}/
+  # TODO remove old PRs from s3 bucket automatically
   build-and-deploy:
     runs-on: ubuntu-latest
     environment:

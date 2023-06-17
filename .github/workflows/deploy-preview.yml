@@ -28,15 +28,17 @@ jobs:
           npm run build
           npm run style
           cp src/configs/config.aws.js src/config.js
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy via S3
+        uses: jakejarvis/s3-sync-action@master
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/
-          server-dir: pr/${{ github.event.pull_request.number }}/
-          dangerous-clean-slate: true
+          args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*'
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: "./dist"
+          DEST_DIR: pr/${{ github.event.pull_request.number }}/
       - name: Comment Pull Request
         uses: thollander/actions-comment-pull-request@v2.3.1
         with:
