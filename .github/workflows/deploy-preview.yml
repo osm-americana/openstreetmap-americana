@@ -38,7 +38,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: "./dist"
-          DEST_DIR: pr/${{ github.event.pull_request.number }}/
+          DEST_DIR: pr/${{ github.event.pull_request.number }}
       - name: Comment Pull Request
         uses: thollander/actions-comment-pull-request@v2.3.1
         with:
