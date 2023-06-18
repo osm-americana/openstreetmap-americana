@@ -48,6 +48,7 @@ jobs:
             * [Map](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/)
             * [Shield Test](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/shieldtest.html)
             * [style.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/style.json)
+            * [shields.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/shields.json)
             * [taginfo.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/taginfo.json)
 
             Sprite Sheets:
