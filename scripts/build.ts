@@ -83,12 +83,4 @@ export const build = (
   buildOptions: BuildOptions = {}
 ): Promise<BuildContext[]> => buildWith("build", buildOptions);
 
-const mainModule = pathToFileURL(process.argv[1]).toString();
-const isMain = import.meta.url === mainModule;
-
-if (isMain) {
-  await build({
-    // defaults to undefined, but force it to get optimized out
-    define: { "window.LIVE_RELOAD": "false" },
-  });
-}
+await build();

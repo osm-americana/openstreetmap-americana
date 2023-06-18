@@ -9,7 +9,9 @@ permissions:
   contents: read
   pages: write
   id-token: write
+concurrency: preview-${{ github.ref }}
 jobs:
+  # TODO remove old PRs from s3 bucket automatically
   build-and-deploy:
     runs-on: ubuntu-latest
     environment:
@@ -22,17 +24,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Build Shield Library 🛡️
-        run: |
-          cd shieldlib
-          npm ci --include=dev
-          npm run build
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev
           cp src/configs/config.aws.js src/config.js
           npm run build
           npm run style
+          npm run shields
       - name: Upload 🏗
         uses: actions/upload-pages-artifact@v1
         with:
