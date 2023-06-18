@@ -26,7 +26,9 @@ import {
 
 export function buildStyle() {
   var getUrl = window.location;
-  var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
+  var baseUrl = (getUrl.protocol + "//" + getUrl.host + getUrl.pathname)
+    //Trim trailing slashes from URL
+    .replace(/\/+$/, "");
   return Style.build(
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
