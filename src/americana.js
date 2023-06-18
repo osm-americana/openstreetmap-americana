@@ -30,7 +30,7 @@ export function buildStyle() {
   return Style.build(
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
-      "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+    "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
     Label.getLocales()
   );
 }
