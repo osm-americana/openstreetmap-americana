@@ -1,0 +1,58 @@
+name: Deploy PR Preview
+on:
+  pull_request:
+    branches: [main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+permissions:
+  contents: read
+  pages: write
+  pull-requests: write
+  id-token: write
+concurrency: preview-${{ github.ref }}
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install and Build 🔧
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
+      - name: Deploy via S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*'
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: "./dist"
+          DEST_DIR: pr/${{ github.event.pull_request.number }}
+      - name: Comment Pull Request
+        uses: thollander/actions-comment-pull-request@v2.3.1
+        with:
+          message: |
+            PR Preview:
+            * [Map](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/)
+            * [Shield Test](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/shieldtest.html)
+            * [style.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/style.json)
+            * [shields.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/shields.json)
+            * [taginfo.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/taginfo.json)
+
+            Sprite Sheets:
+
+            ![Sprites 1x](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite.png)
+            ![Sprites 2x](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite@2x.png)
+          comment_tag: pr_preview
