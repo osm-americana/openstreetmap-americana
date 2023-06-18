@@ -30,6 +30,7 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           npm run build
           npm run style
+          npm run shields
       - name: Upload 🏗
         uses: actions/upload-pages-artifact@v1
         with:

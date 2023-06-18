@@ -27,6 +27,7 @@ jobs:
           npm ci --include=dev
           npm run build
           npm run style
+          npm run shields
           cp src/configs/config.aws.js src/config.js
       - name: Deploy via S3
         uses: jakejarvis/s3-sync-action@master
