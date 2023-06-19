@@ -30,9 +30,7 @@ export const surface = {
         1,
         "secondary",
         0.8,
-        ["tertiary", "busway"],
         0.6,
-        0.4,
       ],
     ],
     "icon-image": [
