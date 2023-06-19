@@ -22,14 +22,7 @@ export const surface = {
       ["exponential", 1.2],
       ["zoom"],
       15,
-      [
-        ...highwaySelector,
-        ["motorway", "trunk", "primary"],
-        0.5,
-        "secondary",
-        0.3,
-        0.2,
-      ],
+      [...highwaySelector, ["motorway", "trunk", "primary"], 0.5, 0.3],
       19,
       [
         ...highwaySelector,
@@ -39,7 +32,7 @@ export const surface = {
         0.8,
         ["tertiary", "busway"],
         0.6,
-        0.3,
+        0.4,
       ],
     ],
     "icon-image": [
