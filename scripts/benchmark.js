@@ -1,5 +1,3 @@
-"use strict";
-
 import Benchmark from "benchmark";
 import { expression } from "@maplibre/maplibre-gl-style-spec";
 
