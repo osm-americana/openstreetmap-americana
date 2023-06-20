@@ -127,6 +127,10 @@ server which is beyond the scope of this guide.
 [20]: https://cloud.maptiler.com/maps/
 [21]: https://openmaptiles.org/schema/
 
+### Running your own tile server
+
+For production usages, consider running your own tile server. Thanks to advances in technology, it is possible to run an OpenMapTiles tile server for a modest cost. See the diary entry [Host an OpenMapTiles Vector Tile Server on AWS for $19.75/month](https://www.openstreetmap.org/user/ZeLonewolf/diary/401697) for more details.
+
 ## Running the Americana style
 
 ### In development...
@@ -380,3 +384,7 @@ For consistency, POI icons use the following color palette:
 | Airport                | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
 | Transport              | Pantone 234 C   | <img src="doc-img/pantone_234_c.svg" height=18 width=50 /> Mauve            | 162 0 103   | #a20067     |
 | Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
+
+## Fonts
+
+Fonts for style labels are packaged and defined in [fontstack66](https://github.com/osm-americana/fontstack66), Americana's font package.

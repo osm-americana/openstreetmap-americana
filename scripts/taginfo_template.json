@@ -529,6 +529,14 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
     },
     {
+      "key": "aerialway",
+      "value": "station",
+      "object_types": ["node", "area"],
+      "description": "Aerialway stations are marked by an icon depicting an aerial tramway car.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_aerialway_circle.svg"
+    },
+    {
       "key": "railway",
       "value": "tram_stop",
       "object_types": ["node"],
