@@ -4,7 +4,7 @@
 const highwaySelector = ["match", ["get", "class"]];
 
 export const surface = {
-  id: "road_oneway",
+  id: "oneway_surface",
   filter: [
     "all",
     ["==", ["get", "oneway"], 1],
@@ -67,7 +67,7 @@ export const surface = {
 
 export const tunnel = {
   ...surface,
-  id: "tunnel_oneway",
+  id: "oneway_tunnel",
   filter: [
     "all",
     ["==", ["get", "oneway"], 1],
@@ -81,7 +81,7 @@ export const tunnel = {
 
 export const bridge = {
   ...surface,
-  id: "bridge_oneway",
+  id: "oneway_bridge",
   filter: [
     "all",
     ["==", ["get", "oneway"], 1],
