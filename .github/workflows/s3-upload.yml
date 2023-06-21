@@ -4,6 +4,7 @@ on:
     workflows: ["Build PR Preview"]
     types:
       - completed
+  workflow_dispatch:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
