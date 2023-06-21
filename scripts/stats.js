@@ -31,13 +31,20 @@ let style = Style.build(
 
 const layers = style.layers;
 const layerCount = layers.length;
-const layerSize = JSON.stringify(layers).length;
+const styleSize = JSON.stringify(layers).length;
 
 const layerMap = new Map();
 const layerGroupMap = new Map();
 const layerSizeStats = new Map();
 const layerGroupSizeStats = new Map();
 const layerGroupCountStats = new Map();
+
+const stats = {
+  layerCount,
+  styleSize,
+  layer: {},
+  layerGroup: {}
+};
 
 for (let i = 0; i < layers.length; i++) {
   let layer = layers[i];
@@ -64,7 +71,7 @@ for (let i = 0; i < layers.length; i++) {
 
 if (opts.layerCount) {
   if (opts.json) {
-    process.stdout.write(JSON.stringify({ layerCount }) + "\n");
+    process.stdout.write(JSON.stringify({ layerCount }));
   } else {
     console.log(`${layerCount} layers`);
   }
@@ -72,7 +79,7 @@ if (opts.layerCount) {
 
 if (opts.layerSize) {
   if (opts.json) {
-    process.stdout.write(JSON.stringify({ layerSize }) + "\n");
+    process.stdout.write(JSON.stringify({ layerSize }));
   } else {
     console.log(`Total layer size ${layerSize.toLocaleString("en-US")} bytes`);
   }
@@ -88,7 +95,7 @@ if (opts.allLayers) {
       let layerCount = layerGroupCountStats.get(k);
       allLayers.layers[k] = layerCount;
     });
-    process.stdout.write(JSON.stringify(allLayers) + "\n");
+    process.stdout.write(JSON.stringify(allLayers));
   } else {
     layerGroupSizeStats.forEach((v, k) => {
       let layerCount = layerGroupCountStats.get(k);
@@ -105,7 +112,7 @@ if (opts.printGroup) {
   if (opts.json) {
     let layers = [];
     group.forEach((lyr) => layers.push(lyr));
-    process.stdout.write(JSON.stringify(layers) + "\n");
+    process.stdout.write(JSON.stringify(layers));
   } else {
     group.forEach((lyr) => console.log(lyr));
   }
@@ -114,9 +121,9 @@ if (opts.printGroup) {
 if (opts.printLayer) {
   if (opts.pretty) {
     process.stdout.write(
-      JSON.stringify(layerMap.get(opts.printLayer), null, 2) + "\n"
+      JSON.stringify(layerMap.get(opts.printLayer), null, 2)
     );
   } else {
-    process.stdout.write(JSON.stringify(layerMap.get(opts.printLayer)) + "\n");
+    process.stdout.write(JSON.stringify(layerMap.get(opts.printLayer)));
   }
 }
