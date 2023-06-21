@@ -64,3 +64,4 @@ jobs:
             ![Sprites 1x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png)
             ![Sprites 2x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png)
           comment_tag: pr_preview
+          pr_number: ${{ env.PR_NUM }}
