@@ -26,6 +26,7 @@ jobs:
         run: |
           mkdir -p ./pr
           echo ${{ github.event.number }} > ./pr/NR
+          echo "Saved PR# ${{ github.event_number }} for upload"
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev
