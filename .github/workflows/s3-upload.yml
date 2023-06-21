@@ -13,29 +13,32 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     steps:
       - name: "Download artifact"
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v6
         with:
           script: |
-            var artifacts = await github.actions.listWorkflowRunArtifacts({
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
-               run_id: ${{ github.event.workflow_run.id }},
+               run_id: context.payload.workflow_run.id,
             });
-            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "pr"
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "pr_number"
             })[0];
-            var download = await github.actions.downloadArtifact({
+            let download = await github.rest.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
                artifact_id: matchArtifact.id,
                archive_format: 'zip',
             });
-            var fs = require('fs');
-            fs.writeFileSync('${{ github.workspace }}/pr.zip', Buffer.from(download.data));
-      - run: unzip pr.zip
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/pr_number.zip`, Buffer.from(download.data));
+
+      - name: "Unzip artifact"
+        run: unzip pr_number.zip
       - name: Set PR variable
         run: |
-          PR_NUM=$(cat pr/NR)
+          PR_NUM=$(cat pr_number)
+          echo "Initiatinig deployment for PR# $PR_NUM"
           echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
       - name: Deploy via S3
         uses: jakejarvis/s3-sync-action@master
@@ -64,3 +67,4 @@ jobs:
             ![Sprites 1x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png)
             ![Sprites 2x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png)
           comment_tag: pr_preview
+          pr_number: ${{ env.PR_NUM }}
