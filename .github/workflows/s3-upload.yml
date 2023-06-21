@@ -37,7 +37,8 @@ jobs:
         run: unzip pr_number.zip
       - name: Set PR variable
         run: |
-          PR_NUM=$(cat pr/pr_number)
+          PR_NUM=$(cat pr_number)
+          echo "Initiatinig deployment for PR# $PR_NUM"
           echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
       - name: Deploy via S3
         uses: jakejarvis/s3-sync-action@master
