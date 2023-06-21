@@ -1,0 +1,35 @@
+name: Build PR Preview
+on:
+  pull_request_target:
+    branches: [main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+permissions:
+  contents: read
+  pages: write
+  pull-requests: write
+  id-token: write
+concurrency: preview-${{ github.ref }}
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Save PR number
+        run: |
+          mkdir -p ./pr
+          echo ${{ github.event.number }} > ./pr/NR
+      - name: Install and Build 🔧
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
