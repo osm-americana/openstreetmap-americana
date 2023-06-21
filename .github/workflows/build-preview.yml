@@ -24,10 +24,16 @@ jobs:
         with:
           node-version: 18.x
       - name: Save PR number
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           mkdir -p ./pr
-          echo ${{ github.event.pull_request.number }} > ./pr/NR
+          echo $PR_NUMBER > ./pr/pr_number
           echo "Saved PR# ${{ github.event.pull_request.number }} for upload"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pr_number
+          path: pr/
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev
