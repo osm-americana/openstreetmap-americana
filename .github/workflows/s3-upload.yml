@@ -1,4 +1,4 @@
-name: Upload PR Preview
+name: Deploy PR Preview
 on:
   workflow_run:
     workflows: ["Build PR Preview"]
