@@ -1,0 +1,91 @@
+name: Deploy PR Preview
+on:
+  workflow_run:
+    workflows: [Build PR Preview]
+    types:
+      - completed
+  workflow_dispatch:
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: "Download PR Number"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "pr_number"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/pr_number.zip`, Buffer.from(download.data));
+      - name: "Download Build"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "americana"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/americana.zip`, Buffer.from(download.data));
+      - name: "Unzip artifacts"
+        run: |
+          unzip pr_number.zip
+          unzip -d dist americana.zip
+      - name: Set PR variable
+        run: |
+          PR_NUM=$(cat pr_number)
+          echo "Configuring deployment for PR# $PR_NUM"
+          echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
+      - name: Deploy via S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*'
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: "./dist"
+          DEST_DIR: pr/${{ env.PR_NUM }}
+      - name: Comment Pull Request
+        uses: thollander/actions-comment-pull-request@v2.3.1
+        with:
+          message: |
+            PR Preview:
+            * [Map](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/)
+            * [Shield Test](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shieldtest.html)
+            * [style.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/style.json)
+            * [shields.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shields.json)
+            * [taginfo.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/taginfo.json)
+
+            Sprite Sheets:
+
+            ![Sprites 1x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png)
+            ![Sprites 2x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png)
+          comment_tag: pr_preview
+          pr_number: ${{ env.PR_NUM }}

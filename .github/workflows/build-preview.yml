@@ -1,0 +1,49 @@
+name: Build PR Preview
+on:
+  pull_request:
+    branches: [main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  pull-requests: write
+  id-token: write
+concurrency: preview-${{ github.ref }}
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Save PR number
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir -p ./pr
+          echo $PR_NUMBER > ./pr/pr_number
+          echo "Saved PR# ${{ github.event.pull_request.number }} for upload"
+      - name: Save PR#
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr_number
+          path: pr/
+      - name: Install and Build 🔧
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
+      - name: Upload Build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: americana
+          path: dist/
