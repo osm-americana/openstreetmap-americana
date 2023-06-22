@@ -1,13 +1,15 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
-import { Command } from "commander";
+import { Command, Option } from "commander";
 
 const program = new Command();
 program
   .option("-pp, --pretty", "pretty-print JSON output")
-  .option(
-    "-pg, --print-group <group prefix>",
-    "print a list of the layers in a group"
+  .addOption(
+    new Option(
+      "-pg, --print-group <group prefix>",
+      "print a list of the layers in a group"
+    ).conflicts("printLayer")
   )
   .option("-pl, --print-layer <layer id>", "print the JSON of a layer")
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"]);
@@ -44,14 +46,10 @@ for (let i = 0; i < layers.length; i++) {
 let outputObj;
 
 if (opts.printGroup) {
-  let group = layerGroupMap.get(opts.printGroup);
-  let layers = [];
-  group.forEach((lyr) => layers.push(lyr));
-  outputObj = layers;
+  outputObj = layerGroupMap.get(opts.printGroup);
 }
 
 if (opts.printLayer) {
-  console.log(layerMap);
   outputObj = layerMap.get(opts.printLayer) ?? {};
 }
 
