@@ -7,123 +7,81 @@ program
   .option("-a, --all-layers", "summary layer stats")
   .option("-c, --layer-count", "count number of layers")
   .option("-s, --layer-size", "size of all layers")
-  .option("-l, --layer <layer id>", "stats about one layer")
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
-  .option("-pp, --pretty", "pretty-print JSON output")
-  .option("-j, --json", "output JSON")
-  .option(
-    "-pg, --print-group <group prefix>",
-    "print a list of the layers in a group"
-  )
-  .option("-pl, --print-layer <layer id>", "print the JSON of a layer");
+  .option("-j, --all-json", "output all stats in JSON")
+  .option("-pp, --pretty", "pretty-print JSON output");
+
 program.parse(process.argv);
 
 let opts = program.opts();
 
 if (Object.keys(opts).length === 1) program.help();
 
+let locales = opts.locales[0].split(",");
+
 let style = Style.build(
   config.OPENMAPTILES_URL,
   "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
   "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
-  opts.locales
+  locales
 );
 
 const layers = style.layers;
 const layerCount = layers.length;
+
+if (opts.layerCount) {
+  console.log(layerCount);
+  process.exit();
+}
+
 const styleSize = JSON.stringify(layers).length;
 
+if (opts.layerSize) {
+  console.log(styleSize);
+  process.exit();
+}
+
 const layerMap = new Map();
-const layerGroupMap = new Map();
-const layerSizeStats = new Map();
-const layerGroupSizeStats = new Map();
-const layerGroupCountStats = new Map();
 
 const stats = {
   layerCount,
   styleSize,
-  layer: {},
-  layerGroup: {}
+  layerGroup: {},
 };
 
-for (let i = 0; i < layers.length; i++) {
+for (let i = 0; i < layerCount; i++) {
   let layer = layers[i];
   layerMap.set(layer.id, layers[i]);
   let layerSize = JSON.stringify(layer).length;
   let layerGroup = layer["source-layer"] || layer.source || layer.type;
-  layerSizeStats.set(layer.id, JSON.stringify(layer).length);
-  if (!layerGroupSizeStats.has(layerGroup)) {
-    layerGroupSizeStats.set(layerGroup, layerSize);
-    layerGroupCountStats.set(layerGroup, 1);
-    layerGroupMap.set(layerGroup, [layer.id]);
+  if (stats.layerGroup[layerGroup]) {
+    stats.layerGroup[layerGroup].size += layerSize;
+    stats.layerGroup[layerGroup].count++;
   } else {
-    layerGroupSizeStats.set(
-      layerGroup,
-      layerGroupSizeStats.get(layerGroup) + layerSize
-    );
-    layerGroupCountStats.set(
-      layerGroup,
-      layerGroupCountStats.get(layerGroup) + 1
-    );
-    layerGroupMap.get(layerGroup).push(layer.id);
+    stats.layerGroup[layerGroup] = {
+      size: layerSize,
+      count: 1,
+    };
   }
 }
 
-if (opts.layerCount) {
-  if (opts.json) {
-    process.stdout.write(JSON.stringify({ layerCount }));
+if (opts.allJson) {
+  if (opts.pretty) {
+    process.stdout.write(JSON.stringify(stats, null, 2));
   } else {
-    console.log(`${layerCount} layers`);
+    process.stdout.write(JSON.stringify(stats));
   }
-}
-
-if (opts.layerSize) {
-  if (opts.json) {
-    process.stdout.write(JSON.stringify({ layerSize }));
-  } else {
-    console.log(`Total layer size ${layerSize.toLocaleString("en-US")} bytes`);
-  }
+  process.exit();
 }
 
 if (opts.allLayers) {
-  if (opts.json) {
-    let allLayers = {
-      layerCount,
-      layers: {},
-    };
-    layerGroupSizeStats.forEach((v, k) => {
-      let layerCount = layerGroupCountStats.get(k);
-      allLayers.layers[k] = layerCount;
-    });
-    process.stdout.write(JSON.stringify(allLayers));
-  } else {
-    layerGroupSizeStats.forEach((v, k) => {
-      let layerCount = layerGroupCountStats.get(k);
-      let layerString = `${k}(${layerCount})`.padEnd(30, ".");
-      console.log(
-        `${layerString}${v.toLocaleString("en-US").padStart(10, ".")} bytes`
-      );
-    });
-  }
-}
-
-if (opts.printGroup) {
-  let group = layerGroupMap.get(opts.printGroup);
-  if (opts.json) {
-    let layers = [];
-    group.forEach((lyr) => layers.push(lyr));
-    process.stdout.write(JSON.stringify(layers));
-  } else {
-    group.forEach((lyr) => console.log(lyr));
-  }
-}
-
-if (opts.printLayer) {
-  if (opts.pretty) {
-    process.stdout.write(
-      JSON.stringify(layerMap.get(opts.printLayer), null, 2)
+  for (const layerGroup in stats.layerGroup) {
+    let layerStats = stats.layerGroup[layerGroup];
+    let layerString = `${layerGroup}(${layerStats.count})`.padEnd(30, ".");
+    console.log(
+      `${layerString}${layerStats.size
+        .toLocaleString("en-US")
+        .padStart(10, ".")} bytes`
     );
-  } else {
-    process.stdout.write(JSON.stringify(layerMap.get(opts.printLayer)));
   }
 }

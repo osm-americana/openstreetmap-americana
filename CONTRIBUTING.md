@@ -194,6 +194,12 @@ There is a "stats" script that will generate various statistics about layer comp
 - `npm run stats -- -c` - total layer count
 - `npm run stats -- -h` - list all options
 
+There is a "util" script that will extract layer style data:
+
+- `node scripts/util -pl <layer>` - JSON contents of a specified layer
+- `node scripts/util -pg <source>` - list of layers from a specified source
+- `node scripts/util -h` - list all options
+
 ## Layers
 
 1. Layers should be named as followed: `<group>_<layer-name>`, wher the "group" should match the file name that the layer is contained in. This naming convention is needed by the layer statistic script.
