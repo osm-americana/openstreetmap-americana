@@ -55,8 +55,4 @@ if (opts.printLayer) {
   outputObj = layerMap.get(opts.printLayer) ?? {};
 }
 
-if (opts.pretty) {
-  process.stdout.write(JSON.stringify(outputObj, null, 2));
-} else {
-  process.stdout.write(JSON.stringify(outputObj));
-}
+process.stdout.write(JSON.stringify(outputObj, null, opts.pretty ? 2 : null));
