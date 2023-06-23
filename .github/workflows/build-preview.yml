@@ -101,8 +101,8 @@ jobs:
 
           ## Sprite Sheets:
 
-          ![Sprites 1x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png)
-          ![Sprites 2x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png)
+          * [Sprites 1x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png)
+          * [Sprites 2x](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png)
           " > pr_preview.md
       - name: Print Preview Links to GitHub Checks
         uses: LouisBrunner/checks-action@v1.6.1
