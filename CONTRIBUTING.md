@@ -190,15 +190,15 @@ When adding or changing style layer code, it can be helpful to assess the change
 
 There is a "stats" script that will generate various statistics about layer composition and complexity:
 
-- `npm run stats -- -a -s` - overall size and breakdown of layers
-- `npm run stats -- -c` - total layer count
-- `npm run stats -- -h` - list all options
+- `npm run -s stats -- -a -s` - overall size and breakdown of layers
+- `npm run -s stats -- -c` - total layer count
+- `npm run -s stats -- -h` - list all options
 
 There is an "extract_layers" script that will extract layer style data:
 
-- `node scripts/extract_layers -pl <layer>` - JSON contents of a specified layer
-- `node scripts/extract_layers -pg <source>` - list of layers from a specified source
-- `node scripts/extract_layers -h` - list all options
+- `npm run -s extract_layers -pl <layer>` - JSON contents of a specified layer
+- `npm run -s extract_layers -pg <source>` - list of layers from a specified source
+- `npm run -s extract_layers -h` - list all options
 
 ## Layers
 
