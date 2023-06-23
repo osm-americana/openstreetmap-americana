@@ -1,0 +1,53 @@
+name: Generate PR Preview Check
+on:
+  pull_request:
+    branches: [main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+permissions:
+  checks: write
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for PR Preview Upload (1x Sprite)
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: "https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite.png"
+          responseCode: "200"
+          timeout: 120000
+          interval: 500
+      - name: Wait for PR Preview Upload (2x Sprite)
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: "https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite@2x.png"
+          responseCode: "200"
+          timeout: 120000
+          interval: 500
+      - name: Generate Preview text
+        run: |
+          echo "## PR Preview:
+          * [Map](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/)
+          * [Shield Test](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/shieldtest.html)
+          * [style.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/style.json)
+          * [shields.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/shields.json)
+          * [taginfo.json](https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/taginfo.json)
+
+          ## Sprite Sheets:
+
+          <img src="https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite.png" />
+          <img src="https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite@2x.png" />
+          " > pr_preview.md
+      - name: Print Preview Links to GitHub Checks
+        uses: LouisBrunner/checks-action@v1.6.1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: PR Preview
+          conclusion: neutral
+          output: |
+            {"summary":"Preview map changes introduced by this PR"}
+          output_text_description_file: pr_preview.md
