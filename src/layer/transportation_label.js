@@ -176,6 +176,7 @@ export const bridgeSpacer = {
     "all",
     ["==", ["get", "brunnel"], "bridge"],
     ["in", ["geometry-type"], ["literal", ["LineString"]]],
+    ["!=", ["get", "oneway"], 1],
   ],
   paint: {
     "icon-opacity": 0,
