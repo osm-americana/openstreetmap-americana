@@ -13,13 +13,13 @@ program
 
 program.parse(process.argv);
 
-let opts = program.opts();
+const opts = program.opts();
 
 if (Object.keys(opts).length === 1) program.help();
 
-let locales = opts.locales[0].split(",");
+const locales = opts.locales[0].split(",");
 
-let style = Style.build(
+const style = Style.build(
   config.OPENMAPTILES_URL,
   "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
   "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
@@ -50,10 +50,10 @@ const stats = {
 };
 
 for (let i = 0; i < layerCount; i++) {
-  let layer = layers[i];
+  const layer = layers[i];
   layerMap.set(layer.id, layers[i]);
-  let layerSize = JSON.stringify(layer).length;
-  let layerGroup = layer["source-layer"] || layer.source || layer.type;
+  const layerSize = JSON.stringify(layer).length;
+  const layerGroup = layer["source-layer"] || layer.source || layer.type;
   if (stats.layerGroup[layerGroup]) {
     stats.layerGroup[layerGroup].size += layerSize;
     stats.layerGroup[layerGroup].count++;
@@ -66,11 +66,7 @@ for (let i = 0; i < layerCount; i++) {
 }
 
 if (opts.allJson) {
-  if (opts.pretty) {
-    process.stdout.write(JSON.stringify(stats, null, 2));
-  } else {
-    process.stdout.write(JSON.stringify(stats));
-  }
+  process.stdout.write(JSON.stringify(stats, null, opts.pretty ? 2 : null));
   process.exit();
 }
 
