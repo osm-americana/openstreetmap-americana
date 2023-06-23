@@ -1,12 +1,23 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
-import { Command } from "commander";
+import { Command, Option } from "commander";
 
 const program = new Command();
 program
-  .option("-a, --all-layers", "summary layer stats")
-  .option("-c, --layer-count", "count number of layers")
-  .option("-s, --layer-size", "size of all layers")
+  .addOption(
+    new Option("-a, --all-layers", "summary layer stats")
+      .conflicts("layerCount")
+      .conflicts("layerSize")
+      .conflicts("allJson")
+  )
+  .addOption(
+    new Option("-c, --layer-count", "count number of layers")
+      .conflicts("layerSize")
+      .conflicts("allJson")
+  )
+  .addOption(
+    new Option("-s, --layer-size", "size of all layers").conflicts("allJson")
+  )
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
   .option("-j, --all-json", "output all stats in JSON")
   .option("-pp, --pretty", "pretty-print JSON output");
