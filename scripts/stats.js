@@ -67,11 +67,11 @@ for (let i = 0; i < layerCount; i++) {
   const layerGroup = layer["source-layer"] || layer.source || layer.type;
   if (stats.layerGroup[layerGroup]) {
     stats.layerGroup[layerGroup].size += layerSize;
-    stats.layerGroup[layerGroup].count++;
+    stats.layerGroup[layerGroup].layerCount++;
   } else {
     stats.layerGroup[layerGroup] = {
       size: layerSize,
-      count: 1,
+      layerCount: 1,
     };
   }
 }
@@ -84,7 +84,7 @@ if (opts.allJson) {
 if (opts.allLayers) {
   for (const layerGroup in stats.layerGroup) {
     let layerStats = stats.layerGroup[layerGroup];
-    let layerString = `${layerGroup}(${layerStats.count})`.padEnd(30, ".");
+    let layerString = `${layerGroup}(${layerStats.layerCount})`.padEnd(30, ".");
     console.log(
       `${layerString}${layerStats.size
         .toLocaleString("en-US")
