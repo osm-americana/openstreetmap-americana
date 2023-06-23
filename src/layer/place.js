@@ -20,18 +20,6 @@ const cityLabelPaint = {
   "text-halo-blur": labelHaloBlur,
 };
 
-const cityIcon = [
-  "match",
-  ["get", "capital"],
-  2,
-  "star_nation_capital",
-  3,
-  "star_state_capital",
-  4,
-  "star_state_capital",
-  "dot_city",
-];
-
 export const village = {
   id: "place_village",
   type: "symbol",
@@ -63,7 +51,7 @@ export const village = {
         [12, 12],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": "place_city",
     "icon-size": {
       base: 1.0,
       stops: [
@@ -126,7 +114,7 @@ export const town = {
         [12, 18],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": "place_city",
     "icon-size": {
       base: 1.2,
       stops: [
@@ -185,7 +173,17 @@ export const city = {
         [11, 24],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": [
+      "match",
+      ["get", "capital"],
+      2,
+      "place_star_in_circle",
+      3,
+      "place_star",
+      4,
+      "place_star",
+      "place_dot",
+    ],
     "icon-size": {
       base: 1.2,
       stops: [
