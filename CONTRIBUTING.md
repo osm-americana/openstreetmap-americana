@@ -202,7 +202,7 @@ There is an "extract_layers" script that will extract layer style data:
 
 ## Layers
 
-1. Layers should be named as followed: `<group>_<layer-name>`, wher the "group" should match the file name that the layer is contained in. This naming convention is needed by the layer statistic script.
+1. Layers must be uniquely named.
 2. For performance reasons, it is better to have fewer layers with filters than multiple, simpler layers.
 3. Layers are drawn in the order specified in `layer/index.js` using the [Painter's Algorithm](https://en.wikipedia.org/wiki/Painter%27s_algorithm).
 
