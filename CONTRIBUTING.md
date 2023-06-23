@@ -196,9 +196,9 @@ There is a "stats" script that will generate various statistics about layer comp
 
 There is an "extract_layers" script that will extract layer style data:
 
-- `npm run -s extract_layers -pl <layer>` - JSON contents of a specified layer
-- `npm run -s extract_layers -pg <source>` - list of layers from a specified source
-- `npm run -s extract_layers -h` - list all options
+- `npm run -s extract_layer -pl <layer>` - JSON contents of a specified layer
+- `npm run -s extract_layer -pg <source>` - list of layers from a specified source
+- `npm run -s extract_layer -h` - list all options
 
 ## Layers
 
