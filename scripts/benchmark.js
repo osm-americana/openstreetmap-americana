@@ -18,42 +18,62 @@ async function addTest(name, z, x, y) {
     )
   ).arrayBuffer();
 
-  const transportation = new VectorTile(new Pbf(tile)).layers["transportation"];
-  const features = [];
+  const vtile = new VectorTile(new Pbf(tile));
 
-  for (let i = 0; i < transportation.length; i++) {
-    const feature = transportation.feature(i);
-    features.push({
-      type: feature.type,
-      properties: feature.properties,
-      geometry: [],
-    });
-  }
-  suite.add(`evaluate expressions ${name}`, () => {
-    let num = 0;
-    const context = {
-      properties: () => context.feature.properties,
-      geometryType: () => context.feature.type,
-    };
-    for (const layer of layers) {
-      for (const feature of features) {
-        context.feature = feature;
-        if (layer.evaluate(context)) {
-          num++;
+  for (const layerName in vtile.layers) {
+    const thisLayer = vtile.layers[layerName];
+    const features = [];
+
+    for (let i = 0; i < thisLayer.length; i++) {
+      const feature = thisLayer.feature(i);
+      features.push({
+        type: feature.type,
+        properties: feature.properties,
+        geometry: [],
+      });
+    }
+    suite.add(`${name}#${layerName}#${thisLayer.length}`, () => {
+      let num = 0;
+      const context = {
+        properties: () => context.feature.properties,
+        geometryType: () => context.feature.type,
+      };
+      for (const layer of layers) {
+        for (const feature of features) {
+          context.feature = feature;
+          if (layer.evaluate(context)) {
+            num++;
+          }
         }
       }
-    }
-  });
+    });
+  }
 }
 
-await addTest("nyc z12", 12, 1207, 1539);
-await addTest("boston z12", 12, 1239, 1514);
+await addTest("world z0", 0, 0, 0);
+// await addTest("nyc z12", 12, 1207, 1539);
+// await addTest("boston z12", 12, 1239, 1514);
 await addTest("kansas z14", 14, 3707, 6302);
+
+const performanceTest = {};
 
 suite
   .on("error", (event) => console.log(event.target.error))
   .on("cycle", (event) => {
     const time = 1_000 / event.target.hz;
-    console.log(`${time.toPrecision(4)}ms ${event.target}`);
+    const targetParts = event.target.name.split("#");
+    const suiteName = targetParts[0];
+    const sourceLayer = targetParts[1];
+    const featureCount = targetParts[2];
+    if (!performanceTest[suiteName]) {
+      performanceTest[suiteName] = {};
+    }
+    const perfResult = {
+      featureCount,
+      time,
+    };
+    performanceTest[suiteName][sourceLayer] = perfResult;
   })
   .run();
+
+process.stdout.write(JSON.stringify(performanceTest));
