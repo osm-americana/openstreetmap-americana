@@ -33,6 +33,7 @@ jobs:
       - name: Build and Instrument Main Branch 🔧
         run: |
           cd main
+          npm i
           npm ci --include=dev
           npm run build
           npm run style
