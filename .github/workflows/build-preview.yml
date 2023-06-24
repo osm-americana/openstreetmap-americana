@@ -33,13 +33,16 @@ jobs:
       - name: Build and Instrument Main Branch 🔧
         run: |
           cd main
-          ls
           npm i
           npm ci --include=dev
           npm run build
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
+
+          ls
+          npm list --depth 0
+
           MAIN_STATS=$(node ../scripts/stats.js -j)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
