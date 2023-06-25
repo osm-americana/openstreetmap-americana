@@ -92,7 +92,7 @@ jobs:
         run: |
           echo '${{ env.MAIN_BENCH }}'
           echo '${{ env.PR_BENCH }}'
-          node scripts/stats_compare '${{ env.MAIN_BENCH }}' '${{ env.PR_BENCH }}' > stats/bench-difference.md
+          node scripts/benchmark_compare '${{ env.MAIN_BENCH }}' '${{ env.PR_BENCH }}' > stats/bench-difference.md
       - name: Print Stats to GitHub Checks
         uses: LouisBrunner/checks-action@v1.6.1
         if: always()
