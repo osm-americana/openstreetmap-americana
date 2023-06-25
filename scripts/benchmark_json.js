@@ -3,8 +3,8 @@ import { expression } from "@maplibre/maplibre-gl-style-spec";
 import { VectorTile } from "@mapbox/vector-tile";
 import Pbf from "pbf";
 
-function getStyleLayerExpressions(style, layerName) {
-  let expressions = style
+function getStyleLayerExpressions(layers, layerName) {
+  let expressions = layers
     .filter((layer) => layer["source-layer"] === layerName && layer.filter)
     .map((layer) => expression.createExpression(layer.filter).value.expression);
   if (expressions) {
@@ -26,7 +26,7 @@ async function addTest(suite, style, name, z, x, y) {
   for (const layerName in vtile.layers) {
     const thisLayer = vtile.layers[layerName];
     const features = [];
-    const layers = getStyleLayerExpressions(style, layerName);
+    const layers = getStyleLayerExpressions(style.layers, layerName);
 
     for (let i = 0; i < thisLayer.length; i++) {
       const feature = thisLayer.feature(i);

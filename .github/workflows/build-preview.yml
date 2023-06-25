@@ -38,11 +38,11 @@ jobs:
           npm run build
           npm run style
           cd ..
-          MAIN_BENCH=$(node scripts/benchmark_cmd.js main/dist/style.json)
+          MAIN_BENCH=$(npm -s run benchmark_action -- main/dist/style.json)
           echo "MAIN_BENCH<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_BENCH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          MAIN_STATS=$(node scripts/stats_cmd.js main/dist/style.json)
+          MAIN_STATS=$(npm -s run stats_action -- main/dist/style.json)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -69,14 +69,14 @@ jobs:
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
-          PR_STATS=$(node scripts/stats_cmd.js dist/style.json)
+          PR_STATS=$(npm -s run stats_action -- dist/style.json)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - name: Capture PR branch benchmark
         id: pr-benchmark
         run: |
-          PR_BENCH=$(node scripts/benchmark_cmd.js dist/style.json)
+          PR_BENCH=$(npm -s run benchmark_action -- dist/style.json)
           echo "PR_BENCH<<EOF" >> $GITHUB_ENV
           echo -e "$PR_BENCH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV

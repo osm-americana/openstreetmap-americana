@@ -11,6 +11,7 @@
     "shieldlib"
   ],
   "scripts": {
+    "benchmark_action": "node scripts/benchmark_cmd.js",
     "build:shieldlib": "cd shieldlib && node scripts/build.js",
     "build:code": "exec ts-node scripts/build",
     "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
@@ -30,6 +31,7 @@
     "sprites": "node scripts/sprites.js",
     "start": "run-s clean-build build:shieldlib sprites shields serve",
     "stats": "node scripts/stats.js",
+    "stats_action": "node scripts/stats_cmd.js",
     "style": "node scripts/generate_style.js -o dist/style.json",
     "status_map": "node scripts/status_map.js",
     "taginfo": "exec ts-node scripts/taginfo",
