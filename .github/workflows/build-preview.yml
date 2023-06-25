@@ -99,10 +99,10 @@ jobs:
         if: always()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: Performance Benchmarks
+          name: Expression Performance Benchmarks
           conclusion: neutral
           output: |
-            {"summary":"Performance changes introduced by this PR"}
+            {"summary":"Expression evaluation performance changes introduced by this PR"}
           output_text_description_file: stats/bench-difference.md
       - name: Upload Build artifact
         uses: actions/upload-artifact@v3
