@@ -30,7 +30,7 @@ jobs:
           ref: main
           path: main
           clean: false
-      - name: Build and Instrument Main Branch 🔧
+      - name: Build and Capture Metrics 🔧
         run: |
           cd main
           npm ci --include=dev
@@ -47,35 +47,14 @@ jobs:
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           rm -rf main
-      - name: Save PR number
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          mkdir -p ./pr
-          echo $PR_NUMBER > ./pr/pr_number
-          echo "Saved PR# ${{ github.event.pull_request.number }} for upload"
-      - name: Save PR#
-        uses: actions/upload-artifact@v3
-        with:
-          name: pr_number
-          path: pr/
-      - name: Install and Build 🔧
-        run: |
-          npm ci --include=dev
           npm run build
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
-      - name: Capture PR branch usage statistics
-        id: pr-stats
-        run: |
           PR_STATS=$(npm -s run stats_action -- dist/style.json)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-      - name: Capture PR branch benchmark
-        id: pr-benchmark
-        run: |
           PR_BENCH=$(npm -s run benchmark_action -- dist/style.json)
           echo "PR_BENCH<<EOF" >> $GITHUB_ENV
           echo -e "$PR_BENCH" >> $GITHUB_ENV
@@ -93,6 +72,18 @@ jobs:
           echo '${{ env.MAIN_BENCH }}'
           echo '${{ env.PR_BENCH }}'
           node scripts/benchmark_compare '${{ env.MAIN_BENCH }}' '${{ env.PR_BENCH }}' > stats/bench-difference.md
+      - name: Save PR number
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir -p ./pr
+          echo $PR_NUMBER > ./pr/pr_number
+          echo "Saved PR# ${{ github.event.pull_request.number }} for upload"
+      - name: Save PR#
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr_number
+          path: pr/
       - name: Print Stats to GitHub Checks
         uses: LouisBrunner/checks-action@v1.6.1
         if: always()
