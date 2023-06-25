@@ -39,19 +39,15 @@ jobs:
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
-
-          ls
-          npm list --depth 0
-
-          MAIN_STATS=$(node ../scripts/stats.js -j)
+          cd ..
+          MAIN_STATS=$(node scripts/stats_cmd.js main/dist/style.json)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          MAIN_BENCH=$(node ../scripts/benchmark.js)
+          MAIN_BENCH=$(node scripts/stats_cmd.js dist/style.json)
           echo "MAIN_BENCH<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_BENCH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          cd ..
           rm -rf main
       - name: Save PR number
         env:

@@ -1,6 +1,7 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
 import { Command, Option } from "commander";
+import { calcStatsJSON } from "./stats_json.js";
 
 const program = new Command();
 program
@@ -38,43 +39,20 @@ const style = Style.build(
 );
 
 const layers = style.layers;
-const layerCount = layers.length;
 
 if (opts.layerCount) {
+  const layerCount = layers.length;
   console.log(layerCount);
   process.exit();
 }
 
-const styleSize = JSON.stringify(layers).length;
-
 if (opts.layerSize) {
+  const styleSize = JSON.stringify(layers).length;
   console.log(styleSize);
   process.exit();
 }
 
-const layerMap = new Map();
-
-const stats = {
-  layerCount,
-  styleSize,
-  layerGroup: {},
-};
-
-for (let i = 0; i < layerCount; i++) {
-  const layer = layers[i];
-  layerMap.set(layer.id, layers[i]);
-  const layerSize = JSON.stringify(layer).length;
-  const layerGroup = layer["source-layer"] || layer.source || layer.type;
-  if (stats.layerGroup[layerGroup]) {
-    stats.layerGroup[layerGroup].size += layerSize;
-    stats.layerGroup[layerGroup].layerCount++;
-  } else {
-    stats.layerGroup[layerGroup] = {
-      size: layerSize,
-      layerCount: 1,
-    };
-  }
-}
+let stats = calcStatsJSON(style);
 
 if (opts.allJson) {
   process.stdout.write(JSON.stringify(stats, null, opts.pretty ? 2 : null));
