@@ -2,6 +2,7 @@ import Benchmark from "benchmark";
 import { expression } from "@maplibre/maplibre-gl-style-spec";
 import { VectorTile } from "@mapbox/vector-tile";
 import Pbf from "pbf";
+import perfLocations from "./performance.json" assert { type: "json" };
 
 function getStyleLayerExpressions(layers, layerName) {
   let expressions = layers
@@ -60,11 +61,10 @@ async function addTest(suite, style, name, z, x, y) {
 export async function calcBenchmarkJSON(style) {
   const suite = new Benchmark.Suite();
 
-  //TODO: move these to JSON file
-  await addTest(suite, style, "world z0", 0, 0, 0);
-  await addTest(suite, style, "nyc z12", 12, 1207, 1539);
-  await addTest(suite, style, "boston z12", 12, 1239, 1514);
-  await addTest(suite, style, "kansas z14", 14, 3707, 6302);
+  for (let i in perfLocations) {
+    let test = perfLocations[i];
+    await addTest(suite, style, test.name, test.z, test.x, test.y);
+  }
 
   const performanceTest = {};
 
