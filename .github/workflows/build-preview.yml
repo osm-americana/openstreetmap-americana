@@ -37,16 +37,14 @@ jobs:
           npm ci --include=dev
           npm run build
           npm run style
-          npm run shields
-          cp src/configs/config.aws.js src/config.js
           cd ..
+          MAIN_BENCH=$(node scripts/benchmark_cmd.js main/dist/style.json)
+          echo "MAIN_BENCH<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_BENCH" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           MAIN_STATS=$(node scripts/stats_cmd.js main/dist/style.json)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          MAIN_BENCH=$(node scripts/stats_cmd.js dist/style.json)
-          echo "MAIN_BENCH<<EOF" >> $GITHUB_ENV
-          echo -e "$MAIN_BENCH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           rm -rf main
       - name: Save PR number
@@ -71,14 +69,14 @@ jobs:
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
-          PR_STATS=$(node scripts/stats.js -j)
+          PR_STATS=$(node scripts/stats_cmd.js dist/style.json)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - name: Capture PR branch benchmark
         id: pr-benchmark
         run: |
-          PR_BENCH=$(node scripts/benchmark.js)
+          PR_BENCH=$(node scripts/benchmark_cmd.js dist/style.json)
           echo "PR_BENCH<<EOF" >> $GITHUB_ENV
           echo -e "$PR_BENCH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
