@@ -22,10 +22,10 @@ for (const tile in stats2) {
     tilePerf += `${layer}|${perf2.featureCount}|${perf1.time.toLocaleString(
       undefined,
       durationFormat
-    )}ms|${perf2.time.toLocaleString(
+    )}ms|${tileTime1.toLocaleString(
       undefined,
       durationFormat
-    )}ms|${tileTime1.toLocaleString(
+    )}ms|${perf2.time.toLocaleString(
       undefined,
       durationFormat
     )}ms|${tileTime2.toLocaleString(
@@ -33,7 +33,7 @@ for (const tile in stats2) {
       durationFormat
     )}ms|${tileDiff.toLocaleString(undefined, timingFormat)}ms|${(
       tileDiff / tileTime1
-    ).toLocaleString(undefined, pctFormat)}}
+    ).toLocaleString(undefined, pctFormat)}
 `;
   }
   console.log(tilePerf);
