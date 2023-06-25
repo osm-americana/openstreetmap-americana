@@ -6,7 +6,6 @@ const stats2 = JSON.parse(process.argv[3]);
 for (const tile in stats2) {
   const tileStats1 = stats1[tile];
   const tileStats2 = stats2[tile];
-  console.log(tile);
   let tilePerf = `
 ## Performance for ${tile}
 
