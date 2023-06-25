@@ -18,7 +18,7 @@ jobs:
         with:
           url: "https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/sprites/sprite.png"
           responseCode: "200"
-          timeout: 120000
+          timeout: 600000
           interval: 500
       - name: Wait for PR Preview Upload (2x Sprite)
         uses: cygnetdigital/wait_for_response@v2.0.0

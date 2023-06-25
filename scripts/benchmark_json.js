@@ -60,9 +60,10 @@ async function addTest(suite, style, name, z, x, y) {
 export async function calcBenchmarkJSON(style) {
   const suite = new Benchmark.Suite();
 
+  //TODO: move these to JSON file
   await addTest(suite, style, "world z0", 0, 0, 0);
-  // await addTest("nyc z12", 12, 1207, 1539);
-  // await addTest("boston z12", 12, 1239, 1514);
+  await addTest(suite, style, "nyc z12", 12, 1207, 1539);
+  await addTest(suite, style, "boston z12", 12, 1239, 1514);
   await addTest(suite, style, "kansas z14", 14, 3707, 6302);
 
   const performanceTest = {};
