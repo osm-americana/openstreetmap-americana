@@ -18,17 +18,17 @@ for (const tile in stats2) {
     let perf2 = tileStats2[layer];
     let featTime1 = perf1.time / perf1.featureCount;
     let featTime2 = perf2.time / perf2.featureCount;
-    let tileDiff = tileTime2 - tileTime1;
+    let tileDiff =  perf2.time -  perf1.time;
     tilePerf += `${layer}|${perf2.featureCount}|${featTime1.toLocaleString(
       undefined,
       durationFormat
     )}ms|${featTime2.toLocaleString(
       undefined,
       durationFormat
-    )}ms|${tileTime1.toLocaleString(
+    )}ms|${perf1.time.toLocaleString(
       undefined,
       durationFormat
-    )}ms|${tileTime2.toLocaleString(
+    )}ms|${perf2.time.toLocaleString(
       undefined,
       durationFormat
     )}ms|${tileDiff.toLocaleString(undefined, timingFormat)}ms|${(
