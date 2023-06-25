@@ -33,12 +33,11 @@ jobs:
       - name: Build and Instrument Main Branch 🔧
         run: |
           cd main
-          npm i
           npm ci --include=dev
           npm run build
           npm run style
           cd ..
-          npm i
+          npm ci --include=dev
           MAIN_BENCH=$(npm -s run benchmark_action -- main/dist/style.json)
           echo "MAIN_BENCH<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_BENCH" >> $GITHUB_ENV
