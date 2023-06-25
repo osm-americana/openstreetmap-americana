@@ -19,20 +19,18 @@ for (const tile in stats2) {
     let featTime1 = perf1.time / perf1.featureCount;
     let featTime2 = perf2.time / perf2.featureCount;
     let tileDiff = perf2.time - perf1.time;
-    tilePerf += `${layer}|${perf2.featureCount}|${featTime1.toLocaleString(
-      undefined,
-      durationFormat
-    )}ms|${featTime2.toLocaleString(
-      undefined,
-      durationFormat
-    )}ms|${perf1.time.toLocaleString(
+    tilePerf += `${layer}|${perf2.featureCount}|${(
+      1_000 * featTime1
+    ).toLocaleString(undefined, durationFormat)}μs|${(
+      1_000 * featTime2
+    ).toLocaleString(undefined, durationFormat)}μs|${perf1.time.toLocaleString(
       undefined,
       durationFormat
     )}ms|${perf2.time.toLocaleString(
       undefined,
       durationFormat
     )}ms|${tileDiff.toLocaleString(undefined, timingFormat)}ms|${(
-      tileDiff / tileTime1
+      tileDiff / perf1.time
     ).toLocaleString(undefined, pctFormat)}
 `;
   }
