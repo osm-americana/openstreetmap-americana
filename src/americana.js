@@ -91,7 +91,10 @@ function shieldDefLoad(shields) {
   map.addControl(legendControl, "bottom-left");
   map.addControl(sampleControl, "bottom-left");
 
-  map.getCanvas().focus();
+  if (window.top === window.self) {
+    // if not embedded in an iframe, autofocus canvas to enable keyboard shortcuts
+    map.getCanvas().focus();
+  }
 
   map.addControl(new maplibregl.AttributionControl(attributionConfig));
   map.addControl(languageLabel.label, "bottom-right");

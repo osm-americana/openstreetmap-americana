@@ -190,13 +190,19 @@ When adding or changing style layer code, it can be helpful to assess the change
 
 There is a "stats" script that will generate various statistics about layer composition and complexity:
 
-- `npm run stats -- -a -s` - overall size and breakdown of layers
-- `npm run stats -- -c` - total layer count
-- `npm run stats -- -h` - list all options
+- `npm run -s stats -- -a -s` - overall size and breakdown of layers
+- `npm run -s stats -- -c` - total layer count
+- `npm run -s stats -- -h` - list all options
+
+There is an "extract_layers" script that will extract layer style data:
+
+- `npm run -s extract_layer -pl <layer>` - JSON contents of a specified layer
+- `npm run -s extract_layer -pg <source>` - list of layers from a specified source
+- `npm run -s extract_layer -h` - list all options
 
 ## Layers
 
-1. Layers should be named as followed: `<group>_<layer-name>`, wher the "group" should match the file name that the layer is contained in. This naming convention is needed by the layer statistic script.
+1. Layers must be uniquely named.
 2. For performance reasons, it is better to have fewer layers with filters than multiple, simpler layers.
 3. Layers are drawn in the order specified in `layer/index.js` using the [Painter's Algorithm](https://en.wikipedia.org/wiki/Painter%27s_algorithm).
 
