@@ -14,7 +14,7 @@ The purpose of the Americana style is to:
 - Express the American experience through cartography, taking inspiration from the familiar features of North American paper maps
 - Challenge the status quo by showcasing innovation and invention
 
-Americana has pioneered several cartographic techniques of importance to Americans that we hope will someday become commonplace among OpenStreetMap-based map styles:
+Americana has demonstrated or pioneered several cartographic techniques of importance to Americans that we hope will someday become commonplace among OpenStreetMap-based map styles:
 
 - Nuanced line styles help you distinguish roads, raiload tracks, and waterways based on a variety of intuitive characteristics.
 - Highway routes are identified by shields that resemble the signs on the road, with special support for roads that carry multiple routes concurrently.
