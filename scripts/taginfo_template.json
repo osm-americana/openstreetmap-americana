@@ -403,17 +403,17 @@
       "key": "amenity",
       "value": "college",
       "object_types": ["node", "area"],
-      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "description": "Colleges are marked by an icon representing a mortarboard cap.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_mortarboard.svg"
     },
     {
       "key": "amenity",
       "value": "university",
       "object_types": ["node", "area"],
-      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "description": "Colleges are marked by an icon representing a mortarboard cap.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_mortarboard.svg"
     },
     {
       "key": "amenity",

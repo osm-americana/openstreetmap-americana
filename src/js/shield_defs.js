@@ -1710,6 +1710,10 @@ export function loadShields() {
       spriteBlank: "shield_us_in_toll",
     },
   };
+  shields["US:IN:JHMHT"] = {
+    spriteBlank: ["shield_us_in_jhmht"],
+    notext: true,
+  };
 
   // Kansas
   shields["US:KS"] = {

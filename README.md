@@ -10,11 +10,18 @@ _A quintessentially American map style_ [🗺 View the map](https://zelonewolf.g
 
 The purpose of the Americana style is to:
 
-- Promote collaboration and common purpose in the American mapping community
+- Promote collaboration and common purpose in OpenStreetMap’s American mapping community
 - Express the American experience through cartography, taking inspiration from the familiar features of North American paper maps
 - Challenge the status quo by showcasing innovation and invention
 
-The Americana style is the first digital map to achieve concurrent, state-specific highway shields arranged along the path of road. Representative highway shield rendering is of considerable cartographic importance to the American community. We do this proudly in an open source project using vector tile technology.
+Americana has demonstrated or pioneered several cartographic techniques of importance to Americans that we hope will someday become commonplace among OpenStreetMap-based map styles:
+
+- Nuanced line styles help you distinguish roads, raiload tracks, and waterways based on a variety of intuitive characteristics.
+- Highway routes are identified by shields that resemble the signs on the road, with special support for roads that carry multiple routes concurrently.
+- Place labels throughout the world appear in both your preferred language and the local language, reflecting linguistic diversity both in the U.S. and abroad.
+- A dynamic legend communicates these design choices intuitively, regardless of the visual language you’re accustomed to.
+
+We do this proudly in an open source project using vector tile technology.
 
 ## How to use
 
