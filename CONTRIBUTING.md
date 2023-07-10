@@ -230,10 +230,10 @@ In addition, the following style guidelines are recommended:
 
 In general, this style is not trying to exactly replicate highway shields as seen on signage. Instead, we are trying to extract the key stylistic elements so that the graphics are recognizable as simplifications of their real-world counterparts. Here are some examples of Americana's simplified shields for small-size readability:
 
-| Network                | Real-world Shield                                                                                          | Americana Representation                                                                                                            |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| NJ Turnpike            | <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/New_Jersey_Turnpike_Shield.svg" width="40"/> | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/shield_us_nj_njtp_noref.svg" width="40"/> |
-| Washington State Route | <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/WA-blank.svg" width="40"/>                   | <img src="https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/shield_us_wa.svg" width="40"/>            |
+| Network                | Real-world Shield                                                                                          | Americana Representation                                  |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| NJ Turnpike            | <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/New_Jersey_Turnpike_Shield.svg" width="40"/> | <img src="icons/shield_us_nj_njtp_noref.svg" width="40"/> |
+| Washington State Route | <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/WA-blank.svg" width="40"/>                   | <img src="icons/shield_us_wa.svg" width="40"/>            |
 
 More complicated shields may be more challenging to simplify. Consider taking some inspiration from the [rebusurance](https://github.com/1ec5/rebusurance) project, which effectivly simplifies a number of complex state shield designs by stretching, compressing, omitting, or simplifying graphic elements.
 
@@ -380,16 +380,16 @@ POIs are broken down into the following broad categories, in order to constrain 
 
 For consistency, POI icons use the following color palette:
 
-| Category               | Scheme          | Color                                                                       | RGB         | Hex triplet |
-| ---------------------- | --------------- | --------------------------------------------------------------------------- | ----------- | ----------- |
-| Geographic Place Names | N/A             | <img src="doc-img/black.svg" height=18 width=50 /> Black                    | 0 0 0       | #000000     |
-| Infrastructure         | Pantone 294     | <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue               | 0 63 135    | #003f87     |
-| Consumer               | UTexas Orange   | <img src="doc-img/texas_orange.svg" height=18 width=50 /> Orange            | 191 87 0    | #bf5700     |
-| Outdoor                |                 | TBD (green?)                                                                |             |             |
-| Attraction             | Pantone 469     | <img src="doc-img/pantone_469.svg" height=18 width=50 /> Brown              | 105 63 35   | #693f23     |
-| Airport                | Medium Purple C | <img src="doc-img/pantone_medium_purple_c.svg" height=18 width=50 /> Purple | 78 0 142    | #4e008e     |
-| Transport              | Pantone 234 C   | <img src="doc-img/pantone_234_c.svg" height=18 width=50 /> Mauve            | 162 0 103   | #a20067     |
-| Knockout               |                 | <img src="doc-img/background.svg" height=18 width=50 /> Lt Grayish Orange   | 249 245 240 | #f9f5f0     |
+| Category               | Scheme          | Color                                                                   | RGB         | Hex triplet |
+| ---------------------- | --------------- | ----------------------------------------------------------------------- | ----------- | ----------- |
+| Geographic Place Names | N/A             | ${\color[RGB]{0,   0,   0  }\rule[-4px]{50px}{18px}}$ Black             | 0 0 0       | #000000     |
+| Infrastructure         | Pantone 294     | ${\color[RGB]{0,   63,  135}\rule[-4px]{50px}{18px}}$ Blue              | 0 63 135    | #003f87     |
+| Consumer               | UTexas Orange   | ${\color[RGB]{191, 87,  0  }\rule[-4px]{50px}{18px}}$ Orange            | 191 87 0    | #bf5700     |
+| Outdoor                |                 | TBD (green?)                                                            |             |             |
+| Attraction             | Pantone 469     | ${\color[RGB]{105, 63,  35 }\rule[-4px]{50px}{18px}}$ Brown             | 105 63 35   | #693f23     |
+| Airport                | Medium Purple C | ${\color[RGB]{78,  0,   142}\rule[-4px]{50px}{18px}}$ Purple            | 78 0 142    | #4e008e     |
+| Transport              | Pantone 234 C   | ${\color[RGB]{162, 0,   103}\rule[-4px]{50px}{18px}}$ Mauve             | 162 0 103   | #a20067     |
+| Knockout               |                 | ${\color[RGB]{249, 245, 240}\rule[-4px]{50px}{18px}}$ Lt Grayish Orange | 249 245 240 | #f9f5f0     |
 
 ## Fonts
 
