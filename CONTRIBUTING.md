@@ -241,19 +241,19 @@ More complicated shields may be more challenging to simplify. Consider taking so
 
 For consistency, shields should use the following color palette:
 
-| color                                                                 | Pantone | RGB         | Hex triplet |
-| --------------------------------------------------------------------- | ------- | ----------- | ----------- |
-| <img src="doc-img/pantone_294.svg" height=18 width=50 /> Blue         | 294     | 0 63 135    | #003f87     |
-| <img src="doc-img/pantone_469.svg" height=18 width=50 /> Brown        | 469     | 105 63 35   | #693f23     |
-| <img src="doc-img/pantone_342.svg" height=18 width=50 /> Green        | 342     | 0 103 71    | #006747     |
-| <img src="doc-img/pantone_152.svg" height=18 width=50 /> Orange       | 152     | 243 143 0   | #f38f00     |
-| <img src="doc-img/pantone_198.svg" height=18 width=50 /> Pink         | 198     | 223 70 97   | #df4661     |
-| <img src="doc-img/pantone_259.svg" height=18 width=50 /> Purple       | 259     | 109 32 119  | #6d2077     |
-| <img src="doc-img/pantone_187.svg" height=18 width=50 /> Red          | 187     | 191 32 51   | #bf2033     |
-| <img src="doc-img/pantone_116.svg" height=18 width=50 /> Yellow       | 116     | 255 205 0   | #ffcd00     |
-| <img src="doc-img/pantone_382.svg" height=18 width=50 /> Yellow-Green | 382     | 196 214 0   | #c4d600     |
-| <img src="doc-img/white.svg" height=18 width=50 /> White              | N/A     | 255 255 255 | #ffffff     |
-| <img src="doc-img/black.svg" height=18 width=50 /> Black              | N/A     | 0 0 0       | #000000     |
+| Color                                           | Pantone | RGB         | Hex triplet |
+| ----------------------------------------------- | ------- | ----------- | ----------- |
+| $`{\color{#003f87} \blacksquare}`$ Blue         | 294     | 0 63 135    | #003f87     |
+| $`{\color{#693f23} \blacksquare}`$ Brown        | 469     | 105 63 35   | #693f23     |
+| $`{\color{#006747} \blacksquare}`$ Green        | 342     | 0 103 71    | #006747     |
+| $`{\color{#f38f00} \blacksquare}`$ Orange       | 152     | 243 143 0   | #f38f00     |
+| $`{\color{#df4661} \blacksquare}`$ Pink         | 198     | 223 70 97   | #df4661     |
+| $`{\color{#6d2077} \blacksquare}`$ Purple       | 259     | 109 32 119  | #6d2077     |
+| $`{\color{#bf2033} \blacksquare}`$ Red          | 187     | 191 32 51   | #bf2033     |
+| $`{\color{#ffcd00} \blacksquare}`$ Yellow       | 116     | 255 205 0   | #ffcd00     |
+| $`{\color{#c4d600} \blacksquare}`$ Yellow-Green | 382     | 196 214 0   | #c4d600     |
+| $`{\color{#ffffff} \blacksquare}`$ White        | N/A     | 255 255 255 | #ffffff     |
+| $`{\color{#000000} \blacksquare}`$ Black        | N/A     | 0 0 0       | #000000     |
 
 Base data from MUTCD Color Specifications, Federal Highway Administration
 
@@ -380,16 +380,16 @@ POIs are broken down into the following broad categories, in order to constrain 
 
 For consistency, POI icons use the following color palette:
 
-| Category               | Scheme          | Color                                                                   | RGB         | Hex triplet |
-| ---------------------- | --------------- | ----------------------------------------------------------------------- | ----------- | ----------- |
-| Geographic Place Names | N/A             | ${\color[RGB]{0,   0,   0  }\rule[-4px]{50px}{18px}}$ Black             | 0 0 0       | #000000     |
-| Infrastructure         | Pantone 294     | ${\color[RGB]{0,   63,  135}\rule[-4px]{50px}{18px}}$ Blue              | 0 63 135    | #003f87     |
-| Consumer               | UTexas Orange   | ${\color[RGB]{191, 87,  0  }\rule[-4px]{50px}{18px}}$ Orange            | 191 87 0    | #bf5700     |
-| Outdoor                |                 | TBD (green?)                                                            |             |             |
-| Attraction             | Pantone 469     | ${\color[RGB]{105, 63,  35 }\rule[-4px]{50px}{18px}}$ Brown             | 105 63 35   | #693f23     |
-| Airport                | Medium Purple C | ${\color[RGB]{78,  0,   142}\rule[-4px]{50px}{18px}}$ Purple            | 78 0 142    | #4e008e     |
-| Transport              | Pantone 234 C   | ${\color[RGB]{162, 0,   103}\rule[-4px]{50px}{18px}}$ Mauve             | 162 0 103   | #a20067     |
-| Knockout               |                 | ${\color[RGB]{249, 245, 240}\rule[-4px]{50px}{18px}}$ Lt Grayish Orange | 249 245 240 | #f9f5f0     |
+| Category               | Scheme          | Color                                                | RGB         | Hex triplet |
+| ---------------------- | --------------- | ---------------------------------------------------- | ----------- | ----------- |
+| Geographic Place Names | N/A             | $`{\color{#000000} \blacksquare}`$ Black             | 0 0 0       | #000000     |
+| Infrastructure         | Pantone 294     | $`{\color{#003f87} \blacksquare}`$ Blue              | 0 63 135    | #003f87     |
+| Consumer               | UTexas Orange   | $`{\color{#bf5700} \blacksquare}`$ Orange            | 191 87 0    | #bf5700     |
+| Outdoor                |                 | TBD (green?)                                         |             |             |
+| Attraction             | Pantone 469     | $`{\color{#693f23} \blacksquare}`$ Brown             | 105 63 35   | #693f23     |
+| Airport                | Medium Purple C | $`{\color{#4e008e} \blacksquare}`$ Purple            | 78 0 142    | #4e008e     |
+| Transport              | Pantone 234 C   | $`{\color{#a20067} \blacksquare}`$ Mauve             | 162 0 103   | #a20067     |
+| Knockout               |                 | $`{\color{#f9f5f0} \blacksquare}`$ Lt Grayish Orange | 249 245 240 | #f9f5f0     |
 
 ## Fonts
 
