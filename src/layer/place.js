@@ -20,39 +20,29 @@ const cityLabelPaint = {
   "text-halo-blur": labelHaloBlur,
 };
 
-const cityIcon = [
-  "match",
-  ["get", "capital"],
-  2,
-  "star_nation_capital",
-  3,
-  "star_state_capital",
-  4,
-  "star_state_capital",
-  "dot_city",
+const minorLocationStepFilter = [
+  "step",
+  ["zoom"],
+  ["<=", ["get", "rank"], 2],
+  6,
+  ["<=", ["get", "rank"], 4],
+  7,
+  ["<=", ["get", "rank"], 5],
+  8,
+  ["<=", ["get", "rank"], 9],
+  10,
+  [">=", ["get", "rank"], 1],
 ];
+
+function filterPlace(type) {
+  return ["==", ["get", "class"], type];
+}
 
 export const village = {
   id: "place_village",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: [
-    "all",
-    ["==", ["get", "class"], "village"],
-    [
-      "step",
-      ["zoom"],
-      ["<=", ["get", "rank"], 2],
-      6,
-      ["<=", ["get", "rank"], 4],
-      7,
-      ["<=", ["get", "rank"], 5],
-      8,
-      ["<=", ["get", "rank"], 9],
-      10,
-      [">=", ["get", "rank"], 1],
-    ],
-  ],
+  filter: ["all", filterPlace("village"), minorLocationStepFilter],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -63,7 +53,7 @@ export const village = {
         [12, 12],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": "place_dot",
     "icon-size": {
       base: 1.0,
       stops: [
@@ -99,23 +89,7 @@ export const town = {
   id: "place_town",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: [
-    "all",
-    ["==", ["get", "class"], "town"],
-    [
-      "step",
-      ["zoom"],
-      ["<=", ["get", "rank"], 2],
-      6,
-      ["<=", ["get", "rank"], 4],
-      7,
-      ["<=", ["get", "rank"], 5],
-      8,
-      ["<=", ["get", "rank"], 9],
-      10,
-      [">=", ["get", "rank"], 1],
-    ],
-  ],
+  filter: ["all", filterPlace("town"), minorLocationStepFilter],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -126,7 +100,7 @@ export const town = {
         [12, 18],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": "place_dot",
     "icon-size": {
       base: 1.2,
       stops: [
@@ -164,7 +138,7 @@ export const city = {
   paint: cityLabelPaint,
   filter: [
     "all",
-    ["==", ["get", "class"], "city"],
+    filterPlace("city"),
     [
       "step",
       ["zoom"],
@@ -185,7 +159,17 @@ export const city = {
         [11, 24],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": [
+      "match",
+      ["get", "capital"],
+      2,
+      "place_star_in_circle",
+      3,
+      "place_star",
+      4,
+      "place_star",
+      "place_dot",
+    ],
     "icon-size": {
       base: 1.2,
       stops: [
