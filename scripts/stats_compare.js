@@ -45,8 +45,8 @@ const sizeRow = [
 
 const summaryChangeTable = [
   ...diffHeaderRow,
-  ...layersRow.map((row) => row.join(" | ")),
-  ...sizeRow.map((row) => row.join(" | ")),
+  layersRow.join(" | "),
+  sizeRow.join(" | "),
 ].join("\n");
 
 const summaryChange = `
