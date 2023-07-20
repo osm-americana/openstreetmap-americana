@@ -74,7 +74,7 @@ jobs:
           mkdir stats
           echo '${{ env.MAIN_STATS }}'
           echo '${{ env.PR_STATS }}'
-          node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > stats/stats-difference.md
+          npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > stats/stats-difference.md
       - name: Print Stats to GitHub Checks
         uses: LouisBrunner/checks-action@v1.6.1
         if: always()
