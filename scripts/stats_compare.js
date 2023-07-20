@@ -65,13 +65,15 @@ console.log(summaryChange);
 const layerCountChangeRows = [];
 
 for (const layer in difference.layerGroup) {
+  const stats1LayerCount = stats1.layerGroup[layer]?.layerCount || 0;
+  const stats2LayerCount = stats2.layerGroup[layer]?.layerCount || 0;
   const differenceLayerCount = difference.layerGroup[layer].layerCount;
   const percentageChange = differenceLayerCount / stats1LayerCount;
 
   const row = [
     layer,
-    stats1.layerGroup[layer]?.layerCount || 0,
-    stats2.layerGroup[layer]?.layerCount || 0,
+    stats1LayerCount.toLocaleString("en"),
+    stats2LayerCount.toLocaleString("en"),
     differenceLayerCount.toLocaleString("en"),
     percentageChange.toLocaleString("en", pctFormat),
   ];
