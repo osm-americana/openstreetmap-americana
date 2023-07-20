@@ -81,8 +81,6 @@ for (const layer in difference.layerGroup) {
   layerCountChangeRows.push(row);
 }
 
-layerCountChange += layerCountChangeRows.join("\n");
-
 const layerCountChangeTable = [
   ...diffHeaderRow,
   ...layerCountChangeRows.map((row) => row.join(" | ")),
