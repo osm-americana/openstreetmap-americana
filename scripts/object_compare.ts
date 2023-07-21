@@ -70,3 +70,76 @@ function negate(object: object) {
 
   return result;
 }
+
+// "|           | main          | this PR      | change          | % change        |",
+export type ComparedStats = {
+  name: string;
+  beforeValue: number | null;
+  afterValue: number | null;
+  change: number;
+  pctChange: number | null;
+};
+
+export function statsComparisonRow(
+  name: string,
+  val1: number | null,
+  val2: number | null,
+  change: number
+): ComparedStats {
+  let pctChange: number | null;
+
+  if (val1 !== null) {
+    if (val2 !== null) {
+      pctChange = change / val1;
+    } else {
+      pctChange = -1;
+    }
+  } else {
+    pctChange = null;
+  }
+
+  return {
+    name,
+    beforeValue: val1,
+    afterValue: val2,
+    change,
+    pctChange,
+  };
+}
+
+const pctFormat: Intl.NumberFormatOptions = {
+  style: "percent",
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+  signDisplay: "exceptZero",
+};
+
+function naLocString(val: number | null) {
+  return val !== null ? val.toLocaleString("en") : "N/A";
+}
+
+/**
+ * produce a markdown row of statistics comparison
+ */
+export function mdStringValues(stats: ComparedStats): string[] {
+  const beforeValueStr = naLocString(stats.beforeValue);
+  const afterValueStr = naLocString(stats.afterValue);
+  const changeStr = naLocString(stats.change);
+  const pctChangeStr =
+    stats.pctChange !== null
+      ? stats.pctChange.toLocaleString("en", pctFormat)
+      : "N/A";
+
+  return [stats.name, beforeValueStr, afterValueStr, changeStr, pctChangeStr];
+}
+
+export function mdCompareRow(
+  name: string,
+  val1: number | null,
+  val2: number | null,
+  change: number
+): string {
+  return mdStringValues(statsComparisonRow(name, val1, val2, change)).join(
+    " | "
+  );
+}

@@ -1,4 +1,9 @@
-import { calculateDifference } from "./object_compare";
+import {
+  calculateDifference,
+  mdCompareRow,
+  mdStringValues,
+  statsComparisonRow,
+} from "./object_compare";
 
 const stats1 = JSON.parse(process.argv[2]);
 const stats2 = JSON.parse(process.argv[3]);
@@ -21,33 +26,21 @@ const pctFormat = {
   signDisplay: "exceptZero",
 };
 
-const layersRow = [
+const layersRow = mdCompareRow(
   "Layers",
   stats1.layerCount,
   stats2.layerCount,
-  difference.layerCount,
-  ((100 * difference.layerCount) / stats1.layerCount).toLocaleString(
-    "en",
-    pctFormat
-  ),
-];
+  difference.layerCount
+);
 
-const sizeRow = [
+const sizeRow = mdCompareRow(
   "Size (b)",
-  stats1.styleSize.toLocaleString("en"),
-  stats2.styleSize.toLocaleString("en"),
-  difference.styleSize.toLocaleString("en"),
-  ((100 * difference.styleSize) / stats1.styleSize).toLocaleString(
-    "en",
-    pctFormat
-  ),
-];
+  stats1.styleSize,
+  stats2.styleSize,
+  difference.styleSize
+);
 
-const summaryChangeTable = [
-  ...diffHeaderRow,
-  layersRow.join(" | "),
-  sizeRow.join(" | "),
-].join("\n");
+const summaryChangeTable = [...diffHeaderRow, layersRow, sizeRow].join("\n");
 
 const summaryChange = `
 
