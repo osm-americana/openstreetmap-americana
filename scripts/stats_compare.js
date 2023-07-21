@@ -35,16 +35,7 @@ const sizeRow = mdCompareRow(
   difference.styleSize
 );
 
-const summaryChangeTable = [...diffHeaderRow, layersRow, sizeRow].join("\n");
-
-const summaryChange = `
-
-## Style size statistics
-
-${summaryChangeTable}
-`;
-
-console.log(summaryChange);
+printTable("Style size statistics", [layersRow, sizeRow]);
 
 /**
  * Show comparison of the number of layers in each group before and after
@@ -63,18 +54,7 @@ for (const layer in difference.layerGroup) {
   );
 }
 
-const layerCountChangeTable = [...diffHeaderRow, ...layerCountChangeRows].join(
-  "\n"
-);
-
-const layerCountChange = `
-
-## Layer count comparison
-
-${layerCountChangeTable}
-`;
-
-console.log(layerCountChange);
+printTable("Layer count comparison", layerCountChangeRows);
 
 /**
  * Show comparison of the aggregate size of layers in each group before and after
@@ -93,15 +73,16 @@ for (const layer in difference.layerGroup) {
   );
 }
 
-const layerSizeChangeTable = [...diffHeaderRow, ...layerSizeChangeRows].join(
-  "\n"
-);
+printTable("Layer size comparison", layerSizeChangeRows);
 
-const layerSizeChange = `
+function printTable(headingText, rows) {
+  const table = [...diffHeaderRow, ...rows].join("\n");
+  const text = `
 
-## Layer size comparison
+## ${headingText}
 
-${layerSizeChangeTable}
+${table}
 `;
 
-console.log(layerSizeChange);
+  console.log(text);
+}
