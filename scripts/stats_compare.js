@@ -1,9 +1,4 @@
-import {
-  calculateDifference,
-  mdCompareRow,
-  mdStringValues,
-  statsComparisonRow,
-} from "./object_compare";
+import { calculateDifference, mdCompareRow } from "./object_compare";
 
 const stats1 = JSON.parse(process.argv[2]);
 const stats2 = JSON.parse(process.argv[3]);
@@ -58,26 +53,19 @@ console.log(summaryChange);
 const layerCountChangeRows = [];
 
 for (const layer in difference.layerGroup) {
-  const stats1LayerCount = stats1.layerGroup[layer]?.layerCount || 0;
-  const stats2LayerCount = stats2.layerGroup[layer]?.layerCount || 0;
-  const differenceLayerCount = difference.layerGroup[layer].layerCount;
-  const percentageChange = differenceLayerCount / stats1LayerCount;
-
-  const row = [
-    layer,
-    stats1LayerCount.toLocaleString("en"),
-    stats2LayerCount.toLocaleString("en"),
-    differenceLayerCount.toLocaleString("en"),
-    percentageChange.toLocaleString("en", pctFormat),
-  ];
-
-  layerCountChangeRows.push(row);
+  layerCountChangeRows.push(
+    mdCompareRow(
+      layer,
+      stats1.layerGroup[layer]?.layerCount,
+      stats2.layerGroup[layer]?.layerCount,
+      difference.layerGroup[layer]?.layerCount
+    )
+  );
 }
 
-const layerCountChangeTable = [
-  ...diffHeaderRow,
-  ...layerCountChangeRows.map((row) => row.join(" | ")),
-].join("\n");
+const layerCountChangeTable = [...diffHeaderRow, ...layerCountChangeRows].join(
+  "\n"
+);
 
 const layerCountChange = `
 
@@ -95,28 +83,19 @@ console.log(layerCountChange);
 const layerSizeChangeRows = [];
 
 for (const layer in difference.layerGroup) {
-  const stats1LayerSize = stats1.layerGroup[layer]?.size || 0;
-  const stats2LayerSize = stats2.layerGroup[layer]?.size || 0;
-  const differenceLayerSize = difference.layerGroup[layer].size;
-
-  const percentageChange =
-    stats1LayerSize !== 0 ? differenceLayerSize / stats1LayerSize : 0;
-
-  const row = [
-    layer,
-    stats1LayerSize.toLocaleString("en"),
-    stats2LayerSize.toLocaleString("en"),
-    differenceLayerSize.toLocaleString("en"),
-    percentageChange.toLocaleString("en", pctFormat),
-  ];
-
-  layerSizeChangeRows.push(row);
+  layerSizeChangeRows.push(
+    mdCompareRow(
+      layer,
+      stats1.layerGroup[layer]?.size,
+      stats2.layerGroup[layer]?.size,
+      difference.layerGroup[layer]?.size
+    )
+  );
 }
 
-const layerSizeChangeTable = [
-  ...diffHeaderRow,
-  ...layerSizeChangeRows.map((row) => row.join(" | ")),
-].join("\n");
+const layerSizeChangeTable = [...diffHeaderRow, ...layerSizeChangeRows].join(
+  "\n"
+);
 
 const layerSizeChange = `
 
