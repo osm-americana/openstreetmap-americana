@@ -14,13 +14,6 @@ const diffHeaderRow = [
  * Show comparison of overall aggregate statistics between this PR and previous
  */
 
-const pctFormat = {
-  style: "percent",
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-  signDisplay: "exceptZero",
-};
-
 const layersRow = mdCompareRow(
   "Layers",
   stats1.layerCount,
