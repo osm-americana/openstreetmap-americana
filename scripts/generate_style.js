@@ -4,7 +4,7 @@ import { Command } from "commander";
 import { validate } from "@maplibre/maplibre-gl-style-spec";
 
 import * as Style from "../src/js/style.js";
-import config from "../src/config.js";
+import { getConfig } from "../src/config.js";
 
 /**
  * Requires mapbox-gl-rtl-text:
@@ -19,21 +19,25 @@ program.parse(process.argv);
 
 let opts = program.opts();
 
-let style = Style.build(
-  config.OPENMAPTILES_URL,
-  "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
-  "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
-  opts.locales
-);
+getConfig()
+  .then((config) => {
+    let style = Style.build(
+      config.OPENMAPTILES_URL,
+      "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
+      "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+      opts.locales
+    );
 
-const errors = validate(style);
-if (errors.length) {
-  console.error(errors.map((e) => e.message).join("\n"));
-  process.exit(1);
-}
+    const errors = validate(style);
+    if (errors.length) {
+      console.error(errors.map((e) => e.message).join("\n"));
+      process.exit(1);
+    }
 
-if (opts.outfile == "-") {
-  console.log("%j", style);
-} else {
-  fs.writeFileSync(opts.outfile, JSON.stringify(style));
-}
+    if (opts.outfile == "-") {
+      console.log("%j", style);
+    } else {
+      fs.writeFileSync(opts.outfile, JSON.stringify(style));
+    }
+  })
+  .catch((error) => console.error(error));
