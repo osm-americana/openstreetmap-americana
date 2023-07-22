@@ -10,5 +10,11 @@ const importConfig = () => {
   }
 };
 
-const { default: config } = await importConfig();
-export { config as default };
+export async function getConfig() {
+  try {
+    const module = await importConfig();
+    return module.default;
+  } catch (error) {
+    console.error(error);
+  }
+}

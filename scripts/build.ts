@@ -1,5 +1,4 @@
 import { stat, copyFile, mkdir } from "node:fs/promises";
-import { pathToFileURL } from "node:url";
 
 import esbuild, { BuildContext, BuildOptions } from "esbuild";
 
@@ -83,4 +82,10 @@ export const build = (
   buildOptions: BuildOptions = {}
 ): Promise<BuildContext[]> => buildWith("build", buildOptions);
 
-await build();
+(async function () {
+  try {
+    await build();
+  } catch (error) {
+    console.error(error);
+  }
+})();

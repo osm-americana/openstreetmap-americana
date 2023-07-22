@@ -1,6 +1,6 @@
 "use strict";
 
-import config from "./config.js";
+import { getConfig } from "./config.js";
 
 import * as Label from "./constants/label.js";
 import * as Style from "./js/style.js";
@@ -24,7 +24,7 @@ import {
   routeParser,
 } from "./js/shield_format.js";
 
-export function buildStyle() {
+function buildStyle(config) {
   var getUrl = window.location;
   var baseUrl = (getUrl.protocol + "//" + getUrl.host + getUrl.pathname)
     //Trim trailing slashes from URL
@@ -45,47 +45,17 @@ function upgradeLegacyHash() {
   }
   window.location.hash = hash;
 }
-upgradeLegacyHash();
 
-maplibregl.setRTLTextPlugin(
-  "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
-  null,
-  true
-);
-
-window.maplibregl = maplibregl;
-export const map = (window.map = new maplibregl.Map({
-  container: "map", // container id
-  hash: "map",
-  antialias: true,
-  style: buildStyle(),
-  center: [-94, 40.5], // starting position [lng, lat]
-  zoom: 4, // starting zoom
-  attributionControl: false,
-}));
-
-let options = {};
-
-if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
-  options["SHIELD_TEXT_HALO_COLOR_OVERRIDE"] =
-    config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
+function hotReloadMap(config) {
+  map.setStyle(buildStyle(config));
 }
 
-// Add our sample data.
-let sampleControl = new SampleControl({ permalinks: true });
-OpenMapTilesSamples.forEach((sample, i) => {
-  sampleControl.addSample(sample);
-});
+export function updateLanguageLabel() {
+  languageLabel.displayLocales(Label.getLocales());
+  legendControl.onLanguageChange();
+}
 
-let legendControl;
-
-const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
-  .filterImageID(shieldPredicate)
-  .filterNetwork(networkPredicate)
-  .renderOnMaplibreGL(map)
-  .onShieldDefLoad((shields) => shieldDefLoad(shields));
-
-function shieldDefLoad(shields) {
+function shieldDefLoad(shields, config) {
   legendControl = new LegendControl(shields);
   legendControl.sections = LegendConfig.sections;
   map.addControl(legendControl, "bottom-left");
@@ -104,7 +74,7 @@ function shieldDefLoad(shields) {
 
   window.addEventListener("languagechange", (event) => {
     console.log(`Changed to ${navigator.languages}`);
-    hotReloadMap();
+    hotReloadMap(config);
     updateLanguageLabel();
   });
 
@@ -114,7 +84,7 @@ function shieldDefLoad(shields) {
     let newLanguage = Label.getLanguageFromURL(new URL(event.newURL));
     if (oldLanguage !== newLanguage) {
       console.log(`Changed to ${newLanguage}`);
-      hotReloadMap();
+      hotReloadMap(config);
       updateLanguageLabel();
     }
   });
@@ -128,39 +98,76 @@ function shieldDefLoad(shields) {
   }
 }
 
-map.on("styleimagemissing", function (e) {
-  switch (e.id.split("\n")[0]) {
-    case "shield":
-      break;
-    case "poi":
-      Poi.missingIconHandler(shieldRenderer, map, e);
-      break;
-    default:
-      console.warn("Image id not recognized:", JSON.stringify(e.id));
-      break;
-  }
+let legendControl;
+
+// Add our sample data.
+let sampleControl = new SampleControl({ permalinks: true });
+OpenMapTilesSamples.forEach((sample, i) => {
+  sampleControl.addSample(sample);
 });
-
-function hotReloadMap() {
-  map.setStyle(buildStyle());
-}
-
-export function updateLanguageLabel() {
-  languageLabel.displayLocales(Label.getLocales());
-  legendControl.onLanguageChange();
-}
 
 let attributionConfig = {
   customAttribution: "",
 };
 
-if (config.ATTRIBUTION_TEXT != undefined) {
-  attributionConfig = {
-    customAttribution: config.ATTRIBUTION_TEXT,
-  };
-}
+getConfig()
+  .then((config) => {
+    upgradeLegacyHash();
 
-if (config.ATTRIBUTION_LOGO != undefined) {
-  document.getElementById("attribution-logo").innerHTML =
-    config.ATTRIBUTION_LOGO;
-}
+    maplibregl.setRTLTextPlugin(
+      "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
+      null,
+      true
+    );
+
+    window.maplibregl = maplibregl;
+    const map = (window.map = new maplibregl.Map({
+      container: "map", // container id
+      hash: "map",
+      antialias: true,
+      style: buildStyle(config),
+      center: [-94, 40.5], // starting position [lng, lat]
+      zoom: 4, // starting zoom
+      attributionControl: false,
+    }));
+
+    let options = {};
+
+    if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
+      options["SHIELD_TEXT_HALO_COLOR_OVERRIDE"] =
+        config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
+    }
+
+    const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
+      .filterImageID(shieldPredicate)
+      .filterNetwork(networkPredicate)
+      .renderOnMaplibreGL(map)
+      .onShieldDefLoad((shields) => shieldDefLoad(shields, config));
+
+    map.on("styleimagemissing", function (e) {
+      switch (e.id.split("\n")[0]) {
+        case "shield":
+          break;
+        case "poi":
+          Poi.missingIconHandler(shieldRenderer, map, e);
+          break;
+        default:
+          console.warn("Image id not recognized:", JSON.stringify(e.id));
+          break;
+      }
+    });
+
+    if (config.ATTRIBUTION_TEXT != undefined) {
+      attributionConfig = {
+        customAttribution: config.ATTRIBUTION_TEXT,
+      };
+    }
+
+    if (config.ATTRIBUTION_LOGO != undefined) {
+      document.getElementById("attribution-logo").innerHTML =
+        config.ATTRIBUTION_LOGO;
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });

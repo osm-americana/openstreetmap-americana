@@ -37,7 +37,13 @@ const once = (emitter, name, { signal } = {}) =>
     signal?.addEventListener("abort", reject);
   });
 
-await once(map, "load");
+(async function () {
+  try {
+    await once(map, "load");
+  } catch (error) {
+    console.error(error);
+  }
+})();
 
 let networks = [
   "default",
@@ -422,6 +428,12 @@ function mergeArrays(arr1, arr2) {
   return ret;
 }
 
-await renderAllShields().finally(() =>
-  document.querySelector("#progress-overlay").remove()
-);
+(async function () {
+  try {
+    await renderAllShields().finally(() =>
+      document.querySelector("#progress-overlay").remove()
+    );
+  } catch (error) {
+    console.error(error);
+  }
+})();

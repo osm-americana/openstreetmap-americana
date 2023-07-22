@@ -5,12 +5,16 @@ import { buildContext } from "./build";
 
 const port = 1776;
 
-const [mainContext, shieldLibContext]: BuildContext[] = await buildContext({
-  define: { "window.LIVE_RELOAD": "true" },
-});
+async function startServer() {
+  const [mainContext, shieldLibContext]: BuildContext[] = await buildContext({
+    define: { "window.LIVE_RELOAD": "true" },
+  });
 
-await mainContext.watch();
-await shieldLibContext.watch();
-await mainContext.serve({ servedir: "dist", host: "::", port });
+  await mainContext.watch();
+  await shieldLibContext.watch();
+  await mainContext.serve({ servedir: "dist", host: "::", port });
 
-open(`http://localhost:${port}/`);
+  open(`http://localhost:${port}/`);
+}
+
+startServer();
