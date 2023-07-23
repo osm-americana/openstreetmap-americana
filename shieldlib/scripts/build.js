@@ -13,7 +13,7 @@ const buildWith = async (key, buildOptions) => {
     bundle: true,
     minify: true,
     sourcemap: true,
-    outdir: "dist",
+    outfile: "dist/maplibre-shield-generator.js",
     logLevel: "info",
     ...buildOptions,
     define: {
