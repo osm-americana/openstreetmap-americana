@@ -8,7 +8,8 @@ const buildWith = async (key, buildOptions) => {
 
   const options = {
     entryPoints: ["src/index.ts"],
-    format: "esm",
+    format: "iife",
+    globalName: "mapLibreShieldGenerator",
     bundle: true,
     minify: true,
     sourcemap: true,
