@@ -15,7 +15,7 @@
     "maplibre-gl-js"
   ],
   "license": "CC0-1.0",
-  "main": "dist/index.js",
+  "main": "dist/maplibre-shield-generator.js",
   "source": "src/index.ts",
   "devDependencies": {
     "@types/color-rgba": "^2.1.0",
@@ -49,6 +49,9 @@
     "color-rgba": "^2.4.0",
     "maplibre-gl": "^2.4.0"
   },
+  "files": [
+    "dist/*"
+  ],
   "directories": {
     "test": "test"
   }
