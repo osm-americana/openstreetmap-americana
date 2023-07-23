@@ -15,7 +15,12 @@
     "maplibre-gl-js"
   ],
   "license": "CC0-1.0",
-  "main": "dist/maplibre-shield-generator.js",
+  "main": "dist/maplibre-shield-generator-cjs.js",
+  "module": "dist/maplibre-shield-generator-esm.js",
+  "browser": {
+    "dist/maplibre-shield-generator-cjs.js": "dist/maplibre-shield-generator.js",
+    "dist/maplibre-shield-generator-esm.js": "dist/maplibre-shield-generator-esm.js"
+  },
   "source": "src/index.ts",
   "devDependencies": {
     "@types/color-rgba": "^2.1.0",

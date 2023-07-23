@@ -20,12 +20,42 @@ const buildWith = async (key, buildOptions) => {
       ...buildOptions?.define,
     },
   };
-  return (
-    esbuild[key](options)
-      // esbuild will pretty-print its own error messages;
-      // suppress node.js from printing the exception.
-      .catch(() => process.exit(1))
-  );
+  const cjsOptions = {
+    entryPoints: ["src/index.ts"],
+    format: "cjs",
+    bundle: true,
+    minify: true,
+    sourcemap: true,
+    outfile: "dist/maplibre-shield-generator-cjs.js",
+    logLevel: "info",
+    ...buildOptions,
+    define: {
+      ...buildOptions?.define,
+    },
+  };
+  const esmOptions = {
+    entryPoints: ["src/index.ts"],
+    format: "esm",
+    bundle: true,
+    minify: true,
+    sourcemap: true,
+    outfile: "dist/maplibre-shield-generator-esm.js",
+    logLevel: "info",
+    ...buildOptions,
+    define: {
+      ...buildOptions?.define,
+    },
+  };
+
+  // esbuild will pretty-print its own error messages;
+  // suppress node.js from printing the exception.
+  const suppressErrors = () => process.exit(1);
+
+  return ([
+    esbuild[key](options).catch(suppressErrors),
+    esbuild[key](cjsOptions).catch(suppressErrors),
+    esbuild[key](esmOptions).catch(suppressErrors),
+  ]);
 };
 
 export const buildContext = (buildOptions = {}) =>
