@@ -46,7 +46,20 @@ function evaluatedLabelAndGloss(locales, properties) {
   return [label, gloss];
 }
 
+function diacriticSensitiveCaseInsensitiveMatch(locale, s1, s2) {
+  return s1.localeCompare(s2, locale, { sensitivity: "accent" }) === 0;
+}
+
 function expectGloss(locale, localized, local, expectedLabel, expectedGloss) {
+  //Make sure the test is sane
+  if (diacriticSensitiveCaseInsensitiveMatch(locale, localized, local)) {
+    expect(
+      expectedGloss,
+      `Labels [${localized}] and [${local}] match, therefore no gloss is expected, but gloss [${expectedGloss}] was specified.`
+    ).to.be.undefined;
+  }
+
+  //Do the test
   let properties = {
     name: local,
   };
