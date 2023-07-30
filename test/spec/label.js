@@ -22,6 +22,33 @@ function expressionContext(properties) {
   };
 }
 
+function localGlossEvaluatedExpression(locales, properties) {
+  return expression
+    .createExpression(
+      localizedTextField([...Label.localizedNameWithLocalGloss], locales)
+    )
+    .value.expression.evaluate(expressionContext(properties));
+}
+
+function evaluatedLabelAndGloss(locales, properties) {
+  let evaluated = localGlossEvaluatedExpression(locales, properties);
+  if (typeof evaluated === "string") {
+    return [evaluated];
+  }
+  return [evaluated.sections[0].text, evaluated.sections[4]?.text];
+}
+
+function expectGloss(locale, localized, local, expectedLabel, expectedGloss) {
+  let properties = {
+    name: local,
+  };
+  properties[`name:${locale}`] = localized;
+  expect(evaluatedLabelAndGloss([locale], properties)).to.be.deep.equal([
+    expectedLabel,
+    expectedGloss,
+  ]);
+}
+
 describe("label", function () {
   describe("#getLanguageFromURL", function () {
     it("accepts an unset language", function () {
@@ -280,40 +307,8 @@ describe("label", function () {
   });
 
   describe("#localizedNameWithLocalGloss", function () {
-    let evaluatedExpression = (locales, properties) =>
-      expression
-        .createExpression(
-          localizedTextField([...Label.localizedNameWithLocalGloss], locales)
-        )
-        .value.expression.evaluate(expressionContext(properties));
-
-    let evaluatedLabelAndGloss = (locales, properties) => {
-      let evaluated = evaluatedExpression(locales, properties);
-      if (typeof evaluated === "string") {
-        return [evaluated];
-      }
-      return [evaluated.sections[0].text, evaluated.sections[4]?.text];
-    };
-
-    let expectGloss = (
-      locale,
-      localized,
-      local,
-      expectedLabel,
-      expectedGloss
-    ) => {
-      let properties = {
-        name: local,
-      };
-      properties[`name:${locale}`] = localized;
-      expect(evaluatedLabelAndGloss([locale], properties)).to.be.deep.equal([
-        expectedLabel,
-        expectedGloss,
-      ]);
-    };
-
     it("puts an unlocalized name by itself", function () {
-      let evaluated = evaluatedExpression(["en"], {
+      let evaluated = localGlossEvaluatedExpression(["en"], {
         name: "Null Island",
       });
 
@@ -321,7 +316,7 @@ describe("label", function () {
       expect(evaluated.sections[0].text).to.be.eql("Null Island");
     });
     it("spreads multiple unlocalized names across multiple lines", function () {
-      let evaluated = evaluatedExpression(["en"], {
+      let evaluated = localGlossEvaluatedExpression(["en"], {
         name: "Null Island;Insula Nullius",
       });
 
@@ -331,7 +326,7 @@ describe("label", function () {
       );
     });
     it("glosses an anglicized name with the local name", function () {
-      let evaluated = evaluatedExpression(["en"], {
+      let evaluated = localGlossEvaluatedExpression(["en"], {
         "name:en": "Null Island",
         name: "Insula Nullius",
       });
