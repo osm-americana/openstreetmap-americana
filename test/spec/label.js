@@ -40,7 +40,10 @@ function evaluatedLabelAndGloss(locales, properties) {
   if (typeof evaluated === "string") {
     return [evaluated];
   }
-  return [evaluated.sections[0].text, evaluated.sections[4]?.text];
+  const label = evaluated.sections[0].text;
+  const gloss = evaluated.sections[4]?.text;
+  expect(label, `label is undefined`).to.be.not.undefined;
+  return [label, gloss];
 }
 
 function expectGloss(locale, localized, local, expectedLabel, expectedGloss) {
