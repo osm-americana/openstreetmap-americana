@@ -50,13 +50,35 @@ function diacriticSensitiveCaseInsensitiveMatch(locale, s1, s2) {
   return s1.localeCompare(s2, locale, { sensitivity: "accent" }) === 0;
 }
 
+function diacriticInsensitiveCaseInsensitiveMatch(s1, s2) {
+  const normalizedStr1 = s1
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  const normalizedStr2 = s2
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  return normalizedStr1 === normalizedStr2;
+}
+
 function expectGloss(locale, localized, local, expectedLabel, expectedGloss) {
   //Make sure the test is sane
   if (diacriticSensitiveCaseInsensitiveMatch(locale, localized, local)) {
     expect(
       expectedGloss,
-      `Labels [${localized}] and [${local}] match, therefore no gloss is expected, but gloss [${expectedGloss}] was specified.`
+      `[${locale}] Labels [${localized}] and [${local}] match, therefore no gloss is expected, but gloss [${expectedGloss}] was specified.`
     ).to.be.undefined;
+  }
+  if (diacriticInsensitiveCaseInsensitiveMatch(locale, localized, local)) {
+    expect(
+      expectedGloss,
+      `[${locale}] Labels [${localized}] and [${local}] match without diacritics, therefore no gloss is expected, but gloss [${expectedGloss}] was specified.`
+    ).to.be.not.undefined;
+    expect(
+      expectedLabel,
+      `[${locale}] Labels [${localized}] and [${local}] match without diacritics, therefore [${local}] should be the label, but [${expectedLabel}] was specified.`
+    ).to.be.eq(local);
   }
 
   //Do the test
