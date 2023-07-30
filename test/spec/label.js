@@ -13,7 +13,12 @@ function localizedTextField(textField, locales) {
     },
   ];
   Label.localizeLayers(layers, locales);
-  return layers[0].layout["text-field"];
+  const localizedTextField = layers[0].layout["text-field"];
+  expect(
+    localizedTextField,
+    `Localized text field ${textField} is undefined for locales ${locales}`
+  ).to.be.not.undefined;
+  return localizedTextField;
 }
 
 function expressionContext(properties) {
