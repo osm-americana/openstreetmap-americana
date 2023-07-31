@@ -646,10 +646,14 @@ describe("label", function () {
 
   describe("Regression checks", function () {
     it("L'Aquila special case", function () {
-      const locales = ["en"];
-      const properties = { name: "L'Aquila", "name:en": "L’Aquila" };
-      let evaluated = localGlossEvaluatedExpression(locales, properties);
-      expect(typeof evaluated).is.not.eq("string");
+      expect(
+        evaluatedLabelAndGloss(["en"], {
+          name: "L'Aquila",
+          "name:en": "L’Aquila",
+        })
+      ).to.be.deep.equal(["L’Aquila", "L'Aquila"]);
     });
   });
 });
+
+console.error();
