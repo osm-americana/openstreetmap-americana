@@ -13,10 +13,10 @@ jobs:
 # Node v18.17.0, introduced July 18, 2023, introduces an error in unicode processing that breaks test cases on Ubuntu.
 # See PR #905 and #908 for more details.
 # If this bug is resolved in node, these lines can revert to 18.x rather than 18.16.0.
-      - name: Use Node.js 18.x
+      - name: Use Node.js 18.16.0
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 18.16.0
       - name: Build Shield Library 🛡️
         run: |
           cd shieldlib
