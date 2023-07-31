@@ -10,10 +10,10 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Use Node.js 18.x
+      - name: Use Node.js 18.16.0 #See PR#905, v18.17 has a unicode bug
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 18.16.0 #See PR#905, v18.17 has a unicode bug
       - name: Build Shield Library 🛡️
         run: |
           cd shieldlib
