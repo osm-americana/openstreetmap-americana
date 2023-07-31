@@ -645,15 +645,21 @@ describe("label", function () {
   });
 
   describe("Regression checks", function () {
-    it("L'Aquila special case", function () {
-      expect(
-        evaluatedLabelAndGloss(["en"], {
-          name: "L'Aquila",
-          "name:en": "L’Aquila",
-        })
-      ).to.be.deep.equal(["L’Aquila", "L'Aquila"]);
+    const locales = ["en"];
+    const properties = {
+      name: "L'Aquila",
+      "name:en": "L’Aquila",
+    };
+    it("L'Aquila special case 1", function () {
+      expect(evaluatedLabelAndGloss(locales, properties)).to.be.deep.equal([
+        "L’Aquila",
+        "L'Aquila",
+      ]);
+    });
+    it("L'Aquila special case 2", function () {
+      const evaluated = localGlossEvaluatedExpression(locales, properties);
+      expect(evaluated.sections[0].text).is.eq("L’Aquila");
+      expect(evaluated.sections[4].text).is.eq("L'Aquila");
     });
   });
 });
-
-console.error();
