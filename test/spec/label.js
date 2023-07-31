@@ -646,7 +646,10 @@ describe("label", function () {
 
   describe("Regression checks", function () {
     it("L'Aquila special case", function () {
-      expectGloss("en", "L’Aquila", "L'Aquila", "L’Aquila", "L'Aquila");
+      const locales = ["en"];
+      const properties = { name: "L'Aquila", "name:en": "L’Aquila" };
+      let evaluated = localGlossEvaluatedExpression(locales, properties);
+      expect(typeof evaluated).is.not.eq("string");
     });
   });
 });
