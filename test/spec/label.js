@@ -51,6 +51,23 @@ function diacriticSensitiveCaseInsensitiveMatch(locale, s1, s2) {
 }
 
 function diacriticInsensitiveCaseInsensitiveMatch(s1, s2) {
+  //This captures all test case characters but not necessarily all unicode possibilities
+  const n1 = s1
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ|Đ/g, "d")
+    .replace(/ł/g, "l")
+    .toLowerCase();
+  const n2 = s2
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ|Đ/g, "d")
+    .replace(/ł/g, "l")
+    .toLowerCase();
+  return n1 === n2;
+}
+
+function diacriticInsensitiveCaseInsensitiveSubstring(s1, s2) {
   const normalizedStr1 = s1
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -59,26 +76,57 @@ function diacriticInsensitiveCaseInsensitiveMatch(s1, s2) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
-  return normalizedStr1 === normalizedStr2;
+
+  return normalizedStr1.includes(normalizedStr2);
+}
+
+function formatGloss(local, localized) {
+  return local
+    .split(";")
+    .filter((item) => item !== localized)
+    .join(" • ");
 }
 
 function expectGloss(locale, localized, local, expectedLabel, expectedGloss) {
+  const fmtExpectedGloss = formatGloss(local, localized);
+
   //Make sure the test is sane
   if (diacriticSensitiveCaseInsensitiveMatch(locale, localized, local)) {
     expect(
       expectedGloss,
       `[${locale}] Labels [${localized}] and [${local}] match, therefore no gloss is expected, but gloss [${expectedGloss}] was specified.`
     ).to.be.undefined;
-  }
-  if (diacriticInsensitiveCaseInsensitiveMatch(locale, localized, local)) {
+    expect(
+      expectedLabel,
+      `[${locale}] Labels [${localized}] and [${local}] match, therefore [${localized}] should be the label, but [${expectedLabel}] was specified.`
+    ).to.be.eq(localized);
+  } else if (
+    locale === "en" &&
+    diacriticInsensitiveCaseInsensitiveMatch(localized, local)
+  ) {
     expect(
       expectedGloss,
       `[${locale}] Labels [${localized}] and [${local}] match without diacritics, therefore no gloss is expected, but gloss [${expectedGloss}] was specified.`
-    ).to.be.not.undefined;
+    ).to.be.undefined;
     expect(
       expectedLabel,
       `[${locale}] Labels [${localized}] and [${local}] match without diacritics, therefore [${local}] should be the label, but [${expectedLabel}] was specified.`
     ).to.be.eq(local);
+  } else if (
+    locale === "en" &&
+    diacriticInsensitiveCaseInsensitiveSubstring(localized, local)
+  ) {
+    //TODO, Quebec case
+    //Checks
+  } else {
+    expect(
+      expectedGloss,
+      `[${locale}] Labels [${localized}] and [${local}] are different, therefore a gloss is expected, but no gloss was specified.`
+    ).to.be.not.undefined;
+    expect(
+      expectedGloss,
+      `[${locale}] Labels [${localized}] and [${local}] are different, therefore a gloss of [${fmtExpectedGloss}] is expected.`
+    ).to.be.eq(fmtExpectedGloss);
   }
 
   //Do the test
