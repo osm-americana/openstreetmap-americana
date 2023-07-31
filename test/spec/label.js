@@ -50,34 +50,40 @@ function diacriticSensitiveCaseInsensitiveMatch(locale, s1, s2) {
   return s1.localeCompare(s2, locale, { sensitivity: "accent" }) === 0;
 }
 
+function lcaseNormalize(s) {
+  //Return a lower-case normalized string stripped of diacritics
+  return s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ|Đ/g, "d")
+    .replace(/ł/g, "l")
+    .replace(/[.,]/g, "") //ignore punctuation
+    .toLowerCase();
+}
+
 function diacriticInsensitiveCaseInsensitiveMatch(s1, s2) {
   //This captures all test case characters but not necessarily all unicode possibilities
-  const n1 = s1
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ|Đ/g, "d")
-    .replace(/ł/g, "l")
-    .toLowerCase();
-  const n2 = s2
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ|Đ/g, "d")
-    .replace(/ł/g, "l")
-    .toLowerCase();
+  const n1 = lcaseNormalize(s1);
+  const n2 = lcaseNormalize(s2);
   return n1 === n2;
 }
 
 function diacriticInsensitiveCaseInsensitiveSubstring(s1, s2) {
-  const normalizedStr1 = s1
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-  const normalizedStr2 = s2
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+  const normalizedStr1 = lcaseNormalize(s1);
+  const normalizedStr2 = lcaseNormalize(s2);
 
-  return normalizedStr1.includes(normalizedStr2);
+  const words1 = normalizedStr1.split(" ");
+  const words2 = normalizedStr2.split(" ");
+
+  for (let word1 of words1) {
+    for (let word2 of words2) {
+      if (word1 === word2) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 function formatGloss(local, localized) {
@@ -87,8 +93,30 @@ function formatGloss(local, localized) {
     .join(" • ");
 }
 
+function replaceWithDiacriticSubstring(originalString, replacementSubString) {
+  // Split the string into an array of words
+  const words = originalString.split(" ");
+
+  // Create the replacement word by removing diacritics and converting to lower case
+  const replacementWord = replacementSubString
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+  // Replace words in the array
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].toLowerCase() === replacementWord) {
+      words[i] = replacementSubString;
+    }
+  }
+
+  // Join the array back into a string
+  return words.join(" ");
+}
+
 function expectGloss(locale, localized, local, expectedLabel, expectedGloss) {
   const fmtExpectedGloss = formatGloss(local, localized);
+  const isMultiName = local.includes(";");
 
   //Make sure the test is sane
   if (diacriticSensitiveCaseInsensitiveMatch(locale, localized, local)) {
@@ -114,10 +142,18 @@ function expectGloss(locale, localized, local, expectedLabel, expectedGloss) {
     ).to.be.eq(local);
   } else if (
     locale === "en" &&
+    !isMultiName &&
     diacriticInsensitiveCaseInsensitiveSubstring(localized, local)
   ) {
-    //TODO, Quebec case
-    //Checks
+    //Québec + Quebec City = Québec City case
+    expect(
+      expectedGloss,
+      `[${locale}] Label [${local}] is a substring of [${localized}] disregarding diacritics, therefore no gloss is expected, but gloss [${expectedGloss}] was specified.`
+    ).to.be.undefined;
+    expect(
+      expectedLabel,
+      `[${locale}] Label [${local}] is a substring of [${localized}] disregarding diacritics, therefore label should merge to [${expectedLabel}].`
+    ).to.be.eq(replaceWithDiacriticSubstring(localized, local));
   } else {
     expect(
       expectedGloss,
