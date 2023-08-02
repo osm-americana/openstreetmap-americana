@@ -498,6 +498,14 @@
     },
     {
       "key": "amenity",
+      "value": "place_of_worship",
+      "object_types": ["node", "area"],
+      "description": "Places of worship are marked by a square representing a building, topped with a finial representing the religion for common religions.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_generic.svg"
+    },
+    {
+      "key": "amenity",
       "value": "bus_station",
       "object_types": ["node", "area"],
       "description": "Bus stations are marked by an icon depicting the front of a bus.",
@@ -552,6 +560,71 @@
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
     },
+    {
+      "key": "religion",
+      "value": "buddhist",
+      "object_types": ["node", "area"],
+      "description": "Buddhist places of worship are marked by an icon representing a building topped by a dharmachakra.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_buddhist.svg"
+    },
+    {
+      "key": "religion",
+      "value": "christian",
+      "object_types": ["node", "area"],
+      "description": "Christian places of worship are marked by an icon representing a building topped by a cross.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_christian.svg"
+    },
+    {
+      "key": "religion",
+      "value": "hindu",
+      "object_types": ["node", "area"],
+      "description": "Hindu places of worship are marked by an icon representing a building topped by an om symbol.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_hindu.svg"
+    },
+    {
+      "key": "religion",
+      "value": "jewish",
+      "object_types": ["node", "area"],
+      "description": "Jewish places of worship are marked by an icon representing a building topped by a star of David.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_jewish.svg"
+    },
+    {
+      "key": "religion",
+      "value": "muslim",
+      "object_types": ["node", "area"],
+      "description": "Muslim places of worship are marked by an icon representing a building topped by a star and crescent.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_muslim.svg"
+    },
+    {
+      "key": "religion",
+      "value": "sikh",
+      "object_types": ["node", "area"],
+      "description": "Sikh places of worship are marked by an icon representing a building topped by a khanda.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_sikh.svg"
+    },
+    {
+      "key": "religion",
+      "value": "shinto",
+      "object_types": ["node", "area"],
+      "description": "Shinto places of worship are marked by an icon representing a building topped by a torii.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_shinto.svg"
+    },
+    {
+      "key": "religion",
+      "value": "taoist",
+      "object_types": ["node", "area"],
+      "description": "Taoist places of worship are marked by an icon representing a building topped by a yin-yang symbol.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_taoist.svg"
+    },
+
     {
       "key": "highway",
       "value": "motorway",
