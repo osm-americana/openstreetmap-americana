@@ -891,6 +891,9 @@ export function loadShields() {
     Color.shields.brown,
     Color.shields.white
   );
+  shields["CA:NS:S"] = {
+    notext: true,
+  };
 
   // Northwest Territories
   shields["CA:NT"] = {
@@ -4200,6 +4203,27 @@ export function loadShields() {
   shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
+
+  shields["CA:NS:S"].overrideByRef = {
+    ET: {
+      spriteBlank: "shield_ca_ns_s_et",
+    },
+    FdLt: {
+      spriteBlank: "shield_ca_ns_s_fdlt",
+    },
+    LR: {
+      spriteBlank: "shield_ca_ns_s_lr",
+    },
+    MD: {
+      spriteBlank: "shield_ca_ns_s_md",
+    },
+    MT: {
+      spriteBlank: "shield_ca_ns_s_mt",
+    },
+    ST: {
+      spriteBlank: "shield_ca_ns_s_st",
+    },
+  };
 
   shields["CA:ON:primary"].overrideByRef = {
     QEW: {
