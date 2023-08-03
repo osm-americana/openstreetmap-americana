@@ -4205,6 +4205,12 @@ export function loadShields() {
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
   shields["CA:NS:S"].overrideByRef = {
+    BdOLSD: {
+      spriteBlank: "shield_ca_ns_s_bdolsd",
+    },
+    CT: {
+      spriteBlank: "shield_ca_ns_s_ct",
+    },
     ET: {
       spriteBlank: "shield_ca_ns_s_et",
     },
