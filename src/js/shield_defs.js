@@ -4208,6 +4208,9 @@ export function loadShields() {
     BdOLSD: {
       spriteBlank: "shield_ca_ns_s_bdolsd",
     },
+    CeT: {
+      spriteBlank: "shield_ca_ns_s_cet",
+    },
     CT: {
       spriteBlank: "shield_ca_ns_s_ct",
     },
@@ -4216,6 +4219,9 @@ export function loadShields() {
     },
     FdLt: {
       spriteBlank: "shield_ca_ns_s_fdlt",
+    },
+    GT: {
+      spriteBlank: "shield_ca_ns_s_gt",
     },
     LR: {
       spriteBlank: "shield_ca_ns_s_lr",
