@@ -3284,6 +3284,10 @@ export function loadShields() {
     spriteBlank: "shield_us_lht",
     notext: true,
   };
+  shields["US:ORSB"] = {
+    spriteBlank: ["shield_us_orsb"],
+    notext: true,
+  };
 
   // SOUTH AMERICA
 
