@@ -239,7 +239,7 @@ More complicated shields may be more challenging to simplify. Consider taking so
 
 ### Color Scheme
 
-For consistency, shields should use the following color palette:
+For consistency, most shields should use the following color palette, which is based on the national _Manual of Uniform Traffic Control Devices_:[^mutcd-color-specs]
 
 | Color                                           | Pantone | RGB         | Hex triplet |
 | ----------------------------------------------- | ------- | ----------- | ----------- |
@@ -251,11 +251,21 @@ For consistency, shields should use the following color palette:
 | $`{\color{#6d2077} \blacksquare}`$ Purple       | 259     | 109 32 119  | #6d2077     |
 | $`{\color{#bf2033} \blacksquare}`$ Red          | 187     | 191 32 51   | #bf2033     |
 | $`{\color{#ffcd00} \blacksquare}`$ Yellow       | 116     | 255 205 0   | #ffcd00     |
-| $`{\color{#c4d600} \blacksquare}`$ Yellow-Green | 382     | 196 214 0   | #c4d600     |
+| $`{\color{#c4d600} \blacksquare}`$ Yellow-green | 382     | 196 214 0   | #c4d600     |
 | $`{\color{#ffffff} \blacksquare}`$ White        | N/A     | 255 255 255 | #ffffff     |
 | $`{\color{#000000} \blacksquare}`$ Black        | N/A     | 0 0 0       | #000000     |
 
-Base data from MUTCD Color Specifications, Federal Highway Administration
+[^mutcd-color-specs]: [MUTCD Color Specifications](https://mutcd.fhwa.dot.gov/kno-colorspec.htm), Federal Highway Administration
+
+The MUTCD’s standard colors are designed for high-contrast backgrounds and legends. This is also advantageous on a map where shields need to stand out a variety of lines and fills. However, tourist and scenic route shield often depict natural scenes in a photorealistic style, requiring some tints that stand out against the usual background shades. These shields can take advantage of additional colors for contrast and recognizability, including:[^caltrans-sign-specs]
+
+| Color and example usage                                    | Pantone | RGB         | Hex triplet |
+| ---------------------------------------------------------- | ------- | ----------- | ----------- |
+| $`{\color{#ddcba4} \blacksquare}`$ Cream/tan (wood)        | 468     | 221 203 164 | #ddcba4     |
+| $`{\color{#9bcbeb} \blacksquare}`$ Light blue (sky, water) | 291     | 155 203 235 | #9bcbeb     |
+| $`{\color{#6cc24a} \blacksquare}`$ Light green (foliage)   | 360     | 108 194 74  | #6cc24a     |
+
+[^caltrans-sign-specs]: [California Sign Specification Drawings](https://dot.ca.gov/programs/safety-programs/sign-specs), California Department of Transportation
 
 See the [developer tools](dev/README.md) for an importable, Inkscape-compatible palette file.
 
