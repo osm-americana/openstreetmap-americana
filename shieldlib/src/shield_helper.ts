@@ -1,3 +1,4 @@
+import { Color } from "color-namer";
 import { ShieldDefinition, TextLayout } from "./types";
 
 export function roundedRectTextConstraint(radius: number): TextLayout {
@@ -696,5 +697,51 @@ export function banneredShield(
   return {
     banners,
     ...baseDef,
+  };
+}
+
+/**
+ * Draws a circle icon inside a black-outlined white square shield
+ *
+ * @param {*} fillColor - Color of circle icon background fill
+ * @param {*} strokeColor - Color of circle icon outline
+ * @returns a shield definition object
+ */
+export function paBeltShield(
+  fillColor: string,
+  strokeColor: string
+): ShieldDefinition {
+  return {
+    notext: true,
+    shapeBlank: {
+      drawFunc: "paBelt",
+      params: {
+        fillColor,
+        strokeColor,
+      },
+    },
+  };
+}
+
+/**
+ * Draws a rectangle icon inside a white-outlined green square shield
+ *
+ * @param {*} fillColor - Color of rectangle icon background fill
+ * @param {*} strokeColor - Color of rectangle icon outline
+ * @returns a shield definition object
+ */
+export function bransonRouteShield(
+  fillColor: string,
+  strokeColor: string
+): ShieldDefinition {
+  return {
+    notext: true,
+    shapeBlank: {
+      drawFunc: "branson",
+      params: {
+        fillColor,
+        strokeColor,
+      },
+    },
   };
 }

@@ -13,10 +13,11 @@ type Exclusive<T, U> =
   | (U & { [P in keyof T]?: never });
 
 interface ShieldDefinitionBase {
-  textColor: string;
-  padding: BoxPadding;
-  textLayout: TextLayout;
+  textColor?: string;
+  padding?: BoxPadding;
+  textLayout?: TextLayout;
   banners?: string[];
+  notext?: boolean;
 }
 
 export type ShieldDefinition = Exclusive<
@@ -40,7 +41,7 @@ export interface BoxPadding {
 export interface ShapeBlankParams {
   fillColor: string;
   strokeColor: string;
-  rectWidth: number;
+  rectWidth?: number;
   radius?: number;
   radius1?: number;
   radius2?: number;

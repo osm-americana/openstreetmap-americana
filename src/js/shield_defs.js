@@ -20,47 +20,9 @@ import {
   escutcheonDownShield,
   fishheadDownShield,
   banneredShield,
+  paBeltShield,
+  bransonRouteShield,
 } from "@americana/maplibre-shield-generator";
-
-/**
- * Draws a circle icon inside a black-outlined white square shield
- *
- * @param {*} fillColor - Color of circle icon background fill
- * @param {*} strokeColor - Color of circle icon outline
- * @returns a shield definition object
- */
-function paBeltShield(fillColor, strokeColor) {
-  return {
-    notext: true,
-    shapeBlank: {
-      drawFunc: "paBelt",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-      },
-    },
-  };
-}
-
-/**
- * Draws a rectangle icon inside a white-outlined green square shield
- *
- * @param {*} fillColor - Color of rectangle icon background fill
- * @param {*} strokeColor - Color of rectangle icon outline
- * @returns a shield definition object
- */
-function bransonRouteShield(fillColor, strokeColor) {
-  return {
-    notext: true,
-    shapeBlank: {
-      drawFunc: "branson",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-      },
-    },
-  };
-}
 
 export function loadShields() {
   const shields = {};
