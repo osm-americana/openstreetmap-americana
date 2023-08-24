@@ -7,14 +7,54 @@ export interface RouteDefinition {
   spriteID?: string;
 }
 
-export interface ShieldDefinition {
-  spriteBlank: string[];
+//Enforce a requirement that one field OR another field must be specified, but not both.
+type Exclusive<T, U> =
+  | (T & { [P in keyof U]?: never })
+  | (U & { [P in keyof T]?: never });
+
+interface ShieldDefinitionBase {
   textColor: string;
-  padding: {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
+  padding: BoxPadding;
+  textLayout: TextLayout;
+  banners?: string[];
+}
+
+export type ShieldDefinition = Exclusive<
+  { spriteBlank: string[] },
+  { shapeBlank: ShapeDefinition }
+> &
+  ShieldDefinitionBase;
+
+export interface ShapeDefinition {
+  drawFunc: string;
+  params: ShapeBlankParams;
+}
+
+export interface BoxPadding {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+}
+
+export interface ShapeBlankParams {
+  fillColor: string;
+  strokeColor: string;
+  rectWidth: number;
+  radius?: number;
+  radius1?: number;
+  radius2?: number;
+  offset?: number;
+  outlineWidth?: number;
+  pointUp?: boolean;
+  shortSideUp?: boolean;
+  angle?: number;
+}
+
+export interface TextLayout {
+  constraintFunc: string;
+  options?: {
+    radius: number;
   };
 }
 

@@ -15,3 +15,4 @@ export {
 } from "./shield_renderer";
 
 export { getDOMPixelRatio } from "./document_graphics";
+export * from "./shield_helper";
