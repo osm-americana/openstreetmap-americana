@@ -313,3 +313,7 @@ The following `params` options can be specified:
 ### Custom shield graphics
 
 In addition to the stock drawing functions, a custom draw function can be specified. `paDot` and `branson` are included as examples of this, for rendering the [Allegheny County belt system](https://en.wikipedia.org/wiki/Allegheny_County_belt_system) and the Branson, Missouri colored route system. See the file `src/custom_shields.mjs` for an example of how this is done.
+
+## Documentation
+
+See [TypeDoc generated documentation](./docs/index.html) for detailed API information.

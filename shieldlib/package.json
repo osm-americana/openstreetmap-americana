@@ -53,5 +53,10 @@
   },
   "directories": {
     "test": "test"
-  }
+  },
+  "files": [
+    "dist/",
+    "docs/",
+    "README.md"
+  ]
 }
