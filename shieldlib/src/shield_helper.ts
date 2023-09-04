@@ -1,4 +1,3 @@
-import { Color } from "color-namer";
 import { ShieldDefinition, TextLayout } from "./types";
 
 export function roundedRectTextConstraint(radius: number): TextLayout {
