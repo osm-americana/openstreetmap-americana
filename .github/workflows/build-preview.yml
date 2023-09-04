@@ -36,12 +36,15 @@ jobs:
           name: pr_number
           path: pr/
       - name: Install and Build 🔧
+        # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
           npm ci --include=dev
           npm run build
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
+          mkdir -p dist/shield-docs
+          cp -r shieldlib/docs/* dist/shield-docs
       - name: Upload Build artifact
         uses: actions/upload-artifact@v3
         with:
