@@ -31,7 +31,7 @@
   "scripts": {
     "code_format": "run-s code_format:prettier",
     "code_format:prettier": "prettier --write --list-different .",
-    "clean": "shx rm -rf dist",
+    "clean": "shx rm -rf dist docs",
     "docs": "npx typedoc src/index.ts",
     "test": "npm exec -- ts-mocha",
     "build:code": "node scripts/build.js",
