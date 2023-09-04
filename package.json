@@ -11,7 +11,7 @@
     "shieldlib"
   ],
   "scripts": {
-    "build:shieldlib": "cd shieldlib && node scripts/build.js",
+    "build:shieldlib": "cd shieldlib && node scripts/build.js && npm run docs",
     "build:code": "exec ts-node scripts/build",
     "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
     "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
