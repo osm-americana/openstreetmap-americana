@@ -17,7 +17,7 @@
     "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
     "clean-download": "shx rm -rf download",
     "clean-build": "shx rm -rf dist build",
-    "clean:shieldlib": "cd shieldlib && shx rm -rf dist",
+    "clean:shieldlib": "cd shieldlib && shx rm -rf dist docs",
     "clean:code": "shx rm -rf dist",
     "config": "shx cp src/configs/config.maptiler.js src/config.js",
     "code_format": "run-s code_format:prettier code_format:svgo",
