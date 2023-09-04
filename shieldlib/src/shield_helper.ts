@@ -723,7 +723,7 @@ export function paBeltShield(
 }
 
 /**
- * Draws a rectangle icon inside a white-outlined green square shield
+ * Draws a Branson, Missouri route shield
  *
  * @param {*} fillColor - Color of rectangle icon background fill
  * @param {*} strokeColor - Color of rectangle icon outline

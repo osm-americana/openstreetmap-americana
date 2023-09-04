@@ -56,7 +56,7 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
   }
 }
 
-class AbstractShieldRenderer {
+export class AbstractShieldRenderer {
   private _shieldPredicate: StringPredicate = () => true;
   private _networkPredicate: StringPredicate = () => true;
   private _routeParser: RouteParser;
@@ -140,10 +140,9 @@ class AbstractShieldRenderer {
           storeNoShield(this._renderContext, e.id);
           return;
         }
-        routeDef.spriteID = e.id; //Original ID so we can store the sprite
         this._renderContext.debugOptions = this.debugOptions;
         if (routeDef) {
-          missingIconLoader(this._renderContext, routeDef);
+          missingIconLoader(this._renderContext, routeDef, e.id);
         }
       } catch (err) {
         console.error(`Exception while loading image ‘${e?.id}’:\n`, err);
@@ -156,7 +155,6 @@ class AbstractShieldRenderer {
       network,
       ref,
       name,
-      spriteID: this._routeParser.format(network, ref, name),
     });
   }
 

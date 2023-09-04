@@ -1,10 +1,4 @@
-export {
-  Bounds,
-  GraphicsFactory,
-  RouteDefinition,
-  ShieldSpecification,
-  SpriteRepository,
-} from "./types";
+export * from "./types";
 
 export { transposeImageData } from "./screen_gfx";
 

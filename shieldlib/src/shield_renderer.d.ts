@@ -21,7 +21,7 @@ export declare class ShieldRenderingContext {
   px(pixels: number): number;
   shieldSize(): number;
 }
-declare class AbstractShieldRenderer {
+export declare class AbstractShieldRenderer {
   private _shieldPredicate;
   private _networkPredicate;
   private _routeParser;
