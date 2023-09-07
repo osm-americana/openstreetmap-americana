@@ -2238,6 +2238,9 @@ export function loadShields() {
     },
   };
   shields["US:NH:Bypass"] = banneredShield(shields["US:NH"], ["BYP"]);
+  shields["US:NH:Turnpike"] = {
+    notext: true,
+  };
 
   // New Jersey
   shields["US:NJ"] = ovalShield(Color.shields.white, Color.shields.black);
@@ -4325,6 +4328,17 @@ export function loadShields() {
       Color.shields.green
     ),
     "Blue Route": bransonRouteShield(Color.shields.blue, Color.shields.white),
+  };
+
+  shields["US:NH:Turnpike"].overrideByName = {
+    "Everett Turnpike": {
+      spriteBlank: "shield_us_nh_turnpike",
+      colorLighten: "#006747",
+    },
+    "Spaulding Turnpike": {
+      spriteBlank: "shield_us_nh_turnpike",
+      colorLighten: "#003F87",
+    },
   };
 
   shields["US:NY:Parkway"].refsByName = {
