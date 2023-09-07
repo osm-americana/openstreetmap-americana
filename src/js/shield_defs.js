@@ -3122,6 +3122,11 @@ export function loadShields() {
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
 
+  shields["US:WA:Asotin"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
+
   // Wisconsin
   shields["US:WI"] = {
     spriteBlank: ["shield_us_wi_2", "shield_us_wi_3"],
