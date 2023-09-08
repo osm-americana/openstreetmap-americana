@@ -4227,7 +4227,7 @@ export function loadShields() {
     ET: {
       spriteBlank: "shield_ca_ns_s_et",
     },
-    FdLt: {
+    FdLT: {
       spriteBlank: "shield_ca_ns_s_fdlt",
     },
     GT: {
