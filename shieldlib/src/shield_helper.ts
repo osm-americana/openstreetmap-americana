@@ -1,5 +1,11 @@
 import { ShieldDefinition, TextLayout } from "./types";
 
+/**
+ * Constrain the text to a rounded rectangle
+ *
+ * @param radius 1x pixel radius of the constraint corners
+ * @returns a constraint definition
+ */
 export function roundedRectTextConstraint(radius: number): TextLayout {
   return {
     constraintFunc: "roundedRect",
@@ -9,6 +15,11 @@ export function roundedRectTextConstraint(radius: number): TextLayout {
   };
 }
 
+/**
+ * Constrain the text to a specified constraint type
+ *
+ * @returns a constraint definition
+ */
 export function textConstraint(fxn: string): TextLayout {
   return {
     constraintFunc: fxn,

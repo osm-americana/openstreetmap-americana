@@ -29,7 +29,23 @@ export interface ShieldDefinitionBase {
   notext?: boolean;
 }
 
-/** Define how the renderer should draw the shield for a particular route */
+/**
+ * Define how the renderer should draw the shield for various routes
+ *
+ * @example
+ * const shieldsDefinition = {
+ *     "US:I": {
+ *         textColor: Color.shields.white,
+ *         spriteBlank: ["shield_us_interstate_2", "shield_us_interstate_3"],
+ *         textLayout: textConstraint("southHalfEllipse"),
+ *         padding: {
+ *             left: 4,
+ *             right: 4,
+ *             top: 6,
+ *             bottom: 5,
+ *         }
+ *     };
+ */
 export type ShieldDefinition = Exclusive<
   { spriteBlank: string[] },
   { shapeBlank: ShapeDefinition }
@@ -145,15 +161,44 @@ export interface ShieldOptions {
   shieldSize: number;
 }
 
-/** A user-supplied specification for rendering shields */
+/**
+ * A user-supplied specification for rendering shields
+ *
+ * @example
+ *
+ * const shieldsSpecification = {
+ *     shields: {
+ *         "US:I": {
+ *             textColor: Color.shields.white,
+ *             spriteBlank: ["shield_us_interstate_2", "shield_us_interstate_3"],
+ *             textLayout: textConstraint("southHalfEllipse"),
+ *             padding: {
+ *                 left: 4,
+ *                 right: 4,
+ *                 top: 6,
+ *                 bottom: 5,
+ *             },
+ *         }
+ *     },
+ *     options: {
+ *         bannerTextColor: "#000",
+ *         bannerTextHaloColor: "#FFF",
+ *         bannerHeight: 9,
+ *         bannerPadding: 1,
+ *         shieldFont: '"sans-serif-condensed", "Arial Narrow", sans-serif',
+ *         shieldSize: 20,
+ *     }
+ * };
+ *
+ */
 export interface ShieldSpecification {
+  /** Shield definitions */
   networks: ShieldDefinitions;
+  /** Shield options */
   options: ShieldOptions;
 }
 
-/**
- * Rectangular bounds, in scaled pixels
- */
+/** Rectangular bounds, in scaled pixels */
 export type Bounds = {
   width: number;
   height: number;
