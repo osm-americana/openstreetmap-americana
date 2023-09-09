@@ -1,90 +1,88 @@
 import { StyleImage } from "maplibre-gl";
 
-/**
- * Defines the set of routes that a shield applies to
- */
+/** Defines the set of routes that a shield applies to */
 export interface RouteDefinition {
-  /**
-   * Only match routes with this network value
-   */
+  /** Only match routes with this network value */
   network: string;
-
-  /**
-   * If set, only match routes with this ref value
-   */
+  /** If set, only match routes with this ref value */
   ref?: string;
-
-  /**
-   * If set, only match routes with this name value
-   */
+  /** If set, only match routes with this name value */
   name?: string;
 }
 
-/**
- * Enforce a requirement that one field OR another field must be specified, but not both.
- */
+/** Enforce a requirement that one field OR another field must be specified, but not both */
 export type Exclusive<T, U> =
   | (T & { [P in keyof U]?: never })
   | (U & { [P in keyof T]?: never });
 
-/**
- * Parameters that apply to all types of shield definitions
- */
+/** Parameters that apply to all types of shield definitions */
 export interface ShieldDefinitionBase {
+  /** Color of text drawn on a shield */
   textColor?: string;
+  /** Padding around shield text */
   padding?: BoxPadding;
+  /** Algorithm for expanding text to fill a shield background */
   textLayout?: TextLayout;
+  /** Banners to be drawn above a shield */
   banners?: string[];
+  /** If true, no next should be drawn on this shield */
   notext?: boolean;
 }
 
-/**
- * Define how the renderer should draw the shield for a particular route
- */
+/** Define how the renderer should draw the shield for a particular route */
 export type ShieldDefinition = Exclusive<
   { spriteBlank: string[] },
   { shapeBlank: ShapeDefinition }
 > &
   ShieldDefinitionBase;
 
-/**
- * Define a shield which is created by drawing a shape, optionally with text on top
- */
+/** Define a shield which is created by drawing a shape, optionally with text on top */
 export interface ShapeDefinition {
+  /** Which shape to draw */
   drawFunc: string;
+  /** Parameters for drawing the shape */
   params: ShapeBlankParams;
 }
 
-/**
- * Rectangular padding values
- */
+/** Rectangular padding values */
 export interface BoxPadding {
+  /** Minimum padding to the left of the text */
   left: number;
+  /** Minimum padding to the right of the text */
   right: number;
+  /** Minimum padding above the text */
   top: number;
+  /** Minimum padding below the text */
   bottom: number;
 }
 
-/**
- * Parameters for drawing shield shapes
- */
+/** Parameters for drawing shield shapes */
 export interface ShapeBlankParams {
+  /** Fill color of the shape */
   fillColor: string;
+  /** Stroke (border) color */
   strokeColor: string;
+  /** Width of the shape */
   rectWidth?: number;
+  /** Radius of the shape's corners */
   radius?: number;
+  /** Radius of the shapes's first corner. This is used for shapes that can specify multiple raidus values */
   radius1?: number;
+  /** Radius of the shapes's second corner. This is used for shapes that can specify multiple raidus values */
   radius2?: number;
+  /** Height of diagonal edges */
   offset?: number;
+  /** Width of the shape's outline */
   outlineWidth?: number;
+  /** Specify whether the pointy end of the shape is on top */
   pointUp?: boolean;
+  /** Specify whether the short side of the shape is on top */
   shortSideUp?: boolean;
+  /** Specify the angle of the defining vertex of the shape */
   angle?: number;
 }
 
-/**
- * Parameters for laying out text on a shield background
- */
+/** Parameters for laying out text on a shield background */
 export interface TextLayout {
   constraintFunc: string;
   options?: {
@@ -99,59 +97,55 @@ export interface TextLayout {
  */
 export type StringPredicate = (spriteID: string) => boolean;
 
-/**
- * RouteParser unpacks a route definition from a sprite image string.
- */
+/** RouteParser unpacks a route definition from a sprite image string */
 export interface RouteParser {
   parse(spriteID: string): RouteDefinition;
   format(network: string, ref: string, name: string): string;
 }
 
-/**
- * Retrieve a sprite graphic based on an ID.
- */
+/** Retrieve a sprite graphic based on an ID */
 export interface SpriteProducer {
   getSprite(spriteID: string): StyleImage;
 }
 
-/**
- * Store a sprite graphic based on an ID.
- */
+/** Store a sprite graphic based on an ID */
 export interface SpriteConsumer {
   putSprite(spriteID: string, image: ImageData, pixelRatio: number): void;
 }
 
-/**
- * Respository that can store and retrieve sprite graphics.
- */
+/** Respository that can store and retrieve sprite graphics */
 export type SpriteRepository = SpriteProducer & SpriteConsumer;
 
-/**
- * A map of shield definitions that associates a network name to its rendering
- */
+/** Map of shield definitions that associates a network name to its rendering */
 export interface ShieldDefinitions {
   shield: {
     [key: string]: ShieldDefinition;
   };
 }
 
-export interface DebugOptions {}
+/** Additional debugging-only options */
+export interface DebugOptions {
+  /** If set, draw a colored box around shield text constraint */
+  shieldTextBboxColor?: string;
+}
 
-/**
- * Global options for shield rendering
- */
+/** Global options for shield rendering */
 export interface ShieldOptions {
+  /** Height of each specified banner above the shield */
   bannerHeight: number;
+  /** Padding between each banner */
   bannerPadding: number;
+  /** Color of text on the banner */
   bannerTextColor: string;
+  /** Color of halo on text on the banner */
   bannerTextHaloColor: string;
+  /** Browser font for banner text */
   shieldFont: string;
+  /** Default shield size in pixels at 1x */
   shieldSize: number;
 }
 
-/**
- * A user-supplied specification for rendering shields
- */
+/** A user-supplied specification for rendering shields */
 export interface ShieldSpecification {
   networks: ShieldDefinitions;
   options: ShieldOptions;
