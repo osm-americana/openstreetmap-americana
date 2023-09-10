@@ -1181,16 +1181,19 @@ export function loadShields() {
     "BUS",
   ]);
 
-  shields["US:US:Historic"] = {
-    spriteBlank: ["shield_us_us_historic_2", "shield_us_us_historic_3"],
-    textColor: Color.shields.brown,
-    padding: {
-      left: 1,
-      right: 1,
-      top: 6,
-      bottom: 4,
+  shields["US:US:Historic"] = banneredShield(
+    {
+      spriteBlank: ["shield_us_us_historic_2", "shield_us_us_historic_3"],
+      textColor: Color.shields.brown,
+      padding: {
+        left: 1,
+        right: 1,
+        top: 6,
+        bottom: 4,
+      },
     },
-  };
+    ["HIST"]
+  );
 
   // Federal Agencies
   shields["US:BIA"] = {
