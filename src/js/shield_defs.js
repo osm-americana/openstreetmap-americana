@@ -1182,9 +1182,14 @@ export function loadShields() {
   ]);
 
   shields["US:US:Historic"] = {
-    ...badgeShield,
+    spriteBlank: ["shield_us_us_historic_2", "shield_us_us_historic_3"],
     textColor: Color.shields.brown,
-    colorLighten: Color.shields.brown,
+    padding: {
+      left: 1,
+      right: 1,
+      top: 6,
+      bottom: 4,
+    },
   };
 
   // Federal Agencies
