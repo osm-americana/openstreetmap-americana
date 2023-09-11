@@ -767,6 +767,17 @@ export function loadShields() {
     },
   };
 
+  let badgeShieldCrossbar = {
+    spriteBlank: ["shield_badge_crossbar_2", "shield_badge_crossbar_3"],
+    textColor: Color.shields.black,
+    padding: {
+      left: 1,
+      right: 1,
+      top: 6,
+      bottom: 4,
+    },
+  };
+
   // Default
 
   shields["default"] = {
@@ -1183,14 +1194,9 @@ export function loadShields() {
 
   shields["US:US:Historic"] = banneredShield(
     {
-      spriteBlank: ["shield_us_us_historic_2", "shield_us_us_historic_3"],
+      ...badgeShieldCrossbar,
       textColor: Color.shields.brown,
-      padding: {
-        left: 1,
-        right: 1,
-        top: 6,
-        bottom: 4,
-      },
+      colorLighten: Color.shields.brown,
     },
     ["HIST"]
   );
