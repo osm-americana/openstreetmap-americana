@@ -78,6 +78,17 @@ export function loadShields() {
     },
   };
 
+  let badgeShieldCrossbar = {
+    spriteBlank: ["shield_badge_crossbar_2", "shield_badge_crossbar_3"],
+    textColor: Color.shields.black,
+    padding: {
+      left: 1,
+      right: 1,
+      top: 6,
+      bottom: 4,
+    },
+  };
+
   // Default
 
   shields["default"] = {
@@ -492,11 +503,14 @@ export function loadShields() {
     "BUS",
   ]);
 
-  shields["US:US:Historic"] = {
-    ...badgeShield,
-    textColor: Color.shields.brown,
-    colorLighten: Color.shields.brown,
-  };
+  shields["US:US:Historic"] = banneredShield(
+    {
+      ...badgeShieldCrossbar,
+      textColor: Color.shields.brown,
+      colorLighten: Color.shields.brown,
+    },
+    ["HIST"]
+  );
 
   // Federal Agencies
   shields["US:BIA"] = {
