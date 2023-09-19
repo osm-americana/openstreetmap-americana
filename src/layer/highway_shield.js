@@ -3,6 +3,7 @@
 export const namedRouteNetworks = [
   "US:CT:Parkway",
   "US:KY:Parkway",
+  "US:NH:Turnpike",
   "US:NY:Parkway",
   "US:TX:Fort_Bend:FBCTRA",
   "US:TX:Harris:HCTRA",

@@ -239,7 +239,7 @@ More complicated shields may be more challenging to simplify. Consider taking so
 
 ### Color Scheme
 
-For consistency, shields should use the following color palette:
+For consistency, most shields should use the following color palette, which is based on the national _Manual of Uniform Traffic Control Devices_:[^mutcd-color-specs]
 
 | Color                                           | Pantone | RGB         | Hex triplet |
 | ----------------------------------------------- | ------- | ----------- | ----------- |
@@ -251,11 +251,21 @@ For consistency, shields should use the following color palette:
 | $`{\color{#6d2077} \blacksquare}`$ Purple       | 259     | 109 32 119  | #6d2077     |
 | $`{\color{#bf2033} \blacksquare}`$ Red          | 187     | 191 32 51   | #bf2033     |
 | $`{\color{#ffcd00} \blacksquare}`$ Yellow       | 116     | 255 205 0   | #ffcd00     |
-| $`{\color{#c4d600} \blacksquare}`$ Yellow-Green | 382     | 196 214 0   | #c4d600     |
+| $`{\color{#c4d600} \blacksquare}`$ Yellow-green | 382     | 196 214 0   | #c4d600     |
 | $`{\color{#ffffff} \blacksquare}`$ White        | N/A     | 255 255 255 | #ffffff     |
 | $`{\color{#000000} \blacksquare}`$ Black        | N/A     | 0 0 0       | #000000     |
 
-Base data from MUTCD Color Specifications, Federal Highway Administration
+[^mutcd-color-specs]: [MUTCD Color Specifications](https://mutcd.fhwa.dot.gov/kno-colorspec.htm), Federal Highway Administration
+
+The MUTCD’s standard colors are designed for high-contrast backgrounds and legends. This is also advantageous on a map where shields need to stand out a variety of lines and fills. However, tourist and scenic route shield often depict natural scenes in a photorealistic style, requiring some tints that stand out against the usual background shades. These shields can take advantage of additional colors for contrast and recognizability, including:[^caltrans-sign-specs]
+
+| Color and example usage                                    | Pantone | RGB         | Hex triplet |
+| ---------------------------------------------------------- | ------- | ----------- | ----------- |
+| $`{\color{#ddcba4} \blacksquare}`$ Cream/tan (wood)        | 468     | 221 203 164 | #ddcba4     |
+| $`{\color{#9bcbeb} \blacksquare}`$ Light blue (sky, water) | 291     | 155 203 235 | #9bcbeb     |
+| $`{\color{#6cc24a} \blacksquare}`$ Light green (foliage)   | 360     | 108 194 74  | #6cc24a     |
+
+[^caltrans-sign-specs]: [California Sign Specification Drawings](https://dot.ca.gov/programs/safety-programs/sign-specs), California Department of Transportation
 
 See the [developer tools](dev/README.md) for an importable, Inkscape-compatible palette file.
 
@@ -331,6 +341,7 @@ This style strives to draw representative highway shields wherever they are tagg
   - **Kentucky Parkways**. Kentucky signs a network of state highways which use a common shield styling, but with full-text names of the parkways on the shields. In addition, these routes are locally known by initialisms. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their locally-expected initialisms. Because the initialisms are not present on shields, it would not be appropriate to encode this data in the `ref` tag.
   - **New York Parkways**. The State of New York signs a network of highways which use a common shield styling, but with full-text names of the parkways on the shields. The first letter of each word in a parkway's name is capitalized and in a larger font, making initialisms easily recognizable. Because these parkways are clearly a common network due to their common shield symbology, special code is needed to convert parkway names to their initialisms. Because the initialisms are present on shields, but only as part of the full name, it would not be appropriate to encode this data in the `ref` tag.
   - **Connecticut Parkways**. Connecticut has several state-designated parkways that share the `network=US:CT:Parkway` tag but have no parkway-specific `ref` tags. The Merritt Parkway is the only of these to be signed with a route shield. Special code is needed to differentiate the Merritt from the state's other parkways.
+  - **New Hampshire Turnpikes**. New Hampshire has three named turnpikes without unique `ref=` values. One turnpike is unsigned, while the other two use a shield with the full name of the turnpike and a color for each turnpike.
 - Shields for route networks where each individual route is identified by a color, rather than a number or letter. Such cases include:
   - **Allegheny County, PA Belt Routes**. Shields for this system use colors, with a colored circle and the words "<COLOR> BELT". These shields are drawn as squares with colored circles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (white shield with colored circle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
   - **Branson, MO color-coded routes**. Shields for this system use colors, with a colored rectangle and the words "<COLOR> ROUTE". These shields are drawn as squares with colored rectangles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (green shield with colored rectangle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
