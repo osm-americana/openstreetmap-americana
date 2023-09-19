@@ -11,8 +11,8 @@ const sprites = await Promise.all(
     await glob("./icons/*.svg")
   ).map(async (spritePath) => {
     const id = path.parse(spritePath).name;
-    const svg = await fs.readFile(spritePath);
-    return { id, svg };
+    const buffer = await fs.readFile(spritePath);
+    return { id, buffer };
   })
 );
 
