@@ -767,6 +767,17 @@ export function loadShields() {
     },
   };
 
+  let badgeShieldCrossbar = {
+    spriteBlank: ["shield_badge_crossbar_2", "shield_badge_crossbar_3"],
+    textColor: Color.shields.black,
+    padding: {
+      left: 1,
+      right: 1,
+      top: 6,
+      bottom: 4,
+    },
+  };
+
   // Default
 
   shields["default"] = {
@@ -1181,11 +1192,14 @@ export function loadShields() {
     "BUS",
   ]);
 
-  shields["US:US:Historic"] = {
-    ...badgeShield,
-    textColor: Color.shields.brown,
-    colorLighten: Color.shields.brown,
-  };
+  shields["US:US:Historic"] = banneredShield(
+    {
+      ...badgeShieldCrossbar,
+      textColor: Color.shields.brown,
+      colorLighten: Color.shields.brown,
+    },
+    ["HIST"]
+  );
 
   // Federal Agencies
   shields["US:BIA"] = {
@@ -2235,6 +2249,9 @@ export function loadShields() {
     },
   };
   shields["US:NH:Bypass"] = banneredShield(shields["US:NH"], ["BYP"]);
+  shields["US:NH:Turnpike"] = {
+    notext: true,
+  };
 
   // New Jersey
   shields["US:NJ"] = ovalShield(Color.shields.white, Color.shields.black);
@@ -3118,6 +3135,11 @@ export function loadShields() {
   shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
   shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
   shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
+
+  shields["US:WA:Asotin"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
 
   // Wisconsin
   shields["US:WI"] = {
@@ -4283,6 +4305,17 @@ export function loadShields() {
       Color.shields.green
     ),
     "Blue Route": bransonRouteShield(Color.shields.blue, Color.shields.white),
+  };
+
+  shields["US:NH:Turnpike"].overrideByName = {
+    "Everett Turnpike": {
+      spriteBlank: "shield_us_nh_turnpike",
+      colorLighten: "#006747",
+    },
+    "Spaulding Turnpike": {
+      spriteBlank: "shield_us_nh_turnpike",
+      colorLighten: "#003F87",
+    },
   };
 
   shields["US:NY:Parkway"].refsByName = {

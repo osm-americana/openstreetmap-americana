@@ -339,6 +339,10 @@ const iterShields = function* () {
     network: "US:CT:Parkway",
     names: ["Wilbur Cross Parkway", "Milford Parkway", "Merritt Parkway"],
   };
+  yield {
+    network: "US:NH:Turnpike",
+    names: ["Blue Star Turnpike", "Everett Turnpike", "Spaulding Turnpike"],
+  };
 };
 
 const renderAllShields = async () => {

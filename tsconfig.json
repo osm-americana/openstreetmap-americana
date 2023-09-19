@@ -7,7 +7,8 @@
   },
   "ts-node": {
     "esm": true,
-    "experimentalSpecifierResolution": "node"
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
   },
   "include": ["src/**/*.ts", "shieldlib/src/headless_graphics.ts"]
 }
