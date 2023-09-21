@@ -75,9 +75,9 @@ export function build(locales) {
 
     lyrConstruction.road,
 
-    lyrRoad.roadTunnel.casing(),
-
-    lyrRoad.roadTunnel.fill(),
+    //lyrRoad.roadTunnel.casing(),
+    //
+    //lyrRoad.roadTunnel.fill(),
 
     lyrOneway.tunnel,
 
@@ -88,41 +88,7 @@ export function build(locales) {
     lyrAeroway.taxiway,
     lyrAeroway.taxiwayArea,
 
-    lyrRoad.motorwayLink.casing(),
-    lyrRoad.trunkLink.casing(),
-
-    lyrRoad.roadLinkSimpleCasing.casing(),
-
-    lyrRoad.motorway.casing(),
-    lyrRoad.trunk.casing(),
-    lyrRoad.primaryExpressway.casing(),
-    lyrRoad.secondaryExpressway.casing(),
-    lyrRoad.tertiaryExpressway.casing(),
-
-    lyrRoad.roadSimpleCasing.casing(),
-
-    lyrRoad.motorwayLink.fill(),
-    lyrRoad.roadLinkSimpleFill.fill(),
-    lyrRoad.primaryLink.fill(),
-    lyrRoad.primaryLinkToll.fill(),
-    lyrRoad.secondaryLink.fill(),
-    lyrRoad.secondaryLinkToll.fill(),
-    lyrRoad.tertiaryLink.fill(),
-    lyrRoad.tertiaryLinkToll.fill(),
-
-    lyrRoad.minor.fill(),
-    lyrRoad.minorToll.fill(),
-    lyrRoad.busway.fill(),
-    lyrRoad.tertiary.fill(),
-    lyrRoad.tertiaryToll.fill(),
-    lyrRoad.secondary.fill(),
-    lyrRoad.secondaryToll.fill(),
-    lyrRoad.primary.fill(),
-    lyrRoad.primaryToll.fill(),
-    lyrRoad.roadSimpleFill.fill(),
-    lyrRoad.motorway.fill(),
-
-    lyrRoad.road.surface(),
+    lyrRoad.road,
 
     lyrRail.rail.dashes(),
     lyrRail.railService.dashes(),
@@ -147,41 +113,7 @@ export function build(locales) {
   var bridgeLayers = [
     lyrRail.bridgeCasing,
 
-    lyrRoad.trunkLinkBridge.casing(),
-    lyrRoad.motorwayLinkBridge.casing(),
-
-    lyrRoad.roadLinkSimpleCasingBridge.casing(),
-
-    lyrRoad.tertiaryExpresswayBridge.casing(),
-    lyrRoad.secondaryExpresswayBridge.casing(),
-    lyrRoad.primaryExpresswayBridge.casing(),
-    lyrRoad.trunkBridge.casing(),
-    lyrRoad.motorwayBridge.casing(),
-
-    lyrRoad.roadSimpleCasingBridge.casing(),
-
-    lyrRoad.tertiaryLinkBridge.fill(),
-    lyrRoad.tertiaryLinkTollBridge.fill(),
-    lyrRoad.secondaryLinkBridge.fill(),
-    lyrRoad.secondaryLinkTollBridge.fill(),
-    lyrRoad.primaryLinkBridge.fill(),
-    lyrRoad.primaryLinkTollBridge.fill(),
-    lyrRoad.roadLinkSimpleFillBridge.fill(),
-    lyrRoad.motorwayLinkBridge.fill(),
-
-    lyrRoad.minorBridge.fill(),
-    lyrRoad.minorTollBridge.fill(),
-    lyrRoad.buswayBridge.fill(),
-    lyrRoad.tertiaryBridge.fill(),
-    lyrRoad.tertiaryTollBridge.fill(),
-    lyrRoad.secondaryBridge.fill(),
-    lyrRoad.secondaryTollBridge.fill(),
-    lyrRoad.primaryBridge.fill(),
-    lyrRoad.primaryTollBridge.fill(),
-    lyrRoad.roadSimpleFillBridge.fill(),
-    lyrRoad.motorwayBridge.fill(),
-
-    lyrRoad.roadBridge.surface(),
+    //lyrRoad.road,
 
     lyrRail.railBridge.dashes(),
     lyrRail.railServiceBridge.dashes(),
