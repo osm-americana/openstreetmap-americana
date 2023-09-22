@@ -1,0 +1,5 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <g style="display:inline;stroke:#000;stroke-opacity:0">
+  <path style="display:inline;fill:#000;fill-opacity:1;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill" d="m 5.5,10 v 9 h 9 V 10 H 11 V 6 h 3 V 4 H 11 V 1 H 9 V 4 H 6 v 2 h 3 v 4 z" transform="matrix(-1 0 0 1 20 0)"/>
+ </g>
+</svg>
