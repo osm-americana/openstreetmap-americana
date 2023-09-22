@@ -12,12 +12,31 @@ permissions:
   pages: write
   pull-requests: write
   id-token: write
+  checks: write
 concurrency: preview-${{ github.ref }}
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout Main Branch 🛎️
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Install and Build Main Branch 🔧
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
+      - name: Capture main branch usage statistics
+        id: main-stats
+        run: |
+          MAIN_STATS=$(node scripts/stats.js -j)
+          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Checkout PR Branch 🛎️
         uses: actions/checkout@v3
       - name: Use Node.js 18.16.1
         uses: actions/setup-node@v3
@@ -42,6 +61,30 @@ jobs:
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
+      - name: Capture PR branch usage statistics
+        id: pr-stats
+        run: |
+          PR_STATS=$(node scripts/stats.js -j)
+          echo "PR_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$PR_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Compare Stats
+        id: compare-stats
+        run: |
+          mkdir stats
+          echo '${{ env.MAIN_STATS }}'
+          echo '${{ env.PR_STATS }}'
+          npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > stats/stats-difference.md
+      - name: Print Stats to GitHub Checks
+        uses: LouisBrunner/checks-action@v1.6.1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Performance Metrics
+          conclusion: neutral
+          output: |
+            {"summary":"Style size changes introduced by this PR"}
+          output_text_description_file: stats/stats-difference.md
       - name: Upload Build artifact
         uses: actions/upload-artifact@v3
         with:
