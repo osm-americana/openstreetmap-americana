@@ -84,6 +84,70 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Police station",
   },
+  pow_buddhist: {
+    classes: {
+      place_of_worship: ["buddhist"],
+    },
+    sprite: "poi_pow_buddhist",
+    color: Color.poi.infrastructure,
+    description: "Buddhist place of worship",
+  },
+  pow_christian: {
+    classes: {
+      place_of_worship: ["christian"],
+    },
+    sprite: "poi_pow_christian",
+    color: Color.poi.infrastructure,
+    description: "Christian place of worship",
+  },
+  pow_hindu: {
+    classes: {
+      place_of_worship: ["hindu"],
+    },
+    sprite: "poi_pow_hindu",
+    color: Color.poi.infrastructure,
+    description: "Hindu place of worship",
+  },
+  pow_jewish: {
+    classes: {
+      place_of_worship: ["jewish"],
+    },
+    sprite: "poi_pow_jewish",
+    color: Color.poi.infrastructure,
+    description: "Jewish place of worship",
+  },
+  pow_muslim: {
+    classes: {
+      place_of_worship: ["muslim"],
+    },
+    sprite: "poi_pow_muslim",
+    color: Color.poi.infrastructure,
+    description: "Muslim place of worship",
+  },
+  pow_sikh: {
+    classes: {
+      place_of_worship: ["sikh"],
+    },
+    sprite: "poi_pow_sikh",
+    color: Color.poi.infrastructure,
+    description: "Sikh place of worship",
+  },
+  pow_shinto: {
+    classes: {
+      place_of_worship: ["shinto"],
+    },
+    sprite: "poi_pow_shinto",
+    color: Color.poi.infrastructure,
+    description: "Shinto place of worship",
+  },
+  pow_taoist: {
+    classes: {
+      place_of_worship: ["taoist"],
+    },
+    sprite: "poi_pow_taoist",
+    color: Color.poi.infrastructure,
+    description: "Taoist place of worship",
+  },
   railway_station: {
     classes: {
       railway: ["station", "halt", "subway"],
@@ -185,7 +249,22 @@ export const poi = {
       Color.poi.transport,
       ["museum"],
       Color.poi.attraction,
-      ["hospital", "parking", "police", "school", "college", "townhall"],
+      [
+        "hospital",
+        "parking",
+        "police",
+        "school",
+        "college",
+        "townhall",
+        ...getSubclasses(iconDefs.pow_christian),
+        ...getSubclasses(iconDefs.pow_buddhist),
+        ...getSubclasses(iconDefs.pow_hindu),
+        ...getSubclasses(iconDefs.pow_jewish),
+        ...getSubclasses(iconDefs.pow_muslim),
+        ...getSubclasses(iconDefs.pow_sikh),
+        ...getSubclasses(iconDefs.pow_shinto),
+        ...getSubclasses(iconDefs.pow_taoist),
+      ],
       Color.poi.infrastructure,
       Color.poi.infrastructure,
     ],
@@ -205,6 +284,14 @@ export const poi = {
         "hospital",
         "museum",
         "police",
+        ...getSubclasses(iconDefs.pow_buddhist),
+        ...getSubclasses(iconDefs.pow_christian),
+        ...getSubclasses(iconDefs.pow_hindu),
+        ...getSubclasses(iconDefs.pow_jewish),
+        ...getSubclasses(iconDefs.pow_muslim),
+        ...getSubclasses(iconDefs.pow_sikh),
+        ...getSubclasses(iconDefs.pow_shinto),
+        ...getSubclasses(iconDefs.pow_taoist),
         ...getSubclasses(iconDefs.school),
         "townhall",
         "tram_stop",
