@@ -72,3 +72,44 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: "./dist"
           DEST_DIR: pr/${{ env.PR_NUM }}
+  set-preview-in-checks-tab:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for PR Preview Upload (1x Sprite)
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: "https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png"
+          responseCode: "200"
+          timeout: 120000
+          interval: 500
+      - name: Wait for PR Preview Upload (2x Sprite)
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: "https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png"
+          responseCode: "200"
+          timeout: 120000
+          interval: 500
+      - name: Generate Preview text
+        run: |
+          echo "## PR Preview:
+          * [Map](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/)
+          * [Shield Test](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shieldtest.html)
+          * [style.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/style.json)
+          * [shields.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shields.json)
+          * [taginfo.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/taginfo.json)
+
+          ## Sprite Sheets:
+
+          <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png" />
+          <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" />
+          " > pr_preview.md
+      - name: Print Preview Links to GitHub Checks
+        uses: LouisBrunner/checks-action@v1.6.1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: PR Preview
+          conclusion: neutral
+          output: |
+            {"summary":"Preview map changes introduced by this PR"}
+          output_text_description_file: pr_preview.md
