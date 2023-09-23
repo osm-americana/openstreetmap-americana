@@ -72,9 +72,6 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: "./dist"
           DEST_DIR: pr/${{ env.PR_NUM }}
-  set-preview-in-checks-tab:
-    runs-on: ubuntu-latest
-    steps:
       - name: Wait for PR Preview Upload (1x Sprite)
         uses: cygnetdigital/wait_for_response@v2.0.0
         with:
