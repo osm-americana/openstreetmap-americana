@@ -58,9 +58,17 @@ jobs:
           unzip -d dist americana.zip
       - name: Set PR variable
         run: |
+          if [ ! -f pr_number ] || [ ! -f pr_sha ]; then
+            echo "Required files pr_number or pr_sha do not exist. Exiting."
+            exit 1
+          fi
           PR_NUM=$(cat pr_number)
           PR_SHA=$(cat pr_sha)
-          echo "Configuring deployment for PR# $PR_NUM"
+          if [ -z "$PR_NUM" ] || [ -z "$PR_SHA" ]; then
+            echo "PR_NUM or PR_SHA is empty. Exiting."
+            exit 1
+          fi
+          echo "Configuring deployment for PR# $PR_NUM commit $PR_SHA"
           echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
           echo "PR_SHA=$PR_SHA" >> $GITHUB_ENV
       - name: Deploy via S3
