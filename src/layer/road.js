@@ -14,7 +14,8 @@ const isRoad = [
   true,
   false,
 ];
-const isNotRamp = ["!=", ["get", "ramp"], 1];
+const isRamp = ["==", ["get", "ramp"], 1];
+const isNotRamp = ["!", isRamp];
 const isToll = ["==", ["get", "toll"], 1];
 const isNotToll = ["!=", ["get", "toll"], 1];
 const isMotorway = ["all", ["==", ["get", "class"], "motorway"], isNotRamp];
@@ -82,6 +83,7 @@ export const road = {
         isToll, `hsl(${tollRoadHue}, 100%, 35%)`,
         isMotorway, `hsl(${motorwayHue}, 100%, 35%)`,
         isState, `hsl(${stateHue}, 77%, 50%)`,
+        ["all", ["==", ["get", "class"], "motorway"], isRamp], "#000",
         "#9c9c9c",
       ],
     ],
