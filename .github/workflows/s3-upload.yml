@@ -59,8 +59,10 @@ jobs:
       - name: Set PR variable
         run: |
           PR_NUM=$(cat pr_number)
+          PR_SHA=$(cat pr_sha)
           echo "Configuring deployment for PR# $PR_NUM"
           echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
+          echo "PR_SHA=$PR_SHA" >> $GITHUB_ENV
       - name: Deploy via S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -104,6 +106,7 @@ jobs:
         uses: LouisBrunner/checks-action@v1.6.1
         if: always()
         with:
+          sha: ${{ env.PR_SHA }}
           token: ${{ secrets.GITHUB_TOKEN }}
           name: PR Preview
           conclusion: neutral

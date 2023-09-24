@@ -45,10 +45,12 @@ jobs:
       - name: Save PR number
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_SHA: ${{ github.sha }}
         run: |
           mkdir -p ./pr
           echo $PR_NUMBER > ./pr/pr_number
-          echo "Saved PR# ${{ github.event.pull_request.number }} for upload"
+          echo $PR_SHA > ./pr/pr_sha
+          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.sha }} for upload"
       - name: Save PR#
         uses: actions/upload-artifact@v3
         with:
