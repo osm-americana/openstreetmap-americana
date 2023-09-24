@@ -23,10 +23,20 @@ export function layerClone(def, id) {
 //Make a clone of a layer definition, with a filter added
 export function filteredClone(def, filterStep, idSuffix) {
   var clone = layerClone(def, def.id + idSuffix);
-  if (!["all", "any"].includes(clone.filter[0])) {
-    throw new TypeError("Unlikely filter");
+  switch (clone.filter[0]) {
+    case "all":
+    case "any":
+      clone.filter.push(filterStep);
+      break;
+    case "interpolate":
+    case "interpolate-hcl":
+    case "interpolate-lab":
+    case "step":
+      clone.filter = mapRampExpression(clone.filter, (input, output) => ["all", output, filterStep]);
+      break;
+    default:
+      throw new TypeError("Unlikely filter");
   }
-  clone.filter.push(filterStep);
   return clone;
 }
 
@@ -37,4 +47,20 @@ export function zoomMultiply(arr, multiplier) {
     transformedArray[i][1] *= multiplier;
   }
   return transformedArray;
+}
+
+/**
+ * Returns a copy of the interpolate or step expression with each output replaced with the return value of the callback.
+ *
+ * @param expression An interpolate or step expression.
+ * @param callback A function that takes the expression's input value and output expression and returns a replacement expression.
+ * @returns A copy of the interpolate or step expression with the output expressions replaced.
+ */
+export function mapRampExpression(expression, callback) {
+  let copy = [...expression];
+  let start = copy[0] === "step" ? 1 : 3;
+  for (var i = start; i + 1 < copy.length; i += 2) {
+    copy[i + 1] = callback(copy[i], copy[i + 1]);
+  }
+  return copy;
 }
