@@ -36,23 +36,33 @@ const isConstruction = ["in", "_construction", ["get", "class"]];
 const isNotConstruction = ["!", isConstruction];
 const isUnpaved = ["==", ["get", "surface"], "unpaved"];
 
+function mapRampExpression(expression, callback) {
+  let start = expression[0] === "step" ? 1 : 3;
+  for (var i = start; i + 1 < expression.length; i += 2) {
+    expression[i + 1] = callback(expression[i], expression[i + 1]);
+  }
+  return expression;
+}
+
+const roadFilter = [
+  "step",
+  ["zoom"],
+  false,
+  4, ["all", ["==", ["get", "network"], "us-interstate"], isNotConstruction],
+  5, ["match", ["get", "class"], ["motorway", "trunk"], isNotRamp, false],
+  7, ["match", ["get", "class"], ["motorway", "trunk", "primary"], isNotRamp, false],
+  9, ["match", ["get", "class"], ["motorway", "trunk", "primary", "secondary"], true, false],
+  11, ["all", isRoad, isNotService, isNotConstruction],
+  12, ["all", isRoad, ["!", isMinorService], isNotConstruction],
+  13, ["all", isRoad, isNotConstruction],
+];
+
 export const road = {
   id: "road",
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: [
-    "step",
-    ["zoom"],
-    false,
-    4, ["all", ["==", ["get", "network"], "us-interstate"], isNotConstruction],
-    5, ["match", ["get", "class"], ["motorway", "trunk"], isNotRamp, false],
-    7, ["match", ["get", "class"], ["motorway", "trunk", "primary"], isNotRamp, false],
-    9, ["match", ["get", "class"], ["motorway", "trunk", "primary", "secondary"], true, false],
-    11, ["all", isRoad, isNotService, isNotConstruction],
-    12, ["all", isRoad, ["!", isMinorService], isNotConstruction],
-    13, ["all", isRoad, isNotConstruction],
-  ],
+  filter: mapRampExpression([...roadFilter], (input, output) => ["all", output, ["!=", ["get", "brunnel"], "tunnel"]]),
   layout: {
     "line-cap": "butt",
     "line-join": "round",
@@ -152,6 +162,18 @@ export const road = {
       20,
       ["case", isUnpaved, 6, 0],
     ]
+  },
+};
+
+export const roadTunnel = {
+  ...road,
+  id: "road-tunnel",
+  filter: mapRampExpression([...roadFilter], (input, output) => ["all", output, ["==", ["get", "brunnel"], "tunnel"]]),
+  paint: {
+    ...road.paint,
+    "line-width": 1,
+    "line-gap-width": mapRampExpression([...road.paint["line-width"]], (input, output) => ["-", output, 1]),
+    "line-dasharray": [5, 5],
   },
 };
 
