@@ -32,7 +32,11 @@ export function filteredClone(def, filterStep, idSuffix) {
     case "interpolate-hcl":
     case "interpolate-lab":
     case "step":
-      clone.filter = mapRampExpression(clone.filter, (input, output) => ["all", output, filterStep]);
+      clone.filter = mapRampExpression(clone.filter, (input, output) => [
+        "all",
+        output,
+        filterStep,
+      ]);
       break;
     default:
       throw new TypeError("Unlikely filter");
