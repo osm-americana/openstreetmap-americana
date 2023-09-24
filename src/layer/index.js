@@ -83,9 +83,7 @@ export function build(locales) {
 
     lyrConstruction.road,
 
-    //lyrRoad.roadTunnel.casing(),
-    //
-    //lyrRoad.roadTunnel.fill(),
+    lyrRoad.roadTunnel,
 
     lyrOneway.tunnel,
 
