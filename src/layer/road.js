@@ -1,5 +1,6 @@
 "use strict";
 
+import * as Color from "../constants/color.js";
 import * as Util from "../js/util.js";
 
 const motorwayHue = 218;
@@ -36,14 +37,6 @@ const isConstruction = ["in", "_construction", ["get", "class"]];
 const isNotConstruction = ["!", isConstruction];
 const isUnpaved = ["==", ["get", "surface"], "unpaved"];
 
-function mapRampExpression(expression, callback) {
-  let start = expression[0] === "step" ? 1 : 3;
-  for (var i = start; i + 1 < expression.length; i += 2) {
-    expression[i + 1] = callback(expression[i], expression[i + 1]);
-  }
-  return expression;
-}
-
 const roadFilter = [
   "step",
   ["zoom"],
@@ -62,7 +55,7 @@ export const road = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: mapRampExpression([...roadFilter], (input, output) => ["all", output, ["!=", ["get", "brunnel"], "tunnel"]]),
+  filter: Util.mapRampExpression(roadFilter, (input, output) => ["all", output, ["!=", ["get", "brunnel"], "tunnel"]]),
   layout: {
     "line-cap": "butt",
     "line-join": "round",
@@ -168,13 +161,37 @@ export const road = {
 export const roadTunnel = {
   ...road,
   id: "road-tunnel",
-  filter: mapRampExpression([...roadFilter], (input, output) => ["all", output, ["==", ["get", "brunnel"], "tunnel"]]),
+  filter: Util.mapRampExpression(roadFilter, (input, output) => ["all", output, ["==", ["get", "brunnel"], "tunnel"]]),
   paint: {
     ...road.paint,
     "line-width": 1,
-    "line-gap-width": mapRampExpression([...road.paint["line-width"]], (input, output) => ["-", output, 1]),
+    "line-gap-width": Util.mapRampExpression(road.paint["line-width"], (input, output) => ["-", output, 1]),
     "line-dasharray": [5, 5],
   },
+};
+
+export const roadBridgeKnockout = {
+  ...road,
+  id: "road-bridge-knockout",
+  filter: Util.mapRampExpression(roadFilter, (input, output) => ["all", output, ["==", ["get", "brunnel"], "bridge"]]),
+  paint: {
+    "line-color": Color.backgroundFill,
+    "line-width": Util.mapRampExpression(road.paint["line-width"], (input, output) => ["*", output, 2]),
+    "line-gap-width": 0,
+    "line-blur": 0,
+  }
+};
+
+export const roadBridgeCasing = {
+  ...road,
+  id: "road-bridge-casing",
+  filter: Util.mapRampExpression(roadFilter, (input, output) => ["all", output, ["==", ["get", "brunnel"], "bridge"]]),
+  paint: {
+    "line-color": "#9c9c9c",
+    "line-width": 0.5,
+    "line-gap-width": roadBridgeKnockout.paint["line-width"],
+    "line-blur": 0,
+  }
 };
 
 export const legendEntries = [

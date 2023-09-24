@@ -97,6 +97,7 @@ export function build(locales) {
     lyrAeroway.taxiway,
     lyrAeroway.taxiwayArea,
 
+    lyrRoad.roadBridgeCasing,
     lyrRoad.road,
 
     lyrRail.rail.dashes(),
@@ -122,7 +123,8 @@ export function build(locales) {
   var bridgeLayers = [
     lyrRail.bridgeCasing,
 
-    //lyrRoad.road,
+    lyrRoad.roadBridgeKnockout,
+    lyrRoad.road,
 
     lyrRail.railBridge.dashes(),
     lyrRail.railServiceBridge.dashes(),
