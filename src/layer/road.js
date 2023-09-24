@@ -54,7 +54,12 @@ export const road = {
   layout: {
     "line-cap": "butt",
     "line-join": "round",
-    // TODO: line-sort-key
+    "line-sort-key": [
+      "+",
+      ["to-number", isMotorway],
+      ["to-number", isState],
+      ["to-number", isRamp],
+    ],
   },
   paint: {
     "line-color": [
