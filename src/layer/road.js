@@ -17,14 +17,15 @@ const isRoad = [
 const isRamp = ["==", ["get", "ramp"], 1];
 const isNotRamp = ["!", isRamp];
 const isToll = ["==", ["get", "toll"], 1];
-const isNotToll = ["!=", ["get", "toll"], 1];
+const isNotToll = ["!", isToll];
 const isMotorway = ["all", ["==", ["get", "class"], "motorway"], isNotRamp];
 const isNotMotorway = ["!=", ["get", "class"], "motorway"];
 const isState = ["match", ["get", "network"], ["us-highway", "us-state"], isNotRamp, false];
+const isNotState = ["!", isState];
 const isExpressway = ["==", ["get", "expressway"], 1];
-const isNotExpressway = ["!=", ["get", "expressway"], 1];
+const isNotExpressway = ["!", isExpressway];
 const isService = ["==", ["get", "class"], "service"];
-const isNotService = ["!=", ["get", "class"], "service"];
+const isNotService = ["!", isService];
 const isMinorService = [
   "match",
   ["get", "service"],
@@ -33,6 +34,7 @@ const isMinorService = [
 ];
 const isConstruction = ["in", "_construction", ["get", "class"]];
 const isNotConstruction = ["!", isConstruction];
+const isUnpaved = ["==", ["get", "surface"], "unpaved"];
 
 export const road = {
   id: "road",
@@ -137,6 +139,19 @@ export const road = {
       14,
       0,
     ],
+    "line-blur": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      4,
+      ["case", isUnpaved, 1, 0],
+      8,
+      ["case", isUnpaved, 2, 0],
+      18,
+      ["case", isUnpaved, 3, 0],
+      20,
+      ["case", isUnpaved, 6, 0],
+    ]
   },
 };
 
@@ -159,7 +174,7 @@ export const legendEntries = [
   {
     description: "Local road",
     layers: [road.id],
-    filter: ["all", isNotMotorway, isNotToll, isNotExpressway, isNotRamp, isNotService],
+    filter: ["all", isNotMotorway, isNotState, isNotToll, isNotExpressway, isNotRamp, isNotService],
   },
   {
     description: "Service road",
@@ -171,9 +186,9 @@ export const legendEntries = [
     layers: [road.id],
     filter: ["all", isToll, isNotRamp],
   },
-  //{
-  //  description: "Unpaved road",
-  //  layers: [road.id],
-  //  filter: isUnpaved,
-  //},
+  {
+    description: "Unpaved road",
+    layers: [road.id],
+    filter: isUnpaved,
+  },
 ];
