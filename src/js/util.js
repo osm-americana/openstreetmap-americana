@@ -38,3 +38,35 @@ export function zoomMultiply(arr, multiplier) {
   }
   return transformedArray;
 }
+
+//Create a zoom interpolation expression, given width at zoom 20
+export function zoomInterpolate(widthZ20) {
+  return [
+    "interpolate",
+    ["exponential", 1.2],
+    ["zoom"],
+    8,
+    multiplyMatchExpression(widthZ20, 1 / 16),
+    12,
+    multiplyMatchExpression(widthZ20, 1 / 4),
+    20,
+    widthZ20,
+  ];
+}
+
+export function multiplyMatchExpression(value, factor) {
+  if (Array.isArray(value)) {
+    var result = [value[0], value[1]];
+    for (let i = 2; i < value.length - 1; i++) {
+      if (i % 2 == 0) {
+        result.push(value[i]);
+      } else {
+        result.push(multiplyMatchExpression(value[i], factor));
+      }
+    }
+    result.push(multiplyMatchExpression(value[value.length - 1], factor));
+    return result;
+  } else {
+    return value * factor;
+  }
+}
