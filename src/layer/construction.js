@@ -1,11 +1,7 @@
 "use strict";
 
 const motorwayHue = 218;
-const majorConstruction = [
-  "match",
-  ["get", "class"],
-  "motorway_construction",
-];
+const majorConstruction = ["match", ["get", "class"], "motorway_construction"];
 
 export const road = {
   id: "highway-construction",
@@ -37,7 +33,11 @@ export const road = {
       10,
       [...majorConstruction, `hsl(${motorwayHue}, 60%, 70%)`, "lightslategray"],
       13,
-      [...majorConstruction, `hsl(${motorwayHue}, 100%, 45%)`, "lightslategray"],
+      [
+        ...majorConstruction,
+        `hsl(${motorwayHue}, 100%, 45%)`,
+        "lightslategray",
+      ],
       15,
       [...majorConstruction, `hsl(${motorwayHue}, 100%, 35%)`, "slategray"],
     ],
