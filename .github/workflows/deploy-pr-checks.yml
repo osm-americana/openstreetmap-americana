@@ -127,5 +127,5 @@ jobs:
           output: |
             {"summary":"Preview map changes introduced by this PR", "title":"View live map and artifacts"}
           images: |
-            [{"image_url":"https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png", "caption":"Sprite Sheet"}]
+            [{"image_url":"https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png", "caption":"Sprite Sheet", "alt":"1x Sprite Sheet"}]
           output_text_description_file: pr_preview.md
