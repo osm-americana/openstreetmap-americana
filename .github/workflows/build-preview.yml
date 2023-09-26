@@ -72,7 +72,7 @@ jobs:
           conclusion: neutral
           output: |
             {"summary":"Style size changes introduced by this PR"}
-          output_text_description_file: pr/stats/stats-difference.md
+          output_text_description_file: pr/stats-difference.md
       - name: Upload Build artifact
         uses: actions/upload-artifact@v3
         with:
