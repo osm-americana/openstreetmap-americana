@@ -144,6 +144,7 @@ export function build(locales) {
   layers.push(lyrBuilding.building);
 
   var bridgeLayers = [
+    lyrBridge.bridgeCasingBackground,
     lyrBridge.bridge,
     lyrBridge.bridgeCasing,
 
