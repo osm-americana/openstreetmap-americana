@@ -84,11 +84,11 @@ jobs:
       - name: Save PR artifacts
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          PR_SHA: ${{ github.sha }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           echo $PR_NUMBER > pr/pr_number
           echo $PR_SHA > pr/pr_sha
-          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.sha }} for upload"
+          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.event.pull_request.head.sha }} for upload"
       - name: Upload PR artifacts
         uses: actions/upload-artifact@v3
         with:
