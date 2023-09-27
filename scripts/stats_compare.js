@@ -1,70 +1,81 @@
-import { calculateDifference, pctFormat } from "./compare_func.js";
+import { calculateDifference, mdCompareRow } from "./object_compare";
 
 const stats1 = JSON.parse(process.argv[2]);
 const stats2 = JSON.parse(process.argv[3]);
 
 const difference = calculateDifference(stats1, stats2);
 
-const summaryChange = `
+const diffHeaderRow = [
+  "|           | main          | this PR      | change          | % change        |",
+  "|-----------|--------------:|-------------:|----------------:|----------------:|",
+];
 
-## Style size statistics
+/**
+ * Show comparison of overall aggregate statistics between this PR and previous
+ */
 
-|           | main          | this PR      | change          | % change        |
-|-----------|--------------:|-------------:|----------------:|----------------:|
-| Layers    | ${stats1.layerCount} | ${stats2.layerCount} | ${
+const layersRow = mdCompareRow(
+  "Layers",
+  stats1.layerCount,
+  stats2.layerCount,
   difference.layerCount
-} | ${((100 * difference.layerCount) / stats1.layerCount).toLocaleString(
-  undefined,
-  pctFormat
-)} |
-| Size (b)  | ${stats1.styleSize.toLocaleString(
-  "en"
-)} | ${stats2.styleSize.toLocaleString(
-  "en"
-)} | ${difference.styleSize.toLocaleString("en")} | ${(
-  (100 * difference.styleSize) /
-  stats1.styleSize
-).toLocaleString(undefined, pctFormat)}
+);
 
-`;
+const sizeRow = mdCompareRow(
+  "Size (b)",
+  stats1.styleSize,
+  stats2.styleSize,
+  difference.styleSize
+);
 
-let layerCountChange = `
+printTable("Style size statistics", [layersRow, sizeRow]);
 
-## Layer count comparison
+/**
+ * Show comparison of the number of layers in each group before and after
+ */
 
-|           | main          | this PR      | change          | % change        |
-|-----------|--------------:|-------------:|----------------:|----------------:|
-`;
+const layerCountChangeRows = [];
 
 for (const layer in difference.layerGroup) {
-  layerCountChange += `${layer} | ${stats1.layerGroup[layer].layerCount} | ${
-    stats2.layerGroup[layer].layerCount
-  } | ${difference.layerGroup[layer].layerCount} | ${(
-    difference.layerGroup[layer].layerCount /
-    stats1.layerGroup[layer].layerCount
-  ).toLocaleString(undefined, pctFormat)}
-`;
+  layerCountChangeRows.push(
+    mdCompareRow(
+      layer,
+      stats1.layerGroup[layer]?.layerCount,
+      stats2.layerGroup[layer]?.layerCount,
+      difference.layerGroup[layer]?.layerCount
+    )
+  );
 }
 
-let layerSizeChange = `
+printTable("Layer count comparison", layerCountChangeRows);
 
-## Layer size comparison
+/**
+ * Show comparison of the aggregate size of layers in each group before and after
+ */
 
-|           | main          | this PR      | change          | % change        |
-|-----------|--------------:|-------------:|----------------:|----------------:|
-`;
+const layerSizeChangeRows = [];
 
 for (const layer in difference.layerGroup) {
-  layerSizeChange += `${layer} | ${stats1.layerGroup[layer].size.toLocaleString(
-    "en"
-  )} | ${stats2.layerGroup[layer].size.toLocaleString(
-    "en"
-  )} | ${difference.layerGroup[layer].size.toLocaleString("en")} | ${(
-    difference.layerGroup[layer].size / stats1.layerGroup[layer].size
-  ).toLocaleString(undefined, pctFormat)}
-`;
+  layerSizeChangeRows.push(
+    mdCompareRow(
+      layer,
+      stats1.layerGroup[layer]?.size,
+      stats2.layerGroup[layer]?.size,
+      difference.layerGroup[layer]?.size
+    )
+  );
 }
 
-console.log(summaryChange);
-console.log(layerCountChange);
-console.log(layerSizeChange);
+printTable("Layer size comparison", layerSizeChangeRows);
+
+function printTable(headingText, rows) {
+  const table = [...diffHeaderRow, ...rows].join("\n");
+  const text = `
+
+## ${headingText}
+
+${table}
+`;
+
+  console.log(text);
+}
