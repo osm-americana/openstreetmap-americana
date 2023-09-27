@@ -126,6 +126,15 @@ jobs:
           conclusion: neutral
           output: |
             {"summary":"Preview map changes introduced by this PR", "title":"View live map and artifacts"}
-          images: |
-            [{"image_url":"https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png", "caption":"Sprite Sheet", "alt":"1x Sprite Sheet"}]
           output_text_description_file: pr_preview.md
+      - name: Print Stats to GitHub Checks
+        uses: LouisBrunner/checks-action@v1.6.1
+        if: always()
+        with:
+          sha: ${{ env.PR_SHA }}
+          token: ${{ steps.checks_token.outputs.token }}
+          name: Style Performance
+          conclusion: neutral
+          output: |
+            {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
+          output_text_description_file: stats-difference.md
