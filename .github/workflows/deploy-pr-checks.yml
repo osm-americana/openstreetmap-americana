@@ -1,0 +1,140 @@
+name: Deploy PR Preview
+on:
+  workflow_run:
+    workflows: [Build PR Preview]
+    types:
+      - completed
+  workflow_dispatch:
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: "Download PR Number"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "pr_ci_artifacts"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/pr_ci_artifacts.zip`, Buffer.from(download.data));
+      - name: "Download Build"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "americana"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/americana.zip`, Buffer.from(download.data));
+      - name: "Unzip artifacts"
+        run: |
+          unzip pr_ci_artifacts.zip
+          unzip -d dist americana.zip
+      - name: Set PR variable
+        run: |
+          if [ ! -f pr_number ] || [ ! -f pr_sha ]; then
+            echo "Required files pr_number or pr_sha do not exist. Exiting."
+            exit 1
+          fi
+          PR_NUM=$(cat pr_number)
+          PR_SHA=$(cat pr_sha)
+          if [ -z "$PR_NUM" ] || [ -z "$PR_SHA" ]; then
+            echo "PR_NUM or PR_SHA is empty. Exiting."
+            exit 1
+          fi
+          echo "Configuring deployment for PR# $PR_NUM commit $PR_SHA"
+          echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
+          echo "PR_SHA=$PR_SHA" >> $GITHUB_ENV
+      - name: Deploy via S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*'
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: "./dist"
+          DEST_DIR: pr/${{ env.PR_NUM }}
+      - name: Wait for PR Preview Upload (1x Sprite)
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: "https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png"
+          responseCode: "200"
+          timeout: 120000
+          interval: 500
+      - name: Wait for PR Preview Upload (2x Sprite)
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: "https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png"
+          responseCode: "200"
+          timeout: 120000
+          interval: 500
+      - name: Generate Preview text
+        run: |
+          echo "## PR Preview:
+          * [Map](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/)
+          * [Shield Test](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shieldtest.html)
+          * [style.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/style.json)
+          * [shields.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shields.json)
+          * [taginfo.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/taginfo.json)
+
+          ## Sprite Sheets:
+
+          <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png" />
+          <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" />
+          " > pr_preview.md
+      - uses: tibdex/github-app-token@v1
+        id: checks_token
+        with: 
+          app_id: 396440 #osm-americana checks app
+          private_key: ${{ secrets.CHECKS_WRITER_SECRET }}
+      - name: Print Preview Links to GitHub Checks
+        uses: LouisBrunner/checks-action@v1.6.1
+        if: always()
+        with:
+          sha: ${{ env.PR_SHA }}
+          token: ${{ steps.checks_token.outputs.token }}
+          name: PR Preview
+          details_url: https://preview.ourmap.us/pr/${{ env.PR_NUM }}/
+          conclusion: neutral
+          output: |
+            {"summary":"Preview map changes introduced by this PR", "title":"View live map and artifacts"}
+          output_text_description_file: pr_preview.md
+      - name: Print Stats to GitHub Checks
+        uses: LouisBrunner/checks-action@v1.6.1
+        if: always()
+        with:
+          sha: ${{ env.PR_SHA }}
+          token: ${{ steps.checks_token.outputs.token }}
+          name: Style Performance
+          conclusion: neutral
+          output: |
+            {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
+          output_text_description_file: stats-difference.md
