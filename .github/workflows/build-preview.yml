@@ -49,6 +49,11 @@ jobs:
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
+      - name: Upload Build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: americana
+          path: dist/
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
@@ -63,21 +68,6 @@ jobs:
           echo '${{ env.MAIN_STATS }}'
           echo '${{ env.PR_STATS }}'
           npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
-      - name: Print Stats to GitHub Checks
-        uses: LouisBrunner/checks-action@v1.6.1
-        if: always()
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: Performance Metrics
-          conclusion: neutral
-          output: |
-            {"summary":"Style size changes introduced by this PR"}
-          output_text_description_file: pr/stats-difference.md
-      - name: Upload Build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: americana
-          path: dist/
       - name: Save PR artifacts
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
