@@ -18,94 +18,72 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR Branch 🛎️
-        uses: actions/checkout@v3
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
       - name: Checkout Main Branch 🛎️
         uses: actions/checkout@v3
         with:
           ref: main
-          path: main
-          clean: false
-      - name: Build and Capture Metrics 🔧
+      - name: Install and Build Main Branch 🔧
         run: |
-          cd main
           npm ci --include=dev
-          npm run build
-          npm run style
-          cd ..
-          npm ci --include=dev
-          MAIN_BENCH=$(npm -s run benchmark_action -- main/dist/style.json)
-          echo "MAIN_BENCH<<EOF" >> $GITHUB_ENV
-          echo -e "$MAIN_BENCH" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          MAIN_STATS=$(npm -s run stats_action -- main/dist/style.json)
-          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
-          echo -e "$MAIN_STATS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          rm -rf main
           npm run build
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
-          PR_STATS=$(npm -s run stats_action -- dist/style.json)
-          echo "PR_STATS<<EOF" >> $GITHUB_ENV
-          echo -e "$PR_STATS" >> $GITHUB_ENV
+      - name: Capture main branch usage statistics
+        id: main-stats
+        run: |
+          MAIN_STATS=$(node scripts/stats.js -j)
+          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          PR_BENCH=$(npm -s run benchmark_action -- dist/style.json)
-          echo "PR_BENCH<<EOF" >> $GITHUB_ENV
-          echo -e "$PR_BENCH" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      - name: Compare Stats
-        id: compare-stats
-        run: |
-          mkdir stats
-          echo '${{ env.MAIN_STATS }}'
-          echo '${{ env.PR_STATS }}'
-          node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > stats/stats-difference.md
-      - name: Compare Benchmarks
-        id: compare-benchmarks
-        run: |
-          echo '${{ env.MAIN_BENCH }}'
-          echo '${{ env.PR_BENCH }}'
-          node scripts/benchmark_compare '${{ env.MAIN_BENCH }}' '${{ env.PR_BENCH }}' > stats/bench-difference.md
-      - name: Save PR number
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          mkdir -p ./pr
-          echo $PR_NUMBER > ./pr/pr_number
-          echo "Saved PR# ${{ github.event.pull_request.number }} for upload"
-      - name: Save PR#
-        uses: actions/upload-artifact@v3
+      - name: Checkout PR Branch 🛎️
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.16.1
+        uses: actions/setup-node@v3
         with:
-          name: pr_number
-          path: pr/
-      - name: Print Stats to GitHub Checks
-        uses: LouisBrunner/checks-action@v1.6.1
-        if: always()
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: Performance Metrics
-          conclusion: neutral
-          output: |
-            {"summary":"Style size changes introduced by this PR"}
-          output_text_description_file: stats/stats-difference.md
-      - name: Print Benchmarks to GitHub Checks
-        uses: LouisBrunner/checks-action@v1.6.1
-        if: always()
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: Expression Performance Benchmarks
-          conclusion: neutral
-          output: |
-            {"summary":"Expression evaluation performance changes introduced by this PR"}
-          output_text_description_file: stats/bench-difference.md
+          node-version: 18.16.1 #18.17.0 is buggy
+      - name: Install and Build 🔧
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
       - name: Upload Build artifact
         uses: actions/upload-artifact@v3
         with:
           name: americana
           path: dist/
+      - name: Capture PR branch usage statistics
+        id: pr-stats
+        run: |
+          PR_STATS=$(node scripts/stats.js -j)
+          echo "PR_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$PR_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Compare Stats
+        id: compare-stats
+        run: |
+          mkdir -p pr
+          echo '${{ env.MAIN_STATS }}'
+          echo '${{ env.PR_STATS }}'
+          npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
+      - name: Compare Benchmarks
+        id: compare-benchmarks
+        run: |
+          echo '${{ env.MAIN_BENCH }}'
+          echo '${{ env.PR_BENCH }}'
+          node scripts/benchmark_compare '${{ env.MAIN_BENCH }}' '${{ env.PR_BENCH }}' > pr/bench-difference.md
+      - name: Save PR artifacts
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          echo $PR_NUMBER > pr/pr_number
+          echo $PR_SHA > pr/pr_sha
+          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.event.pull_request.head.sha }} for upload"
+      - name: Upload PR artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr_ci_artifacts
+          path: pr/
