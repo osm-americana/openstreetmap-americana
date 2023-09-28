@@ -36,6 +36,10 @@ jobs:
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          MAIN_BENCH=$(node scripts/benchmark.js -j)
+          echo "MAIN_BENCH<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_BENCH" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: Checkout PR Branch 🛎️
         uses: actions/checkout@v3
       - name: Use Node.js 18.16.1
@@ -61,6 +65,10 @@ jobs:
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          PR_BENCH=$(node scripts/benchmark.js -j)
+          echo "PR_BENCH<<EOF" >> $GITHUB_ENV
+          echo -e "$PR_BENCH" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: Compare Stats
         id: compare-stats
         run: |
@@ -68,12 +76,9 @@ jobs:
           echo '${{ env.MAIN_STATS }}'
           echo '${{ env.PR_STATS }}'
           npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
-      - name: Compare Benchmarks
-        id: compare-benchmarks
-        run: |
           echo '${{ env.MAIN_BENCH }}'
           echo '${{ env.PR_BENCH }}'
-          node scripts/benchmark_compare '${{ env.MAIN_BENCH }}' '${{ env.PR_BENCH }}' > pr/bench-difference.md
+          node scripts/benchmark_compare '${{ env.MAIN_BENCH }}' '${{ env.PR_BENCH }}' >> pr/stats-difference.md          
       - name: Save PR artifacts
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}

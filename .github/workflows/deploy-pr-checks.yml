@@ -133,19 +133,8 @@ jobs:
         with:
           sha: ${{ env.PR_SHA }}
           token: ${{ steps.checks_token.outputs.token }}
-          name: Style Size Metrics
+          name: Style Performance
           conclusion: neutral
           output: |
             {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
           output_text_description_file: stats-difference.md
-      - name: Print Performance to GitHub Checks
-        uses: LouisBrunner/checks-action@v1.6.1
-        if: always()
-        with:
-          sha: ${{ env.PR_SHA }}
-          token: ${{ steps.checks_token.outputs.token }}
-          name: Style Performance Metrics
-          conclusion: neutral
-          output: |
-            {"summary":"Style performance changes introduced by this PR", "title":"View style performance benchmarks"}
-          output_text_description_file: bench-difference.md
