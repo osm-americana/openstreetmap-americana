@@ -5,7 +5,7 @@
  */
 
 import * as ShieldText from "./shield_text.mjs";
-import { loadCustomShields } from "./custom_shields.mjs";
+import { loadCustomShields } from "./custom_shields";
 import { ShapeDrawFunction, ShieldRenderingContext } from "./shield_renderer";
 import { ShapeBlankParams } from "./types";
 
@@ -115,7 +115,7 @@ export function roundedRectangle(
   r: ShieldRenderingContext,
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
-  ref: string
+  ref?: string
 ) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -782,7 +782,7 @@ const fixedWidthDefinitions = {};
 export function registerDrawFunction(
   name: string,
   fxn: ShapeDrawFunction,
-  fixedWidth?: boolean
+  fixedWidth?: number
 ) {
   drawFunctions[name] = fxn;
   if (fixedWidth !== undefined) {
