@@ -86,7 +86,7 @@ export interface ShapeBlankParams {
   radius1?: number;
   /** Radius of the shape's second corner. This is used for shapes that can specify multiple radius values */
   radius2?: number;
-  /** Height of diagonal edges */
+  /** Distance from top or bottom edge to vertices. Higher number means pointier top and/or bottom */
   offset?: number;
   /** Width of the shape's outline */
   outlineWidth?: number;
