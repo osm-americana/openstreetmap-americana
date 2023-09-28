@@ -5,6 +5,7 @@ import {
   GraphicsFactory,
   RouteDefinition,
   RouteParser,
+  ShapeBlankParams,
   ShieldDefinitions,
   ShieldOptions,
   ShieldSpecification,
@@ -42,6 +43,13 @@ export class ShieldRenderingContext {
     return this.px(this.options.shieldSize);
   }
 }
+
+export type ShapeDrawFunction = (
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) => void;
 
 class MaplibreGLSpriteRepository implements SpriteRepository {
   map: Map;

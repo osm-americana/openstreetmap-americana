@@ -6,12 +6,19 @@
 
 import * as ShieldText from "./shield_text.mjs";
 import { loadCustomShields } from "./custom_shields.mjs";
+import { ShapeDrawFunction, ShieldRenderingContext } from "./shield_renderer";
+import { ShapeBlankParams } from "./types";
 
 const minGenericShieldWidth = 20;
 const maxGenericShieldWidth = 34;
 const genericShieldFontSize = 18;
 
-export function computeWidth(r, params, ref, shape) {
+export function computeWidth(
+  r: ShieldRenderingContext,
+  params: ShapeBlankParams,
+  ref: string,
+  shape?: string
+) {
   if (fixedWidthDefinitions[shape] !== undefined) {
     return r.px(fixedWidthDefinitions[shape]);
   }
@@ -53,7 +60,12 @@ export function computeWidth(r, params, ref, shape) {
   }
 }
 
-function ellipse(r, ctx, params, ref) {
+function ellipse(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
 
@@ -71,6 +83,7 @@ function ellipse(r, ctx, params, ref) {
     radiusX,
     radiusY,
     0,
+    0,
     2 * Math.PI,
     false
   );
@@ -84,7 +97,7 @@ function ellipse(r, ctx, params, ref) {
   return width;
 }
 
-export function blank(r, ref) {
+export function blank(r: ShieldRenderingContext, ref: string) {
   var shieldWidth =
     ShieldText.calculateTextWidth(r, ref, r.px(genericShieldFontSize)) +
     r.px(2);
@@ -98,7 +111,12 @@ export function blank(r, ref) {
   });
 }
 
-export function roundedRectangle(r, ctx, params, ref) {
+export function roundedRectangle(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -140,7 +158,12 @@ export function roundedRectangle(r, ctx, params, ref) {
   return width;
 }
 
-function escutcheon(r, ctx, params, ref) {
+function escutcheon(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let offset = params.offset == undefined ? 0 : params.offset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -192,7 +215,12 @@ function escutcheon(r, ctx, params, ref) {
   return width;
 }
 
-function fishhead(r, ctx, params, ref) {
+function fishhead(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -244,7 +272,12 @@ function fishhead(r, ctx, params, ref) {
   }
 }
 
-function triangle(r, ctx, params, ref) {
+function triangle(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -305,7 +338,12 @@ function triangle(r, ctx, params, ref) {
   return width;
 }
 
-function trapezoid(r, ctx, params, ref) {
+function trapezoid(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let shortSideUp =
     params.shortSideUp == undefined ? false : params.shortSideUp;
   let angle = params.angle == undefined ? 0 : params.angle;
@@ -362,7 +400,12 @@ function trapezoid(r, ctx, params, ref) {
   return width;
 }
 
-function diamond(r, ctx, params, ref) {
+function diamond(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -426,7 +469,12 @@ function diamond(r, ctx, params, ref) {
   return width;
 }
 
-function pentagon(r, ctx, params, ref) {
+function pentagon(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let pointUp = params.pointUp == undefined ? true : params.pointUp;
   let offset = params.offset == undefined ? 0 : params.offset;
   let angle = params.angle == undefined ? 0 : params.angle;
@@ -494,7 +542,12 @@ function pentagon(r, ctx, params, ref) {
   return width;
 }
 
-function hexagonVertical(r, ctx, params, ref) {
+function hexagonVertical(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let offset = params.offset == undefined ? 0 : params.offset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -543,7 +596,12 @@ function hexagonVertical(r, ctx, params, ref) {
   return width;
 }
 
-function hexagonHorizontal(r, ctx, params, ref) {
+function hexagonHorizontal(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let angle = params.angle == undefined ? 0 : params.angle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -604,7 +662,12 @@ function hexagonHorizontal(r, ctx, params, ref) {
   return width;
 }
 
-function octagonVertical(r, ctx, params, ref) {
+function octagonVertical(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let offset = params.offset == undefined ? 0 : params.offset;
   let angle = params.angle == undefined ? 0 : params.angle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
@@ -684,7 +747,7 @@ function octagonVertical(r, ctx, params, ref) {
   return width;
 }
 
-export function shapeHeight(r, name) {
+export function shapeHeight(r: ShieldRenderingContext, name: string) {
   switch (name) {
     case "diamond":
       return r.shieldSize() + r.px(4);
@@ -693,8 +756,14 @@ export function shapeHeight(r, name) {
   }
 }
 
-export function draw(r, name, ctx, options, ref) {
-  return drawFunctions[name](r, ctx, options, ref);
+export function draw(
+  r: ShieldRenderingContext,
+  name: string,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
+  return drawFunctions[name](r, ctx, params, ref);
 }
 
 //Register draw functions
@@ -710,7 +779,11 @@ const fixedWidthDefinitions = {};
  * @param {*} fxn callback to the implementing function. Takes two parameters, ref and options
  * @param {*} fixedWidth if set, indicates that this function draws to a fixed width
  */
-export function registerDrawFunction(name, fxn, fixedWidth) {
+export function registerDrawFunction(
+  name: string,
+  fxn: ShapeDrawFunction,
+  fixedWidth?: boolean
+) {
   drawFunctions[name] = fxn;
   if (fixedWidth !== undefined) {
     fixedWidthDefinitions[name] = fixedWidth;

@@ -1,6 +1,6 @@
 "use strict";
 
-import * as ShieldDraw from "./shield_canvas_draw.mjs";
+import * as ShieldDraw from "./shield_canvas_draw";
 
 // Special case for Allegheny, PA Belt System
 export function paBelt(r, ctx, params) {

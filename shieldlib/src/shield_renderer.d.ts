@@ -4,6 +4,7 @@ import {
   DebugOptions,
   GraphicsFactory,
   RouteParser,
+  ShapeBlankParams,
   ShieldDefinitions,
   ShieldOptions,
   ShieldSpecification,
@@ -21,6 +22,12 @@ export declare class ShieldRenderingContext {
   px(pixels: number): number;
   shieldSize(): number;
 }
+export declare type ShapeDrawFunction = (
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) => void;
 export declare class AbstractShieldRenderer {
   private _shieldPredicate;
   private _networkPredicate;
