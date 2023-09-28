@@ -87,7 +87,7 @@ export interface ShapeBlankParams {
   /** Radius of the shape's second corner. This is used for shapes that can specify multiple radius values */
   radius2?: number;
   /** Distance from top or bottom edge to vertices. Higher number means pointier top and/or bottom */
-  offset?: number;
+  yOffset?: number;
   /** Width of the shape's outline */
   outlineWidth?: number;
   /** Specify whether the pointy end of the shape is on top */
@@ -95,7 +95,7 @@ export interface ShapeBlankParams {
   /** Specify whether the short side of the shape is on top */
   shortSideUp?: boolean;
   /** Specify the angle at which the sides of the shape deviate from vertical. Higher number means pointier sides */
-  angle?: number;
+  sideAngle?: number;
 }
 
 /** Parameters for laying out text on a shield background */

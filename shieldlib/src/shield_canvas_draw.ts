@@ -24,7 +24,7 @@ export function computeWidth(
   }
 
   let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
-  let angle = params.angle == undefined ? 0 : params.angle;
+  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let tangent = Math.tan(angle);
 
   if (rectWidth == null) {
@@ -36,7 +36,7 @@ export function computeWidth(
     //Shape-specific width adjustments
     switch (shape) {
       case "pentagon":
-        let offset = params.offset == undefined ? 0 : params.offset;
+        let offset = params.yOffset == undefined ? 0 : params.yOffset;
         shieldWidth += ((r.shieldSize() - r.px(offset)) * tangent) / 2;
         break;
       case "trapezoid":
@@ -164,7 +164,7 @@ function escutcheon(
   params: ShapeBlankParams,
   ref: string
 ) {
-  let offset = params.offset == undefined ? 0 : params.offset;
+  let offset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -346,7 +346,7 @@ function trapezoid(
 ) {
   let shortSideUp =
     params.shortSideUp == undefined ? false : params.shortSideUp;
-  let angle = params.angle == undefined ? 0 : params.angle;
+  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -476,8 +476,8 @@ function pentagon(
   ref: string
 ) {
   let pointUp = params.pointUp == undefined ? true : params.pointUp;
-  let offset = params.offset == undefined ? 0 : params.offset;
-  let angle = params.angle == undefined ? 0 : params.angle;
+  let offset = params.yOffset == undefined ? 0 : params.yOffset;
+  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius1 = params.radius1 == undefined ? 0 : params.radius1;
@@ -548,7 +548,7 @@ function hexagonVertical(
   params: ShapeBlankParams,
   ref: string
 ) {
-  let offset = params.offset == undefined ? 0 : params.offset;
+  let offset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -602,7 +602,7 @@ function hexagonHorizontal(
   params: ShapeBlankParams,
   ref: string
 ) {
-  let angle = params.angle == undefined ? 0 : params.angle;
+  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -668,8 +668,8 @@ function octagonVertical(
   params: ShapeBlankParams,
   ref: string
 ) {
-  let offset = params.offset == undefined ? 0 : params.offset;
-  let angle = params.angle == undefined ? 0 : params.angle;
+  let offset = params.yOffset == undefined ? 0 : params.yOffset;
+  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;

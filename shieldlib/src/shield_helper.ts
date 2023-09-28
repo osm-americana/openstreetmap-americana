@@ -121,7 +121,7 @@ export function roundedRectShield(
 /**
  * Draws a shield with an escutcheon background, pointed downward
  *
- * @param {*} offset - Height of curved portion
+ * @param {*} yOffset - Height of curved portion
  * @param {*} fillColor - Color of escutcheon background fill
  * @param {*} strokeColor - Color of escutcheon outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -130,7 +130,7 @@ export function roundedRectShield(
  * @returns a shield definition object
  */
 export function escutcheonDownShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -143,7 +143,7 @@ export function escutcheonDownShield(
     shapeBlank: {
       drawFunc: "escutcheon",
       params: {
-        offset,
+        yOffset,
         fillColor,
         strokeColor,
         rectWidth,
@@ -156,7 +156,7 @@ export function escutcheonDownShield(
       left: 2,
       right: 2,
       top: 2,
-      bottom: 0 + offset / 2,
+      bottom: 0 + yOffset / 2,
     },
     textColor,
   };
@@ -244,7 +244,7 @@ export function triangleDownShield(
 /**
  * Draws a shield with a trapezoid background, with the short side on bottom
  *
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} sideAngle - Angle (in degrees) at which sides deviate from vertical
  * @param {*} fillColor - Color of trapezoid background fill
  * @param {*} strokeColor - Color of trapezoid outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -253,14 +253,14 @@ export function triangleDownShield(
  * @returns a shield definition object
  */
 export function trapezoidDownShield(
-  angle: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
   radius: number,
   rectWidth: number
 ): ShieldDefinition {
-  let angleInRadians = (angle * Math.PI) / 180;
+  let angleInRadians = (sideAngle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
 
@@ -268,7 +268,7 @@ export function trapezoidDownShield(
     shapeBlank: {
       drawFunc: "trapezoid",
       params: {
-        angle: angleInRadians,
+        sideAngle: angleInRadians,
         fillColor,
         strokeColor,
         rectWidth,
@@ -289,7 +289,7 @@ export function trapezoidDownShield(
 /**
  * Draws a shield with a trapezoid background, with the short side on top
  *
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} sideAngle - Angle (in degrees) at which sides deviate from vertical
  * @param {*} fillColor - Color of trapezoid background fill
  * @param {*} strokeColor - Color of trapezoid outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -298,14 +298,14 @@ export function trapezoidDownShield(
  * @returns a shield definition object
  */
 export function trapezoidUpShield(
-  angle: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
   radius: number,
   rectWidth: number
 ): ShieldDefinition {
-  let angleInRadians = (angle * Math.PI) / 180;
+  let angleInRadians = (sideAngle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 0;
   return {
@@ -313,7 +313,7 @@ export function trapezoidUpShield(
       drawFunc: "trapezoid",
       params: {
         shortSideUp: true,
-        angle: angleInRadians,
+        sideAngle: angleInRadians,
         fillColor,
         strokeColor,
         rectWidth,
@@ -374,8 +374,8 @@ export function diamondShield(
 /**
  * Draws a shield with a pentagon background, pointed upward
  *
- * @param {*} offset - Height of diagonal edges
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} yOffset - Height of diagonal edges
+ * @param {*} sideAngle - Angle (in degrees) at which sides deviate from vertical
  * @param {*} fillColor - Color of pentagon background fill
  * @param {*} strokeColor - Color of pentagon outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -385,8 +385,8 @@ export function diamondShield(
  * @returns a shield definition object
  */
 export function pentagonUpShield(
-  offset: number,
-  angle: number,
+  yOffset: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -394,7 +394,7 @@ export function pentagonUpShield(
   radius2: number,
   rectWidth: number
 ): ShieldDefinition {
-  let angleInRadians = (angle * Math.PI) / 180;
+  let angleInRadians = (sideAngle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius1 = radius1 ?? 2;
   radius2 = radius2 ?? 0;
@@ -402,10 +402,10 @@ export function pentagonUpShield(
     shapeBlank: {
       drawFunc: "pentagon",
       params: {
-        offset: offset,
-        angle: angleInRadians,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
+        yOffset,
+        sideAngle: angleInRadians,
+        fillColor,
+        strokeColor,
         radius1,
         radius2,
         rectWidth,
@@ -415,9 +415,9 @@ export function pentagonUpShield(
       constraintFunc: "rect",
     },
     padding: {
-      left: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
-      right: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
-      top: 1 + offset / 2,
+      left: 2 + ((20 - yOffset) * Math.tan(angleInRadians)) / 2,
+      right: 2 + ((20 - yOffset) * Math.tan(angleInRadians)) / 2,
+      top: 1 + yOffset / 2,
       bottom: 3,
     },
     textColor,
@@ -427,7 +427,7 @@ export function pentagonUpShield(
 /**
  * Draws a shield with a home plate background, pointed downward
  *
- * @param {*} offset - Height of diagonal edges
+ * @param {*} yOffset - Height of diagonal edges
  * @param {*} fillColor - Color of home plate background fill
  * @param {*} strokeColor - Color of home plate outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -437,7 +437,7 @@ export function pentagonUpShield(
  * @returns a shield definition object
  */
 export function homePlateDownShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -453,8 +453,8 @@ export function homePlateDownShield(
       drawFunc: "pentagon",
       params: {
         pointUp: false,
-        offset,
-        angle: 0,
+        yOffset,
+        sideAngle: 0,
         fillColor,
         strokeColor,
         radius1,
@@ -467,7 +467,7 @@ export function homePlateDownShield(
       left: 2,
       right: 2,
       top: 2,
-      bottom: 1 + offset,
+      bottom: 1 + yOffset,
     },
     textColor,
   };
@@ -476,7 +476,7 @@ export function homePlateDownShield(
 /**
  * Draws a shield with a home plate background, pointed upward
  *
- * @param {*} offset - Height of diagonal edges
+ * @param {*} yOffset - Height of diagonal edges
  * @param {*} fillColor - Color of home plate background fill
  * @param {*} strokeColor - Color of home plate outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -486,7 +486,7 @@ export function homePlateDownShield(
  * @returns a shield definition object
  */
 export function homePlateUpShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -502,8 +502,8 @@ export function homePlateUpShield(
       drawFunc: "pentagon",
       params: {
         pointUp: true,
-        offset: offset,
-        angle: 0,
+        yOffset,
+        sideAngle: 0,
         fillColor,
         strokeColor,
         radius1,
@@ -515,7 +515,7 @@ export function homePlateUpShield(
     padding: {
       left: 2,
       right: 2,
-      top: 1 + offset,
+      top: 1 + yOffset,
       bottom: 2,
     },
     textColor,
@@ -525,7 +525,7 @@ export function homePlateUpShield(
 /**
  * Draws a shield with a vertically-aligned hexagon background
  *
- * @param {*} offset - Height of diagonal edges
+ * @param {*} yOffset - Height of diagonal edges
  * @param {*} fillColor - Color of hexagon background fill
  * @param {*} strokeColor - Color of hexagon outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -534,7 +534,7 @@ export function homePlateUpShield(
  * @returns a shield definition object
  */
 export function hexagonVerticalShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -547,7 +547,7 @@ export function hexagonVerticalShield(
     shapeBlank: {
       drawFunc: "hexagonVertical",
       params: {
-        offset,
+        yOffset,
         fillColor,
         strokeColor,
         radius,
@@ -558,8 +558,8 @@ export function hexagonVerticalShield(
     padding: {
       left: 2,
       right: 2,
-      top: 1 + offset,
-      bottom: 1 + offset,
+      top: 1 + yOffset,
+      bottom: 1 + yOffset,
     },
     textColor,
   };
@@ -591,11 +591,11 @@ export function hexagonHorizontalShield(
     shapeBlank: {
       drawFunc: "hexagonHorizontal",
       params: {
-        angle: angleInRadians,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        radius: radius,
-        rectWidth: rectWidth,
+        sideAngle: angleInRadians,
+        fillColor,
+        strokeColor,
+        radius,
+        rectWidth,
       },
     },
     textLayout: textConstraint("ellipse"),
@@ -612,7 +612,7 @@ export function hexagonHorizontalShield(
 /**
  * Draws a shield with an octagon background
  *
- * @param {*} offset - Height of diagonal edges
+ * @param {*} yOffset - Height of diagonal edges
  * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
  * @param {*} fillColor - Color of octagon background fill
  * @param {*} strokeColor - Color of octagon outline stroke
@@ -622,7 +622,7 @@ export function hexagonHorizontalShield(
  * @returns a shield definition object
  */
 export function octagonVerticalShield(
-  offset: number,
+  yOffset: number,
   angle: number,
   fillColor: string,
   strokeColor: string,
@@ -637,8 +637,8 @@ export function octagonVerticalShield(
     shapeBlank: {
       drawFunc: "octagonVertical",
       params: {
-        offset,
-        angle: angleInRadians,
+        yOffset,
+        sideAngle: angleInRadians,
         fillColor,
         strokeColor,
         radius,
