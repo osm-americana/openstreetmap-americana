@@ -94,7 +94,7 @@ export interface ShapeBlankParams {
   pointUp?: boolean;
   /** Specify whether the short side of the shape is on top */
   shortSideUp?: boolean;
-  /** Specify the angle of the defining vertex of the shape */
+  /** Specify the angle at which the sides of the shape deviate from vertical. Higher number means pointier sides */
   angle?: number;
 }
 
