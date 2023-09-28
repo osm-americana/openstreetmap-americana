@@ -82,9 +82,9 @@ export interface ShapeBlankParams {
   rectWidth?: number;
   /** Radius of the shape's corners */
   radius?: number;
-  /** Radius of the shapes's first corner. This is used for shapes that can specify multiple raidus values */
+  /** Radius of the shape's first corner. This is used for shapes that can specify multiple radius values */
   radius1?: number;
-  /** Radius of the shapes's second corner. This is used for shapes that can specify multiple raidus values */
+  /** Radius of the shape's second corner. This is used for shapes that can specify multiple radius values */
   radius2?: number;
   /** Height of diagonal edges */
   offset?: number;
