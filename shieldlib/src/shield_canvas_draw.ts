@@ -4,7 +4,7 @@
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
-import * as ShieldText from "./shield_text.mjs";
+import * as ShieldText from "./shield_text.js";
 import { loadCustomShields } from "./custom_shields";
 import { ShapeDrawFunction, ShieldRenderingContext } from "./shield_renderer";
 import { ShapeBlankParams } from "./types";
@@ -18,7 +18,7 @@ export function computeWidth(
   params: ShapeBlankParams,
   ref: string,
   shape?: string
-) {
+): number {
   if (fixedWidthDefinitions[shape] !== undefined) {
     return r.px(fixedWidthDefinitions[shape]);
   }
@@ -65,7 +65,7 @@ function ellipse(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
 
@@ -97,7 +97,10 @@ function ellipse(
   return width;
 }
 
-export function blank(r: ShieldRenderingContext, ref: string) {
+export function blank(
+  r: ShieldRenderingContext,
+  ref: string
+): CanvasRenderingContext2D {
   var shieldWidth =
     ShieldText.calculateTextWidth(r, ref, r.px(genericShieldFontSize)) +
     r.px(2);
@@ -116,7 +119,7 @@ export function roundedRectangle(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref?: string
-) {
+): number {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -220,7 +223,7 @@ function fishhead(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -270,6 +273,8 @@ function fishhead(
     ctx.strokeStyle = outline;
     ctx.stroke();
   }
+
+  return width;
 }
 
 function triangle(

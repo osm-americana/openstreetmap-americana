@@ -48,8 +48,8 @@ export type ShapeDrawFunction = (
   r: ShieldRenderingContext,
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
-  ref: string
-) => void;
+  ref?: string
+) => number;
 
 class MaplibreGLSpriteRepository implements SpriteRepository {
   map: Map;

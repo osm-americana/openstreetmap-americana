@@ -1,6 +1,6 @@
 "use strict";
 
-import * as ShieldText from "./shield_text.mjs";
+import * as ShieldText from "./shield_text.js";
 import * as ShieldDraw from "./shield_canvas_draw";
 import * as Gfx from "./screen_gfx.js";
 
