@@ -15,10 +15,25 @@ export const bridge = {
   },
   paint: {
     "fill-color": Color.bridgeFill,
-    "fill-outline-color": Color.bridgeBackgroundFill,
     "fill-opacity": ["interpolate", ["linear"], ["zoom"], 16, 1, 19, 0.8],
   },
   filter: ["all", ["==", ["get", "class"], "bridge"]],
+};
+
+export const bridgeOutline = {
+  ...bridge,
+  type: "line",
+  id: "bridge-outline",
+  layout: {
+    "line-cap": "butt",
+    "line-join": "bevel",
+    visibility: "visible",
+  },
+  paint: {
+    "line-color": Color.bridgeBackgroundFill,
+    "line-opacity": ["interpolate", ["linear"], ["zoom"], 16, 1, 19, 0.4],
+    "line-width": 0.5,
+  },
 };
 
 // Bridge casing for highways and railways

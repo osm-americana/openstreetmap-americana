@@ -146,6 +146,7 @@ export function build(locales) {
   var bridgeLayers = [
     lyrBridge.bridgeCasingBackground,
     lyrBridge.bridge,
+    lyrBridge.bridgeOutline,
     lyrBridge.bridgeCasing,
 
     lyrRoad.trunkLinkBridge.casing(),
