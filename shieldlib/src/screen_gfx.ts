@@ -3,7 +3,7 @@ import { StyleImage } from "maplibre-gl";
 import rgba from "color-rgba";
 
 const defaultFontFamily = '"sans-serif-condensed", "Arial Narrow", sans-serif';
-export const shieldFont = (size: string, fontFamily: string) =>
+export const shieldFont = (size: number, fontFamily: string) =>
   `bold ${size}px ${fontFamily || defaultFontFamily}`;
 export const fontSizeThreshold = 12;
 

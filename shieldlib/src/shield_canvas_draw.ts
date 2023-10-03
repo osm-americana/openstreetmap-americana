@@ -24,8 +24,8 @@ export function computeWidth(
   }
 
   let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
-  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
-  let tangent = Math.tan(angle);
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
+  let tangent = Math.tan(sideAngle);
 
   if (rectWidth == null) {
     let shieldWidth =
@@ -36,8 +36,8 @@ export function computeWidth(
     //Shape-specific width adjustments
     switch (shape) {
       case "pentagon":
-        let offset = params.yOffset == undefined ? 0 : params.yOffset;
-        shieldWidth += ((r.shieldSize() - r.px(offset)) * tangent) / 2;
+        let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
+        shieldWidth += ((r.shieldSize() - r.px(yOffset)) * tangent) / 2;
         break;
       case "trapezoid":
         shieldWidth += (r.shieldSize() * tangent) / 2;
@@ -164,7 +164,7 @@ function escutcheon(
   params: ShapeBlankParams,
   ref: string
 ) {
-  let offset = params.yOffset == undefined ? 0 : params.yOffset;
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -175,7 +175,7 @@ function escutcheon(
   let lineThick = r.px(outlineWidth);
   let lineWidth = lineThick / 2;
   let drawRadius = r.px(radius);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x5 = width - lineWidth;
@@ -346,16 +346,16 @@ function trapezoid(
 ) {
   let shortSideUp =
     params.shortSideUp == undefined ? false : params.shortSideUp;
-  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
   let angleSign = shortSideUp ? -1 : 1;
 
-  let sine = Math.sin(angle);
-  let cosine = Math.cos(angle);
-  let tangent = Math.tan(angle);
+  let sine = Math.sin(sideAngle);
+  let cosine = Math.cos(sideAngle);
+  let tangent = Math.tan(sideAngle);
 
   let width = computeWidth(r, params, ref, "trapezoid");
 
@@ -476,8 +476,8 @@ function pentagon(
   ref: string
 ) {
   let pointUp = params.pointUp == undefined ? true : params.pointUp;
-  let offset = params.yOffset == undefined ? 0 : params.yOffset;
-  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius1 = params.radius1 == undefined ? 0 : params.radius1;
@@ -485,9 +485,9 @@ function pentagon(
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
   let angleSign = pointUp ? -1 : 1;
-  let sine = Math.sin(angle);
-  let cosine = Math.cos(angle);
-  let tangent = Math.tan(angle);
+  let sine = Math.sin(sideAngle);
+  let cosine = Math.cos(sideAngle);
+  let tangent = Math.tan(sideAngle);
 
   let width = computeWidth(r, params, ref, "pentagon");
 
@@ -495,7 +495,7 @@ function pentagon(
   let lineWidth = lineThick / 2;
   let drawRadius1 = r.px(radius1);
   let drawRadius2 = r.px(radius2);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x8 = width - lineWidth;
@@ -510,10 +510,10 @@ function pentagon(
 
   let offsetAngle = Math.atan(drawOffset / (x4 - x0));
 
-  let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + angle) / 2;
+  let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + sideAngle) / 2;
   let halfComplementTangent1 = Math.tan(halfComplementAngle1);
 
-  let halfComplementAngle2 = (Math.PI / 2 - angle) / 2;
+  let halfComplementAngle2 = (Math.PI / 2 - sideAngle) / 2;
   let halfComplementTangent2 = Math.tan(halfComplementAngle2);
 
   let x1 = x0 + drawRadius1 * halfComplementTangent1 * sine;
@@ -548,7 +548,7 @@ function hexagonVertical(
   params: ShapeBlankParams,
   ref: string
 ) {
-  let offset = params.yOffset == undefined ? 0 : params.yOffset;
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -559,7 +559,7 @@ function hexagonVertical(
   let lineThick = r.px(outlineWidth);
   let lineWidth = lineThick / 2;
   let drawRadius = r.px(radius);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x2 = width - lineWidth;
@@ -668,23 +668,23 @@ function octagonVertical(
   params: ShapeBlankParams,
   ref: string
 ) {
-  let offset = params.yOffset == undefined ? 0 : params.yOffset;
-  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
-  let sine = Math.sin(angle);
-  let cosine = Math.cos(angle);
-  let tangent = Math.tan(angle);
+  let sine = Math.sin(sideAngle);
+  let cosine = Math.cos(sideAngle);
+  let tangent = Math.tan(sideAngle);
 
   let width = computeWidth(r, params, ref);
 
   let lineThick = r.px(outlineWidth);
   let lineWidth = lineThick / 2;
   let drawRadius = r.px(radius);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x10 = width - lineWidth;
@@ -707,13 +707,15 @@ function octagonVertical(
   let offsetSine = Math.sin(offsetAngle);
   let offsetCosine = Math.cos(offsetAngle);
 
-  let halfComplementAngle = (Math.PI / 2 - angle - offsetAngle) / 2;
+  let halfComplementAngle = (Math.PI / 2 - sideAngle - offsetAngle) / 2;
   let halfComplementCosine = Math.cos(halfComplementAngle);
 
   let dx =
-    (drawRadius * Math.cos(angle + halfComplementAngle)) / halfComplementCosine;
+    (drawRadius * Math.cos(sideAngle + halfComplementAngle)) /
+    halfComplementCosine;
   let dy =
-    (drawRadius * Math.sin(angle + halfComplementAngle)) / halfComplementCosine;
+    (drawRadius * Math.sin(sideAngle + halfComplementAngle)) /
+    halfComplementCosine;
 
   let x2 = x3 + dx - drawRadius * cosine;
   let x4 = x3 + dx - drawRadius * offsetSine;

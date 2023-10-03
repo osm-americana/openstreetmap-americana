@@ -24,7 +24,7 @@ export declare function roundedRectShield(
 ): ShieldDefinition;
 
 export declare function escutcheonDownShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -48,16 +48,16 @@ export declare function triangleDownShield(
 ): ShieldDefinition;
 
 export declare function trapezoidDownShield(
-  angle: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
   radius: number,
   rectWidth: number
-);
+): ShieldDefinition;
 
 export declare function trapezoidUpShield(
-  angle: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -74,8 +74,8 @@ export declare function diamondShield(
 ): ShieldDefinition;
 
 export declare function pentagonUpShield(
-  offset: number,
-  angle: number,
+  yOffset: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -85,7 +85,7 @@ export declare function pentagonUpShield(
 ): ShieldDefinition;
 
 export declare function homePlateDownShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -95,7 +95,7 @@ export declare function homePlateDownShield(
 ): ShieldDefinition;
 
 export declare function homePlateUpShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -105,7 +105,7 @@ export declare function homePlateUpShield(
 ): ShieldDefinition;
 
 export declare function hexagonVerticalShield(
-  offset: number,
+  yOffset: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -113,19 +113,8 @@ export declare function hexagonVerticalShield(
   rectWidth: number
 ): ShieldDefinition;
 
-/**
- * Draws a shield with a horizontally-aligned hexagon background
- *
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of hexagon background fill
- * @param {*} strokeColor - Color of hexagon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of hexagon (defaults to 2)
- * @param {*} rectWidth - Width of hexagon (defaults to variable-width)
- * @returns a shield definition object
- */
 export declare function hexagonHorizontalShield(
-  angle: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
@@ -134,8 +123,8 @@ export declare function hexagonHorizontalShield(
 ): ShieldDefinition;
 
 export declare function octagonVerticalShield(
-  offset: number,
-  angle: number,
+  yOffset: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
