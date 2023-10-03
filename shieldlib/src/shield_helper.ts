@@ -613,7 +613,7 @@ export function hexagonHorizontalShield(
  * Draws a shield with an octagon background
  *
  * @param {*} yOffset - Height of diagonal edges
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
+ * @param {*} sideAngle - Angle (in degrees) at which sides deviate from vertical
  * @param {*} fillColor - Color of octagon background fill
  * @param {*} strokeColor - Color of octagon outline stroke
  * @param {*} textColor - Color of text (defaults to strokeColor)
@@ -623,14 +623,14 @@ export function hexagonHorizontalShield(
  */
 export function octagonVerticalShield(
   yOffset: number,
-  angle: number,
+  sideAngle: number,
   fillColor: string,
   strokeColor: string,
   textColor: string,
   radius: number,
   rectWidth: number
 ): ShieldDefinition {
-  let angleInRadians = (angle * Math.PI) / 180;
+  let angleInRadians = (sideAngle * Math.PI) / 180;
   textColor = textColor ?? strokeColor;
   radius = radius ?? 2;
   return {
