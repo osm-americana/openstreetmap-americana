@@ -112,7 +112,7 @@ jobs:
           " > pr_preview.md
       - uses: tibdex/github-app-token@v1
         id: checks_token
-        with: 
+        with:
           app_id: 396440 #osm-americana checks app
           private_key: ${{ secrets.CHECKS_WRITER_SECRET }}
       - name: Print Preview Links to GitHub Checks
