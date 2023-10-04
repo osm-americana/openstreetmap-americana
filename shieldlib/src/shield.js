@@ -1,7 +1,7 @@
 "use strict";
 
 import * as ShieldText from "./shield_text.mjs";
-import * as ShieldDraw from "./shield_canvas_draw.mjs";
+import * as ShieldDraw from "./shield_canvas_draw";
 import * as Gfx from "./screen_gfx.js";
 
 function drawBannerPart(r, ctx, shieldDef, drawFunc) {
@@ -186,14 +186,14 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
   return ctx;
 }
 
-export function missingIconLoader(r, routeDef) {
+export function missingIconLoader(r, routeDef, spriteID) {
   let ctx = generateShieldCtx(r, routeDef);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
     console.warn("Didn't produce a shield for", JSON.stringify(routeDef));
     ctx = r.gfxFactory.createGraphics({ width: 1, height: 1 });
   }
-  storeSprite(r, routeDef.spriteID, ctx);
+  storeSprite(r, spriteID, ctx);
 }
 
 function storeSprite(r, id, ctx) {

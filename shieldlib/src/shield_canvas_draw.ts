@@ -5,20 +5,27 @@
  */
 
 import * as ShieldText from "./shield_text.mjs";
-import { loadCustomShields } from "./custom_shields.mjs";
+import { loadCustomShields } from "./custom_shields";
+import { ShapeDrawFunction, ShieldRenderingContext } from "./shield_renderer";
+import { ShapeBlankParams } from "./types";
 
 const minGenericShieldWidth = 20;
 const maxGenericShieldWidth = 34;
 const genericShieldFontSize = 18;
 
-export function computeWidth(r, params, ref, shape) {
+export function computeWidth(
+  r: ShieldRenderingContext,
+  params: ShapeBlankParams,
+  ref: string,
+  shape?: string
+) {
   if (fixedWidthDefinitions[shape] !== undefined) {
     return r.px(fixedWidthDefinitions[shape]);
   }
 
   let rectWidth = params.rectWidth == undefined ? null : params.rectWidth;
-  let angle = params.angle == undefined ? 0 : params.angle;
-  let tangent = Math.tan(angle);
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
+  let tangent = Math.tan(sideAngle);
 
   if (rectWidth == null) {
     let shieldWidth =
@@ -29,8 +36,8 @@ export function computeWidth(r, params, ref, shape) {
     //Shape-specific width adjustments
     switch (shape) {
       case "pentagon":
-        let offset = params.offset == undefined ? 0 : params.offset;
-        shieldWidth += ((r.shieldSize() - r.px(offset)) * tangent) / 2;
+        let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
+        shieldWidth += ((r.shieldSize() - r.px(yOffset)) * tangent) / 2;
         break;
       case "trapezoid":
         shieldWidth += (r.shieldSize() * tangent) / 2;
@@ -53,7 +60,12 @@ export function computeWidth(r, params, ref, shape) {
   }
 }
 
-function ellipse(r, ctx, params, ref) {
+function ellipse(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
 
@@ -71,6 +83,7 @@ function ellipse(r, ctx, params, ref) {
     radiusX,
     radiusY,
     0,
+    0,
     2 * Math.PI,
     false
   );
@@ -84,7 +97,7 @@ function ellipse(r, ctx, params, ref) {
   return width;
 }
 
-export function blank(r, ref) {
+export function blank(r: ShieldRenderingContext, ref: string) {
   var shieldWidth =
     ShieldText.calculateTextWidth(r, ref, r.px(genericShieldFontSize)) +
     r.px(2);
@@ -98,7 +111,12 @@ export function blank(r, ref) {
   });
 }
 
-export function roundedRectangle(r, ctx, params, ref) {
+export function roundedRectangle(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref?: string
+) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -140,8 +158,13 @@ export function roundedRectangle(r, ctx, params, ref) {
   return width;
 }
 
-function escutcheon(r, ctx, params, ref) {
-  let offset = params.offset == undefined ? 0 : params.offset;
+function escutcheon(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -152,7 +175,7 @@ function escutcheon(r, ctx, params, ref) {
   let lineThick = r.px(outlineWidth);
   let lineWidth = lineThick / 2;
   let drawRadius = r.px(radius);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x5 = width - lineWidth;
@@ -192,7 +215,12 @@ function escutcheon(r, ctx, params, ref) {
   return width;
 }
 
-function fishhead(r, ctx, params, ref) {
+function fishhead(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -244,7 +272,12 @@ function fishhead(r, ctx, params, ref) {
   }
 }
 
-function triangle(r, ctx, params, ref) {
+function triangle(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -305,19 +338,24 @@ function triangle(r, ctx, params, ref) {
   return width;
 }
 
-function trapezoid(r, ctx, params, ref) {
+function trapezoid(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let shortSideUp =
     params.shortSideUp == undefined ? false : params.shortSideUp;
-  let angle = params.angle == undefined ? 0 : params.angle;
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
   let angleSign = shortSideUp ? -1 : 1;
 
-  let sine = Math.sin(angle);
-  let cosine = Math.cos(angle);
-  let tangent = Math.tan(angle);
+  let sine = Math.sin(sideAngle);
+  let cosine = Math.cos(sideAngle);
+  let tangent = Math.tan(sideAngle);
 
   let width = computeWidth(r, params, ref, "trapezoid");
 
@@ -362,7 +400,12 @@ function trapezoid(r, ctx, params, ref) {
   return width;
 }
 
-function diamond(r, ctx, params, ref) {
+function diamond(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -426,10 +469,15 @@ function diamond(r, ctx, params, ref) {
   return width;
 }
 
-function pentagon(r, ctx, params, ref) {
+function pentagon(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
   let pointUp = params.pointUp == undefined ? true : params.pointUp;
-  let offset = params.offset == undefined ? 0 : params.offset;
-  let angle = params.angle == undefined ? 0 : params.angle;
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius1 = params.radius1 == undefined ? 0 : params.radius1;
@@ -437,9 +485,9 @@ function pentagon(r, ctx, params, ref) {
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
   let angleSign = pointUp ? -1 : 1;
-  let sine = Math.sin(angle);
-  let cosine = Math.cos(angle);
-  let tangent = Math.tan(angle);
+  let sine = Math.sin(sideAngle);
+  let cosine = Math.cos(sideAngle);
+  let tangent = Math.tan(sideAngle);
 
   let width = computeWidth(r, params, ref, "pentagon");
 
@@ -447,7 +495,7 @@ function pentagon(r, ctx, params, ref) {
   let lineWidth = lineThick / 2;
   let drawRadius1 = r.px(radius1);
   let drawRadius2 = r.px(radius2);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x8 = width - lineWidth;
@@ -462,10 +510,10 @@ function pentagon(r, ctx, params, ref) {
 
   let offsetAngle = Math.atan(drawOffset / (x4 - x0));
 
-  let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + angle) / 2;
+  let halfComplementAngle1 = (Math.PI / 2 - offsetAngle + sideAngle) / 2;
   let halfComplementTangent1 = Math.tan(halfComplementAngle1);
 
-  let halfComplementAngle2 = (Math.PI / 2 - angle) / 2;
+  let halfComplementAngle2 = (Math.PI / 2 - sideAngle) / 2;
   let halfComplementTangent2 = Math.tan(halfComplementAngle2);
 
   let x1 = x0 + drawRadius1 * halfComplementTangent1 * sine;
@@ -494,8 +542,13 @@ function pentagon(r, ctx, params, ref) {
   return width;
 }
 
-function hexagonVertical(r, ctx, params, ref) {
-  let offset = params.offset == undefined ? 0 : params.offset;
+function hexagonVertical(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -506,7 +559,7 @@ function hexagonVertical(r, ctx, params, ref) {
   let lineThick = r.px(outlineWidth);
   let lineWidth = lineThick / 2;
   let drawRadius = r.px(radius);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x2 = width - lineWidth;
@@ -543,8 +596,13 @@ function hexagonVertical(r, ctx, params, ref) {
   return width;
 }
 
-function hexagonHorizontal(r, ctx, params, ref) {
-  let angle = params.angle == undefined ? 0 : params.angle;
+function hexagonHorizontal(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
+  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -604,24 +662,29 @@ function hexagonHorizontal(r, ctx, params, ref) {
   return width;
 }
 
-function octagonVertical(r, ctx, params, ref) {
-  let offset = params.offset == undefined ? 0 : params.offset;
-  let angle = params.angle == undefined ? 0 : params.angle;
+function octagonVertical(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
+  let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
-  let sine = Math.sin(angle);
-  let cosine = Math.cos(angle);
-  let tangent = Math.tan(angle);
+  let sine = Math.sin(sideAngle);
+  let cosine = Math.cos(sideAngle);
+  let tangent = Math.tan(sideAngle);
 
   let width = computeWidth(r, params, ref);
 
   let lineThick = r.px(outlineWidth);
   let lineWidth = lineThick / 2;
   let drawRadius = r.px(radius);
-  let drawOffset = r.px(offset);
+  let drawOffset = r.px(yOffset);
 
   let x0 = lineWidth;
   let x10 = width - lineWidth;
@@ -644,13 +707,15 @@ function octagonVertical(r, ctx, params, ref) {
   let offsetSine = Math.sin(offsetAngle);
   let offsetCosine = Math.cos(offsetAngle);
 
-  let halfComplementAngle = (Math.PI / 2 - angle - offsetAngle) / 2;
+  let halfComplementAngle = (Math.PI / 2 - sideAngle - offsetAngle) / 2;
   let halfComplementCosine = Math.cos(halfComplementAngle);
 
   let dx =
-    (drawRadius * Math.cos(angle + halfComplementAngle)) / halfComplementCosine;
+    (drawRadius * Math.cos(sideAngle + halfComplementAngle)) /
+    halfComplementCosine;
   let dy =
-    (drawRadius * Math.sin(angle + halfComplementAngle)) / halfComplementCosine;
+    (drawRadius * Math.sin(sideAngle + halfComplementAngle)) /
+    halfComplementCosine;
 
   let x2 = x3 + dx - drawRadius * cosine;
   let x4 = x3 + dx - drawRadius * offsetSine;
@@ -684,7 +749,7 @@ function octagonVertical(r, ctx, params, ref) {
   return width;
 }
 
-export function shapeHeight(r, name) {
+export function shapeHeight(r: ShieldRenderingContext, name: string) {
   switch (name) {
     case "diamond":
       return r.shieldSize() + r.px(4);
@@ -693,8 +758,14 @@ export function shapeHeight(r, name) {
   }
 }
 
-export function draw(r, name, ctx, options, ref) {
-  return drawFunctions[name](r, ctx, options, ref);
+export function draw(
+  r: ShieldRenderingContext,
+  name: string,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref: string
+) {
+  return drawFunctions[name](r, ctx, params, ref);
 }
 
 //Register draw functions
@@ -710,7 +781,11 @@ const fixedWidthDefinitions = {};
  * @param {*} fxn callback to the implementing function. Takes two parameters, ref and options
  * @param {*} fixedWidth if set, indicates that this function draws to a fixed width
  */
-export function registerDrawFunction(name, fxn, fixedWidth) {
+export function registerDrawFunction(
+  name: string,
+  fxn: ShapeDrawFunction,
+  fixedWidth?: number
+) {
   drawFunctions[name] = fxn;
   if (fixedWidth !== undefined) {
     fixedWidthDefinitions[name] = fixedWidth;
