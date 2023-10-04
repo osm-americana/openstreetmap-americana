@@ -19,6 +19,10 @@ export type Exclusive<T, U> =
 export interface ShieldDefinitionBase {
   /** Color of text drawn on a shield */
   textColor?: string;
+  /** Color of banner text */
+  bannerColor?: string;
+  /** Color of banner text halo */
+  bannerHaloColor?: string;
   /** Padding around shield text */
   padding?: BoxPadding;
   /** Algorithm for expanding text to fill a shield background */

@@ -2428,7 +2428,12 @@ export function loadShields() {
       bottom: 2,
     },
   };
-  shields["US:VT:Alternate"] = banneredShield(shields["US:VT"], ["ALT"]);
+  shields["US:VT:Alternate"] = banneredShield(
+    shields["US:VT"],
+    ["ALT"],
+    Color.shields.green
+  );
+
   // Vermont routes town maintained sections - black and white ovals
   shields["US:VT:Town"] = ovalShield(Color.shields.white, Color.shields.black);
 

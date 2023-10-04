@@ -19,6 +19,11 @@ export function drawBanners(
   ctx: CanvasRenderingContext2D,
   shieldDef: ShieldDefinition
 ) {
+  if (shieldDef.bannerColor) {
+    ctx.fillStyle = shieldDef.bannerColor;
+  } else {
+    ctx.fillStyle = r.options.bannerTextColor;
+  }
   drawBannerPart(r, ctx, shieldDef, drawBannerText);
 }
 
@@ -34,6 +39,11 @@ export function drawBannerHalos(
   ctx: CanvasRenderingContext2D,
   shieldDef: ShieldDefinition
 ) {
+  if (shieldDef.bannerHaloColor) {
+    ctx.strokeStyle = ctx.shadowColor = shieldDef.bannerHaloColor;
+  } else {
+    ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
+  }
   drawBannerPart(r, ctx, shieldDef, drawBannerHaloText);
 }
 
@@ -147,7 +157,6 @@ function drawBannerTextComponent(
   ctx.textAlign = "center";
 
   if (textComponent) {
-    ctx.fillStyle = r.options.bannerTextColor;
     ctx.fillText(
       text,
       textLayout.xBaseline,
@@ -155,7 +164,6 @@ function drawBannerTextComponent(
         bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
     );
   } else {
-    ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
     ctx.shadowBlur = 0;
     ctx.lineWidth = r.px(2);
     ctx.strokeText(
