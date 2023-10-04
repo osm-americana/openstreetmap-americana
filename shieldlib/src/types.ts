@@ -27,11 +27,7 @@ export interface ShieldDefinitionBase {
   banners?: string[];
   /** If true, no next should be drawn on this shield */
   notext?: boolean;
-<<<<<<< HEAD
-  /** Specifies the maximum font size of text on this shield */
-=======
   /** Maximum size of shield text */
->>>>>>> main
   maxFontSize?: number;
 }
 

@@ -102,11 +102,7 @@ function rectTextConstraint(
 function roundedRectTextConstraint(
   spaceBounds: Dimension,
   textBounds: Dimension,
-<<<<<<< HEAD
-  options
-=======
   options: TextLayoutParameters
->>>>>>> main
 ): TextTransform {
   //Shrink space bounds so that corners hit the arcs
   let constraintRadius = 2;
