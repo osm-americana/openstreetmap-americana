@@ -1,20 +1,13 @@
 "use strict";
 
 import * as ShieldText from "./shield_text.js";
-import * as ShieldDraw from "./shield_canvas_draw";
+import * as ShieldDraw from "./shield_canvas_draw.js";
 import * as Gfx from "./screen_gfx.js";
-
-function drawBannerPart(r, ctx, shieldDef, drawFunc) {
-  if (shieldDef == null || typeof shieldDef.banners == "undefined") {
-    return ctx; //Unadorned shield
-  }
-
-  for (var i = 0; i < shieldDef.banners.length; i++) {
-    drawFunc(r, ctx, shieldDef.banners[i], i);
-  }
-
-  return ctx;
-}
+import {
+  drawBanners,
+  drawBannerHalos,
+  getBannerCount,
+} from "./shield_banner.js";
 
 function compoundShieldSize(r, dimension, bannerCount) {
   return {
@@ -27,19 +20,6 @@ function compoundShieldSize(r, dimension, bannerCount) {
 
 export function isValidRef(ref) {
   return ref !== null && ref.length !== 0 && ref.length <= 6;
-}
-
-/**
- * Get the number of banner placards associated with this shield
- *
- * @param {*} shield - Shield definition
- * @returns the number of banner placards that need to be drawn
- */
-function getBannerCount(shield) {
-  if (shield == null || typeof shield.banners == "undefined") {
-    return 0; //Unadorned shield
-  }
-  return shield.banners.length;
 }
 
 /**
@@ -359,7 +339,7 @@ export function generateShieldCtx(r, routeDef) {
   }
 
   // Add the halo around modifier plaque text
-  drawBannerPart(r, ctx, shieldDef, ShieldText.drawBannerHaloText);
+  drawBannerHalos(r, ctx, shieldDef);
 
   if (sourceSprite == null) {
     drawShield(r, ctx, shieldDef, routeDef);
@@ -378,7 +358,7 @@ export function generateShieldCtx(r, routeDef) {
   drawShieldText(r, ctx, shieldDef, routeDef);
 
   // Add modifier plaque text
-  drawBannerPart(r, ctx, shieldDef, ShieldText.drawBannerText);
+  drawBanners(r, ctx, shieldDef);
 
   return ctx;
 }

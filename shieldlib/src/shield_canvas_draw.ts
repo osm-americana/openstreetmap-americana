@@ -4,7 +4,7 @@
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
-import * as ShieldText from "./shield_text.mjs";
+import * as ShieldText from "./shield_text";
 import { loadCustomShields } from "./custom_shields";
 import { ShapeDrawFunction, ShieldRenderingContext } from "./shield_renderer";
 import { ShapeBlankParams } from "./types";
