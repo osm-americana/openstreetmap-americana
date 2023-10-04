@@ -127,8 +127,8 @@ You should create one definition entry for each network. The entry key must matc
     "drawFunc": "pentagon",
     "params": {
       "pointUp": false,
-      "offset": 5,
-      "angle": 0,
+      "yOffset": 5,
+      "sideAngle": 0,
       "fillColor": "white",
       "strokeColor": "black",
       "radius1": 2,
@@ -299,9 +299,9 @@ If `shapeBlank` is specified, the shield will be drawn as a shape. This needs to
 
 The following `params` options can be specified:
 
-- `angle` - indicates angle (in degrees) at which side edges deviate from vertical. Applies to `trapezoid`, `pentagon`, `hexagonHorizontal`, `octagonVertical`.
+- `sideAngle` - indicates angle (in degrees) at which side edges deviate from vertical. Applies to `trapezoid`, `pentagon`, `hexagonHorizontal`, `octagonVertical`.
 - `fill` - specifies the internal fill color.
-- `offset` - indicates height (in pixels) at which the bottom and/or top edges deviate from horizontal. Applies to `escutcheon`, `pentagon`, `hexagonVertical`, `octagonVertical`.
+- `yOffset` - indicates height (in pixels) at which the bottom and/or top edges deviate from horizontal. Applies to `escutcheon`, `pentagon`, `hexagonVertical`, `octagonVertical`.
 - `outline` - specifies the outline color.
 - `outlineWidth` - specifies the width of the outline.
 - `pointUp` - applies to several shape types and specifies whether the pointy side is up.

@@ -27,7 +27,11 @@ export interface ShieldDefinitionBase {
   banners?: string[];
   /** If true, no next should be drawn on this shield */
   notext?: boolean;
+<<<<<<< HEAD
   /** Specifies the maximum font size of text on this shield */
+=======
+  /** Maximum size of shield text */
+>>>>>>> main
   maxFontSize?: number;
 }
 
@@ -100,16 +104,15 @@ export interface ShapeBlankParams {
   sideAngle?: number;
 }
 
-/** Parameters for laying out text on a shield */
-export interface TextLayoutParameters {
-  /** Specify a corner radius to further constrain placement on rectangular shapes */
-  radius: number;
-}
-
-/** Parameters for laying out text on a shield background */
+/** Definition for laying out text on a shield background */
 export interface TextLayout {
   constraintFunc: string;
   options?: TextLayoutParameters;
+}
+
+/** Options for text layout on a shield */
+export interface TextLayoutParameters {
+  radius: number;
 }
 
 /**
