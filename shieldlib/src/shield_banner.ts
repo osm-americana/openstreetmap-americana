@@ -19,8 +19,8 @@ export function drawBanners(
   ctx: CanvasRenderingContext2D,
   shieldDef: ShieldDefinition
 ) {
-  if (shieldDef.bannerColor) {
-    ctx.fillStyle = shieldDef.bannerColor;
+  if (shieldDef.bannerTextColor) {
+    ctx.fillStyle = shieldDef.bannerTextColor;
   } else {
     ctx.fillStyle = r.options.bannerTextColor;
   }
@@ -39,8 +39,8 @@ export function drawBannerHalos(
   ctx: CanvasRenderingContext2D,
   shieldDef: ShieldDefinition
 ) {
-  if (shieldDef.bannerHaloColor) {
-    ctx.strokeStyle = ctx.shadowColor = shieldDef.bannerHaloColor;
+  if (shieldDef.bannerTextHaloColor) {
+    ctx.strokeStyle = ctx.shadowColor = shieldDef.bannerTextHaloColor;
   } else {
     ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
   }

@@ -707,7 +707,7 @@ export function banneredShield(
 ): ShieldDefinition {
   return {
     banners,
-    bannerColor,
+    bannerTextColor: bannerColor,
     ...baseDef,
   };
 }
