@@ -3,7 +3,6 @@ export interface RouteDefinition {
   network: string;
   ref: string;
   name: string;
-  spriteID?: string;
 }
 export interface ShieldDefinition {
   spriteBlank: string[];
