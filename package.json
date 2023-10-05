@@ -24,7 +24,7 @@
     "code_format:prettier": "prettier --write --list-different .",
     "code_format:svgo": "svgo -q -f icons/",
     "extract_layer": "node scripts/extract_layer",
-    "generate_samples": "npx playwright install && ts-node scripts/generate_samples.ts",
+    "generate_samples": "ts-node scripts/generate_samples.ts",
     "presprites": "shx rm -rf dist/sprites",
     "serve": "ts-node scripts/serve",
     "shields": "node scripts/generate_shield_defs.js -o dist/shields.json",
