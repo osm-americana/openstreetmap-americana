@@ -81,7 +81,7 @@ async function createImage(screenshot: SampleSpecification) {
     });
     console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
