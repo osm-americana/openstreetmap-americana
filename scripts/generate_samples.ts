@@ -44,7 +44,10 @@ const screenshots: SampleSpecification[] =
 
 fs.mkdirSync(sampleFolder, { recursive: true });
 
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: process.env.CHROME_BIN,
+});
 const context = await browser.newContext();
 
 const page = await context.newPage();
