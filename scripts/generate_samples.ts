@@ -61,7 +61,7 @@ async function createImage(screenshot: SampleSpecification) {
 
   // Wait for map to load, then wait two more seconds for images, etc. to load.
   try {
-    await page.waitForFunction(() => window.map && window.map.loaded(), {
+    await page.waitForFunction(() => window.map?.loaded(), {
       timeout: 3000,
     });
 
