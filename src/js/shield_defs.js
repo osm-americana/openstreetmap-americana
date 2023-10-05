@@ -3753,7 +3753,7 @@ export function loadShields() {
       bannerTextHaloColor: Color.backgroundFill,
       bannerHeight: 9,
       bannerPadding: 1,
-      shieldFont: '"sans-serif-condensed", "Arial Narrow", sans-serif',
+      shieldFont: 'Antonio, "sans-serif-condensed", "Arial Narrow", sans-serif',
       shieldSize: 20,
     },
   };
