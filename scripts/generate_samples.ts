@@ -35,7 +35,7 @@ const loadSampleLocations = (filePath: string): SampleSpecification[] => {
 
 const sampleFolder = "./samples";
 
-const jsonSampleLocations = process.argv[2] || "test/sample_locations.json";
+const jsonSampleLocations = process.argv[2] ?? "test/sample_locations.json";
 
 console.log(`Loading sample locations from ${jsonSampleLocations}`);
 
