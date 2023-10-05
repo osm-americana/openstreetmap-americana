@@ -4,7 +4,7 @@ import { chromium } from "@playwright/test";
 // Declare a global augmentation for the Window interface
 declare global {
   interface Window {
-    map: {
+    map?: {
       loaded: () => boolean;
     };
   }
