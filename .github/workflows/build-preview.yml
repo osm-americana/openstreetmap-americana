@@ -29,12 +29,6 @@ jobs:
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
-          npm start &
-          BACKGROUND_PID=$!
-          sleep 5
-          npm run generate_samples
-          kill $BACKGROUND_PID
-          mv samples samples-main
       - name: Capture main branch usage statistics
         id: main-stats
         run: |
@@ -58,12 +52,6 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
-          npm start &
-          BACKGROUND_PID=$!
-          sleep 5
-          npm run generate_samples
-          kill $BACKGROUND_PID
-          mv samples samples-pr
       - name: Upload Build artifact
         uses: actions/upload-artifact@v3
         with:
