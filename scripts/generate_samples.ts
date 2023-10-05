@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import { chromium } from "@playwright/test";
 
 // Declare a global augmentation for the Window interface
