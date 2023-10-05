@@ -509,7 +509,7 @@ export function loadShields() {
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
-    ["HI$T"]
+    ["XXXX"] //FOR TESTING - RESTORE TO HIST BEFORE COMMITTING PR
   );
 
   // Federal Agencies
