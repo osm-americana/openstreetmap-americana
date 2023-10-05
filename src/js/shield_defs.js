@@ -509,7 +509,7 @@ export function loadShields() {
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
-    ["HIST"]
+    ["HI$T"]
   );
 
   // Federal Agencies
