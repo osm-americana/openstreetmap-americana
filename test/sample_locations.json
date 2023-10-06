@@ -1,0 +1,44 @@
+[
+  {
+    "location": "4/40.5/-94",
+    "name": "full_window",
+    "viewport": {
+      "width": 600,
+      "height": 250
+    },
+    "clip": {
+      "x": 0,
+      "y": 0,
+      "width": 600,
+      "height": 250
+    }
+  },
+  {
+    "location": "13/40.01264/-75.70446",
+    "name": "downingtown_alt_trk_bus",
+    "viewport": {
+      "width": 600,
+      "height": 600
+    },
+    "clip": {
+      "x": 100,
+      "y": 100,
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "13/35.22439/-99.99495",
+    "name": "historic_us66_oklahoma",
+    "viewport": {
+      "width": 600,
+      "height": 600
+    },
+    "clip": {
+      "x": 100,
+      "y": 100,
+      "width": 400,
+      "height": 400
+    }
+  }
+]

@@ -142,6 +142,8 @@ You should create one definition entry for each network. The entry key must matc
     }
   },
   "banners": ["ALT"],
+  "bannerTextColor": "#000",
+  "bannerTextHaloColor": "#FFF",
   "textLayout": {
     "constraintFunc": "roundedRect",
     "options": {
@@ -179,6 +181,8 @@ You should create one definition entry for each network. The entry key must matc
 
 ![Bannered routes near Downington, PA](https://wiki.openstreetmap.org/w/images/f/f8/Downington_bannered_routes_Americana.png)
 
+- **`bannerTextColor`**: specify the color of the banner text.
+- **`bannerTextHaloColor`**: specify the color of the banner knockout halo.
 - **`textLayout`**: specify how text should be inscribed within the padded bounds of the shield. The text will be drawn at the maximum size allowed by this constraint. See the [text layout functions](#text-layout-functions) section for text layout options.
 - **`colorLighten`**: specify that the shield artwork should be lightened (multiplied) by the specified color. This means that black areas will be recolor with this color and white areas will remain the same. Alpha values will remain unmodified.
 - **`colorDarken`**: specify that the shield artwork should be darkened by the specified color. This means that white areas will be recolor with this color and black areas will remain the same. Alpha values will remain unmodified.

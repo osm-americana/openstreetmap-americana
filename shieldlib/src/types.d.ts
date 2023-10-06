@@ -56,3 +56,8 @@ export interface GraphicsFactory {
    */
   pixelRatio(): number;
 }
+
+export interface Dimension {
+  width: number;
+  height: number;
+}

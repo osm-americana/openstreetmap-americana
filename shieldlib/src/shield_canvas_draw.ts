@@ -4,7 +4,7 @@
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
-import * as ShieldText from "./shield_text.mjs";
+import * as ShieldText from "./shield_text";
 import { loadCustomShields } from "./custom_shields";
 import { ShapeDrawFunction, ShieldRenderingContext } from "./shield_renderer";
 import { ShapeBlankParams } from "./types";
@@ -65,7 +65,7 @@ function ellipse(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
 
@@ -116,7 +116,7 @@ export function roundedRectangle(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref?: string
-) {
+): number {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -163,7 +163,7 @@ function escutcheon(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -220,7 +220,7 @@ function fishhead(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -270,6 +270,8 @@ function fishhead(
     ctx.strokeStyle = outline;
     ctx.stroke();
   }
+
+  return width;
 }
 
 function triangle(
@@ -277,7 +279,7 @@ function triangle(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let pointUp = params.pointUp == undefined ? false : params.pointUp;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -343,7 +345,7 @@ function trapezoid(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let shortSideUp =
     params.shortSideUp == undefined ? false : params.shortSideUp;
   let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
@@ -405,7 +407,7 @@ function diamond(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
@@ -474,7 +476,7 @@ function pentagon(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let pointUp = params.pointUp == undefined ? true : params.pointUp;
   let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
@@ -547,7 +549,7 @@ function hexagonVertical(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
@@ -601,17 +603,17 @@ function hexagonHorizontal(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
-  let angle = params.sideAngle == undefined ? 0 : params.sideAngle;
+): number {
+  let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
   let outline = params.strokeColor == undefined ? "black" : params.strokeColor;
   let radius = params.radius == undefined ? 0 : params.radius;
   let outlineWidth = params.outlineWidth == undefined ? 1 : params.outlineWidth;
 
-  let sine = Math.sin(angle);
-  let cosine = Math.cos(angle);
-  let tangent = Math.tan(angle);
-  let halfComplementTangent = Math.tan(Math.PI / 4 - angle / 2);
+  let sine = Math.sin(sideAngle);
+  let cosine = Math.cos(sideAngle);
+  let tangent = Math.tan(sideAngle);
+  let halfComplementTangent = Math.tan(Math.PI / 4 - sideAngle / 2);
 
   let width = computeWidth(r, params, ref, "hexagonHorizontal");
 
@@ -667,7 +669,7 @@ function octagonVertical(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   let yOffset = params.yOffset == undefined ? 0 : params.yOffset;
   let sideAngle = params.sideAngle == undefined ? 0 : params.sideAngle;
   let fill = params.fillColor == undefined ? "white" : params.fillColor;
@@ -764,7 +766,7 @@ export function draw(
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams,
   ref: string
-) {
+): number {
   return drawFunctions[name](r, ctx, params, ref);
 }
 
