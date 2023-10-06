@@ -3,23 +3,57 @@
   <head>
     <meta charset="utf-8" />
     <title>Shield Test</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=block"
       rel="stylesheet"
     />
-    <style></style>
+    <style>
+      body {
+        background: #faf6f2;
+      }
+      th {
+        border-bottom: 1px solid #b8b8b8;
+      }
+      div#progress-overlay {
+        background: #fff8;
+        bottom: 0;
+        display: grid;
+        font-size: 1.5em;
+        left: 0;
+        place-items: center;
+        pointer-events: none;
+        position: fixed;
+        right: 0;
+        top: 0;
+      }
+      progress {
+        border-radius: 0; /* hack mozilla appearance */
+      }
+    </style>
+
     <script type="module" src="shieldtest.js"></script>
   </head>
 
-  <body style="background: #faf6f2">
-    <table id="shield-table"></table>
+  <body>
+    <table id="shield-table">
+      <thead>
+        <tr>
+          <th>Network</th>
+          <th colspan="14">Graphic</th>
+          <th>Performance</th>
+        </tr>
+      </thead>
+    </table>
 
     <p style="font-family: Overpass; visibility: hidden">
       Invisible text so the font will load early
     </p>
     <div id="map" style="display: none"></div>
+
+    <div id="progress-overlay">
+      <progress></progress>
+    </div>
   </body>
 </html>
