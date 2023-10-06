@@ -702,10 +702,12 @@ export function pillShield(
  */
 export function banneredShield(
   baseDef: ShieldDefinition,
-  banners: string[]
+  banners: string[],
+  bannerColor?: string
 ): ShieldDefinition {
   return {
     banners,
+    bannerTextColor: bannerColor,
     ...baseDef,
   };
 }
