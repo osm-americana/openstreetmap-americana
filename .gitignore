@@ -1,9 +1,11 @@
 node_modules
 sprites
 build
-rebusurance.zip
 .DS_Store
 config.js
 .parcel-cache
-dist/
+dist
+download
 local.config.js
+shieldlib/docs
+samples/

@@ -155,6 +155,62 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
+      "key": "aerialway",
+      "value": "cable_car",
+      "object_types": ["way"],
+      "description": "Cable cars are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "chair_lift",
+      "object_types": ["way"],
+      "description": "Chairlifts are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "gondola",
+      "object_types": ["way"],
+      "description": "Aerial gondolas are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "mixed_lift",
+      "object_types": ["way"],
+      "description": "Mixed aerial lifts are represented by a solid magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "drag_lift",
+      "object_types": ["way"],
+      "description": "Drag lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "platter",
+      "object_types": ["way"],
+      "description": "Platter lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "j-bar",
+      "object_types": ["way"],
+      "description": "J-bar lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
+      "key": "aerialway",
+      "value": "t-bar",
+      "object_types": ["way"],
+      "description": "T-bar lifts are represented by a dashed magenta line that splits in two at high zoom.",
+      "doc_url": "https://openmaptiles.org/schema/#aerialway"
+    },
+    {
       "key": "aeroway",
       "value": "runway",
       "object_types": ["way"],
@@ -347,17 +403,17 @@
       "key": "amenity",
       "value": "college",
       "object_types": ["node", "area"],
-      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "description": "Colleges are marked by an icon representing a mortarboard cap.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_mortarboard.svg"
     },
     {
       "key": "amenity",
       "value": "university",
       "object_types": ["node", "area"],
-      "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
+      "description": "Colleges are marked by an icon representing a mortarboard cap.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_mortarboard.svg"
     },
     {
       "key": "amenity",
@@ -401,6 +457,31 @@
     },
     {
       "key": "amenity",
+      "value": "police",
+      "object_types": ["node", "area"],
+      "description": "Police stations are marked by an icon representing a police badge.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_police_shield.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "townhall",
+      "object_types": ["node", "area"],
+      "description": "City halls are marked by an icon representing a domed building with a rectangular flag raised above it.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_town_hall.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "museum",
+      "object_types": ["node", "area"],
+      "description": "Museums are marked by an icon representing a Classical columned building.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_museum.svg"
+    },
+
+    {
+      "key": "amenity",
       "value": "clinic",
       "object_types": ["node", "area"],
       "description": "Medical offices are marked by a white cross in a blue shield.",
@@ -415,6 +496,135 @@
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_p.svg"
     },
+    {
+      "key": "amenity",
+      "value": "place_of_worship",
+      "object_types": ["node", "area"],
+      "description": "Places of worship are marked by a square representing a building, topped with a finial representing the religion for common religions.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_generic.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "bus_station",
+      "object_types": ["node", "area"],
+      "description": "Bus stations are marked by an icon depicting the front of a bus.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+    },
+    {
+      "key": "highway",
+      "value": "bus_stop",
+      "object_types": ["node"],
+      "description": "Bus stops are marked by an icon depicting the front of a bus.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+    },
+    {
+      "key": "railway",
+      "value": "halt",
+      "object_types": ["node"],
+      "description": "Rail halts are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "railway",
+      "value": "station",
+      "object_types": ["node", "area"],
+      "description": "Rail stations are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "aerialway",
+      "value": "station",
+      "object_types": ["node", "area"],
+      "description": "Aerialway stations are marked by an icon depicting an aerial tramway car.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_aerialway_circle.svg"
+    },
+    {
+      "key": "railway",
+      "value": "tram_stop",
+      "object_types": ["node"],
+      "description": "Tram stops are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "station",
+      "value": "subway",
+      "object_types": ["node"],
+      "description": "Subway stations are marked by an icon depicting the front of a train.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+    },
+    {
+      "key": "religion",
+      "value": "buddhist",
+      "object_types": ["node", "area"],
+      "description": "Buddhist places of worship are marked by an icon representing a building topped by a dharmachakra.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_buddhist.svg"
+    },
+    {
+      "key": "religion",
+      "value": "christian",
+      "object_types": ["node", "area"],
+      "description": "Christian places of worship are marked by an icon representing a building topped by a cross.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_christian.svg"
+    },
+    {
+      "key": "religion",
+      "value": "hindu",
+      "object_types": ["node", "area"],
+      "description": "Hindu places of worship are marked by an icon representing a building topped by an om symbol.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_hindu.svg"
+    },
+    {
+      "key": "religion",
+      "value": "jewish",
+      "object_types": ["node", "area"],
+      "description": "Jewish places of worship are marked by an icon representing a building topped by a star of David.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_jewish.svg"
+    },
+    {
+      "key": "religion",
+      "value": "muslim",
+      "object_types": ["node", "area"],
+      "description": "Muslim places of worship are marked by an icon representing a building topped by a star and crescent.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_muslim.svg"
+    },
+    {
+      "key": "religion",
+      "value": "sikh",
+      "object_types": ["node", "area"],
+      "description": "Sikh places of worship are marked by an icon representing a building topped by a khanda.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_sikh.svg"
+    },
+    {
+      "key": "religion",
+      "value": "shinto",
+      "object_types": ["node", "area"],
+      "description": "Shinto places of worship are marked by an icon representing a building topped by a torii.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_shinto.svg"
+    },
+    {
+      "key": "religion",
+      "value": "taoist",
+      "object_types": ["node", "area"],
+      "description": "Taoist places of worship are marked by an icon representing a building topped by a yin-yang symbol.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_taoist.svg"
+    },
+
     {
       "key": "highway",
       "value": "motorway",
@@ -448,6 +658,20 @@
       "value": "tertiary",
       "object_types": ["way"],
       "description": "🇮🇪 Roads belonging to non-primary routes are marked by a color-coded patch containing the ref=* tag.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "busway",
+      "object_types": ["way"],
+      "description": "Busways are styled with a purple solid line.",
+      "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "highway",
+      "value": "bus_guideway",
+      "object_types": ["way"],
+      "description": "Bus guideways are styled with a purple solid line.",
       "doc_url": "https://openmaptiles.org/schema/#network"
     }
   ]

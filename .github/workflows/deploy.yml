@@ -9,7 +9,9 @@ permissions:
   contents: read
   pages: write
   id-token: write
+concurrency: preview-${{ github.ref }}
 jobs:
+  # TODO remove old PRs from s3 bucket automatically
   build-and-deploy:
     runs-on: ubuntu-latest
     environment:
@@ -18,16 +20,20 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Use Node.js 18.x
+      - name: Use Node.js 18.16.1
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 18.16.1 #18.17.0 is buggy
       - name: Install and Build 🔧
+        # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
           npm ci --include=dev
           cp src/configs/config.aws.js src/config.js
           npm run build
           npm run style
+          npm run shields
+          mkdir -p dist/shield-docs
+          cp -r shieldlib/docs/* dist/shield-docs
       - name: Upload 🏗
         uses: actions/upload-pages-artifact@v1
         with:

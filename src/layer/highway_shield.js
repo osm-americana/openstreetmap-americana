@@ -3,6 +3,7 @@
 export const namedRouteNetworks = [
   "US:CT:Parkway",
   "US:KY:Parkway",
+  "US:NH:Turnpike",
   "US:NY:Parkway",
   "US:TX:Fort_Bend:FBCTRA",
   "US:TX:Harris:HCTRA",
@@ -51,7 +52,7 @@ for (var i = 1; i <= 6; i++) {
 
 let shieldLayout = {
   "text-rotation-alignment": "viewport-glyph",
-  "text-font": ["OpenHistorical"],
+  "text-font": ["Americana-Regular"],
   "text-field": shieldTextField,
   "text-anchor": "center",
   "text-letter-spacing": 0.7,

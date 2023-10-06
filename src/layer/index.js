@@ -2,6 +2,7 @@
 
 import * as Label from "../constants/label.js";
 
+import * as lyrAerialway from "./aerialway.js";
 import * as lyrAeroway from "./aeroway.js";
 import * as lyrBackground from "./background.js";
 import * as lyrBoundary from "./boundary.js";
@@ -77,7 +78,6 @@ export function build(locales) {
     lyrRoad.roadTunnel.fill(),
 
     lyrOneway.tunnel,
-    lyrOneway.tunnelLink,
 
     lyrFerry.ferry,
 
@@ -110,6 +110,7 @@ export function build(locales) {
 
     lyrRoad.minor.fill(),
     lyrRoad.minorToll.fill(),
+    lyrRoad.busway.fill(),
     lyrRoad.tertiary.fill(),
     lyrRoad.tertiaryToll.fill(),
     lyrRoad.secondary.fill(),
@@ -134,8 +135,9 @@ export function build(locales) {
 
     lyrRail.railway.fill(),
 
-    lyrOneway.road,
-    lyrOneway.link
+    lyrOneway.surface,
+
+    lyrAerialway.dragLift
   );
 
   layers.push(lyrBuilding.building);
@@ -167,6 +169,7 @@ export function build(locales) {
 
     lyrRoad.minorBridge.fill(),
     lyrRoad.minorTollBridge.fill(),
+    lyrRoad.buswayBridge.fill(),
     lyrRoad.tertiaryBridge.fill(),
     lyrRoad.tertiaryTollBridge.fill(),
     lyrRoad.secondaryBridge.fill(),
@@ -192,13 +195,15 @@ export function build(locales) {
     lyrRail.railwayBridge.fill(),
 
     lyrOneway.bridge,
-    lyrOneway.bridgeLink,
   ];
 
   layers.push(...lyrRail.getLayerSeparatedBridgeLayers(bridgeLayers));
 
   layers.push(
     //The labels at the end of the list draw on top of the layers at the beginning.
+    lyrAerialway.liftCasing,
+    lyrAerialway.lift,
+
     lyrBoundary.countryLabelLeft,
     lyrBoundary.countryLabelRight,
     lyrWater.waterwayLabel,

@@ -1,0 +1,86 @@
+name: Build PR Preview
+on:
+  pull_request:
+    branches: [main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  pull-requests: write
+  id-token: write
+  checks: write
+concurrency: preview-${{ github.ref }}
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Main Branch 🛎️
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Install and Build Main Branch 🔧
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
+      - name: Capture main branch usage statistics
+        id: main-stats
+        run: |
+          MAIN_STATS=$(node scripts/stats.js -j)
+          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Checkout PR Branch 🛎️
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.16.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.1 #18.17.0 is buggy
+      - name: Install and Build 🔧
+        # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
+          mkdir -p dist/shield-docs
+          cp -r shieldlib/docs/* dist/shield-docs
+      - name: Upload Build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: americana
+          path: dist/
+      - name: Capture PR branch usage statistics
+        id: pr-stats
+        run: |
+          PR_STATS=$(node scripts/stats.js -j)
+          echo "PR_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$PR_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: Compare Stats
+        id: compare-stats
+        run: |
+          mkdir -p pr
+          echo '${{ env.MAIN_STATS }}'
+          echo '${{ env.PR_STATS }}'
+          npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
+      - name: Save PR artifacts
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          echo $PR_NUMBER > pr/pr_number
+          echo $PR_SHA > pr/pr_sha
+          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.event.pull_request.head.sha }} for upload"
+      - name: Upload PR artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr_ci_artifacts
+          path: pr/
