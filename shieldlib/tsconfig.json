@@ -11,5 +11,5 @@
     "experimentalSpecifierResolution": "node"
   },
   "exclude": ["node_modules", "**/*.json"],
-  "include": ["src/**/*.ts", "scripts/**.ts"]
+  "include": ["src/**/*.ts", "scripts/**.ts", "src/shield.js", "src/shield.js"]
 }

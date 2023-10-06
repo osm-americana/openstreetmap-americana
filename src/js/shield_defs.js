@@ -512,7 +512,8 @@ export function loadShields() {
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
-    ["HIST"]
+    ["HIST"],
+    Color.shields.brown
   );
 
   // Federal Agencies
@@ -556,7 +557,11 @@ export function loadShields() {
     notext: true,
   };
 
-  shields["GLCT:Loop"] = banneredShield(shields["GLCT"], ["LOOP"]);
+  shields["GLCT:Loop"] = banneredShield(
+    shields["GLCT"],
+    ["LOOP"],
+    Color.shields.brown
+  );
 
   // Alaska
   shields["US:AK"] = {
@@ -768,7 +773,11 @@ export function loadShields() {
       bottom: 4,
     },
   };
-  shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
+  shields["US:CA:Business"] = banneredShield(
+    shields["US:CA"],
+    ["BUS"],
+    Color.shields.green
+  );
   shields["US:CA:CR"] = pentagonUpShield(
     3,
     15,
@@ -1173,7 +1182,8 @@ export function loadShields() {
       textColor: Color.shields.green,
       colorLighten: Color.shields.green,
     },
-    ["BUS"]
+    ["BUS"],
+    Color.shields.green
   );
 
   // Maine
@@ -1573,9 +1583,11 @@ export function loadShields() {
     spriteBlank: "shield_us_nj_ace_noref",
     notext: true,
   };
-  shields["US:NJ:ACE:Connector"] = banneredShield(shields["US:NJ:ACE"], [
-    "CONN",
-  ]);
+  shields["US:NJ:ACE:Connector"] = banneredShield(
+    shields["US:NJ:ACE"],
+    ["CONN"],
+    Color.shields.blue
+  );
   shields["US:NJ:GSP"] = {
     spriteBlank: "shield_us_nj_gsp_noref",
     notext: true,
@@ -1620,8 +1632,16 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.black
   );
-  shields["US:NJ:CR:Spur"] = banneredShield(shields["US:NJ:CR"], ["SPUR"]);
-  shields["US:NJ:CR:Truck"] = banneredShield(shields["US:NJ:CR"], ["TRK"]);
+  shields["US:NJ:CR:Spur"] = banneredShield(
+    shields["US:NJ:CR"],
+    ["SPUR"],
+    Color.shields.blue
+  );
+  shields["US:NJ:CR:Truck"] = banneredShield(
+    shields["US:NJ:CR"],
+    ["TRK"],
+    Color.shields.blue
+  );
 
   // New Mexico
   shields["US:NM"] = pillShield(
@@ -2129,9 +2149,21 @@ export function loadShields() {
       bottom: 3,
     },
   };
-  shields["US:SC:Truck"] = banneredShield(shields["US:SC"], ["TRK"]);
-  shields["US:SC:Business"] = banneredShield(shields["US:SC"], ["BUS"]);
-  shields["US:SC:Alternate"] = banneredShield(shields["US:SC"], ["ALT"]);
+  shields["US:SC:Truck"] = banneredShield(
+    shields["US:SC"],
+    ["TRK"],
+    Color.shields.blue
+  );
+  shields["US:SC:Business"] = banneredShield(
+    shields["US:SC"],
+    ["BUS"],
+    Color.shields.blue
+  );
+  shields["US:SC:Alternate"] = banneredShield(
+    shields["US:SC"],
+    ["ALT"],
+    Color.shields.blue
+  );
 
   // South Dakota
   shields["US:SD"] = {
@@ -2268,7 +2300,8 @@ export function loadShields() {
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
-    ["R"]
+    ["R"],
+    Color.shields.brown
   );
   shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
 
@@ -2277,22 +2310,31 @@ export function loadShields() {
     Color.shields.blue,
     Color.shields.white
   );
-  shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
-    "EXPR",
-  ]);
-  shields["US:TX:Loop:Toll"] = banneredShield(shields["US:TX:Toll"], ["LOOP"]);
-  shields["US:TX:Loop:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
-    "EXPR",
-    "LOOP",
-  ]);
+  shields["US:TX:Express:Toll"] = banneredShield(
+    shields["US:TX:Toll"],
+    ["EXPR"],
+    Color.shields.blue
+  );
+  shields["US:TX:Loop:Toll"] = banneredShield(
+    shields["US:TX:Toll"],
+    ["LOOP"],
+    Color.shields.blue
+  );
+  shields["US:TX:Loop:Express:Toll"] = banneredShield(
+    shields["US:TX:Toll"],
+    ["EXPR", "LOOP"],
+    Color.shields.blue
+  );
   shields["US:TX:CTRMA"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.yellow,
     Color.shields.white
   );
-  shields["US:TX:CTRMA:Express"] = banneredShield(shields["US:TX:CTRMA"], [
-    "EXPR",
-  ]);
+  shields["US:TX:CTRMA:Express"] = banneredShield(
+    shields["US:TX:CTRMA"],
+    ["EXPR"],
+    Color.shields.blue
+  );
   shields["US:TX:Montgomery:MCTRA"] = homePlateDownShield(
     5,
     Color.shields.blue,
@@ -2377,11 +2419,13 @@ export function loadShields() {
   );
   shields["US:TX:Jackson"] = banneredShield(
     roundedRectShield(Color.shields.blue, Color.shields.white),
-    ["CR"]
+    ["CR"],
+    Color.shields.blue
   );
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
     roundedRectShield(Color.shields.white, Color.shields.blue),
-    ["LOOP"]
+    ["LOOP"],
+    Color.shields.blue
   );
 
   // Utah
@@ -2431,7 +2475,12 @@ export function loadShields() {
       bottom: 2,
     },
   };
-  shields["US:VT:Alternate"] = banneredShield(shields["US:VT"], ["ALT"]);
+  shields["US:VT:Alternate"] = banneredShield(
+    shields["US:VT"],
+    ["ALT"],
+    Color.shields.green
+  );
+
   // Vermont routes town maintained sections - black and white ovals
   shields["US:VT:Town"] = ovalShield(Color.shields.white, Color.shields.black);
 
@@ -3504,7 +3553,8 @@ export function loadShields() {
       );
       shields[`AU:${state_or_territory}:ALT`] = banneredShield(
         roundedRectShield(Color.shields.green, Color.shields.yellow),
-        ["ALT"]
+        ["ALT"],
+        Color.shields.green
       );
       shields[`AU:${state_or_territory}:ALT_NR`] = banneredShield(
         homePlateDownShield(5, Color.shields.white, Color.shields.black),
@@ -3512,7 +3562,8 @@ export function loadShields() {
       );
       shields[`AU:${state_or_territory}:ALT_S`] = banneredShield(
         fishheadDownShield(Color.shields.blue, Color.shields.white),
-        ["ALT"]
+        ["ALT"],
+        Color.shields.blue
       );
     }
   );
