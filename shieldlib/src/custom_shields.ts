@@ -9,7 +9,7 @@ export function paBelt(
   r: ShieldRenderingContext,
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams
-) {
+): number {
   ShieldDraw.roundedRectangle(r, ctx, {
     fillColor: "white",
     strokeColor: "black",
@@ -38,7 +38,7 @@ export function paBelt(
 
   ctx.lineWidth = lineWidth;
   ctx.stroke();
-  return ctx;
+  return 20;
 }
 
 // Special case for Branson color-coded routes
@@ -46,7 +46,7 @@ export function bransonRoute(
   r: ShieldRenderingContext,
   ctx: CanvasRenderingContext2D,
   params: ShapeBlankParams
-) {
+): number {
   ShieldDraw.roundedRectangle(r, ctx, {
     fillColor: "#006747",
     strokeColor: "white",
@@ -73,7 +73,7 @@ export function bransonRoute(
 
   ctx.lineWidth = lineWidth;
   ctx.stroke();
-  return ctx;
+  return 20;
 }
 
 export function loadCustomShields() {

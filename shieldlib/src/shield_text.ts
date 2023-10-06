@@ -4,6 +4,7 @@ import * as Gfx from "./screen_gfx.js";
 import { ShieldRenderingContext } from "./shield_renderer.js";
 import {
   BoxPadding,
+  Dimension,
   ShieldDefinition,
   TextLayout,
   TextLayoutParameters,
@@ -18,11 +19,6 @@ const VerticalAlignment = {
 type VerticalAlignmentType =
   (typeof VerticalAlignment)[keyof typeof VerticalAlignment];
 
-interface Dimension {
-  width: number;
-  height: number;
-}
-
 type TextLayoutScaler = (
   availSize: Dimension,
   textSize: Dimension,
@@ -34,7 +30,7 @@ interface TextTransform {
   valign: VerticalAlignmentType;
 }
 
-interface TextPlacement {
+export interface TextPlacement {
   xBaseline: number;
   yBaseline: number;
   fontPx: number;
@@ -45,10 +41,6 @@ let noPadding: BoxPadding = {
   bottom: 0,
   left: 0,
   right: 0,
-};
-
-let bannerLayout: TextLayout = {
-  constraintFunc: "rectangle",
 };
 
 function ellipseScale(spaceBounds: Dimension, textBounds: Dimension): number {
@@ -157,7 +149,7 @@ function triangleDownTextConstraint(
  * @param {*} maxFontSize - maximum font size
  * @returns JOSN object containing (X,Y) draw position and font size
  */
-function layoutShieldText(
+export function layoutShieldText(
   r: ShieldRenderingContext,
   text: string,
   padding: BoxPadding,
@@ -239,7 +231,7 @@ const defaultDefForLayout: ShieldDefinition = {
     right: 0,
   },
   shapeBlank: {
-    drawFunc: "rectangle",
+    drawFunc: "rect",
     params: {
       fillColor: "white",
       strokeColor: "black",
@@ -341,104 +333,6 @@ function configureShieldText(
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
   ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
-}
-
-/**
- * Draw text on a modifier plate above a shield
- *
- * @param {*} r - rendering context
- * @param {*} ctx - graphics context to draw to
- * @param {*} text - text to draw
- * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
- */
-export function drawBannerText(
-  r: ShieldRenderingContext,
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  bannerIndex: number
-): void {
-  drawBannerTextComponent(r, ctx, text, bannerIndex, true);
-}
-
-/**
- * Draw drop shadow for text on a modifier plate above a shield
- *
- * @param {*} r - rendering context
- * @param {*} ctx - graphics context to draw to
- * @param {*} text - text to draw
- * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
- */
-export function drawBannerHaloText(
-  r: ShieldRenderingContext,
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  bannerIndex: number
-): void {
-  drawBannerTextComponent(r, ctx, text, bannerIndex, false);
-}
-
-/**
- * Banners are composed of two components: text on top, and a shadow beneath.
- *
- * @param {*} r - rendering context
- * @param {*} ctx - graphics context to draw to
- * @param {*} text - text to draw
- * @param {*} bannerIndex - plate position to draw, 0=top, incrementing
- * @param {*} textComponent - if true, draw the text.  If false, draw the halo
- */
-function drawBannerTextComponent(
-  r: ShieldRenderingContext,
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  bannerIndex: number,
-  textComponent: boolean
-): void {
-  const bannerPadding = {
-    top: r.options.bannerPadding,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  };
-
-  let bannerBounds: Dimension = {
-    width: ctx.canvas.width,
-    height: r.px(r.options.bannerHeight - r.options.bannerPadding),
-  };
-
-  let textLayout: TextPlacement = layoutShieldText(
-    r,
-    text,
-    bannerPadding,
-    bannerBounds,
-    bannerLayout
-  );
-
-  ctx.font = Gfx.shieldFont(textLayout.fontPx, r.options.shieldFont);
-  ctx.textBaseline = "top";
-  ctx.textAlign = "center";
-
-  if (textComponent) {
-    ctx.fillStyle = r.options.bannerTextColor;
-    ctx.fillText(
-      text,
-      textLayout.xBaseline,
-      textLayout.yBaseline +
-        bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
-    );
-  } else {
-    ctx.strokeStyle = ctx.shadowColor = r.options.bannerTextHaloColor;
-    ctx.shadowBlur = 0;
-    ctx.lineWidth = r.px(2);
-    ctx.strokeText(
-      text,
-      textLayout.xBaseline,
-      textLayout.yBaseline +
-        bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
-    );
-
-    ctx.shadowColor = null;
-    ctx.shadowBlur = null;
-  }
 }
 
 export function calculateTextWidth(
