@@ -1,1 +1,10 @@
 recursive: true
+extension:
+  - ts
+spec:
+  - test/**/*.js
+  - test/**/*.spec.ts
+require: ts-node/register
+node-option:
+  - loader=ts-node/esm
+  - experimental-specifier-resolution=node

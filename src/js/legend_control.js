@@ -1,17 +1,28 @@
 "use strict";
 
-import * as ShieldDraw from "./shield_canvas_draw.js";
+import { getDOMPixelRatio } from "@americana/maplibre-shield-generator";
 import * as Label from "../constants/label.js";
-import * as ShieldDef from "./shield_defs.js";
 
-import * as LegendConfig from "./legend_config.js";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 
 import * as maplibregl from "maplibre-gl";
 
 const maxPopupWidth = 30; /* em */
+const PXR = getDOMPixelRatio();
+/**
+ * Wikidata labels are normally lowercased so that they can appear in any
+ * context. Convert them to sentence case for consistency with the rest of the
+ * legend.
+ */
+function toSentenceCase(lowerCase, locale) {
+  return lowerCase[0].toLocaleUpperCase(locale) + lowerCase.substring(1);
+}
 
 export default class LegendControl {
+  constructor(shieldDefs) {
+    this._shieldDefs = shieldDefs;
+  }
+
   onAdd(map) {
     this._map = map;
 
@@ -72,13 +83,12 @@ export default class LegendControl {
     this.close();
 
     let contents = this.getContents();
-    let rows = contents.querySelectorAll(".legend-row");
     this._popup.setDOMContent(contents);
 
     let anchorCoordinate = this._map.unproject(anchor);
     this._popup.setLngLat(anchorCoordinate).addTo(this._map);
 
-    this.prettifyNetworkLabels(rows);
+    this.completeNetworkLabels();
 
     document.getElementById("legend-container").scrollTop = 0;
   }
@@ -107,6 +117,9 @@ export default class LegendControl {
     for (let data of this.sections) {
       let section = this.getSection(data);
       if (!section) continue;
+      if (data.id) {
+        section.id = `legend-section-${data.id}`;
+      }
 
       let container = template.getElementById("legend-container");
       container.appendChild(section);
@@ -143,7 +156,7 @@ export default class LegendControl {
     }
     if (!rows.length) return;
 
-    template.querySelector("tbody").replaceChildren(...rows);
+    template.querySelector(".legend-row-container").replaceChildren(...rows);
     if (!data.source) {
       template.querySelector("tfoot").remove();
     }
@@ -382,16 +395,13 @@ export default class LegendControl {
       let width = f.layer.paint["line-width"] ?? 1;
       let gapWidth = f.layer.paint["line-gap-width"];
       // Round the stroke width up to one point to ensure legibility.
-      return Math.max(
-        1 / ShieldDraw.PXR,
-        gapWidth ? width * 2 + gapWidth : width
-      );
+      return Math.max(1 / PXR, gapWidth ? width * 2 + gapWidth : width);
     };
     let lineWidths = lineFeatures.map(getLineWidth);
     let height = Math.max(...lineWidths);
 
     let svg = cell.querySelector("svg");
-    svg.style.height = `${Math.ceil(height)}px`;
+    svg.style.height = `${height}px`;
 
     for (let feature of lineFeatures) {
       let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -406,11 +416,29 @@ export default class LegendControl {
         (d) => d * simpleLineWidth
       );
 
+      let lineWidth = getLineWidth(feature);
+      let gapWidth = feature.layer.paint["line-gap-width"];
+      let clipPath;
+      if (gapWidth) {
+        let points = [
+          [0, -lineWidth / 2.0],
+          [100, -lineWidth / 2.0],
+          [100, -gapWidth / 2.0],
+          [0, -gapWidth / 2.0],
+          [0, gapWidth / 2.0],
+          [100, gapWidth / 2.0],
+          [100, lineWidth / 2.0],
+          [0, lineWidth / 2.0],
+        ].map((p) => `${p[0]}% ${p[1]}px`);
+        clipPath = `polygon(evenodd, ${points.join(", ")})`;
+      }
+
       Object.assign(line.style, {
         opacity: feature.layer.paint["line-opacity"] ?? 1,
         stroke: feature.layer.paint["line-color"] || fillColor,
         strokeDasharray: dashArray?.join(" "),
-        strokeWidth: getLineWidth(feature),
+        strokeWidth: lineWidth,
+        clipPath: clipPath,
       });
 
       svg.appendChild(line);
@@ -442,7 +470,7 @@ export default class LegendControl {
       }
       let networkImages = imagesByNetwork[image.network];
 
-      let shieldDef = ShieldDef.shields[image.network];
+      let shieldDef = this._shieldDefs[image.network];
       if (image.ref && shieldDef?.overrideByRef?.[image.ref]) {
         // Store a different image for each override in the shield definition.
         if (!networkImages.overridesByRef[image.ref]) {
@@ -465,29 +493,48 @@ export default class LegendControl {
       }
     }
 
+    // Gets all the relevant images, sorted from generic to specialized.
+    let getSortedImages = (network) => {
+      let images = imagesByNetwork[network];
+      if (!images) return [];
+      return [
+        images.noRef,
+        images.ref,
+        ...Object.values(images.overridesByRef),
+      ].filter((i) => i);
+    };
+
     // For each country, populate an array with shield metadata in the same
     // order as in the shield definitions, appending all the unrecognized
     // networks sorted in alphabetical order.
     let networks = [
-      ...Object.keys(ShieldDef.shields),
+      ...Object.keys(this._shieldDefs),
       ...[...unrecognizedNetworks.values()].sort(),
     ];
     let countries = new Set();
     let shieldRowsByCountry = {};
     let otherShieldRows = [];
+    let seenQIDs = new Set();
     for (let network of networks) {
       // Skip shield definitions for which no shield is currently visible.
       if (!(network in imagesByNetwork)) continue;
 
-      // Get all the relevant images, sorted from generic to specialized.
-      let images = imagesByNetwork[network];
-      let sortedImages = [
-        images.noRef,
-        images.ref,
-        ...Object.values(images.overridesByRef),
-      ].filter((i) => i);
+      // Skip any network whose Wikidata QID has already been added.
+      let binding =
+        this._networkMetadata?.[network] || this._ukNetworkMetadata?.[network];
+      let qid = binding?.network.value;
+      if (qid) {
+        if (seenQIDs.has(qid)) continue;
+        seenQIDs.add(qid);
+      }
 
-      let row = this.getShieldRow(network, sortedImages);
+      // Add the images for this network and any network associated with the same QID.
+      let relatedNetworks = (qid && this._networksByQID[qid]) || [network];
+      let sortedImages = relatedNetworks.flatMap((network) =>
+        getSortedImages(network)
+      );
+
+      let row = this.getShieldRow(network, sortedImages, binding);
       if (!row) continue;
 
       // Extract an ISO 3166-1 alpha-2 country code from the network.
@@ -547,9 +594,10 @@ export default class LegendControl {
    *
    * @param network The `network=*` value associated with the style images.
    * @param names An array of style image names.
+   * @param binding Wikidata metadata about the network.
    * @returns An HTML table row representing the route shield, or nothing if the style does not render the given network.
    */
-  getShieldRow(network, names) {
+  getShieldRow(network, names, binding) {
     let images = names
       .map((n) => this._map.style.getImage(n))
       .map((i) => this.getImageFromStyle(i))
@@ -569,7 +617,43 @@ export default class LegendControl {
     code.textContent = network;
     descriptionCell.appendChild(code);
 
+    this.prettifyNetworkLabel(row, binding);
+
     return row;
+  }
+
+  /**
+   * Inserts a human-readable description in the given table row.
+   */
+  prettifyNetworkLabel(row, binding) {
+    row.dataset.pending = !binding;
+    if (!binding) return;
+
+    let descriptionCell = row.querySelector(".description");
+
+    let link = document.createElement("a");
+    link.href = binding.network.value;
+    link.target = "_blank";
+    let locale = binding.networkLabel["xml:lang"];
+    link.textContent = toSentenceCase(binding.networkLabel.value, locale);
+    if (locale) {
+      link.setAttribute("lang", locale);
+      descriptionCell.replaceChildren(link);
+
+      let locales = Label.getLocales();
+      if (locale.match(/^\w+/)?.[0] !== locales[0].match(/^\w+/)?.[0]) {
+        let languageTag = document.createElement("span");
+        languageTag.className = "language";
+
+        let languageNames = new Intl.DisplayNames(locales, {
+          type: "language",
+        });
+        languageTag.textContent = languageNames.of(locale);
+        descriptionCell.append(" ", languageTag);
+      }
+    } else {
+      descriptionCell.querySelector("code").replaceChildren(link);
+    }
   }
 
   /**
@@ -602,8 +686,8 @@ export default class LegendControl {
 
     // Embed the canvas in an HTML image of the same size.
     let img = new Image(
-      (imageData.width * iconSize) / ShieldDraw.PXR,
-      (imageData.height * iconSize) / ShieldDraw.PXR
+      (imageData.width * iconSize) / PXR,
+      (imageData.height * iconSize) / PXR
     );
     img.src = canvas.toDataURL("image/png");
     img.className = "shield";
@@ -613,61 +697,28 @@ export default class LegendControl {
 
   /**
    * Inserts human-readable descriptions in each of the given table rows.
-   *
-   * @param rows An array of table rows containing placeholders for descriptions.
    */
-  async prettifyNetworkLabels(rows) {
+  async completeNetworkLabels() {
     let networkMetadata = await this.getNetworkMetadata();
     if (!networkMetadata) return;
 
+    let section = document.getElementById("legend-section-shields");
+    let rowContainer = section?.querySelector(".legend-row-container");
+    let pendingRows =
+      rowContainer?.querySelectorAll('[data-pending="true"]') ?? [];
+    if (pendingRows.length === 0) return;
+
     // If any synthesized British networks are visible, also query Wikidata for
     // descriptions of those networks.
-    for (let row of rows) {
+    for (let row of pendingRows) {
       let network = row.dataset.network;
       if (network?.startsWith("omt-gb-")) {
-        let ukNetworkMetadata = await this.getUKNetworkMetadata();
-        Object.assign(networkMetadata, ukNetworkMetadata);
+        await this.getUKNetworkMetadata();
         break;
       }
     }
 
-    let locales = Label.getLocales();
-    let languageNames = new Intl.DisplayNames(locales, {
-      type: "language",
-    });
-
-    // Wikidata labels are normally lowercased so that they can appear in any
-    // context. Convert them to sentence case for consistency with the rest of
-    // the legend.
-    let toSentenceCase = (lowerCase, locale) =>
-      lowerCase[0].toLocaleUpperCase(locale) + lowerCase.substring(1);
-    for (let row of rows) {
-      let network = row.dataset.network;
-      let binding = networkMetadata[network];
-      if (!binding) continue;
-
-      let descriptionCell = row.querySelector(".description");
-
-      let link = document.createElement("a");
-      link.href = binding.network.value;
-      link.target = "_blank";
-      let locale = binding.networkLabel["xml:lang"];
-      link.textContent = toSentenceCase(binding.networkLabel.value, locale);
-      if (locale) {
-        link.setAttribute("lang", locale);
-        descriptionCell.replaceChildren(link);
-
-        if (locale.match(/^\w+/)?.[0] !== locales[0].match(/^\w+/)?.[0]) {
-          let languageTag = document.createElement("span");
-          languageTag.className = "language";
-          languageTag.textContent = languageNames.of(locale);
-          descriptionCell.appendChild(document.createTextNode(" "));
-          descriptionCell.appendChild(languageTag);
-        }
-      } else {
-        descriptionCell.querySelector("code").replaceChildren(link);
-      }
-    }
+    rowContainer.replaceChildren(...this.getShieldRows());
   }
 
   /**
@@ -688,6 +739,17 @@ export default class LegendControl {
         return [binding.value.value, binding];
       })
     );
+
+    let networksByQID = {};
+    for (let binding of json.results.bindings) {
+      let qid = binding.network.value;
+      if (!(qid in networksByQID)) {
+        networksByQID[qid] = [];
+      }
+      networksByQID[qid].push(binding.value.value);
+    }
+    this._networksByQID = networksByQID;
+
     return this._networkMetadata;
   }
 
@@ -716,6 +778,7 @@ export default class LegendControl {
   purgeNetworkMetadata() {
     delete this._networkMetadata;
     delete this._ukNetworkMetadata;
+    delete this._networksByQID;
   }
 
   /**

@@ -1,6 +1,7 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
+import * as Label from "../constants/label.js";
 
 export const city = {
   id: "boundary_city",
@@ -240,6 +241,72 @@ export const country = {
   },
   source: "openmaptiles",
   "source-layer": "boundary",
+};
+
+/**
+ * Returns an expression that converts the given country code to a
+ * human-readable name in the user's preferred language.
+ *
+ * @param code An expression that evaluates to an ISO 3166-1 alpha-3 country
+ *  code.
+ */
+function getCountryName(code) {
+  return [
+    "let",
+    "code",
+    code,
+    "countryNamesByCode",
+    ["literal", Label.countryNamesByCode],
+    [
+      "coalesce",
+      ["get", ["var", "code"], ["var", "countryNamesByCode"]],
+      // Fall back to the country code in parentheses.
+      ["concat", "(", ["var", "code"], ")"],
+    ],
+  ];
+}
+
+export const countryLabelLeft = {
+  id: "boundary_country_label_left",
+  type: "symbol",
+  paint: {
+    "text-color": {
+      base: 1.2,
+      stops: [
+        [3, `hsl(${Color.hueBorder}, 2%, 24%)`],
+        [7, `hsl(${Color.hueBorder}, 2%, 18%)`],
+      ],
+    },
+  },
+  layout: {
+    "symbol-placement": "line",
+    "text-font": ["Americana-Bold"],
+    "text-size": {
+      stops: [
+        [3, 6],
+        [7, 10],
+      ],
+    },
+    "text-field": getCountryName(["get", "adm0_l"]),
+    "text-offset": [0, -1],
+    "text-max-angle": 30,
+    "text-letter-spacing": 0.1,
+    "text-ignore-placement": true,
+  },
+  filter: ["==", ["get", "maritime"], 0],
+  maxzoom: 24,
+  source: "openmaptiles",
+  "source-layer": "boundary",
+};
+
+export const countryLabelRight = {
+  ...countryLabelLeft,
+  id: "boundary_country_label_right",
+  layout: {
+    ...countryLabelLeft.layout,
+    "text-field": getCountryName(["get", "adm0_r"]),
+    "text-offset": [0, 1],
+  },
 };
 
 export const legendEntries = [
