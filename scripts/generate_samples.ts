@@ -53,9 +53,7 @@ const context = await browser.newContext();
 const page = await context.newPage();
 
 for (const screenshot of screenshots) {
-  // Set viewport and double deviceScaleFactor to get a closer shot of the map
   await page.setViewportSize(screenshot.viewport);
-
   await createImage(screenshot);
 }
 
