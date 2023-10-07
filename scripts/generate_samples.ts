@@ -68,7 +68,6 @@ async function createImage(screenshot: SampleSpecification) {
       timeout: 3000,
     });
 
-    // Wait for 1.5 seconds on 3D model examples, since this takes longer to load.
     const waitTime = 500;
     console.log(`waiting for ${waitTime} ms`);
     await page.waitForTimeout(waitTime);
