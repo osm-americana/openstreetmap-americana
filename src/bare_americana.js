@@ -2,7 +2,7 @@
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
-import { createMap } from "./js/map_builder.js";
+import { createMap, loadRTLPlugin } from "./js/map_builder.js";
 
 loadRTLPlugin();
 

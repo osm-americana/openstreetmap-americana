@@ -31,7 +31,7 @@ loadRTLPlugin();
 export const map = createMap(
   window,
   (shields) => shieldDefLoad(shields),
-  [(-94, 40.5)],
+  [-94, 40.5],
   4
 );
 

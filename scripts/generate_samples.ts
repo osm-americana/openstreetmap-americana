@@ -9,21 +9,20 @@ declare global {
   }
 }
 
-type LocationClip = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
 type SampleSpecification = {
+  /** location on the map, a string in the format "z/lat/lon" */
   location: string;
+  /** name of this screenshot, used for the filename */
   name: string;
+  /** Size in pixels of the clip */
   viewport: {
+    /** Width of the clip */
     width: number;
+    /** height of the clip */
     height: number;
   };
-  clip: LocationClip;
+  /** If true, include the Americana demo map controls in the screenshot */
+  controls?: boolean;
 };
 
 // Load list of locations to take map screenshots
@@ -57,7 +56,11 @@ for (const screenshot of screenshots) {
 }
 
 async function createImage(screenshot: SampleSpecification) {
-  await page.goto(`http://localhost:1776/#map=${screenshot.location}`);
+  const pagePath: string = screenshot.controls ? "" : "bare_map.html";
+
+  await page.goto(
+    `http://localhost:1776/${pagePath}#map=${screenshot.location}`
+  );
 
   // Wait for map to load, then wait two more seconds for images, etc. to load.
   try {
@@ -77,7 +80,6 @@ async function createImage(screenshot: SampleSpecification) {
     await page.screenshot({
       path: `${sampleFolder}/${screenshot.name}.png`,
       type: "png",
-      clip: screenshot.clip,
     });
     console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
   } catch (err) {
