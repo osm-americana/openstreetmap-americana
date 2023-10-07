@@ -15,7 +15,7 @@ import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
-import { createMap, loadRTLPlugin } from "./js/map_builder.js";
+import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
 
 function upgradeLegacyHash() {
   let hash = window.location.hash.substr(1);
@@ -28,12 +28,15 @@ upgradeLegacyHash();
 
 loadRTLPlugin();
 
-export const map = createMap(
-  window,
-  (shields) => shieldDefLoad(shields),
-  [-94, 40.5],
-  4
-);
+export const map = createMap(window, (shields) => shieldDefLoad(shields), {
+  container: "map", // container id
+  hash: "map",
+  antialias: true,
+  style: buildStyle(),
+  center: [-94, 40.5],
+  zoom: 4,
+  attributionControl: false,
+});
 
 let options = {};
 

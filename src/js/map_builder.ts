@@ -16,7 +16,7 @@ import {
 import * as Poi from "../js/poi.js";
 import * as Label from "../constants/label.js";
 import * as Style from "../js/style.js";
-import maplibregl, { LngLatLike, Map, StyleSpecification } from "maplibre-gl";
+import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
 
 export function buildStyle(): StyleSpecification {
   var getUrl = window.location;
@@ -56,19 +56,10 @@ export function loadRTLPlugin(): void {
 export function createMap(
   window,
   shieldDefCallback: (shields: ShieldDefinitions) => void,
-  center: LngLatLike,
-  zoom: number
+  options: MapOptions
 ): Map {
   window.maplibregl = maplibregl;
-  let map: Map = (window.map = new maplibregl.Map({
-    container: "map", // container id
-    hash: "map",
-    antialias: true,
-    style: buildStyle(),
-    center, // starting position [lng, lat]
-    zoom, // starting zoom
-    attributionControl: false,
-  }));
+  let map: Map = (window.map = new maplibregl.Map(options));
 
   const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
     .filterImageID(shieldPredicate)

@@ -2,16 +2,20 @@
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
-import { createMap, loadRTLPlugin } from "./js/map_builder.js";
+import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
 
 loadRTLPlugin();
 
-export const map = createMap(
-  window,
-  (shields) => shieldDefLoad(),
-  [-94, 40.5],
-  4
-);
+export const map = createMap(window, (shields) => shieldDefLoad(), {
+  container: "map", // container id
+  hash: "map",
+  antialias: true,
+  style: buildStyle(),
+  center: [-94, 40.5],
+  zoom: 4,
+  fadeDuration: 0,
+  attributionControl: false,
+});
 
 function shieldDefLoad() {
   if (window.top === window.self) {
