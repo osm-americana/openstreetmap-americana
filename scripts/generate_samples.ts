@@ -5,7 +5,7 @@ import type * as maplibre from "maplibre-gl";
 // Declare a global augmentation for the Window interface
 declare global {
   interface Window {
-    map?: Map;
+    map?: maplibre.Map;
   }
 }
 
