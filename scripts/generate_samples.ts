@@ -1,12 +1,11 @@
 import fs from "node:fs";
 import { chromium } from "@playwright/test";
+import { Map } from "maplibre-gl";
 
 // Declare a global augmentation for the Window interface
 declare global {
   interface Window {
-    map?: {
-      loaded: () => boolean;
-    };
+    map?: Map;
   }
 }
 
@@ -67,7 +66,7 @@ async function createImage(screenshot: SampleSpecification) {
     });
 
     // Wait for 1.5 seconds on 3D model examples, since this takes longer to load.
-    const waitTime = 1500;
+    const waitTime = 500;
     console.log(`waiting for ${waitTime} ms`);
     await page.waitForTimeout(waitTime);
   } catch (e) {
