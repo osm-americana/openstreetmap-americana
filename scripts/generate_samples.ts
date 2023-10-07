@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { chromium } from "@playwright/test";
-import { Map } from "maplibre-gl";
+import type * as maplibre from "maplibre-gl";
 
 // Declare a global augmentation for the Window interface
 declare global {
