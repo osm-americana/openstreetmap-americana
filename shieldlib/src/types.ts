@@ -19,6 +19,10 @@ export type Exclusive<T, U> =
 export interface ShieldDefinitionBase {
   /** Color of text drawn on a shield */
   textColor?: string;
+  /** Color of banner text */
+  bannerTextColor?: string;
+  /** Color of banner text halo */
+  bannerTextHaloColor?: string;
   /** Padding around shield text */
   padding?: BoxPadding;
   /** Algorithm for expanding text to fill a shield background */
@@ -217,4 +221,9 @@ export interface GraphicsFactory {
    * So this function will always return 1 or 2 as appropriate based on DPR.
    */
   pixelRatio(): number;
+}
+
+export interface Dimension {
+  width: number;
+  height: number;
 }

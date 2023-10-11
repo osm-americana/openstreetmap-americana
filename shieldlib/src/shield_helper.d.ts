@@ -141,5 +141,6 @@ export declare function pillShield(
 
 export function banneredShield(
   baseDef: ShieldDefinition,
-  banners: string[]
+  banners: string[],
+  bannerColor?: string
 ): ShieldDefinition;
