@@ -37,7 +37,7 @@
     "test": "ts-mocha"
   },
   "dependencies": {
-    "@americana/maplibre-shield-generator": "file:shieldlib",
+    "@americana/maplibre-shield-generator": "*",
     "color-rgba": "^2.4.0",
     "events": "^3.3.0",
     "fonteditor-core": "^2.1.11",
