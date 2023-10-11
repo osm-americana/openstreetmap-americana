@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build:shieldlib": "cd shieldlib && node scripts/build.js && npm run docs",
-    "build:code": "exec ts-node scripts/build",
+    "build:code": "ts-node scripts/build",
     "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
     "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
     "clean-download": "shx rm -rf download",
@@ -33,7 +33,7 @@
     "stats": "node scripts/stats.js",
     "style": "node scripts/generate_style.js -o dist/style.json",
     "status_map": "node scripts/status_map.js",
-    "taginfo": "exec ts-node scripts/taginfo",
+    "taginfo": "ts-node scripts/taginfo",
     "test": "ts-mocha"
   },
   "dependencies": {
