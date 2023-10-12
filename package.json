@@ -11,7 +11,7 @@
     "shieldlib"
   ],
   "scripts": {
-    "build:shieldlib": "cd shieldlib && node scripts/build.js && npm run docs",
+    "build:shieldlib": "cd shieldlib && run-s build:code docs",
     "build:code": "ts-node scripts/build",
     "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
     "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
@@ -73,7 +73,6 @@
     "svgo": "^2.8.0",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.25.2",
     "typescript": "^4.9.5"
   },
   "engines": {
