@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Noto Sans Condensed';
+    src: url('notosans-condensedmedium-prop-nums-webfont.woff2') format('woff2'),
+         url('notosans-condensedmedium-prop-nums-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}

@@ -1,4 +1,4 @@
-import { stat, copyFile, mkdir } from "node:fs/promises";
+import { stat, copyFile, cp, mkdir } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
 import esbuild, { BuildContext, BuildOptions } from "esbuild";
@@ -30,6 +30,7 @@ const buildWith = async (
       copyFile(`src/${f}`, `dist/${f}`)
     )
   );
+  await cp("src/fonts", "dist/fonts", {recursive: true});
 
   const localConfig = await maybeLocalConfig();
 
