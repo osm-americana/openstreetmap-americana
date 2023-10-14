@@ -1,5 +1,4 @@
 import { stat, copyFile, cp, mkdir } from "node:fs/promises";
-import { pathToFileURL } from "node:url";
 
 import esbuild, { BuildContext, BuildOptions } from "esbuild";
 
@@ -26,7 +25,7 @@ const buildWith = async (
   await mkdir("dist", { recursive: true });
 
   await Promise.all(
-    ["index.html", "shieldtest.html", "favicon.ico"].map((f) =>
+    ["index.html", "bare_map.html", "shieldtest.html", "favicon.ico"].map((f) =>
       copyFile(`src/${f}`, `dist/${f}`)
     )
   );
@@ -35,7 +34,11 @@ const buildWith = async (
   const localConfig = await maybeLocalConfig();
 
   const options = {
-    entryPoints: ["src/americana.js", "src/shieldtest.js"],
+    entryPoints: [
+      "src/americana.js",
+      "src/bare_americana.js",
+      "src/shieldtest.js",
+    ],
     format: "esm",
     bundle: true,
     minify: true,
