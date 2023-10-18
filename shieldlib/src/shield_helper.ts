@@ -188,12 +188,12 @@ export function fishheadDownShield(
         outlineWidth: 1,
       },
     },
-    textLayout: textConstraint("roundedRect"),
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 3,
-      right: 3,
-      top: 2,
-      bottom: 6,
+      left: 1,
+      right: 1,
+      top: 1,
+      bottom: 5,
     },
     textColor,
   };

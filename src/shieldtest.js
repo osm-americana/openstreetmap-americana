@@ -67,8 +67,8 @@ let networks = [
   // Basic Angular Shapes
   "CA:ON:secondary",
   "US:NE",
-  "US:MN:Hennepin:Park_Access",
   "CA:MB:Winnipeg",
+  "US:MN:Hennepin:Park_Access",
   "US:PA",
   "US:PA:Turnpike",
 
@@ -120,7 +120,6 @@ let networks = [
   "US:PR:primary",
   "HK",
   "CA:QC:A",
-  "CA:NS:H",
 
   "NZ:SH",
   "AU:WA:S",
@@ -151,10 +150,10 @@ let networks = [
 
   // Fancy Rectangles
   "US:AK",
+  "US:ID",
   "US:KY:Parkway",
   "US:MD",
   "US:MN",
-  "US:ID",
   "US:CO",
   "US:CO:E470",
   "US:DC",
