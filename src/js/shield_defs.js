@@ -3756,7 +3756,7 @@ export function loadShields() {
       bannerHeight: 9,
       bannerPadding: 1,
       shieldFont:
-        '"Noto Sans Condensed", "Noto Sans Armenian Condensed", "sans-serif-condensed", "Arial Narrow", sans-serif',
+        '"Noto Sans Condensed", "Noto Sans Armenian Condensed", sans-serif-condensed, "Arial Narrow", sans-serif',
       shieldSize: 20,
     },
   };
