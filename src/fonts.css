@@ -9,9 +9,9 @@
 }
 @font-face {
   font-family: "Noto Sans Armenian Condensed";
-  src: url("https://github.com/osm-americana/web-fonts/raw/main/noto/NotoSansArmenian-CondensedMedium-PropNums.woff2")
+  src: url("https://osm-americana.github.io/web-fonts/noto/NotoSansArmenian-CondensedMedium-PropNums.woff2")
       format("woff2"),
-    url("https://github.com/osm-americana/web-fonts/raw/main/noto/NotoSansArmenian-CondensedMedium-PropNums.woff")
+    url("https://osm-americana.github.io/web-fonts/noto/NotoSansArmenian-CondensedMedium-PropNums.woff")
       format("woff");
   font-weight: 500;
   font-style: normal;
