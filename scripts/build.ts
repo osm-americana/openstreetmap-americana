@@ -25,9 +25,13 @@ const buildWith = async (
   await mkdir("dist", { recursive: true });
 
   await Promise.all(
-    ["index.html", "bare_map.html", "shieldtest.html", "favicon.ico"].map((f) =>
-      copyFile(`src/${f}`, `dist/${f}`)
-    )
+    [
+      "index.html",
+      "bare_map.html",
+      "shieldtest.html",
+      "favicon.ico",
+      "fonts.css",
+    ].map((f) => copyFile(`src/${f}`, `dist/${f}`))
   );
 
   const localConfig = await maybeLocalConfig();

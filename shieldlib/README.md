@@ -87,13 +87,13 @@ The structure is as follows:
       "bannerPadding": 1,
       "bannerTextColor": "black",
       "bannerTextHaloColor": "white",
-      "shieldFont": "sans-serif-condensed, 'Arial Narrow', sans-serif",
+      "shieldFont": "'Noto Sans Condensed', sans-serif-condensed, 'Arial Narrow', sans-serif",
       "shieldSize": 20
     },
     "default": { ...definition },
     "network_1": { ...definition },
     "network_2": { ...definition },
-    "network_2": { ...definition }
+    "network_3": { ...definition }
 }
 
 ```
@@ -104,7 +104,7 @@ The options block contains global parameters that apply across all shield drawin
 - **`bannerPadding`**: padding between each banner
 - **`bannerTextColor`**: color to draw text banners above the shield
 - **`bannerTextHaloColor`**: color to draw an outline around the text banner
-- **`shieldFont`**: font to use for shield text and banners
+- **`shieldFont`**: ordered list of fonts to use for shield text and banners. This project uses Noto Sans Condensed by default, hosted as a downloadable web font on [another repository](https://github.com/osm-americana/web-fonts).
 - **`shieldSize`**: "standard" size to use for shields in 1x pixels. However, some shields may diverge, for example, drawn diamond shields are drawn slightly larger for visual similarity with squares.
 
 You should create one definition entry for each network. The entry key must match the encoded `network` value exactly. The "default" network defines what should be drawn if there's no definition for a particular network. A network definiton can contain any combination of the following parameters:
