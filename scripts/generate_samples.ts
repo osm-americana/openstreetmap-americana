@@ -1,30 +1,28 @@
 import fs from "node:fs";
 import { chromium } from "@playwright/test";
+import type * as maplibre from "maplibre-gl";
 
 // Declare a global augmentation for the Window interface
 declare global {
   interface Window {
-    map?: {
-      loaded: () => boolean;
-    };
+    map?: maplibre.Map;
   }
 }
 
-type LocationClip = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
 type SampleSpecification = {
+  /** location on the map, a string in the format "z/lat/lon" */
   location: string;
+  /** name of this screenshot, used for the filename */
   name: string;
+  /** Size in pixels of the clip */
   viewport: {
+    /** Width of the clip */
     width: number;
+    /** height of the clip */
     height: number;
   };
-  clip: LocationClip;
+  /** If true, include the Americana demo map controls in the screenshot */
+  controls?: boolean;
 };
 
 // Load list of locations to take map screenshots
@@ -58,18 +56,17 @@ for (const screenshot of screenshots) {
 }
 
 async function createImage(screenshot: SampleSpecification) {
-  await page.goto(`http://localhost:1776/#map=${screenshot.location}`);
+  const pagePath: string = screenshot.controls ? "" : "bare_map.html";
+
+  await page.goto(
+    `http://localhost:1776/${pagePath}#map=${screenshot.location}`
+  );
 
   // Wait for map to load, then wait two more seconds for images, etc. to load.
   try {
     await page.waitForFunction(() => window.map?.loaded(), {
       timeout: 3000,
     });
-
-    // Wait for 1.5 seconds on 3D model examples, since this takes longer to load.
-    const waitTime = 1500;
-    console.log(`waiting for ${waitTime} ms`);
-    await page.waitForTimeout(waitTime);
   } catch (e) {
     console.log(`Timed out waiting for map load`);
   }
@@ -78,7 +75,6 @@ async function createImage(screenshot: SampleSpecification) {
     await page.screenshot({
       path: `${sampleFolder}/${screenshot.name}.png`,
       type: "png",
-      clip: screenshot.clip,
     });
     console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
   } catch (err) {

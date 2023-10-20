@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Noto Sans Condensed";
+  src: url("https://osm-americana.github.io/web-fonts/noto/NotoSans-CondensedMedium-PropNums.woff2")
+      format("woff2"),
+    url("https://osm-americana.github.io/web-fonts/noto/NotoSans-CondensedMedium-PropNums.woff")
+      format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Noto Sans Armenian Condensed";
+  src: url("https://osm-americana.github.io/web-fonts/noto/NotoSansArmenian-CondensedMedium-PropNums.woff2")
+      format("woff2"),
+    url("https://osm-americana.github.io/web-fonts/noto/NotoSansArmenian-CondensedMedium-PropNums.woff")
+      format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
