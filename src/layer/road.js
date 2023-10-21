@@ -68,48 +68,7 @@ function combineConstraints(constraint1, constraint2) {
   return ["all", constraint1, constraint2];
 }
 
-const bridgeCasingOpacity = [
-  "match",
-  getBrunnel,
-  "bridge",
-  [...expresswaySelector, 1, 0.3],
-  1,
-];
-
-const casingOpacity = [
-  "step",
-  ["zoom"],
-  [...linkSelector, 0, ["match", ["get", "network"], "us-interstate", 1, 0]],
-  minZoomMotorwayTrunk,
-  [...linkSelector, 0, [...classSelector, ["motorway", "trunk"], 1, 0]],
-  minZoomPrimary,
-  [...classSelector, ["motorway", "trunk", "primary"], 1, 0],
-  minZoomSecondary,
-  [...classSelector, ["motorway", "trunk", "primary", "secondary"], 1, 0],
-  minZoomTertiary,
-  [
-    ...classSelector,
-    [
-      "motorway",
-      "trunk",
-      "primary",
-      "secondary",
-      "tertiary",
-      "busway",
-      "bus_guideway",
-    ],
-    1,
-    0,
-  ],
-  minZoomMinor,
-  [...classSelector, "service", 0, 1],
-  minZoomService,
-  [...classSelector, "service", [...smallServiceSelector, 0, 1], 1],
-  minZoomSmallService,
-  bridgeCasingOpacity,
-];
-
-const fillOpacity = [
+const opacity = [
   "step",
   ["zoom"],
   [...linkSelector, 0, ["match", ["get", "network"], "us-interstate", 1, 0]],
@@ -468,7 +427,7 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": fillOpacity,
+      "line-opacity": opacity,
       "line-color": this.fillColor,
       "line-width": [
         "interpolate",
@@ -495,7 +454,7 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": casingOpacity,
+      "line-opacity": opacity,
       "line-color": this.casingColor,
       "line-width": [
         "interpolate",
@@ -527,7 +486,7 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": fillOpacity,
+      "line-opacity": opacity,
       "line-dasharray": [4, 4],
       "line-color": roadSurfaceColor,
       "line-width": [
