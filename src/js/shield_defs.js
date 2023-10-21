@@ -2630,6 +2630,7 @@ export function loadShields() {
     Color.shields.black
   );
   [
+    "Albany",
     "Big_Horn",
     "Carbon",
     "Converse",
