@@ -2169,6 +2169,8 @@ export function loadShields() {
       bottom: 5,
     },
   };
+  shields["US:SD:Business"] = banneredShield(shields["US:SD"], ["BUS"]);
+  shields["US:SD:Truck"] = banneredShield(shields["US:SD"], ["TRK"]);
   [
     "Beadle",
     "Bon_Homme",
