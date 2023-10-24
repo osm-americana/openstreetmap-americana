@@ -71,8 +71,8 @@ export function loadShields() {
     spriteBlank: ["shield_badge_2", "shield_badge_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 2,
+      left: 3,
+      right: 3,
       top: 4,
       bottom: 5,
     },
@@ -82,8 +82,8 @@ export function loadShields() {
     spriteBlank: ["shield_badge_crossbar_2", "shield_badge_crossbar_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 1,
-      right: 1,
+      left: 3,
+      right: 3,
       top: 6,
       bottom: 4,
     },
@@ -106,19 +106,18 @@ export function loadShields() {
 
   // Canada
   shields["CA:transcanada"] = {
-    spriteBlank: "shield_ca_tch",
-    textLayout: textConstraint("ellipse"),
+    spriteBlank: ["shield_ca_tch_2", "shield_ca_tch_3"],
     textColor: Color.shields.green,
     padding: {
-      left: 2,
-      right: 2,
-      top: 5,
-      bottom: 4,
+      left: 5,
+      right: 5,
+      top: 7,
+      bottom: 5,
     },
   };
   shields["CA:transcanada:namedRoute"] = {
     noref: {
-      spriteBlank: "shield_ca_tch",
+      spriteBlank: "shield_ca_tch_2",
     },
   };
 
@@ -140,10 +139,10 @@ export function loadShields() {
     spriteBlank: ["shield_ca_bc_2", "shield_ca_bc_3"],
     textColor: Color.shields.blue,
     padding: {
-      left: 3.5,
-      right: 3.5,
-      top: 5,
-      bottom: 4,
+      left: 3,
+      right: 3,
+      top: 5.5,
+      bottom: 4.5,
     },
   };
 
@@ -159,16 +158,13 @@ export function loadShields() {
     Color.shields.white,
     30
   );
-  shields["CA:MB:Winnipeg"] = {
-    spriteBlank: "shield_ca_mb_winnipeg",
-    textColor: Color.shields.black,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 3,
-    },
-  };
+  shields["CA:MB:Winnipeg"] = trapezoidDownShield(
+    10,
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2
+  );
 
   // New Brunswick
   shields["CA:NB:tertiary"] = {
@@ -176,7 +172,7 @@ export function loadShields() {
     textColor: Color.shields.black,
     padding: {
       left: 4,
-      right: 4,
+      right: 5,
       top: 5,
       bottom: 5,
     },
@@ -198,16 +194,11 @@ export function loadShields() {
   );
 
   // Nova Scotia
-  shields["CA:NS:H"] = {
-    spriteBlank: "shield_ca_ns_h",
-    textColor: Color.shields.white,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 6.5,
-      bottom: 4,
-    },
-  };
+  shields["CA:NS:H"] = escutcheonDownShield(
+    12,
+    Color.shields.blue,
+    Color.shields.white
+  );
   shields["CA:NS:T"] = badgeShield;
   shields["CA:NS:R"] = roundedRectShield(
     Color.shields.brown,
@@ -234,7 +225,7 @@ export function loadShields() {
       left: 3.5,
       right: 3.5,
       top: 6,
-      bottom: 3,
+      bottom: 2,
     },
   };
   shields["CA:ON:primary:Toll"] = {
@@ -380,7 +371,7 @@ export function loadShields() {
       left: 2,
       right: 2,
       top: 5.5,
-      bottom: 4,
+      bottom: 4.5,
     },
   };
   shields["CA:QC:R"] = {
@@ -448,7 +439,7 @@ export function loadShields() {
     padding: {
       left: 4,
       right: 4,
-      top: 6,
+      top: 5,
       bottom: 5,
     },
   };
@@ -517,11 +508,11 @@ export function loadShields() {
   shields["US:BIA"] = {
     spriteBlank: "shield_us_bia",
     textColor: Color.shields.black,
-    textLayout: textConstraint("southHalfEllipse"),
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
+      left: 1,
+      right: 1,
+      top: 3,
       bottom: 5,
     },
   };
@@ -565,10 +556,10 @@ export function loadShields() {
     spriteBlank: "shield_us_ak",
     textColor: Color.shields.black,
     padding: {
-      left: 5,
-      right: 1,
-      top: 1,
-      bottom: 8,
+      left: 5.5,
+      right: 1.5,
+      top: 1.5,
+      bottom: 9,
     },
   };
 
@@ -807,7 +798,7 @@ export function loadShields() {
     padding: {
       left: 2,
       right: 2,
-      top: 9.5,
+      top: 10,
       bottom: 2,
     },
   };
@@ -965,10 +956,10 @@ export function loadShields() {
     spriteBlank: ["shield_us_id_2", "shield_us_id_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 5,
-      right: 1,
-      top: 1,
-      bottom: 8,
+      left: 5.5,
+      right: 1.5,
+      top: 1.5,
+      bottom: 9,
     },
   };
 
@@ -1053,11 +1044,12 @@ export function loadShields() {
   shields["US:KS"] = {
     spriteBlank: ["shield_us_ks_2", "shield_us_ks_3"],
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 2,
     },
   };
   shields["US:KS:Turnpike"] = {
@@ -1165,10 +1157,10 @@ export function loadShields() {
     spriteBlank: ["shield_us_md_2", "shield_us_md_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 7,
-      bottom: 3,
+      left: 2,
+      right: 2,
+      top: 6,
+      bottom: 2,
     },
   };
   shields["US:MD:Alternate"] = banneredShield(shields["US:MD"], ["ALT"]);
@@ -1352,9 +1344,9 @@ export function loadShields() {
     textColor: Color.shields.black,
     padding: {
       left: 4,
-      right: 4.5,
-      top: 3,
-      bottom: 5.5,
+      right: 4,
+      top: 2,
+      bottom: 5,
     },
   };
   shields["US:MO:Alternate"] = banneredShield(shields["US:MO"], ["ALT"]);
@@ -1437,11 +1429,12 @@ export function loadShields() {
   shields["US:MT:secondary"] = {
     spriteBlank: "shield_us_mt_secondary",
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 2,
-      right: 2,
-      top: 0,
-      bottom: 6,
+      left: 1,
+      right: 1,
+      top: 4,
+      bottom: 8,
     },
   };
   ["Dawson", "Richland"].forEach(
@@ -1563,7 +1556,7 @@ export function loadShields() {
     spriteBlank: ["shield_us_nh_2", "shield_us_nh_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 3.5,
+      left: 4,
       right: 2,
       top: 4,
       bottom: 5,
@@ -1695,11 +1688,12 @@ export function loadShields() {
   shields["US:NV"] = {
     spriteBlank: "shield_us_nv",
     textColor: Color.shields.black,
+    textLayout: textConstraint("triangleDown"),
     padding: {
-      left: 2,
-      right: 2,
+      left: -2,
+      right: -2,
       top: 2,
-      bottom: 12,
+      bottom: 6,
     },
   };
   ["Clark", "Washoe"].forEach(
@@ -1941,11 +1935,12 @@ export function loadShields() {
   shields["US:OH:ASD"] = {
     spriteBlank: ["shield_us_oh_asd"],
     textColor: Color.shields.green,
+    textLayout: textConstraint("triangleDown"),
     padding: {
-      left: 6,
-      right: 3,
+      left: 1,
+      right: 1,
       top: 4,
-      bottom: 7,
+      bottom: 2,
     },
   };
   shields["US:OH:HOL"] = {
@@ -1962,7 +1957,7 @@ export function loadShields() {
     spriteBlank: ["shield_us_oh_sci_2", "shield_us_oh_sci_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 3,
+      left: 2,
       right: 3,
       top: 4,
       bottom: 6,
@@ -1981,10 +1976,10 @@ export function loadShields() {
     spriteBlank: ["shield_us_oh_tus_salem"],
     textColor: Color.shields.black,
     padding: {
-      left: 1,
+      left: 2,
       right: 4,
-      top: 1,
-      bottom: 4,
+      top: 2,
+      bottom: 5,
     },
   };
 
@@ -2056,11 +2051,12 @@ export function loadShields() {
   shields["US:OR"] = {
     spriteBlank: ["shield_us_or_2", "shield_us_or_3"],
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 3,
-      right: 3,
-      top: 4,
-      bottom: 6.5,
+      left: 1,
+      right: 1,
+      top: 1,
+      bottom: 4,
     },
   };
   shields["US:OR:Business"] = banneredShield(shields["US:OR"], ["BUS"]);
@@ -2173,6 +2169,8 @@ export function loadShields() {
       bottom: 5,
     },
   };
+  shields["US:SD:Business"] = banneredShield(shields["US:SD"], ["BUS"]);
+  shields["US:SD:Truck"] = banneredShield(shields["US:SD"], ["TRK"]);
   [
     "Beadle",
     "Bon_Homme",
@@ -2485,11 +2483,12 @@ export function loadShields() {
   shields["US:WA"] = {
     spriteBlank: "shield_us_wa",
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 3,
-      right: 4,
-      top: 3,
-      bottom: 7,
+      left: 2,
+      right: 3,
+      top: 2,
+      bottom: 6,
     },
   };
   shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
@@ -2619,9 +2618,12 @@ export function loadShields() {
     Color.shields.black
   );
   shields["US:WV:HARP"] = homePlateUpShield(
-    5,
+    6,
     Color.shields.white,
-    Color.shields.black
+    Color.shields.black,
+    Color.shields.black,
+    0,
+    0
   );
 
   // Wyoming
@@ -2675,8 +2677,8 @@ export function loadShields() {
     spriteBlank: ["shield_badge_2", "shield_badge_3"],
     textColor: Color.shields.white,
     padding: {
-      left: 2,
-      right: 2,
+      left: 3,
+      right: 3,
       top: 4,
       bottom: 5,
     },
@@ -2697,7 +2699,7 @@ export function loadShields() {
       left: 4,
       right: 4,
       top: 3,
-      bottom: 6,
+      bottom: 7,
     },
   };
 
@@ -3008,12 +3010,11 @@ export function loadShields() {
   // South Korea
   shields["KR:expressway"] = {
     spriteBlank: ["shield_kr_expressway_2", "shield_kr_expressway_3"],
-    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
       left: 4,
       right: 4,
-      top: 8,
+      top: 6,
       bottom: 4,
     },
   };
@@ -3546,7 +3547,10 @@ export function loadShields() {
         3,
         15,
         Color.shields.brown,
-        Color.shields.white
+        Color.shields.white,
+        Color.shields.white,
+        2,
+        2
       );
       shields[`AU:${state_or_territory}:ALT`] = banneredShield(
         roundedRectShield(Color.shields.green, Color.shields.yellow),
@@ -3753,7 +3757,8 @@ export function loadShields() {
       bannerTextHaloColor: Color.backgroundFill,
       bannerHeight: 9,
       bannerPadding: 1,
-      shieldFont: '"sans-serif-condensed", "Arial Narrow", sans-serif',
+      shieldFont:
+        '"Noto Sans Condensed", "Noto Sans Armenian Condensed", sans-serif-condensed, "Arial Narrow", sans-serif',
       shieldSize: 20,
     },
   };

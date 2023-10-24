@@ -98,18 +98,21 @@ jobs:
           interval: 500
       - name: Generate Preview text
         run: |
-          echo "## PR Preview:
+          echo "## Live PR Preview:
           * [Map](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/)
           * [Shield Test](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shieldtest.html)
           * [style.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/style.json)
           * [shields.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shields.json)
           * [taginfo.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/taginfo.json)
 
+          Live previews are automatically removed once the PR is merged.
+
           ## Sprite Sheets:
 
           <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png" />
           <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" />
           " > pr_preview.md
+          [ -f pr_preview-extra.md ] && cat pr_preview-extra.md >> pr_preview.md || echo "No extra PR preview found."
       - uses: tibdex/github-app-token@v1
         id: checks_token
         with:
