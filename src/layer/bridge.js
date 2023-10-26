@@ -9,13 +9,13 @@ export const bridge = {
   source: "openmaptiles",
   "source-layer": "transportation",
   id: "bridge",
-  minzoom: 13,
+  minzoom: 15,
   layout: {
     visibility: "visible",
   },
   paint: {
     "fill-color": Color.bridgeFill,
-    "fill-opacity": ["interpolate", ["linear"], ["zoom"], 16, 1, 19, 0.8],
+    "fill-opacity": ["interpolate", ["linear"], ["zoom"], 16, 0.9, 19, 0.8],
   },
   filter: ["all", ["==", ["get", "class"], "bridge"]],
 };
@@ -30,7 +30,7 @@ export const bridgeOutline = {
     visibility: "visible",
   },
   paint: {
-    "line-color": Color.bridgeBackgroundFill,
+    "line-color": Color.backgroundFill,
     "line-opacity": ["interpolate", ["linear"], ["zoom"], 16, 1, 19, 0.4],
     "line-width": 0.5,
   },
@@ -140,7 +140,13 @@ export const bridgeCasingBackground = {
     visibility: "visible",
   },
   paint: {
-    "line-color": Color.bridgeBackgroundFill,
+    "line-color": [
+      "step",
+      ["zoom"],
+      Color.bridgeBackgroundFill,
+      15,
+      Color.backgroundFill,
+    ],
     "line-opacity": ["interpolate", ["linear"], ["zoom"], 16, 1, 19, 0.4],
     "line-width": Util.zoomInterpolate([
       "match",
