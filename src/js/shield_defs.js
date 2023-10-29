@@ -2221,6 +2221,17 @@ export function loadShields() {
         Color.shields.white
       ))
   );
+  shields["US:SD:Custer:CSP"] = {
+    spriteBlank: "shield_us_sd_csp",
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 8,
+      right: 7,
+      top: 2,
+      bottom: 8,
+    },
+  };
 
   // Tennessee
   shields["US:TN:primary"] = {

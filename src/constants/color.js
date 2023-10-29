@@ -43,6 +43,7 @@ export const palette = {
   pink: "#df4661", // Pantone 198
   purple: "#6d2077", // Pantone 259
   red: "#bf2033", // Pantone 187
+  tan: "#ddcba4", // Pantone 468 C
   white: "white",
   yellow: "#ffcd00", // Pantone 116
   yellow_green: "#c4d600", // Pantone 382
@@ -57,6 +58,7 @@ export const shields = {
   pink: palette.pink, // Pantone 198
   purple: palette.purple, // Pantone 259
   red: palette.red, // Pantone 187
+  tan: palette.tan, // Pantone 468 C
   white: palette.white,
   yellow: palette.yellow, // Pantone 116
   yellow_green: palette.yellow_green, // Pantone 382
