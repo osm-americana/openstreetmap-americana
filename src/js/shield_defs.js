@@ -2171,6 +2171,10 @@ export function loadShields() {
   };
   shields["US:SD:Business"] = banneredShield(shields["US:SD"], ["BUS"]);
   shields["US:SD:Truck"] = banneredShield(shields["US:SD"], ["TRK"]);
+  shields["US:SD:Secondary"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
   [
     "Beadle",
     "Bon_Homme",
