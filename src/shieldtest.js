@@ -214,6 +214,7 @@ let networks = [
   "US:LA:Business",
   "US:MD:Business",
   "US:VT:Alternate",
+  "US:VT:Truck",
   "US:MO:Spur",
   "US:NC:Bypass",
   "US:ND:Alternate",
