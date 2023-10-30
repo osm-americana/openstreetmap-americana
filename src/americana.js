@@ -28,15 +28,30 @@ upgradeLegacyHash();
 
 loadRTLPlugin();
 
-export const map = createMap(window, (shields) => shieldDefLoad(shields), {
-  container: "map", // container id
-  hash: "map",
-  antialias: true,
-  style: buildStyle(),
-  center: [-94, 40.5],
-  zoom: 4,
-  attributionControl: false,
-});
+const initializeMap = () => {
+  return createMap(window, (shields) => shieldDefLoad(shields), {
+    container: "map", // container id
+    hash: "map",
+    antialias: true,
+    style: buildStyle(),
+    center: [-94, 40.5],
+    zoom: 4,
+    attributionControl: false,
+  });
+};
+
+let map;
+
+if ("fonts" in document) {
+  document.fonts.ready.then(() => {
+    map = initializeMap();
+  });
+} else {
+  // Font Loading API not supported, run the code immediately
+  map = initializeMap();
+}
+
+export { map };
 
 let options = {};
 
