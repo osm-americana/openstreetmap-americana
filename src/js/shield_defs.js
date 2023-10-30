@@ -2171,6 +2171,10 @@ export function loadShields() {
   };
   shields["US:SD:Business"] = banneredShield(shields["US:SD"], ["BUS"]);
   shields["US:SD:Truck"] = banneredShield(shields["US:SD"], ["TRK"]);
+  shields["US:SD:Secondary"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
   [
     "Beadle",
     "Bon_Homme",
@@ -2221,6 +2225,17 @@ export function loadShields() {
         Color.shields.white
       ))
   );
+  shields["US:SD:Custer:CSP"] = {
+    spriteBlank: "shield_us_sd_csp",
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 8,
+      right: 7,
+      top: 2,
+      bottom: 8,
+    },
+  };
 
   // Tennessee
   shields["US:TN:primary"] = {
@@ -2632,6 +2647,7 @@ export function loadShields() {
     Color.shields.black
   );
   [
+    "Albany",
     "Big_Horn",
     "Carbon",
     "Converse",
