@@ -20,18 +20,7 @@ const initializeMap = async () => {
   });
 };
 
-let map;
-
-if ("fonts" in document) {
-  document.fonts.ready.then(() => {
-    map = initializeMap();
-  });
-} else {
-  // Font Loading API not supported, run the code immediately
-  map = initializeMap();
-}
-
-export { map };
+export const map = await initializeMap();
 
 function shieldDefLoad() {
   if (window.top === window.self) {
