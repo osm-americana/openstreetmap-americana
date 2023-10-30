@@ -28,7 +28,8 @@ upgradeLegacyHash();
 
 loadRTLPlugin();
 
-const initializeMap = () => {
+const initializeMap = async () => {
+  await document.fonts?.ready;
   return createMap(window, (shields) => shieldDefLoad(shields), {
     container: "map", // container id
     hash: "map",
