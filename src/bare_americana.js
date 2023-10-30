@@ -6,8 +6,9 @@ import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
 
 loadRTLPlugin();
 
-const initializeMap = () => {
-  return createMap(window, (shields) => shieldDefLoad(), {
+const initializeMap = async () => {
+  await document.fonts?.ready;
+  return createMap(window, (shields) => shieldDefLoad(shields), {
     container: "map", // container id
     hash: "map",
     antialias: true,
