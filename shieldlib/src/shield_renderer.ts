@@ -1,4 +1,8 @@
-import { Map, MapStyleImageMissingEvent, StyleImage } from "maplibre-gl";
+import {
+  Map as MapLibre,
+  MapStyleImageMissingEvent,
+  StyleImage,
+} from "maplibre-gl";
 import {
   Bounds,
   DebugOptions,
@@ -52,8 +56,8 @@ export type ShapeDrawFunction = (
 ) => number;
 
 class MaplibreGLSpriteRepository implements SpriteRepository {
-  map: Map;
-  constructor(map: Map) {
+  map: MapLibre;
+  constructor(map: MapLibre) {
     this.map = map;
   }
   getSprite(spriteID: string): StyleImage {
@@ -69,6 +73,10 @@ export class AbstractShieldRenderer {
   private _shieldPredicate: StringPredicate = () => true;
   private _networkPredicate: StringPredicate = () => true;
   private _routeParser: RouteParser;
+  private _fontsLoaded: boolean = false;
+  /** Cache images that are loaded before fonts so they can be re-rendered later */
+  private _preFontImageCache: Map<string, RouteDefinition> = new Map();
+
   /** @hidden */
   private _renderContext: ShieldRenderingContext;
   private _shieldDefCallbacks = [];
@@ -123,9 +131,25 @@ export class AbstractShieldRenderer {
   }
 
   /** Set which MaplibreGL map to handle shields for */
-  public renderOnMaplibreGL(map: Map): AbstractShieldRenderer {
+  public renderOnMaplibreGL(map: MapLibre): AbstractShieldRenderer {
     this.renderOnRepository(new MaplibreGLSpriteRepository(map));
     map.on("styleimagemissing", this.getStyleImageMissingHandler());
+    document.fonts.ready.then(() => {
+      this._fontsLoaded = true;
+      if (this._preFontImageCache.size == 0) {
+        return;
+      }
+      console.log("Re-processing shields with loaded fonts");
+
+      // Loop through each previously-loaded shield and re-render it
+      for (let [id, routeDef] of this._preFontImageCache.entries()) {
+        map.removeImage(id);
+        missingIconLoader(this._renderContext, routeDef, id);
+        console.log(`Updated ${id} post font-load`); // Example action
+      }
+
+      this._preFontImageCache.clear();
+    });
     return this;
   }
 
@@ -166,6 +190,9 @@ export class AbstractShieldRenderer {
           return;
         }
         if (routeDef) {
+          if (!this._fontsLoaded && routeDef.ref) {
+            this._preFontImageCache.set(e.id, routeDef);
+          }
           missingIconLoader(this._renderContext, routeDef, e.id);
         }
       } catch (err) {
