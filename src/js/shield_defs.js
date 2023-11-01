@@ -2490,6 +2490,11 @@ export function loadShields() {
     ["ALT"],
     Color.shields.green
   );
+  shields["US:VT:Truck"] = banneredShield(
+    shields["US:VT"],
+    ["TRK"],
+    Color.shields.green
+  );
 
   // Vermont routes town maintained sections - black and white ovals
   shields["US:VT:Town"] = ovalShield(Color.shields.white, Color.shields.black);
