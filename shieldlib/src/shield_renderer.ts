@@ -152,7 +152,7 @@ export class AbstractShieldRenderer {
 
       // Loop through each previously-loaded shield and re-render it
       for (let [id, routeDef] of this._preFontImageCache.entries()) {
-        missingIconLoader(this._renderContext, routeDef, id);
+        missingIconLoader(this._renderContext, routeDef, id, true);
         console.log(`Updated ${id} post font-load`); // Example action
       }
 
@@ -202,7 +202,7 @@ export class AbstractShieldRenderer {
           if (!this._fontsLoaded && routeDef.ref) {
             this._preFontImageCache.set(e.id, routeDef);
           }
-          missingIconLoader(this._renderContext, routeDef, e.id);
+          missingIconLoader(this._renderContext, routeDef, e.id, false);
         }
       } catch (err) {
         console.error(`Exception while loading image ‘${e?.id}’:\n`, err);
