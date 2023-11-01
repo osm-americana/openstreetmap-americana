@@ -157,6 +157,7 @@ export class AbstractShieldRenderer {
       }
 
       this._preFontImageCache.clear();
+      map.redraw();
     });
     return this;
   }
