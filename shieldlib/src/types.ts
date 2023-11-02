@@ -139,7 +139,7 @@ export interface SpriteConsumer {
     spriteID: string,
     image: ImageData,
     pixelRatio: number,
-    update?: boolean
+    update: boolean
   ): void;
 }
 

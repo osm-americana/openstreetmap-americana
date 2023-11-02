@@ -67,11 +67,13 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
     spriteID: string,
     image: ImageData,
     pixelRatio: number,
-    update?: boolean
+    update: boolean
   ): void {
     if (update) {
+      console.log(`update ${spriteID}`);
       this.map.updateImage(spriteID, image);
     } else {
+      console.log(`add ${spriteID}`);
       this.map.addImage(spriteID, image, { pixelRatio: pixelRatio });
     }
   }

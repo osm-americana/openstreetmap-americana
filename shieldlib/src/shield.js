@@ -166,17 +166,17 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
   return ctx;
 }
 
-export function missingIconLoader(r, routeDef, spriteID) {
+export function missingIconLoader(r, routeDef, spriteID, update) {
   let ctx = generateShieldCtx(r, routeDef);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
     console.warn("Didn't produce a shield for", JSON.stringify(routeDef));
     ctx = r.gfxFactory.createGraphics({ width: 1, height: 1 });
   }
-  storeSprite(r, spriteID, ctx);
+  storeSprite(r, spriteID, ctx, update);
 }
 
-function storeSprite(r, id, ctx) {
+function storeSprite(r, id, ctx, update) {
   const imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   r.spriteRepo.putSprite(
     id,
@@ -185,7 +185,8 @@ function storeSprite(r, id, ctx) {
       height: ctx.canvas.height,
       data: imgData.data,
     },
-    r.px(1)
+    r.px(1),
+    update
   );
 }
 
