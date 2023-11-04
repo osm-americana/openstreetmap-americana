@@ -4,7 +4,7 @@ import type * as maplibre from "maplibre-gl";
 
 // Declare a global augmentation for the Window interface
 declare global {
-  interface Window {
+  interface WindowWithMap extends Window {
     map?: maplibre.Map;
   }
 }
@@ -43,10 +43,14 @@ const screenshots: SampleSpecification[] =
 fs.mkdirSync(sampleFolder, { recursive: true });
 
 const browser = await chromium.launch({
-  headless: true,
+  headless: false,
   executablePath: process.env.CHROME_BIN,
 });
-const context = await browser.newContext();
+const context = await browser.newContext({
+  bypassCSP: true,
+  userAgent:
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36",
+});
 
 const page = await context.newPage();
 
@@ -62,9 +66,17 @@ async function createImage(screenshot: SampleSpecification) {
     `http://localhost:1776/${pagePath}#map=${screenshot.location}`
   );
 
+  // 3. Wait until all fonts are loaded
+  await page.waitForFunction(() => {
+    const fontFaceSet: FontFaceSet = document.fonts;
+    return Array.from(fontFaceSet.values()).every(
+      (font) => font.status !== "unloaded"
+    );
+  });
+
   // Wait for map to load, then wait two more seconds for images, etc. to load.
   try {
-    await page.waitForFunction(() => window.map?.loaded(), {
+    await page.waitForFunction(() => (window as WindowWithMap).map?.loaded(), {
       timeout: 3000,
     });
   } catch (e) {
