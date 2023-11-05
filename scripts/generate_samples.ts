@@ -43,8 +43,8 @@ const screenshots: SampleSpecification[] =
 fs.mkdirSync(sampleFolder, { recursive: true });
 
 const browser = await chromium.launch({
-  headless: false,
   executablePath: process.env.CHROME_BIN,
+  args: ["--headless=new"]
 });
 const context = await browser.newContext({
   bypassCSP: true,
@@ -66,7 +66,7 @@ async function createImage(screenshot: SampleSpecification) {
     `http://localhost:1776/${pagePath}#map=${screenshot.location}`
   );
 
-  // 3. Wait until all fonts are loaded
+  // Wait until all fonts are loaded
   await page.waitForFunction(() => {
     const fontFaceSet: FontFaceSet = document.fonts;
     return Array.from(fontFaceSet.values()).every(
