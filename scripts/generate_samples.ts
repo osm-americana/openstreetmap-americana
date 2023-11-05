@@ -44,7 +44,7 @@ fs.mkdirSync(sampleFolder, { recursive: true });
 
 const browser = await chromium.launch({
   executablePath: process.env.CHROME_BIN,
-  args: ["--headless=new"]
+  args: ["--headless=new"],
 });
 const context = await browser.newContext({
   bypassCSP: true,
@@ -65,14 +65,6 @@ async function createImage(screenshot: SampleSpecification) {
   await page.goto(
     `http://localhost:1776/${pagePath}#map=${screenshot.location}`
   );
-
-  // Wait until all fonts are loaded
-  await page.waitForFunction(() => {
-    const fontFaceSet: FontFaceSet = document.fonts;
-    return Array.from(fontFaceSet.values()).every(
-      (font) => font.status !== "unloaded"
-    );
-  });
 
   // Wait for map to load, then wait two more seconds for images, etc. to load.
   try {
