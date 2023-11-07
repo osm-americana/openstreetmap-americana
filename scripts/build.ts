@@ -41,7 +41,6 @@ const buildWith = async (
       "src/americana.js",
       "src/bare_americana.js",
       "src/shieldtest.js",
-      "src/js/load_fonts.js",
     ],
     format: "esm",
     bundle: true,
