@@ -84,6 +84,7 @@ export class AbstractShieldRenderer {
   private _shieldPredicate: StringPredicate = () => true;
   private _networkPredicate: StringPredicate = () => true;
   private _routeParser: RouteParser;
+  private _fontSpec: string;
   private _fontsLoaded: boolean = false;
   /** Cache images that are loaded before fonts so they can be re-rendered later */
   private _preFontImageCache: Map<string, RouteDefinition> = new Map();
@@ -103,9 +104,27 @@ export class AbstractShieldRenderer {
   protected setShields(shieldSpec: ShieldSpecification) {
     this._renderContext.options = shieldSpec.options;
     this._renderContext.shieldDef = shieldSpec.networks;
+    this._fontSpec = "1em " + shieldSpec.options.shieldFont;
     this._shieldDefCallbacks.forEach((callback) =>
       callback(shieldSpec.networks)
     );
+  }
+
+  private onFontsLoaded(map: MapLibre) {
+    this._fontsLoaded = true;
+    if (this._preFontImageCache.size == 0) {
+      return;
+    }
+    console.log("Re-processing shields with loaded fonts");
+
+    // Loop through each previously-loaded shield and re-render it
+    for (let [id, routeDef] of this._preFontImageCache.entries()) {
+      missingIconLoader(this._renderContext, routeDef, id, true);
+      console.log(`Updated ${id} post font-load`); // Example action
+    }
+
+    this._preFontImageCache.clear();
+    map.redraw();
   }
 
   /** Get the shield definitions */
@@ -145,22 +164,12 @@ export class AbstractShieldRenderer {
   public renderOnMaplibreGL(map: MapLibre): AbstractShieldRenderer {
     this.renderOnRepository(new MaplibreGLSpriteRepository(map));
     map.on("styleimagemissing", this.getStyleImageMissingHandler());
-    document.fonts.ready.then(() => {
+    if (!document.fonts.check(this._fontSpec)) {
+      this._fontsLoaded = false;
+      document.fonts.load(this._fontSpec).then(() => this.onFontsLoaded(map));
+    } else {
       this._fontsLoaded = true;
-      if (this._preFontImageCache.size == 0) {
-        return;
-      }
-      console.log("Re-processing shields with loaded fonts");
-
-      // Loop through each previously-loaded shield and re-render it
-      for (let [id, routeDef] of this._preFontImageCache.entries()) {
-        missingIconLoader(this._renderContext, routeDef, id, true);
-        console.log(`Updated ${id} post font-load`); // Example action
-      }
-
-      this._preFontImageCache.clear();
-      map.redraw();
-    });
+    }
     return this;
   }
 
