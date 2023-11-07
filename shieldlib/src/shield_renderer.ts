@@ -71,7 +71,8 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
   ): void {
     if (update) {
       console.log(`update ${spriteID}`);
-      this.map.updateImage(spriteID, image);
+      this.map.removeImage(spriteID);
+      this.map.addImage(spriteID, image);
     } else {
       console.log(`add ${spriteID}`);
       this.map.addImage(spriteID, image, { pixelRatio: pixelRatio });
@@ -85,6 +86,7 @@ export class AbstractShieldRenderer {
   private _networkPredicate: StringPredicate = () => true;
   private _routeParser: RouteParser;
   private _fontSpec: string;
+  private _map: MapLibre;
   private _fontsLoaded: boolean = false;
   /** Cache images that are loaded before fonts so they can be re-rendered later */
   private _preFontImageCache: Map<string, RouteDefinition> = new Map();
@@ -105,12 +107,15 @@ export class AbstractShieldRenderer {
     this._renderContext.options = shieldSpec.options;
     this._renderContext.shieldDef = shieldSpec.networks;
     this._fontSpec = "1em " + shieldSpec.options.shieldFont;
+    if (this._map) {
+      this.reloadShieldsOnFontLoad(this._fontSpec, this._map);
+    }
     this._shieldDefCallbacks.forEach((callback) =>
       callback(shieldSpec.networks)
     );
   }
 
-  private onFontsLoaded(map: MapLibre) {
+  private onFontsLoaded() {
     this._fontsLoaded = true;
     if (this._preFontImageCache.size == 0) {
       return;
@@ -124,7 +129,7 @@ export class AbstractShieldRenderer {
     }
 
     this._preFontImageCache.clear();
-    map.redraw();
+    this._map.redraw();
   }
 
   /** Get the shield definitions */
@@ -162,15 +167,21 @@ export class AbstractShieldRenderer {
 
   /** Set which MaplibreGL map to handle shields for */
   public renderOnMaplibreGL(map: MapLibre): AbstractShieldRenderer {
+    this._map = map;
+    if (this._fontSpec) {
+      this.reloadShieldsOnFontLoad(this._fontSpec, this._map);
+    }
     this.renderOnRepository(new MaplibreGLSpriteRepository(map));
     map.on("styleimagemissing", this.getStyleImageMissingHandler());
-    if (!document.fonts.check(this._fontSpec)) {
-      this._fontsLoaded = false;
-      document.fonts.load(this._fontSpec).then(() => this.onFontsLoaded(map));
+    return this;
+  }
+
+  private reloadShieldsOnFontLoad(fontSpec: string, map: MapLibre): void {
+    if (!this._fontsLoaded && !document.fonts.check(this._fontSpec)) {
+      document.fonts.load(this._fontSpec).then(() => this.onFontsLoaded());
     } else {
       this._fontsLoaded = true;
     }
-    return this;
   }
 
   /** Set a callback that fires when shield definitions are loaded */
