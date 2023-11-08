@@ -108,7 +108,7 @@ export class AbstractShieldRenderer {
     this._renderContext.shieldDef = shieldSpec.networks;
     this._fontSpec = "1em " + shieldSpec.options.shieldFont;
     if (this._map) {
-      this.reloadShieldsOnFontLoad(this._fontSpec, this._map);
+      this.reloadShieldsOnFontLoad();
     }
     this._shieldDefCallbacks.forEach((callback) =>
       callback(shieldSpec.networks)
@@ -169,14 +169,14 @@ export class AbstractShieldRenderer {
   public renderOnMaplibreGL(map: MapLibre): AbstractShieldRenderer {
     this._map = map;
     if (this._fontSpec) {
-      this.reloadShieldsOnFontLoad(this._fontSpec, this._map);
+      this.reloadShieldsOnFontLoad();
     }
     this.renderOnRepository(new MaplibreGLSpriteRepository(map));
     map.on("styleimagemissing", this.getStyleImageMissingHandler());
     return this;
   }
 
-  private reloadShieldsOnFontLoad(fontSpec: string, map: MapLibre): void {
+  private reloadShieldsOnFontLoad(): void {
     if (!this._fontsLoaded && !document.fonts.check(this._fontSpec)) {
       document.fonts.load(this._fontSpec).then(() => this.onFontsLoaded());
     } else {
