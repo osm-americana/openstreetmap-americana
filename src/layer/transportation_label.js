@@ -184,7 +184,7 @@ export const bridgeSpacer = {
   layout: {
     "symbol-placement": "line",
     "symbol-spacing": 2,
-    "icon-image": "dot_city",
+    "icon-image": "place_dot",
     "icon-allow-overlap": true,
     "icon-size": 0.1,
   },
