@@ -43,6 +43,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Coffee shop",
   },
+  fuel: {
+    classes: {
+      fuel: ["fuel"],
+    },
+    sprite: "poi_fuel",
+    color: Color.poi.consumer,
+    description: "Gas station",
+  },
   hospital: {
     classes: {
       hospital: ["hospital"],
@@ -238,7 +246,11 @@ export const poi = {
     "text-color": [
       "match",
       ["get", "subclass"],
-      [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
+      [
+        ...getSubclasses(iconDefs.fuel),
+        ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.coffee),
+      ],
       Color.poi.consumer,
       [
         "bus_station",
@@ -297,7 +309,11 @@ export const poi = {
         "tram_stop",
       ],
       15,
-      [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
+      [
+        ...getSubclasses(iconDefs.fuel),
+        ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.coffee),
+      ],
       16,
       ["clinic", "doctors", "parking"],
       17,
