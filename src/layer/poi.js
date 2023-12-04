@@ -335,7 +335,7 @@ export const poi = {
       [
         "match",
         ["get", "subclass"],
-        ["bus_stop", "tram_stop"],
+        ["bus_stop", "tram_stop", "fuel"],
         "",
         label.localizedName,
       ],
