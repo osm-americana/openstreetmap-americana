@@ -197,6 +197,8 @@ let networks = [
   "CA:ON:primary",
   "CA:ON:primary:Toll",
 
+  "US:SD:Custer:CSP",
+
   // With banners
   "US:I:Truck",
   "US:I:Express",
@@ -212,6 +214,7 @@ let networks = [
   "US:LA:Business",
   "US:MD:Business",
   "US:VT:Alternate",
+  "US:VT:Truck",
   "US:MO:Spur",
   "US:NC:Bypass",
   "US:ND:Alternate",
