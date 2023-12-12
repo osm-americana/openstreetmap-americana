@@ -70,11 +70,9 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
     update: boolean
   ): void {
     if (update) {
-      console.log(`update ${spriteID}`);
       this.map.removeImage(spriteID);
       this.map.addImage(spriteID, image);
     } else {
-      console.log(`add ${spriteID}`);
       this.map.addImage(spriteID, image, { pixelRatio: pixelRatio });
     }
   }
@@ -125,7 +123,6 @@ export class AbstractShieldRenderer {
     // Loop through each previously-loaded shield and re-render it
     for (let [id, routeDef] of this._preFontImageCache.entries()) {
       missingIconLoader(this._renderContext, routeDef, id, true);
-      console.log(`Updated ${id} post font-load`); // Example action
     }
 
     this._preFontImageCache.clear();
