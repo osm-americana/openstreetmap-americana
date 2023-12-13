@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build:shieldlib": "cd shieldlib && run-s build:code docs",
-    "build:code": "ts-node scripts/build",
+    "build:code": "tsx scripts/build",
     "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
     "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
     "clean-download": "shx rm -rf download",
@@ -24,17 +24,17 @@
     "code_format:prettier": "prettier --write --list-different .",
     "code_format:svgo": "svgo -q -f icons/",
     "extract_layer": "node scripts/extract_layer",
-    "generate_samples": "ts-node scripts/generate_samples.ts",
+    "generate_samples": "tsx scripts/generate_samples.ts",
     "presprites": "shx rm -rf dist/sprites",
-    "serve": "ts-node scripts/serve",
+    "serve": "tsx scripts/serve",
     "shields": "node scripts/generate_shield_defs.js -o dist/shields.json",
     "sprites": "node scripts/sprites.js",
     "start": "run-s clean-build build:shieldlib sprites shields serve",
     "stats": "node scripts/stats.js",
     "style": "node scripts/generate_style.js -o dist/style.json",
     "status_map": "node scripts/status_map.js",
-    "taginfo": "ts-node scripts/taginfo",
-    "test": "ts-mocha"
+    "taginfo": "tsx scripts/taginfo",
+    "test": "mocha"
   },
   "dependencies": {
     "@americana/maplibre-shield-generator": "*",
@@ -71,12 +71,11 @@
     "prettier": "^2.3.2",
     "shx": "^0.3.4",
     "svgo": "^2.8.0",
-    "ts-mocha": "^10.0.0",
-    "ts-node": "^10.9.1",
+    "tsx": "^4.6.2",
     "typescript": "^4.9.5"
   },
   "engines": {
     "npm": ">=8.3.0",
-    "node": ">=16"
+    "node": ">=18"
   }
 }

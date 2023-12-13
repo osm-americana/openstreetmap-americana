@@ -1,13 +1,13 @@
 "use strict";
 
-import * as ShieldText from "./shield_text.js";
-import * as ShieldDraw from "./shield_canvas_draw.js";
-import * as Gfx from "./screen_gfx.js";
+import * as ShieldText from "./shield_text";
+import * as ShieldDraw from "./shield_canvas_draw";
+import * as Gfx from "./screen_gfx";
 import {
   drawBanners,
   drawBannerHalos,
   getBannerCount,
-} from "./shield_banner.js";
+} from "./shield_banner";
 
 function compoundShieldSize(r, dimension, bannerCount) {
   return {

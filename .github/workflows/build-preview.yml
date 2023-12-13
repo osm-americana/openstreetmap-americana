@@ -70,7 +70,7 @@ jobs:
           mkdir -p pr
           echo '${{ env.MAIN_STATS }}'
           echo '${{ env.PR_STATS }}'
-          npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
+          npm exec tsx scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
       - name: Save PR artifacts
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
