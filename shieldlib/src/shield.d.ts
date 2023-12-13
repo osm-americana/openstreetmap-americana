@@ -15,7 +15,8 @@ export function storeNoShield(
 export function missingIconLoader(
   renderContext: ShieldRenderingContext,
   routeDef: RouteDefinition,
-  spriteID: string
+  spriteID: string,
+  update?: boolean
 ): void;
 
 export function romanizeRef(ref: string): string;
