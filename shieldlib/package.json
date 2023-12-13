@@ -25,7 +25,6 @@
     "prettier": "^2.8.4",
     "shx": "^0.3.4",
     "ts-mocha": "^10.0.0",
-    "ts-node": "^10.9.1",
     "typedoc": "^0.24.8",
     "typescript": "^4.9.5"
   },
