@@ -5,10 +5,5 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
   },
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node",
-    "transpileOnly": true
-  },
   "include": ["src/**/*.ts", "shieldlib/src/headless_graphics.ts"]
 }
