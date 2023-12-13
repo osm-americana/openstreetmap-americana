@@ -135,7 +135,12 @@ export interface SpriteProducer {
 
 /** Store a sprite graphic based on an ID */
 export interface SpriteConsumer {
-  putSprite(spriteID: string, image: ImageData, pixelRatio: number): void;
+  putSprite(
+    spriteID: string,
+    image: ImageData,
+    pixelRatio: number,
+    update: boolean
+  ): void;
 }
 
 /** Respository that can store and retrieve sprite graphics */

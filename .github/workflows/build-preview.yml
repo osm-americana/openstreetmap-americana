@@ -15,9 +15,13 @@ permissions:
   checks: write
 concurrency: preview-${{ github.ref }}
 jobs:
-  deploy-preview:
+  build-preview:
     runs-on: ubuntu-latest
     steps:
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
       - name: Checkout Main Branch 🛎️
         uses: actions/checkout@v3
         with:
@@ -38,10 +42,6 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: Checkout PR Branch 🛎️
         uses: actions/checkout@v3
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
       - name: Install and Build 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
@@ -70,7 +70,7 @@ jobs:
           mkdir -p pr
           echo '${{ env.MAIN_STATS }}'
           echo '${{ env.PR_STATS }}'
-          npm exec ts-node scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
+          npm exec tsx scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
       - name: Save PR artifacts
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}

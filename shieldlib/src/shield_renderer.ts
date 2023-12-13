@@ -1,4 +1,8 @@
-import { Map, MapStyleImageMissingEvent, StyleImage } from "maplibre-gl";
+import {
+  Map as MapLibre,
+  MapStyleImageMissingEvent,
+  StyleImage,
+} from "maplibre-gl";
 import {
   Bounds,
   DebugOptions,
@@ -52,15 +56,25 @@ export type ShapeDrawFunction = (
 ) => number;
 
 class MaplibreGLSpriteRepository implements SpriteRepository {
-  map: Map;
-  constructor(map: Map) {
+  map: MapLibre;
+  constructor(map: MapLibre) {
     this.map = map;
   }
   getSprite(spriteID: string): StyleImage {
     return this.map.style.getImage(spriteID);
   }
-  putSprite(spriteID: string, image: ImageData, pixelRatio: number): void {
-    this.map.addImage(spriteID, image, { pixelRatio: pixelRatio });
+  putSprite(
+    spriteID: string,
+    image: ImageData,
+    pixelRatio: number,
+    update: boolean
+  ): void {
+    if (update) {
+      this.map.removeImage(spriteID);
+      this.map.addImage(spriteID, image);
+    } else {
+      this.map.addImage(spriteID, image, { pixelRatio: pixelRatio });
+    }
   }
 }
 
@@ -69,6 +83,12 @@ export class AbstractShieldRenderer {
   private _shieldPredicate: StringPredicate = () => true;
   private _networkPredicate: StringPredicate = () => true;
   private _routeParser: RouteParser;
+  private _fontSpec: string;
+  private _map: MapLibre;
+  private _fontsLoaded: boolean = false;
+  /** Cache images that are loaded before fonts so they can be re-rendered later */
+  private _preFontImageCache: Map<string, RouteDefinition> = new Map();
+
   /** @hidden */
   private _renderContext: ShieldRenderingContext;
   private _shieldDefCallbacks = [];
@@ -84,9 +104,29 @@ export class AbstractShieldRenderer {
   protected setShields(shieldSpec: ShieldSpecification) {
     this._renderContext.options = shieldSpec.options;
     this._renderContext.shieldDef = shieldSpec.networks;
+    this._fontSpec = "1em " + shieldSpec.options.shieldFont;
+    if (this._map) {
+      this.reloadShieldsOnFontLoad();
+    }
     this._shieldDefCallbacks.forEach((callback) =>
       callback(shieldSpec.networks)
     );
+  }
+
+  private onFontsLoaded() {
+    this._fontsLoaded = true;
+    if (this._preFontImageCache.size == 0) {
+      return;
+    }
+    console.log("Re-processing shields with loaded fonts");
+
+    // Loop through each previously-loaded shield and re-render it
+    for (let [id, routeDef] of this._preFontImageCache.entries()) {
+      missingIconLoader(this._renderContext, routeDef, id, true);
+    }
+
+    this._preFontImageCache.clear();
+    this._map.redraw();
   }
 
   /** Get the shield definitions */
@@ -123,10 +163,22 @@ export class AbstractShieldRenderer {
   }
 
   /** Set which MaplibreGL map to handle shields for */
-  public renderOnMaplibreGL(map: Map): AbstractShieldRenderer {
+  public renderOnMaplibreGL(map: MapLibre): AbstractShieldRenderer {
+    this._map = map;
+    if (this._fontSpec) {
+      this.reloadShieldsOnFontLoad();
+    }
     this.renderOnRepository(new MaplibreGLSpriteRepository(map));
     map.on("styleimagemissing", this.getStyleImageMissingHandler());
     return this;
+  }
+
+  private reloadShieldsOnFontLoad(): void {
+    if (!this._fontsLoaded && !document.fonts.check(this._fontSpec)) {
+      document.fonts.load(this._fontSpec).then(() => this.onFontsLoaded());
+    } else {
+      this._fontsLoaded = true;
+    }
   }
 
   /** Set a callback that fires when shield definitions are loaded */
@@ -166,7 +218,10 @@ export class AbstractShieldRenderer {
           return;
         }
         if (routeDef) {
-          missingIconLoader(this._renderContext, routeDef, e.id);
+          if (!this._fontsLoaded && routeDef.ref) {
+            this._preFontImageCache.set(e.id, routeDef);
+          }
+          missingIconLoader(this._renderContext, routeDef, e.id, false);
         }
       } catch (err) {
         console.error(`Exception while loading image ‘${e?.id}’:\n`, err);
