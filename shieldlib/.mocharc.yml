@@ -3,7 +3,4 @@ extension:
   - ts
 spec:
   - test/spec/*.ts
-require: ts-node/register
-node-option:
-  - loader=ts-node/esm
-  - experimental-specifier-resolution=node
+import: tsx
