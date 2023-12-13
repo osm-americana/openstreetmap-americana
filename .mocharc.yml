@@ -4,5 +4,4 @@ extension:
 spec:
   - test/**/*.js
   - test/**/*.spec.ts
-node-option:
-  - import=tsx
+import: tsx
