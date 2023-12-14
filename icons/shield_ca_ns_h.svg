@@ -1,8 +1,0 @@
-<svg version="1.0" width="22" height="20" xmlns="http://www.w3.org/2000/svg">
- <path d="m 0.5,0.5 h 21 v 13.801584 c 0,2.88711 -8.38257,5.18152 -10.496364,5.19834 C 9.0260663,19.515624 0.5,17.189294 0.5,14.301584 Z" style="fill:#003f87;stroke:#fff;stroke-width:1;stroke-miterlimit:4"/>
- <rect style="fill:#fff" width="21" height="5" x=".5" y=".5" rx="0" ry="0"/>
- <path style="fill:none;stroke:#003f87;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter" d="m.5 5 21-4M.5 1l21 4"/>
- <path d="M 9.5010293,1.495238 12.5,1.5 V 3 C 12.5,4.0112726 11.367787,4.4988749 11,4.5 10.607775,4.5011999 9.499354,3.9443804 9.5,3 Z" style="fill:#ffcd00;fill-rule:evenodd;stroke:#000;stroke-width:.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4"/>
- <rect style="fill:none;stroke:#fff;stroke-width:.7;stroke-linejoin:miter;stroke-miterlimit:4" width="20.5" height="4.5" x=".75" y=".75" rx="0" ry="0"/>
- <rect style="fill:none;stroke:#003f87;stroke-width:.25;stroke-linejoin:miter;stroke-miterlimit:4" width="19.75" height="3.75" x="1.125" y="1.125" rx="0" ry="0"/>
-</svg>
