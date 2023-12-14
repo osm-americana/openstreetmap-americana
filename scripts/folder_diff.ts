@@ -20,6 +20,9 @@ import sampleLocationJSON from "../test/sample_locations.json";
 
 const sampleLocations: Locations = sampleLocationJSON as Locations;
 
+//debugging
+console.log(sampleLocations);
+
 function getLocationByName(name: string): string | undefined {
   const locationData = sampleLocations.find(
     (location) => location.name === name
