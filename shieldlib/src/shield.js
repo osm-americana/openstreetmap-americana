@@ -3,11 +3,7 @@
 import * as ShieldText from "./shield_text";
 import * as ShieldDraw from "./shield_canvas_draw";
 import * as Gfx from "./screen_gfx";
-import {
-  drawBanners,
-  drawBannerHalos,
-  getBannerCount,
-} from "./shield_banner";
+import { drawBanners, drawBannerHalos, getBannerCount } from "./shield_banner";
 
 function compoundShieldSize(r, dimension, bannerCount) {
   return {
