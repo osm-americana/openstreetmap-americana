@@ -68,7 +68,7 @@ fs.readdirSync(folder1)
 
 const outputMD = "pr_preview-extra.md";
 let mdContent =
-  "## Map Changes\n| Sample Name | Current Render | This PR |\n|-------------|--------|-------|\n";
+  "## Map Changes\n| Sample | Current Render | This PR |\n|-------------|--------|-------|\n";
 
 // Loop through *_before.png files in the output folder
 fs.readdirSync(outputFolder)
