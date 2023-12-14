@@ -31,5 +31,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "16/40.765073/-73.965035",
+    "name": "manhattan_poi",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]
