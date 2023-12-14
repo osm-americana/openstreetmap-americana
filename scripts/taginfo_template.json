@@ -385,6 +385,14 @@
     },
     {
       "key": "amenity",
+      "value": "fuel",
+      "object_types": ["node", "area"],
+      "description": "Fuel stations are marked by an icon representing a gas pump.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_fuel.svg"
+    },
+    {
+      "key": "amenity",
       "value": "school",
       "object_types": ["node", "area"],
       "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",

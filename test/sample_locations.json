@@ -6,12 +6,7 @@
       "width": 600,
       "height": 250
     },
-    "clip": {
-      "x": 0,
-      "y": 0,
-      "width": 600,
-      "height": 250
-    }
+    "controls": true
   },
   {
     "location": "13/40.01264/-75.70446",
@@ -19,12 +14,6 @@
     "viewport": {
       "width": 600,
       "height": 600
-    },
-    "clip": {
-      "x": 100,
-      "y": 100,
-      "width": 400,
-      "height": 400
     }
   },
   {
@@ -33,12 +22,6 @@
     "viewport": {
       "width": 600,
       "height": 600
-    },
-    "clip": {
-      "x": 100,
-      "y": 100,
-      "width": 400,
-      "height": 400
     }
   }
 ]

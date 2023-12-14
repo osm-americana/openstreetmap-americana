@@ -6,10 +6,6 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  },
   "exclude": ["node_modules", "**/*.json"],
   "include": ["src/**/*.ts", "scripts/**.ts", "src/shield.js", "src/shield.js"]
 }
