@@ -2,6 +2,31 @@ import fs from "fs";
 import { basename } from "path";
 import { execSync } from "child_process";
 
+interface Viewport {
+  width: number;
+  height: number;
+}
+
+interface LocationData {
+  location: string;
+  name: string;
+  viewport: Viewport;
+  controls?: boolean;
+}
+
+type Locations = LocationData[];
+
+import sampleLocationJSON from "../test/sample_locations.json";
+
+const sampleLocations: Locations = sampleLocationJSON as Locations;
+
+function getLocationByName(name: string): string | undefined {
+  const locationData = sampleLocations.find(
+    (location) => location.name === name
+  );
+  return locationData?.location;
+}
+
 // Check if the right number of arguments are passed
 if (process.argv.length !== 6) {
   console.log("Usage: <folder1> <folder2> <url-base> <sha>");
@@ -43,7 +68,7 @@ fs.readdirSync(folder1)
 
 const outputMD = "pr_preview-extra.md";
 let mdContent =
-  "## Map Changes\n| Sample Name | Before | After |\n|-------------|--------|-------|\n";
+  "## Map Changes\n| Sample Name | Current Render | This PR |\n|-------------|--------|-------|\n";
 
 // Loop through *_before.png files in the output folder
 fs.readdirSync(outputFolder)
@@ -54,7 +79,12 @@ fs.readdirSync(outputFolder)
     // Check if the after file exists
     if (fs.existsSync(`${outputFolder}/${basefile}_${sha}_after.png`)) {
       // Add an entry to the markdown table
-      mdContent += `| ${basefile} | ![before](${urlBase}${outputFolder}/${basefile}_${sha}_before.png) | ![after](${urlBase}${outputFolder}/${basefile}_${sha}_after.png) |\n`;
+      const loc = getLocationByName("basefile");
+      mdContent +=
+        `| ${basefile}<br>${loc}<br>[Current Render](https://zelonewolf.github.io/openstreetmap-americana/#map=${loc})` +
+        `<br>[This PR](${urlBase}#map=${loc}) ` +
+        `| ![Current Render](${urlBase}${outputFolder}/${basefile}_${sha}_before.png) |` +
+        ` ![This PR](${urlBase}${outputFolder}/${basefile}_${sha}_after.png) |\n`;
     }
   });
 

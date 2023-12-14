@@ -3,6 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "shieldlib/src/headless_graphics.ts"]
