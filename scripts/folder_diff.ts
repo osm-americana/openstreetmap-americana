@@ -20,9 +20,6 @@ import sampleLocationJSON from "../test/sample_locations.json";
 
 const sampleLocations: Locations = sampleLocationJSON as Locations;
 
-//debugging
-console.log(sampleLocations);
-
 function getLocationByName(name: string): string | undefined {
   const locationData = sampleLocations.find(
     (location) => location.name === name
@@ -82,7 +79,7 @@ fs.readdirSync(outputFolder)
     // Check if the after file exists
     if (fs.existsSync(`${outputFolder}/${basefile}_${sha}_after.png`)) {
       // Add an entry to the markdown table
-      const loc = getLocationByName("basefile");
+      const loc = getLocationByName(basefile);
       mdContent +=
         `| ${basefile}<br>${loc}<br>[Current Render](https://zelonewolf.github.io/openstreetmap-americana/#map=${loc})` +
         `<br>[This PR](${urlBase}#map=${loc}) ` +
