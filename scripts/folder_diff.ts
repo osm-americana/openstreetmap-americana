@@ -54,7 +54,7 @@ fs.readdirSync(outputFolder)
     // Check if the after file exists
     if (fs.existsSync(`${outputFolder}/${basefile}_${sha}_after.png`)) {
       // Add an entry to the markdown table
-      mdContent += `| ${basefile} | ![before](${urlBase}${before_file}) | ![after](${urlBase}${outputFolder}/${basefile}_${sha}_after.png) |\n`;
+      mdContent += `| ${basefile} | ![before](${urlBase}${outputFolder}/${basefile}_${sha}_before.png) | ![after](${urlBase}${outputFolder}/${basefile}_${sha}_after.png) |\n`;
     }
   });
 
