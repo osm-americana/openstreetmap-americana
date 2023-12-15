@@ -181,7 +181,7 @@ function storeSprite(r, id, ctx, update) {
       height: ctx.canvas.height,
       data: imgData.data,
     },
-    r.px(1),
+    { pixelRatio: r.px(1) },
     update
   );
 }

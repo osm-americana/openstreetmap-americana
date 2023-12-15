@@ -1,4 +1,9 @@
-import { Map, MapStyleImageMissingEvent, StyleImage } from "maplibre-gl";
+import {
+  Map,
+  MapStyleImageMissingEvent,
+  StyleImage,
+  StyleImageMetadata,
+} from "maplibre-gl";
 import {
   Bounds,
   DebugOptions,
@@ -62,6 +67,11 @@ export declare class InMemorySpriteRepository implements SpriteRepository {
   sprites: {};
   getSprite(spriteID: string): StyleImage;
   hasSprite(spriteID: string): boolean;
-  putSprite(spriteID: string, image: ImageData): void;
+  putSprite(
+    spriteID: string,
+    image: ImageData,
+    options: StyleImageMetadata,
+    update: boolean
+  ): void;
 }
 export {};
