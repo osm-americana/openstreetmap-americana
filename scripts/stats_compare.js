@@ -22,10 +22,24 @@ const layersRow = mdCompareRow(
 );
 
 const sizeRow = mdCompareRow(
-  "Size (b)",
+  "StyleJSON Size (b)",
   stats1.styleSize,
   stats2.styleSize,
   difference.styleSize
+);
+
+const ss1xRow = mdCompareRow(
+  "1x Sprite Sheet Size (b)",
+  stats1.spriteSheet1xSize,
+  stats2.spriteSheet1xSize,
+  difference.spriteSheet1xSize
+);
+
+const ss2xRow = mdCompareRow(
+  "2x Sprite Sheet Size (b)",
+  stats1.spriteSheet2xSize,
+  stats2.spriteSheet2xSize,
+  difference.spriteSheet2xSize
 );
 
 printTable("Style size statistics", [layersRow, sizeRow]);

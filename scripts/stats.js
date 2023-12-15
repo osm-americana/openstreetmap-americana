@@ -1,6 +1,7 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
 import { Command, Option } from "commander";
+import fs from "node:fs";
 
 const program = new Command();
 program
@@ -17,6 +18,18 @@ program
   )
   .addOption(
     new Option("-s, --layer-size", "size of all layers").conflicts("allJson")
+  )
+  .addOption(
+    new Option(
+      "-ss1, --spritesheet-1x-size",
+      "size of 1x sprite sheet"
+    ).conflicts("allJson")
+  )
+  .addOption(
+    new Option(
+      "-ss2, --spritesheet-2x-size",
+      "size of 2x sprite sheet"
+    ).conflicts("allJson")
   )
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
   .option("-j, --all-json", "output all stats in JSON")
@@ -45,6 +58,27 @@ if (opts.layerCount) {
   process.exit();
 }
 
+function spriteSheetSize(single) {
+  let size = single ? "" : "@2x";
+  return (
+    fs.statSync(`dist/sprites/sprite${size}.png`).size +
+    fs.statSync(`dist/sprites/sprite${size}.json`).size
+  );
+}
+
+const spriteSheet1xSize = spriteSheetSize(true);
+const spriteSheet2xSize = spriteSheetSize(false);
+
+if (opts.spritesheet1xSize) {
+  console.log(spriteSheet1xSize);
+  process.exit();
+}
+
+if (opts.spritesheet2xSize) {
+  console.log(spriteSheet2xSize);
+  process.exit();
+}
+
 const styleSize = JSON.stringify(layers).length;
 
 if (opts.layerSize) {
@@ -58,6 +92,8 @@ const stats = {
   layerCount,
   styleSize,
   layerGroup: {},
+  spriteSheet1xSize,
+  spriteSheet2xSize,
 };
 
 for (let i = 0; i < layerCount; i++) {
