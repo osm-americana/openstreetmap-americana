@@ -54,7 +54,7 @@ jobs:
       - name: Capture main branch usage statistics
         id: main-stats
         run: |
-          MAIN_STATS=$(node scripts/stats.js -j)
+          MAIN_STATS=$(node ../pr-branch/scripts/stats.js -j)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
