@@ -31,6 +31,11 @@ program
       "size of 2x sprite sheet"
     ).conflicts("allJson")
   )
+  .addOption(
+    new Option("-sh, --shield-json-size", "size of ShieldJSON").conflicts(
+      "allJson"
+    )
+  )
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
   .option("-j, --all-json", "output all stats in JSON")
   .option("-pp, --pretty", "pretty-print JSON output")
@@ -72,21 +77,29 @@ function spriteSheetSize(distDir, single) {
   );
 }
 
-const spriteSheet1xSize = spriteSheetSize(distDir, true);
-const spriteSheet2xSize = spriteSheetSize(distDir, false);
+function distFileSize(distDir, path) {
+  return fs.statSync(`${distDir}/${path}`).size;
+}
 
+const spriteSheet1xSize = spriteSheetSize(distDir, true);
 if (opts.spritesheet1xSize) {
   console.log(spriteSheet1xSize);
   process.exit();
 }
 
+const spriteSheet2xSize = spriteSheetSize(distDir, false);
 if (opts.spritesheet2xSize) {
   console.log(spriteSheet2xSize);
   process.exit();
 }
 
-const styleSize = JSON.stringify(layers).length;
+const shieldJSONSize = distFileSize(distDir, "shields.json");
+if (opts.shieldJsonSize) {
+  console.log(shieldJSONSize);
+  process.exit();
+}
 
+const styleSize = JSON.stringify(layers).length;
 if (opts.layerSize) {
   console.log(styleSize);
   process.exit();
@@ -100,6 +113,7 @@ const stats = {
   layerGroup: {},
   spriteSheet1xSize,
   spriteSheet2xSize,
+  shieldJSONSize,
 };
 
 for (let i = 0; i < layerCount; i++) {
