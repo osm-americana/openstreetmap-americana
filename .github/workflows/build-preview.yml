@@ -39,14 +39,6 @@ jobs:
           npm run shields
           cp src/configs/config.aws.js src/config.js
         working-directory: main
-      - name: Capture main branch usage statistics
-        id: main-stats
-        run: |
-          MAIN_STATS=$(node scripts/stats.js -d ../main/dist -j)
-          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
-          echo -e "$MAIN_STATS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-        working-directory: pr-branch
       - name: Checkout PR Branch 🛎️
         uses: actions/checkout@v3
       - name: Install and Build PR Branch 🔧
@@ -60,6 +52,14 @@ jobs:
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
           mv dist ..
+        working-directory: pr-branch
+      - name: Capture main branch usage statistics
+        id: main-stats
+        run: |
+          MAIN_STATS=$(node scripts/stats.js -d ../main/dist -j)
+          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
         working-directory: pr-branch
       - name: Start main branch map server
         id: main-start-server
