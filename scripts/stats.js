@@ -33,7 +33,12 @@ program
   )
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
   .option("-j, --all-json", "output all stats in JSON")
-  .option("-pp, --pretty", "pretty-print JSON output");
+  .option("-pp, --pretty", "pretty-print JSON output")
+  .option(
+    "-d, --directory <dir>",
+    "specify location of Americana distribution",
+    ["dist"]
+  );
 
 program.parse(process.argv);
 
@@ -42,6 +47,7 @@ const opts = program.opts();
 if (Object.keys(opts).length === 1) program.help();
 
 const locales = opts.locales[0].split(",");
+const distDir = opts.directory;
 
 const style = Style.build(
   config.OPENMAPTILES_URL,
@@ -58,16 +64,16 @@ if (opts.layerCount) {
   process.exit();
 }
 
-function spriteSheetSize(single) {
+function spriteSheetSize(distDir, single) {
   let size = single ? "" : "@2x";
   return (
-    fs.statSync(`dist/sprites/sprite${size}.png`).size +
-    fs.statSync(`dist/sprites/sprite${size}.json`).size
+    fs.statSync(`${distDir}/sprites/sprite${size}.png`).size +
+    fs.statSync(`${distDir}/sprites/sprite${size}.json`).size
   );
 }
 
-const spriteSheet1xSize = spriteSheetSize(true);
-const spriteSheet2xSize = spriteSheetSize(false);
+const spriteSheet1xSize = spriteSheetSize(distDir, true);
+const spriteSheet2xSize = spriteSheetSize(distDir, false);
 
 if (opts.spritesheet1xSize) {
   console.log(spriteSheet1xSize);
