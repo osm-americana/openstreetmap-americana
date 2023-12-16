@@ -500,7 +500,7 @@ export function loadShields() {
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
-    ["HIST"],
+    ["XYZA"],
     Color.shields.brown
   );
 
