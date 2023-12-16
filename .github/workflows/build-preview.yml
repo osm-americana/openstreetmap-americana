@@ -106,13 +106,13 @@ jobs:
           npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
           mv pr_preview-extra.md ../pr/
           cat ../pr/pr_preview-extra.md
-          mv samples-diff ../dist/
+          mv samples-diff dist/
         working-directory: pr-branch
       - name: Upload Build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: americana
-          path: dist/
+          path: pr-branch/dist/
       - name: Save PR attributes
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
