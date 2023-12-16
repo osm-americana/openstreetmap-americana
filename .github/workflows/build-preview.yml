@@ -51,7 +51,6 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
-          mv dist ..
         working-directory: pr-branch
       - name: Capture main branch usage statistics
         id: main-stats
