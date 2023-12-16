@@ -42,7 +42,7 @@ const ss2xRow = mdCompareRow(
   difference.spriteSheet2xSize
 );
 
-printTable("Style size statistics", [layersRow, sizeRow]);
+printTable("Style size statistics", [layersRow, sizeRow, ss1xRow, ss2xRow]);
 
 /**
  * Show comparison of the number of layers in each group before and after
