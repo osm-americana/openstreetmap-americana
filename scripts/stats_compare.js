@@ -28,6 +28,13 @@ const sizeRow = mdCompareRow(
   difference.styleSize
 );
 
+const shieldRow = mdCompareRow(
+  "ShieldJSON Size (b)",
+  stats1.shieldJSONSize,
+  stats2.shieldJSONSize,
+  difference.shieldJSONSize
+);
+
 const ss1xRow = mdCompareRow(
   "1x Sprite Sheet Size (b)",
   stats1.spriteSheet1xSize,
@@ -42,7 +49,7 @@ const ss2xRow = mdCompareRow(
   difference.spriteSheet2xSize
 );
 
-printTable("Style size statistics", [layersRow, sizeRow, ss1xRow, ss2xRow]);
+printTable("Style size statistics", [layersRow, sizeRow, ss1xRow, ss2xRow, shieldRow]);
 
 /**
  * Show comparison of the number of layers in each group before and after
