@@ -170,15 +170,15 @@ export function layoutShieldText(
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
-  var metrics = ctx.measureText(text);
+  var metrics: TextMetrics = ctx.measureText(text);
 
-  var textWidth = metrics.width;
-  var textHeight = metrics.actualBoundingBoxDescent;
+  var textWidth: number = metrics.width;
+  var textHeight: number = metrics.actualBoundingBoxDescent;
 
-  var availHeight = bounds.height - padTop - padBot;
-  var availWidth = bounds.width - padLeft - padRight;
+  var availHeight: number = bounds.height - padTop - padBot;
+  var availWidth: number = bounds.width - padLeft - padRight;
 
-  var xBaseline = padLeft + availWidth / 2;
+  var xBaseline: number = padLeft + availWidth / 2;
 
   let textLayoutFunc = drawTextFunctions[textLayoutDef.constraintFunc];
 
