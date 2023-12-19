@@ -100,7 +100,8 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
   var shieldBounds = null;
 
   var shieldArtwork = getRasterShieldBlank(r, shieldDef, routeDef);
-  let yOffset = bannerCount * r.px(r.options.bannerHeight);
+  let yOffset =
+    bannerCount * r.px(r.options.bannerHeight + r.options.bannerPadding);
 
   if (shieldArtwork == null) {
     ctx.translate(0, yOffset);
@@ -132,7 +133,8 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
     shieldBounds
   );
 
-  textLayout.yBaseline += bannerCount * r.px(r.options.bannerHeight);
+  textLayout.yBaseline +=
+    bannerCount * r.px(r.options.bannerHeight + r.options.bannerPadding);
 
   if (typeof r.options.SHIELD_TEXT_HALO_COLOR_OVERRIDE !== "undefined") {
     ctx.strokeStyle = options.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
@@ -150,7 +152,7 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
     ctx.lineWidth = r.px(1);
     ctx.strokeRect(
       r.px(shieldDef.padding.left - 0.5),
-      bannerCount * r.px(r.options.bannerHeight) +
+      bannerCount * r.px(r.options.bannerHeight + r.options.bannerPadding) +
         r.px(shieldDef.padding.top - 0.5),
       shieldBounds.width -
         r.px(shieldDef.padding.left + shieldDef.padding.right - 1),
@@ -322,7 +324,9 @@ export function generateShieldCtx(r, routeDef) {
     height = sourceSprite.data.height;
   }
 
-  let bannerHeight = bannerCount * r.px(r.options.bannerHeight);
+  let bannerHeight =
+    bannerCount *
+    (r.px(r.options.bannerHeight) + r.px(r.options.bannerPadding));
   height += bannerHeight;
 
   //Generate empty canvas sized to the graphic
