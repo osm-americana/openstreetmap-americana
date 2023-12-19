@@ -138,6 +138,9 @@ function triangleDownTextConstraint(
 
 // Warning!!! Hack!!!
 function isRunningInWebKit(): boolean {
+  if (typeof window === "undefined") {
+    return false;
+  }
   const userAgent = window.navigator.userAgent;
   return /WebKit/i.test(userAgent) && !/Chrome/i.test(userAgent);
 }
