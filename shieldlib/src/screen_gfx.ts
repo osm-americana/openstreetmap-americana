@@ -7,7 +7,7 @@ export const shieldFont = (size: number, fontFamily: string) =>
   `condensed 500 ${size}px ${fontFamily || defaultFontFamily}`;
 
 //If a computed shield font size is below this value, choose a wider shield if possible
-export const fontSizeThreshold = 11.5;
+export const fontSizeThreshold = 11;
 
 // Replaces `sourceVal` with a blend of `lightenVal` and `darkenVal` proportional to the brightness;
 // i.e. white becomes `darkenVal`, black becomes `lightenVal`, and anit-aliased pixels remain anit-aliased
