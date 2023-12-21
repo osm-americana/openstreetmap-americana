@@ -325,8 +325,7 @@ export function generateShieldCtx(r, routeDef) {
   }
 
   let bannerHeight =
-    bannerCount *
-    (r.px(r.options.bannerHeight) + r.px(r.options.bannerPadding));
+    bannerCount * r.px(r.options.bannerHeight + r.options.bannerPadding);
   height += bannerHeight;
 
   //Generate empty canvas sized to the graphic
