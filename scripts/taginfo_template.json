@@ -632,7 +632,14 @@
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_taoist.svg"
     },
-
+    {
+      "key": "shop",
+      "value": "supermarket",
+      "object_types": ["node", "area"],
+      "description": "Supermarkets are marked by an icon representing a grocery cart.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_supermarket.svg"
+    },
     {
       "key": "highway",
       "value": "motorway",
