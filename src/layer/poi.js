@@ -59,6 +59,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Hospital",
   },
+  library: {
+    classes: {
+      library: ["library"],
+    },
+    sprite: "poi_library",
+    color: Color.poi.infrastructure,
+    description: "Library",
+  },
   medical: {
     classes: {
       hospital: ["clinic"],
@@ -267,6 +275,7 @@ export const poi = {
         "police",
         "school",
         "college",
+        "library",
         "townhall",
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_buddhist),
@@ -294,6 +303,7 @@ export const poi = {
       [
         "bus_stop",
         "hospital",
+        "library",
         "museum",
         "police",
         ...getSubclasses(iconDefs.fuel),

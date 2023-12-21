@@ -498,6 +498,14 @@
     },
     {
       "key": "amenity",
+      "value": "library",
+      "object_types": ["node", "area"],
+      "description": "Libraries are marked by an icon representing a person reading a book.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_library.svg"
+    },
+    {
+      "key": "amenity",
       "value": "parking",
       "object_types": ["node", "area"],
       "description": "Parking lots are marked by a blue letter 'P'.",
