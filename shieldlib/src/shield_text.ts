@@ -84,7 +84,7 @@ function rectTextConstraint(
 ): TextTransform {
   var scaleHeight = spaceBounds.height / textBounds.height;
   var scaleWidth = spaceBounds.width / textBounds.width;
-  
+
   return {
     scale: Math.min(scaleWidth, scaleHeight),
     valign: VerticalAlignment.Middle,
