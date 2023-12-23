@@ -70,7 +70,7 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
     options: StyleImageMetadata,
     update: boolean
   ): void {
-    if (update) {
+    if (update && this.map.listImages().includes(spriteID)) {
       this.map.removeImage(spriteID);
       this.map.addImage(spriteID, image);
     } else {
