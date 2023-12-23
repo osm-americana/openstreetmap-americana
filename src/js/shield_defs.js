@@ -3392,10 +3392,10 @@ export function loadShields() {
     34
   );
 
-  // Netherlands
+  // Netherlands, Kingdom of the (European Netherlands, Aruba, and Curacao)
   // https://wiki.openstreetmap.org/wiki/The_Netherlands_road_network
   shields["NL:A"] = roundedRectShield(Color.shields.red, Color.shields.white);
-  shields["NL:N"] = roundedRectShield(
+  shields["NL:N"] = shields["AW:route"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black
   );
@@ -3417,7 +3417,7 @@ export function loadShields() {
     "Rotterdam",
     "Zaanstad",
   ].forEach((city) => (shields[`NL:S:${city}`] = nlCityRoute));
-  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both Netherlands and Curacao
+  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both European Netherlands and Curacao
   [
     "Ommen",
     "Schouwen",
