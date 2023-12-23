@@ -245,7 +245,7 @@ export class AbstractShieldRenderer {
   }
 
   /** Get a blank route shield graphics context in a specified size */
-  public createGraphics(bounds: Bounds) {
+  public createGraphics(bounds: Bounds): CanvasRenderingContext2D {
     return this._renderContext.gfxFactory.createGraphics(bounds);
   }
 
