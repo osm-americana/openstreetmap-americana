@@ -3,11 +3,7 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
-const parkLayerFilter = [
-  "in",
-  ["get", "class"],
-  ["literal", ["nature_reserve", "national_park", "protected_area"]],
-];
+const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
 
 export const fill = {
   id: "protected-area_fill",
