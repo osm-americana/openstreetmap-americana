@@ -39,5 +39,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "12/52.43818/-1.70563",
+    "name": "uk_all_roads_routes_z12",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]
