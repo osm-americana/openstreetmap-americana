@@ -106,6 +106,7 @@ export class AbstractShieldRenderer {
     this._renderContext.options = shieldSpec.options;
     this._renderContext.shieldDef = shieldSpec.networks;
     this._fontSpec = "1em " + shieldSpec.options.shieldFont;
+    console.log("ShieldJSON loaded");
     if (this._map) {
       this.reloadShieldsOnFontLoad();
     }

@@ -203,6 +203,11 @@ function refForDefs(routeDef, shieldDef) {
 }
 
 function getShieldDef(shields, routeDef) {
+  if (!shields) {
+    //This occurs if the ShieldJSON is loaded from the network and hasn't loaded yet.
+    return null;
+  }
+
   var shieldDef = shields[routeDef.network];
 
   if (routeDef == null) {
