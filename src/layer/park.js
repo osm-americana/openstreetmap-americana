@@ -3,8 +3,15 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
+const parkLayerFilter = [
+  "in",
+  ["get", "class"],
+  ["literal", ["nature_reserve", "national_park", "protected_area"]],
+];
+
 export const fill = {
   id: "protected-area_fill",
+  filter: parkLayerFilter,
   type: "fill",
   paint: {
     "fill-color": Color.parkFill,
@@ -15,6 +22,7 @@ export const fill = {
 
 export const outline = {
   id: "protected-area_outline",
+  filter: parkLayerFilter,
   type: "line",
   paint: {
     "line-color": Color.parkOutline,
@@ -27,7 +35,7 @@ export const outline = {
 export const label = {
   id: "protected-area_label",
   type: "symbol",
-  filter: ["has", "rank"],
+  filter: ["all", ["has", "rank"], parkLayerFilter],
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
