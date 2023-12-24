@@ -275,7 +275,7 @@ export const poi = {
         "parking",
         "police",
         "school",
-        "college",
+        ...getSubclasses(iconDefs.college),
         "townhall",
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_buddhist),
@@ -296,9 +296,15 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      ["station", "halt"],
+      [
+      ...getSubclasses(iconDefs.college),
+      ],
+      10,
+      [
+        "station",
+        "halt"],
       12,
-      ["bus_station", "subway", ...getSubclasses(iconDefs.college)],
+      ["bus_station", "subway"],
       14,
       [
         "bus_stop",
