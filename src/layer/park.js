@@ -3,23 +3,29 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
+const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
+
 export const fill = {
   id: "protected-area_fill",
+  filter: parkLayerFilter,
   type: "fill",
   paint: {
     "fill-color": Color.parkFill,
   },
   source: "openmaptiles",
+  minzoom: 5,
   "source-layer": "park",
 };
 
 export const outline = {
   id: "protected-area_outline",
+  filter: parkLayerFilter,
   type: "line",
   paint: {
     "line-color": Color.parkOutline,
   },
   source: "openmaptiles",
+  minzoom: 5,
   metadata: {},
   "source-layer": "park",
 };
@@ -27,7 +33,7 @@ export const outline = {
 export const label = {
   id: "protected-area_label",
   type: "symbol",
-  filter: ["has", "rank"],
+  filter: ["all", ["has", "rank"], parkLayerFilter],
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,

@@ -188,6 +188,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "School",
   },
+  supermarket: {
+    classes: {
+      grocery: ["supermarket"],
+    },
+    sprite: "poi_supermarket",
+    color: Color.poi.consumer,
+    description: "Supermarket",
+  },
   college: {
     classes: {
       college: ["college", "university"],
@@ -258,6 +266,7 @@ export const poi = {
         ...getSubclasses(iconDefs.fuel),
         ...getSubclasses(iconDefs.bar),
         ...getSubclasses(iconDefs.coffee),
+        ...getSubclasses(iconDefs.supermarket),
       ],
       Color.poi.consumer,
       [
@@ -316,6 +325,7 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_shinto),
         ...getSubclasses(iconDefs.pow_taoist),
         ...getSubclasses(iconDefs.school),
+        ...getSubclasses(iconDefs.supermarket),
         "townhall",
         "tram_stop",
       ],
@@ -345,7 +355,7 @@ export const poi = {
       [
         "match",
         ["get", "subclass"],
-        ["bus_stop", "tram_stop", "fuel"],
+        ["bus_stop", "tram_stop", "fuel", "supermarket"],
         "",
         label.localizedName,
       ],
