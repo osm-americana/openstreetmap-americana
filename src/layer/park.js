@@ -13,6 +13,7 @@ export const fill = {
     "fill-color": Color.parkFill,
   },
   source: "openmaptiles",
+  minzoom: 5,
   "source-layer": "park",
 };
 
@@ -24,6 +25,7 @@ export const outline = {
     "line-color": Color.parkOutline,
   },
   source: "openmaptiles",
+  minzoom: 5,
   metadata: {},
   "source-layer": "park",
 };
