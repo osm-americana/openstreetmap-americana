@@ -49,15 +49,16 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
+          mv dist ..
         working-directory: pr-branch
       - name: Capture main branch usage statistics
         id: main-stats
         run: |
-          MAIN_STATS=$(node scripts/stats.js -d ../main/dist -j)
+          MAIN_STATS=$(node ../pr-branch/scripts/stats.js -j)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-        working-directory: pr-branch
+        working-directory: main
       - name: Start main branch map server
         id: main-start-server
         run: |
@@ -106,13 +107,13 @@ jobs:
           npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
           mv pr_preview-extra.md ../pr/
           cat ../pr/pr_preview-extra.md
-          mv samples-diff dist/
+          mv samples-diff ../dist/
         working-directory: pr-branch
       - name: Upload Build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: americana
-          path: pr-branch/dist/
+          path: dist/
       - name: Save PR attributes
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
