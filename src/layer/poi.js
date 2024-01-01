@@ -63,7 +63,7 @@ var iconDefs = {
     classes: {
       library: ["library"],
     },
-    sprite: "poi_library",
+    sprite: "poi_book_upright",
     color: Color.poi.infrastructure,
     description: "Library",
   },

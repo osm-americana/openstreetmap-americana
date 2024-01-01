@@ -47,5 +47,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "17/40.753326/-73.982224",
+    "name": "library_z17",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]
