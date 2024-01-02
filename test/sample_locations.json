@@ -55,5 +55,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "13.25/49.552/5.8107",
+    "name": "europe_e-road_routes",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]
