@@ -4,8 +4,8 @@ import * as Color from "../constants/color.js";
 import * as Util from "../js/util.js";
 
 const motorwayHue = 218;
-const stateHue = 40;
-const tollRoadHue = 100;
+const trunkHue = 0;
+const tollRoadHue = 50;
 
 // Common filter expressions
 const isRoad = [
@@ -31,16 +31,19 @@ const isToll = ["==", ["get", "toll"], 1];
 const isNotToll = ["!", isToll];
 const isMotorway = ["all", ["==", ["get", "class"], "motorway"], isNotRamp];
 const isNotMotorway = ["!=", ["get", "class"], "motorway"];
-const isState = [
-  "match",
-  ["get", "network"],
-  ["us-highway", "us-state"],
-  isNotRamp,
-  false,
-];
-const isNotState = ["!", isState];
+const isTrunk = ["all", ["==", ["get", "class"], "trunk"], isNotRamp];
+const isNotTrunk = ["!", isTrunk];
 const isExpressway = ["==", ["get", "expressway"], 1];
 const isNotExpressway = ["!", isExpressway];
+const isDivided = ["any", isMotorway, isExpressway];
+const isArterial = [
+  "match",
+  ["get", "class"],
+  ["primary", "secondary"],
+  true,
+  false,
+];
+const isNotArterial = ["!", isArterial];
 const isService = ["==", ["get", "class"], "service"];
 const isNotService = ["!", isService];
 const isMinorService = [
@@ -101,8 +104,11 @@ export const road = {
     "line-join": "round",
     "line-sort-key": [
       "+",
-      ["to-number", isMotorway],
-      ["to-number", isState],
+      [
+        "index-of",
+        ["get", "class"],
+        ["literal", ["tertiary", "secondary", "primary", "trunk", "motorway"]],
+      ],
       ["to-number", isRamp],
     ],
   },
@@ -118,8 +124,8 @@ export const road = {
         `hsl(${tollRoadHue}, 60%, 70%)`,
         isMotorway,
         `hsl(${motorwayHue}, 60%, 70%)`,
-        isState,
-        `hsl(${stateHue}, 77%, 50%)`,
+        isTrunk,
+        `hsl(${trunkHue}, 60%, 70%)`,
         "#9c9c9c",
       ],
       8,
@@ -129,8 +135,8 @@ export const road = {
         `hsl(${tollRoadHue}, 100%, 40%)`,
         isMotorway,
         `hsl(${motorwayHue}, 100%, 45%)`,
-        isState,
-        `hsl(${stateHue}, 77%, 50%)`,
+        isTrunk,
+        `hsl(${trunkHue}, 60%, 60%)`,
         "#9c9c9c",
       ],
       14,
@@ -140,10 +146,12 @@ export const road = {
         `hsl(${tollRoadHue}, 100%, 35%)`,
         isMotorway,
         `hsl(${motorwayHue}, 100%, 35%)`,
-        isState,
-        `hsl(${stateHue}, 77%, 50%)`,
+        isTrunk,
+        `hsl(${trunkHue}, 60%, 60%)`,
         ["all", ["==", ["get", "class"], "motorway"], isRamp],
-        "#000",
+        "hsl(0, 0%, 20%)",
+        isArterial,
+        "hsl(0, 0%, 30%)",
         "#9c9c9c",
       ],
     ],
@@ -153,30 +161,30 @@ export const road = {
       ["zoom"],
       4,
       1,
+      7,
+      1,
       8,
       [
         "case",
-        isMotorway,
-        3,
-        isExpressway,
+        isDivided,
         1,
-        isState,
+        isTrunk,
         2,
         ["match", ["get", "class"], ["trunk", "primary"], isNotRamp, false],
-        2,
+        1,
         0.25,
       ],
       18,
       [
         "case",
-        isMotorway,
-        6,
-        ["all", isState, isNotExpressway],
+        ["all", isMotorway, isNotExpressway],
+        4,
+        ["all", isTrunk, isNotExpressway],
         4,
         [
           "match",
           ["get", "class"],
-          ["trunk", "primary", "secondary", "tertiary"],
+          ["motorway", "trunk", "primary", "secondary", "tertiary"],
           isNotRamp,
           false,
         ],
@@ -188,14 +196,14 @@ export const road = {
       20,
       [
         "case",
-        isMotorway,
-        10,
-        ["all", isState, isNotExpressway],
+        ["all", isMotorway, isNotExpressway],
+        8,
+        ["all", isTrunk, isNotExpressway],
         8,
         [
           "match",
           ["get", "class"],
-          ["trunk", "primary", "secondary", "tertiary"],
+          ["motorway", "trunk", "primary", "secondary", "tertiary"],
           isNotRamp,
           false,
         ],
@@ -209,10 +217,12 @@ export const road = {
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      4,
-      ["case", isExpressway, 1, 0],
+      7,
+      0,
+      8,
+      ["case", isDivided, 1, 0],
       12,
-      ["case", isExpressway, 3, 0],
+      ["case", isDivided, 3, 0],
       14,
       0,
     ],
@@ -288,19 +298,24 @@ export const roadBridgeCasing = {
 
 export const legendEntries = [
   {
-    description: "Controlled-access highway",
+    description: "Freeway (controlled access, divided)",
     layers: [road.id],
     filter: ["all", isMotorway, isNotToll],
   },
   {
-    description: "Limited-access highway",
+    description: "Expressway (limited access, divided)",
     layers: [road.id],
     filter: ["all", isExpressway, isNotToll],
   },
   {
-    description: "State highway",
+    description: "Principal highway",
     layers: [road.id],
-    filter: ["all", isState, isNotToll, isNotExpressway],
+    filter: ["all", isTrunk, isNotToll, isNotExpressway],
+  },
+  {
+    description: "Arterial road",
+    layers: [road.id],
+    filter: ["all", isArterial, isNotToll, isNotExpressway],
   },
   {
     description: "Local road",
@@ -308,9 +323,10 @@ export const legendEntries = [
     filter: [
       "all",
       isNotMotorway,
-      isNotState,
+      isNotTrunk,
       isNotToll,
       isNotExpressway,
+      isNotArterial,
       isNotRamp,
       isNotService,
     ],
