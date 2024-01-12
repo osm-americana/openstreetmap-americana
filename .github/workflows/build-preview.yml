@@ -26,6 +26,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: main
+          path: main
+      - name: Checkout PR Branch 🛎️
+        uses: actions/checkout@v3
+        with:
+          path: pr-branch
       - name: Install and Build Main Branch 🔧
         run: |
           npm ci --include=dev
@@ -33,16 +38,8 @@ jobs:
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
-      - name: Capture main branch usage statistics
-        id: main-stats
-        run: |
-          MAIN_STATS=$(node scripts/stats.js -j)
-          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
-          echo -e "$MAIN_STATS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      - name: Checkout PR Branch 🛎️
-        uses: actions/checkout@v3
-      - name: Install and Build 🔧
+        working-directory: main
+      - name: Install and Build PR Branch 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
           npm ci --include=dev
@@ -52,11 +49,42 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
-      - name: Upload Build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: americana
-          path: dist/
+          mv dist ..
+        working-directory: pr-branch
+      - name: Capture main branch usage statistics
+        id: main-stats
+        run: |
+          MAIN_STATS=$(node ../pr-branch/scripts/stats.js -j)
+          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        working-directory: main
+      - name: Start main branch map server
+        id: main-start-server
+        run: |
+          npm start &
+          until nc -z localhost 1776; do sleep 1; done
+        working-directory: main
+      - name: Capture main branch sample clips
+        # Run PR branch scripts against server running from main branch
+        id: main-samples
+        run: |
+          npm run generate_samples
+          mv samples ../samples-main
+        working-directory: pr-branch
+      - name: Stop main branch map server
+        id: main-stop-server
+        run: kill $(lsof -t -i:1776) 2>/dev/null || echo "No process found listening on port 1776."
+        working-directory: main
+      - name: Capture PR branch sample clips
+        id: pr-samples
+        run: |
+          npm start &
+          until nc -z localhost 1776; do sleep 1; done
+          npm run generate_samples
+          kill $(lsof -t -i:1776) 2>/dev/null || echo "No process found listening on port 1776."
+          mv samples ../samples-pr
+        working-directory: pr-branch
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
@@ -64,14 +92,29 @@ jobs:
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+        working-directory: pr-branch
       - name: Compare Stats
         id: compare-stats
         run: |
-          mkdir -p pr
+          mkdir -p ../pr
           echo '${{ env.MAIN_STATS }}'
           echo '${{ env.PR_STATS }}'
-          npm exec tsx scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > pr/stats-difference.md
-      - name: Save PR artifacts
+          npm exec tsx scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > ../pr/stats-difference.md
+        working-directory: pr-branch
+      - name: Generate map diff sample clips
+        id: map-diff-samples
+        run: |
+          npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
+          mv pr_preview-extra.md ../pr/
+          cat ../pr/pr_preview-extra.md
+          mv samples-diff ../dist/
+        working-directory: pr-branch
+      - name: Upload Build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: americana
+          path: dist/
+      - name: Save PR attributes
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_SHA: ${{ github.event.pull_request.head.sha }}

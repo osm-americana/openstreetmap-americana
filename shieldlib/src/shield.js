@@ -3,11 +3,7 @@
 import * as ShieldText from "./shield_text";
 import * as ShieldDraw from "./shield_canvas_draw";
 import * as Gfx from "./screen_gfx";
-import {
-  drawBanners,
-  drawBannerHalos,
-  getBannerCount,
-} from "./shield_banner";
+import { drawBanners, drawBannerHalos, getBannerCount } from "./shield_banner";
 
 function compoundShieldSize(r, dimension, bannerCount) {
   return {
@@ -80,18 +76,6 @@ function getDrawFunc(shieldDef) {
   return ShieldDraw.blank;
 }
 
-function drawShield(r, ctx, shieldDef, routeDef) {
-  let bannerCount = getBannerCount(shieldDef);
-  let yOffset = bannerCount * r.px(r.options.bannerHeight);
-
-  //Shift canvas to draw shield below banner
-  ctx.save();
-  ctx.translate(0, yOffset);
-  let drawFunc = getDrawFunc(shieldDef);
-  drawFunc(r, ctx, routeDef.ref);
-  ctx.restore();
-}
-
 function getDrawHeight(r, shieldDef) {
   if (typeof shieldDef.shapeBlank != "undefined") {
     return ShieldDraw.shapeHeight(r, shieldDef.shapeBlank.drawFunc);
@@ -99,30 +83,7 @@ function getDrawHeight(r, shieldDef) {
   return r.shieldSize();
 }
 
-function drawShieldText(r, ctx, shieldDef, routeDef) {
-  var bannerCount = getBannerCount(shieldDef);
-  var shieldBounds = null;
-
-  var shieldArtwork = getRasterShieldBlank(r, shieldDef, routeDef);
-  let yOffset = bannerCount * r.px(r.options.bannerHeight);
-
-  if (shieldArtwork == null) {
-    ctx.translate(0, yOffset);
-    let drawFunc = getDrawFunc(shieldDef);
-    drawFunc(r, ctx, routeDef.ref);
-    ctx.translate(0, -yOffset);
-
-    shieldBounds = {
-      width: ctx.canvas.width,
-      height: getDrawHeight(r, shieldDef),
-    };
-  } else {
-    shieldBounds = {
-      width: shieldArtwork.data.width,
-      height: shieldArtwork.data.height,
-    };
-  }
-
+function drawShieldText(r, ctx, shieldDef, routeDef, shieldBounds) {
   if (shieldDef.notext) {
     //If the shield definition says not to draw a ref, ignore ref
     return ctx;
@@ -135,8 +96,6 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
     shieldDef,
     shieldBounds
   );
-
-  textLayout.yBaseline += bannerCount * r.px(r.options.bannerHeight);
 
   if (typeof r.options.SHIELD_TEXT_HALO_COLOR_OVERRIDE !== "undefined") {
     ctx.strokeStyle = options.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
@@ -154,8 +113,7 @@ function drawShieldText(r, ctx, shieldDef, routeDef) {
     ctx.lineWidth = r.px(1);
     ctx.strokeRect(
       r.px(shieldDef.padding.left - 0.5),
-      bannerCount * r.px(r.options.bannerHeight) +
-        r.px(shieldDef.padding.top - 0.5),
+      r.px(shieldDef.padding.top - 0.5),
       shieldBounds.width -
         r.px(shieldDef.padding.left + shieldDef.padding.right - 1),
       shieldBounds.height -
@@ -185,7 +143,7 @@ function storeSprite(r, id, ctx, update) {
       height: ctx.canvas.height,
       data: imgData.data,
     },
-    r.px(1),
+    { pixelRatio: r.px(1) },
     update
   );
 }
@@ -298,6 +256,17 @@ function getDrawnShieldBounds(r, shieldDef, ref) {
   return { width, height };
 }
 
+function bannerAreaHeight(r, bannerCount) {
+  if (bannerCount === 0) {
+    return 0;
+  }
+  return (
+    bannerCount * r.px(r.options.bannerHeight) +
+    //No padding after last banner
+    (bannerCount - 1) * r.px(r.options.bannerPadding)
+  );
+}
+
 export function generateShieldCtx(r, routeDef) {
   let shieldDef = getShieldDef(r.shieldDef, routeDef);
 
@@ -315,18 +284,25 @@ export function generateShieldCtx(r, routeDef) {
   let width = r.shieldSize();
   let height = r.shieldSize();
 
+  let shieldBounds = null;
+
   if (sourceSprite == null) {
     if (typeof shieldDef.shapeBlank != "undefined") {
       let bounds = getDrawnShieldBounds(r, shieldDef, routeDef.ref);
       width = bounds.width;
       height = bounds.height;
     }
+    shieldBounds = {
+      width: width,
+      height: getDrawHeight(r, shieldDef),
+    };
   } else {
     width = sourceSprite.data.width;
     height = sourceSprite.data.height;
+    shieldBounds = { width, height };
   }
 
-  let bannerHeight = bannerCount * r.px(r.options.bannerHeight);
+  let bannerHeight = bannerAreaHeight(r, bannerCount);
   height += bannerHeight;
 
   //Generate empty canvas sized to the graphic
@@ -342,9 +318,15 @@ export function generateShieldCtx(r, routeDef) {
   // Add the halo around modifier plaque text
   drawBannerHalos(r, ctx, shieldDef);
 
+  //Shift canvas to draw shield below banner
+  ctx.save();
+  ctx.translate(0, bannerHeight);
+
   if (sourceSprite == null) {
-    drawShield(r, ctx, shieldDef, routeDef);
+    let drawFunc = getDrawFunc(shieldDef);
+    drawFunc(r, ctx, routeDef.ref);
   } else {
+    //This is a raw copy, so the yOffset (bannerHeight) is needed
     Gfx.transposeImageData(
       ctx,
       sourceSprite,
@@ -356,7 +338,9 @@ export function generateShieldCtx(r, routeDef) {
   }
 
   // Draw the shield text
-  drawShieldText(r, ctx, shieldDef, routeDef);
+  drawShieldText(r, ctx, shieldDef, routeDef, shieldBounds);
+
+  ctx.restore();
 
   // Add modifier plaque text
   drawBanners(r, ctx, shieldDef);

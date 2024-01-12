@@ -2,6 +2,7 @@ import {
   Map as MapLibre,
   MapStyleImageMissingEvent,
   StyleImage,
+  StyleImageMetadata,
 } from "maplibre-gl";
 import {
   Bounds,
@@ -66,14 +67,14 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
   putSprite(
     spriteID: string,
     image: ImageData,
-    pixelRatio: number,
+    options: StyleImageMetadata,
     update: boolean
   ): void {
     if (update) {
       this.map.removeImage(spriteID);
       this.map.addImage(spriteID, image);
     } else {
-      this.map.addImage(spriteID, image, { pixelRatio: pixelRatio });
+      this.map.addImage(spriteID, image, options);
     }
   }
 }

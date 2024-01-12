@@ -3149,9 +3149,7 @@ export function loadShields() {
   // EUROPE
   shields["e-road"] = roundedRectShield(
     Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    34
+    Color.shields.white
   );
 
   // Austria
@@ -3199,6 +3197,10 @@ export function loadShields() {
     shields["BE:B-road"] =
     shields["BE:R-road"] =
       roundedRectShield(Color.shields.white, Color.shields.black);
+  shields["BE:VLG:Ring_Antwerpen"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
 
   // Bulgaria
   shields["bg:motorway"] = roundedRectShield(
@@ -3321,6 +3323,7 @@ export function loadShields() {
 
   shields["omt-ie-national"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
     Color.shields.yellow
   );
 
@@ -3391,10 +3394,10 @@ export function loadShields() {
     34
   );
 
-  // Netherlands
+  // Netherlands, Kingdom of the (European Netherlands, Aruba, and Curacao)
   // https://wiki.openstreetmap.org/wiki/The_Netherlands_road_network
   shields["NL:A"] = roundedRectShield(Color.shields.red, Color.shields.white);
-  shields["NL:N"] = roundedRectShield(
+  shields["NL:N"] = shields["AW:route"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black
   );
@@ -3416,7 +3419,7 @@ export function loadShields() {
     "Rotterdam",
     "Zaanstad",
   ].forEach((city) => (shields[`NL:S:${city}`] = nlCityRoute));
-  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both Netherlands and Curacao
+  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both European Netherlands and Curacao
   [
     "Ommen",
     "Schouwen",
@@ -3536,6 +3539,7 @@ export function loadShields() {
 
   shields["omt-gb-trunk"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
     Color.shields.yellow
   );
 
