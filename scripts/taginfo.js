@@ -20,7 +20,7 @@ import {
   routeParser,
   shieldPredicate,
   networkPredicate,
-} from "../src/js/shield_format.js";
+} from "../src/js/shield_format";
 
 await mkdir("dist/shield-sample", { recursive: true });
 

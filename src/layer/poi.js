@@ -43,6 +43,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Coffee shop",
   },
+  fuel: {
+    classes: {
+      fuel: ["fuel"],
+    },
+    sprite: "poi_fuel",
+    color: Color.poi.consumer,
+    description: "Gas station",
+  },
   hospital: {
     classes: {
       hospital: ["hospital"],
@@ -172,6 +180,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "School",
   },
+  supermarket: {
+    classes: {
+      grocery: ["supermarket"],
+    },
+    sprite: "poi_supermarket",
+    color: Color.poi.consumer,
+    description: "Supermarket",
+  },
   college: {
     classes: {
       college: ["college", "university"],
@@ -238,7 +254,12 @@ export const poi = {
     "text-color": [
       "match",
       ["get", "subclass"],
-      [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
+      [
+        ...getSubclasses(iconDefs.fuel),
+        ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.coffee),
+        ...getSubclasses(iconDefs.supermarket),
+      ],
       Color.poi.consumer,
       [
         "bus_station",
@@ -284,6 +305,7 @@ export const poi = {
         "hospital",
         "museum",
         "police",
+        ...getSubclasses(iconDefs.fuel),
         ...getSubclasses(iconDefs.pow_buddhist),
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_hindu),
@@ -293,6 +315,7 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_shinto),
         ...getSubclasses(iconDefs.pow_taoist),
         ...getSubclasses(iconDefs.school),
+        ...getSubclasses(iconDefs.supermarket),
         "townhall",
         "tram_stop",
       ],
@@ -322,7 +345,7 @@ export const poi = {
       [
         "match",
         ["get", "subclass"],
-        ["bus_stop", "tram_stop"],
+        ["bus_stop", "tram_stop", "fuel", "supermarket"],
         "",
         label.localizedName,
       ],

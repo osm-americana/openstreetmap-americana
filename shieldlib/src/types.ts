@@ -1,4 +1,4 @@
-import { StyleImage } from "maplibre-gl";
+import { StyleImage, StyleImageMetadata } from "maplibre-gl";
 
 /** Defines the set of routes that a shield applies to */
 export interface RouteDefinition {
@@ -135,7 +135,12 @@ export interface SpriteProducer {
 
 /** Store a sprite graphic based on an ID */
 export interface SpriteConsumer {
-  putSprite(spriteID: string, image: ImageData, pixelRatio: number): void;
+  putSprite(
+    spriteID: string,
+    image: ImageData,
+    options: StyleImageMetadata,
+    update: boolean
+  ): void;
 }
 
 /** Respository that can store and retrieve sprite graphics */
