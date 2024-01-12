@@ -3320,6 +3320,7 @@ export function loadShields() {
 
   shields["omt-ie-national"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
     Color.shields.yellow
   );
 
@@ -3535,6 +3536,7 @@ export function loadShields() {
 
   shields["omt-gb-trunk"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
     Color.shields.yellow
   );
 
