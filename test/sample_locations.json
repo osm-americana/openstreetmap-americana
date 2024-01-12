@@ -12,16 +12,48 @@
     "location": "13/40.01264/-75.70446",
     "name": "downingtown_alt_trk_bus",
     "viewport": {
-      "width": 600,
-      "height": 600
+      "width": 400,
+      "height": 400
     }
   },
   {
     "location": "13/35.22439/-99.99495",
     "name": "historic_us66_oklahoma",
     "viewport": {
-      "width": 600,
-      "height": 600
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "15/33.92208/-83.37654",
+    "name": "athens_ga_7_way_concurrency",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "16/40.765073/-73.965035",
+    "name": "manhattan_poi",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "12/52.43818/-1.70563",
+    "name": "uk_all_roads_routes_z12",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "13.25/49.552/5.8107",
+    "name": "europe_e-road_routes",
+    "viewport": {
+      "width": 400,
+      "height": 400
     }
   }
 ]
