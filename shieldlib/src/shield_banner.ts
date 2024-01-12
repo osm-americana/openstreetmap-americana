@@ -133,7 +133,7 @@ function drawBannerTextComponent(
   textComponent: boolean
 ): void {
   const bannerPadding = {
-    top: r.options.bannerPadding,
+    top: 0,
     bottom: 0,
     left: 0,
     right: 0,
@@ -161,7 +161,7 @@ function drawBannerTextComponent(
       text,
       textLayout.xBaseline,
       textLayout.yBaseline +
-        bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
+        bannerIndex * r.px(r.options.bannerHeight + r.options.bannerPadding)
     );
   } else {
     ctx.shadowBlur = 0;
@@ -170,7 +170,7 @@ function drawBannerTextComponent(
       text,
       textLayout.xBaseline,
       textLayout.yBaseline +
-        bannerIndex * r.px(r.options.bannerHeight - r.options.bannerPadding)
+        bannerIndex * r.px(r.options.bannerHeight + r.options.bannerPadding)
     );
 
     ctx.shadowColor = null;
