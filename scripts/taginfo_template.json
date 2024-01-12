@@ -652,7 +652,7 @@
       "key": "shop",
       "value": "car_repair",
       "object_types": ["node", "area"],
-      "description": "Car dealerships are marked by an icon representing a front facing vehicle with a wrench above it.",
+      "description": "Car mechanic shops are marked by an icon representing a front facing vehicle with a wrench above it.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_car_repair.svg"
     },
