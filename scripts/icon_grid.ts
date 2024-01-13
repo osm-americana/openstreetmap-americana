@@ -8,14 +8,15 @@ const outputFilename = `${outputFilenameBase}_preview.png`;
 const scale = 40;
 
 // Function to generate a pixel grid
-function generateGridPattern(): Buffer {
+function generateGridPattern(xOffset: number, yOffset: number): Buffer {
   const gridSvg = `<svg width="${scale}" height="${scale}" xmlns="http://www.w3.org/2000/svg">
         <rect x="0" y="0" width="${scale}" height="${scale}" fill="none"/>
-        <path d="M ${scale} 0 V ${scale} M 0 ${scale} H ${scale}" stroke="magenta" stroke-opacity="0.9" stroke-width="1"/>
-        <path d="M ${scale / 2} 0 V ${scale} M 0 ${
-    scale / 2
+        <path d="M ${scale - xOffset} 0 V ${scale} M 0 ${
+    scale - yOffset
+  } H ${scale}" stroke="magenta" stroke-opacity="0.9" stroke-width="1"/>
+        <path d="M ${scale / 2 - xOffset} 0 V ${scale} M 0 ${
+    scale / 2 - yOffset
   } H ${scale}" stroke="gray" stroke-opacity="0.2" stroke-width="1"/>
-
   </svg>`;
   return Buffer.from(gridSvg);
 }
@@ -37,8 +38,11 @@ async function convertAndScaleSVG(svgFilename: string): Promise<void> {
       .resize(width, height)
       .toBuffer();
 
+    const xOffset: number = width % 2 == 0 ? scale / 2 : 0;
+    const yOffset: number = height % 2 == 0 ? scale / 2 : 0;
+
     // Generate a pixel grid pattern
-    const gridPattern = generateGridPattern();
+    const gridPattern = generateGridPattern(xOffset, yOffset);
 
     // Composite the scaled image over the grid
     sharp({
@@ -51,7 +55,7 @@ async function convertAndScaleSVG(svgFilename: string): Promise<void> {
     })
       .composite([
         { input: resizedSvgBuffer, blend: "over" },
-        { input: generateGridPattern(), tile: true, blend: "over" },
+        { input: gridPattern, tile: true, blend: "over" },
       ])
       .toFile(outputFilename)
       .then(() => console.log(`Wrote ${outputFilename}`))
