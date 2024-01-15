@@ -49,7 +49,7 @@ async function convertAndScaleSVG(svgFilename: string): Promise<void> {
       width,
       height,
       channels: 4,
-      background: { r: 255, g: 255, b: 255, alpha: 0 },
+      background: { r: 211, g: 211, b: 211, alpha: 1 }, // Light gray to show white borders
     },
   })
     .composite([
