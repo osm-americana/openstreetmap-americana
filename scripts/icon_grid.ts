@@ -37,8 +37,8 @@ async function convertAndScaleSVG(svgFilename: string): Promise<void> {
     .resize(width, height)
     .toBuffer();
 
-  const xOffset: number = width % 2 == 0 ? scale / 2 : 0;
-  const yOffset: number = height % 2 == 0 ? scale / 2 : 0;
+  const xOffset: number = metadata.width! % 2 == 0 ? scale / 2 : 0;
+  const yOffset: number = metadata.height! % 2 == 0 ? scale / 2 : 0;
 
   // Generate a pixel grid pattern
   const gridPattern = generateGridPattern(xOffset, yOffset);
