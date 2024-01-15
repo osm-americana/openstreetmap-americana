@@ -23,46 +23,41 @@ function generateGridPattern(xOffset: number, yOffset: number): Buffer {
 
 // Convert and scale SVG
 async function convertAndScaleSVG(svgFilename: string): Promise<void> {
-  try {
-    const svgBuffer = fs.readFileSync(svgFilename);
+  const svgBuffer = fs.readFileSync(svgFilename);
 
-    // Get dimensions of the original SVG
-    const metadata = await sharp(svgBuffer).metadata();
-    const width = metadata.width! * scale;
-    const height = metadata.height! * scale;
+  // Get dimensions of the original SVG
+  const metadata = await sharp(svgBuffer).metadata();
+  const width = metadata.width! * scale;
+  const height = metadata.height! * scale;
 
-    // Resize the SVG
-    const resizedSvgBuffer = await sharp(svgBuffer, {
-      density: 72 * scale,
-    })
-      .resize(width, height)
-      .toBuffer();
+  // Resize the SVG
+  const resizedSvgBuffer = await sharp(svgBuffer, {
+    density: 72 * scale,
+  })
+    .resize(width, height)
+    .toBuffer();
 
-    const xOffset: number = width % 2 == 0 ? scale / 2 : 0;
-    const yOffset: number = height % 2 == 0 ? scale / 2 : 0;
+  const xOffset: number = width % 2 == 0 ? scale / 2 : 0;
+  const yOffset: number = height % 2 == 0 ? scale / 2 : 0;
 
-    // Generate a pixel grid pattern
-    const gridPattern = generateGridPattern(xOffset, yOffset);
+  // Generate a pixel grid pattern
+  const gridPattern = generateGridPattern(xOffset, yOffset);
 
-    // Composite the scaled image over the grid
-    sharp({
-      create: {
-        width: width,
-        height: height,
-        channels: 4,
-        background: { r: 255, g: 255, b: 255, alpha: 0 },
-      },
-    })
-      .composite([
-        { input: resizedSvgBuffer, blend: "over" },
-        { input: gridPattern, tile: true, blend: "over" },
-      ])
-      .toFile(outputFilename)
-      .then(() => console.log(`Wrote ${outputFilename}`))
-      .catch((err) => console.error(err));
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  // Composite the scaled image over the grid
+  await sharp({
+    create: {
+      width,
+      height,
+      channels: 4,
+      background: { r: 255, g: 255, b: 255, alpha: 0 },
+    },
+  })
+    .composite([
+      { input: resizedSvgBuffer, blend: "over" },
+      { input: gridPattern, tile: true, blend: "over" },
+    ])
+    .toFile(outputFilename);
+  console.log(`Wrote ${outputFilename}`);
 }
 
 if (!svgFilename) {
