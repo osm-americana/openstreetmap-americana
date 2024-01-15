@@ -70,4 +70,9 @@ if (!svgFilename) {
   process.exit(1);
 }
 
-convertAndScaleSVG(svgFilename);
+try {
+  await convertAndScaleSVG(svgFilename);
+} catch (error) {
+  console.error("Error: ", error);
+  process.exit(1);
+}
