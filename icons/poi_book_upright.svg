@@ -1,0 +1,6 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <g style="display:inline;stroke:#000;stroke-opacity:0">
+  <path style="fill:#fff;fill-opacity:1;stroke:#fff;stroke-width:0;stroke-linecap:round;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000" d="m 5,15 h 9 V 7 h -1 v 3 z" stroke="none"/>
+  <path style="display:inline;fill:#000;fill-opacity:1;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill" d="m 7,18 v -1 h 7 V 16 H 7 6.0780723 L 6,8 H 7 V 7 H 5 v 10 h 1 v 1 z m -2,0 v 1 h 10 v -3 h -1 v 2 z M 7,2 v 10 l 8,5 V 16 7 Z" transform="matrix(-1 0 0 1 20 -1)"/>
+ </g>
+</svg>
