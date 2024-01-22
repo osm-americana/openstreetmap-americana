@@ -656,6 +656,12 @@ export function loadShields() {
       ))
   );
 
+  // Arizona
+  shields["US:AZ:Scenic"] = {
+    spriteBlank: "shield_us_az_scenic",
+    notext: true,
+  };
+
   // Arkansas
   shields["US:AR"] = {
     spriteBlank: ["shield_us_ar_2", "shield_us_ar_3"],
