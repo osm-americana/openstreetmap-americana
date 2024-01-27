@@ -3,6 +3,8 @@ import type {
   RouteParser,
 } from "@americana/maplibre-shield-generator";
 
+import { parseImageName } from "../layer/highway_shield.js";
+
 export const shieldPredicate: StringPredicate = (imageID: string) =>
   imageID && imageID.startsWith("shield");
 
@@ -14,16 +16,8 @@ export const networkPredicate: StringPredicate = (network: string) =>
 
 export const routeParser: RouteParser = {
   parse: (id: string) => {
-    //Americana format is `${shield}\n${network}=${ref}\n${name}`
-    let id_parts: string[] = id.split("\n");
-    let network_ref = id_parts[1].split("=");
-
-    return {
-      network: network_ref[0],
-      ref: network_ref[1],
-      name: id_parts[2],
-    };
+    return parseImageName(id);
   },
   format: (network: string, ref: string, name: string) =>
-    `shield\n${network}=${ref}\n${name}`,
+    `shield\n${network}\n${ref}\n${name}\n`,
 };
