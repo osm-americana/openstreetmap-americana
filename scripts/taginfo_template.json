@@ -489,13 +489,44 @@
     },
     {
       "key": "tourism",
+      "value": "guest_house",
+      "object_types": ["node", "area"],
+      "description": "Guest houses are marked by an icon representing a person laying in a bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "hostel",
+      "object_types": ["node", "area"],
+      "description": "Hostels are marked by an icon representing two people laying in a bunk bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hostel.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "hotel",
+      "object_types": ["node", "area"],
+      "description": "Hotels are marked by an icon representing a person laying in a bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "motel",
+      "object_types": ["node", "area"],
+      "description": "Motels are marked by an icon representing a person laying in a bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+    },
+    {
+      "key": "tourism",
       "value": "museum",
       "object_types": ["node", "area"],
       "description": "Museums are marked by an icon representing a Classical columned building.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_museum.svg"
     },
-
     {
       "key": "amenity",
       "value": "clinic",

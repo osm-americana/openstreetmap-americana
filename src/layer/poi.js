@@ -83,6 +83,22 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Hospital",
   },
+  hotel: {
+    classes: {
+      lodging: ["hotel", "motel", "guest_house"],
+    },
+    sprite: "poi_hotel",
+    color: Color.poi.consumer,
+    description: "Hotel",
+  },
+  hostel: {
+    classes: {
+      lodging: ["hostel"],
+    },
+    sprite: "poi_hostel",
+    color: Color.poi.consumer,
+    description: "Hostel",
+  },
   library: {
     classes: {
       library: ["library"],
@@ -293,6 +309,8 @@ export const poi = {
         ...getSubclasses(iconDefs.supermarket),
         ...getSubclasses(iconDefs.car_shop),
         ...getSubclasses(iconDefs.car_repair),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
       ],
       Color.poi.consumer,
       [
@@ -363,6 +381,8 @@ export const poi = {
         ...getSubclasses(iconDefs.car_shop),
         ...getSubclasses(iconDefs.car_repair),
         ...getSubclasses(iconDefs.taxi),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
       ],
       16,
       ["clinic", "doctors", "parking"],
