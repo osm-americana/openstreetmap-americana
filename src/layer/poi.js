@@ -35,6 +35,30 @@ var iconDefs = {
     color: Color.poi.transport,
     description: "Bus stop",
   },
+  car_repair: {
+    classes: {
+      car: ["car_repair"],
+    },
+    sprite: "poi_car_repair",
+    color: Color.poi.consumer,
+    description: "Car mechanic",
+  },
+  car_shop: {
+    classes: {
+      car: ["car"],
+    },
+    sprite: "poi_car_shop",
+    color: Color.poi.consumer,
+    description: "Car dealership",
+  },
+  taxi: {
+    classes: {
+      office: ["taxi"],
+    },
+    sprite: "poi_taxi",
+    color: Color.poi.transport,
+    description: "Taxi stand",
+  },
   coffee: {
     classes: {
       cafe: ["cafe"],
@@ -58,6 +82,30 @@ var iconDefs = {
     sprite: "poi_hospital",
     color: Color.poi.infrastructure,
     description: "Hospital",
+  },
+  hotel: {
+    classes: {
+      lodging: ["hotel", "motel", "guest_house"],
+    },
+    sprite: "poi_hotel",
+    color: Color.poi.consumer,
+    description: "Hotel",
+  },
+  hostel: {
+    classes: {
+      lodging: ["hostel"],
+    },
+    sprite: "poi_hostel",
+    color: Color.poi.consumer,
+    description: "Hostel",
+  },
+  library: {
+    classes: {
+      library: ["library"],
+    },
+    sprite: "poi_book_upright",
+    color: Color.poi.infrastructure,
+    description: "Library",
   },
   medical: {
     classes: {
@@ -259,6 +307,10 @@ export const poi = {
         ...getSubclasses(iconDefs.bar),
         ...getSubclasses(iconDefs.coffee),
         ...getSubclasses(iconDefs.supermarket),
+        ...getSubclasses(iconDefs.car_shop),
+        ...getSubclasses(iconDefs.car_repair),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
       ],
       Color.poi.consumer,
       [
@@ -266,6 +318,7 @@ export const poi = {
         "bus_stop",
         ...getSubclasses(iconDefs.railway_station),
         ...getSubclasses(iconDefs.railway_stop),
+        ...getSubclasses(iconDefs.taxi),
       ],
       Color.poi.transport,
       ["museum"],
@@ -276,6 +329,7 @@ export const poi = {
         "police",
         "school",
         "college",
+        "library",
         "townhall",
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_buddhist),
@@ -303,6 +357,7 @@ export const poi = {
       [
         "bus_stop",
         "hospital",
+        "library",
         "museum",
         "police",
         ...getSubclasses(iconDefs.fuel),
@@ -320,7 +375,15 @@ export const poi = {
         "tram_stop",
       ],
       15,
-      [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
+      [
+        ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.coffee),
+        ...getSubclasses(iconDefs.car_shop),
+        ...getSubclasses(iconDefs.car_repair),
+        ...getSubclasses(iconDefs.taxi),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
+      ],
       16,
       ["clinic", "doctors", "parking"],
       17,
