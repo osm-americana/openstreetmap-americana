@@ -140,6 +140,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Police station",
   },
+  post_office: {
+    classes: {
+      post: ["post_office"],
+    },
+    sprite: "poi_envelope",
+    color: Color.poi.infrastructure,
+    description: "Post office",
+  },
   pow_buddhist: {
     classes: {
       place_of_worship: ["buddhist"],
@@ -331,6 +339,7 @@ export const poi = {
         "college",
         "library",
         "townhall",
+        ...getSubclasses(iconDefs.post_office),
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_buddhist),
         ...getSubclasses(iconDefs.pow_hindu),
@@ -361,6 +370,7 @@ export const poi = {
         "museum",
         "police",
         ...getSubclasses(iconDefs.fuel),
+        ...getSubclasses(iconDefs.post_office),
         ...getSubclasses(iconDefs.pow_buddhist),
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_hindu),
