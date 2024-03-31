@@ -83,6 +83,22 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Hospital",
   },
+  hotel: {
+    classes: {
+      lodging: ["hotel", "motel", "guest_house"],
+    },
+    sprite: "poi_hotel",
+    color: Color.poi.consumer,
+    description: "Hotel",
+  },
+  hostel: {
+    classes: {
+      lodging: ["hostel"],
+    },
+    sprite: "poi_hostel",
+    color: Color.poi.consumer,
+    description: "Hostel",
+  },
   library: {
     classes: {
       library: ["library"],
@@ -123,6 +139,14 @@ var iconDefs = {
     sprite: "poi_police_shield",
     color: Color.poi.infrastructure,
     description: "Police station",
+  },
+  post_office: {
+    classes: {
+      post: ["post_office"],
+    },
+    sprite: "poi_envelope",
+    color: Color.poi.infrastructure,
+    description: "Post office",
   },
   pow_buddhist: {
     classes: {
@@ -293,6 +317,8 @@ export const poi = {
         ...getSubclasses(iconDefs.supermarket),
         ...getSubclasses(iconDefs.car_shop),
         ...getSubclasses(iconDefs.car_repair),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
       ],
       Color.poi.consumer,
       [
@@ -313,6 +339,7 @@ export const poi = {
         ...getSubclasses(iconDefs.college),
         "library",
         "townhall",
+        ...getSubclasses(iconDefs.post_office),
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_buddhist),
         ...getSubclasses(iconDefs.pow_hindu),
@@ -349,6 +376,7 @@ export const poi = {
         "museum",
         "police",
         ...getSubclasses(iconDefs.fuel),
+        ...getSubclasses(iconDefs.post_office),
         ...getSubclasses(iconDefs.pow_buddhist),
         ...getSubclasses(iconDefs.pow_christian),
         ...getSubclasses(iconDefs.pow_hindu),
@@ -369,6 +397,8 @@ export const poi = {
         ...getSubclasses(iconDefs.car_shop),
         ...getSubclasses(iconDefs.car_repair),
         ...getSubclasses(iconDefs.taxi),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
       ],
       16,
       ["clinic", "doctors", "parking"],
