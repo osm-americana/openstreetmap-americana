@@ -689,6 +689,14 @@
     },
     {
       "key": "shop",
+      "value": "books",
+      "object_types": ["node", "area"],
+      "description": "Bookstores are marked by an icon representing a book.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_book_upright.svg"
+    },
+    {
+      "key": "shop",
       "value": "car",
       "object_types": ["node", "area"],
       "description": "Car dealerships are marked by an icon representing a front facing vehicle.",
