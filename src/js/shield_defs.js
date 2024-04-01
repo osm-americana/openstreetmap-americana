@@ -847,6 +847,10 @@ export function loadShields() {
     Color.shields.green,
     Color.shields.white
   );
+  shields["US:CO:Weld:WCP"] = {
+    ...pentagonUpShield(3, 15, Color.shields.purple, Color.shields.green),
+    textHaloColor: Color.shields.white,
+  };
 
   // Connecticut
   shields["US:CT"] = roundedRectShield(
