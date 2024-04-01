@@ -19,6 +19,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Bar or pub",
   },
+  bookstore: {
+    classes: {
+      library: ["books"],
+    },
+    sprite: "poi_book_upright",
+    color: Color.poi.consumer,
+    description: "Bookstore",
+  },
   bus_station: {
     classes: {
       bus: ["bus_station"],
@@ -313,6 +321,7 @@ export const poi = {
       [
         ...getSubclasses(iconDefs.fuel),
         ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.bookstore),
         ...getSubclasses(iconDefs.coffee),
         ...getSubclasses(iconDefs.supermarket),
         ...getSubclasses(iconDefs.car_shop),
@@ -393,6 +402,7 @@ export const poi = {
       15,
       [
         ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.bookstore),
         ...getSubclasses(iconDefs.coffee),
         ...getSubclasses(iconDefs.car_shop),
         ...getSubclasses(iconDefs.car_repair),
