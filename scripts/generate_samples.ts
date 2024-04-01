@@ -1,5 +1,11 @@
 import fs from "node:fs";
-import { chromium } from "@playwright/test";
+import {
+  Browser,
+  BrowserContext,
+  chromium,
+  firefox,
+  webkit,
+} from "@playwright/test";
 import type * as maplibre from "maplibre-gl";
 
 // Declare a global augmentation for the Window interface
@@ -33,23 +39,37 @@ const loadSampleLocations = (filePath: string): SampleSpecification[] => {
 
 const sampleFolder = "./samples";
 
-const jsonSampleLocations = process.argv[2] ?? "test/sample_locations.json";
+const jsonSampleLocations = process.argv[3] ?? "test/sample_locations.json";
 
 console.log(`Loading sample locations from ${jsonSampleLocations}`);
+
+const browserType = process.argv[2] ?? "chrome";
+console.log(`Using browser type: ${browserType}`);
 
 const screenshots: SampleSpecification[] =
   loadSampleLocations(jsonSampleLocations);
 
 fs.mkdirSync(sampleFolder, { recursive: true });
 
-const browser = await chromium.launch({
-  executablePath: process.env.CHROME_BIN,
-  args: ["--headless=new"],
-});
-const context = await browser.newContext({
+let browser: Browser;
+
+switch (browserType) {
+  case "chrome":
+  default:
+    browser = await chromium.launch({
+      executablePath: process.env.CHROME_BIN,
+      args: ["--headless=new"],
+    });
+    break;
+  case "firefox":
+    browser = await firefox.launch();
+    break;
+  case "safari":
+    browser = await webkit.launch();
+}
+
+const context: BrowserContext = await browser.newContext({
   bypassCSP: true,
-  userAgent:
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36",
 });
 
 const page = await context.newPage();

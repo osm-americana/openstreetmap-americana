@@ -19,4 +19,4 @@ Map sample images can be generated with a script. See [sample_locations.json](te
 1. Create a JSON file with the map location and clipping rectangles
 2. Start the server in the background with `npm start &`
 3. Configure playwright: either `npx playwright install chromium` or `export CHROME_BIN=/usr/bin/chromium`
-4. Run the generate_samples script and pass the JSON file location: `npm run generate_samples -- test/sample_locations.json``
+4. Run the generate_samples script and pass the JSON file location: `npm run generate_samples -- chrome test/sample_locations.json``. You may also use "firefox" or "safari".

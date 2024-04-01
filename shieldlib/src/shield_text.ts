@@ -137,6 +137,15 @@ function triangleDownTextConstraint(
   };
 }
 
+// Warning!!! Hack!!!
+function isRunningInWebKit(): boolean {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  const userAgent = window.navigator.userAgent;
+  return /WebKit/i.test(userAgent) && !/Chrome/i.test(userAgent);
+}
+
 /**
  * Determines the position and font size to draw text so that it fits within
  * a bounding box.
@@ -157,34 +166,49 @@ export function layoutShieldText(
   textLayoutDef: TextLayout,
   maxFontSize: number = 14
 ): TextPlacement {
-  var padTop = r.px(padding.top) || 0;
-  var padBot = r.px(padding.bottom) || 0;
-  var padLeft = r.px(padding.left) || 0;
-  var padRight = r.px(padding.right) || 0;
+  let padTop = r.px(padding.top) || 0;
+  let padBot = r.px(padding.bottom) || 0;
+  let padLeft = r.px(padding.left) || 0;
+  let padRight = r.px(padding.right) || 0;
 
-  var maxFont = r.px(maxFontSize);
+  let maxFont = r.px(maxFontSize);
   //Temporary canvas for text measurment
-  var ctx = r.gfxFactory.createGraphics(bounds);
+  let ctx: CanvasRenderingContext2D = r.gfxFactory.createGraphics(bounds);
 
   ctx.font = Gfx.shieldFont(Gfx.fontSizeThreshold, r.options.shieldFont);
-  ctx.textAlign = "center";
+  ctx.textAlign = "left";
   ctx.textBaseline = "top";
 
-  var metrics = ctx.measureText(text);
+  let metrics: TextMetrics = ctx.measureText(text);
 
-  var textWidth = metrics.width;
-  var textHeight = metrics.actualBoundingBoxDescent;
+  let textWidth: number =
+    Math.abs(metrics.actualBoundingBoxLeft) +
+    Math.abs(metrics.actualBoundingBoxRight);
+  let textHeight: number =
+    Math.abs(metrics.actualBoundingBoxDescent) +
+    Math.abs(metrics.actualBoundingBoxAscent);
 
-  var availHeight = bounds.height - padTop - padBot;
-  var availWidth = bounds.width - padLeft - padRight;
+  //Adjust for excess descender text height across browsers
+  textHeight *= 0.9;
 
-  var xBaseline = padLeft + availWidth / 2;
+  //Adjust for excess text height measured in Webkit engine specifically
+  if (isRunningInWebKit()) {
+    textHeight *= 0.54;
+  }
+
+  let availHeight: number = bounds.height - padTop - padBot;
+  let availWidth: number = bounds.width - padLeft - padRight;
+
+  let xBaseline: number = padLeft + availWidth / 2;
 
   let textLayoutFunc = drawTextFunctions[textLayoutDef.constraintFunc];
 
-  let textConstraint = textLayoutFunc(
-    { height: availHeight, width: availWidth },
-    { height: textHeight, width: textWidth },
+  let spaceAvail: Dimension = { height: availHeight, width: availWidth };
+  let measuredTextBounds: Dimension = { height: textHeight, width: textWidth };
+
+  let textConstraint: TextTransform = textLayoutFunc(
+    spaceAvail,
+    measuredTextBounds,
     textLayoutDef.options
   );
 
@@ -195,20 +219,23 @@ export function layoutShieldText(
   );
 
   ctx.font = Gfx.shieldFont(fontSize, r.options.shieldFont);
-  ctx.textAlign = "center";
+  ctx.textAlign = "left";
   ctx.textBaseline = "top";
 
   metrics = ctx.measureText(text);
-  textHeight = metrics.actualBoundingBoxDescent;
+  textHeight =
+    Math.abs(metrics.actualBoundingBoxDescent) +
+    Math.abs(metrics.actualBoundingBoxAscent);
 
   let yBaseline: number;
 
   switch (textConstraint.valign) {
     case VerticalAlignment.Top:
-      yBaseline = padTop;
+      yBaseline = padTop + metrics.actualBoundingBoxAscent;
       break;
     case VerticalAlignment.Bottom:
-      yBaseline = padTop + availHeight - textHeight;
+      yBaseline =
+        padTop + availHeight - textHeight + metrics.actualBoundingBoxAscent;
       break;
     case VerticalAlignment.Middle:
     default:
