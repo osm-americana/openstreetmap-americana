@@ -1638,6 +1638,13 @@ export function loadShields() {
     ["TRK"],
     Color.shields.blue
   );
+  ["Sussex", "Warren"].forEach(
+    (county) =>
+      (shields[`US:NJ:${county}:NPS`] = pillShield(
+        Color.shields.brown,
+        Color.shields.white
+      ))
+  );
 
   // New Mexico
   shields["US:NM"] = pillShield(
@@ -2242,6 +2249,10 @@ export function loadShields() {
       bottom: 8,
     },
   };
+  shields["US:SD:Custer:NPS"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.yellow
+  );
 
   // Tennessee
   shields["US:TN:primary"] = {
