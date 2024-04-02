@@ -848,7 +848,7 @@ export function loadShields() {
     Color.shields.white
   );
   shields["US:CO:Weld:WCP"] = {
-    ...pentagonUpShield(3, 15, Color.shields.purple, Color.shields.green),
+    ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.green),
     textHaloColor: Color.shields.white,
   };
 
