@@ -19,13 +19,11 @@ const opts = program.opts();
 
 if (Object.keys(opts).length === 1) program.help();
 
-const locales = opts.locales[0].split(",");
-
 const style = Style.build(
   config.OPENMAPTILES_URL,
   "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
   "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
-  locales
+  "light"
 );
 
 const layers = style.layers;

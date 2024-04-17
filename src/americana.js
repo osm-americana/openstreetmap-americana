@@ -4,18 +4,11 @@ import config from "./config.js";
 
 import * as Label from "./constants/label.js";
 
-import * as languageLabel from "./js/language_label.js";
-
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
-import LegendControl from "./js/legend_control.js";
-import * as LegendConfig from "./js/legend_config.js";
-import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
-import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
-
-import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
+import { createMap, buildStyle } from "./js/map_builder.js";
 
 function upgradeLegacyHash() {
   let hash = window.location.hash.substr(1);
@@ -26,9 +19,7 @@ function upgradeLegacyHash() {
 }
 upgradeLegacyHash();
 
-loadRTLPlugin();
-
-export const map = createMap(window, (shields) => shieldDefLoad(shields), {
+export const map = createMap(window, {
   container: "map", // container id
   hash: "map",
   antialias: true,
@@ -45,13 +36,6 @@ if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
     config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
 }
 
-// Add our sample data.
-let sampleControl = new SampleControl({ permalinks: true });
-OpenMapTilesSamples.forEach((sample, i) => {
-  sampleControl.addSample(sample);
-});
-
-let legendControl;
 
 function shieldDefLoad(shields) {
   legendControl = new LegendControl(shields);
@@ -65,7 +49,6 @@ function shieldDefLoad(shields) {
   }
 
   map.addControl(new maplibregl.AttributionControl(attributionConfig));
-  map.addControl(languageLabel.label, "bottom-right");
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
   map.addControl(new maplibregl.NavigationControl(), "top-left");
@@ -83,11 +66,8 @@ function shieldDefLoad(shields) {
     if (oldLanguage !== newLanguage) {
       console.log(`Changed to ${newLanguage}`);
       hotReloadMap();
-      updateLanguageLabel();
     }
   });
-
-  updateLanguageLabel();
 
   if (window.LIVE_RELOAD) {
     new EventSource("/esbuild").addEventListener("change", () =>
@@ -98,11 +78,6 @@ function shieldDefLoad(shields) {
 
 function hotReloadMap() {
   map.setStyle(buildStyle());
-}
-
-export function updateLanguageLabel() {
-  languageLabel.displayLocales(Label.getLocales());
-  legendControl.onLanguageChange();
 }
 
 let attributionConfig = {

@@ -7,17 +7,12 @@
     "type": "git",
     "url": "git+https://github.com/zelonewolf/openstreetmap-americana.git"
   },
-  "workspaces": [
-    "shieldlib"
-  ],
   "scripts": {
-    "build:shieldlib": "cd shieldlib && run-s build:code docs",
     "build:code": "tsx scripts/build",
-    "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
-    "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
+    "build": "run-s clean-build sprites build:code taginfo status_map",
+    "clean": "run-s clean:code clean-download clean-build",
     "clean-download": "shx rm -rf download",
     "clean-build": "shx rm -rf dist build",
-    "clean:shieldlib": "cd shieldlib && shx rm -rf dist docs",
     "clean:code": "shx rm -rf dist",
     "config": "shx cp src/configs/config.maptiler.js src/config.js",
     "code_format": "run-s code_format:prettier code_format:svgo",
@@ -28,9 +23,8 @@
     "icon_grid": "tsx scripts/icon_grid.ts",
     "presprites": "shx rm -rf dist/sprites",
     "serve": "tsx scripts/serve",
-    "shields": "node scripts/generate_shield_defs.js -o dist/shields.json",
     "sprites": "node scripts/sprites.js",
-    "start": "run-s clean-build build:shieldlib sprites shields serve",
+    "start": "run-s clean-build sprites serve",
     "stats": "node scripts/stats.js",
     "style": "node scripts/generate_style.js -o dist/style.json",
     "status_map": "node scripts/status_map.js",

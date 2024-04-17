@@ -1,34 +1,16 @@
 "use strict";
 
-/**
- * Returns a list of languages as a comma-delimited string from the given URL hash.
- */
-export function getLanguageFromURL(url) {
-  let language = new URLSearchParams(url.hash.substr(1)).get("language");
-  return language === "" ? null : language;
+export function getModeFromURL(url) {
+  let mode = new URLSearchParams(new URL(url).search).get("mode");
+  return mode === null ? "light" : mode;
 }
 
 /**
  * Returns the languages that the user prefers.
  */
-export function getLocales() {
+export function getMode() {
   // Check the language "parameter" in the hash.
-  let parameter = getLanguageFromURL(window.location)?.split(",");
-  // Fall back to the user's language preference.
-  let userLocales = parameter ?? navigator.languages ?? [navigator.language];
-  let locales = [];
-  let localeSet = new Set(); // avoid duplicates
-  for (let locale of userLocales) {
-    // Add progressively less specific variants of each user-specified locale.
-    let components = locale.split("-");
-    while (components.length > 0) {
-      let parent = components.join("-");
-      if (!localeSet.has(parent)) locales.push(parent);
-      localeSet.add(parent);
-      components.pop();
-    }
-  }
-  return locales;
+  return getModeFromURL(window.location)?.split(",");
 }
 
 /**

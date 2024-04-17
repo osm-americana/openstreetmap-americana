@@ -28,7 +28,6 @@ const buildWith = async (
     [
       "index.html",
       "bare_map.html",
-      "shieldtest.html",
       "favicon.ico",
       "fonts.css",
     ].map((f) => copyFile(`src/${f}`, `dist/${f}`))
@@ -40,8 +39,7 @@ const buildWith = async (
     entryPoints: [
       "src/americana.js",
       "src/bare_americana.js",
-      "src/shieldtest.js",
-    ],
+      ],
     format: "esm",
     bundle: true,
     minify: true,
@@ -56,29 +54,12 @@ const buildWith = async (
     },
   };
 
-  const shieldLibOptions = {
-    entryPoints: ["shieldlib/src/index.ts"],
-    format: "esm",
-    bundle: true,
-    minify: true,
-    sourcemap: true,
-    outdir: "shieldlib/dist",
-    logLevel: "info",
-    ...localConfig,
-    ...buildOptions,
-    define: {
-      ...localConfig?.define,
-      ...buildOptions?.define,
-    },
-  };
-
   // esbuild will pretty-print its own error messages;
   // suppress node.js from printing the exception.
   const suppressErrors = () => process.exit(1);
 
   return await Promise.all([
-    esbuild[key](options).catch(suppressErrors),
-    esbuild[key](shieldLibOptions).catch(suppressErrors),
+    esbuild[key](options).catch(suppressErrors)
   ]);
 };
 
