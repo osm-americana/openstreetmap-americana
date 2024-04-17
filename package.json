@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build:code": "tsx scripts/build",
-    "build": "run-s clean-build sprites build:code status_map",
+    "build": "run-s clean-build sprites build:code",
     "clean": "run-s clean:code clean-download clean-build",
     "clean-download": "shx rm -rf download",
     "clean-build": "shx rm -rf dist build",
@@ -27,7 +27,6 @@
     "start": "run-s clean-build sprites serve",
     "stats": "node scripts/stats.js",
     "style": "node scripts/generate_style.js -o dist/style.json",
-    "status_map": "node scripts/status_map.js",
     "test": "mocha"
   },
   "dependencies": {
