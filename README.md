@@ -1,5 +1,7 @@
 # Black Pearl Project
 
+Map style for the SRVIVRS [Black Pearl project](https://www.srvivrs.org/srvivrs-speak)
+
 [🗺 View the map - light mode](https://streetferret.github.io/blackpearl-map/)
 
 [🗺 View the map - dark mode](https://streetferret.github.io/blackpearl-map/)
