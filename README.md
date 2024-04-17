@@ -6,6 +6,6 @@ Map style for the SRVIVRS [Black Pearl project](https://www.srvivrs.org/srvivrs-
 
 [🗺 View the map - dark mode](https://streetferret.github.io/blackpearl-map/)
 
-Derived from the CC0 OpenStreetMap Americana project.
+Derived from the CC0 [OpenStreetMap Americana](https://github.com/ZeLonewolf/openstreetmap-americana) project.
 
 Black Pearl artwork (c) 2024 SRVIVRS
