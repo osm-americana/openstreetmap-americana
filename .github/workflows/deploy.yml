@@ -31,9 +31,6 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           npm run build
           npm run style
-          npm run shields
-          mkdir -p dist/shield-docs
-          cp -r shieldlib/docs/* dist/shield-docs
       - name: Upload 🏗
         uses: actions/upload-pages-artifact@v1
         with:
