@@ -38,11 +38,29 @@ describe("highway_shield", function () {
     };
 
     it("parses an image name for a numbered route", function () {
-      expectImageName("NET", "REF", undefined, undefined, "shield\nNET\nREF\n\n");
-      expectImageName("NET", "REF", "NAME", undefined, "shield\nNET\nREF\nNAME\n");
+      expectImageName(
+        "NET",
+        "REF",
+        undefined,
+        undefined,
+        "shield\nNET\nREF\n\n"
+      );
+      expectImageName(
+        "NET",
+        "REF",
+        "NAME",
+        undefined,
+        "shield\nNET\nREF\nNAME\n"
+      );
     });
     it("parses an image name for an unnumbered route", function () {
-      expectImageName("NET", undefined, undefined, undefined, "shield\nNET\n\n\n");
+      expectImageName(
+        "NET",
+        undefined,
+        undefined,
+        undefined,
+        "shield\nNET\n\n\n"
+      );
     });
     it("parses an image name for a named route", function () {
       expectImageName(
@@ -61,7 +79,13 @@ describe("highway_shield", function () {
       );
     });
     it("parses an image name for a network-independent route", function () {
-      expectImageName(undefined, "REF", "NAME", undefined, "shield\n\nREF\nNAME\n");
+      expectImageName(
+        undefined,
+        "REF",
+        "NAME",
+        undefined,
+        "shield\n\nREF\nNAME\n"
+      );
     });
   });
 });
