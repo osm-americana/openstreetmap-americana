@@ -1276,7 +1276,6 @@ export function loadShields() {
     "Lake",
     "Lake_of_the_Woods",
     "Le_Sueur",
-    "Lincoln",
     "Lyon",
     "Mahnomen",
     "Marshall",
@@ -1302,7 +1301,6 @@ export function loadShields() {
     "Redwood",
     "Renville",
     "Rice",
-    "Rock",
     "Roseau",
     "Saint_Louis",
     "Scott",
@@ -1325,11 +1323,7 @@ export function loadShields() {
     "Yellow_Medicine",
   ].forEach(
     (county) =>
-      ([
-        shields[`US:MN:${county}:CSAH`],
-        shields[`US:MN:${county}:CR`],
-        shields[`US:MN:${county}:Park_Access`],
-      ] = [
+      ([shields[`US:MN:${county}:CSAH`], shields[`US:MN:${county}:CR`]] = [
         pentagonUpShield(
           3,
           15,
@@ -1338,14 +1332,31 @@ export function loadShields() {
           Color.shields.white
         ),
         roundedRectShield(Color.shields.white, Color.shields.black),
-        trapezoidDownShield(
-          10,
-          Color.shields.brown,
-          Color.shields.white,
-          Color.shields.white,
-          2
-        ),
       ])
+  );
+  ["CSAH", "CR"].forEach(
+    (network) =>
+      (shields[`US:MN:Lincoln:${network}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow,
+        Color.shields.white
+      ))
+  );
+  ["CSAH", "CR"].forEach(
+    (network) =>
+      (shields[`US:MN:Rock:${network}`] = roundedRectShield(
+        Color.shields.white,
+        Color.shields.black
+      ))
+  );
+  shields[`US:MN:Hennepin:Park_Access`] = trapezoidDownShield(
+    10,
+    Color.shields.brown,
+    Color.shields.white,
+    Color.shields.white,
+    2
   );
 
   // Missouri

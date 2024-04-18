@@ -16,7 +16,7 @@ function routeConcurrency(routeIndex) {
     "case",
     [
       "any",
-      ...orderedRouteAttributes.map(a => ["has", `route_${routeIndex}_${a}`]),
+      ...orderedRouteAttributes.map((a) => ["has", `route_${routeIndex}_${a}`]),
     ],
     ["image", getImageNameExpression(routeIndex)],
     ["literal", ""],
@@ -32,7 +32,9 @@ function routeConcurrency(routeIndex) {
 export function parseImageName(imageName) {
   let lines = imageName.split("\n");
   lines.shift(); // "shield"
-  let parsed = Object.fromEntries(orderedRouteAttributes.map((a, i) => [a, lines[i]]));
+  let parsed = Object.fromEntries(
+    orderedRouteAttributes.map((a, i) => [a, lines[i]])
+  );
   parsed.imageName = imageName;
   return parsed;
 }
@@ -105,6 +107,6 @@ export const shield = {
   },
   filter: [
     "any",
-    ...orderedRouteAttributes.map(a => ["has", `route_1_${a}`]),
+    ...orderedRouteAttributes.map((a) => ["has", `route_1_${a}`]),
   ],
 };
