@@ -850,6 +850,10 @@ export function loadShields() {
     Color.shields.green,
     Color.shields.white
   );
+  shields["US:CO:Weld:WCP"] = {
+    ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.green),
+    textHaloColor: Color.shields.white,
+  };
 
   // Connecticut
   shields["US:CT"] = roundedRectShield(
@@ -1641,6 +1645,13 @@ export function loadShields() {
     ["TRK"],
     Color.shields.blue
   );
+  ["Sussex", "Warren"].forEach(
+    (county) =>
+      (shields[`US:NJ:${county}:NPS`] = pillShield(
+        Color.shields.brown,
+        Color.shields.white
+      ))
+  );
 
   // New Mexico
   shields["US:NM"] = pillShield(
@@ -2245,6 +2256,10 @@ export function loadShields() {
       bottom: 8,
     },
   };
+  shields["US:SD:Custer:NPS"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.yellow
+  );
 
   // Tennessee
   shields["US:TN:primary"] = {

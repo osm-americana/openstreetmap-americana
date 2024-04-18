@@ -70,7 +70,7 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
     options: StyleImageMetadata,
     update: boolean
   ): void {
-    if (update) {
+    if (update && this.map.listImages().includes(spriteID)) {
       this.map.removeImage(spriteID);
       this.map.addImage(spriteID, image);
     } else {
@@ -106,6 +106,7 @@ export class AbstractShieldRenderer {
     this._renderContext.options = shieldSpec.options;
     this._renderContext.shieldDef = shieldSpec.networks;
     this._fontSpec = "1em " + shieldSpec.options.shieldFont;
+    console.log("ShieldJSON loaded");
     if (this._map) {
       this.reloadShieldsOnFontLoad();
     }
@@ -245,7 +246,7 @@ export class AbstractShieldRenderer {
   }
 
   /** Get a blank route shield graphics context in a specified size */
-  public createGraphics(bounds: Bounds) {
+  public createGraphics(bounds: Bounds): CanvasRenderingContext2D {
     return this._renderContext.gfxFactory.createGraphics(bounds);
   }
 

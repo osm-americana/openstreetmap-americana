@@ -269,6 +269,12 @@ The MUTCD’s standard colors are designed for high-contrast backgrounds and leg
 
 See the [developer tools](dev/README.md) for an importable, Inkscape-compatible palette file.
 
+### Icon Grid Alignment
+
+There is a utility script called icon_grid that will generate a pixel grid on an SVG. This can be used to check how well the icon will align to the pixel grid. Run this utility as follows:
+
+`npm run icon_grid -- icons/poi_fuel.svg`
+
 ### Font Sizes
 
 Shields should target 8-14px text actual-size character heights for readability:
