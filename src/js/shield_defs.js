@@ -204,6 +204,9 @@ export function loadShields() {
     Color.shields.brown,
     Color.shields.white
   );
+  shields["CA:NS:S"] = {
+    notext: true,
+  };
 
   // Northwest Territories
   shields["CA:NT"] = {
@@ -3638,6 +3641,45 @@ export function loadShields() {
   shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
+
+  shields["CA:NS:S"].overrideByName = {
+    "Bras d'Or Lakes Scenic Drive": {
+      spriteBlank: "shield_ca_ns_s_bdolsd",
+    },
+    "Ceilidh Trail": {
+      spriteBlank: "shield_ca_ns_s_cet",
+    },
+    "Cabot Trail": {
+      spriteBlank: "shield_ca_ns_s_ct",
+    },
+    "Digby Neck and Islands Scenic Drive": {
+      spriteBlank: "shield_ca_ns_s_dnisd",
+    },
+    "Evangeline Trail": {
+      spriteBlank: "shield_ca_ns_s_et",
+    },
+    "Fleur-de-lis Trail": {
+      spriteBlank: "shield_ca_ns_s_fdlt",
+    },
+    "Glooscap Trail": {
+      spriteBlank: "shield_ca_ns_s_gt",
+    },
+    "Kejimkujik Scenic Drive": {
+      spriteBlank: "shield_ca_ns_s_ksd",
+    },
+    "Lighthouse Route": {
+      spriteBlank: "shield_ca_ns_s_lr",
+    },
+    "Marine Drive": {
+      spriteBlank: "shield_ca_ns_s_md",
+    },
+    "Marconi Trail": {
+      spriteBlank: "shield_ca_ns_s_mt",
+    },
+    "Sunrise Trail": {
+      spriteBlank: "shield_ca_ns_s_st",
+    },
+  };
 
   shields["CA:ON:primary"].overrideByRef = {
     QEW: {
