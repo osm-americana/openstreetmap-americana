@@ -3627,41 +3627,41 @@ export function loadShields() {
 
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
-  shields["CA:NS:S"].overrideByRef = {
-    BdOLSD: {
+  shields["CA:NS:S"].overrideByName = {
+    "Bras d'Or Lakes Scenic Drive": {
       spriteBlank: "shield_ca_ns_s_bdolsd",
     },
-    CeT: {
+    "Ceilidh Trail": {
       spriteBlank: "shield_ca_ns_s_cet",
     },
-    CT: {
+    "Cabot Trail": {
       spriteBlank: "shield_ca_ns_s_ct",
     },
-    DNISD: {
+    "Digby Neck and Islands Scenic Drive": {
       spriteBlank: "shield_ca_ns_s_dnisd",
     },
-    ET: {
+    "Evangeline Trail": {
       spriteBlank: "shield_ca_ns_s_et",
     },
-    FdLT: {
+    "Fleur-de-lis Trail": {
       spriteBlank: "shield_ca_ns_s_fdlt",
     },
-    GT: {
+    "Glooscap Trail": {
       spriteBlank: "shield_ca_ns_s_gt",
     },
-    KSD: {
+    "Kejimkujik Scenic Drive": {
       spriteBlank: "shield_ca_ns_s_ksd",
     },
-    LR: {
+    "Lighthouse Route": {
       spriteBlank: "shield_ca_ns_s_lr",
     },
-    MD: {
+    "Marine Drive": {
       spriteBlank: "shield_ca_ns_s_md",
     },
-    MT: {
+    "Marconi Trail": {
       spriteBlank: "shield_ca_ns_s_mt",
     },
-    ST: {
+    "Sunrise Trail": {
       spriteBlank: "shield_ca_ns_s_st",
     },
   };
