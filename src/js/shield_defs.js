@@ -775,11 +775,14 @@ export function loadShields() {
     ["BUS"],
     Color.shields.green
   );
-  shields["US:CA:CR"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
+  ["CR", "Sierra"].forEach(
+    (county) =>
+      (shields[`US:CA:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
   );
   shields["US:CA:Mendocino"] = roundedRectShield(
     Color.shields.green,
@@ -1141,8 +1144,8 @@ export function loadShields() {
     "Webster",
     "Winn",
   ].forEach(
-    (county) =>
-      (shields[`US:LA:${county}`] = pentagonUpShield(
+    (parish) =>
+      (shields[`US:LA:${parish}`] = pentagonUpShield(
         3,
         15,
         Color.shields.blue,
@@ -2484,11 +2487,14 @@ export function loadShields() {
       bottom: 5,
     },
   };
-  shields["US:UT:Wayne"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
+  ["Wayne", "Washington"].forEach(
+    (county) =>
+      (shields[`US:UT:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
   );
 
   // Virginia
