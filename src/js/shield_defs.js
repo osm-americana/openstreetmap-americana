@@ -1239,89 +1239,48 @@ export function loadShields() {
     },
   };
   [
-    "Aitkin",
-    "Anoka",
-    "Becker",
-    "Beltrami",
-    "Benton",
-    "Big_Stone",
-    "Blue_Earth",
     "Brown",
-    "Carlton",
-    "Carver",
-    "Cass",
-    "Chippewa",
     "Chisago",
-    "Clay",
-    "Clearwater",
-    "Cook",
+    "Clearwater", // unconfirmed
     "Cottonwood",
-    "Crow_Wing",
     "Dakota",
-    "Dodge",
-    "Douglas",
-    "Faribault",
-    "Fillmore",
+    "Fillmore", // unconfirmed
     "Freeborn",
     "Goodhue",
-    "Grant",
-    "Hennepin",
-    "Houston",
-    "Hubbard",
+    "Grant", // unconfirmed
     "Isanti",
-    "Itasca",
+    "Itasca", // unconfirmed
     "Jackson",
-    "Kanabec",
-    "Kandiyohi",
-    "Kittson",
-    "Koochiching",
-    "Lac_qui_Parle",
-    "Lake",
-    "Lake_of_the_Woods",
-    "Le_Sueur",
-    "Lyon",
-    "Mahnomen",
-    "Marshall",
-    "Martin",
+    "Kandiyohi", // unconfirmed
+    "Kittson", // unconfirmed
+    "Koochiching", // unconfirmed
+    "Lake_of_the_Woods", // unconfirmed
+    "Mahnomen", // unconfirmed
     "McLeod",
-    "Meeker",
-    "Mille_Lacs",
-    "Morrison",
-    "Mower",
-    "Murray",
-    "Nicollet",
-    "Nobles",
-    "Norman",
+    "Meeker", // unconfirmed
+    "Nobles", // unconfirmed
+    "Norman", // unconfirmed
     "Olmsted",
     "Otter_Tail",
     "Pennington",
     "Pine",
     "Pipestone",
     "Polk",
-    "Pope",
-    "Ramsey",
-    "Red_Lake",
-    "Redwood",
+    "Pope", // unconfirmed
+    "Red_Lake", // unconfirmed
+    "Redwood", // unconfirmed
     "Renville",
-    "Rice",
-    "Roseau",
+    "Roseau", // unconfirmed
     "Saint_Louis",
-    "Scott",
-    "Sherburne",
     "Sibley",
-    "Stearns",
-    "Steele",
-    "Stevens",
-    "Swift",
-    "Todd",
-    "Traverse",
+    "Stearns", // unconfirmed
+    "Stevens", // unconfirmed
+    "Swift", // unconfirmed
+    "Traverse", // unconfirmed
     "Wabasha",
-    "Wadena",
-    "Waseca",
+    "Wadena", // unconfirmed
     "Washington",
-    "Watonwan",
-    "Wilkin",
-    "Winona",
+    "Wilkin", // unconfirmed
     "Wright",
     "Yellow_Medicine",
   ].forEach(
@@ -1337,22 +1296,71 @@ export function loadShields() {
         roundedRectShield(Color.shields.white, Color.shields.black),
       ])
   );
-  ["CSAH", "CR"].forEach(
-    (network) =>
-      (shields[`US:MN:Lincoln:${network}`] = pentagonUpShield(
-        3,
-        15,
-        Color.shields.blue,
-        Color.shields.yellow,
-        Color.shields.white
-      ))
+  [
+    "Anoka",
+    "Blue_Earth",
+    "Hennepin",
+    "Lincoln",
+    "Mower",
+    "Murray",
+    "Ramsey",
+    "Scott",
+  ].forEach((county) =>
+    ["CSAH", "CR"].forEach(
+      (network) =>
+        (shields[`US:MN:${county}:${network}`] = pentagonUpShield(
+          3,
+          15,
+          Color.shields.blue,
+          Color.shields.yellow,
+          Color.shields.white
+        ))
+    )
   );
-  ["CSAH", "CR"].forEach(
-    (network) =>
-      (shields[`US:MN:Rock:${network}`] = roundedRectShield(
-        Color.shields.white,
-        Color.shields.black
-      ))
+  [
+    "Aitkin",
+    "Becker",
+    "Beltrami",
+    "Benton",
+    "Big_Stone",
+    "Carlton",
+    "Carver",
+    "Cass",
+    "Chippewa",
+    "Clay",
+    "Cook",
+    "Crow_Wing",
+    "Dodge",
+    "Douglas",
+    "Faribault",
+    "Houston",
+    "Hubbard",
+    "Kanabec",
+    "Lac_qui_Parle",
+    "Lake",
+    "Le_Sueur",
+    "Lyon",
+    "Marshall",
+    "Martin",
+    "Mille_Lacs",
+    "Morrison",
+    "Nicollet",
+    "Rice",
+    "Rock",
+    "Sherburne",
+    "Steele",
+    "Todd",
+    "Waseca",
+    "Watonwan",
+    "Winona",
+  ].forEach((county) =>
+    ["CSAH", "CR"].forEach(
+      (network) =>
+        (shields[`US:MN:${county}:${network}`] = roundedRectShield(
+          Color.shields.white,
+          Color.shields.black
+        ))
+    )
   );
   shields[`US:MN:Hennepin:Park_Access`] = trapezoidDownShield(
     10,
