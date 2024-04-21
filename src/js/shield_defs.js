@@ -1427,6 +1427,11 @@ export function loadShields() {
 
   // Mississippi
   shields["US:MS"] = ovalShield(Color.shields.white, Color.shields.black);
+  shields["US:MS:Scenic"] = banneredShield(
+    ovalShield(Color.shields.white, Color.shields.blue),
+    ["SCEN"],
+    Color.shields.blue
+  );
   [
     "Alcorn",
     "Calhoun",
