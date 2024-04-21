@@ -19,7 +19,7 @@ export function buildStyle(): StyleSpecification {
     .replace(/\/+$/, "");
   return Style.build(
     config.OPENMAPTILES_URL,
-    `${baseUrl}/sprites/sprite`,
+    `${baseUrl}/sprites/sprite-${Label.getMode()}`,
     config.FONT_URL ??
       "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
     Label.getMode()

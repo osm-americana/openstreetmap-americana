@@ -1,11 +1,11 @@
 import * as Layers from "../layer/index.js";
 
 // Generate style.json
-export function build(tileURL, spriteURL, glyphURL, locales) {
+export function build(tileURL, spriteURL, glyphURL, mode) {
   return {
     name: "Americana",
     glyphs: glyphURL,
-    layers: Layers.build(locales),
+    layers: Layers.build(mode),
     sources: {
       openmaptiles: {
         url: tileURL,

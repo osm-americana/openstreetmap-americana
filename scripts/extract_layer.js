@@ -21,7 +21,7 @@ if (Object.keys(opts).length === 1) program.help();
 
 const style = Style.build(
   config.OPENMAPTILES_URL,
-  "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
+  'https://streetferret.github.io/blackpearl-map/sprites/sprite-light',
   "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
   "light"
 );

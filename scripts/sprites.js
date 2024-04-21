@@ -1,32 +1,38 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-
 import { glob } from "glob";
 import { Sprites } from "@basemaps/sprites";
 
 await fs.mkdir("./dist/sprites/", { recursive: true });
 
-const sprites = await Promise.all(
-  (
-    await glob("./icons/*.svg")
-  ).map(async (spritePath) => {
-    const id = path.parse(spritePath).name;
-    const buffer = await fs.readFile(spritePath);
-    return { id, buffer };
-  })
-);
+// List of icon directories
+const iconDirs = ['icons-light', 'icons-dark'];
 
-console.log(`Building ${sprites.length} sprites`);
+// Loop over each icon directory
+for (const dir of iconDirs) {
+  const spritePaths = await glob(`./${dir}/*.svg`);
 
-const generated = await Sprites.generate(sprites, [1, 2]);
+  const sprites = await Promise.all(
+    spritePaths.map(async (spritePath) => {
+      const id = path.parse(spritePath).name;
+      const buffer = await fs.readFile(spritePath);
+      return { id, buffer };
+    })
+  );
 
-for (const result of generated) {
-  const scaleText = result.pixelRatio === 1 ? "" : `@${result.pixelRatio}x`;
-  const outputPng = `./dist/sprites/sprite${scaleText}.png`;
-  const outputJson = `./dist/sprites/sprite${scaleText}.json`;
+  console.log(`Building ${sprites.length} sprites from ${dir}`);
 
-  await fs.writeFile(outputPng, result.buffer);
-  await fs.writeFile(outputJson, JSON.stringify(result.layout, null, 2));
-  const kb = (result.buffer.length / 1024).toFixed(1);
-  console.log(`Wrote ${kb}KiB to ${outputPng}`);
+  const generated = await Sprites.generate(sprites, [1, 2]);
+
+  for (const result of generated) {
+    const scaleText = result.pixelRatio === 1 ? "" : `@${result.pixelRatio}x`;
+    const baseName = dir.replace('icons-', 'sprite-'); // Changing 'icons-light' to 'sprites-light'
+    const outputPng = `./dist/sprites/${baseName}${scaleText}.png`;
+    const outputJson = `./dist/sprites/${baseName}${scaleText}.json`;
+
+    await fs.writeFile(outputPng, result.buffer);
+    await fs.writeFile(outputJson, JSON.stringify(result.layout, null, 2));
+    const kb = (result.buffer.length / 1024).toFixed(1);
+    console.log(`Wrote ${kb}KiB to ${outputPng}`);
+  }
 }
