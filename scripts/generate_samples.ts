@@ -1,10 +1,16 @@
 import fs from "node:fs";
-import { chromium } from "@playwright/test";
+import {
+  Browser,
+  BrowserContext,
+  chromium,
+  firefox,
+  webkit,
+} from "@playwright/test";
 import type * as maplibre from "maplibre-gl";
 
 // Declare a global augmentation for the Window interface
 declare global {
-  interface Window {
+  interface WindowWithMap extends Window {
     map?: maplibre.Map;
   }
 }
@@ -33,20 +39,38 @@ const loadSampleLocations = (filePath: string): SampleSpecification[] => {
 
 const sampleFolder = "./samples";
 
-const jsonSampleLocations = process.argv[2] ?? "test/sample_locations.json";
+const jsonSampleLocations = process.argv[3] ?? "test/sample_locations.json";
 
 console.log(`Loading sample locations from ${jsonSampleLocations}`);
+
+const browserType = process.argv[2] ?? "chrome";
+console.log(`Using browser type: ${browserType}`);
 
 const screenshots: SampleSpecification[] =
   loadSampleLocations(jsonSampleLocations);
 
 fs.mkdirSync(sampleFolder, { recursive: true });
 
-const browser = await chromium.launch({
-  headless: true,
-  executablePath: process.env.CHROME_BIN,
+let browser: Browser;
+
+switch (browserType) {
+  case "chrome":
+  default:
+    browser = await chromium.launch({
+      executablePath: process.env.CHROME_BIN,
+      args: ["--headless=new"],
+    });
+    break;
+  case "firefox":
+    browser = await firefox.launch();
+    break;
+  case "safari":
+    browser = await webkit.launch();
+}
+
+const context: BrowserContext = await browser.newContext({
+  bypassCSP: true,
 });
-const context = await browser.newContext();
 
 const page = await context.newPage();
 
@@ -64,7 +88,7 @@ async function createImage(screenshot: SampleSpecification) {
 
   // Wait for map to load, then wait two more seconds for images, etc. to load.
   try {
-    await page.waitForFunction(() => window.map?.loaded(), {
+    await page.waitForFunction(() => (window as WindowWithMap).map?.loaded(), {
       timeout: 3000,
     });
   } catch (e) {

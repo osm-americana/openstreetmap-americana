@@ -23,7 +23,12 @@ export interface SpriteProducer {
   getSprite(spriteID: string): StyleImage;
 }
 export interface SpriteConsumer {
-  putSprite(spriteID: string, image: ImageData, pixelRatio: number): void;
+  putSprite(
+    spriteID: string,
+    image: ImageData,
+    pixelRatio: number,
+    update: boolean
+  ): void;
 }
 export type SpriteRepository = SpriteProducer & SpriteConsumer;
 export interface ShieldDefinitions {
