@@ -25,11 +25,11 @@ const shieldRenderer = new ShieldRenderer(shields, routeParser)
 
 const handler = shieldRenderer.getStyleImageMissingHandler();
 
-handler({ id: "shield\nBAB=5" });
-handler({ id: "shield\nUS:RI=" });
-handler({ id: "shield\nUS:RI=ABC123" });
-handler({ id: "shield\nUS:RI=Equator" });
-handler({ id: "shield\nrwn=" });
+handler({ id: "shield\nBAB\n5\n\n" });
+handler({ id: "shield\nUS:RI\n\n\n" });
+handler({ id: "shield\nUS:RI\nABC123\n\n" });
+handler({ id: "shield\nUS:RI\nEquator\n\n" });
+handler({ id: "shield\nrwn\n\n\n" });
 handler({ id: "foo" });
 
 function isBlankSprite(id) {
@@ -39,8 +39,8 @@ function isBlankSprite(id) {
 describe("shield", function () {
   describe("#isValidNetwork", function () {
     it("rejects a recreational network", function () {
-      expect(isBlankSprite("shield\nBAB=5")).to.be.false;
-      expect(isBlankSprite("shield\nrwn=")).to.be.true;
+      expect(isBlankSprite("shield\nBAB\n5\n\n")).to.be.false;
+      expect(isBlankSprite("shield\nrwn\n\n\n")).to.be.true;
     });
     it("rejects other missing image prefixes", function () {
       expect(mockRepo.hasSprite("foo")).to.be.false;
@@ -48,12 +48,12 @@ describe("shield", function () {
   });
   describe("#isValidRef", function () {
     it("rejects an empty ref", function () {
-      expect(isBlankSprite("shield\nUS:RI=")).to.be.true;
+      expect(isBlankSprite("shield\nUS:RI\n\n\n")).to.be.true;
     });
     it("rejects a long ref", function () {
-      expect(mockRepo.hasSprite("shield\nUS:RI=ABC123")).to.be.true;
-      expect(isBlankSprite("shield\nUS:RI=ABC123")).to.be.false;
-      expect(isBlankSprite("shield\nUS:RI=Equator")).to.be.true;
+      expect(mockRepo.hasSprite("shield\nUS:RI\nABC123\n\n")).to.be.true;
+      expect(isBlankSprite("shield\nUS:RI\nABC123\n\n")).to.be.false;
+      expect(isBlankSprite("shield\nUS:RI\nEquator\n\n")).to.be.true;
     });
   });
 });

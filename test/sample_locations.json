@@ -49,8 +49,40 @@
     }
   },
   {
+    "location": "17/40.753922/-73.984244",
+    "name": "library_z17",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
     "location": "13.25/49.552/5.8107",
     "name": "europe_e-road_routes",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "16/38.896954/-77.108406",
+    "name": "virginia_",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "16/38.906341/-77.025889",
+    "name": "dc_logan_circle",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "16/40.755264/-73.987405",
+    "name": "manhattan_times_square",
     "viewport": {
       "width": 400,
       "height": 400

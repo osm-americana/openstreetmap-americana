@@ -401,6 +401,14 @@
     },
     {
       "key": "amenity",
+      "value": "taxi",
+      "object_types": ["node", "area"],
+      "description": "Taxi stands are marked by an icon representing the front view of a taxi cab.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_taxi.svg"
+    },
+    {
+      "key": "amenity",
       "value": "kindergarten",
       "object_types": ["node", "area"],
       "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
@@ -480,6 +488,46 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_town_hall.svg"
     },
     {
+      "key": "amenity",
+      "value": "post_office",
+      "object_types": ["node", "area"],
+      "description": "Post offices are marked by an icon representing an envelope.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_envelope.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "guest_house",
+      "object_types": ["node", "area"],
+      "description": "Guest houses are marked by an icon representing a person laying in a bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "hostel",
+      "object_types": ["node", "area"],
+      "description": "Hostels are marked by an icon representing two people laying in a bunk bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hostel.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "hotel",
+      "object_types": ["node", "area"],
+      "description": "Hotels are marked by an icon representing a person laying in a bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+    },
+    {
+      "key": "tourism",
+      "value": "motel",
+      "object_types": ["node", "area"],
+      "description": "Motels are marked by an icon representing a person laying in a bed.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+    },
+    {
       "key": "tourism",
       "value": "museum",
       "object_types": ["node", "area"],
@@ -487,7 +535,6 @@
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_museum.svg"
     },
-
     {
       "key": "amenity",
       "value": "clinic",
@@ -495,6 +542,14 @@
       "description": "Medical offices are marked by a white cross in a blue shield.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_health_cross.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "library",
+      "object_types": ["node", "area"],
+      "description": "Libraries are marked by an icon representing a book.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_book_upright.svg"
     },
     {
       "key": "amenity",
@@ -631,6 +686,30 @@
       "description": "Taoist places of worship are marked by an icon representing a building topped by a yin-yang symbol.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_taoist.svg"
+    },
+    {
+      "key": "shop",
+      "value": "books",
+      "object_types": ["node", "area"],
+      "description": "Bookstores are marked by an icon representing a book.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_book_upright.svg"
+    },
+    {
+      "key": "shop",
+      "value": "car",
+      "object_types": ["node", "area"],
+      "description": "Car dealerships are marked by an icon representing a front facing vehicle.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_car_shop.svg"
+    },
+    {
+      "key": "shop",
+      "value": "car_repair",
+      "object_types": ["node", "area"],
+      "description": "Car mechanic shops are marked by an icon representing a front facing vehicle with a wrench above it.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_car_repair.svg"
     },
     {
       "key": "shop",
