@@ -503,7 +503,7 @@ export function loadShields() {
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
-    ["XYZA"],
+    ["HIST"],
     Color.shields.brown
   );
 
