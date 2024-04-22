@@ -775,11 +775,14 @@ export function loadShields() {
     ["BUS"],
     Color.shields.green
   );
-  shields["US:CA:CR"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
+  ["CR", "Sierra"].forEach(
+    (county) =>
+      (shields[`US:CA:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
   );
   shields["US:CA:Mendocino"] = roundedRectShield(
     Color.shields.green,
@@ -1141,8 +1144,8 @@ export function loadShields() {
     "Webster",
     "Winn",
   ].forEach(
-    (county) =>
-      (shields[`US:LA:${county}`] = pentagonUpShield(
+    (parish) =>
+      (shields[`US:LA:${parish}`] = pentagonUpShield(
         3,
         15,
         Color.shields.blue,
@@ -1432,6 +1435,11 @@ export function loadShields() {
 
   // Mississippi
   shields["US:MS"] = ovalShield(Color.shields.white, Color.shields.black);
+  shields["US:MS:Scenic"] = banneredShield(
+    ovalShield(Color.shields.white, Color.shields.blue),
+    ["SCEN"],
+    Color.shields.blue
+  );
   [
     "Alcorn",
     "Calhoun",
@@ -2492,11 +2500,14 @@ export function loadShields() {
       bottom: 5,
     },
   };
-  shields["US:UT:Wayne"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
+  ["Wayne", "Washington"].forEach(
+    (county) =>
+      (shields[`US:UT:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
   );
 
   // Virginia
@@ -3736,23 +3747,13 @@ export function loadShields() {
   };
 
   shields["US:KY:Parkway"].refsByName = {
-    // FIXME: This object contains both spelled-out and abbreviated road
-    // names to accommodate both the abbreviated names from OpenMapTiles and
-    // the spelled-out names from Planetiler.
-    // https://github.com/onthegomap/planetiler/issues/14
     "Audubon Parkway": "AU",
     "Bluegrass Parkway": "BG",
-    "Bluegrass Pkwy": "BG",
     "Cumberland Parkway": "LN",
-    "Cumberland Pkwy": "LN",
     "Hal Rogers Parkway": "HR",
-    "Hal Rogers Pkwy": "HR",
     "Mountain Parkway": "MP",
-    "Mountain Pkwy": "MP",
     "Purchase Parkway": "JC",
-    "Purchase Pkwy": "JC",
     "Western Kentucky Parkway": "WK",
-    "Western Kentucky Pkwy": "WK",
   };
 
   shields["US:CT:Parkway"].overrideByName = {
@@ -3792,15 +3793,13 @@ export function loadShields() {
   };
 
   shields["US:NY:Parkway"].refsByName = {
-    "Bear Mountain Parkway": "BMP",
-    "Bronx and Pelham Parkway": "PP",
+    "Bear Mountain State Parkway": "BMP",
     "Bronx River Parkway": "BRP",
     "Cross County Parkway": "CCP",
     "Hutchinson River Parkway": "HRP",
     "Korean War Veterans Parkway": "KWVP",
     "Mosholu Parkway": "MP",
     "Niagara Scenic Parkway": "NSP",
-    "Pelham Parkway": "PP",
     "Saw Mill River Parkway": "SMP",
     "Sprain Brook Parkway": "SBP",
     "Taconic State Parkway": "TSP",
@@ -3820,14 +3819,7 @@ export function loadShields() {
     "Fort Bend Westpark Tollway": "WPT",
   };
   shields["US:TX:Harris:HCTRA"].refsByName = {
-    "East Sam Houston Tollway North": "SHT",
-    "East Sam Houston Tollway South": "SHT",
-    "North Sam Houston Tollway East": "SHT",
-    "North Sam Houston Tollway West": "SHT",
-    "South Sam Houston Tollway East": "SHT",
-    "South Sam Houston Tollway West": "SHT",
-    "West Sam Houston Tollway North": "SHT",
-    "West Sam Houston Tollway South": "SHT",
+    "Sam Houston Tollway": "SHT",
     "Fort Bend Toll Road": "FBTR",
     "Hardy Toll Road": "HTR",
     "Tomball Tollway": "TBT",
