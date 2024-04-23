@@ -1,6 +1,18 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
 
+export function getLightPlaces() {
+  return [
+    city
+  ];
+}
+
+export function getDarkPlaces() {
+  return [
+    city
+  ];
+}
+
 const labelHaloColor = [
   "interpolate",
   ["linear"],
@@ -39,7 +51,7 @@ function filterPlace(type) {
 }
 
 export const village = {
-  id: "place_village",
+  id: "bp_place_village",
   type: "symbol",
   paint: cityLabelPaint,
   filter: ["all", filterPlace("village"), minorLocationStepFilter],
@@ -62,7 +74,7 @@ export const village = {
         [11, 0.5],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": ["get", "name:en"],
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -86,7 +98,7 @@ export const village = {
 };
 
 export const town = {
-  id: "place_town",
+  id: "bp_place_town",
   type: "symbol",
   paint: cityLabelPaint,
   filter: ["all", filterPlace("town"), minorLocationStepFilter],
@@ -109,7 +121,7 @@ export const town = {
         [11, 0.7],
       ],
     },
-    "text-field": Label.localizedNameWithLocalGloss,
+    "text-field": ["get", "name:en"],
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -133,7 +145,7 @@ export const town = {
 };
 
 export const city = {
-  id: "place_city",
+  id: "bp_place_city",
   type: "symbol",
   paint: cityLabelPaint,
   filter: [
@@ -154,7 +166,7 @@ export const city = {
     "text-size": {
       base: 1.2,
       stops: [
-        [4, 11],
+          [4, 11],
         [7, 14],
         [11, 24],
       ],
@@ -165,9 +177,15 @@ export const city = {
       2,
       "place_star_in_circle",
       3,
-      "place_star",
+      "place_heart",
       4,
-      "place_star",
+      [
+        "match",
+        ["get", "name:en"],
+        ["Montgomery", "Phoenix", "Little Rock", "Sacramento", "Denver", "Hartford", "Dover", "Tallahassee", "Atlanta", "Boise", "Springfield", "Indianapolis", "Des Moines", "Topeka", "Frankfort", "Baton Rouge", "Augusta", "Annapolis", "Boston", "Lansing", "St. Paul", "Jackson", "Jefferson City", "Helena", "Lincoln", "Carson City", "Concord", "Trenton", "Santa Fe", "Albany", "Raleigh", "Bismarck", "Columbus", "Oklahoma City", "Salem", "Harrisburg", "Providence", "Columbia", "Pierre", "Nashville", "Austin", "Salt Lake City", "Montpelier", "Richmond", "Olympia", "Charleston", "Madison", "Cheyenne"],
+        "place_heart",
+        "place_star"
+      ],
       "place_dot",
     ],
     "icon-size": {
@@ -178,7 +196,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": Label.localizedNameWithLocalGloss,
+    "text-field": ["get", "name:en"],
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -203,7 +221,7 @@ export const city = {
 };
 
 export const state = {
-  id: "place_state",
+  id: "bp_place_state",
   type: "symbol",
   paint: {
     "text-color": "hsl(45, 6%, 10%)",
@@ -229,7 +247,7 @@ export const state = {
         [6, 14],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": ["get", "name:en"],
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": 0.04,
@@ -251,7 +269,7 @@ export const state = {
   "source-layer": "place",
 };
 export const countryOther = {
-  id: "place_country-other",
+  id: "bp_place_country-other",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -272,7 +290,7 @@ export const countryOther = {
         [7, 15],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": ["get", "name:en"],
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -280,7 +298,7 @@ export const countryOther = {
   "source-layer": "place",
 };
 export const country3 = {
-  id: "place_country-3",
+  id: "bp_place_country-3",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -302,7 +320,7 @@ export const country3 = {
         [7, 17],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": ["get", "name:en"],
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -310,7 +328,7 @@ export const country3 = {
   "source-layer": "place",
 };
 export const country2 = {
-  id: "place_country-2",
+  id: "bp_place_country-2",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -332,7 +350,7 @@ export const country2 = {
         [5, 17],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": ["get", "name:en"],
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -340,7 +358,7 @@ export const country2 = {
   "source-layer": "place",
 };
 export const country1 = {
-  id: "place_country-1",
+  id: "bp_place_country-1",
   type: "symbol",
   paint: {
     "text-color": "#334",
@@ -373,7 +391,7 @@ export const country1 = {
         [6, 19],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": ["get", "name:en"],
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
     "text-offset": [
@@ -388,7 +406,7 @@ export const country1 = {
   "source-layer": "place",
 };
 export const continent = {
-  id: "place_continent",
+  id: "bp_place_continent",
   type: "symbol",
   paint: {
     "text-color": "#633",
@@ -400,7 +418,7 @@ export const continent = {
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": 13,
-    "text-field": Label.localizedName,
+    "text-field": ["get", "name:en"],
     "text-justify": "center",
     "text-transform": "uppercase",
   },
