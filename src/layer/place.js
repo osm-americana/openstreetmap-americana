@@ -26,7 +26,7 @@ const labelHaloColor = [
 const labelHaloBlur = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
 
 const cityLabelPaint = {
-  "text-color": "#444",
+  "text-color": "#777",
   "text-halo-color": labelHaloColor,
   "text-halo-width": 2,
   "text-halo-blur": labelHaloBlur,
@@ -152,13 +152,17 @@ export const city = {
     "all",
     filterPlace("city"),
     [
-      "step",
-      ["zoom"],
-      ["<=", ["get", "rank"], 2],
-      5,
-      ["<=", ["get", "rank"], 4],
-      6,
-      [">=", ["get", "rank"], 1],
+      "any",
+      ["==", ["get", "capital"], 4],  // ensure capital=4 are always included
+      [
+        "step",
+        ["zoom"],
+        ["<=", ["get", "rank"], 2],
+        5,
+        ["<=", ["get", "rank"], 4],
+        6,
+        [">=", ["get", "rank"], 1],
+      ],
     ],
   ],
   layout: {
@@ -166,7 +170,7 @@ export const city = {
     "text-size": {
       base: 1.2,
       stops: [
-          [4, 11],
+        [4, 11],
         [7, 14],
         [11, 24],
       ],
@@ -182,7 +186,7 @@ export const city = {
       [
         "match",
         ["get", "name:en"],
-        ["Montgomery", "Phoenix", "Little Rock", "Sacramento", "Denver", "Hartford", "Dover", "Tallahassee", "Atlanta", "Boise", "Springfield", "Indianapolis", "Des Moines", "Topeka", "Frankfort", "Baton Rouge", "Augusta", "Annapolis", "Boston", "Lansing", "St. Paul", "Jackson", "Jefferson City", "Helena", "Lincoln", "Carson City", "Concord", "Trenton", "Santa Fe", "Albany", "Raleigh", "Bismarck", "Columbus", "Oklahoma City", "Salem", "Harrisburg", "Providence", "Columbia", "Pierre", "Nashville", "Austin", "Salt Lake City", "Montpelier", "Richmond", "Olympia", "Charleston", "Madison", "Cheyenne"],
+        ["Montgomery", "Phoenix", "Little Rock", "Sacramento", "Denver", "Hartford", "Dover", "Tallahassee", "Atlanta", "Boise", "Springfield", "Indianapolis", "Des Moines", "Topeka", "Frankfort", "Baton Rouge", "Augusta", "Annapolis", "Boston", "Lansing", "Saint Paul", "Jackson", "Jefferson City", "Helena", "Lincoln", "Carson City", "Concord", "Trenton", "Santa Fe", "Albany", "Raleigh", "Bismarck", "Columbus", "Oklahoma City", "Salem", "Harrisburg", "Providence", "Columbia", "Pierre", "Nashville", "Austin", "Salt Lake City", "Montpelier", "Richmond", "Olympia", "Charleston", "Madison", "Cheyenne"],
         "place_heart",
         "place_star"
       ],
@@ -206,7 +210,7 @@ export const city = {
       "left",
     ],
     "text-justify": "auto",
-    "text-radial-offset": ["match", ["get", "capital"], 2, 0.7, 0.5],
+    "text-radial-offset": ["match", ["get", "capital"], 2, 0.7, 4, 0.7, 0.5],
     "icon-optional": false,
     "text-max-width": 8,
     "icon-padding": 0,
