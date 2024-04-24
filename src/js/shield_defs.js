@@ -1254,15 +1254,12 @@ export function loadShields() {
     "Isanti",
     "Itasca", // unconfirmed
     "Jackson",
-    "Kandiyohi", // unconfirmed
     "Kittson", // unconfirmed
-    "Koochiching", // unconfirmed
-    "Lake_of_the_Woods", // unconfirmed
-    "Mahnomen", // unconfirmed
+    "Lac_qui_Parle",
     "McLeod",
-    "Meeker", // unconfirmed
+    "Meeker",
     "Nobles", // unconfirmed
-    "Norman", // unconfirmed
+    "Norman",
     "Olmsted",
     "Otter_Tail",
     "Pennington",
@@ -1273,17 +1270,15 @@ export function loadShields() {
     "Red_Lake", // unconfirmed
     "Redwood", // unconfirmed
     "Renville",
-    "Roseau", // unconfirmed
+    "Roseau",
     "Saint_Louis",
     "Sibley",
     "Stearns", // unconfirmed
-    "Stevens", // unconfirmed
-    "Swift", // unconfirmed
-    "Traverse", // unconfirmed
+    "Stevens",
+    "Traverse",
     "Wabasha",
     "Wadena", // unconfirmed
     "Washington",
-    "Wilkin", // unconfirmed
     "Wright",
     "Yellow_Medicine",
   ].forEach(
@@ -1303,11 +1298,13 @@ export function loadShields() {
     "Anoka",
     "Blue_Earth",
     "Hennepin",
+    "Kandiyohi",
     "Lincoln",
     "Mower",
     "Murray",
     "Ramsey",
     "Scott",
+    "Wilkin",
   ].forEach((county) =>
     ["CSAH", "CR"].forEach(
       (network) =>
@@ -1339,10 +1336,12 @@ export function loadShields() {
     "Houston",
     "Hubbard",
     "Kanabec",
-    "Lac_qui_Parle",
+    "Koochiching",
     "Lake",
+    "Lake_of_the_Woods",
     "Le_Sueur",
     "Lyon",
+    "Mahnomen",
     "Marshall",
     "Martin",
     "Mille_Lacs",
@@ -1352,6 +1351,7 @@ export function loadShields() {
     "Rock",
     "Sherburne",
     "Steele",
+    "Swift",
     "Todd",
     "Waseca",
     "Watonwan",
