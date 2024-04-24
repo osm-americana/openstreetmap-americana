@@ -3665,6 +3665,12 @@ export function loadShields() {
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
   shields["CA:NS:S"].overrideByName = {
+    "A. Murray MacKay Bridge": {
+      spriteBlank: "shield_ca_ns_s_mkb",
+    },
+    "Angus L. MacDonald Bridge": {
+      spriteBlank: "shield_ca_ns_s_mdb",
+    },
     "Bras d'Or Lakes Scenic Drive": {
       spriteBlank: "shield_ca_ns_s_bdolsd",
     },
