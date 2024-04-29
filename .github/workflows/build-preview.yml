@@ -1,0 +1,129 @@
+name: Build PR Preview
+on:
+  pull_request:
+    branches: [main]
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  pull-requests: write
+  id-token: write
+  checks: write
+concurrency: preview-${{ github.ref }}
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Checkout Main Branch 🛎️
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          path: main
+      - name: Checkout PR Branch 🛎️
+        uses: actions/checkout@v3
+        with:
+          path: pr-branch
+      - name: Install and Build Main Branch 🔧
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
+        working-directory: main
+      - name: Install and Build PR Branch 🔧
+        # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run style
+          npm run shields
+          cp src/configs/config.aws.js src/config.js
+          mkdir -p dist/shield-docs
+          cp -r shieldlib/docs/* dist/shield-docs
+          mv dist ..
+        working-directory: pr-branch
+      - name: Capture main branch usage statistics
+        id: main-stats
+        run: |
+          MAIN_STATS=$(node ../pr-branch/scripts/stats.js -j)
+          echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$MAIN_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        working-directory: main
+      - name: Start main branch map server
+        id: main-start-server
+        run: |
+          npm start &
+          until nc -z localhost 1776; do sleep 1; done
+        working-directory: main
+      - name: Capture main branch sample clips
+        # Run PR branch scripts against server running from main branch
+        id: main-samples
+        run: |
+          npm run generate_samples
+          mv samples ../samples-main
+        working-directory: pr-branch
+      - name: Stop main branch map server
+        id: main-stop-server
+        run: kill $(lsof -t -i:1776) 2>/dev/null || echo "No process found listening on port 1776."
+        working-directory: main
+      - name: Capture PR branch sample clips
+        id: pr-samples
+        run: |
+          npm start &
+          until nc -z localhost 1776; do sleep 1; done
+          npm run generate_samples
+          kill $(lsof -t -i:1776) 2>/dev/null || echo "No process found listening on port 1776."
+          mv samples ../samples-pr
+        working-directory: pr-branch
+      - name: Capture PR branch usage statistics
+        id: pr-stats
+        run: |
+          PR_STATS=$(node scripts/stats.js -j)
+          echo "PR_STATS<<EOF" >> $GITHUB_ENV
+          echo -e "$PR_STATS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        working-directory: pr-branch
+      - name: Compare Stats
+        id: compare-stats
+        run: |
+          mkdir -p ../pr
+          echo '${{ env.MAIN_STATS }}'
+          echo '${{ env.PR_STATS }}'
+          npm exec tsx scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > ../pr/stats-difference.md
+        working-directory: pr-branch
+      - name: Generate map diff sample clips
+        id: map-diff-samples
+        run: |
+          npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
+          mv pr_preview-extra.md ../pr/
+          cat ../pr/pr_preview-extra.md
+          mv samples-diff ../dist/
+        working-directory: pr-branch
+      - name: Upload Build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: americana
+          path: dist/
+      - name: Save PR attributes
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          echo $PR_NUMBER > pr/pr_number
+          echo $PR_SHA > pr/pr_sha
+          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.event.pull_request.head.sha }} for upload"
+      - name: Upload PR artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr_ci_artifacts
+          path: pr/

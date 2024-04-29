@@ -2,3 +2,4 @@ build
 sprites
 js/maplibre-gl.js
 dist
+.pnp.*

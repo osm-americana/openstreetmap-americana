@@ -3,7 +3,11 @@
 
 //Limit the specified definition to a single numbered layer
 export function restrictLayer(def, layer) {
-  return filteredClone(def, ["==", "layer", layer], "_layer_" + layer);
+  return filteredClone(
+    def,
+    ["==", ["coalesce", ["get", "layer"], 0], layer],
+    "_layer_" + layer
+  );
 }
 
 export function cp(obj) {
@@ -19,6 +23,9 @@ export function layerClone(def, id) {
 //Make a clone of a layer definition, with a filter added
 export function filteredClone(def, filterStep, idSuffix) {
   var clone = layerClone(def, def.id + idSuffix);
+  if (!["all", "any"].includes(clone.filter[0])) {
+    throw new TypeError("Unlikely filter");
+  }
   clone.filter.push(filterStep);
   return clone;
 }
