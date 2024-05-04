@@ -1241,24 +1241,27 @@ export function loadShields() {
       bottom: 3,
     },
   };
+  shields["US:MN:Intercounty"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.yellow,
+    Color.shields.white
+  );
   [
     "Brown",
     "Chisago",
-    "Clearwater", // unconfirmed
+    "Clearwater",
     "Cottonwood",
     "Dakota",
-    "Fillmore", // unconfirmed
     "Freeborn",
     "Goodhue",
-    "Grant", // unconfirmed
     "Isanti",
-    "Itasca", // unconfirmed
     "Jackson",
-    "Kittson", // unconfirmed
+    "Kittson",
     "Lac_qui_Parle",
     "McLeod",
     "Meeker",
-    "Nobles", // unconfirmed
+    "Morrison",
+    "Nobles",
     "Norman",
     "Olmsted",
     "Otter_Tail",
@@ -1266,18 +1269,18 @@ export function loadShields() {
     "Pine",
     "Pipestone",
     "Polk",
-    "Pope", // unconfirmed
-    "Red_Lake", // unconfirmed
-    "Redwood", // unconfirmed
+    "Red_Lake",
+    "Redwood",
     "Renville",
     "Roseau",
     "Saint_Louis",
     "Sibley",
-    "Stearns", // unconfirmed
+    "Stearns",
     "Stevens",
+    "Todd",
     "Traverse",
     "Wabasha",
-    "Wadena", // unconfirmed
+    "Wadena",
     "Washington",
     "Wright",
     "Yellow_Medicine",
@@ -1297,11 +1300,13 @@ export function loadShields() {
   [
     "Anoka",
     "Blue_Earth",
+    "Fillmore",
     "Hennepin",
     "Kandiyohi",
     "Lincoln",
     "Mower",
     "Murray",
+    "Pope",
     "Ramsey",
     "Scott",
     "Wilkin",
@@ -1333,8 +1338,10 @@ export function loadShields() {
     "Dodge",
     "Douglas",
     "Faribault",
+    "Grant",
     "Houston",
     "Hubbard",
+    "Itasca",
     "Kanabec",
     "Koochiching",
     "Lake",
@@ -1345,14 +1352,12 @@ export function loadShields() {
     "Marshall",
     "Martin",
     "Mille_Lacs",
-    "Morrison",
     "Nicollet",
     "Rice",
     "Rock",
     "Sherburne",
     "Steele",
     "Swift",
-    "Todd",
     "Waseca",
     "Watonwan",
     "Winona",
