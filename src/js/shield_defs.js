@@ -1681,11 +1681,17 @@ export function loadShields() {
   );
 
   // New Mexico
-  shields["US:NM"] = pillShield(
-    Color.shields.white,
-    Color.shields.pink,
-    Color.shields.black
-  );
+  shields["US:NM"] = {
+    spriteBlank: ["shield40_us_nm_2", "shield40_us_nm_3"],
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 5,
+      right: 5,
+      top: 5,
+      bottom: 5,
+    },
+  };
   shields["US:NM:Frontage"] = {
     spriteBlank: "shield_us_nm_frontage",
     textColor: Color.shields.black,
@@ -3673,6 +3679,12 @@ export function loadShields() {
   // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
 
   shields["CA:NS:S"].overrideByName = {
+    "A. Murray MacKay Bridge": {
+      spriteBlank: "shield_ca_ns_s_mkb",
+    },
+    "Angus L. MacDonald Bridge": {
+      spriteBlank: "shield_ca_ns_s_mdb",
+    },
     "Bras d'Or Lakes Scenic Drive": {
       spriteBlank: "shield_ca_ns_s_bdolsd",
     },
