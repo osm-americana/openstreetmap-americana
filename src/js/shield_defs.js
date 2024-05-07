@@ -1241,58 +1241,26 @@ export function loadShields() {
       bottom: 3,
     },
   };
+  shields["US:MN:Intercounty"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.yellow,
+    Color.shields.white
+  );
   [
-    "Aitkin",
-    "Anoka",
-    "Becker",
-    "Beltrami",
-    "Benton",
-    "Big_Stone",
-    "Blue_Earth",
     "Brown",
-    "Carlton",
-    "Carver",
-    "Cass",
-    "Chippewa",
     "Chisago",
-    "Clay",
     "Clearwater",
-    "Cook",
     "Cottonwood",
-    "Crow_Wing",
     "Dakota",
-    "Dodge",
-    "Douglas",
-    "Faribault",
-    "Fillmore",
     "Freeborn",
     "Goodhue",
-    "Grant",
-    "Hennepin",
-    "Houston",
-    "Hubbard",
     "Isanti",
-    "Itasca",
     "Jackson",
-    "Kanabec",
-    "Kandiyohi",
     "Kittson",
-    "Koochiching",
     "Lac_qui_Parle",
-    "Lake",
-    "Lake_of_the_Woods",
-    "Le_Sueur",
-    "Lyon",
-    "Mahnomen",
-    "Marshall",
-    "Martin",
     "McLeod",
     "Meeker",
-    "Mille_Lacs",
     "Morrison",
-    "Mower",
-    "Murray",
-    "Nicollet",
     "Nobles",
     "Norman",
     "Olmsted",
@@ -1301,30 +1269,19 @@ export function loadShields() {
     "Pine",
     "Pipestone",
     "Polk",
-    "Pope",
-    "Ramsey",
     "Red_Lake",
     "Redwood",
     "Renville",
-    "Rice",
     "Roseau",
     "Saint_Louis",
-    "Scott",
-    "Sherburne",
     "Sibley",
     "Stearns",
-    "Steele",
     "Stevens",
-    "Swift",
     "Todd",
     "Traverse",
     "Wabasha",
     "Wadena",
-    "Waseca",
     "Washington",
-    "Watonwan",
-    "Wilkin",
-    "Winona",
     "Wright",
     "Yellow_Medicine",
   ].forEach(
@@ -1340,22 +1297,78 @@ export function loadShields() {
         roundedRectShield(Color.shields.white, Color.shields.black),
       ])
   );
-  ["CSAH", "CR"].forEach(
-    (network) =>
-      (shields[`US:MN:Lincoln:${network}`] = pentagonUpShield(
-        3,
-        15,
-        Color.shields.blue,
-        Color.shields.yellow,
-        Color.shields.white
-      ))
+  [
+    "Anoka",
+    "Blue_Earth",
+    "Fillmore",
+    "Hennepin",
+    "Kandiyohi",
+    "Lincoln",
+    "Mower",
+    "Murray",
+    "Pope",
+    "Ramsey",
+    "Scott",
+    "Wilkin",
+  ].forEach((county) =>
+    ["CSAH", "CR"].forEach(
+      (network) =>
+        (shields[`US:MN:${county}:${network}`] = pentagonUpShield(
+          3,
+          15,
+          Color.shields.blue,
+          Color.shields.yellow,
+          Color.shields.white
+        ))
+    )
   );
-  ["CSAH", "CR"].forEach(
-    (network) =>
-      (shields[`US:MN:Rock:${network}`] = roundedRectShield(
-        Color.shields.white,
-        Color.shields.black
-      ))
+  [
+    "Aitkin",
+    "Becker",
+    "Beltrami",
+    "Benton",
+    "Big_Stone",
+    "Carlton",
+    "Carver",
+    "Cass",
+    "Chippewa",
+    "Clay",
+    "Cook",
+    "Crow_Wing",
+    "Dodge",
+    "Douglas",
+    "Faribault",
+    "Grant",
+    "Houston",
+    "Hubbard",
+    "Itasca",
+    "Kanabec",
+    "Koochiching",
+    "Lake",
+    "Lake_of_the_Woods",
+    "Le_Sueur",
+    "Lyon",
+    "Mahnomen",
+    "Marshall",
+    "Martin",
+    "Mille_Lacs",
+    "Nicollet",
+    "Rice",
+    "Rock",
+    "Sherburne",
+    "Steele",
+    "Swift",
+    "Waseca",
+    "Watonwan",
+    "Winona",
+  ].forEach((county) =>
+    ["CSAH", "CR"].forEach(
+      (network) =>
+        (shields[`US:MN:${county}:${network}`] = roundedRectShield(
+          Color.shields.white,
+          Color.shields.black
+        ))
+    )
   );
   shields[`US:MN:Hennepin:Park_Access`] = trapezoidDownShield(
     10,
