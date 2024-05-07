@@ -3356,8 +3356,7 @@ export function loadShields() {
     34
   );
 
-  //Croatia
-
+  // Croatia
   shields["HR:Autoceste"] = hexagonVerticalShield(
     3,
     Color.shields.green,
@@ -3366,19 +3365,16 @@ export function loadShields() {
     0,
     34
   );
-
   shields["HR:Državne ceste"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white,
     Color.shields.white
   );
-
   shields["HR:Županijske ceste"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black,
     Color.shields.black
   );
-
   shields["HR:Lokalne ceste"] = roundedRectShield(
     Color.shields.white,
     Color.shields.black,
