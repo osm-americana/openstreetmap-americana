@@ -480,6 +480,8 @@ export function loadShields() {
 
   shields["US:US:Bypass"] = banneredShield(shields["US:US"], ["BYP"]);
 
+  shields["US:US:Future"] = banneredShield(shields["US:US"], ["FUT"]);
+
   shields["US:US:Business"] = banneredShield(shields["US:US"], ["BUS"]);
   shields["US:US:Business:Alternate"] = banneredShield(shields["US:US"], [
     "BUS",
@@ -919,6 +921,7 @@ export function loadShields() {
     Color.shields.blue,
     Color.shields.yellow
   );
+  shields["US:FL:CR:Truck"] = banneredShield(shields["US:FL:CR"], ["TRK"]);
 
   // Georgia
   shields["US:GA"] = {
@@ -978,6 +981,7 @@ export function loadShields() {
       bottom: 9,
     },
   };
+  shields["US:ID:Business"] = banneredShield(shields["US:ID"], ["BUS"]);
 
   // Illinois
   shields["US:IL"] = roundedRectShield(
@@ -1068,6 +1072,7 @@ export function loadShields() {
       bottom: 2,
     },
   };
+  shields["US:KS:Truck"] = banneredShield(shields["US:KS"], ["TRK"]);
   shields["US:KS:Turnpike"] = {
     noref: {
       spriteBlank: "shield_us_ks_turnpike",
@@ -1523,6 +1528,7 @@ export function loadShields() {
   };
   shields["US:ND:Alternate"] = banneredShield(shields["US:ND"], ["ALT"]);
   shields["US:ND:Business"] = banneredShield(shields["US:ND"], ["BUS"]);
+  shields["US:ND:Bypass"] = banneredShield(shields["US:ND"], ["BYP"]);
   shields["US:ND:Truck"] = banneredShield(shields["US:ND"], ["TRK"]);
   [
     "Barnes",
@@ -2213,6 +2219,11 @@ export function loadShields() {
   shields["US:SC:Alternate"] = banneredShield(
     shields["US:SC"],
     ["ALT"],
+    Color.shields.blue
+  );
+  shields["US:SC:Connector"] = banneredShield(
+    shields["US:SC"],
+    ["CONN"],
     Color.shields.blue
   );
 
