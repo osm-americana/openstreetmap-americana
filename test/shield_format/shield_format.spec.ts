@@ -1,10 +1,11 @@
 import { expect } from "chai";
 import { shieldPredicate, routeParser } from "../../src/js/shield_format.js";
 
-const image_id_I95 = "shield\nUS:I=95";
+const image_id_I95 = "shield\nUS:I\n95\nEye Ninety-Five";
 const route_def_I95 = {
   network: "US:I",
   ref: "95",
+  name: "Eye Ninety-Five",
 };
 
 describe("shield_format", function () {
@@ -19,6 +20,7 @@ describe("shield_format", function () {
       let extractedDef = routeParser.parse(image_id_I95);
       expect(extractedDef.network).to.be.equal(route_def_I95.network);
       expect(extractedDef.ref).to.be.equal(route_def_I95.ref);
+      expect(extractedDef.name).to.be.equal(route_def_I95.name);
     });
   });
 });
