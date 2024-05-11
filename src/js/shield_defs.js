@@ -103,6 +103,14 @@ export function loadShields() {
   };
 
   // NORTH AMERICA
+  shields["GLCT"] = {
+    notext: true,
+  };
+  shields["GLCT:Loop"] = banneredShield(
+    shields["GLCT"],
+    ["LOOP"],
+    Color.shields.brown
+  );
 
   // Canada
   shields["CA:transcanada"] = {
@@ -509,7 +517,9 @@ export function loadShields() {
     Color.shields.brown
   );
 
-  // Federal Agencies
+  // US Federal Agencies
+
+  // Bureau of Indian Affairs
   shields["US:BIA"] = {
     spriteBlank: "shield_us_bia",
     textColor: Color.shields.black,
@@ -522,39 +532,48 @@ export function loadShields() {
     },
   };
 
+  // Department of Energy: see California
+  // National Park Service
   shields["US:NPS:Blue_Ridge"] = {
     noref: {
       spriteBlank: "shield_us_nps_brp",
     },
   };
-
   shields["US:NPS:Natchez_Trace"] = {
     noref: {
       spriteBlank: "shield_us_nps_ntp",
     },
   };
 
-  shields["US:GRR"] = {
-    noref: {
-      spriteBlank: "shield_us_grr",
-    },
-  };
+  // Other multistate routes
 
+  // Great Lakes Seaway Trail
   shields["US:GLST"] = {
     noref: {
       spriteBlank: "shield_us_glst",
     },
   };
 
-  shields["GLCT"] = {
+  // Great River Road
+  shields["US:GRR"] = {
+    noref: {
+      spriteBlank: "shield_us_grr",
+    },
+  };
+
+  // Lincoln Heritage Trail
+  shields["US:LHT"] = {
+    spriteBlank: "shield_us_lht",
     notext: true,
   };
 
-  shields["GLCT:Loop"] = banneredShield(
-    shields["GLCT"],
-    ["LOOP"],
-    Color.shields.brown
-  );
+  // Ohio River Scenic Byway
+  shields["US:ORSB"] = {
+    spriteBlank: ["shield_us_orsb"],
+    notext: true,
+  };
+
+  // US States
 
   // Alaska
   shields["US:AK"] = {
@@ -794,6 +813,9 @@ export function loadShields() {
     spriteBlank: "shield_us_ca_sf_49",
     notext: true,
   };
+
+  // Department of Energy
+  shields["US:DOE:Hanford"] = shields["US:CA"];
 
   // Colorado
   shields["US:CO"] = {
@@ -2755,17 +2777,6 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
-
-  // Multistate auto trails
-
-  shields["US:LHT"] = {
-    spriteBlank: "shield_us_lht",
-    notext: true,
-  };
-  shields["US:ORSB"] = {
-    spriteBlank: ["shield_us_orsb"],
-    notext: true,
-  };
 
   // SOUTH AMERICA
 
