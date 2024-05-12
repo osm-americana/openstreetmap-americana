@@ -3,13 +3,13 @@ import * as Color from "../constants/color.js";
 
 export function getLightPlaces() {
   return [
-    city
+    city(false)
   ];
 }
 
 export function getDarkPlaces() {
   return [
-    city
+    city(true)
   ];
 }
 
@@ -25,12 +25,22 @@ const labelHaloColor = [
 
 const labelHaloBlur = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
 
-const cityLabelPaint = {
+export const cityLabelPaint = {
   "text-color": "#777",
   "text-halo-color": labelHaloColor,
   "text-halo-width": 2,
   "text-halo-blur": labelHaloBlur,
 };
+
+function getCityLabelPaint(darkMode) {
+  if(darkMode) {
+    const darkModePaint = cityLabelPaint;
+    darkModePaint["text-halo-color"] = "#110";
+    return darkModePaint;
+  } else {
+    return cityLabelPaint;
+  }
+}
 
 const minorLocationStepFilter = [
   "step",
@@ -144,85 +154,87 @@ export const town = {
   "source-layer": "place",
 };
 
-export const city = {
-  id: "bp_place_city",
-  type: "symbol",
-  paint: cityLabelPaint,
-  filter: [
-    "all",
-    filterPlace("city"),
-    [
-      "any",
-      ["==", ["get", "capital"], 4],  // ensure capital=4 are always included
+export function city(darkMode) {
+  return {
+    id: "bp_place_city",
+    type: "symbol",
+    paint: getCityLabelPaint(darkMode),
+    filter: [
+      "all",
+      filterPlace("city"),
       [
-        "step",
-        ["zoom"],
-        ["<=", ["get", "rank"], 2],
-        5,
-        ["<=", ["get", "rank"], 4],
-        6,
-        [">=", ["get", "rank"], 1],
+        "any",
+        ["==", ["get", "capital"], 4],  // ensure capital=4 are always included
+        [
+          "step",
+          ["zoom"],
+          ["<=", ["get", "rank"], 2],
+          5,
+          ["<=", ["get", "rank"], 4],
+          6,
+          [">=", ["get", "rank"], 1],
+        ],
       ],
     ],
-  ],
-  layout: {
-    "text-font": ["Americana-Bold"],
-    "text-size": {
-      base: 1.2,
-      stops: [
-        [4, 11],
-        [7, 14],
-        [11, 24],
-      ],
-    },
-    "icon-image": [
-      "match",
-      ["get", "capital"],
-      2,
-      "place_star_in_circle",
-      3,
-      "place_heart",
-      4,
-      [
+    layout: {
+      "text-font": ["Americana-Bold"],
+      "text-size": {
+        base: 1.2,
+        stops: [
+          [4, 11],
+          [7, 14],
+          [11, 24],
+        ],
+      },
+      "icon-image": [
         "match",
-        ["get", "name:en"],
-        ["Montgomery", "Phoenix", "Little Rock", "Sacramento", "Denver", "Hartford", "Dover", "Tallahassee", "Atlanta", "Boise", "Springfield", "Indianapolis", "Des Moines", "Topeka", "Frankfort", "Baton Rouge", "Augusta", "Annapolis", "Boston", "Lansing", "Saint Paul", "Jackson", "Jefferson City", "Helena", "Lincoln", "Carson City", "Concord", "Trenton", "Santa Fe", "Albany", "Raleigh", "Bismarck", "Columbus", "Oklahoma City", "Salem", "Harrisburg", "Providence", "Columbia", "Pierre", "Nashville", "Austin", "Salt Lake City", "Montpelier", "Richmond", "Olympia", "Charleston", "Madison", "Cheyenne"],
+        ["get", "capital"],
+        2,
+        "place_star_in_circle",
+        3,
         "place_heart",
-        "place_star"
+        4,
+        [
+          "match",
+          ["get", "name:en"],
+          ["Montgomery", "Phoenix", "Little Rock", "Sacramento", "Denver", "Hartford", "Dover", "Tallahassee", "Atlanta", "Boise", "Springfield", "Indianapolis", "Des Moines", "Topeka", "Frankfort", "Baton Rouge", "Augusta", "Annapolis", "Boston", "Lansing", "Saint Paul", "Jackson", "Jefferson City", "Helena", "Lincoln", "Carson City", "Concord", "Trenton", "Santa Fe", "Albany", "Raleigh", "Bismarck", "Columbus", "Oklahoma City", "Salem", "Harrisburg", "Providence", "Columbia", "Pierre", "Nashville", "Austin", "Salt Lake City", "Montpelier", "Richmond", "Olympia", "Charleston", "Madison", "Cheyenne"],
+          "place_heart",
+          "place_star"
+        ],
+        "place_dot",
       ],
-      "place_dot",
-    ],
-    "icon-size": {
-      base: 1.2,
-      stops: [
-        [4, 0.4],
-        [7, 0.5],
-        [11, 0.9],
+      "icon-size": {
+        base: 1.2,
+        stops: [
+          [4, 0.4],
+          [7, 0.5],
+          [11, 0.9],
+        ],
+      },
+      "text-field": ["get", "name:en"],
+      "text-anchor": "bottom",
+      "text-variable-anchor": [
+        "bottom",
+        "bottom-right",
+        "bottom-left",
+        "right",
+        "left",
       ],
+      "text-justify": "auto",
+      "text-radial-offset": ["match", ["get", "capital"], 2, 0.7, 4, 0.7, 0.5],
+      "icon-optional": false,
+      "text-max-width": 8,
+      "icon-padding": 0,
+      "text-padding": 1,
+      "icon-allow-overlap": false,
     },
-    "text-field": ["get", "name:en"],
-    "text-anchor": "bottom",
-    "text-variable-anchor": [
-      "bottom",
-      "bottom-right",
-      "bottom-left",
-      "right",
-      "left",
-    ],
-    "text-justify": "auto",
-    "text-radial-offset": ["match", ["get", "capital"], 2, 0.7, 4, 0.7, 0.5],
-    "icon-optional": false,
-    "text-max-width": 8,
-    "icon-padding": 0,
-    "text-padding": 1,
-    "icon-allow-overlap": false,
-  },
-  source: "openmaptiles",
-  minzoom: 4,
-  maxzoom: 12,
-  "source-layer": "place",
-  metadata: {},
-};
+    source: "openmaptiles",
+    minzoom: 4,
+    maxzoom: 12,
+    "source-layer": "place",
+    metadata: {},
+  };
+}
 
 export const state = {
   id: "bp_place_state",
