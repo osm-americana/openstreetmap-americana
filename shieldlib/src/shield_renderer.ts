@@ -27,7 +27,7 @@ import { DOMGraphicsFactory } from "./document_graphics";
 export class ShieldRenderingContext {
   shieldDef: ShieldDefinitions;
   options: ShieldOptions;
-  debugOptions: DebugOptions;
+  debugOptions?: DebugOptions;
   gfxFactory: GraphicsFactory;
   spriteRepo: SpriteRepository;
   private _emptySpriteCache: CanvasRenderingContext2D;
@@ -67,7 +67,7 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
   putSprite(
     spriteID: string,
     image: ImageData,
-    options: StyleImageMetadata,
+    options: Partial<StyleImageMetadata>,
     update: boolean
   ): void {
     if (update && this.map.listImages().includes(spriteID)) {
