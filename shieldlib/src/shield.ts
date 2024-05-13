@@ -77,7 +77,8 @@ function getDrawFunc(shieldDef: ShieldDefinition): (r: ShieldRenderingContext, c
         ref
       );
   }
-  return () => ShieldDraw.blank;
+  console.warn(`Draw function not defined in:\n${shieldDef}`);
+  return (r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, ref: string) => {};
 }
 
 function getDrawHeight(r: ShieldRenderingContext, shieldDef: ShieldDefinition): number {
@@ -183,7 +184,8 @@ function getShieldDef(shields: ShieldDefinitions, routeDef: RouteDefinition): Sh
   if (shieldDef == null) {
     // Default to plain black text with halo and no background shield
     console.debug("Generic shield for", JSON.stringify(routeDef));
-    return isValidRef(routeDef.ref) ? shields.shield["default"] : null;
+
+    return isValidRef(routeDef.ref) ? shields["default"] : null;
   }
 
   var ref = refForDefs(routeDef, shieldDef);
