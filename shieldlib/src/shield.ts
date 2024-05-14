@@ -114,7 +114,7 @@ function drawShieldText(r: ShieldRenderingContext, ctx: CanvasRenderingContext2D
   ShieldText.renderShieldText(r, ctx, routeDef.ref, textLayout);
 
   if (r.debugOptions?.shieldTextBboxColor) {
-    ctx.strokeStyle = r.debugOptions.shieldTextBboxColor; //TODO move to debugOptions
+    ctx.strokeStyle = r.debugOptions.shieldTextBboxColor;
     ctx.lineWidth = r.px(1);
     ctx.strokeRect(
       r.px(shieldDef.padding.left - 0.5),
