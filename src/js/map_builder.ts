@@ -54,12 +54,12 @@ export function loadRTLPlugin(): void {
 }
 
 export function createMap(
-  window,
+  window: Window,
   shieldDefCallback: (shields: ShieldDefinitions) => void,
   options: MapOptions
 ): Map {
-  window.maplibregl = maplibregl;
-  let map: Map = (window.map = new maplibregl.Map(options));
+  window["maplibregl"] = maplibregl;
+  let map: Map = (window["map"] = new maplibregl.Map(options));
 
   const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
     .filterImageID(shieldPredicate)
