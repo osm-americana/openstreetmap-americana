@@ -17,6 +17,7 @@ import * as Poi from "../js/poi.js";
 import * as Label from "../constants/label.js";
 import * as Style from "../js/style.js";
 import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
+import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
 
 export function buildStyle(): StyleSpecification {
   var getUrl = window.location;
@@ -56,12 +57,14 @@ export function loadRTLPlugin(): void {
 export function createMap(
   window: Window,
   shieldDefCallback: (shields: ShieldDefinitions) => void,
-  options: MapOptions
+  options: MapOptions,
+  debugOptions: DebugOptions
 ): Map {
   window["maplibregl"] = maplibregl;
   let map: Map = (window["map"] = new maplibregl.Map(options));
 
   const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
+    .debugOptions(debugOptions)
     .filterImageID(shieldPredicate)
     .filterNetwork(networkPredicate)
     .renderOnMaplibreGL(map)

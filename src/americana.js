@@ -28,7 +28,7 @@ upgradeLegacyHash();
 
 loadRTLPlugin();
 
-let debugOptions = {};
+const debugOptions = {};
 
 if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
   debugOptions.shieldTextHaloColor = config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
@@ -46,7 +46,7 @@ export const map = createMap(window, (shields) => shieldDefLoad(shields), {
   center: [-94, 40.5],
   zoom: 4,
   attributionControl: false,
-}, {}, debugOptions);
+}, debugOptions);
 
 // Add our sample data.
 let sampleControl = new SampleControl({ permalinks: true });
