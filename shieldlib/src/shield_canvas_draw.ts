@@ -97,20 +97,6 @@ function ellipse(
   return width;
 }
 
-export function blank(r: ShieldRenderingContext, ref: string) {
-  var shieldWidth =
-    ShieldText.calculateTextWidth(r, ref, r.px(genericShieldFontSize)) +
-    r.px(2);
-  var width = Math.max(
-    r.px(minGenericShieldWidth),
-    Math.min(r.px(maxGenericShieldWidth), shieldWidth)
-  );
-  return r.gfxFactory.createGraphics({
-    width: width,
-    height: r.shieldSize(),
-  });
-}
-
 export function roundedRectangle(
   r: ShieldRenderingContext,
   ctx: CanvasRenderingContext2D,

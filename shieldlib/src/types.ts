@@ -1,4 +1,4 @@
-import { StyleImage, StyleImageMetadata } from "maplibre-gl";
+import { StyleImage, StyleImageInterface, StyleImageMetadata } from "maplibre-gl";
 
 /** Defines the set of routes that a shield applies to */
 export interface RouteDefinition {
@@ -19,6 +19,8 @@ export type Exclusive<T, U> =
 export interface ShieldDefinitionBase {
   /** Color of text drawn on a shield */
   textColor?: string;
+  /** Color of the halo drawn around text */
+  textHaloColor?: string;
   /** Color of banner text */
   bannerTextColor?: string;
   /** Color of banner text halo */
@@ -33,6 +35,16 @@ export interface ShieldDefinitionBase {
   notext?: boolean;
   /** Maximum size of shield text */
   maxFontSize?: number;
+  /** ref values that can be mapped from names */
+  refsByName?: Map<string, string>;
+  /** Transpose numbering system, for example "roman" for Roman numerals */
+  numberingSystem?: string;
+  /** Reflect this shield vertically */
+  verticalReflect: boolean;
+  /** Perform a color lighten operation with this color */
+  colorLighten: string;
+  /** Perform a color darken operation with this color */
+  colorDarken: string;
 }
 
 /**
@@ -137,8 +149,8 @@ export interface SpriteProducer {
 export interface SpriteConsumer {
   putSprite(
     spriteID: string,
-    image: ImageData,
-    options: StyleImageMetadata,
+    image: ImageData | StyleImageInterface,
+    options: Partial<StyleImageMetadata>,
     update: boolean
   ): void;
 }
@@ -153,10 +165,13 @@ export interface ShieldDefinitions {
   };
 }
 
-/** Additional debugging-only options */
+/** Additional debugging-only override options */
 export interface DebugOptions {
   /** If set, draw a colored box around shield text constraint */
   shieldTextBboxColor?: string;
+
+  /** If set, draw a halo of this color around text */
+  shieldTextHaloColor?: string;
 }
 
 /** Global options for shield rendering */
