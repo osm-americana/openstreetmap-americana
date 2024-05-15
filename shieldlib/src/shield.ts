@@ -175,7 +175,7 @@ function getShieldDef(shields: ShieldDefinitions, routeDef: RouteDefinition): Sh
     return null;
   }
 
-  var shieldDef = shields[routeDef.network];
+  let shieldDef: ShieldDefinition = shields[routeDef.network];
 
   if (routeDef == null) {
     return null;
