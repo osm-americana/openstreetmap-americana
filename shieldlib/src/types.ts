@@ -158,11 +158,54 @@ export interface SpriteConsumer {
 /** Respository that can store and retrieve sprite graphics */
 export type SpriteRepository = SpriteProducer & SpriteConsumer;
 
+class TrieNode<V> {
+  children: Map<string, TrieNode<V>> = new Map();
+  value?: V;
+  isEndOfWord: boolean = false;
+}
+
+export class PrefixMap<V> {
+  private root: TrieNode<V> = new TrieNode();
+
+  // Add a key-value pair to the map
+  set(key: string, value: V): void {
+      let node = this.root;
+      for (const char of key) {
+          if (!node.children.has(char)) {
+              node.children.set(char, new TrieNode<V>());
+          }
+          node = node.children.get(char)!;
+      }
+      node.isEndOfWord = true;
+      node.value = value;
+  }
+
+  // Reverse lookup: Find the value associated with the longest prefix of the given string
+  getLongestPrefixValue(query: string): V {
+      let node = this.root;
+      let lastMatchingValue: V = null;
+
+      for (const char of query) {
+          if (node.children.has(char)) {
+              node = node.children.get(char)!;
+              if (node.isEndOfWord) {
+                  lastMatchingValue = node.value;
+              }
+          } else {
+              break;
+          }
+      }
+      
+      return lastMatchingValue;
+  }
+}
+
 /** Map of shield definitions that associates a network name to its rendering */
 export interface ShieldDefinitions {
   shield: {
     [key: string]: ShieldDefinition;
   };
+  shieldBeginsWith: PrefixMap<ShieldDefinition>;
 }
 
 /** Additional debugging-only override options */

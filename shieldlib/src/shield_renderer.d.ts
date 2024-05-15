@@ -74,4 +74,8 @@ export declare class InMemorySpriteRepository implements SpriteRepository {
     update: boolean
   ): void;
 }
+export declare class PrefixMap<V> {
+  set(key: string, value: V): void;
+  getLongestPrefixValue(query: string): V | undefined;
+}
 export {};

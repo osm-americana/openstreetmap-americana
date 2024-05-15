@@ -1,4 +1,10 @@
 import { StyleImage, StyleImageMetadata } from "maplibre-gl";
+
+export interface PrefixMap<V> {
+  set(key: string, value: V): void ;
+  getLongestPrefixValue(query: string): V | undefined;
+}
+
 export interface RouteDefinition {
   network: string;
   ref: string;

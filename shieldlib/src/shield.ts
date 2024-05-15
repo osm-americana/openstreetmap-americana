@@ -175,10 +175,14 @@ function getShieldDef(shields: ShieldDefinitions, routeDef: RouteDefinition): Sh
     return null;
   }
 
-  var shieldDef = shields[routeDef.network];
-
   if (routeDef == null) {
     return null;
+  }
+
+  let shieldDef: ShieldDefinition = shields.shield[routeDef.network];
+
+  if (shieldDef == null) {
+    shieldDef = shields.shieldBeginsWith.getLongestPrefixValue(routeDef.network);
   }
 
   if (shieldDef == null) {
