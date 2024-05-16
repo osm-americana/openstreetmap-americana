@@ -77,7 +77,7 @@ function getDrawFunc(shieldDef: ShieldDefinition): (r: ShieldRenderingContext, c
         ref
       );
   }
-  console.warn(`Draw function not defined in:\n${shieldDef}`);
+  console.warn(`Draw function not defined in:\n${JSON.stringify(shieldDef)}`);
   return (r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, ref: string) => {};
 }
 
@@ -169,8 +169,8 @@ function refForDefs(routeDef: RouteDefinition, shieldDef: ShieldDefinition) {
   return routeDef.ref;
 }
 
-function getShieldDef(shields: ShieldDefinitions, routeDef: RouteDefinition): ShieldDefinition {
-  if (!shields) {
+function getShieldDef(defs: ShieldDefinitions, routeDef: RouteDefinition): ShieldDefinition {
+  if (!defs) {
     //This occurs if the ShieldJSON is loaded from the network and hasn't loaded yet.
     return null;
   }
@@ -179,17 +179,17 @@ function getShieldDef(shields: ShieldDefinitions, routeDef: RouteDefinition): Sh
     return null;
   }
 
-  let shieldDef: ShieldDefinition = shields.shield[routeDef.network];
+  let shieldDef: ShieldDefinition = defs.shield.get(routeDef.network);
 
   if (shieldDef == null) {
-    shieldDef = shields.shieldBeginsWith.getLongestPrefixValue(routeDef.network);
+    shieldDef = defs.shieldBeginsWith.getLongestPrefixValue(routeDef.network);
   }
 
   if (shieldDef == null) {
     // Default to plain black text with halo and no background shield
     console.debug("Generic shield for", JSON.stringify(routeDef));
 
-    return isValidRef(routeDef.ref) ? shields["default"] : null;
+    return isValidRef(routeDef.ref) ? defs.shield.get("default") : null;
   }
 
   var ref = refForDefs(routeDef, shieldDef);

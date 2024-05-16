@@ -85,15 +85,15 @@ class MaplibreGLSpriteRepository implements SpriteRepository {
 /**
  * Takes a ShieldDefinitions object and extracts out all networks which end with a wildcard into a separate map.
  */
-function extractWildcardNetworks(rawShieldDefs: ShieldDefinitions): ShieldDefinitions {
-  const newShield: { [key: string]: ShieldDefinition } = {};
+function extractWildcardNetworks(rawShieldDefs: Map<string, ShieldDefinition>): ShieldDefinitions {
+  const newShield = new Map<string, ShieldDefinition>();
   const prefixMap = new PrefixMap<ShieldDefinition>();
 
-  for (const key in rawShieldDefs.shield) {
+  for (const [key, value] of rawShieldDefs) {
     if (key.endsWith('*')) {
-      prefixMap.set(key.slice(0, -1), rawShieldDefs.shield[key]);
+      prefixMap.set(key.slice(0, -1), value);
     } else {
-      newShield[key] = rawShieldDefs.shield[key];
+      newShield.set(key, value);
     }
   }
 
@@ -128,7 +128,7 @@ export class AbstractShieldRenderer {
   /** Specify which shields to draw and with what graphics */
   protected setShields(shieldSpec: ShieldSpecification) {
     this._renderContext.options = shieldSpec.options;
-    this._renderContext.shieldDef = extractWildcardNetworks(shieldSpec.networks);
+    this._renderContext.shieldDef = extractWildcardNetworks(new Map(Object.entries(shieldSpec.networks)));
     this._fontSpec = "1em " + shieldSpec.options.shieldFont;
     console.log("ShieldJSON loaded");
     if (this._map) {

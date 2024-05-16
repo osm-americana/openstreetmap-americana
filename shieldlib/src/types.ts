@@ -45,6 +45,12 @@ export interface ShieldDefinitionBase {
   colorLighten: string;
   /** Perform a color darken operation with this color */
   colorDarken: string;
+  /** Provide a different shield style for specific name values */
+  overrideByName: Map<string, ShieldDefinition>
+  /** Provide a different shield style for specific ref values */
+  overrideByRef: Map<string, ShieldDefinition>
+  /** Provide a different shield style when there's no ref value */
+  noref: ShieldDefinition
 }
 
 /**
@@ -202,9 +208,7 @@ export class PrefixMap<V> {
 
 /** Map of shield definitions that associates a network name to its rendering */
 export interface ShieldDefinitions {
-  shield: {
-    [key: string]: ShieldDefinition;
-  };
+  shield: Map<string, ShieldDefinition>;
   shieldBeginsWith: PrefixMap<ShieldDefinition>;
 }
 
@@ -265,7 +269,7 @@ export interface ShieldOptions {
  */
 export interface ShieldSpecification {
   /** Shield definitions */
-  networks: ShieldDefinitions;
+  networks: Map<string, ShieldDefinition>;
   /** Shield options */
   options: ShieldOptions;
 }
