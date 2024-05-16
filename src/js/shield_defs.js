@@ -1589,36 +1589,11 @@ export function loadShields() {
     notext: true,
   };
   //New Jersey county routes with standard shields
-  [
-    "CR",
-    "Atlantic",
-    "Burlington",
-    "Camden",
-    "Cape_May",
-    "Cumberland",
-    "Essex",
-    "Gloucester",
-    "Hudson",
-    "Hunterdon",
-    "Mercer",
-    "Middlesex",
-    "Monmouth",
-    "Morris",
-    "Ocean",
-    "Passaic",
-    "Salem",
-    "Somerset",
-    "Sussex",
-    "Union",
-    "Warren",
-  ].forEach(
-    (county) =>
-    (shields[`US:NJ:${county}`] = pentagonUpShield(
-      3,
-      15,
-      Color.shields.blue,
-      Color.shields.yellow
-    ))
+  shields["US:NJ:*"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.yellow
   );
   shields["US:NJ:Bergen"] = roundedRectShield(
     Color.shields.white,
@@ -1664,33 +1639,12 @@ export function loadShields() {
       bottom: 5,
     },
   };
-  [
-    "Cibola",
-    "Doña_Ana",
-    "Eddy",
-    "Guadalupe",
-    "Lea",
-    "Lincoln",
-    "Luna",
-    "McKinley",
-    "Mora",
-    "Otero",
-    "Rio_Arriba",
-    "Sandoval",
-    "San_Juan",
-    "Santa_Fe",
-    "Sierra",
-    "Taos",
-    "Torrance",
-    "Union",
-  ].forEach(
-    (county) =>
-    (shields[`US:NM:${county}`] = pentagonUpShield(
+  shields["US:NM:*"] =
+    pentagonUpShield(
       3,
       15,
       Color.shields.blue,
       Color.shields.yellow
-    ))
   );
   shields["US:NM:San_Juan:NCM"] = pentagonUpShield(
     3,
