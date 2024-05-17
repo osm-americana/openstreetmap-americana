@@ -1804,6 +1804,13 @@ export function loadShields() {
     },
   };
   shields["US:NY:Truck"] = banneredShield(shields["US:NY"], ["TRK"]);
+  shields["US:NY:Inner_Loop"] = trapezoidDownShield(
+    10,
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    4
+  );
   shields["US:NY:Thruway"] = {
     noref: {
       spriteBlank: "shield_us_ny_thruway",
@@ -3856,6 +3863,9 @@ export function loadShields() {
     },
   };
 
+  shields["US:NY:Inner_Loop"].refsByName = {
+    "Inner Loop": "LOOP",
+  };
   shields["US:NY:Parkway"].refsByName = {
     "Bear Mountain State Parkway": "BMP",
     "Bronx River Parkway": "BRP",

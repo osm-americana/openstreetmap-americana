@@ -347,6 +347,10 @@ const iterShields = function* () {
     network: "US:NH:Turnpike",
     names: ["Blue Star Turnpike", "Everett Turnpike", "Spaulding Turnpike"],
   };
+  yield {
+    network: "US:NY:Inner_Loop",
+    names: ["Inner Loop"],
+  };
 };
 
 const renderAllShields = async () => {
