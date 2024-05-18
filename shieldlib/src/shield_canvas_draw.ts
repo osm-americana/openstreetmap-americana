@@ -97,6 +97,16 @@ function ellipse(
   return width;
 }
 
+export function pill(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref?: string
+): number {
+  params.radius = r.shieldSize() / 2;
+  return roundedRectangle(r, ctx, params, ref);
+}
+
 export function roundedRectangle(
   r: ShieldRenderingContext,
   ctx: CanvasRenderingContext2D,
@@ -789,6 +799,7 @@ registerDrawFunction("hexagonVertical", hexagonVertical);
 registerDrawFunction("hexagonHorizontal", hexagonHorizontal);
 registerDrawFunction("octagonVertical", octagonVertical);
 registerDrawFunction("pentagon", pentagon);
+registerDrawFunction("pill", pill);
 registerDrawFunction("roundedRectangle", roundedRectangle);
 registerDrawFunction("trapezoid", trapezoid);
 registerDrawFunction("triangle", triangle);
