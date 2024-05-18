@@ -1,4 +1,8 @@
-import { StyleImage, StyleImageInterface, StyleImageMetadata } from "maplibre-gl";
+import {
+  StyleImage,
+  StyleImageInterface,
+  StyleImageMetadata,
+} from "maplibre-gl";
 
 /** Defines the set of routes that a shield applies to */
 export interface RouteDefinition {
