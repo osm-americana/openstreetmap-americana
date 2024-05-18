@@ -182,6 +182,7 @@ You should create one definition entry for each network. The entry key must matc
 - **`colorDarken`**: specify that the shield artwork should be darkened by the specified color. This means that white areas will be recolor with this color and black areas will remain the same. Alpha values will remain unmodified.
 - **`overrideByRef`**: specify that a specific `ref` within a `network` should have different shield properties than other routes in the network, with one entry per special-case `ref`. Supported options are **`spriteBlank`**, **`textColor`**, and **`colorLighten`**.
 - **`refsByName`**: specify that a `name` with the specified key should be treated as a `ref` with the specified value.
+- **`ref`**: specify that all shields in this network should be drawn with the specified `ref` value.
 - **`overrideByName`**: specify that particular `name` should use a specific **`spriteBlank`** which differs from the rest of the network.
 
 ### Handling special case networks

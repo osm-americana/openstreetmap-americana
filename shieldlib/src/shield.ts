@@ -78,7 +78,7 @@ function getDrawFunc(shieldDef: ShieldDefinition): (r: ShieldRenderingContext, c
       );
   }
   console.warn(`Draw function not defined in:\n${shieldDef}`);
-  return (r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, ref: string) => {};
+  return (r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, ref: string) => { };
 }
 
 function getDrawHeight(r: ShieldRenderingContext, shieldDef: ShieldDefinition): number {
@@ -159,6 +159,9 @@ export function storeNoShield(r: ShieldRenderingContext, id: string): void {
 
 function refForDefs(routeDef: RouteDefinition, shieldDef: ShieldDefinition) {
   // Handle special case for manually-applied abbreviations
+  if (shieldDef.ref) {
+    return shieldDef.ref;
+  }
   if (
     shieldDef.refsByName &&
     routeDef.name &&
@@ -216,6 +219,7 @@ function getShieldDef(shields: ShieldDefinitions, routeDef: RouteDefinition): Sh
   if (
     !isValidRef(ref) &&
     !shieldDef.notext &&
+    !shieldDef.ref &&
     !(shieldDef.refsByName && routeDef.name)
   ) {
     return null;
