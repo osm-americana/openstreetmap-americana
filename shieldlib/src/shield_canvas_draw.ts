@@ -103,7 +103,11 @@ export function pill(
   params: ShapeBlankParams,
   ref?: string
 ): number {
-  params.radius = r.shieldSize() / 2;
+  /*
+   shieldSize() has to be divided by r.px(1) to get down to 1x resolution.
+   Then we divide in half again to get a 50% height corner radius, hence px(2).
+  */
+  params.radius = r.shieldSize() / r.px(2);
   return roundedRectangle(r, ctx, params, ref);
 }
 
