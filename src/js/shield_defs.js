@@ -105,12 +105,34 @@ export function loadShields() {
   // NORTH AMERICA
   shields["GLCT"] = {
     notext: true,
+    overrideByRef: {
+      LECT: {
+        spriteBlank: "shield_glct_lect",
+      },
+      LHCT: {
+        spriteBlank: "shield_glct_lhct",
+      },
+      LMCT: {
+        spriteBlank: "shield_glct_lmct",
+        colorLighten: Color.shields.green,
+      },
+      LSCT: {
+        spriteBlank: "shield_glct_lsct",
+      },
+    }
   };
   shields["GLCT:Loop"] = banneredShield(
     shields["GLCT"],
     ["LOOP"],
     Color.shields.brown
   );
+
+  shields["GLCT:Loop"].overrideByRef = {
+    LMCT: {
+      spriteBlank: "shield_glct_lmct",
+      colorLighten: Color.shields.brown,
+    },
+  };
 
   // Canada
   shields["CA:transcanada"] = {
@@ -3888,29 +3910,6 @@ export function loadShields() {
     "Hardy Toll Road": "HTR",
     "Tomball Tollway": "TBT",
     "Westpark Tollway": "WPT",
-  };
-
-  shields["GLCT"].overrideByRef = {
-    LECT: {
-      spriteBlank: "shield_glct_lect",
-    },
-    LHCT: {
-      spriteBlank: "shield_glct_lhct",
-    },
-    LMCT: {
-      spriteBlank: "shield_glct_lmct",
-      colorLighten: Color.shields.green,
-    },
-    LSCT: {
-      spriteBlank: "shield_glct_lsct",
-    },
-  };
-
-  shields["GLCT:Loop"].overrideByRef = {
-    LMCT: {
-      spriteBlank: "shield_glct_lmct",
-      colorLighten: Color.shields.brown,
-    },
   };
 
   return {
