@@ -475,37 +475,19 @@ export function loadShields() {
 
   // US Highways
   shields["US:US"] = badgeShield;
-
-  shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
-  shields["US:US:Truck:Bypass"] = banneredShield(shields["US:US"], [
-    "TRK",
-    "BYP",
-  ]);
-
-  shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
-
-  shields["US:US:Connector"] = banneredShield(shields["US:US"], ["CONN"]);
-
-  shields["US:US:Bypass"] = banneredShield(shields["US:US"], ["BYP"]);
-
-  shields["US:US:Future"] = banneredShield(shields["US:US"], ["FUT"]);
-
-  shields["US:US:Business"] = banneredShield(shields["US:US"], ["BUS"]);
-  shields["US:US:Business:Alternate"] = banneredShield(shields["US:US"], [
-    "BUS",
-    "ALT",
-  ]);
-  shields["US:US:Business:Truck"] = banneredShield(shields["US:US"], [
-    "BUS",
-    "TRK",
-  ]);
-
-  shields["US:US:Alternate"] = banneredShield(shields["US:US"], ["ALT"]);
-  shields["US:US:Alternate:Truck:Business"] = banneredShield(shields["US:US"], [
-    "ALT",
-    "TRK",
-    "BUS",
-  ]);
+  shields["US:US"].bannerMap = {
+    "US:US:Truck": ["TRK"],
+    "US:US:Truck:Bypass": ["TRK", "BYP"],
+    "US:US:Spur": ["SPUR"],
+    "US:US:Connector": ["CONN"],
+    "US:US:Bypass": ["BYP"],
+    "US:US:Future": ["FUT"],
+    "US:US:Business": ["BUS"],
+    "US:US:Business:Alternate": ["BUS", "ALT"],
+    "US:US:Business:Truck": ["BUS", "TRK"],
+    "US:US:Alternate": ["ALT"],
+    "US:US:Alternate:Truck:Business": ["ALT", "TRK", "BUS"],
+  };
 
   shields["US:US:Historic"] = banneredShield(
     {

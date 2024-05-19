@@ -11,6 +11,7 @@ import {
   RouteDefinition,
   RouteParser,
   ShapeBlankParams,
+  ShieldDefinition,
   ShieldDefinitions,
   ShieldOptions,
   ShieldSpecification,
@@ -104,6 +105,25 @@ export class AbstractShieldRenderer {
   /** Specify which shields to draw and with what graphics */
   protected setShields(shieldSpec: ShieldSpecification) {
     this._renderContext.options = shieldSpec.options;
+
+    // Unpack any banner maps and compose them as separate network entries in-memory
+    for (const [key, shieldDef] of Object.entries(shieldSpec.networks)) {
+      if (!shieldDef) {
+        continue; // Skip if shieldDef is null or undefined
+      }
+
+      // Check to see if it has a bannerMap
+      if (shieldDef.bannerMap) {
+        // If it does, loop through each entry in the bannerMap
+        for (const [bannerKey, banners] of Object.entries(shieldDef.bannerMap)) {
+          // Make a copy of the ShieldDefinition and attach the banners
+          const banneredShieldDef: ShieldDefinition = { ...shieldDef, banners: banners };
+          // Insert this modified ShieldDefinition into the global network list
+          shieldSpec.networks[bannerKey] = banneredShieldDef;
+        }
+      }
+    }
+
     this._renderContext.shieldDef = shieldSpec.networks;
     this._fontSpec = "1em " + shieldSpec.options.shieldFont;
     console.log("ShieldJSON loaded");
