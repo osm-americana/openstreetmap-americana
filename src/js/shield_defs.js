@@ -119,7 +119,7 @@ export function loadShields() {
       LSCT: {
         spriteBlank: "shield_glct_lsct",
       },
-    }
+    },
   };
   shields["GLCT:Loop"] = banneredShield(
     shields["GLCT"],
