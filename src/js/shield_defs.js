@@ -1811,6 +1811,7 @@ export function loadShields() {
     Color.shields.black,
     4
   );
+  shields["US:NY:Inner_Loop"].ref = "LOOP";
   shields["US:NY:Thruway"] = {
     noref: {
       spriteBlank: "shield_us_ny_thruway",
@@ -3863,9 +3864,6 @@ export function loadShields() {
     },
   };
 
-  shields["US:NY:Inner_Loop"].refsByName = {
-    "Inner Loop": "LOOP",
-  };
   shields["US:NY:Parkway"].refsByName = {
     "Bear Mountain State Parkway": "BMP",
     "Bronx River Parkway": "BRP",
