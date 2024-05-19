@@ -29,15 +29,20 @@ upgradeLegacyHash();
 
 loadRTLPlugin();
 
-export const map = createMap(window, (shields) => shieldDefLoad(shields), {
-  container: "map", // container id
-  hash: "map",
-  antialias: true,
-  style: buildStyle(),
-  center: [-94, 40.5],
-  zoom: 4,
-  attributionControl: false,
-}, debugOptions);
+export const map = createMap(
+  window,
+  (shields) => shieldDefLoad(shields),
+  {
+    container: "map", // container id
+    hash: "map",
+    antialias: true,
+    style: buildStyle(),
+    center: [-94, 40.5],
+    zoom: 4,
+    attributionControl: false,
+  },
+  debugOptions
+);
 
 // Add our sample data.
 let sampleControl = new SampleControl({ permalinks: true });

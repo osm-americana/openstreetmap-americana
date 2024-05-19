@@ -5,11 +5,20 @@ import * as ShieldDraw from "./shield_canvas_draw";
 import * as Gfx from "./screen_gfx";
 import { drawBanners, drawBannerHalos, getBannerCount } from "./shield_banner";
 import { ShieldRenderingContext } from "./shield_renderer";
-import { Dimension, RouteDefinition, ShieldDefinition, ShieldDefinitions } from "./types";
+import {
+  Dimension,
+  RouteDefinition,
+  ShieldDefinition,
+  ShieldDefinitions,
+} from "./types";
 import { TextPlacement } from "./shield_text";
 import { StyleImage } from "maplibre-gl";
 
-function compoundShieldSize(r: ShieldRenderingContext, dimension: Dimension, bannerCount: number): Dimension {
+function compoundShieldSize(
+  r: ShieldRenderingContext,
+  dimension: Dimension,
+  bannerCount: number
+): Dimension {
   return {
     width: dimension.width,
     height:
@@ -31,7 +40,11 @@ export function isValidRef(ref: string): boolean {
  * @param {*} routeDef - route tagging from OSM
  * @returns shield blank or null if no shield exists
  */
-function getRasterShieldBlank(r: ShieldRenderingContext, shieldDef: ShieldDefinition, routeDef: RouteDefinition): StyleImage {
+function getRasterShieldBlank(
+  r: ShieldRenderingContext,
+  shieldDef: ShieldDefinition,
+  routeDef: RouteDefinition
+): StyleImage {
   let shieldArtwork = null;
   let textPlacement: TextPlacement;
   let bannerCount: number = 0;
@@ -66,9 +79,19 @@ function textColor(shieldDef: ShieldDefinition): string {
   return "black";
 }
 
-function getDrawFunc(shieldDef: ShieldDefinition): (r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, ref: string) => void {
+function getDrawFunc(
+  shieldDef: ShieldDefinition
+): (
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  ref: string
+) => void {
   if (typeof shieldDef.shapeBlank != "undefined") {
-    return (r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, ref: string) =>
+    return (
+      r: ShieldRenderingContext,
+      ctx: CanvasRenderingContext2D,
+      ref: string
+    ) =>
       ShieldDraw.draw(
         r,
         shieldDef.shapeBlank.drawFunc,
@@ -78,17 +101,30 @@ function getDrawFunc(shieldDef: ShieldDefinition): (r: ShieldRenderingContext, c
       );
   }
   console.warn(`Draw function not defined in:\n${shieldDef}`);
-  return (r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, ref: string) => {};
+  return (
+    r: ShieldRenderingContext,
+    ctx: CanvasRenderingContext2D,
+    ref: string
+  ) => {};
 }
 
-function getDrawHeight(r: ShieldRenderingContext, shieldDef: ShieldDefinition): number {
+function getDrawHeight(
+  r: ShieldRenderingContext,
+  shieldDef: ShieldDefinition
+): number {
   if (typeof shieldDef.shapeBlank != "undefined") {
     return ShieldDraw.shapeHeight(r, shieldDef.shapeBlank.drawFunc);
   }
   return r.shieldSize();
 }
 
-function drawShieldText(r: ShieldRenderingContext, ctx: CanvasRenderingContext2D, shieldDef: ShieldDefinition, routeDef: RouteDefinition, shieldBounds: Dimension): CanvasRenderingContext2D {
+function drawShieldText(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  shieldDef: ShieldDefinition,
+  routeDef: RouteDefinition,
+  shieldBounds: Dimension
+): CanvasRenderingContext2D {
   if (shieldDef.notext) {
     //If the shield definition says not to draw a ref, ignore ref
     return ctx;
@@ -120,16 +156,21 @@ function drawShieldText(r: ShieldRenderingContext, ctx: CanvasRenderingContext2D
       r.px(shieldDef.padding.left - 0.5),
       r.px(shieldDef.padding.top - 0.5),
       shieldBounds.width -
-      r.px(shieldDef.padding.left + shieldDef.padding.right - 1),
+        r.px(shieldDef.padding.left + shieldDef.padding.right - 1),
       shieldBounds.height -
-      r.px(shieldDef.padding.top + shieldDef.padding.bottom - 1)
+        r.px(shieldDef.padding.top + shieldDef.padding.bottom - 1)
     );
   }
 
   return ctx;
 }
 
-export function missingIconLoader(r: ShieldRenderingContext, routeDef: RouteDefinition, spriteID: string, update: boolean): void {
+export function missingIconLoader(
+  r: ShieldRenderingContext,
+  routeDef: RouteDefinition,
+  spriteID: string,
+  update: boolean
+): void {
   let ctx = generateShieldCtx(r, routeDef);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
@@ -139,7 +180,12 @@ export function missingIconLoader(r: ShieldRenderingContext, routeDef: RouteDefi
   storeSprite(r, spriteID, ctx, update);
 }
 
-function storeSprite(r: ShieldRenderingContext, id: string, ctx: CanvasRenderingContext2D, update: boolean): void {
+function storeSprite(
+  r: ShieldRenderingContext,
+  id: string,
+  ctx: CanvasRenderingContext2D,
+  update: boolean
+): void {
   const imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   r.spriteRepo.putSprite(
     id,
@@ -169,7 +215,10 @@ function refForDefs(routeDef: RouteDefinition, shieldDef: ShieldDefinition) {
   return routeDef.ref;
 }
 
-function getShieldDef(shields: ShieldDefinitions, routeDef: RouteDefinition): ShieldDefinition {
+function getShieldDef(
+  shields: ShieldDefinitions,
+  routeDef: RouteDefinition
+): ShieldDefinition {
   if (!shields) {
     //This occurs if the ShieldJSON is loaded from the network and hasn't loaded yet.
     return null;
@@ -252,7 +301,11 @@ export function romanizeRef(ref: string): string {
   return roman + ref.slice(number.toString().length);
 }
 
-function getDrawnShieldBounds(r: ShieldRenderingContext, shieldDef: ShieldDefinition, ref: string): Dimension {
+function getDrawnShieldBounds(
+  r: ShieldRenderingContext,
+  shieldDef: ShieldDefinition,
+  ref: string
+): Dimension {
   let width = Math.max(
     r.shieldSize(),
     ShieldDraw.computeWidth(
@@ -267,16 +320,24 @@ function getDrawnShieldBounds(r: ShieldRenderingContext, shieldDef: ShieldDefini
   return { width, height };
 }
 
-function bannerAreaHeight(r: ShieldRenderingContext, bannerCount: number): number {
+function bannerAreaHeight(
+  r: ShieldRenderingContext,
+  bannerCount: number
+): number {
   if (bannerCount === 0) {
     return 0;
   }
-  return bannerCount * r.px(r.options.bannerHeight) +
+  return (
+    bannerCount * r.px(r.options.bannerHeight) +
     //No padding after last banner
-    (bannerCount - 1) * r.px(r.options.bannerPadding);
+    (bannerCount - 1) * r.px(r.options.bannerPadding)
+  );
 }
 
-export function generateShieldCtx(r: ShieldRenderingContext, routeDef: RouteDefinition): CanvasRenderingContext2D {
+export function generateShieldCtx(
+  r: ShieldRenderingContext,
+  routeDef: RouteDefinition
+): CanvasRenderingContext2D {
   let shieldDef: ShieldDefinition = getShieldDef(r.shieldDef, routeDef);
 
   if (shieldDef == null) {
