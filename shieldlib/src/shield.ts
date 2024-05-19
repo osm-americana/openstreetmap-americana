@@ -205,6 +205,9 @@ export function storeNoShield(r: ShieldRenderingContext, id: string): void {
 
 function refForDefs(routeDef: RouteDefinition, shieldDef: ShieldDefinition) {
   // Handle special case for manually-applied abbreviations
+  if (shieldDef.ref) {
+    return shieldDef.ref;
+  }
   if (
     shieldDef.refsByName &&
     routeDef.name &&
@@ -265,6 +268,7 @@ function getShieldDef(
   if (
     !isValidRef(ref) &&
     !shieldDef.notext &&
+    !shieldDef.ref &&
     !(shieldDef.refsByName && routeDef.name)
   ) {
     return null;
