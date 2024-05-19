@@ -41,6 +41,8 @@ export interface ShieldDefinitionBase {
   maxFontSize?: number;
   /** ref values that can be mapped from names */
   refsByName?: Map<string, string>;
+  /** hard-code the shield text to this value */
+  ref?: string;
   /** Transpose numbering system, for example "roman" for Roman numerals */
   numberingSystem?: string;
   /** Reflect this shield vertically */
