@@ -8,6 +8,7 @@ import {
   networkPredicate,
   routeParser,
 } from "./js/shield_format.js";
+import { debugOptions } from "./debug_config.js";
 
 var getUrl = window.location;
 var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
@@ -27,6 +28,7 @@ export const map = (window.map = new maplibregl.Map({
 const shields = ShieldDef.loadShields();
 
 const shieldRenderer = new ShieldRenderer(shields, routeParser)
+  .debugOptions(debugOptions)
   .filterImageID(shieldPredicate)
   .filterNetwork(networkPredicate)
   .renderOnMaplibreGL(map);

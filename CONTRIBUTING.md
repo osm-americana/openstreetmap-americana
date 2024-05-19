@@ -316,6 +316,8 @@ Additionally, **`refsByName`** is an object mapping way names to text that can b
 
 When using `overrideByRef` or `refsByName`, make sure to add a line to the Special Cases section of this page explaining why it is necessary, as they are only intended for use in special cases.
 
+In the case where all routes in a network should be drawn with the same shield text, set the text value in `ref`.
+
 ### Banners
 
 The shield definition supports a property **`banners`** which accepts an array of text strings which will be drawn atop each shield, in 10px height increments. This is used in cases where additional text is needed to differentiate shields with a common symbology, for example for [special routes of the US Numbered Highway System](https://en.wikipedia.org/wiki/List_of_special_routes_of_the_United_States_Numbered_Highway_System):
