@@ -51,6 +51,12 @@ export interface ShieldDefinitionBase {
   colorLighten: string;
   /** Perform a color darken operation with this color */
   colorDarken: string;
+  /** Provide a different shield style for specific name values */
+  overrideByName: Map<string, ShieldDefinition>;
+  /** Provide a different shield style for specific ref values */
+  overrideByRef: Map<string, ShieldDefinition>;
+  /** Provide a different shield style when there's no ref value */
+  noref: ShieldDefinition;
 }
 
 /**
