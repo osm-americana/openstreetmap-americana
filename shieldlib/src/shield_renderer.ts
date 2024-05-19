@@ -115,9 +115,14 @@ export class AbstractShieldRenderer {
       // Check to see if it has a bannerMap
       if (shieldDef.bannerMap) {
         // If it does, loop through each entry in the bannerMap
-        for (const [bannerKey, banners] of Object.entries(shieldDef.bannerMap)) {
+        for (const [bannerKey, banners] of Object.entries(
+          shieldDef.bannerMap
+        )) {
           // Make a copy of the ShieldDefinition and attach the banners
-          const banneredShieldDef: ShieldDefinition = { ...shieldDef, banners: banners };
+          const banneredShieldDef: ShieldDefinition = {
+            ...shieldDef,
+            banners: banners,
+          };
           // Insert this modified ShieldDefinition into the global network list
           shieldSpec.networks[bannerKey] = banneredShieldDef;
         }
