@@ -32,7 +32,7 @@ const gzSizeRow = mdCompareRow(
   "Compressed StyleJSON Size (b)",
   stats1.gzipStyleSize,
   stats2.gzipStyleSize,
-  difference.styleSize
+  difference.gzipStyleSize
 );
 
 const shieldRow = mdCompareRow(
@@ -46,7 +46,7 @@ const gzShieldRow = mdCompareRow(
   "Compressed ShieldJSON Size (b)",
   stats1.gzipShieldJSONSize,
   stats2.gzipShieldJSONSize,
-  difference.shieldJSONSize
+  difference.gzipShieldJSONSize
 );
 
 const ss1xRow = mdCompareRow(
