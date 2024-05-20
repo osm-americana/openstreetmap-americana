@@ -2,6 +2,7 @@ import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
 import { Command, Option } from "commander";
 import fs from "node:fs";
+import zlib from "node:zlib";
 
 const program = new Command();
 program
@@ -35,6 +36,18 @@ program
     new Option("-sh, --shield-json-size", "size of ShieldJSON").conflicts(
       "allJson"
     )
+  )
+  .addOption(
+    new Option(
+      "-gsh, --gzip-shield-json-size",
+      "gzip compressed size of ShieldJSON"
+    ).conflicts("allJson")
+  )
+  .addOption(
+    new Option(
+      "-gs, --gzip-style-size",
+      "gzip compressed size of style"
+    ).conflicts("allJson")
   )
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
   .option("-j, --all-json", "output all stats in JSON")
@@ -81,6 +94,10 @@ function distFileSize(distDir, path) {
   return fs.statSync(`${distDir}/${path}`).size;
 }
 
+function gzipSize(content) {
+  return zlib.gzipSync(content).length;
+}
+
 const spriteSheet1xSize = spriteSheetSize(distDir, true);
 if (opts.spritesheet1xSize) {
   console.log(spriteSheet1xSize);
@@ -93,15 +110,30 @@ if (opts.spritesheet2xSize) {
   process.exit();
 }
 
+const shieldJSONPath = `${distDir}/shields.json`;
 const shieldJSONSize = distFileSize(distDir, "shields.json");
 if (opts.shieldJsonSize) {
   console.log(shieldJSONSize);
   process.exit();
 }
 
-const styleSize = JSON.stringify(layers).length;
+const shieldJSONContent = fs.readFileSync(shieldJSONPath, "utf8");
+const gzipShieldJSONSize = gzipSize(shieldJSONContent);
+if (opts.gzipShieldJsonSize) {
+  console.log(gzipShieldJSONSize);
+  process.exit();
+}
+
+const styleContent = JSON.stringify(layers);
+const styleSize = styleContent.length;
 if (opts.layerSize) {
   console.log(styleSize);
+  process.exit();
+}
+
+const gzipStyleSize = gzipSize(styleContent);
+if (opts.gzipStyleSize) {
+  console.log(gzipStyleSize);
   process.exit();
 }
 
@@ -110,10 +142,12 @@ const layerMap = new Map();
 const stats = {
   layerCount,
   styleSize,
+  gzipStyleSize,
   layerGroup: {},
   spriteSheet1xSize,
   spriteSheet2xSize,
   shieldJSONSize,
+  gzipShieldJSONSize,
 };
 
 for (let i = 0; i < layerCount; i++) {
