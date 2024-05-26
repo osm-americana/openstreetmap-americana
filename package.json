@@ -26,7 +26,7 @@
     "sprites": "node scripts/sprites.js",
     "start": "run-s clean-build sprites serve",
     "stats": "node scripts/stats.js",
-    "style": "node scripts/generate_style.js -o dist/style.json",
+    "style": "node scripts/generate_style.js -m light -o dist/style-light.json && node scripts/generate_style.js -m dark -o dist/style-dark.json",
     "test": "mocha"
   },
   "dependencies": {

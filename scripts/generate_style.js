@@ -14,17 +14,28 @@ import config from "../src/config.js";
 const program = new Command();
 program
   .option("-l, --locales <locale1 locale2...>", "language codes", ["mul"])
+  .option("-m, --mode <light or dark>", "style mode")
   .option("-o, --outfile <file>", "output file", "-");
 program.parse(process.argv);
 
 let opts = program.opts();
+let style;
 
-let style = Style.build(
-  config.OPENMAPTILES_URL,
-  "https://streetferret.github.io/blackpearl-map/sprites/sprite-light",
-  "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
-  "light"
-);
+if (opts.mode == "light") {
+  style = Style.build(
+    config.OPENMAPTILES_URL,
+    "https://streetferret.github.io/blackpearl-map/sprites/sprite-light",
+    "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+    "light"
+  );
+} else {
+  style = Style.build(
+    config.OPENMAPTILES_URL,
+    "https://streetferret.github.io/blackpearl-map/sprites/sprite-dark",
+    "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+    "dark"  
+  );
+}
 
 const errors = validate(style);
 if (errors.length) {
