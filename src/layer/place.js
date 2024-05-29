@@ -458,12 +458,12 @@ export const legendEntries = [
     filter: ["==", ["get", "capital"], 4],
   },
   {
-    description: "Division capital",
+    description: "Local capital",
     layers: populatedPlaceLayers,
     filter: ["==", ["get", "capital"], 5],
   },
   {
-    description: "County seat or local capital",
+    description: "County seat or equivalent",
     layers: populatedPlaceLayers,
     filter: ["==", ["get", "capital"], 6],
   },
