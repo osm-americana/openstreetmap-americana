@@ -3197,6 +3197,10 @@ export function loadShields() {
     0,
     34
   );
+  shields["TR:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
 
   // Taiwan
   shields["TW:freeway"] = {
