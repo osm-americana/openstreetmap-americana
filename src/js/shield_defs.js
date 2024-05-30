@@ -106,7 +106,7 @@ export function loadShields() {
   shields["GLCT"] = {
     notext: true,
   };
-  shields["GLCT:Loop"] = banneredShield(
+  shields["GLCT:Loop"] = (
     shields["GLCT"],
     ["LOOP"],
     Color.shields.brown
@@ -245,7 +245,7 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.blue,
   };
-  shields["CA:ON:private_toll"] = banneredShield(
+  shields["CA:ON:private_toll"] = (
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
     ["ETR"]
   );
@@ -332,7 +332,7 @@ export function loadShields() {
         Color.shields.black
       ))
   );
-  shields["CA:ON:Hastings:Wollaston"] = banneredShield(
+  shields["CA:ON:Hastings:Wollaston"] = (
     roundedRectShield(Color.shields.white, Color.shields.black),
     ["TWP"]
   );
@@ -346,19 +346,19 @@ export function loadShields() {
   );
   ["North Dumfries", "Wilmot"].forEach(
     (township) =>
-      (shields[`CA:ON:Waterloo:${township}`] = banneredShield(
+      (shields[`CA:ON:Waterloo:${township}`] = (
         shields["CA:ON:Waterloo"],
         ["TWP"]
       ))
   );
   ["Brant", "Durham", "Haldimand", "Norfolk"].forEach(
     (county) =>
-      (shields[`CA:ON:${county}:Highway`] = banneredShield(
+      (shields[`CA:ON:${county}:Highway`] = (
         shields[`CA:ON:${county}`],
         ["HWY"]
       ))
   );
-  shields["CA:ON:Muskoka:West"] = banneredShield(shields["CA:ON:Muskoka"], [
+  shields["CA:ON:Muskoka:West"] = (shields["CA:ON:Muskoka"], [
     "WEST",
   ]);
   shields["CA:ON:Hamilton:Expressway"] = {
@@ -518,7 +518,7 @@ export function loadShields() {
     }
   };
 
-  shields["US:US:Historic"] = banneredShield(
+  shields["US:US:Historic"] = (
     {
       ...badgeShieldCrossbar,
       textColor: Color.shields.brown,
@@ -808,7 +808,7 @@ export function loadShields() {
       bottom: 4,
     },
   };
-  shields["US:CA:Business"] = banneredShield(
+  shields["US:CA:Business"] = (
     shields["US:CA"],
     ["BUS"],
     Color.shields.green
@@ -923,10 +923,14 @@ export function loadShields() {
   };
 
   // Delaware
-  shields["US:DE"] = ovalShield(Color.shields.white, Color.shields.black);
-  shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
-  shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
-  shields["US:DE:Truck"] = banneredShield(shields["US:DE"], ["TRK"]);
+  shields["US:DE"] = {
+    ...ovalShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:DE:Alternate": ["ALT"],
+      "US:DE:Business": ["BUS"],
+      "US:DE:Truck": ["TRK"],      
+    },
+  };
 
   // Florida
   shields["US:FL"] = {
