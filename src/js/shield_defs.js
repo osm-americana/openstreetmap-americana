@@ -500,19 +500,21 @@ export function loadShields() {
   shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
 
   // US Highways
-  shields["US:US"] = badgeShield;
-  shields["US:US"].bannerMap = {
-    "US:US:Truck": ["TRK"],
-    "US:US:Truck:Bypass": ["TRK", "BYP"],
-    "US:US:Spur": ["SPUR"],
-    "US:US:Connector": ["CONN"],
-    "US:US:Bypass": ["BYP"],
-    "US:US:Future": ["FUT"],
-    "US:US:Business": ["BUS"],
-    "US:US:Business:Alternate": ["BUS", "ALT"],
-    "US:US:Business:Truck": ["BUS", "TRK"],
-    "US:US:Alternate": ["ALT"],
-    "US:US:Alternate:Truck:Business": ["ALT", "TRK", "BUS"],
+  shields["US:US"] = {
+    ...badgeShield,
+    bannerMap: {
+      "US:US:Truck": ["TRK"],
+      "US:US:Truck:Bypass": ["TRK", "BYP"],
+      "US:US:Spur": ["SPUR"],
+      "US:US:Connector": ["CONN"],
+      "US:US:Bypass": ["BYP"],
+      "US:US:Future": ["FUT"],
+      "US:US:Business": ["BUS"],
+      "US:US:Business:Alternate": ["BUS", "ALT"],
+      "US:US:Business:Truck": ["BUS", "TRK"],
+      "US:US:Alternate": ["ALT"],
+      "US:US:Alternate:Truck:Business": ["ALT", "TRK", "BUS"],
+    }
   };
 
   shields["US:US:Historic"] = banneredShield(
