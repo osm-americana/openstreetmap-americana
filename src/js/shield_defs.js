@@ -608,8 +608,11 @@ export function loadShields() {
       top: 3,
       bottom: 6,
     },
+    bannerMap: {
+      "US:AL:Truck": ["TRK"],
+    },
   };
-  shields["US:AL:Truck"] = banneredShield(shields["US:AL"], ["TRK"]);
+
   [
     "Autauga",
     "Baldwin",
