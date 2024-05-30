@@ -479,13 +479,14 @@ export function loadShields() {
       top: 6,
       bottom: 5,
     },
+    bannerMap: {
+      "US:I:Alternate": ["ALT"],
+      "US:I:Future": ["FUT"],
+      "US:I:Truck": ["TRK"],
+      "US:I:Express": ["EXPR"],
+      "US:I:Express:Toll": ["EXPR"],
+    }
   };
-
-  shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
-  shields["US:I:Future"] = banneredShield(shields["US:I"], ["FUT"]);
-  shields["US:I:Truck"] = banneredShield(shields["US:I"], ["TRK"]);
-  shields["US:I:Express"] = banneredShield(shields["US:I"], ["EXPR"]);
-  shields["US:I:Express:Toll"] = shields["US:I:Express"];
 
   shields["US:I:Business:Loop"] = {
     ...shields["US:I"],
