@@ -674,12 +674,11 @@ export function pillShield(
   textColor = textColor ?? strokeColor;
   return {
     shapeBlank: {
-      drawFunc: "roundedRectangle",
+      drawFunc: "pill",
       params: {
         fillColor,
         strokeColor,
         rectWidth,
-        radius: 10,
       },
     },
     textLayout: textConstraint("ellipse"),

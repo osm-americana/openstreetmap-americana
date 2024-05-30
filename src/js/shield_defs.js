@@ -361,6 +361,32 @@ export function loadShields() {
   shields["CA:ON:Muskoka:West"] = banneredShield(shields["CA:ON:Muskoka"], [
     "WEST",
   ]);
+  shields["CA:ON:Hamilton:Expressway"] = {
+    notext: true,
+    overrideByName: {
+      "Lincoln M. Alexander Parkway": {
+        spriteBlank: "shield_ca_on_hamilton_blue",
+      },
+      "Red Hill Valley Parkway": {
+        spriteBlank: "shield_ca_on_hamilton_green",
+      },
+    },
+  };
+  shields["CA:ON:Toronto:Expressway"] = {
+    spriteBlank: "shield_ca_on_toronto",
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 5,
+      right: 5,
+      top: 5,
+      bottom: 5,
+    },
+    refsByName: {
+      "Don Valley Parkway": "DV",
+      "Gardiner Expressway": "G",
+    },
+  };
 
   // Prince Edward Island
   shields["CA:PE"] = {
@@ -3178,6 +3204,10 @@ export function loadShields() {
     Color.shields.black,
     0,
     34
+  );
+  shields["TR:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
   );
 
   // Taiwan
