@@ -776,10 +776,13 @@ export function loadShields() {
       top: 3,
       bottom: 4,
     },
+    bannerMap: {
+      "US:AZ:Spur": ["SPUR"],
+      "US:AZ:Loop": ["LOOP"],
+      "US:AZ:Business": ["BUS"],
+    },
   };
-  shields["US:AZ:Spur"] = banneredShield(shields["US:AZ"], ["SPUR"]);
-  shields["US:AZ:Loop"] = banneredShield(shields["US:AZ"], ["LOOP"]);
-  shields["US:AZ:Business"] = banneredShield(shields["US:AZ"], ["BUS"]);
+
   ["Coconino", "Mohave", "Yavapai"].forEach(
     (county) =>
       (shields[`US:AZ:${county}`] = pentagonUpShield(
