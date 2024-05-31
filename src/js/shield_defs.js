@@ -106,11 +106,7 @@ export function loadShields() {
   shields["GLCT"] = {
     notext: true,
   };
-  shields["GLCT:Loop"] = (
-    shields["GLCT"],
-    ["LOOP"],
-    Color.shields.brown
-  );
+  shields["GLCT:Loop"] = (shields["GLCT"], ["LOOP"], Color.shields.brown);
 
   // Canada
   shields["CA:transcanada"] = {
@@ -245,10 +241,9 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.blue,
   };
-  shields["CA:ON:private_toll"] = (
-    pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
-    ["ETR"]
-  );
+  shields["CA:ON:private_toll"] =
+    (pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
+    ["ETR"]);
   shields["CA:ON:secondary"] = trapezoidUpShield(
     10,
     Color.shields.white,
@@ -332,10 +327,8 @@ export function loadShields() {
         Color.shields.black
       ))
   );
-  shields["CA:ON:Hastings:Wollaston"] = (
-    roundedRectShield(Color.shields.white, Color.shields.black),
-    ["TWP"]
-  );
+  shields["CA:ON:Hastings:Wollaston"] =
+    (roundedRectShield(Color.shields.white, Color.shields.black), ["TWP"]);
   shields["CA:ON:Waterloo:Wellesley"] = ovalShield(
     Color.shields.white,
     Color.shields.black
@@ -346,21 +339,15 @@ export function loadShields() {
   );
   ["North Dumfries", "Wilmot"].forEach(
     (township) =>
-      (shields[`CA:ON:Waterloo:${township}`] = (
-        shields["CA:ON:Waterloo"],
-        ["TWP"]
-      ))
+      (shields[`CA:ON:Waterloo:${township}`] =
+        (shields["CA:ON:Waterloo"], ["TWP"]))
   );
   ["Brant", "Durham", "Haldimand", "Norfolk"].forEach(
     (county) =>
-      (shields[`CA:ON:${county}:Highway`] = (
-        shields[`CA:ON:${county}`],
-        ["HWY"]
-      ))
+      (shields[`CA:ON:${county}:Highway`] =
+        (shields[`CA:ON:${county}`], ["HWY"]))
   );
-  shields["CA:ON:Muskoka:West"] = (shields["CA:ON:Muskoka"], [
-    "WEST",
-  ]);
+  shields["CA:ON:Muskoka:West"] = (shields["CA:ON:Muskoka"], ["WEST"]);
   shields["CA:ON:Hamilton:Expressway"] = {
     notext: true,
     overrideByName: {
@@ -485,7 +472,7 @@ export function loadShields() {
       "US:I:Truck": ["TRK"],
       "US:I:Express": ["EXPR"],
       "US:I:Express:Toll": ["EXPR"],
-    }
+    },
   };
 
   shields["US:I:Business:Loop"] = {
@@ -515,18 +502,17 @@ export function loadShields() {
       "US:US:Business:Truck": ["BUS", "TRK"],
       "US:US:Alternate": ["ALT"],
       "US:US:Alternate:Truck:Business": ["ALT", "TRK", "BUS"],
-    }
+    },
   };
 
-  shields["US:US:Historic"] = (
-    {
+  shields["US:US:Historic"] =
+    ({
       ...badgeShieldCrossbar,
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
     ["HIST"],
-    Color.shields.brown
-  );
+    Color.shields.brown);
 
   // US Federal Agencies
 
@@ -808,11 +794,7 @@ export function loadShields() {
       bottom: 4,
     },
   };
-  shields["US:CA:Business"] = (
-    shields["US:CA"],
-    ["BUS"],
-    Color.shields.green
-  );
+  shields["US:CA:Business"] = (shields["US:CA"], ["BUS"], Color.shields.green);
   ["CR", "Sierra"].forEach(
     (county) =>
       (shields[`US:CA:${county}`] = pentagonUpShield(
@@ -928,7 +910,7 @@ export function loadShields() {
     bannerMap: {
       "US:DE:Alternate": ["ALT"],
       "US:DE:Business": ["BUS"],
-      "US:DE:Truck": ["TRK"],      
+      "US:DE:Truck": ["TRK"],
     },
   };
 
