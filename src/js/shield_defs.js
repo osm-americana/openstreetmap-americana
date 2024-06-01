@@ -1690,8 +1690,10 @@ export function loadShields() {
       top: 4,
       bottom: 5,
     },
+    bannerMap: {
+      "US:NH:Bypass": ["BYP"],
+    },
   };
-  shields["US:NH:Bypass"] = banneredShield(shields["US:NH"], ["BYP"]);
   shields["US:NH:Turnpike"] = {
     notext: true,
   };
