@@ -106,7 +106,11 @@ export function loadShields() {
   shields["GLCT"] = {
     notext: true,
   };
-  shields["GLCT:Loop"] = (shields["GLCT"], ["LOOP"], Color.shields.brown);
+  shields["GLCT:Loop"] = banneredShield(
+    shields["GLCT"],
+    ["LOOP"],
+    Color.shields.brown
+  );
 
   // Canada
   shields["CA:transcanada"] = {
@@ -241,9 +245,10 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.blue,
   };
-  shields["CA:ON:private_toll"] =
-    (pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
-    ["ETR"]);
+  shields["CA:ON:private_toll"] = banneredShield(
+    pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
+    ["ETR"]
+  );
   shields["CA:ON:secondary"] = trapezoidUpShield(
     10,
     Color.shields.white,
@@ -327,8 +332,10 @@ export function loadShields() {
         Color.shields.black
       ))
   );
-  shields["CA:ON:Hastings:Wollaston"] =
-    (roundedRectShield(Color.shields.white, Color.shields.black), ["TWP"]);
+  shields["CA:ON:Hastings:Wollaston"] = banneredShield(
+    roundedRectShield(Color.shields.white, Color.shields.black),
+    ["TWP"]
+  );
   shields["CA:ON:Waterloo:Wellesley"] = ovalShield(
     Color.shields.white,
     Color.shields.black
@@ -339,15 +346,21 @@ export function loadShields() {
   );
   ["North Dumfries", "Wilmot"].forEach(
     (township) =>
-      (shields[`CA:ON:Waterloo:${township}`] =
-        (shields["CA:ON:Waterloo"], ["TWP"]))
+      (shields[`CA:ON:Waterloo:${township}`] = banneredShield(
+        shields["CA:ON:Waterloo"],
+        ["TWP"]
+      ))
   );
   ["Brant", "Durham", "Haldimand", "Norfolk"].forEach(
     (county) =>
-      (shields[`CA:ON:${county}:Highway`] =
-        (shields[`CA:ON:${county}`], ["HWY"]))
+      (shields[`CA:ON:${county}:Highway`] = banneredShield(
+        shields[`CA:ON:${county}`],
+        ["HWY"]
+      ))
   );
-  shields["CA:ON:Muskoka:West"] = (shields["CA:ON:Muskoka"], ["WEST"]);
+  shields["CA:ON:Muskoka:West"] = banneredShield(shields["CA:ON:Muskoka"], [
+    "WEST",
+  ]);
   shields["CA:ON:Hamilton:Expressway"] = {
     notext: true,
     overrideByName: {
