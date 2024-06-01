@@ -1703,12 +1703,11 @@ export function loadShields() {
   shields["US:NJ:ACE"] = {
     spriteBlank: "shield_us_nj_ace_noref",
     notext: true,
+    bannerTextColor: Color.shields.blue,
+    bannerMap: {
+      "US:NJ:ACE:Connector": ["CONN"],
+    },
   };
-  shields["US:NJ:ACE:Connector"] = banneredShield(
-    shields["US:NJ:ACE"],
-    ["CONN"],
-    Color.shields.blue
-  );
   shields["US:NJ:GSP"] = {
     spriteBlank: "shield_us_nj_gsp_noref",
     notext: true,
