@@ -1248,9 +1248,11 @@ export function loadShields() {
       top: 6,
       bottom: 2,
     },
+    bannerMap: {
+      "US:MD:Alternate": ["ALT"],
+      "US:MD:Bypass": ["BYP"],
+    },
   };
-  shields["US:MD:Alternate"] = banneredShield(shields["US:MD"], ["ALT"]);
-  shields["US:MD:Bypass"] = banneredShield(shields["US:MD"], ["BYP"]);
   shields["US:MD:Business"] = banneredShield(
     {
       ...shields["US:MD"],
