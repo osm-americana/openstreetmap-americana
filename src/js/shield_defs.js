@@ -1264,11 +1264,12 @@ export function loadShields() {
   );
 
   // Maine
-  shields["US:ME"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:ME:Business"] = banneredShield(shields["US:ME"], ["BUS"]);
+  shields["US:ME"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:ME:Business": ["BUS"],
+    },
+  };
   shields["US:ME:Turnpike"] = {
     spriteBlank: "shield_us_me_turnpike",
     notext: true,
