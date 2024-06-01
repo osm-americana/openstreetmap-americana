@@ -85,8 +85,8 @@ export const regionCasing = {
     "line-color": Color.borderCasing,
     "line-width": {
       stops: [
-        [11, 5],
-        [12, 6],
+        [8, 5],
+        [9, 6],
       ],
     },
   },
