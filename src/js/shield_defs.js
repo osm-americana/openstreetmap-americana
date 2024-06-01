@@ -2627,17 +2627,12 @@ export function loadShields() {
       top: 5,
       bottom: 2,
     },
+    bannerTextColor: Color.shields.green,
+    bannerMap: {
+      "US:VT:Alternate": ["ALT"],
+      "US:VT:Truck": ["TRK"],
+    },
   };
-  shields["US:VT:Alternate"] = banneredShield(
-    shields["US:VT"],
-    ["ALT"],
-    Color.shields.green
-  );
-  shields["US:VT:Truck"] = banneredShield(
-    shields["US:VT"],
-    ["TRK"],
-    Color.shields.green
-  );
 
   // Vermont routes town maintained sections - black and white ovals
   shields["US:VT:Town"] = ovalShield(Color.shields.white, Color.shields.black);
