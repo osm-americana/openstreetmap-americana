@@ -2648,10 +2648,12 @@ export function loadShields() {
       top: 2,
       bottom: 6,
     },
+    bannerMap: {
+      "US:WA:Spur": ["SPUR"],
+      "US:WA:Business": ["BUS"],
+      "US:WA:Alternate": ["ALT"],
+    },
   };
-  shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
-  shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
-  shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
 
   shields["US:WA:Asotin"] = roundedRectShield(
     Color.shields.green,
