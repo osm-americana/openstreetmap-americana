@@ -1187,10 +1187,13 @@ export function loadShields() {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:LA:Business": ["BUS"],
+      "US:LA:Spur": ["SPUR"],
+      "US:LA:Truck": ["TRK"],
+    },
   };
-  shields["US:LA:Business"] = banneredShield(shields["US:LA"], ["BUS"]);
-  shields["US:LA:Spur"] = banneredShield(shields["US:LA"], ["SPUR"]);
-  shields["US:LA:Truck"] = banneredShield(shields["US:LA"], ["TRK"]);
+
   [
     "Bienville",
     "Caddo",
