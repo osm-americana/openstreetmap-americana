@@ -34,6 +34,22 @@ const minorLocationStepFilter = [
   [">=", ["get", "rank"], 1],
 ];
 
+const iconImage = [
+  "match",
+  ["get", "capital"],
+  2,
+  "place_star_in_circle",
+  3,
+  "place_star",
+  4,
+  "place_star",
+  5,
+  "place_dot_in_circle",
+  6,
+  "place_dot_in_circle",
+  "place_dot",
+];
+
 function filterPlace(type) {
   return ["==", ["get", "class"], type];
 }
@@ -53,7 +69,7 @@ export const village = {
         [12, 12],
       ],
     },
-    "icon-image": "place_dot",
+    "icon-image": iconImage,
     "icon-size": {
       base: 1.0,
       stops: [
@@ -100,7 +116,7 @@ export const town = {
         [12, 18],
       ],
     },
-    "icon-image": "place_dot",
+    "icon-image": iconImage,
     "icon-size": {
       base: 1.2,
       stops: [
@@ -159,17 +175,7 @@ export const city = {
         [11, 24],
       ],
     },
-    "icon-image": [
-      "match",
-      ["get", "capital"],
-      2,
-      "place_star_in_circle",
-      3,
-      "place_star",
-      4,
-      "place_star",
-      "place_dot",
-    ],
+    "icon-image": iconImage,
     "icon-size": {
       base: 1.2,
       stops: [
@@ -450,5 +456,15 @@ export const legendEntries = [
     description: "State or provincial capital",
     layers: populatedPlaceLayers,
     filter: ["==", ["get", "capital"], 4],
+  },
+  {
+    description: "Local capital",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 5],
+  },
+  {
+    description: "County seat or equivalent",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 6],
   },
 ];
