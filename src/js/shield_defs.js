@@ -481,10 +481,11 @@ export function loadShields() {
     },
     bannerMap: {
       "US:I:Alternate": ["ALT"],
-      "US:I:Future": ["FUT"],
-      "US:I:Truck": ["TRK"],
       "US:I:Express": ["EXPR"],
       "US:I:Express:Toll": ["EXPR"],
+      "US:I:Future": ["FUT"],
+      "US:I:Spur": ["SPUR"],
+      "US:I:Truck": ["TRK"],
     },
   };
 
@@ -689,6 +690,14 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
+  shields["US:AL:Baldwin:Baldwin_Beach_Express"] = {
+    ...roundedRectShield(Color.shields.green, Color.shields.white),
+    ref: "BBX",
+  };
+  shields["US:AL:Baldwin:Foley_Beach_Express"] = {
+    spriteBlank: "shield_us_al_foley",
+    notext: true,
+  };
 
   // Arizona
   shields["US:AZ:Scenic"] = {
