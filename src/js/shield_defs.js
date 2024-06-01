@@ -1464,18 +1464,18 @@ export function loadShields() {
       top: 2,
       bottom: 5,
     },
+    bannerMap: {
+      "US:MO:Alternate": ["ALT"],
+      "US:MO:Business": ["BUS"],
+      "US:MO:Spur": ["SPUR"],
+    },
   };
-  shields["US:MO:Alternate"] = banneredShield(shields["US:MO"], ["ALT"]);
-  shields["US:MO:Business"] = banneredShield(shields["US:MO"], ["BUS"]);
-  shields["US:MO:Spur"] = banneredShield(shields["US:MO"], ["SPUR"]);
-  shields["US:MO:Supplemental"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:MO:Supplemental:Spur"] = banneredShield(
-    shields["US:MO:Supplemental"],
-    ["SPUR"]
-  );
+  shields["US:MO:Supplemental"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:MO:Supplemental:Spur": ["SPUR"],
+    },
+  };
   [
     "Bollinger",
     "Butler",
