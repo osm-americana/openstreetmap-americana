@@ -1026,8 +1026,10 @@ export function loadShields() {
       top: 1.5,
       bottom: 9,
     },
+    bannerMap: {
+      "US:ID:Business": ["BUS"],
+    },
   };
-  shields["US:ID:Business"] = banneredShield(shields["US:ID"], ["BUS"]);
 
   // Illinois
   shields["US:IL"] = roundedRectShield(
