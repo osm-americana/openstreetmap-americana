@@ -1665,16 +1665,16 @@ export function loadShields() {
   );
 
   // Nebraska
-  shields["US:NE"] = trapezoidDownShield(
-    10,
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:NE:Business"] = banneredShield(shields["US:NE"], ["BUS"]);
-  shields["US:NE:Link"] = banneredShield(shields["US:NE"], ["LINK"]);
-  shields["US:NE:Rec"] = banneredShield(shields["US:NE"], ["REC"]);
-  shields["US:NE:Spur"] = banneredShield(shields["US:NE"], ["SPUR"]);
-  shields["US:NE:Truck"] = banneredShield(shields["US:NE"], ["TRK"]);
+  shields["US:NE"] = {
+    ...trapezoidDownShield(10, Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:NE:Business": ["BUS"],
+      "US:NE:Link": ["LINK"],
+      "US:NE:Rec": ["REC"],
+      "US:NE:Spur": ["SPUR"],
+      "US:NE:Truck": ["TRK"],
+    },
+  };
   shields["US:NE:Scenic"] = {
     spriteBlank: "shield_us_ne_byway_noref",
     notext: true,
