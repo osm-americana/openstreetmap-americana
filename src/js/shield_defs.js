@@ -2313,9 +2313,11 @@ export function loadShields() {
       top: 3,
       bottom: 5,
     },
+    bannerMap: {
+      "US:SD:Business": ["BUS"],
+      "US:SD:Truck": ["US:SD"],
+    },
   };
-  shields["US:SD:Business"] = banneredShield(shields["US:SD"], ["BUS"]);
-  shields["US:SD:Truck"] = banneredShield(shields["US:SD"], ["TRK"]);
   shields["US:SD:Secondary"] = roundedRectShield(
     Color.shields.white,
     Color.shields.black
