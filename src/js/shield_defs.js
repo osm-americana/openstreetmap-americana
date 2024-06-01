@@ -2207,8 +2207,10 @@ export function loadShields() {
       top: 1,
       bottom: 4,
     },
+    bannerMap: {
+      "US:OR:Business": ["BUS"],
+    },
   };
-  shields["US:OR:Business"] = banneredShield(shields["US:OR"], ["BUS"]);
   ["Douglas", "Grant", "Lake", "Lane", "Morrow"].forEach(
     (county) =>
       (shields[`US:OR:${county}`] = pentagonUpShield(
