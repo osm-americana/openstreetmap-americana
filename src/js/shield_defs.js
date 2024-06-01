@@ -1276,10 +1276,13 @@ export function loadShields() {
   };
 
   // Michigan
-  shields["US:MI"] = diamondShield(Color.shields.white, Color.shields.black);
-  shields["US:MI:Business"] = banneredShield(shields["US:MI"], ["BUS"]);
-  shields["US:MI:Connector"] = banneredShield(shields["US:MI"], ["CONN"]);
-  ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
+  shields["US:MI"] = {
+    ...diamondShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:MI:Business": ["BUS"],
+      "US:MI:Connector": ["CONN"],
+    },
+  }[("CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon")].forEach(
     (county) =>
       (shields[`US:MI:${county}`] = pentagonUpShield(
         3,
