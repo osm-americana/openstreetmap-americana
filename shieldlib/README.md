@@ -119,9 +119,9 @@ You should create one definition entry for each network. The entry key must matc
     "top": 3,
     "bottom": 3
   },
-  "spriteBlank": "name_of_image_1",
+  "spriteBlank": ["name_of_image_2", "name_of_image_3", "name_of_image_4"],
   "noref": {
-    "spriteBlank": "name_of_image_2"
+    "spriteBlank": "name_of_image_noref"
   }
   "shapeBlank": {
     "drawFunc": "pentagon",
@@ -168,7 +168,8 @@ You should create one definition entry for each network. The entry key must matc
 - **`textColor`**: determines what color to draw the `ref` on the shield.
 - **`textHaloColor`**: color to draw a knockout halo around the `ref` text.
 - **`padding`**: padding around the `ref`, which allows you to squeeze the text into a smaller space within the shield.
-- **`spriteBlank`**: specify the name of an image in the sprite sheet to use as the shield background. This can either be a single string or an array of strings if there are multiple options for different width. If it's an array of strings, they must be ordered from narrowest to widest, and the engine will choose the narrowest shield graphic that fits the text at a reasonable size.
+- **`spriteBlank`**: specify the name of an image in the sprite sheet to use as the shield background. This can either be a single string or an array of strings if there are multiple options for different width.
+  - If `spriteBlank` is an array of strings, they must be ordered from narrowest to widest, and the filenames must be suffixed with a consecutive range of integers, representing the optimal number of characters to display in each icon.
 - **`noref`**: specify alternate attributes to apply in the event that no `ref` is supplied. This allows you to use one graphic for numbered routes and a separate unitary graphic for non-numbered routes within the same network. Supports **`spriteBlank`**, **`colorLighten`**, and **`colorDarken`**.
 - **`shapeBlank`**: specify that a shield should be drawn as a common shape (rectangle, ellipse, pentagon, etc), with colors and dimensions as specified. See the [drawn shield shapes](#defining-drawn-shield-shapes) section for available drawing options.
 - **`banners`**: specify that one or more short text strings (up to 4 characters) should be drawn above the shield. This is specified as an array, and text will be drawn in order from top to bottom. Below is an example of bannered shields with up to three banners:
@@ -234,7 +235,7 @@ This effect can be achieved by overriding the text and sprite color in the route
 
 ```json
 "US:GA": {
-  "spriteBlank": ["shield_us_ga_narrow", "shield_us_ga_wide"],
+  "spriteBlank": ["shield_us_ga_2", "shield_us_ga_3"],
   "textColor": "black",
   "overrideByRef": {
     "520": {
