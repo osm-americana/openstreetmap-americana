@@ -14,7 +14,7 @@ import {
 import { TextPlacement } from "./shield_text";
 import { StyleImage } from "maplibre-gl";
 
-const narrowCharacters = /[1Iil ]/g;
+const narrowCharacters = /[1IJijl .-]/g;
 
 function compoundShieldSize(
   r: ShieldRenderingContext,
@@ -59,7 +59,6 @@ function getRasterShieldBlank(
     let refLength = Math.ceil(routeDef.ref.length - narrowCharacterCount / 3);
 
     // Choose icon based on optimal character length at end of filename
-    shieldDef.spriteBlank.sort();
     let finalIndex = shieldDef.spriteBlank.length - 1;
     let optimalCharacters = shieldDef.spriteBlank.map((blank) =>
       parseInt(blank.split("_").reverse()[0])
