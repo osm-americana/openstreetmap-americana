@@ -2420,17 +2420,18 @@ export function loadShields() {
   );
 
   // Texas
-  shields["US:TX"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:TX:Beltway"] = banneredShield(shields["US:TX"], ["BELT"]);
-  shields["US:TX:Business"] = banneredShield(shields["US:TX"], ["BUS"]);
-  shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
-  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
-  shields["US:TX:Park"] = banneredShield(shields["US:TX"], ["PARK"]);
-  shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
-  shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
+  shields["US:TX"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:TX:Beltway": ["BELT"],
+      "US:TX:Business": ["BUS"],
+      "US:TX:Loop": ["LOOP"],
+      "US:TX:NASA": ["NASA"],
+      "US:TX:Park": ["PARK"],
+      "US:TX:PA": ["P.A."],
+      "US:TX:Spur": ["SPUR"],
+    },
+  };
   shields["US:TX:FM"] = shields["US:TX:RM"] = {
     spriteBlank: "shield_us_tx_outline",
     textColor: Color.shields.black,
@@ -2441,8 +2442,10 @@ export function loadShields() {
       top: 7,
       bottom: 10,
     },
+    bannerMap: {
+      "US:TX:FM:Business": ["BUS"],
+    },
   };
-  shields["US:TX:FM:Business"] = banneredShield(shields["US:TX:FM"], ["BUS"]);
   shields["US:TX:Recreational"] = banneredShield(
     {
       ...shields["US:TX:FM"],
@@ -2452,38 +2455,32 @@ export function loadShields() {
     ["R"],
     Color.shields.brown
   );
-  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
 
   // Texas toll roads
+  shields["US:TX:Toll"] = {
+    ...roundedRectShield(Color.shields.blue, Color.shields.white),
+    bannerTextColor: Color.shields.blue,
+    bannerMap: {
+      "US:TX:NTTA": [],
+      "US:TX:Express:Toll": ["EXPR"],
+      "US:TX:Loop:Toll": ["LOOP"],
+      "US:TX:Loop:Express:Toll": ["EXPR", "LOOP"],
+    },
+  };
   shields["US:TX:Toll"] = shields["US:TX:NTTA"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
-  shields["US:TX:Express:Toll"] = banneredShield(
-    shields["US:TX:Toll"],
-    ["EXPR"],
-    Color.shields.blue
-  );
-  shields["US:TX:Loop:Toll"] = banneredShield(
-    shields["US:TX:Toll"],
-    ["LOOP"],
-    Color.shields.blue
-  );
-  shields["US:TX:Loop:Express:Toll"] = banneredShield(
-    shields["US:TX:Toll"],
-    ["EXPR", "LOOP"],
-    Color.shields.blue
-  );
-  shields["US:TX:CTRMA"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.yellow,
-    Color.shields.white
-  );
-  shields["US:TX:CTRMA:Express"] = banneredShield(
-    shields["US:TX:CTRMA"],
-    ["EXPR"],
-    Color.shields.blue
-  );
+  shields["US:TX:CTRMA"] = {
+    ...roundedRectShield(
+      Color.shields.blue,
+      Color.shields.yellow,
+      Color.shields.white
+    ),
+    bannerMap: {
+      "US:TX:CTRMA:Express": ["EXPR"],
+    },
+  };
   shields["US:TX:Montgomery:MCTRA"] = homePlateDownShield(
     5,
     Color.shields.blue,
