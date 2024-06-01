@@ -2670,9 +2670,11 @@ export function loadShields() {
       top: 3,
       bottom: 6,
     },
+    bannerMap: {
+      "US:WI:Business": ["BUS"],
+      "US:WI:Spur": ["SPUR"],
+    },
   };
-  shields["US:WI:Business"] = banneredShield(shields["US:WI"], ["BUS"]);
-  shields["US:WI:Spur"] = banneredShield(shields["US:WI"], ["SPUR"]);
   [
     "Adams",
     "Ashland",
@@ -2753,10 +2755,9 @@ export function loadShields() {
         Color.shields.black
       ))
   );
-  shields["US:WI:Marquette:Truck"] = banneredShield(
-    shields["US:WI:Marquette"],
-    ["TRK"]
-  );
+  shields["US:WI:Marquette"].bannerMap = {
+    "US:WI:Marquette:Truck": ["TRK"],
+  };
   shields["US:WI:Rustic"] = {
     spriteBlank: "shield_us_wi_rustic",
     textColor: Color.shields.yellow,
@@ -3077,8 +3078,10 @@ export function loadShields() {
       top: 4,
       bottom: 2,
     },
+    bannerMap: {
+      "ID:toll": ["TOL"],
+    },
   };
-  shields["ID:toll"] = banneredShield(shields["ID:national"], ["TOL"]);
 
   // Iran
   shields["ir:freeways"] = roundedRectShield(
