@@ -1969,9 +1969,11 @@ export function loadShields() {
       top: 4,
       bottom: 6,
     },
+    bannerMap: {
+      "US:OH:Bypass": ["BYP"],
+      "US:OH:Business": ["BUS"],
+    },
   };
-  shields["US:OH:Bypass"] = banneredShield(shields["US:OH"], ["BYP"]);
-  shields["US:OH:Business"] = banneredShield(shields["US:OH"], ["BUS"]);
   shields["US:OH:Turnpike"] = {
     spriteBlank: "shield_us_oh_turnpike",
     notext: true,
