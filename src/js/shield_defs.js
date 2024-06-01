@@ -967,17 +967,16 @@ export function loadShields() {
       top: 5,
       bottom: 4,
     },
+    bannerMap: {
+      "US:GA:Truck:Bypass": ["TRK", "BYP"],
+      "US:GA:Spur": ["SPUR"],
+      "US:GA:Loop": ["LOOP"],
+      "US:GA:Connector": ["CONN"],
+      "US:GA:Bypass": ["BYP"],
+      "US:GA:Business": ["BUS"],
+      "US:GA:Alternate": ["ALT"],
+    },
   };
-  shields["US:GA:Truck:Bypass"] = banneredShield(shields["US:GA"], [
-    "TRK",
-    "BYP",
-  ]);
-  shields["US:GA:Spur"] = banneredShield(shields["US:GA"], ["SPUR"]);
-  shields["US:GA:Loop"] = banneredShield(shields["US:GA"], ["LOOP"]);
-  shields["US:GA:Connector"] = banneredShield(shields["US:GA"], ["CONN"]);
-  shields["US:GA:Bypass"] = banneredShield(shields["US:GA"], ["BYP"]);
-  shields["US:GA:Business"] = banneredShield(shields["US:GA"], ["BUS"]);
-  shields["US:GA:Alternate"] = banneredShield(shields["US:GA"], ["ALT"]);
 
   // Guam
   shields["US:GU"] = {
