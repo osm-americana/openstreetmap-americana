@@ -2183,12 +2183,14 @@ export function loadShields() {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:OK:Toll": [],
+      "US:OK:Business": ["BUS"],
+      "US:OK:Loop": ["LOOP"],
+      "US:OK:Spur": ["SPUR"],
+      "US:OK:Truck": ["TRK"],
+    },
   };
-  shields["US:OK:Toll"] = shields["US:OK"];
-  shields["US:OK:Business"] = banneredShield(shields["US:OK"], ["BUS"]);
-  shields["US:OK:Loop"] = banneredShield(shields["US:OK"], ["LOOP"]);
-  shields["US:OK:Spur"] = banneredShield(shields["US:OK"], ["SPUR"]);
-  shields["US:OK:Truck"] = banneredShield(shields["US:OK"], ["TRK"]);
   shields["US:OK:Turnpike"] = {
     spriteBlank: "shield_us_ok_turnpike",
     notext: true,
