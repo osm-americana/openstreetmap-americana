@@ -1570,16 +1570,20 @@ export function loadShields() {
   );
 
   // North Carolina
-  shields["US:NC"] = diamondShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    24
-  );
-  shields["US:NC:Bypass"] = banneredShield(shields["US:NC"], ["BYP"]);
-  shields["US:NC:Business"] = banneredShield(shields["US:NC"], ["BUS"]);
-  shields["US:NC:Truck"] = banneredShield(shields["US:NC"], ["TRK"]);
+  shields["US:NC"] = {
+    ...diamondShield(
+      Color.shields.white,
+      Color.shields.black,
+      Color.shields.black,
+      2,
+      24
+    ),
+    bannerMap: {
+      "US:NC:Bypass": ["BYP"],
+      "US:NC:Business": ["BUS"],
+      "US:NC:Truck": ["TRK"],
+    },
+  };
   shields["US:NC:Mecklenburg:Charlotte"] = pentagonUpShield(
     3,
     15,
