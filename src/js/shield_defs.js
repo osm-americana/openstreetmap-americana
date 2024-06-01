@@ -1282,7 +1282,8 @@ export function loadShields() {
       "US:MI:Business": ["BUS"],
       "US:MI:Connector": ["CONN"],
     },
-  }[("CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon")].forEach(
+  };
+  ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
     (county) =>
       (shields[`US:MI:${county}`] = pentagonUpShield(
         3,
