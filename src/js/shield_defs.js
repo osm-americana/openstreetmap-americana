@@ -1159,8 +1159,13 @@ export function loadShields() {
   );
 
   // Kentucky
-  shields["US:KY"] = pillShield(Color.shields.white, Color.shields.black);
-  shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
+  shields["US:KY"] = {
+    ...pillShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:KY:Business": ["BUS"],
+    },
+  };
+
   shields["US:KY:AA"] = shields["US:KY:Parkway"] = {
     spriteBlank: "shield_us_ky_parkway",
     textColor: Color.shields.blue,
