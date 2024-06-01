@@ -1859,8 +1859,10 @@ export function loadShields() {
       top: 5,
       bottom: 5,
     },
+    bannerMap: {
+      "US:NY:Truck": ["TRK"],
+    },
   };
-  shields["US:NY:Truck"] = banneredShield(shields["US:NY"], ["TRK"]);
   shields["US:NY:Thruway"] = {
     noref: {
       spriteBlank: "shield_us_ny_thruway",
