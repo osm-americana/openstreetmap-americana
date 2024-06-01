@@ -2398,32 +2398,20 @@ export function loadShields() {
       top: 2,
       bottom: 7,
     },
+    bannerMap: {
+      "US:TN:primary:Business": ["BUS"],
+      "US:TN:primary:Bypass": ["BYP"],
+      "US:TN:primary:Truck": ["TRK"],
+    },
   };
-  shields["US:TN:primary:Business"] = banneredShield(shields["US:TN:primary"], [
-    "BUS",
-  ]);
-  shields["US:TN:primary:Bypass"] = banneredShield(shields["US:TN:primary"], [
-    "BYP",
-  ]);
-  shields["US:TN:primary:Truck"] = banneredShield(shields["US:TN:primary"], [
-    "TRK",
-  ]);
-  shields["US:TN:secondary"] = triangleDownShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:TN:secondary:Alternate"] = banneredShield(
-    shields["US:TN:secondary"],
-    ["ALT"]
-  );
-  shields["US:TN:secondary:Scenic"] = banneredShield(
-    shields["US:TN:secondary"],
-    ["SCEN"]
-  );
-  shields["US:TN:secondary:Truck"] = banneredShield(
-    shields["US:TN:secondary"],
-    ["TRK"]
-  );
+  shields["US:TN:secondary"] = {
+    ...triangleDownShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:TN:secondary:Alternate": ["ALT"],
+      "US:TN:secondary:Scenic": ["SCEN"],
+      "US:TN:secondary:Truck": ["TRK"],
+    },
+  };
   shields["US:TN:McMinn"] = pentagonUpShield(
     3,
     15,
