@@ -702,6 +702,14 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
+  shields["US:AL:Baldwin:Baldwin_Beach_Express"] = {
+    ...roundedRectShield(Color.shields.green, Color.shields.white),
+    ref: "BBX",
+  };
+  shields["US:AL:Baldwin:Foley_Beach_Express"] = {
+    spriteBlank: "shield_us_al_foley",
+    notext: true,
+  };
 
   // Arizona
   shields["US:AZ:Scenic"] = {
