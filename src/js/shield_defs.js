@@ -1601,11 +1601,13 @@ export function loadShields() {
       top: 4,
       bottom: 4,
     },
+    bannerMap: {
+      "US:ND:Alternate": ["ALT"],
+      "US:ND:Business": ["BUS"],
+      "US:ND:Bypass": ["BYP"],
+      "US:ND:Truck": ["TRK"],
+    },
   };
-  shields["US:ND:Alternate"] = banneredShield(shields["US:ND"], ["ALT"]);
-  shields["US:ND:Business"] = banneredShield(shields["US:ND"], ["BUS"]);
-  shields["US:ND:Bypass"] = banneredShield(shields["US:ND"], ["BYP"]);
-  shields["US:ND:Truck"] = banneredShield(shields["US:ND"], ["TRK"]);
   [
     "Barnes",
     "Benson",
