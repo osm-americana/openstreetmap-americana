@@ -2596,15 +2596,19 @@ export function loadShields() {
   );
 
   // Virginia
-  shields["US:VA"] = escutcheonDownShield(
-    12,
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2
-  );
-  shields["US:VA:Business"] = banneredShield(shields["US:VA"], ["BUS"]);
-  shields["US:VA:Alternate"] = banneredShield(shields["US:VA"], ["ALT"]);
+  shields["US:VA"] = {
+    ...escutcheonDownShield(
+      12,
+      Color.shields.white,
+      Color.shields.black,
+      Color.shields.black,
+      2
+    ),
+    bannerMap: {
+      "US:VA:Business": ["BUS"],
+      "US:VA:Alternate": ["ALT"],
+    },
+  };
   shields["US:VA:Secondary"] = pillShield(
     Color.shields.white,
     Color.shields.black
