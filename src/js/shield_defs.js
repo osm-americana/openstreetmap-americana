@@ -483,6 +483,7 @@ export function loadShields() {
 
   shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
   shields["US:I:Future"] = banneredShield(shields["US:I"], ["FUT"]);
+  shields["US:I:Spur"] = banneredShield(shields["US:I"], ["SPUR"]);
   shields["US:I:Truck"] = banneredShield(shields["US:I"], ["TRK"]);
   shields["US:I:Express"] = banneredShield(shields["US:I"], ["EXPR"]);
   shields["US:I:Express:Toll"] = shields["US:I:Express"];
@@ -702,6 +703,14 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
+  shields["US:AL:Baldwin:Baldwin_Beach_Express"] = {
+    ...roundedRectShield(Color.shields.green, Color.shields.white),
+    ref: "BBX",
+  };
+  shields["US:AL:Baldwin:Foley_Beach_Express"] = {
+    spriteBlank: "shield_us_al_foley",
+    notext: true,
+  };
 
   // Arizona
   shields["US:AZ:Scenic"] = {
@@ -2582,7 +2591,7 @@ export function loadShields() {
     padding: {
       left: 4,
       right: 4,
-      top: 5.5,
+      top: 6,
       bottom: 5,
     },
   };
