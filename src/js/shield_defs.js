@@ -2231,10 +2231,12 @@ export function loadShields() {
       top: 5,
       bottom: 5,
     },
+    bannerMap: {
+      "US:PA:Truck": ["TRK"],
+      "US:PA:Business": ["BUS"],
+      "US:PA:Alternate": ["ALT"],
+    },
   };
-  shields["US:PA:Truck"] = banneredShield(shields["US:PA"], ["TRK"]);
-  shields["US:PA:Business"] = banneredShield(shields["US:PA"], ["BUS"]);
-  shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
   shields["US:PA:Turnpike"] = {
     spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
     textColor: Color.shields.white,
@@ -2286,33 +2288,20 @@ export function loadShields() {
   shields["US:SC"] = {
     spriteBlank: "shield_us_sc",
     textColor: Color.shields.blue,
+    bannerTextColor: Color.shields.blue,
     padding: {
       left: 2,
       right: 2,
       top: 6,
       bottom: 3,
     },
+    bannerMap: {
+      "US:SC:Truck": ["TRK"],
+      "US:SC:Business": ["BUS"],
+      "US:SC:Alternate": ["ALT"],
+      "US:SC:Connector": ["CONN"],
+    },
   };
-  shields["US:SC:Truck"] = banneredShield(
-    shields["US:SC"],
-    ["TRK"],
-    Color.shields.blue
-  );
-  shields["US:SC:Business"] = banneredShield(
-    shields["US:SC"],
-    ["BUS"],
-    Color.shields.blue
-  );
-  shields["US:SC:Alternate"] = banneredShield(
-    shields["US:SC"],
-    ["ALT"],
-    Color.shields.blue
-  );
-  shields["US:SC:Connector"] = banneredShield(
-    shields["US:SC"],
-    ["CONN"],
-    Color.shields.blue
-  );
 
   // South Dakota
   shields["US:SD"] = {
