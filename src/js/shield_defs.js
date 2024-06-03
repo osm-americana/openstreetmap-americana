@@ -517,13 +517,15 @@ export function loadShields() {
   );
 
   // Yukon
-  shields["CA:YT"] = roundedRectShield(Color.shields.white, Color.shields.red);
-  shields["CA:YT"].overrideByRef = {
-    2: roundedRectShield(Color.shields.white, "#ce9d00"),
-    3: roundedRectShield(Color.shields.white, "#ce9d00"),
-    5: roundedRectShield(Color.shields.white, Color.shields.blue),
-    6: roundedRectShield(Color.shields.white, Color.shields.green),
-    11: roundedRectShield(Color.shields.white, Color.shields.blue),
+  shields["CA:YT"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.red),
+    overrideByRef: {
+      2: roundedRectShield(Color.shields.white, "#ce9d00"),
+      3: roundedRectShield(Color.shields.white, "#ce9d00"),
+      5: roundedRectShield(Color.shields.white, Color.shields.blue),
+      6: roundedRectShield(Color.shields.white, Color.shields.green),
+      11: roundedRectShield(Color.shields.white, Color.shields.blue),
+    },
   };
 
   // Haiti
