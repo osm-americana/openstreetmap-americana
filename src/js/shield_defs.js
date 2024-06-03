@@ -124,7 +124,7 @@ export function loadShields() {
   shields["GLCT:Loop"] = {
     ...shields["GLCT"],
     banners: ["LOOP"],
-    bannerColor: Color.shields.brown,
+    bannerTextColor: Color.shields.brown,
     overrideByRef: {
       LMCT: {
         spriteBlank: "shield_glct_lmct",
