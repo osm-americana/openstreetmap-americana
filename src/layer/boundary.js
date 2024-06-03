@@ -78,6 +78,57 @@ export const county = {
   "source-layer": "boundary",
 };
 
+export const regionCasing = {
+  id: "boundary_region_casing",
+  type: "line",
+  paint: {
+    "line-color": Color.borderCasing,
+    "line-width": {
+      stops: [
+        [8, 5],
+        [9, 6],
+      ],
+    },
+  },
+  filter: [
+    "all",
+    ["==", ["get", "admin_level"], 5],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
+  ],
+  minzoom: 8,
+  layout: {
+    "line-join": "round",
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  "source-layer": "boundary",
+};
+
+export const region = {
+  id: "boundary_region",
+  type: "line",
+  paint: {
+    "line-color": Color.border,
+    "line-dasharray": [5, 4],
+    "line-width": 1,
+    "line-offset": 0,
+  },
+  filter: [
+    "all",
+    ["==", ["get", "admin_level"], 5],
+    ["==", ["get", "disputed"], 0],
+    ["==", ["get", "maritime"], 0],
+  ],
+  minzoom: 6,
+  layout: {
+    "line-join": "round",
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  "source-layer": "boundary",
+};
+
 export const stateCasing = {
   id: "boundary_state_casing",
   type: "line",
@@ -321,6 +372,10 @@ export const legendEntries = [
   {
     description: "County or county-equivalent",
     layers: [county.id, countyCasing.id],
+  },
+  {
+    description: "Region",
+    layers: [region.id, regionCasing.id],
   },
   {
     description: "City, town, or village",
