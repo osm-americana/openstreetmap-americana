@@ -2935,6 +2935,12 @@ export function loadShields() {
     shields["GH:regional"] =
       roundedRectShield(Color.shields.yellow, Color.shields.black);
 
+  // Madagascar
+  shields["MG:RN-road"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+
   // Niger
   shields["NE:N-roads"] = roundedRectShield(
     Color.shields.red,
