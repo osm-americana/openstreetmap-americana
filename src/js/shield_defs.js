@@ -2331,7 +2331,7 @@ export function loadShields() {
     },
     bannerMap: {
       "US:SD:Business": ["BUS"],
-      "US:SD:Truck": ["US:SD"],
+      "US:SD:Truck": ["TRK"],
     },
   };
   shields["US:SD:Secondary"] = roundedRectShield(
