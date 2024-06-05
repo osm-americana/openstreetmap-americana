@@ -1396,13 +1396,7 @@ export function loadShields() {
       "US:MI:Connector": ["CONN"],
     },
     overrideByRef: {
-      185: diamondShield(
-        Color.shields.brown,
-        Color.shields.white,
-        Color.shields.white,
-        0,
-        24
-      ),
+      185: diamondShield(Color.shields.brown, Color.shields.white, Color.shields.white, 0, 24),
     },
   };
   ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
