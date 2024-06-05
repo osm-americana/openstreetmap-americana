@@ -904,8 +904,8 @@ export function loadShields() {
       bottom: 4,
     },
     bannerMap: {
-      "US:CA:Business": ["BUS"]
-    }
+      "US:CA:Business": ["BUS"],
+    },
   };
   ["CR", "Sierra"].forEach(
     (county) =>
@@ -1396,12 +1396,12 @@ export function loadShields() {
       "US:MI:Connector": ["CONN"],
     },
     overrideByRef: {
-     185: diamondShield(
+      185: diamondShield(
         Color.shields.brown,
         Color.shields.white,
         Color.shields.white,
         0,
-        24,
+        24
       ),
     },
   };
