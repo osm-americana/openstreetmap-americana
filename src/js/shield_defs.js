@@ -1395,7 +1395,7 @@ export function loadShields() {
       "US:MI:Business": ["BUS"],
       "US:MI:Connector": ["CONN"],
     },
-    overrideByRef = {
+    overrideByRef: {
       185: diamondShield(
         Color.shields.brown,
         Color.shields.white,
