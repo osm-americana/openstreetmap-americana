@@ -10,42 +10,27 @@ export const boundaryCasing = {
     "line-color": [
       "match",
       ["get", "admin_level"],
-      2, `hsl(${Color.hueBorderCasing}, 35%, 86%)`,
-      [3, 4], `hsl(${Color.hueBorderCasing}, 30%, 90%)`,
-      5, Color.borderCasing,
-      6, Color.borderCasing,
-      Color.borderCasing
+      2,
+      `hsl(${Color.hueBorderCasing}, 35%, 86%)`,
+      [3, 4],
+      `hsl(${Color.hueBorderCasing}, 30%, 90%)`,
+      5,
+      Color.borderCasing,
+      6,
+      Color.borderCasing,
+      Color.borderCasing,
     ],
     "line-width": [
       "interpolate",
       ["linear"],
       ["zoom"],
-      2, [
-        "match",
-        ["get", "admin_level"],
-        2, 4,
-        [3, 4], 4,
-        5, 5,
-        6, 5,
-        1
-      ],
-      12, [
-        "match",
-        ["get", "admin_level"],
-        2, 25,
-        [3, 4], 20,
-        5, 6,
-        6, 6,
-        1
-      ],
-      16, [
-        "match",
-        ["get", "admin_level"],
-        2, 50,
-        [3, 4], 30,
-        1
-      ]
-    ]
+      2,
+      ["match", ["get", "admin_level"], 2, 4, [3, 4], 4, 5, 5, 6, 5, 1],
+      12,
+      ["match", ["get", "admin_level"], 2, 25, [3, 4], 20, 5, 6, 6, 6, 1],
+      16,
+      ["match", ["get", "admin_level"], 2, 50, [3, 4], 30, 1],
+    ],
   },
   filter: [
     "all",
