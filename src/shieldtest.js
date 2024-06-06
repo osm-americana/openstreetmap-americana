@@ -135,6 +135,7 @@ let networks = [
   "CA:PE",
   "US:FL:Toll",
   "CA:BC",
+  "MX:MX",
   "IN:NH",
   "PK:motorway",
   "US:US",

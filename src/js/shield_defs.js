@@ -538,12 +538,13 @@ export function loadShields() {
 
   // Carreteras Federales
   shields["MX:MX"] = {
-    spriteBlank: "shield_mx_mx",
+    spriteBlank: ["shield_mx_mx_2", "shield_mx_mx_3", "shield_mx_mx_4"],
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 2,
-      right: 2,
-      top: 3,
-      bottom: 2,
+      left: 1,
+      right: 1,
+      top: 5,
+      bottom: 4,
     },
   };
 
