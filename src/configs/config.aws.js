@@ -3,7 +3,7 @@
 /*
 Planetiler tile server, hosted at AWS
 */
-const OPENMAPTILES_URL = "https://tile.ourmap.us/data/streetferret.json";
+const OPENMAPTILES_URL = "https://d33vdvlsjgb8ho.cloudfront.net/data/streetferret.json";
 
 /*
 The following two variables override the color of the bounding box and halo of
