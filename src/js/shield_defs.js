@@ -559,6 +559,7 @@ export function loadShields() {
     "GTO",
     "GRO",
     "HGO",
+    "JAL",
     // FIXME missing State of Mexico
     "MICH",
     "MOR",
@@ -590,16 +591,6 @@ export function loadShields() {
         },
       })
   );
-  shields["MX:JAL"] = {
-    spriteBlank: ["shield_mx_jal_2", "shield_mx_jal_3"],
-    textColor: Color.shields.black,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 5.5,
-      bottom: 4.5,
-    },
-  };
 
   // United States
 
