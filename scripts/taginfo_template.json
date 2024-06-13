@@ -481,6 +481,14 @@
     },
     {
       "key": "amenity",
+      "value": "toilets",
+      "object_types": ["node", "area"],
+      "description": "Toilets are marked by an icon representing a flush toilet.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_toilet.svg"
+    },
+    {
+      "key": "amenity",
       "value": "townhall",
       "object_types": ["node", "area"],
       "description": "City halls are marked by an icon representing a domed building with a rectangular flag raised above it.",
