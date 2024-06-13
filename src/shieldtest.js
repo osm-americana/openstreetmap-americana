@@ -260,6 +260,8 @@ let refs = [
   "A 562",
   "1138-2",
   "A26/A7",
+  "GUA 10D",
+  "SS18var",
 ];
 
 export function getShieldCanvas(network, ref, name) {
