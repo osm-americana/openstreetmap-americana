@@ -266,7 +266,7 @@ var iconDefs = {
     },
     sprite: "poi_toilet",
     color: Color.poi.infrastructure,
-    description: "Toilets",
+    description: "Restroom",
   },
   townhall: {
     classes: {

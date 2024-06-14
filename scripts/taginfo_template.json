@@ -483,7 +483,7 @@
       "key": "amenity",
       "value": "toilets",
       "object_types": ["node", "area"],
-      "description": "Toilets are marked by an icon representing a flush toilet.",
+      "description": "Restrooms are marked by an icon representing a flush toilet.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_toilet.svg"
     },
