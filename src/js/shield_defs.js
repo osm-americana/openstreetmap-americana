@@ -528,6 +528,9 @@ export function loadShields() {
     },
   };
 
+  // Costa Rica
+  shields["CR:national"] = badgeShield;
+
   // Haiti
   shields["HT:RN-road"] = shields["HT:RD-road"] = roundedRectShield(
     Color.shields.blue,
