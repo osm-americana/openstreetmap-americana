@@ -547,6 +547,49 @@ export function loadShields() {
     },
   };
 
+  // Ejes Viales (CDMX)
+  shields["MX:CDMX:EJE:CENTRAL"] = {
+    noref: {
+      spriteBlank: "shield_mx_cdmx_eje_central",
+    },
+  };
+  shields["MX:CDMX:EJE:NTE"] = {
+    spriteBlank: "shield_mx_cdmx_eje_nte",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 8,
+      bottom: 2,
+    },
+  };
+  shields["MX:CDMX:EJE:OTE"] = {
+    spriteBlank: "shield_mx_cdmx_eje_ote",
+    padding: {
+      left: 2,
+      right: 8,
+      top: 2,
+      bottom: 2,
+    },
+  };
+  shields["MX:CDMX:EJE:PTE"] = {
+    spriteBlank: "shield_mx_cdmx_eje_pte",
+    padding: {
+      left: 8,
+      right: 2,
+      top: 2,
+      bottom: 2,
+    },
+  };
+  shields["MX:CDMX:EJE:SUR"] = {
+    spriteBlank: "shield_mx_cdmx_eje_sur",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 8,
+    },
+  };
+
   // United States
 
   // Interstate Highways
