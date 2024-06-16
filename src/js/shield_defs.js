@@ -3636,10 +3636,56 @@ export function loadShields() {
   );
 
   // France
-  shields["FR:A-road"] = shields["FR:N-road"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white
+  // Autoroutes/national routes
+  shields["FR:A-road"] =
+    shields["FR:N-road"] =
+    shields["FR:971:N-road"] =
+    shields["FR:972:A-road"] =
+    shields["FR:972:N-road"] =
+    shields["FR:973:N-road"] =
+    shields["FR:974:N-road"] =
+    shields["FR:975:N-road"] =
+    shields["FR:976:N-road"] =
+    shields["FR:978:N-road"] =
+    shields["FR:986:RT-road"] =
+    shields["FR:987:RT-road"] =
+    shields["FR:988:VE-road"] =
+    shields["FR:988:RT-road"] =
+      roundedRectShield(Color.shields.red, Color.shields.white);
+  // Departmental routes
+  // compute list of French department INSEE codes, 01 through 95, inclusive
+  let departments = Array.from({ length: 95 }, (_, i) =>
+    (i + 1).toString().padStart(2, "0")
   );
+  [...departments, "971", "972", "973", "974", "976", "977", "978"].forEach(
+    (department) => {
+      shields[`FR:${department}:D-road`] = roundedRectShield(
+        Color.shields.yellow,
+        Color.shields.black
+      );
+    }
+  );
+  // Metropolitan routes
+  [
+    "06",
+    "21",
+    "31",
+    "34",
+    "37",
+    "42",
+    "44",
+    "54",
+    "57",
+    "59",
+    "63",
+    "67",
+    "69",
+  ].forEach((department) => {
+    shields[`FR:${department}:M-road`] = roundedRectShield(
+      Color.shields.blue,
+      Color.shields.white
+    );
+  });
 
   // Germany
   shields["DE:national"] = roundedRectShield(
