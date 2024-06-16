@@ -19,6 +19,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Bar or pub",
   },
+  bookstore: {
+    classes: {
+      library: ["books"],
+    },
+    sprite: "poi_book_upright",
+    color: Color.poi.consumer,
+    description: "Bookstore",
+  },
   bus_station: {
     classes: {
       bus: ["bus_station"],
@@ -35,6 +43,30 @@ var iconDefs = {
     color: Color.poi.transport,
     description: "Bus stop",
   },
+  car_repair: {
+    classes: {
+      car: ["car_repair"],
+    },
+    sprite: "poi_car_repair",
+    color: Color.poi.consumer,
+    description: "Car mechanic",
+  },
+  car_shop: {
+    classes: {
+      car: ["car"],
+    },
+    sprite: "poi_car_shop",
+    color: Color.poi.consumer,
+    description: "Car dealership",
+  },
+  taxi: {
+    classes: {
+      office: ["taxi"],
+    },
+    sprite: "poi_taxi",
+    color: Color.poi.transport,
+    description: "Taxi stand",
+  },
   coffee: {
     classes: {
       cafe: ["cafe"],
@@ -43,6 +75,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Coffee shop",
   },
+  fuel: {
+    classes: {
+      fuel: ["fuel"],
+    },
+    sprite: "poi_fuel",
+    color: Color.poi.consumer,
+    description: "Gas station",
+  },
   hospital: {
     classes: {
       hospital: ["hospital"],
@@ -50,6 +90,30 @@ var iconDefs = {
     sprite: "poi_hospital",
     color: Color.poi.infrastructure,
     description: "Hospital",
+  },
+  hotel: {
+    classes: {
+      lodging: ["hotel", "motel", "guest_house"],
+    },
+    sprite: "poi_hotel",
+    color: Color.poi.consumer,
+    description: "Hotel",
+  },
+  hostel: {
+    classes: {
+      lodging: ["hostel"],
+    },
+    sprite: "poi_hostel",
+    color: Color.poi.consumer,
+    description: "Hostel",
+  },
+  library: {
+    classes: {
+      library: ["library"],
+    },
+    sprite: "poi_book_upright",
+    color: Color.poi.infrastructure,
+    description: "Library",
   },
   medical: {
     classes: {
@@ -76,6 +140,86 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Parking",
   },
+  police: {
+    classes: {
+      police: ["police"],
+    },
+    sprite: "poi_police_shield",
+    color: Color.poi.infrastructure,
+    description: "Police station",
+  },
+  post_office: {
+    classes: {
+      post: ["post_office"],
+    },
+    sprite: "poi_envelope",
+    color: Color.poi.infrastructure,
+    description: "Post office",
+  },
+  pow_buddhist: {
+    classes: {
+      place_of_worship: ["buddhist"],
+    },
+    sprite: "poi_pow_buddhist",
+    color: Color.poi.infrastructure,
+    description: "Buddhist place of worship",
+  },
+  pow_christian: {
+    classes: {
+      place_of_worship: ["christian"],
+    },
+    sprite: "poi_pow_christian",
+    color: Color.poi.infrastructure,
+    description: "Christian place of worship",
+  },
+  pow_hindu: {
+    classes: {
+      place_of_worship: ["hindu"],
+    },
+    sprite: "poi_pow_hindu",
+    color: Color.poi.infrastructure,
+    description: "Hindu place of worship",
+  },
+  pow_jewish: {
+    classes: {
+      place_of_worship: ["jewish"],
+    },
+    sprite: "poi_pow_jewish",
+    color: Color.poi.infrastructure,
+    description: "Jewish place of worship",
+  },
+  pow_muslim: {
+    classes: {
+      place_of_worship: ["muslim"],
+    },
+    sprite: "poi_pow_muslim",
+    color: Color.poi.infrastructure,
+    description: "Muslim place of worship",
+  },
+  pow_sikh: {
+    classes: {
+      place_of_worship: ["sikh"],
+    },
+    sprite: "poi_pow_sikh",
+    color: Color.poi.infrastructure,
+    description: "Sikh place of worship",
+  },
+  pow_shinto: {
+    classes: {
+      place_of_worship: ["shinto"],
+    },
+    sprite: "poi_pow_shinto",
+    color: Color.poi.infrastructure,
+    description: "Shinto place of worship",
+  },
+  pow_taoist: {
+    classes: {
+      place_of_worship: ["taoist"],
+    },
+    sprite: "poi_pow_taoist",
+    color: Color.poi.infrastructure,
+    description: "Taoist place of worship",
+  },
   railway_station: {
     classes: {
       railway: ["station", "halt", "subway"],
@@ -95,11 +239,26 @@ var iconDefs = {
   school: {
     classes: {
       school: ["kindergarten", "school"],
-      college: ["college", "university"],
     },
     sprite: "poi_school",
     color: Color.poi.infrastructure,
     description: "School",
+  },
+  supermarket: {
+    classes: {
+      grocery: ["supermarket"],
+    },
+    sprite: "poi_supermarket",
+    color: Color.poi.consumer,
+    description: "Supermarket",
+  },
+  college: {
+    classes: {
+      college: ["college", "university"],
+    },
+    sprite: "poi_mortarboard",
+    color: Color.poi.infrastructure,
+    description: "College or university",
   },
   townhall: {
     classes: {
@@ -159,18 +318,46 @@ export const poi = {
     "text-color": [
       "match",
       ["get", "subclass"],
-      [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
+      [
+        ...getSubclasses(iconDefs.fuel),
+        ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.bookstore),
+        ...getSubclasses(iconDefs.coffee),
+        ...getSubclasses(iconDefs.supermarket),
+        ...getSubclasses(iconDefs.car_shop),
+        ...getSubclasses(iconDefs.car_repair),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
+      ],
       Color.poi.consumer,
       [
         "bus_station",
         "bus_stop",
         ...getSubclasses(iconDefs.railway_station),
         ...getSubclasses(iconDefs.railway_stop),
+        ...getSubclasses(iconDefs.taxi),
       ],
       Color.poi.transport,
       ["museum"],
       Color.poi.attraction,
-      ["hospital", "parking", "school", "townhall"],
+      [
+        "hospital",
+        "parking",
+        "police",
+        "school",
+        ...getSubclasses(iconDefs.college),
+        "library",
+        "townhall",
+        ...getSubclasses(iconDefs.post_office),
+        ...getSubclasses(iconDefs.pow_christian),
+        ...getSubclasses(iconDefs.pow_buddhist),
+        ...getSubclasses(iconDefs.pow_hindu),
+        ...getSubclasses(iconDefs.pow_jewish),
+        ...getSubclasses(iconDefs.pow_muslim),
+        ...getSubclasses(iconDefs.pow_sikh),
+        ...getSubclasses(iconDefs.pow_shinto),
+        ...getSubclasses(iconDefs.pow_taoist),
+      ],
       Color.poi.infrastructure,
       Color.poi.infrastructure,
     ],
@@ -181,6 +368,8 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
+      [...getSubclasses(iconDefs.college)],
+      10,
       ["station", "halt"],
       12,
       ["bus_station", "subway"],
@@ -188,13 +377,35 @@ export const poi = {
       [
         "bus_stop",
         "hospital",
+        "library",
         "museum",
+        "police",
+        ...getSubclasses(iconDefs.fuel),
+        ...getSubclasses(iconDefs.post_office),
+        ...getSubclasses(iconDefs.pow_buddhist),
+        ...getSubclasses(iconDefs.pow_christian),
+        ...getSubclasses(iconDefs.pow_hindu),
+        ...getSubclasses(iconDefs.pow_jewish),
+        ...getSubclasses(iconDefs.pow_muslim),
+        ...getSubclasses(iconDefs.pow_sikh),
+        ...getSubclasses(iconDefs.pow_shinto),
+        ...getSubclasses(iconDefs.pow_taoist),
         ...getSubclasses(iconDefs.school),
+        ...getSubclasses(iconDefs.supermarket),
         "townhall",
         "tram_stop",
       ],
       15,
-      [...getSubclasses(iconDefs.bar), ...getSubclasses(iconDefs.coffee)],
+      [
+        ...getSubclasses(iconDefs.bar),
+        ...getSubclasses(iconDefs.bookstore),
+        ...getSubclasses(iconDefs.coffee),
+        ...getSubclasses(iconDefs.car_shop),
+        ...getSubclasses(iconDefs.car_repair),
+        ...getSubclasses(iconDefs.taxi),
+        ...getSubclasses(iconDefs.hotel),
+        ...getSubclasses(iconDefs.hostel),
+      ],
       16,
       ["clinic", "doctors", "parking"],
       17,
@@ -219,7 +430,7 @@ export const poi = {
       [
         "match",
         ["get", "subclass"],
-        ["bus_stop", "tram_stop"],
+        ["bus_stop", "tram_stop", "fuel", "supermarket"],
         "",
         label.localizedName,
       ],

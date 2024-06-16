@@ -37,6 +37,7 @@ export function build(locales) {
     lyrPark.parkFill,
 
     lyrBoundary.countyCasing,
+    lyrBoundary.regionCasing,
     lyrBoundary.stateCasing,
     lyrBoundary.countryCasing,
 
@@ -52,6 +53,7 @@ export function build(locales) {
 
     lyrBoundary.city,
     lyrBoundary.county,
+    lyrBoundary.region,
     lyrBoundary.state,
     lyrBoundary.country,
 
@@ -78,7 +80,6 @@ export function build(locales) {
     lyrRoad.roadTunnel.fill(),
 
     lyrOneway.tunnel,
-    lyrOneway.tunnelLink,
 
     lyrFerry.ferry,
 
@@ -136,8 +137,7 @@ export function build(locales) {
 
     lyrRail.railway.fill(),
 
-    lyrOneway.road,
-    lyrOneway.link,
+    lyrOneway.surface,
 
     lyrAerialway.dragLift
   );
@@ -197,7 +197,6 @@ export function build(locales) {
     lyrRail.railwayBridge.fill(),
 
     lyrOneway.bridge,
-    lyrOneway.bridgeLink,
   ];
 
   layers.push(...lyrRail.getLayerSeparatedBridgeLayers(bridgeLayers));

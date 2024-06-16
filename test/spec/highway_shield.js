@@ -17,20 +17,20 @@ describe("highway_shield", function () {
         .createExpression(HighwayShieldLayers.getImageNameExpression(1))
         .value.expression.evaluate(expressionContext(properties));
 
-    let expectImageName = (network, ref, name, expectedImageName) => {
+    let expectImageName = (network, ref, name, color, expectedImageName) => {
       let properties = {
-        route_1: `${network || ""}=${ref || ""}`,
-        name: name || null,
+        route_1_network: network || "",
+        route_1_ref: ref || "",
+        route_1_name: name || "",
+        route_1_color: color || "",
       };
       let evaluated = evaluatedExpression(properties);
       let expectedProperties = {
         imageName: expectedImageName,
         network: network || "",
         ref: ref || "",
-        name:
-          !ref && HighwayShieldLayers.namedRouteNetworks.includes(network)
-            ? name
-            : undefined,
+        name: name || "",
+        color: color || "",
       };
       expect(HighwayShieldLayers.parseImageName(evaluated)).to.be.deep.equal(
         expectedProperties
@@ -38,28 +38,54 @@ describe("highway_shield", function () {
     };
 
     it("parses an image name for a numbered route", function () {
-      expectImageName("NET", "REF", undefined, "shield\nNET=REF");
-      expectImageName("NET", "REF", "NAME", "shield\nNET=REF");
+      expectImageName(
+        "NET",
+        "REF",
+        undefined,
+        undefined,
+        "shield\nNET\nREF\n\n"
+      );
+      expectImageName(
+        "NET",
+        "REF",
+        "NAME",
+        undefined,
+        "shield\nNET\nREF\nNAME\n"
+      );
     });
     it("parses an image name for an unnumbered route", function () {
-      expectImageName("NET", undefined, undefined, "shield\nNET=");
+      expectImageName(
+        "NET",
+        undefined,
+        undefined,
+        undefined,
+        "shield\nNET\n\n\n"
+      );
     });
     it("parses an image name for a named route", function () {
       expectImageName(
         "US:KY:Parkway",
         undefined,
         "NAME",
-        "shield\nUS:KY:Parkway=\nNAME"
+        undefined,
+        "shield\nUS:KY:Parkway\n\nNAME\n"
       );
       expectImageName(
         "US:KY:Parkway",
         "REF",
         "NAME",
-        "shield\nUS:KY:Parkway=REF"
+        undefined,
+        "shield\nUS:KY:Parkway\nREF\nNAME\n"
       );
     });
     it("parses an image name for a network-independent route", function () {
-      expectImageName(undefined, "REF", "NAME", "shield\n=REF");
+      expectImageName(
+        undefined,
+        "REF",
+        "NAME",
+        undefined,
+        "shield\n\nREF\nNAME\n"
+      );
     });
   });
 });

@@ -1,93 +1,184 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
-import { Command } from "commander";
+import { Command, Option } from "commander";
+import fs from "node:fs";
+import zlib from "node:zlib";
 
 const program = new Command();
 program
-  .option("-a, --all-layers", "summary layer stats")
-  .option("-c, --layer-count", "count number of layers")
-  .option("-s, --layer-size", "size of all layers")
-  .option("-l, --layer <layer id>", "stats about one layer")
+  .addOption(
+    new Option("-a, --all-layers", "summary layer stats")
+      .conflicts("layerCount")
+      .conflicts("layerSize")
+      .conflicts("allJson")
+  )
+  .addOption(
+    new Option("-c, --layer-count", "count number of layers")
+      .conflicts("layerSize")
+      .conflicts("allJson")
+  )
+  .addOption(
+    new Option("-s, --layer-size", "size of all layers").conflicts("allJson")
+  )
+  .addOption(
+    new Option(
+      "-ss1, --spritesheet-1x-size",
+      "size of 1x sprite sheet"
+    ).conflicts("allJson")
+  )
+  .addOption(
+    new Option(
+      "-ss2, --spritesheet-2x-size",
+      "size of 2x sprite sheet"
+    ).conflicts("allJson")
+  )
+  .addOption(
+    new Option("-sh, --shield-json-size", "size of ShieldJSON").conflicts(
+      "allJson"
+    )
+  )
+  .addOption(
+    new Option(
+      "-gsh, --gzip-shield-json-size",
+      "gzip compressed size of ShieldJSON"
+    ).conflicts("allJson")
+  )
+  .addOption(
+    new Option(
+      "-gs, --gzip-style-size",
+      "gzip compressed size of style"
+    ).conflicts("allJson")
+  )
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
+  .option("-j, --all-json", "output all stats in JSON")
   .option("-pp, --pretty", "pretty-print JSON output")
   .option(
-    "-pg, --print-group <group prefix>",
-    "print a list of the layers in a group"
-  )
-  .option("-pl, --print-layer <layer id>", "print the JSON of a layer");
+    "-d, --directory <dir>",
+    "specify location of Americana distribution",
+    ["dist"]
+  );
+
 program.parse(process.argv);
 
-let opts = program.opts();
+const opts = program.opts();
 
 if (Object.keys(opts).length === 1) program.help();
 
-let style = Style.build(
+const locales = opts.locales[0].split(",");
+const distDir = opts.directory;
+
+const style = Style.build(
   config.OPENMAPTILES_URL,
   "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
-  "https://zelonewolf.github.io/openstreetmap-americana/fonts/{fontstack}/{range}.pbf",
-  opts.locales
+  "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+  locales
 );
 
 const layers = style.layers;
 const layerCount = layers.length;
-const layerSize = JSON.stringify(layers).length;
+
+if (opts.layerCount) {
+  console.log(layerCount);
+  process.exit();
+}
+
+function spriteSheetSize(distDir, single) {
+  let size = single ? "" : "@2x";
+  return (
+    fs.statSync(`${distDir}/sprites/sprite${size}.png`).size +
+    fs.statSync(`${distDir}/sprites/sprite${size}.json`).size
+  );
+}
+
+function distFileSize(distDir, path) {
+  return fs.statSync(`${distDir}/${path}`).size;
+}
+
+function gzipSize(content) {
+  return zlib.gzipSync(content).length;
+}
+
+const spriteSheet1xSize = spriteSheetSize(distDir, true);
+if (opts.spritesheet1xSize) {
+  console.log(spriteSheet1xSize);
+  process.exit();
+}
+
+const spriteSheet2xSize = spriteSheetSize(distDir, false);
+if (opts.spritesheet2xSize) {
+  console.log(spriteSheet2xSize);
+  process.exit();
+}
+
+const shieldJSONPath = `${distDir}/shields.json`;
+const shieldJSONSize = distFileSize(distDir, "shields.json");
+if (opts.shieldJsonSize) {
+  console.log(shieldJSONSize);
+  process.exit();
+}
+
+const shieldJSONContent = fs.readFileSync(shieldJSONPath, "utf8");
+const gzipShieldJSONSize = gzipSize(shieldJSONContent);
+if (opts.gzipShieldJsonSize) {
+  console.log(gzipShieldJSONSize);
+  process.exit();
+}
+
+const styleContent = JSON.stringify(layers);
+const styleSize = styleContent.length;
+if (opts.layerSize) {
+  console.log(styleSize);
+  process.exit();
+}
+
+const gzipStyleSize = gzipSize(styleContent);
+if (opts.gzipStyleSize) {
+  console.log(gzipStyleSize);
+  process.exit();
+}
 
 const layerMap = new Map();
-const layerGroupMap = new Map();
-const layerSizeStats = new Map();
-const layerGroupSizeStats = new Map();
-const layerGroupCountStats = new Map();
 
-for (let i = 0; i < layers.length; i++) {
-  let layer = layers[i];
+const stats = {
+  layerCount,
+  styleSize,
+  gzipStyleSize,
+  layerGroup: {},
+  spriteSheet1xSize,
+  spriteSheet2xSize,
+  shieldJSONSize,
+  gzipShieldJSONSize,
+};
+
+for (let i = 0; i < layerCount; i++) {
+  const layer = layers[i];
   layerMap.set(layer.id, layers[i]);
-  let layerSize = JSON.stringify(layer).length;
-  let layerGroup = layer.id.split("_", 1)[0];
-  layerSizeStats.set(layer.id, JSON.stringify(layer).length);
-  if (!layerGroupSizeStats.has(layerGroup)) {
-    layerGroupSizeStats.set(layerGroup, layerSize);
-    layerGroupCountStats.set(layerGroup, 1);
-    layerGroupMap.set(layerGroup, [layer.id]);
+  const layerSize = JSON.stringify(layer).length;
+  const layerGroup = layer["source-layer"] || layer.source || layer.type;
+  if (stats.layerGroup[layerGroup]) {
+    stats.layerGroup[layerGroup].size += layerSize;
+    stats.layerGroup[layerGroup].layerCount++;
   } else {
-    layerGroupSizeStats.set(
-      layerGroup,
-      layerGroupSizeStats.get(layerGroup) + layerSize
-    );
-    layerGroupCountStats.set(
-      layerGroup,
-      layerGroupCountStats.get(layerGroup) + 1
-    );
-    layerGroupMap.get(layerGroup).push(layer.id);
+    stats.layerGroup[layerGroup] = {
+      size: layerSize,
+      layerCount: 1,
+    };
   }
 }
 
-if (opts.layerCount) {
-  console.log(`${layerCount} layers`);
-}
-
-if (opts.layerSize) {
-  console.log(`Total layer size ${layerSize.toLocaleString("en-US")} bytes`);
+if (opts.allJson) {
+  process.stdout.write(JSON.stringify(stats, null, opts.pretty ? 2 : null));
+  process.exit();
 }
 
 if (opts.allLayers) {
-  console.log(`${layerCount} layers, grouped as follows:`);
-  layerGroupSizeStats.forEach((v, k) => {
-    let layerCount = layerGroupCountStats.get(k);
-    let layerString = `${k}(${layerCount})`.padEnd(30, ".");
+  for (const layerGroup in stats.layerGroup) {
+    let layerStats = stats.layerGroup[layerGroup];
+    let layerString = `${layerGroup}(${layerStats.layerCount})`.padEnd(30, ".");
     console.log(
-      `${layerString}${v.toLocaleString("en-US").padStart(10, ".")} bytes`
+      `${layerString}${layerStats.size
+        .toLocaleString("en-US")
+        .padStart(10, ".")} bytes`
     );
-  });
-}
-
-if (opts.printGroup) {
-  layerGroupMap.get(opts.printGroup).forEach((lyr) => console.log(lyr));
-}
-
-if (opts.printLayer) {
-  if (opts.pretty) {
-    console.log(JSON.stringify(layerMap.get(opts.printLayer), null, 2));
-  } else {
-    console.log(JSON.stringify(layerMap.get(opts.printLayer)));
   }
 }

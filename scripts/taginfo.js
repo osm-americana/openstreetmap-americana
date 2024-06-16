@@ -2,27 +2,36 @@
 
 import * as fs from "fs";
 import * as ShieldDef from "../src/js/shield_defs.js";
-import * as Shields from "../src/js/shield.js";
-import * as Gfx from "../src/js/screen_gfx.js";
-import * as CustomShields from "../src/js/custom_shields.js";
-import { Canvas } from "canvas";
 import namer from "color-namer";
 import { mkdir } from "node:fs/promises";
+import {
+  ShieldRenderer,
+  InMemorySpriteRepository,
+} from "@americana/maplibre-shield-generator";
+/**
+ * TODO - BUG
+ * Exporting HeadlessGraphicsFactory in shieldlib's index.ts causes an unexplained error in node-canvas
+ * where it thinks it's running in a browser and attempts to create a browser canvas, and fails. The same
+ * behavior occurs in skia-canvas. This hack works well enough for the taginfo script, but ideally the shield
+ * library should be capable of generating shields outside the browser.
+ */
+import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/src/headless_graphics";
+import {
+  routeParser,
+  shieldPredicate,
+  networkPredicate,
+} from "../src/js/shield_format";
 
 await mkdir("dist/shield-sample", { recursive: true });
 
-//Headless graphics context
-Gfx.setGfxFactory((bounds) => {
-  let canvas = new Canvas(bounds.width, bounds.height, "svg");
-  let ctx = canvas.getContext("2d");
-  ctx.imageSmoothingQuality = "high";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
-  ctx.canvas = canvas;
-  return ctx;
-});
-
 const shieldGfxMap = new Map();
+const shields = ShieldDef.loadShields();
+
+const shieldRenderer = new ShieldRenderer(shields, routeParser)
+  .filterImageID(shieldPredicate)
+  .filterNetwork(networkPredicate)
+  .graphicsFactory(new HeadlessGraphicsFactory("svg"))
+  .renderOnRepository(new InMemorySpriteRepository());
 
 const colorNames = new Map();
 
@@ -49,46 +58,36 @@ function getNamedColor(colorString, defaultColor) {
  * @param {*} project - The project description object to modify.
  */
 function addNetworkTags(project) {
-  CustomShields.loadCustomShields();
-  let shields = ShieldDef.loadShields();
+  let shieldSpec = shields;
 
   // Convert each shield's rendering metadata to an entry that taginfo understands.
-  let tags = Object.entries(shields)
+  let tags = Object.entries(shieldSpec.networks)
     .filter((entry) => !entry[0].match(/^omt-/))
     .map((entry) => {
       let network = entry[0],
-        definition = entry[1];
+        shieldDef = entry[1];
 
-      let icon = definition.spriteBlank || definition.noref?.spriteBlank;
+      let icon = shieldDef.spriteBlank || shieldDef.noref?.spriteBlank;
       if (Array.isArray(icon)) {
         icon = icon[0];
       }
 
       let icon_url;
+      let defBanners = shieldDef.banners;
 
-      //Shield ID with ref as a single space character
-      let id = `shield\n${network}= `;
+      if (icon == undefined && shieldDef?.shapeBlank !== undefined) {
+        //Remove banners and allow blank to render without a ref
+        delete shieldDef.banners;
+        shieldDef.notext = true;
 
-      let routeDef = Shields.getRouteDef(id);
-      let shieldDef = Shields.getShieldDef(routeDef);
+        let shieldGfx = shieldRenderer.getGraphicForRoute(network, "", "");
 
-      if (icon == undefined && shieldDef.canvasDrawnBlank !== undefined) {
-        //Generate empty canvas sized to the graphic
-        let shieldGfx = Gfx.getGfxContext(
-          Shields.getDrawnShieldBounds(shieldDef, " ")
-        );
-
-        //Draw shield to the canvas
-        Shields.drawShield(shieldGfx, shieldDef, routeDef);
-
-        delete shields[network].modifiers;
-        let def = JSON.stringify(shields[network]);
-
-        if (!shieldGfxMap.has(def)) {
-          shieldGfxMap.set(def, shieldGfxMap.size);
+        let shieldDefText = JSON.stringify(shieldDef);
+        if (!shieldGfxMap.has(shieldDefText)) {
+          shieldGfxMap.set(shieldDefText, shieldGfxMap.size);
         }
 
-        let network_filename_id = shieldGfxMap.get(def);
+        let network_filename_id = shieldGfxMap.get(shieldDefText);
         let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
 
         if (!fs.existsSync(save_filename)) {
@@ -110,8 +109,8 @@ function addNetworkTags(project) {
           svgText = svgText.replace(/#fff/gi, shieldDef.colorDarken);
         }
 
-        delete shields[network].modifiers;
-        let def = JSON.stringify(shields[network]);
+        delete shieldSpec.networks[network].banners;
+        let def = JSON.stringify(shieldSpec.networks[network]);
 
         if (!shieldGfxMap.has(def)) {
           shieldGfxMap.set(def, shieldGfxMap.size);
@@ -129,8 +128,8 @@ function addNetworkTags(project) {
       }
 
       let description = `Roads carrying routes in this network are marked by `;
-      if (definition.canvasDrawnBlank) {
-        let shapeDef = definition.canvasDrawnBlank;
+      if (shieldDef.shapeBlank) {
+        let shapeDef = shieldDef.shapeBlank;
         let prettyShapeName = `${shapeDef.drawFunc}-shaped`;
         let prettyFillColor = getNamedColor(shapeDef.params.fillColor, "white");
         let prettyStrokeColor = getNamedColor(
@@ -139,12 +138,11 @@ function addNetworkTags(project) {
         );
 
         switch (shapeDef.drawFunc) {
+          case "pill":
+            prettyShapeName = "pill-shaped";
+            break;
           case "roundedRectangle":
-            if (shapeDef.params.radius == 10) {
-              prettyShapeName = "pill-shaped";
-            } else {
-              prettyShapeName = "rectangular";
-            }
+            prettyShapeName = "rectangular";
             break;
           case "hexagonVertical":
             prettyShapeName = "vertical hexagonal";
@@ -171,10 +169,8 @@ function addNetworkTags(project) {
         description += "shields";
       }
 
-      if (definition.modifiers && definition.modifiers.length > 0) {
-        description += ` modified by ${definition.modifiers.join(
-          ", "
-        )} banners`;
+      if (defBanners && defBanners.length > 0) {
+        description += ` modified by ${defBanners.join(", ")} banners`;
       }
       description += ".";
 

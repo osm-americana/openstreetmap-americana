@@ -10,11 +10,18 @@ _A quintessentially American map style_ [🗺 View the map](https://zelonewolf.g
 
 The purpose of the Americana style is to:
 
-- Promote collaboration and common purpose in the American mapping community
+- Promote collaboration and common purpose in OpenStreetMap’s American mapping community
 - Express the American experience through cartography, taking inspiration from the familiar features of North American paper maps
 - Challenge the status quo by showcasing innovation and invention
 
-The Americana style is the first digital map to achieve concurrent, state-specific highway shields arranged along the path of road. Representative highway shield rendering is of considerable cartographic importance to the American community. We do this proudly in an open source project using vector tile technology.
+Americana has demonstrated or pioneered several cartographic techniques of importance to Americans that we hope will someday become commonplace among OpenStreetMap-based map styles:
+
+- Nuanced line styles help you distinguish roads, raiload tracks, and waterways based on a variety of intuitive characteristics.
+- Highway routes are identified by shields that resemble the signs on the road, with special support for roads that carry multiple routes concurrently.
+- Place labels throughout the world appear in both your preferred language and the local language, reflecting linguistic diversity both in the U.S. and abroad.
+- A dynamic legend communicates these design choices intuitively, regardless of the visual language you’re accustomed to.
+
+We do this proudly in an open source project using vector tile technology.
 
 ## How to use
 
@@ -31,7 +38,7 @@ The repository is organized as follows:
 - **src/** - The map style. See [CONTRIBUTING.md](CONTRIBUTING.md).
 - **dev/** - Development tools used for style development. See [Style Developer Tools](dev/README.md)
 - **test/** - Automated unit tests.
-- _Coming soon! Other customized parts of the tech stack._
+- **shieldlib/** - Maplibre [shield rendering library](shieldlib/README.md) ([npm entry](https://www.npmjs.com/package/@americana/maplibre-shield-generator?activeTab=readme)).
 
 Some general guidelines:
 
@@ -46,6 +53,14 @@ Some general guidelines:
 The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
+
+The dynamic shield generator is included as a [module](shieldlib/README.md) in this repository and also [published to npm](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
+
+## Artifacts
+
+- Style users can use the maplibre [StyleJSON](https://zelonewolf.github.io/openstreetmap-americana/style.json), and sprite sheets ([1x](https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite.png), [2x](https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite@2x.png)).
+- For highway shield library users, a [ShieldJSON](https://zelonewolf.github.io/openstreetmap-americana/shields.json) must be supplied to associate route networks with sprite images and drawn shield shapes.
+- The project [taginfo.json](https://zelonewolf.github.io/openstreetmap-americana/taginfo.json) lists which tags are used by the style.
 
 ## Data sources
 
@@ -66,3 +81,7 @@ Americana displays custom route shields for routes in all U.S. states and territ
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
 
 We are hoping that it will support more countries; you can [help us](https://github.com/ZeLonewolf/openstreetmap-americana/projects/1)!
+
+## Tile Server
+
+Although the source code in this repository is dedicated to the public domain under a CC0 waiver, it is configured by default to load map tiles from a privately-donated community [tile server](https://tile.ourmap.us). This server is available for use by other hobbyist and community projects with constraints. See the [tile server usage policy](TILE_USAGE.md) for more details. This usage policy describes the allowable usage of the tiles for other projects, separate from this style or the application being developed in this repository.

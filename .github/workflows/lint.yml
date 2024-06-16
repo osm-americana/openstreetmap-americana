@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # Make sure the actual branch is checked out when running on pull requests
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -18,12 +18,19 @@ jobs:
           # This is important to fetch the changes to the previous commit
           fetch-depth: 0
 
-      - name: Prettify code
-        uses: creyD/prettier_action@v3.3 # https://github.com/creyD/prettier_action
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          dry: true
-          prettier_options: --write .
-          # Setting only_changed to false picks up new files
-          only_changed: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          node-version: "18" # Specify the Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Prettier
+        id: prettier
+        run: npx prettier --check .
+        continue-on-error: false
+
+      - name: Check if Prettier failed
+        if: steps.prettier.outcome == 'failure'
+        run: exit 1

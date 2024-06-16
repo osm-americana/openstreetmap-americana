@@ -375,7 +375,6 @@ describe("label", function () {
         "Derry",
         "Derry/Londonderry"
       );
-      expectGloss("en", "L’Aquila", "L'Aquila", "L’Aquila", "L'Aquila");
     });
     it("glosses non-English localized name with lookalike local name", function () {
       expectGloss(

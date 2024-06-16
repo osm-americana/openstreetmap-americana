@@ -20,39 +20,45 @@ const cityLabelPaint = {
   "text-halo-blur": labelHaloBlur,
 };
 
-const cityIcon = [
+const minorLocationStepFilter = [
+  "step",
+  ["zoom"],
+  ["<=", ["get", "rank"], 2],
+  6,
+  ["<=", ["get", "rank"], 4],
+  7,
+  ["<=", ["get", "rank"], 5],
+  8,
+  ["<=", ["get", "rank"], 9],
+  10,
+  [">=", ["get", "rank"], 1],
+];
+
+const iconImage = [
   "match",
   ["get", "capital"],
   2,
-  "star_nation_capital",
+  "place_star_in_circle",
   3,
-  "star_state_capital",
+  "place_star",
   4,
-  "star_state_capital",
-  "dot_city",
+  "place_star",
+  5,
+  "place_dot_in_circle",
+  6,
+  "place_dot_in_circle",
+  "place_dot",
 ];
+
+function filterPlace(type) {
+  return ["==", ["get", "class"], type];
+}
 
 export const village = {
   id: "place_village",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: [
-    "all",
-    ["==", ["get", "class"], "village"],
-    [
-      "step",
-      ["zoom"],
-      ["<=", ["get", "rank"], 2],
-      6,
-      ["<=", ["get", "rank"], 4],
-      7,
-      ["<=", ["get", "rank"], 5],
-      8,
-      ["<=", ["get", "rank"], 9],
-      10,
-      [">=", ["get", "rank"], 1],
-    ],
-  ],
+  filter: ["all", filterPlace("village"), minorLocationStepFilter],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -63,7 +69,7 @@ export const village = {
         [12, 12],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": iconImage,
     "icon-size": {
       base: 1.0,
       stops: [
@@ -99,23 +105,7 @@ export const town = {
   id: "place_town",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: [
-    "all",
-    ["==", ["get", "class"], "town"],
-    [
-      "step",
-      ["zoom"],
-      ["<=", ["get", "rank"], 2],
-      6,
-      ["<=", ["get", "rank"], 4],
-      7,
-      ["<=", ["get", "rank"], 5],
-      8,
-      ["<=", ["get", "rank"], 9],
-      10,
-      [">=", ["get", "rank"], 1],
-    ],
-  ],
+  filter: ["all", filterPlace("town"), minorLocationStepFilter],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -126,7 +116,7 @@ export const town = {
         [12, 18],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": iconImage,
     "icon-size": {
       base: 1.2,
       stops: [
@@ -164,7 +154,7 @@ export const city = {
   paint: cityLabelPaint,
   filter: [
     "all",
-    ["==", ["get", "class"], "city"],
+    filterPlace("city"),
     [
       "step",
       ["zoom"],
@@ -185,7 +175,7 @@ export const city = {
         [11, 24],
       ],
     },
-    "icon-image": cityIcon,
+    "icon-image": iconImage,
     "icon-size": {
       base: 1.2,
       stops: [
@@ -466,5 +456,15 @@ export const legendEntries = [
     description: "State or provincial capital",
     layers: populatedPlaceLayers,
     filter: ["==", ["get", "capital"], 4],
+  },
+  {
+    description: "Local capital",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 5],
+  },
+  {
+    description: "County seat or equivalent",
+    layers: populatedPlaceLayers,
+    filter: ["==", ["get", "capital"], 6],
   },
 ];
