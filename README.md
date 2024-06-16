@@ -56,6 +56,12 @@ The technology stack for this style can be summarized below:
 
 The dynamic shield generator is included as a [module](shieldlib/README.md) in this repository and also [published to npm](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
 
+## Artifacts
+
+- Style users can use the maplibre [StyleJSON](https://zelonewolf.github.io/openstreetmap-americana/style.json), and sprite sheets ([1x](https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite.png), [2x](https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite@2x.png)).
+- For highway shield library users, a [ShieldJSON](https://zelonewolf.github.io/openstreetmap-americana/shields.json) must be supplied to associate route networks with sprite images and drawn shield shapes.
+- The project [taginfo.json](https://zelonewolf.github.io/openstreetmap-americana/taginfo.json) lists which tags are used by the style.
+
 ## Data sources
 
 The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https://openmaptiles.org/schema/), which includes:

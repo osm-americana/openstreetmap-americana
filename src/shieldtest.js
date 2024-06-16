@@ -8,6 +8,7 @@ import {
   networkPredicate,
   routeParser,
 } from "./js/shield_format.js";
+import { debugOptions } from "./debug_config.js";
 
 var getUrl = window.location;
 var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
@@ -27,6 +28,7 @@ export const map = (window.map = new maplibregl.Map({
 const shields = ShieldDef.loadShields();
 
 const shieldRenderer = new ShieldRenderer(shields, routeParser)
+  .debugOptions(debugOptions)
   .filterImageID(shieldPredicate)
   .filterNetwork(networkPredicate)
   .renderOnMaplibreGL(map);
@@ -303,6 +305,14 @@ const iterShields = function* () {
     refs: ["QEW"],
   };
   yield {
+    network: "CA:ON:Hamilton:Expressway",
+    names: ["Lincoln M. Alexander Parkway", "Red Hill Valley Parkway"],
+  };
+  yield {
+    network: "CA:ON:Toronto:Expressway",
+    refs: ["DV", "G"],
+  };
+  yield {
     network: "GLCT",
     refs: ["LECT", "LHCT", "LMCT", "LSCT"],
   };
@@ -345,6 +355,10 @@ const iterShields = function* () {
   yield {
     network: "US:NH:Turnpike",
     names: ["Blue Star Turnpike", "Everett Turnpike", "Spaulding Turnpike"],
+  };
+  yield {
+    network: "US:NY:Inner_Loop",
+    names: ["Inner Loop"],
   };
 };
 

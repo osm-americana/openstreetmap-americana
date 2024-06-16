@@ -368,13 +368,9 @@ export const poi = {
     [
       "match",
       ["get", "subclass"],
-      [
-      ...getSubclasses(iconDefs.college),
-      ],
+      [...getSubclasses(iconDefs.college)],
       10,
-      [
-        "station",
-        "halt"],
+      ["station", "halt"],
       12,
       ["bus_station", "subway"],
       14,

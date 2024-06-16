@@ -87,5 +87,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "12/38.86185/-77.20877",
+    "name": "northen_va_highways",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]

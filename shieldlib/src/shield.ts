@@ -4,8 +4,23 @@ import * as ShieldText from "./shield_text";
 import * as ShieldDraw from "./shield_canvas_draw";
 import * as Gfx from "./screen_gfx";
 import { drawBanners, drawBannerHalos, getBannerCount } from "./shield_banner";
+import { ShieldRenderingContext } from "./shield_renderer";
+import {
+  Dimension,
+  RouteDefinition,
+  ShieldDefinition,
+  ShieldDefinitions,
+} from "./types";
+import { TextPlacement } from "./shield_text";
+import { StyleImage } from "maplibre-gl";
 
-function compoundShieldSize(r, dimension, bannerCount) {
+const narrowCharacters = /[1IJijl .-]/g;
+
+function compoundShieldSize(
+  r: ShieldRenderingContext,
+  dimension: Dimension,
+  bannerCount: number
+): Dimension {
   return {
     width: dimension.width,
     height:
@@ -14,7 +29,7 @@ function compoundShieldSize(r, dimension, bannerCount) {
   };
 }
 
-export function isValidRef(ref) {
+export function isValidRef(ref: string): boolean {
   return ref !== null && ref.length !== 0 && ref.length <= 6;
 }
 
@@ -27,27 +42,33 @@ export function isValidRef(ref) {
  * @param {*} routeDef - route tagging from OSM
  * @returns shield blank or null if no shield exists
  */
-function getRasterShieldBlank(r, shieldDef, routeDef) {
-  var shieldArtwork = null;
-  var textLayout;
-  var bannerCount = 0;
-  var bounds;
+function getRasterShieldBlank(
+  r: ShieldRenderingContext,
+  shieldDef: ShieldDefinition,
+  routeDef: RouteDefinition
+): StyleImage {
+  let shieldArtwork = null;
+  let textPlacement: TextPlacement;
+  let bannerCount: number = 0;
+  let bounds: Dimension;
 
   if (Array.isArray(shieldDef.spriteBlank)) {
-    for (var i = 0; i < shieldDef.spriteBlank.length; i++) {
-      shieldArtwork = r.spriteRepo.getSprite(shieldDef.spriteBlank[i]);
+    // Certain narrow characters count as two-thirds of a character
+    let narrowCharacterCount = (routeDef.ref.match(narrowCharacters) ?? [])
+      .length;
+    let refLength = Math.ceil(routeDef.ref.length - narrowCharacterCount / 3);
 
-      bounds = compoundShieldSize(r, shieldArtwork.data, bannerCount);
-      textLayout = ShieldText.layoutShieldTextFromDef(
-        r,
-        routeDef.ref,
-        shieldDef,
-        bounds
-      );
-      if (textLayout.fontPx > r.px(Gfx.fontSizeThreshold)) {
-        break;
-      }
-    }
+    // Choose icon based on optimal character length at end of filename
+    let finalIndex = shieldDef.spriteBlank.length - 1;
+    let optimalCharacters = shieldDef.spriteBlank.map((blank) =>
+      parseInt(blank.split("_").reverse()[0])
+    );
+    let spriteIndex =
+      refLength > optimalCharacters[finalIndex]
+        ? finalIndex
+        : Math.max(0, optimalCharacters.indexOf(refLength));
+
+    shieldArtwork = r.spriteRepo.getSprite(shieldDef.spriteBlank[spriteIndex]);
   } else {
     shieldArtwork = r.spriteRepo.getSprite(shieldDef.spriteBlank);
   }
@@ -55,16 +76,26 @@ function getRasterShieldBlank(r, shieldDef, routeDef) {
   return shieldArtwork;
 }
 
-function textColor(shieldDef) {
+function textColor(shieldDef: ShieldDefinition): string {
   if (shieldDef != null && typeof shieldDef.textColor != "undefined") {
     return shieldDef.textColor;
   }
   return "black";
 }
 
-function getDrawFunc(shieldDef) {
+function getDrawFunc(
+  shieldDef: ShieldDefinition
+): (
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  ref: string
+) => void {
   if (typeof shieldDef.shapeBlank != "undefined") {
-    return (r, ctx, ref) =>
+    return (
+      r: ShieldRenderingContext,
+      ctx: CanvasRenderingContext2D,
+      ref: string
+    ) =>
       ShieldDraw.draw(
         r,
         shieldDef.shapeBlank.drawFunc,
@@ -73,17 +104,31 @@ function getDrawFunc(shieldDef) {
         ref
       );
   }
-  return ShieldDraw.blank;
+  console.warn(`Draw function not defined in:\n${shieldDef}`);
+  return (
+    r: ShieldRenderingContext,
+    ctx: CanvasRenderingContext2D,
+    ref: string
+  ) => {};
 }
 
-function getDrawHeight(r, shieldDef) {
+function getDrawHeight(
+  r: ShieldRenderingContext,
+  shieldDef: ShieldDefinition
+): number {
   if (typeof shieldDef.shapeBlank != "undefined") {
     return ShieldDraw.shapeHeight(r, shieldDef.shapeBlank.drawFunc);
   }
   return r.shieldSize();
 }
 
-function drawShieldText(r, ctx, shieldDef, routeDef, shieldBounds) {
+function drawShieldText(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  shieldDef: ShieldDefinition,
+  routeDef: RouteDefinition,
+  shieldBounds: Dimension
+): CanvasRenderingContext2D {
   if (shieldDef.notext) {
     //If the shield definition says not to draw a ref, ignore ref
     return ctx;
@@ -97,8 +142,8 @@ function drawShieldText(r, ctx, shieldDef, routeDef, shieldBounds) {
     shieldBounds
   );
 
-  if (typeof r.options.SHIELD_TEXT_HALO_COLOR_OVERRIDE !== "undefined") {
-    ctx.strokeStyle = options.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
+  if (typeof r.debugOptions?.shieldTextHaloColor !== "undefined") {
+    ctx.strokeStyle = r.debugOptions.shieldTextHaloColor;
     ShieldText.drawShieldHaloText(r, ctx, routeDef.ref, textLayout);
   } else if (shieldDef.textHaloColor) {
     ctx.strokeStyle = shieldDef.textHaloColor;
@@ -108,8 +153,8 @@ function drawShieldText(r, ctx, shieldDef, routeDef, shieldBounds) {
   ctx.fillStyle = textColor(shieldDef);
   ShieldText.renderShieldText(r, ctx, routeDef.ref, textLayout);
 
-  if (r.options.SHIELD_TEXT_BBOX_COLOR) {
-    ctx.strokeStyle = r.options.SHIELD_TEXT_BBOX_COLOR; //TODO move to debugOptions
+  if (r.debugOptions?.shieldTextBboxColor) {
+    ctx.strokeStyle = r.debugOptions.shieldTextBboxColor;
     ctx.lineWidth = r.px(1);
     ctx.strokeRect(
       r.px(shieldDef.padding.left - 0.5),
@@ -124,7 +169,12 @@ function drawShieldText(r, ctx, shieldDef, routeDef, shieldBounds) {
   return ctx;
 }
 
-export function missingIconLoader(r, routeDef, spriteID, update) {
+export function missingIconLoader(
+  r: ShieldRenderingContext,
+  routeDef: RouteDefinition,
+  spriteID: string,
+  update: boolean
+): void {
   let ctx = generateShieldCtx(r, routeDef);
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
@@ -134,7 +184,12 @@ export function missingIconLoader(r, routeDef, spriteID, update) {
   storeSprite(r, spriteID, ctx, update);
 }
 
-function storeSprite(r, id, ctx, update) {
+function storeSprite(
+  r: ShieldRenderingContext,
+  id: string,
+  ctx: CanvasRenderingContext2D,
+  update: boolean
+): void {
   const imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   r.spriteRepo.putSprite(
     id,
@@ -148,12 +203,15 @@ function storeSprite(r, id, ctx, update) {
   );
 }
 
-export function storeNoShield(r, id) {
-  storeSprite(r, id, r.emptySprite());
+export function storeNoShield(r: ShieldRenderingContext, id: string): void {
+  storeSprite(r, id, r.emptySprite(), false);
 }
 
-function refForDefs(routeDef, shieldDef) {
+function refForDefs(routeDef: RouteDefinition, shieldDef: ShieldDefinition) {
   // Handle special case for manually-applied abbreviations
+  if (shieldDef.ref) {
+    return shieldDef.ref;
+  }
   if (
     shieldDef.refsByName &&
     routeDef.name &&
@@ -164,13 +222,16 @@ function refForDefs(routeDef, shieldDef) {
   return routeDef.ref;
 }
 
-function getShieldDef(shields, routeDef) {
+function getShieldDef(
+  shields: ShieldDefinitions,
+  routeDef: RouteDefinition
+): ShieldDefinition {
   if (!shields) {
     //This occurs if the ShieldJSON is loaded from the network and hasn't loaded yet.
     return null;
   }
 
-  var shieldDef = shields[routeDef.network];
+  let shieldDef: ShieldDefinition = shields[routeDef.network];
 
   if (routeDef == null) {
     return null;
@@ -179,7 +240,8 @@ function getShieldDef(shields, routeDef) {
   if (shieldDef == null) {
     // Default to plain black text with halo and no background shield
     console.debug("Generic shield for", JSON.stringify(routeDef));
-    return isValidRef(routeDef.ref) ? shields.default : null;
+
+    return isValidRef(routeDef.ref) ? shields["default"] : null;
   }
 
   var ref = refForDefs(routeDef, shieldDef);
@@ -210,6 +272,7 @@ function getShieldDef(shields, routeDef) {
   if (
     !isValidRef(ref) &&
     !shieldDef.notext &&
+    !shieldDef.ref &&
     !(shieldDef.refsByName && routeDef.name)
   ) {
     return null;
@@ -222,7 +285,7 @@ function getShieldDef(shields, routeDef) {
  * Reformats an alphanumeric ref as Roman numerals, preserving any alphabetic
  * suffix.
  */
-export function romanizeRef(ref) {
+export function romanizeRef(ref: string): string {
   let number = parseInt(ref, 10);
   if (isNaN(number)) {
     return ref;
@@ -246,7 +309,11 @@ export function romanizeRef(ref) {
   return roman + ref.slice(number.toString().length);
 }
 
-function getDrawnShieldBounds(r, shieldDef, ref) {
+function getDrawnShieldBounds(
+  r: ShieldRenderingContext,
+  shieldDef: ShieldDefinition,
+  ref: string
+): Dimension {
   let width = Math.max(
     r.shieldSize(),
     ShieldDraw.computeWidth(
@@ -261,7 +328,10 @@ function getDrawnShieldBounds(r, shieldDef, ref) {
   return { width, height };
 }
 
-function bannerAreaHeight(r, bannerCount) {
+function bannerAreaHeight(
+  r: ShieldRenderingContext,
+  bannerCount: number
+): number {
   if (bannerCount === 0) {
     return 0;
   }
@@ -272,8 +342,11 @@ function bannerAreaHeight(r, bannerCount) {
   );
 }
 
-export function generateShieldCtx(r, routeDef) {
-  let shieldDef = getShieldDef(r.shieldDef, routeDef);
+export function generateShieldCtx(
+  r: ShieldRenderingContext,
+  routeDef: RouteDefinition
+): CanvasRenderingContext2D {
+  let shieldDef: ShieldDefinition = getShieldDef(r.shieldDef, routeDef);
 
   if (shieldDef == null) {
     return null;
