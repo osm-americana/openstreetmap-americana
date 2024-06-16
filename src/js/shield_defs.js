@@ -3613,6 +3613,14 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Faroe Islands
+  shields["FO"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    34
+  );
+
   // Finland
   // Valtatie/riksväg
   shields["fi:national"] = roundedRectShield(
