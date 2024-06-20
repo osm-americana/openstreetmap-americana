@@ -546,6 +546,51 @@ export function loadShields() {
       bottom: 2,
     },
   };
+  [
+    "AGS",
+    "BC",
+    "BCS",
+    "CAMP",
+    "COAH",
+    "COL",
+    "CHIS",
+    "CHIH",
+    "DGO",
+    "GTO",
+    "GRO",
+    "HGO",
+    "JAL",
+    // FIXME missing State of Mexico
+    "MICH",
+    "MOR",
+    "NAY",
+    "NL",
+    "OAX",
+    "PUE",
+    "QRO",
+    "Q.ROO",
+    "SLP",
+    "SIN",
+    "SON",
+    "TAB",
+    "TAM",
+    "TLAX",
+    "VER",
+    "YUC",
+    "ZAC",
+  ].forEach(
+    (state) =>
+      (shields[`MX:${state}`] = {
+        spriteBlank: ["shield_mx_state_2", "shield_mx_state_3"],
+        textColor: Color.shields.black,
+        padding: {
+          left: 2,
+          right: 2,
+          top: 5.5,
+          bottom: 4.5,
+        },
+      })
+  );
 
   // Ejes Viales (CDMX)
   shields["MX:CDMX:EJE:CENTRAL"] = {
