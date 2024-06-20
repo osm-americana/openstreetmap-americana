@@ -121,6 +121,7 @@ let networks = [
   "US:VA",
   "US:PR:primary",
   "HK",
+  "MX:QRO",
   "CA:QC:A",
 
   "NZ:SH",
