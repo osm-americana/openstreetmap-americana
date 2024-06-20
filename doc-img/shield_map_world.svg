@@ -153,6 +153,7 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .cz,
 .ee,
 .es,
+.fo,
 .fi,
 .fr,
 .de,
@@ -179,6 +180,12 @@ See the end of this file for a list of available jurisdictions and their codes. 
 .gb,
 .au,
 .nz,
+.bl,
+.mf,
+.nc,
+.pf,
+.pm,
+.wf,
 .cw,
 .ust { fill: #8250df; }
 

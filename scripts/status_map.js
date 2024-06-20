@@ -5,6 +5,15 @@ import * as ShieldDef from "../src/js/shield_defs.js";
 
 function fillPaths(svg, codes) {
   let selectors = new Set(codes.map((code) => `.${code.toLowerCase()}`));
+  if (selectors.has(".fr")) {
+    // French overseas territories use the FR prefix.
+    selectors.add(".bl");
+    selectors.add(".mf");
+    selectors.add(".nc");
+    selectors.add(".pf");
+    selectors.add(".pm");
+    selectors.add(".wf");
+  }
   if (selectors.has(".nl")) {
     // Curaçao routes use NL prefix with the Netherlands.
     selectors.add(".cw");
