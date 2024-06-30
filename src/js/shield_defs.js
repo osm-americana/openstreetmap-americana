@@ -741,6 +741,14 @@ export function loadShields() {
       spriteBlank: "shield_us_nps_ntp",
     },
   };
+  shields["US:NHT"] = {
+    notext: true,
+    overrideByName: {
+      "Oregon National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_oregon",
+      },
+    },
+  };
 
   // Other multistate routes
 
