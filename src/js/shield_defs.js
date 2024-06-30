@@ -745,9 +745,10 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
-      "Overmountain Victory National Historic Trail Commemorative Motor Route": {
-        spriteBlank: "shield_us_nht_ovvi",
-      },
+      "Overmountain Victory National Historic Trail Commemorative Motor Route":
+        {
+          spriteBlank: "shield_us_nht_ovvi",
+        },
     },
   };
 
