@@ -742,6 +742,15 @@ export function loadShields() {
     },
   };
 
+  shields["US:NHT"] = {
+    notext: true,
+    overrideByName: {
+      "Selma to Montgomery National Historic Trail": {
+        spriteBlank: "shield_us_nht_semo",
+      },
+    },
+  };
+
   // Other multistate routes
 
   // Great Lakes Seaway Trail
