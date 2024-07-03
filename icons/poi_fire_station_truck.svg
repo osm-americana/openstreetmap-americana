@@ -1,0 +1,6 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <path style="display:inline;fill:#000;stroke:#f9f5f0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill;stop-color:#000" d="M 3,13 H 1 V 12 H 2 V 9 L 3,6 H 4 V 5 H 5 V 6 H 8 V 9 H 9 V 8 h 9 v 4 h 1 v 1 z"/>
+ <path style="fill:#000;stroke:#f9f5f0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill;stop-color:#000" d="m 9,4 v 1 h 1 V 6 H 9 v 1 h 9 V 6 H 17 V 5 h 1 V 4 Z m 2,1 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z m 2,0 h 1 v 1 h -1 z"/>
+ <path style="fill:#000;stroke:#f9f5f0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers;stop-color:#000" d="M6 14a1 1 0 0 1-.9977961.999998 1 1 0 0 1-1.0021942-.99559 1 1 0 0 1 .9933787-1.004386 1 1 0 0 1 1.0065727.991163L5 14ZM14 14a1 1 0 0 1-.997796.999998 1 1 0 0 1-1.002194-.99559 1 1 0 0 1 .993378-1.004386 1 1 0 0 1 1.006573.991163L13 14ZM17 14a1 1 0 0 1-.997796.999998 1 1 0 0 1-1.002194-.99559 1 1 0 0 1 .993378-1.004386 1 1 0 0 1 1.006573.991163L16 14Z"/>
+ <path style="fill:#f9f5f0;stroke:#f9f5f0;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers;stop-color:#000;stroke-dasharray:none;fill-opacity:1" d="M 3,9 3.667,7 H 7 v 2 z"/>
+</svg>
