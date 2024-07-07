@@ -741,6 +741,23 @@ export function loadShields() {
       spriteBlank: "shield_us_nps_ntp",
     },
   };
+  shields["US:NHT"] = {
+    notext: true,
+    overrideByName: {
+      "Oregon National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_oreg",
+      },
+    },
+  };
+
+  shields["US:NHT"] = {
+    notext: true,
+    overrideByName: {
+      "Selma to Montgomery National Historic Trail": {
+        spriteBlank: "shield_us_nht_semo",
+      },
+    },
+  };
 
   shields["US:NHT"] = {
     notext: true,
