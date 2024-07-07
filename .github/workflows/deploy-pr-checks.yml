@@ -119,7 +119,7 @@ jobs:
           app_id: 396440 #osm-americana checks app
           private_key: ${{ secrets.CHECKS_WRITER_SECRET }}
       - name: Print Preview Links to GitHub Checks
-        uses: LouisBrunner/checks-action@v2
+        uses: LouisBrunner/checks-action@v2.0.0
         if: always()
         with:
           sha: ${{ env.PR_SHA }}
@@ -131,7 +131,7 @@ jobs:
             {"summary":"Preview map changes introduced by this PR", "title":"View live map and artifacts"}
           output_text_description_file: pr_preview.md
       - name: Print Stats to GitHub Checks
-        uses: LouisBrunner/checks-action@v2
+        uses: LouisBrunner/checks-action@v2.0.0
         if: always()
         with:
           sha: ${{ env.PR_SHA }}
