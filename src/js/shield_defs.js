@@ -748,9 +748,9 @@ export function loadShields() {
         spriteBlank: "shield_us_nht_oreg",
       },
       "Overmountain Victory National Historic Trail Commemorative Motor Route":
-      {
-        spriteBlank: "shield_us_nht_ovvi",
-      },
+        {
+          spriteBlank: "shield_us_nht_ovvi",
+        },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
       },
