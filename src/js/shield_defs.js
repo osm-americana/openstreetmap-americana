@@ -747,12 +747,10 @@ export function loadShields() {
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
       },
-    },
-  };
-
-  shields["US:NHT"] = {
-    notext: true,
-    overrideByName: {
+      "Overmountain Victory National Historic Trail Commemorative Motor Route":
+        {
+          spriteBlank: "shield_us_nht_ovvi",
+        },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
       },
