@@ -745,7 +745,7 @@ export function loadShields() {
     notext: true,
     overrideByName: {
       "Oregon National Historic Trail Auto Tour Route": {
-        spriteBlank: "shield_us_nht_oregon",
+        spriteBlank: "shield_us_nht_oreg",
       },
     },
   };
