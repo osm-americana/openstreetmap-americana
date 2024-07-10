@@ -591,6 +591,18 @@ export const legendEntries = [
     layers: [village.id],
     filter: nonCapitalFilter,
   },
+    {
+    description: "Major district",
+    layers: [suburb.id],
+  },
+  {
+    description: "Large neighborhood",
+    layers: [quarter.id],
+  },
+  {
+    description: "Neighborhood",
+    layers: [neighborhood.id],
+  },
   {
     description: "National capital",
     layers: populatedPlaceLayers,
