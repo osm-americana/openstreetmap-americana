@@ -37,6 +37,7 @@ export function build(locales) {
     lyrPark.parkFill,
 
     lyrBoundary.countyCasing,
+    lyrBoundary.regionCasing,
     lyrBoundary.stateCasing,
     lyrBoundary.countryCasing,
 
@@ -52,6 +53,7 @@ export function build(locales) {
 
     lyrBoundary.city,
     lyrBoundary.county,
+    lyrBoundary.region,
     lyrBoundary.state,
     lyrBoundary.country,
 

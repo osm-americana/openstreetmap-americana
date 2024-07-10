@@ -28,11 +28,25 @@ const sizeRow = mdCompareRow(
   difference.styleSize
 );
 
+const gzSizeRow = mdCompareRow(
+  "Compressed StyleJSON Size (b)",
+  stats1.gzipStyleSize,
+  stats2.gzipStyleSize,
+  difference.gzipStyleSize
+);
+
 const shieldRow = mdCompareRow(
   "ShieldJSON Size (b)",
   stats1.shieldJSONSize,
   stats2.shieldJSONSize,
   difference.shieldJSONSize
+);
+
+const gzShieldRow = mdCompareRow(
+  "Compressed ShieldJSON Size (b)",
+  stats1.gzipShieldJSONSize,
+  stats2.gzipShieldJSONSize,
+  difference.gzipShieldJSONSize
 );
 
 const ss1xRow = mdCompareRow(
@@ -52,9 +66,11 @@ const ss2xRow = mdCompareRow(
 printTable("Style size statistics", [
   layersRow,
   sizeRow,
+  gzSizeRow,
   ss1xRow,
   ss2xRow,
   shieldRow,
+  gzShieldRow,
 ]);
 
 /**

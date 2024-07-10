@@ -119,9 +119,9 @@ You should create one definition entry for each network. The entry key must matc
     "top": 3,
     "bottom": 3
   },
-  "spriteBlank": "name_of_image_1",
+  "spriteBlank": ["name_of_image_2", "name_of_image_3", "name_of_image_4"],
   "noref": {
-    "spriteBlank": "name_of_image_2"
+    "spriteBlank": "name_of_image_noref"
   }
   "shapeBlank": {
     "drawFunc": "pentagon",
@@ -168,7 +168,8 @@ You should create one definition entry for each network. The entry key must matc
 - **`textColor`**: determines what color to draw the `ref` on the shield.
 - **`textHaloColor`**: color to draw a knockout halo around the `ref` text.
 - **`padding`**: padding around the `ref`, which allows you to squeeze the text into a smaller space within the shield.
-- **`spriteBlank`**: specify the name of an image in the sprite sheet to use as the shield background. This can either be a single string or an array of strings if there are multiple options for different width. If it's an array of strings, they must be ordered from narrowest to widest, and the engine will choose the narrowest shield graphic that fits the text at a reasonable size.
+- **`spriteBlank`**: specify the name of an image in the sprite sheet to use as the shield background. This can either be a single string or an array of strings if there are multiple options for different width.
+  - If `spriteBlank` is an array of strings, they must be ordered from narrowest to widest, and the filenames must be suffixed with a consecutive range of integers, representing the optimal number of characters to display in each icon.
 - **`noref`**: specify alternate attributes to apply in the event that no `ref` is supplied. This allows you to use one graphic for numbered routes and a separate unitary graphic for non-numbered routes within the same network. Supports **`spriteBlank`**, **`colorLighten`**, and **`colorDarken`**.
 - **`shapeBlank`**: specify that a shield should be drawn as a common shape (rectangle, ellipse, pentagon, etc), with colors and dimensions as specified. See the [drawn shield shapes](#defining-drawn-shield-shapes) section for available drawing options.
 - **`banners`**: specify that one or more short text strings (up to 4 characters) should be drawn above the shield. This is specified as an array, and text will be drawn in order from top to bottom. Below is an example of bannered shields with up to three banners:
@@ -182,6 +183,7 @@ You should create one definition entry for each network. The entry key must matc
 - **`colorDarken`**: specify that the shield artwork should be darkened by the specified color. This means that white areas will be recolor with this color and black areas will remain the same. Alpha values will remain unmodified.
 - **`overrideByRef`**: specify that a specific `ref` within a `network` should have different shield properties than other routes in the network, with one entry per special-case `ref`. Supported options are **`spriteBlank`**, **`textColor`**, and **`colorLighten`**.
 - **`refsByName`**: specify that a `name` with the specified key should be treated as a `ref` with the specified value.
+- **`ref`**: specify that all shields in this network should be drawn with the specified `ref` value.
 - **`overrideByName`**: specify that particular `name` should use a specific **`spriteBlank`** which differs from the rest of the network.
 
 ### Handling special case networks
@@ -233,7 +235,7 @@ This effect can be achieved by overriding the text and sprite color in the route
 
 ```json
 "US:GA": {
-  "spriteBlank": ["shield_us_ga_narrow", "shield_us_ga_wide"],
+  "spriteBlank": ["shield_us_ga_2", "shield_us_ga_3"],
   "textColor": "black",
   "overrideByRef": {
     "520": {
@@ -287,19 +289,20 @@ The supported text constraints are:
 
 If `shapeBlank` is specified, the shield will be drawn as a shape. This needs to be specified with a drawing function, `drawFunc` and a `params` block the describes how the shape will be drawn. The draw functions are as follows:
 
-|                                                                                                                                                                                                                                                                                                                                   | `drawFunc`          |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| ![](https://upload.wikimedia.org/wikipedia/commons/c/cf/Diamond_highway_shield_shape.svg)                                                                                                                                                                                                                                         | `diamond`           |
-| ![](https://upload.wikimedia.org/wikipedia/commons/3/30/Black_and_white_circle_shape_as_used_in_highway_shields.svg)                                                                                                                                                                                                              | `ellipse`           |
-| ![](https://upload.wikimedia.org/wikipedia/commons/7/75/Escutcheon_highway_shield_shape.svg)                                                                                                                                                                                                                                      | `escutcheon`        |
-| ![](https://upload.wikimedia.org/wikipedia/commons/f/f8/Fishhead_highway_shield_shape.svg)                                                                                                                                                                                                                                        | `fishhead`          |
-| ![](https://upload.wikimedia.org/wikipedia/commons/6/61/Hexagon_highway_shield_shape.svg)                                                                                                                                                                                                                                         | `hexagonVertical`   |
-| ![](https://upload.wikimedia.org/wikipedia/commons/2/25/Horizontal_hexagon_shape.svg)                                                                                                                                                                                                                                             | `hexagonHorizontal` |
-| ![](https://upload.wikimedia.org/wikipedia/commons/f/f8/Octagon_shield_shape.svg)                                                                                                                                                                                                                                                 | `octagonVertical`   |
-| ![](https://upload.wikimedia.org/wikipedia/commons/f/ff/Pentagon_shield_shape.svg)![](https://upload.wikimedia.org/wikipedia/commons/b/b0/Black_and_white_home_plate_shape_as_used_in_highway_shields.svg)                                                                                                                        | `pentagon`          |
-| ![](https://upload.wikimedia.org/wikipedia/commons/3/30/Black_and_white_circle_shape_as_used_in_highway_shields.svg)![](https://upload.wikimedia.org/wikipedia/commons/archive/a/a1/20230326013519%21Rounded_rectangle_shape.svg)![](https://upload.wikimedia.org/wikipedia/commons/archive/1/17/20230326013156%21Pill_shape.svg) | `roundedRectangle`  |
-| ![](https://upload.wikimedia.org/wikipedia/commons/a/ad/Black_and_white_downward_trapezoid_as_used_in_highway_shields.svg)![](https://upload.wikimedia.org/wikipedia/commons/5/56/Black_and_white_upward_trapezoid_as_used_in_highway_shields.svg)                                                                                | `trapezoid`         |
-| ![](https://upload.wikimedia.org/wikipedia/commons/a/ad/Downward_triangle_highway_shield_shape.svg)                                                                                                                                                                                                                               | `triangle`          |
+|                                                                                                                                                                                                                                                    | `drawFunc`          |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| ![](https://upload.wikimedia.org/wikipedia/commons/c/cf/Diamond_highway_shield_shape.svg)                                                                                                                                                          | `diamond`           |
+| ![](https://upload.wikimedia.org/wikipedia/commons/3/30/Black_and_white_circle_shape_as_used_in_highway_shields.svg)                                                                                                                               | `ellipse`           |
+| ![](https://upload.wikimedia.org/wikipedia/commons/7/75/Escutcheon_highway_shield_shape.svg)                                                                                                                                                       | `escutcheon`        |
+| ![](https://upload.wikimedia.org/wikipedia/commons/f/f8/Fishhead_highway_shield_shape.svg)                                                                                                                                                         | `fishhead`          |
+| ![](https://upload.wikimedia.org/wikipedia/commons/6/61/Hexagon_highway_shield_shape.svg)                                                                                                                                                          | `hexagonVertical`   |
+| ![](https://upload.wikimedia.org/wikipedia/commons/2/25/Horizontal_hexagon_shape.svg)                                                                                                                                                              | `hexagonHorizontal` |
+| ![](https://upload.wikimedia.org/wikipedia/commons/f/f8/Octagon_shield_shape.svg)                                                                                                                                                                  | `octagonVertical`   |
+| ![](https://upload.wikimedia.org/wikipedia/commons/f/ff/Pentagon_shield_shape.svg)![](https://upload.wikimedia.org/wikipedia/commons/b/b0/Black_and_white_home_plate_shape_as_used_in_highway_shields.svg)                                         | `pentagon`          |
+| ![](https://upload.wikimedia.org/wikipedia/commons/archive/1/17/20230326013156%21Pill_shape.svg)                                                                                                                                                   | `pill`              |
+| ![](https://upload.wikimedia.org/wikipedia/commons/3/30/Black_and_white_circle_shape_as_used_in_highway_shields.svg)![](https://upload.wikimedia.org/wikipedia/commons/archive/a/a1/20230326013519%21Rounded_rectangle_shape.svg)                  | `roundedRectangle`  |
+| ![](https://upload.wikimedia.org/wikipedia/commons/a/ad/Black_and_white_downward_trapezoid_as_used_in_highway_shields.svg)![](https://upload.wikimedia.org/wikipedia/commons/5/56/Black_and_white_upward_trapezoid_as_used_in_highway_shields.svg) | `trapezoid`         |
+| ![](https://upload.wikimedia.org/wikipedia/commons/a/ad/Downward_triangle_highway_shield_shape.svg)                                                                                                                                                | `triangle`          |
 
 The following `params` options can be specified:
 
