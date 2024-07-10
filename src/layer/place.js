@@ -591,7 +591,7 @@ export const legendEntries = [
     layers: [village.id],
     filter: nonCapitalFilter,
   },
-    {
+  {
     description: "Major district",
     layers: [suburb.id],
   },
