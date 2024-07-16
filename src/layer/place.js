@@ -240,14 +240,14 @@ export const suburb = {
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": {
-      base:0.04,
+      base: 0.04,
       stops: [
         [11, 0.04],
         [12, 0.08],
         [13, 0.2],
         [14, 0.4],
       ],
-      },
+    },
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
@@ -298,12 +298,12 @@ export const quarter = {
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": {
-      base:0.04,
+      base: 0.04,
       stops: [
         [14, 0.08],
         [15, 0.2],
       ],
-      },
+    },
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
@@ -353,12 +353,12 @@ export const neighborhood = {
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": {
-      base:0.04,
+      base: 0.04,
       stops: [
         [15, 0.08],
         [16, 0.2],
       ],
-      },
+    },
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",

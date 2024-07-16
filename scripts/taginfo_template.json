@@ -52,21 +52,21 @@
       "value": "suburb",
       "object_types": ["node"],
       "description": "Suburbs are labeled in capital letters.",
-      "doc_url": "https://openmaptiles.org/schema/#place",
+      "doc_url": "https://openmaptiles.org/schema/#place"
     },
     {
       "key": "place",
       "value": "quarter",
       "object_types": ["node"],
       "description": "Quarters are labeled in capital letters.",
-      "doc_url": "https://openmaptiles.org/schema/#place",
+      "doc_url": "https://openmaptiles.org/schema/#place"
     },
     {
       "key": "place",
       "value": "neighbourhood",
       "object_types": ["node"],
       "description": "Neighborhoods are labeled in capital letters.",
-      "doc_url": "https://openmaptiles.org/schema/#place",
+      "doc_url": "https://openmaptiles.org/schema/#place"
     },
     {
       "key": "disputed",
