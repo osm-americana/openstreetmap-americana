@@ -741,6 +741,21 @@ export function loadShields() {
       spriteBlank: "shield_us_nps_ntp",
     },
   };
+  shields["US:NHT"] = {
+    notext: true,
+    overrideByName: {
+      "Oregon National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_oreg",
+      },
+      "Overmountain Victory National Historic Trail Commemorative Motor Route":
+        {
+          spriteBlank: "shield_us_nht_ovvi",
+        },
+      "Selma to Montgomery National Historic Trail": {
+        spriteBlank: "shield_us_nht_semo",
+      },
+    },
+  };
 
   // Other multistate routes
 
