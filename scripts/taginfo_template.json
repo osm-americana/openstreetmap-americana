@@ -48,6 +48,116 @@
       "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_state_capital.svg"
     },
     {
+      "key": "capital",
+      "value": "5",
+      "object_types": ["node"],
+      "description": "Marks the place with a local capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/place_dot_in_circle.svg"
+    },
+    {
+      "key": "capital",
+      "value": "6",
+      "object_types": ["node"],
+      "description": "Marks the place with a local capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/place_dot_in_circle.svg"
+    },
+    {
+      "key": "boundary",
+      "value": "administrative",
+      "object_types": ["way"],
+      "description": "Administrative boundaries are marked by dashed lines, with different signatures for each value of admin_level.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "2",
+      "object_types": ["way"],
+      "description": "National boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "3",
+      "object_types": ["way"],
+      "description": "National boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "4",
+      "object_types": ["way"],
+      "description": "State boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "5",
+      "object_types": ["way"],
+      "description": "Regional boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "6",
+      "object_types": ["way"],
+      "description": "County boundaries are marked by a dashed line.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "8",
+      "object_types": ["way"],
+      "description": "Municipal boundaries are marked by a dashed line.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "place",
+      "value": "continent",
+      "object_types": ["node"],
+      "description": "Continents are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "country",
+      "object_types": ["node"],
+      "description": "Countries are labeled in mixed case.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "state",
+      "object_types": ["node"],
+      "description": "States are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "city",
+      "object_types": ["node"],
+      "description": "Cities are marked with a dot.",
+      "doc_url": "https://openmaptiles.org/schema/#place",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
+      "key": "place",
+      "value": "town",
+      "object_types": ["node"],
+      "description": "Towns are marked with a dot.",
+      "doc_url": "https://openmaptiles.org/schema/#place",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
+      "key": "place",
+      "value": "village",
+      "object_types": ["node"],
+      "description": "Villages are marked with a dot.",
+      "doc_url": "https://openmaptiles.org/schema/#place",
+      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
       "key": "disputed",
       "value": "yes",
       "object_types": ["way"],
