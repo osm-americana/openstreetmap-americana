@@ -83,6 +83,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Gas station",
   },
+  fire_station: {
+    classes: {
+      fire_station: ["fire_station"],
+    },
+    sprite: "poi_fire_station",
+    color: Color.poi.infrastructure,
+    description: "Fire station",
+  },
   hospital: {
     classes: {
       hospital: ["hospital"],
@@ -342,6 +350,7 @@ export const poi = {
       Color.poi.attraction,
       [
         "hospital",
+        "fire_station",
         "parking",
         "police",
         "school",
@@ -376,6 +385,7 @@ export const poi = {
       14,
       [
         "bus_stop",
+        "fire_station",
         "hospital",
         "library",
         "museum",
