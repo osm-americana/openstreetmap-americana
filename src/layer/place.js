@@ -231,15 +231,23 @@ export const suburb = {
     "text-size": {
       base: 1.2,
       stops: [
-        [10, 10],
-        [12, 14],
+        [10, 12],
+        [12, 15],
         [14, 18],
       ],
     },
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
-    "text-letter-spacing": 0.04,
+    "text-letter-spacing": {
+      base:0.04,
+      stops: [
+        [11, 0.04],
+        [12, 0.08],
+        [13, 0.2],
+        [14, 0.4],
+      ],
+      },
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
@@ -289,7 +297,13 @@ export const quarter = {
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
-    "text-letter-spacing": 0.04,
+    "text-letter-spacing": {
+      base:0.04,
+      stops: [
+        [14, 0.08],
+        [15, 0.2],
+      ],
+      },
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
@@ -338,7 +352,13 @@ export const neighborhood = {
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
-    "text-letter-spacing": 0.04,
+    "text-letter-spacing": {
+      base:0.04,
+      stops: [
+        [15, 0.08],
+        [16, 0.2],
+      ],
+      },
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
