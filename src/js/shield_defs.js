@@ -538,12 +538,13 @@ export function loadShields() {
 
   // Carreteras Federales
   shields["MX:MX"] = {
-    spriteBlank: "shield_mx_mx",
+    spriteBlank: ["shield_mx_mx_2", "shield_mx_mx_3", "shield_mx_mx_4"],
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 2,
-      right: 2,
-      top: 3,
-      bottom: 2,
+      left: 1,
+      right: 1,
+      top: 5,
+      bottom: 4,
     },
   };
   [
@@ -722,6 +723,21 @@ export function loadShields() {
   shields["US:NPS:Natchez_Trace"] = {
     noref: {
       spriteBlank: "shield_us_nps_ntp",
+    },
+  };
+  shields["US:NHT"] = {
+    notext: true,
+    overrideByName: {
+      "Oregon National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_oreg",
+      },
+      "Overmountain Victory National Historic Trail Commemorative Motor Route":
+        {
+          spriteBlank: "shield_us_nht_ovvi",
+        },
+      "Selma to Montgomery National Historic Trail": {
+        spriteBlank: "shield_us_nht_semo",
+      },
     },
   };
 
