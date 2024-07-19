@@ -24,7 +24,7 @@ const locales = opts.locales[0].split(",");
 const style = Style.build(
   config.OPENMAPTILES_URL,
   "https://americanamap.org/sprites/sprite",
-  "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+  "https://font.americanamap.org/{fontstack}/{range}.pbf",
   locales
 );
 
