@@ -81,7 +81,7 @@ fs.readdirSync(outputFolder)
       // Add an entry to the markdown table
       const loc = getLocationByName(basefile);
       mdContent +=
-        `| ${basefile}<br>${loc}<br>[Current Render](https://zelonewolf.github.io/openstreetmap-americana/#map=${loc})` +
+        `| ${basefile}<br>${loc}<br>[Current Render](https://americanamap.org/#map=${loc})` +
         `<br>[This PR](${urlBase}#map=${loc}) ` +
         `| ![Current Render](${urlBase}${outputFolder}/${basefile}_${sha}_before.png) |` +
         ` ![This PR](${urlBase}${outputFolder}/${basefile}_${sha}_after.png) |\n`;
