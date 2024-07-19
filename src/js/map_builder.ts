@@ -33,7 +33,7 @@ export function buildStyle(): StyleSpecification {
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
     config.FONT_URL ??
-      "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+      "https://font.americanamap.org/{fontstack}/{range}.pbf",
     Label.getLocales()
   );
 }
