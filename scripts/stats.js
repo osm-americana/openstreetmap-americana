@@ -69,7 +69,7 @@ const distDir = opts.directory;
 
 const style = Style.build(
   config.OPENMAPTILES_URL,
-  "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
+  "https://americanamap.org/sprites/sprite",
   "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
   locales
 );
