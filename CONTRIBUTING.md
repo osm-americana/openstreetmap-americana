@@ -363,7 +363,7 @@ This style strives to draw representative highway shields wherever they are tagg
 For testing out changes across a variety of different shield designs and ref lengths there is a shield test gallery available:
 
 - In local development: http://localhost:1776/shieldtest.html
-- On the public demo site: https://zelonewolf.github.io/openstreetmap-americana/shieldtest.html
+- On the public demo site: https://americanamap.org/shieldtest.html
 
 This aims to display a table of all the unique shield designs in the style with some example refs from 1 to 6 characters. The `networks` and `refs` arrays can be modified for testing with a different set of either:
 
