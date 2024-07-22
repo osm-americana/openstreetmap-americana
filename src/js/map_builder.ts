@@ -20,8 +20,7 @@ export function buildStyle(): StyleSpecification {
   return Style.build(
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite-${Label.getMode()}`,
-    config.FONT_URL ??
-      "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+    config.FONT_URL ?? "https://font.americanamap.org/{fontstack}/{range}.pbf",
     Label.getMode()
   );
 }
@@ -34,10 +33,7 @@ function removeAfterLastSlash(str: string): string {
   return str.substring(0, lastSlashIndex + 1);
 }
 
-export function createMap(
-  window,
-  options: MapOptions
-): Map {
+export function createMap(window, options: MapOptions): Map {
   window.maplibregl = maplibregl;
   let map: Map = (window.map = new maplibregl.Map(options));
   return map;

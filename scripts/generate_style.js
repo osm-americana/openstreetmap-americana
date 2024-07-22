@@ -25,15 +25,15 @@ if (opts.mode == "light") {
   style = Style.build(
     config.OPENMAPTILES_URL,
     "https://streetferret.github.io/blackpearl-map/sprites/sprite-light",
-    "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+    "https://font.americanamap.org/{fontstack}/{range}.pbf",
     "light"
   );
 } else {
   style = Style.build(
     config.OPENMAPTILES_URL,
     "https://streetferret.github.io/blackpearl-map/sprites/sprite-dark",
-    "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
-    "dark"  
+    "https://font.americanamap.org/{fontstack}/{range}.pbf",
+    "dark"
   );
 }
 
