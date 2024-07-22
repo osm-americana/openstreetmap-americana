@@ -22,7 +22,7 @@ if (Object.keys(opts).length === 1) program.help();
 const style = Style.build(
   config.OPENMAPTILES_URL,
   'https://streetferret.github.io/blackpearl-map/sprites/sprite-light',
-  "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+  "https://font.americanamap.org/{fontstack}/{range}.pbf",
   "light"
 );
 
