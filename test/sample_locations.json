@@ -95,5 +95,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "16/41.8776/-71.3781",
+    "name": "pawtucket_large",
+    "viewport": {
+      "width": 15360,
+      "height": 8208
+    }
   }
 ]
