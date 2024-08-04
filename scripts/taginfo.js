@@ -124,7 +124,7 @@ function addNetworkTags(project) {
         }
         icon_url = `https://americanamap.org/shield-sample/shield_${network_filename_id}.svg`;
       } else {
-        icon_url = `https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/${icon}.svg`;
+        icon_url = `https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/${icon}.svg`;
       }
 
       let description = `Roads carrying routes in this network are marked by `;
