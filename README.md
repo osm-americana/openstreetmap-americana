@@ -25,7 +25,7 @@ We do this proudly in an open source project using vector tile technology.
 
 ## OpenStreetMap US
 
-OpenStreetMap Americana is a community project supported by [OSM US](https://openstreetmap.us), the OpenStreetMap local chapter for the United States. OSM US supports the project by providing tile rendering and other computing infrastructure. 
+OpenStreetMap Americana is a community project supported by [OSM US](https://openstreetmap.us), the OpenStreetMap local chapter for the United States. OSM US supports the project by providing tile rendering and other computing infrastructure.
 
 ## How to use
 
