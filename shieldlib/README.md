@@ -136,6 +136,10 @@ You should create one definition entry for each network. The entry key must matc
     }
   },
   "banners": ["ALT"],
+  "bannerMap": {
+    "ThisNetwork:Truck": ["TRK"],
+    "ThisNetwork:Truck:Bypass": ["TRK", "BYP"]
+  },
   "bannerTextColor": "#000",
   "bannerTextHaloColor": "#FFF",
   "textLayout": {
@@ -176,6 +180,7 @@ You should create one definition entry for each network. The entry key must matc
 
 ![Bannered routes near Downington, PA](https://wiki.openstreetmap.org/w/images/f/f8/Downington_bannered_routes_Americana.png)
 
+- **`bannerMap`**: a map of network-to-banner arrays listing networks that should have the same style but with specified banners.
 - **`bannerTextColor`**: specify the color of the banner text.
 - **`bannerTextHaloColor`**: specify the color of the banner knockout halo.
 - **`textLayout`**: specify how text should be inscribed within the padded bounds of the shield. The text will be drawn at the maximum size allowed by this constraint. See the [text layout functions](#text-layout-functions) section for text layout options.
