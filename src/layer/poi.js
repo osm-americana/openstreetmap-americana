@@ -59,6 +59,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Car dealership",
   },
+  cemetery: {
+    classes: {
+      cemetery: ["cemetery"],
+    },
+    sprite: "poi_gravestone",
+    color: Color.poi.outdoor,
+    decription: "Cemetery",
+  },
   taxi: {
     classes: {
       office: ["taxi"],
@@ -368,6 +376,8 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_taoist),
       ],
       Color.poi.infrastructure,
+      ["cemetery"],
+      Color.poi.outdoor,
       Color.poi.infrastructure,
     ],
   },
@@ -409,6 +419,7 @@ export const poi = {
       [
         ...getSubclasses(iconDefs.bar),
         ...getSubclasses(iconDefs.bookstore),
+        ...getSubclasses(iconDefs.cemetery),
         ...getSubclasses(iconDefs.coffee),
         ...getSubclasses(iconDefs.car_shop),
         ...getSubclasses(iconDefs.car_repair),
