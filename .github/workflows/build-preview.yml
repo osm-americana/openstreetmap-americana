@@ -42,13 +42,21 @@ jobs:
       - name: Install and Build PR Branch 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
-          npm ci --include=dev
+          npm install --include=dev
+          git clone https://github.com/1ec5/maplibre-gl-js.git --branch=complex-text-50 --depth=1
+          cd maplibre-gl-js/
+          npm install --include=dev
+          npm run build-dist
+          cd ../
+          npm link ./maplibre-gl-js/
+          cd shieldlib/
+          npm link ../maplibre-gl-js
+          cd ../
           npm run build
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
-          cp -r shieldlib/docs/* dist/shield-docs
           mv dist ..
         working-directory: pr-branch
       - name: Capture main branch usage statistics
