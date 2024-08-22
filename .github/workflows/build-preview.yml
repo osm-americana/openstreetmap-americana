@@ -122,6 +122,10 @@ jobs:
           cat ../pr/pr_preview-extra.md
           mv samples-diff ../dist/
         working-directory: pr-branch
+      - name: Verify build has latest changes
+        id: grep-build
+        run: |
+          grep u200D dist/americana.js
       - name: Upload Build artifacts
         uses: actions/upload-artifact@v4
         with:
