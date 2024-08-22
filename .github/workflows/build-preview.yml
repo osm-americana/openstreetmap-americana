@@ -46,8 +46,8 @@ jobs:
           rm -rf maplibre-gl-js
           git clone https://github.com/1ec5/maplibre-gl-js.git --branch=complex-text-50 --depth=10
           cd maplibre-gl-js/
-          grep u200D build/generate-unicode-data.ts src/data/unicode_properties.ts
           npm install --include=dev
+          npm run build-dev
           npm run build-dist
           cd ../
           npm link ./maplibre-gl-js/
