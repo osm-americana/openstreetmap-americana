@@ -54,8 +54,10 @@ jobs:
           cd shieldlib/
           npm link ../maplibre-gl-js
           cd ../
-          grep u200D maplibre-gl-js/build/generate-unicode-data.ts maplibre-gl-js/src/data/unicode_properties.ts node_modules/maplibre-gl/build/generate-unicode-data.ts node_modules/maplibre-gl/src/data/unicode_properties.ts node_modules/maplibre-gl/dist/maplibre-gl-unminified.js node_modules/maplibre-gl/dist/maplibre-gl-dev.js
+          npm install
+          npm link ./maplibre-gl-js/
           npm run build
+          grep u200D maplibre-gl-js/build/generate-unicode-data.ts maplibre-gl-js/src/data/unicode_properties.ts node_modules/maplibre-gl/build/generate-unicode-data.ts node_modules/maplibre-gl/src/data/unicode_properties.ts node_modules/maplibre-gl/dist/maplibre-gl-unminified.js node_modules/maplibre-gl/dist/maplibre-gl-dev.js dist/americana.js
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
