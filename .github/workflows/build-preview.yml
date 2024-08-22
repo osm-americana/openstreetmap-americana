@@ -42,7 +42,8 @@ jobs:
       - name: Install and Build PR Branch 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
-          npm install --include=dev
+          npm ci --include=dev
+          rm -rf maplibre-gl-js
           git clone https://github.com/1ec5/maplibre-gl-js.git --branch=complex-text-50 --depth=10
           git log -n 5
           cd maplibre-gl-js/
