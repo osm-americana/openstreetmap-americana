@@ -18,6 +18,8 @@ declare global {
 type SampleSpecification = {
   /** location on the map, a string in the format "z/lat/lon" */
   location: string;
+  /** language of the map, a string in the format "abc,def-GH,ijk" */
+  language?: string;
   /** name of this screenshot, used for the filename */
   name: string;
   /** Size in pixels of the clip */
@@ -83,7 +85,9 @@ async function createImage(screenshot: SampleSpecification) {
   const pagePath: string = screenshot.controls ? "" : "bare_map.html";
 
   await page.goto(
-    `http://localhost:1776/${pagePath}#map=${screenshot.location}&language=${screenshot.language || "en"}`
+    `http://localhost:1776/${pagePath}#map=${screenshot.location}&language=${
+      screenshot.language || "en"
+    }`
   );
 
   // Wait for map to load, then wait two more seconds for images, etc. to load.
