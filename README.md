@@ -4,7 +4,7 @@ _A quintessentially American map style_ [🗺 View the map](https://americanamap
 
 <img src="doc-img/osm-americana-logo.png" alt="Americana map style logo" width="200"/>
 
-> _The United States of America is such a glorious mess of contradiction, such a crazy quilt of competing themes, such a fecund mishmash of people and ideas, that defining us is pretty much pointless. There is, of course, a kind of faded notion of "Americana", one that concerns Route 66, diners, freak rock formations, and the like—but even in its halcyon days this "roadside attraction" version of America was never an accurate or nuanced distillation of our massively complicated culture._ <br/><sub>-Hampton Sides, <i>[Americana: Dispatches from the New Frontier](<https://en.wikipedia.org/wiki/Americana_(book)>)</i> (2004)</sub>
+> _The United States of America is such a glorious mess of contradiction, such a crazy quilt of competing themes, such a fecund mishmash of people and ideas, that defining us is pretty much pointless. There is, of course, a kind of faded notion of "Americana", one that concerns Route 66, diners, freak rock formations, and the like—but even in its halcyon days this "roadside attraction" version of America was never an accurate or nuanced distillation of our massively complicated culture._ <br/><sub>-Hampton Sides, <i>[Americana: Dispatches from the New Frontier](<https://en.wikipedia.org/wiki/Americana_(Sides_book)>)</i> (2004)</sub>
 
 <br />
 
@@ -80,8 +80,8 @@ Americana displays custom route shields for routes in all U.S. states and territ
 
 <img src="doc-img/shield_map_world.svg" width="500" alt="Countries">
 
-We are hoping that it will support more countries; you can [help us](https://github.com/ZeLonewolf/openstreetmap-americana/projects/1)!
+We are hoping that it will support more countries; you can [help us](https://github.com/osm-americana/openstreetmap-americana/projects/1)!
 
 ## Tile Server
 
-Although the source code in this repository is dedicated to the public domain under a CC0 waiver, it is configured by default to load map tiles from a privately-donated community [tile server](https://tile.ourmap.us). This server is available for use by other hobbyist and community projects with constraints. See the [tile server usage policy](TILE_USAGE.md) for more details. This usage policy describes the allowable usage of the tiles for other projects, separate from this style or the application being developed in this repository.
+Although the source code in this repository is dedicated to the public domain under a CC0 waiver, it is configured by default to load map tiles from an [OpenStreetMap US](https://www.openstreetmap.us/) hosted community [tile server](https://tile.ourmap.us). OpenStreetMap US, the local chapter for OpenStreetMap in the United States, makes this server available for use by other hobbyist and community projects with constraints. See the [tile server usage policy](https://tile.ourmap.us/usage.html) for more details. This usage policy describes the allowable usage of the tiles for other projects, separate from this style or the application being developed in this repository.

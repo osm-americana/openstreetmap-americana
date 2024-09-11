@@ -11,7 +11,7 @@ export const shieldPredicate: StringPredicate = (imageID: string) =>
 export const networkPredicate: StringPredicate = (network: string) =>
   // On recreational route relations, network=* indicates the network's scope,
   // not the network itself.
-  // https://github.com/ZeLonewolf/openstreetmap-americana/issues/94
+  // https://github.com/osm-americana/openstreetmap-americana/issues/94
   !/^[lrni][chimpw]n$/.test(network);
 
 export const routeParser: RouteParser = {
