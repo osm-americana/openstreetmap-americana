@@ -15,6 +15,7 @@ import { TextPlacement } from "./shield_text";
 import { StyleImage } from "maplibre-gl";
 
 const narrowCharacters = /[1IJijl .-]/g;
+const maxRefLength = 7;
 
 function compoundShieldSize(
   r: ShieldRenderingContext,
@@ -30,7 +31,7 @@ function compoundShieldSize(
 }
 
 export function isValidRef(ref: string): boolean {
-  return ref !== null && ref.length !== 0 && ref.length <= 6;
+  return ref !== null && ref.length !== 0 && ref.length <= maxRefLength;
 }
 
 /**
