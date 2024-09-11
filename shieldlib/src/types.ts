@@ -35,6 +35,10 @@ export interface ShieldDefinitionBase {
   textLayout?: TextLayout;
   /** Banners to be drawn above a shield */
   banners?: string[];
+  /** Map of additional networks that are bannered variants of this one */
+  bannerMap?: {
+    [key: string]: string[];
+  };
   /** If true, no next should be drawn on this shield */
   notext?: boolean;
   /** Maximum size of shield text */
