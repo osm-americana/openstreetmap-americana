@@ -2,7 +2,7 @@ export const hillshading = {
   id: "hillshading",
   type: "hillshade",
   source: "dem",
-  maxzoom: 15,
+  maxzoom: 17,
   paint: {
     "hillshade-exaggeration": [
       "interpolate",
@@ -12,7 +12,9 @@ export const hillshading = {
       1,
       12,
       0.7,
-      15,
+      16,
+      0.1,
+      17,
       0,
     ],
     "hillshade-shadow-color": "hsla(30, 14%, 76%, 1)",
