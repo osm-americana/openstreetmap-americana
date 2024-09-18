@@ -42,6 +42,8 @@ export function build(locales) {
     lyrBoundary.stateCasing,
     lyrBoundary.countryCasing,
 
+    lyrHillshade.hillshading,
+
     lyrWater.waterLine,
     lyrWater.waterLineIntermittent,
     lyrWater.waterway,
@@ -83,8 +85,6 @@ export function build(locales) {
     lyrOneway.tunnel,
 
     lyrFerry.ferry,
-
-    lyrHillshade.hillshading,
 
     lyrAeroway.runway,
     lyrAeroway.runwayArea,
