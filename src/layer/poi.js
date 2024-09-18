@@ -244,6 +244,15 @@ var iconDefs = {
     color: Color.poi.transport,
     description: "Tram stop",
   },
+  restaurant: {
+    classes: {
+      restaurant: ["restaurant"],
+      fast_food: ["fast_food", "food_court"],
+    },
+    sprite: "poi_restaurant",
+    color: Color.poi.consumer,
+    description: "Restaurant or fast food",
+  },
   school: {
     classes: {
       school: ["kindergarten", "school"],
@@ -336,6 +345,7 @@ export const poi = {
         ...getSubclasses(iconDefs.car_repair),
         ...getSubclasses(iconDefs.hotel),
         ...getSubclasses(iconDefs.hostel),
+        ...getSubclasses(iconDefs.restaurant),
       ],
       Color.poi.consumer,
       [
@@ -415,6 +425,7 @@ export const poi = {
         ...getSubclasses(iconDefs.taxi),
         ...getSubclasses(iconDefs.hotel),
         ...getSubclasses(iconDefs.hostel),
+        ...getSubclasses(iconDefs.restaurant),
       ],
       16,
       ["clinic", "doctors", "parking"],
