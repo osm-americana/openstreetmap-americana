@@ -689,14 +689,15 @@ export function loadShields() {
     },
   };
 
-  shields["US:US:Historic"] =
-    ({
+  shields["US:US:Historic"] = banneredShield(
+    {
       ...badgeShieldCrossbar,
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
     ["HIST"],
-    Color.shields.brown);
+    Color.shields.brown
+  );
 
   // US Federal Agencies
 
