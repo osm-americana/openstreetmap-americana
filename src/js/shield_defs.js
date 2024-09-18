@@ -1011,7 +1011,7 @@ export function loadShields() {
       "US:CA:Business": ["BUS"],
     },
   };
-  ["CR", "Sierra"].forEach(
+  ["CR", "Nevada", "Sierra"].forEach(
     (county) =>
       (shields[`US:CA:${county}`] = pentagonUpShield(
         3,
