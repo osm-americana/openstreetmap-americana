@@ -11,6 +11,18 @@ export function build(tileURL, spriteURL, glyphURL, locales) {
         url: tileURL,
         type: "vector",
       },
+      dem: {
+        attribution:
+          '<a target="_blank" rel="noopener" href="https://registry.opendata.aws/terrain-tiles/">Terrain Tiles</a>',
+        type: "raster-dem",
+        tiles: [
+          "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+        ],
+        encoding: "terrarium",
+        tileSize: 256,
+        // The actual maxzoom is 15
+        maxzoom: 12,
+      },
     },
     sprite: spriteURL,
     light: {

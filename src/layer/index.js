@@ -8,6 +8,7 @@ import * as lyrBackground from "./background.js";
 import * as lyrBoundary from "./boundary.js";
 import * as lyrConstruction from "./construction.js";
 import * as lyrHighwayShield from "./highway_shield.js";
+import * as lyrHillshade from "./hillshade.js";
 import * as lyrLanduse from "./landuse.js";
 import * as lyrOneway from "./oneway.js";
 import * as lyrPark from "./park.js";
@@ -82,6 +83,8 @@ export function build(locales) {
     lyrOneway.tunnel,
 
     lyrFerry.ferry,
+
+    lyrHillshade.hillshading,
 
     lyrAeroway.runway,
     lyrAeroway.runwayArea,
