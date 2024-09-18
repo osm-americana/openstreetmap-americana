@@ -11,6 +11,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
 import LegendControl from "./js/legend_control.js";
+import { HillshadeControl } from "./js/icon_control.js";
 import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
@@ -68,6 +69,7 @@ function shieldDefLoad(shields) {
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
   map.addControl(new maplibregl.NavigationControl(), "top-left");
+  map.addControl(new HillshadeControl({ layerId: "hillshading" }), "top-left");
 
   window.addEventListener("languagechange", (event) => {
     console.log(`Changed to ${navigator.languages}`);
