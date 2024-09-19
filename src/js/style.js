@@ -21,7 +21,7 @@ export function build(tileURL, spriteURL, glyphURL, locales) {
         encoding: "terrarium",
         tileSize: 256,
         // The actual maxzoom is 15
-        maxzoom: 12,
+        maxzoom: 13,
       },
     },
     sprite: spriteURL,
