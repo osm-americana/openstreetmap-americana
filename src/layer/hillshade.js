@@ -1,4 +1,4 @@
-import { hillshadeShadow, hillshadeHighlight } from "../constants/color";
+import * as Color from "../constants/color.js";
 
 export const hillshading = {
   id: "hillshading",
@@ -17,7 +17,7 @@ export const hillshading = {
       17,
       0.1,
     ],
-    "hillshade-shadow-color": hillshadeShadow,
-    "hillshade-highlight-color": hillshadeHighlight,
+    "hillshade-shadow-color": Color.hillshadeShadow,
+    "hillshade-highlight-color": Color.hillshadeHighlight,
   },
 };
