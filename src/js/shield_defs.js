@@ -689,14 +689,15 @@ export function loadShields() {
     },
   };
 
-  shields["US:US:Historic"] =
-    ({
+  shields["US:US:Historic"] = banneredShield(
+    {
       ...badgeShieldCrossbar,
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
     ["HIST"],
-    Color.shields.brown);
+    Color.shields.brown
+  );
 
   // US Federal Agencies
 
@@ -3199,7 +3200,7 @@ export function loadShields() {
   // AFRICA
 
   // Algeria
-  shields["DZ:highway"] = shields["DZ:national"] = roundedRectShield(
+  shields["DZ:motorway"] = shields["DZ:national"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
   );
@@ -3383,7 +3384,7 @@ export function loadShields() {
   };
 
   // Iran
-  shields["ir:freeways"] = roundedRectShield(
+  shields["ir:freeway"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
@@ -3569,11 +3570,11 @@ export function loadShields() {
   );
 
   // Vietnam
-  shields["vn:expressway"] = roundedRectShield(
+  shields["VN:expressway"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black
   );
-  shields["vn:national"] = roundedRectShield(
+  shields["VN:national"] = roundedRectShield(
     Color.shields.white,
     Color.shields.black
   );
@@ -3947,13 +3948,12 @@ export function loadShields() {
   );
 
   // Poland
-  shields["pl:motorways"] = roundedRectShield(
+  shields["pl:expressway"] = shields["pl:motorway"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
     34
   );
-  shields["pl:expressways"] = shields["pl:motorways"];
   shields["pl:national"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
