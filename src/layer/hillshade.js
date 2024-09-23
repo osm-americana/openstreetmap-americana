@@ -1,7 +1,12 @@
+import { hillshadeShadow, hillshadeHighlight } from "../constants/color";
+
 export const hillshading = {
   id: "hillshading",
   type: "hillshade",
   source: "dem",
+  layout: {
+    visibility: "none",
+  },
   paint: {
     "hillshade-exaggeration": [
       "interpolate",
@@ -12,7 +17,7 @@ export const hillshading = {
       17,
       0.1,
     ],
-    "hillshade-shadow-color": "hsla(30, 14%, 63%, 1)",
-    "hillshade-highlight-color": "hsla(30, 44%, 99%, 1)",
+    "hillshade-shadow-color": hillshadeShadow,
+    "hillshade-highlight-color": hillshadeHighlight,
   },
 };
