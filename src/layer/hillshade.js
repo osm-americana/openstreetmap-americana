@@ -12,7 +12,7 @@ export const hillshading = {
       17,
       0.1,
     ],
-    "hillshade-shadow-color": "hsla(30, 14%, 76%, 1)",
+    "hillshade-shadow-color": "hsla(30, 14%, 63%, 1)",
     "hillshade-highlight-color": "hsla(30, 44%, 99%, 1)",
   },
 };
