@@ -36,10 +36,7 @@ export function build(locales) {
     lyrAeroway.fill,
     lyrPark.parkFill,
 
-    lyrBoundary.countyCasing,
-    lyrBoundary.regionCasing,
-    lyrBoundary.stateCasing,
-    lyrBoundary.countryCasing,
+    lyrBoundary.boundaryCasing,
 
     lyrWater.waterLine,
     lyrWater.waterLineIntermittent,
