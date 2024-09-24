@@ -15,7 +15,7 @@ export const hillshading = {
       12,
       0.5,
       17,
-      0.1,
+      0.3,
     ],
     "hillshade-shadow-color": Color.hillshadeShadow,
     "hillshade-highlight-color": Color.hillshadeHighlight,
