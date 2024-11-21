@@ -212,7 +212,7 @@ export const suburb = {
   id: "place_suburb",
   type: "symbol",
   paint: {
-    "text-color": Color.waterLabel,
+    "text-color": Color.urbanSubAreaLabel,
     "text-halo-color": labelHaloColor,
     "text-halo-width": [
       "interpolate",
@@ -270,7 +270,7 @@ export const quarter = {
   id: "place_quarter",
   type: "symbol",
   paint: {
-    "text-color": Color.waterLabel,
+    "text-color": Color.urbanSubAreaLabel,
     "text-halo-color": labelHaloColor,
     "text-halo-width": [
       "interpolate",
@@ -326,7 +326,7 @@ export const neighborhood = {
   id: "place_neighborhood",
   type: "symbol",
   paint: {
-    "text-color": Color.waterLabel,
+    "text-color": Color.urbanSubAreaLabel,
     "text-halo-color": labelHaloColor,
     "text-halo-width": [
       "interpolate",
