@@ -567,6 +567,30 @@
     },
     {
       "key": "amenity",
+      "value": "restaurant",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "fast_food",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "food_court",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+    },
+    {
+      "key": "amenity",
       "value": "hospital",
       "object_types": ["node", "area"],
       "description": "Hospitals are marked by a white letter 'H' in a blue shield.",
