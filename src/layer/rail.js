@@ -6,38 +6,6 @@ import * as Util from "../js/util.js";
 // Exponent base for inter-zoom interpolation
 let railExp = 1.2;
 
-// Helper functions to create zoom interpolation expressions
-function multiplyMatchExpression(value, factor) {
-  if (Array.isArray(value)) {
-    var result = [value[0], value[1]];
-    for (let i = 2; i < value.length - 1; i++) {
-      if (i % 2 == 0) {
-        result.push(value[i]);
-      } else {
-        result.push(multiplyMatchExpression(value[i], factor));
-      }
-    }
-    result.push(multiplyMatchExpression(value[value.length - 1], factor));
-    return result;
-  } else {
-    return value * factor;
-  }
-}
-
-function zoomInterpolate(widthZ20) {
-  return [
-    "interpolate",
-    ["exponential", railExp],
-    ["zoom"],
-    8,
-    multiplyMatchExpression(widthZ20, 1 / 16),
-    12,
-    multiplyMatchExpression(widthZ20, 1 / 4),
-    20,
-    widthZ20,
-  ];
-}
-
 // Helper function to create a "filter" block for a particular railway class.
 function filterRail(brunnel) {
   return [
@@ -103,28 +71,6 @@ var opacity = [
   1,
 ];
 
-// Bridge casing layers
-export const bridgeCasing = {
-  ...defRail,
-  id: "rail_bridge-casing",
-  filter: [
-    "all",
-    ["==", ["get", "brunnel"], "bridge"],
-    ["in", ["get", "class"], ["literal", ["rail", "transit"]]],
-  ],
-  minzoom: 13,
-  layout: {
-    "line-cap": "butt",
-    "line-join": "bevel",
-    visibility: "visible",
-  },
-  paint: {
-    "line-color": Color.backgroundFill,
-    "line-opacity": opacity,
-    "line-width": zoomInterpolate([...serviceSelector, 4, 6]),
-  },
-};
-
 // Generate a unique layer ID
 function uniqueLayerID(part, brunnel, constraints) {
   var layerID = ["rail", part, brunnel].join("_");
@@ -168,7 +114,7 @@ class Railway {
     layer.paint = {
       "line-color": lineColor,
       "line-opacity": opacity,
-      "line-width": zoomInterpolate(lineWidth),
+      "line-width": Util.zoomInterpolate(lineWidth),
     };
     if (this.constraints != null) {
       layer.filter.push(this.constraints);
@@ -191,8 +137,8 @@ class Railway {
     layer.paint = {
       "line-color": lineColor,
       "line-opacity": opacity,
-      "line-width": zoomInterpolate(
-        multiplyMatchExpression(lineWidth, this.dashWidthFactor)
+      "line-width": Util.zoomInterpolate(
+        Util.multiplyMatchExpression(lineWidth, this.dashWidthFactor)
       ),
       "line-dasharray": this.dashArray.map(
         (stop) => stop / 2 / this.dashWidthFactor
