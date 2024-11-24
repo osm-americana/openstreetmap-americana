@@ -8,7 +8,13 @@ const classSelector = ["match", ["get", "class"]];
 const motorwayToTrunk = ["motorway", "trunk"];
 const motorwayToPrimary = [...motorwayToTrunk, "primary"];
 const motorwayToSecondary = [...motorwayToPrimary, "secondary"];
-const motorwayToMinor = [...motorwayToSecondary, "tertiary", "minor", "busway", "track"];
+const motorwayToMinor = [
+  ...motorwayToSecondary,
+  "tertiary",
+  "minor",
+  "busway",
+  "track",
+];
 const motorwayToService = [...motorwayToMinor, "service"];
 
 const majorConstruction = ["motorway_construction", "trunk_construction"];
