@@ -202,6 +202,11 @@ function arrowNavigate(e) {
       e.preventDefault();
       break;
     case "Enter":
+      if (liveResults.children.length === 0) {
+        e.preventDefault();
+        return; // Do nothing if no results
+      }
+
       let navIndex = resultSelectIndex < 0 ? 0 : resultSelectIndex;
 
       goToResult(navIndex);

@@ -1,5 +1,5 @@
-<svg width="15.89" height="20" xmlns="http://www.w3.org/2000/svg">
- <path d="m10.685 4.9314 2.1917-3.2876" fill="#bf5700" stroke="#f9f5f0" stroke-linecap="round" stroke-width="3.288"/>
- <path d="m1.3697 5.4793 5.4793 7.3056v3.6536h-2.1917v2.1917h6.5752v-2.1917h-2.1917v-3.6536l5.4793-7.3056z" fill="#bf5700" fill-rule="evenodd" stroke="#f9f5f0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.74" style="paint-order:stroke fill markers"/>
- <path d="m10.685 4.9314 2.1917-3.2876" fill="#bf5700" stroke="#bf5700" stroke-width="1.096"/>
+<svg width="16" height="20" xmlns="http://www.w3.org/2000/svg">
+ <path d="m 11,4.5 2,-3" stroke="#fff" stroke-linecap="round" style="stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none"/>
+ <path d="M 1.0000004,5.0000005 6.999999,12.777292 7,17 4.5000012,17.000001 4.5000002,19 H 11.499999 L 11.5,17 H 9 l -10e-7,-4.222708 6,-7.7772915 z" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"/>
+ <path d="m 11,4.5 2,-3" stroke="#000" style="stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"/>
 </svg>

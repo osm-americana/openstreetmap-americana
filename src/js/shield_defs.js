@@ -1,647 +1,38 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
-import * as ShieldDraw from "./shield_canvas_draw.js";
-import * as ShieldText from "./shield_text.js";
-import * as Gfx from "./screen_gfx.js";
+import {
+  textConstraint,
+  homePlateDownShield,
+  octagonVerticalShield,
+  hexagonHorizontalShield,
+  hexagonVerticalShield,
+  homePlateUpShield,
+  ovalShield,
+  circleShield,
+  roundedRectShield,
+  pillShield,
+  trapezoidUpShield,
+  trapezoidDownShield,
+  pentagonUpShield,
+  diamondShield,
+  triangleDownShield,
+  escutcheonDownShield,
+  fishheadDownShield,
+  banneredShield,
+  paBeltShield,
+  bransonRouteShield,
+} from "@americana/maplibre-shield-generator";
 
-//Height of modifier banners
-export const bannerSizeH = 9 * Gfx.getPixelRatio();
-export const bannerPadding = 0.5 * Gfx.getPixelRatio();
-export const topPadding = 1 * Gfx.getPixelRatio();
+export function loadShields() {
+  const shields = {};
 
-export const shields = {};
-
-/**
- * Draws a shield with an ellipse background
- *
- * @param {*} fillColor - Color of ellipse background fill
- * @param {*} strokeColor - Color of ellipse outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} rectWidth - Width of ellipse (defaults to variable-width)
- * @returns a shield definition object
- */
-function ovalShield(fillColor, strokeColor, textColor, rectWidth) {
-  textColor = textColor ?? strokeColor;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "ellipse",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        rectWidth: rectWidth,
-      },
-    },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 2,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with circle background (special case of ovalShield)
- *
- * @param {*} fillColor - Color of circle background fill
- * @param {*} strokeColor - Color of circle outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @returns a shield definition object
- */
-function circleShield(fillColor, strokeColor, textColor) {
-  return ovalShield(fillColor, strokeColor, textColor, 20);
-}
-
-/**
- * Draws a shield with a rectangle background
- *
- * @param {*} fillColor - Color of rectangle background fill
- * @param {*} strokeColor - Color of rectangle outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} rectWidth - Width of rectangle (defaults to variable-width)
- * @param {*} radius - Corner radius of rectangle (defaults to 2)
- * @returns a shield definition object
- */
-function roundedRectShield(
-  fillColor,
-  strokeColor,
-  textColor,
-  rectWidth,
-  radius
-) {
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 2;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "roundedRectangle",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        rectWidth: rectWidth,
-        radius: radius,
-      },
-    },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
-    padding: {
-      left: 3,
-      right: 3,
-      top: 3,
-      bottom: 3,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with an escutcheon background, pointed downward
- *
- * @param {*} offset - Height of curved portion
- * @param {*} fillColor - Color of escutcheon background fill
- * @param {*} strokeColor - Color of escutcheon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of escutcheon (defaults to 0)
- * @param {*} rectWidth - Width of escutcheon (defaults to variable-width)
- * @returns a shield definition object
- */
-function escutcheonDownShield(
-  offset,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius,
-  rectWidth
-) {
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 0;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "escutcheon",
-      params: {
-        offset: offset,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        rectWidth: rectWidth,
-        radius: radius,
-        outlineWidth: 1,
-      },
-    },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 0 + offset / 2,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a triangle background, pointed downward
- *
- * @param {*} fillColor - Color of triangle background fill
- * @param {*} strokeColor - Color of triangle outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of triangle (defaults to 2)
- * @param {*} rectWidth - Width of triangle (defaults to variable-width)
- * @returns a shield definition object
- */
-function triangleDownShield(
-  fillColor,
-  strokeColor,
-  textColor,
-  radius,
-  rectWidth
-) {
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 2;
-
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "triangle",
-      params: {
-        pointUp: false,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        rectWidth: rectWidth,
-        radius: radius,
-      },
-    },
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    padding: {
-      left: 5,
-      right: 5,
-      top: 2,
-      bottom: 10,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a trapezoid background, with the short side on bottom
- *
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of trapezoid background fill
- * @param {*} strokeColor - Color of trapezoid outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of trapezoid (defaults to 0)
- * @param {*} rectWidth - Width of trapezoid (defaults to variable-width)
- * @returns a shield definition object
- */
-function trapezoidDownShield(
-  angle,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius,
-  rectWidth
-) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 0;
-
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "trapezoid",
-      params: {
-        angle: angleInRadians,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        rectWidth: rectWidth,
-        radius: radius,
-      },
-    },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
-    padding: {
-      left: 2 + 10 * Math.tan(angleInRadians),
-      right: 2 + 10 * Math.tan(angleInRadians),
-      top: 2,
-      bottom: 4,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a trapezoid background, with the short side on top
- *
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of trapezoid background fill
- * @param {*} strokeColor - Color of trapezoid outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of trapezoid (defaults to 0)
- * @param {*} rectWidth - Width of trapezoid (defaults to variable-width)
- * @returns a shield definition object
- */
-function trapezoidUpShield(
-  angle,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius,
-  rectWidth
-) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 0;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "trapezoid",
-      params: {
-        shortSideUp: true,
-        angle: angleInRadians,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        rectWidth: rectWidth,
-        radius: radius,
-      },
-    },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
-    padding: {
-      left: 2 + 10 * Math.tan(angleInRadians),
-      right: 2 + 10 * Math.tan(angleInRadians),
-      top: 4,
-      bottom: 2,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a diamond background
- *
- * @param {*} fillColor - Color of diamond background fill
- * @param {*} strokeColor - Color of diamond outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of diamond (defaults to 2)
- * @param {*} rectWidth - Width of diamond (defaults to variable-width)
- * @returns a shield definition object
- */
-function diamondShield(fillColor, strokeColor, textColor, radius, rectWidth) {
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 2;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "diamond",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        radius: radius,
-        rectWidth: rectWidth,
-      },
-    },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    padding: {
-      left: 4.5,
-      right: 4.5,
-      top: 5,
-      bottom: 5,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a pentagon background, pointed upward
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of pentagon background fill
- * @param {*} strokeColor - Color of pentagon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius1 - Corner radius of pointed side of pentagon (defaults to 2)
- * @param {*} radius2 - Corner radius of flat side of pentagon (defaults to 0)
- * @param {*} rectWidth - Width of pentagon (defaults to variable-width)
- * @returns a shield definition object
- */
-function pentagonUpShield(
-  offset,
-  angle,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius1,
-  radius2,
-  rectWidth
-) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  textColor = textColor ?? strokeColor;
-  radius1 = radius1 ?? 2;
-  radius2 = radius2 ?? 0;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "pentagon",
-      params: {
-        offset: offset,
-        angle: angleInRadians,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        radius1: radius1,
-        radius2: radius2,
-        rectWidth: rectWidth,
-      },
-    },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
-    padding: {
-      left: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
-      right: 2 + ((20 - offset) * Math.tan(angleInRadians)) / 2,
-      top: 1 + offset / 2,
-      bottom: 3,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a home plate background, pointed downward
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} fillColor - Color of home plate background fill
- * @param {*} strokeColor - Color of home plate outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius1 - Corner radius of pointed side of home plate (defaults to 2)
- * @param {*} radius2 - Corner radius of flat side of home plate (defaults to 2)
- * @param {*} rectWidth - Width of home plate (defaults to variable-width)
- * @returns a shield definition object
- */
-function homePlateDownShield(
-  offset,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius1,
-  radius2,
-  rectWidth
-) {
-  textColor = textColor ?? strokeColor;
-  radius1 = radius1 ?? 2;
-  radius2 = radius2 ?? 2;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "pentagon",
-      params: {
-        pointUp: false,
-        offset: offset,
-        angle: 0,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        radius1: radius1,
-        radius2: radius2,
-        rectWidth: rectWidth,
-      },
-    },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius2),
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 1 + offset,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a vertically-aligned hexagon background
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} fillColor - Color of hexagon background fill
- * @param {*} strokeColor - Color of hexagon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of hexagon (defaults to 2)
- * @param {*} rectWidth - Width of hexagon (defaults to variable-width)
- * @returns a shield definition object
- */
-function hexagonVerticalShield(
-  offset,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius,
-  rectWidth
-) {
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 2;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "hexagonVertical",
-      params: {
-        offset: offset,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        radius: radius,
-        rectWidth: rectWidth,
-      },
-    },
-    textLayoutConstraint: (spaceBounds, textBounds) =>
-      ShieldText.roundedRectTextConstraint(spaceBounds, textBounds, radius),
-    padding: {
-      left: 2,
-      right: 2,
-      top: 1 + offset,
-      bottom: 1 + offset,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a horizontally-aligned hexagon background
- *
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of hexagon background fill
- * @param {*} strokeColor - Color of hexagon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of hexagon (defaults to 2)
- * @param {*} rectWidth - Width of hexagon (defaults to variable-width)
- * @returns a shield definition object
- */
-function hexagonHorizontalShield(
-  angle,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius,
-  rectWidth
-) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 2;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "hexagonHorizontal",
-      params: {
-        angle: angleInRadians,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        radius: radius,
-        rectWidth: rectWidth,
-      },
-    },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    padding: {
-      left: 3,
-      right: 3,
-      top: 2,
-      bottom: 2,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with an octagon background
- *
- * @param {*} offset - Height of diagonal edges
- * @param {*} angle - Angle (in degrees) at which sides deviate from vertical
- * @param {*} fillColor - Color of octagon background fill
- * @param {*} strokeColor - Color of octagon outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} radius - Corner radius of octagon (defaults to 2)
- * @param {*} rectWidth - Width of octagon (defaults to variable-width)
- * @returns a shield definition object
- */
-function octagonVerticalShield(
-  offset,
-  angle,
-  fillColor,
-  strokeColor,
-  textColor,
-  radius,
-  rectWidth
-) {
-  let angleInRadians = (angle * Math.PI) / 180;
-  textColor = textColor ?? strokeColor;
-  radius = radius ?? 2;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "octagonVertical",
-      params: {
-        offset: offset,
-        angle: angleInRadians,
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        radius: radius,
-        rectWidth: rectWidth,
-      },
-    },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 2,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a shield with a pill-shaped background
- *
- * @param {*} fillColor - Color of pill background fill
- * @param {*} strokeColor - Color of pill outline stroke
- * @param {*} textColor - Color of text (defaults to strokeColor)
- * @param {*} rectWidth - Width of pill (defaults to variable-width)
- * @returns a shield definition object
- */
-function pillShield(fillColor, strokeColor, textColor, rectWidth) {
-  textColor = textColor ?? strokeColor;
-  return {
-    canvasDrawnBlank: {
-      drawFunc: "roundedRectangle",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-        rectWidth: rectWidth,
-        radius: 10,
-      },
-    },
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 2,
-      bottom: 2,
-    },
-    textColor: textColor,
-  };
-}
-
-/**
- * Draws a circle icon inside a black-outlined white square shield
- *
- * @param {*} fillColor - Color of circle icon background fill
- * @param {*} strokeColor - Color of circle icon outline
- * @returns a shield definition object
- */
-function paBeltShield(fillColor, strokeColor) {
-  return {
-    notext: true,
-    canvasDrawnBlank: {
-      drawFunc: "paBelt",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-      },
-    },
-  };
-}
-
-/**
- * Draws a rectangle icon inside a white-outlined green square shield
- *
- * @param {*} fillColor - Color of rectangle icon background fill
- * @param {*} strokeColor - Color of rectangle icon outline
- * @returns a shield definition object
- */
-function bransonRouteShield(fillColor, strokeColor) {
-  return {
-    notext: true,
-    canvasDrawnBlank: {
-      drawFunc: "branson",
-      params: {
-        fillColor: fillColor,
-        strokeColor: strokeColor,
-      },
-    },
-  };
-}
-
-/**
- * Adds banner text above a shield
- *
- * @param {*} baseDef - Shield definition object
- * @param {*} modifiers - Array of strings to be displayed above shield
- * @returns a shield definition object
- */
-function banneredShield(baseDef, modifiers) {
-  return {
-    modifiers: modifiers,
-    ...baseDef,
-  };
-}
-
-export function loadShields(shieldImages) {
   // Multi-use shields
 
   // Triangle shields
   let triangleConvexDownShield = {
-    backgroundImage: [
-      shieldImages.shield_tri_convex_2,
-      shieldImages.shield_tri_convex_3,
-    ],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    spriteBlank: ["shield_tri_convex_2", "shield_tri_convex_3"],
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -653,16 +44,15 @@ export function loadShields(shieldImages) {
 
   let triangleConvexDownShieldBlue = {
     ...triangleConvexDownShield,
-    backgroundImage: [
-      shieldImages.shield_tri_convex_blue_2,
-      shieldImages.shield_tri_convex_blue_3,
-    ],
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.blue,
   };
 
   let triangleConvexDownShieldRedBlue = {
     ...triangleConvexDownShieldBlue,
-    backgroundImage: shieldImages.shield_tri_convex_red_blue_2,
+    colorLighten: Color.shields.blue,
+    colorDarken: Color.shields.red,
   };
 
   let triangleConvexUpShield = {
@@ -678,37 +68,25 @@ export function loadShields(shieldImages) {
 
   // Other common shield shapes
   let badgeShield = {
-    backgroundImage: [shieldImages.shield_badge_2, shieldImages.shield_badge_3],
+    spriteBlank: ["shield_badge_2", "shield_badge_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 2,
-      right: 2,
+      left: 3,
+      right: 3,
       top: 4,
       bottom: 5,
     },
   };
 
-  let fishheadShieldRed = {
-    backgroundImage: [
-      shieldImages.shield_fishhead_red_2,
-      shieldImages.shield_fishhead_red_3,
-    ],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
-    textColor: Color.shields.white,
+  let badgeShieldCrossbar = {
+    spriteBlank: ["shield_badge_crossbar_2", "shield_badge_crossbar_3"],
+    textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 3,
-      bottom: 5,
+      left: 3,
+      right: 3,
+      top: 6,
+      bottom: 4,
     },
-  };
-
-  let fishheadShieldBlue = {
-    ...fishheadShieldRed,
-    backgroundImage: [
-      shieldImages.shield_fishhead_blue_2,
-      shieldImages.shield_fishhead_blue_3,
-    ],
   };
 
   // Default
@@ -725,22 +103,51 @@ export function loadShields(shieldImages) {
   };
 
   // NORTH AMERICA
+  shields["GLCT"] = {
+    notext: true,
+    overrideByRef: {
+      LECT: {
+        spriteBlank: "shield_glct_lect",
+      },
+      LHCT: {
+        spriteBlank: "shield_glct_lhct",
+      },
+      LMCT: {
+        spriteBlank: "shield_glct_lmct",
+        colorLighten: Color.shields.green,
+      },
+      LSCT: {
+        spriteBlank: "shield_glct_lsct",
+      },
+    },
+  };
+  shields["GLCT:Loop"] = {
+    ...shields["GLCT"],
+    banners: ["LOOP"],
+    bannerTextColor: Color.shields.brown,
+    overrideByRef: {
+      LMCT: {
+        spriteBlank: "shield_glct_lmct",
+        colorLighten: Color.shields.brown,
+      },
+    },
+  };
 
   // Canada
   shields["CA:transcanada"] = {
-    backgroundImage: shieldImages.shield_ca_tch,
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    spriteBlank: ["shield_ca_tch_2", "shield_ca_tch_3"],
     textColor: Color.shields.green,
     padding: {
-      left: 2,
-      right: 2,
-      top: 5,
-      bottom: 4,
+      left: 5,
+      right: 5,
+      top: 7,
+      bottom: 5,
     },
   };
   shields["CA:transcanada:namedRoute"] = {
-    norefImage: shieldImages.shield_ca_tch,
-    notext: true,
+    noref: {
+      spriteBlank: "shield_ca_tch_2",
+    },
   };
 
   // Alberta
@@ -758,13 +165,13 @@ export function loadShields(shieldImages) {
 
   // British Columbia
   shields["CA:BC"] = {
-    backgroundImage: [shieldImages.shield_ca_bc_2, shieldImages.shield_ca_bc_3],
+    spriteBlank: ["shield_ca_bc_2", "shield_ca_bc_3"],
     textColor: Color.shields.blue,
     padding: {
-      left: 3.5,
-      right: 3.5,
-      top: 5,
-      bottom: 4,
+      left: 3,
+      right: 3,
+      top: 5.5,
+      bottom: 4.5,
     },
   };
 
@@ -780,24 +187,21 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     30
   );
-  shields["CA:MB:Winnipeg"] = {
-    backgroundImage: shieldImages.shield_ca_mb_winnipeg,
-    textColor: Color.shields.black,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 3,
-    },
-  };
+  shields["CA:MB:Winnipeg"] = trapezoidDownShield(
+    10,
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2
+  );
 
   // New Brunswick
   shields["CA:NB:tertiary"] = {
-    backgroundImage: shieldImages.shield_ca_nb,
+    spriteBlank: "shield_ca_nb",
     textColor: Color.shields.black,
     padding: {
       left: 4,
-      right: 4,
+      right: 5,
       top: 5,
       bottom: 5,
     },
@@ -811,26 +215,75 @@ export function loadShields(shieldImages) {
     colorLighten: Color.shields.green,
   };
 
+  // Newfoundland and Labrador
+  shields["CA:NL"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.green,
+    Color.shields.black
+  );
+
   // Nova Scotia
-  shields["CA:NS:H"] = {
-    backgroundImage: shieldImages.shield_ca_ns_h,
-    textColor: Color.shields.white,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 6.5,
-      bottom: 4,
-    },
-  };
+  shields["CA:NS:H"] = escutcheonDownShield(
+    12,
+    Color.shields.blue,
+    Color.shields.white
+  );
   shields["CA:NS:T"] = badgeShield;
   shields["CA:NS:R"] = roundedRectShield(
     Color.shields.brown,
     Color.shields.white
   );
+  shields["CA:NS:S"] = {
+    notext: true,
+    overrideByName: {
+      "A. Murray MacKay Bridge": {
+        spriteBlank: "shield_ca_ns_s_mkb",
+      },
+      "Angus L. MacDonald Bridge": {
+        spriteBlank: "shield_ca_ns_s_mdb",
+      },
+      "Bras d'Or Lakes Scenic Drive": {
+        spriteBlank: "shield_ca_ns_s_bdolsd",
+      },
+      "Ceilidh Trail": {
+        spriteBlank: "shield_ca_ns_s_cet",
+      },
+      "Cabot Trail": {
+        spriteBlank: "shield_ca_ns_s_ct",
+      },
+      "Digby Neck and Islands Scenic Drive": {
+        spriteBlank: "shield_ca_ns_s_dnisd",
+      },
+      "Evangeline Trail": {
+        spriteBlank: "shield_ca_ns_s_et",
+      },
+      "Fleur-de-lis Trail": {
+        spriteBlank: "shield_ca_ns_s_fdlt",
+      },
+      "Glooscap Trail": {
+        spriteBlank: "shield_ca_ns_s_gt",
+      },
+      "Kejimkujik Scenic Drive": {
+        spriteBlank: "shield_ca_ns_s_ksd",
+      },
+      "Lighthouse Route": {
+        spriteBlank: "shield_ca_ns_s_lr",
+      },
+      "Marine Drive": {
+        spriteBlank: "shield_ca_ns_s_md",
+      },
+      "Marconi Trail": {
+        spriteBlank: "shield_ca_ns_s_mt",
+      },
+      "Sunrise Trail": {
+        spriteBlank: "shield_ca_ns_s_st",
+      },
+    },
+  };
 
   // Northwest Territories
   shields["CA:NT"] = {
-    backgroundImage: shieldImages.shield_ca_nt,
+    spriteBlank: "shield_ca_nt",
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -842,19 +295,27 @@ export function loadShields(shieldImages) {
 
   // Ontario
   shields["CA:ON:primary"] = {
-    backgroundImage: shieldImages.shield_ca_on_primary,
+    spriteBlank: "shield_ca_on_primary",
     textColor: Color.shields.black,
     padding: {
       left: 3.5,
       right: 3.5,
       top: 6,
-      bottom: 3,
+      bottom: 2,
+    },
+    overrideByRef: {
+      QEW: {
+        textColor: Color.shields.blue,
+        colorLighten: Color.shields.blue,
+        colorDarken: Color.shields.yellow,
+      },
     },
   };
   shields["CA:ON:primary:Toll"] = {
     ...shields["CA:ON:primary"],
-    backgroundImage: shieldImages.shield_ca_on_primary_toll,
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.blue,
   };
   shields["CA:ON:private_toll"] = banneredShield(
     pillShield(Color.shields.white, Color.shields.blue, Color.shields.black),
@@ -972,10 +433,36 @@ export function loadShields(shieldImages) {
   shields["CA:ON:Muskoka:West"] = banneredShield(shields["CA:ON:Muskoka"], [
     "WEST",
   ]);
+  shields["CA:ON:Hamilton:Expressway"] = {
+    notext: true,
+    overrideByName: {
+      "Lincoln M. Alexander Parkway": {
+        spriteBlank: "shield_ca_on_hamilton_blue",
+      },
+      "Red Hill Valley Parkway": {
+        spriteBlank: "shield_ca_on_hamilton_green",
+      },
+    },
+  };
+  shields["CA:ON:Toronto:Expressway"] = {
+    spriteBlank: "shield_ca_on_toronto",
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 5,
+      right: 5,
+      top: 5,
+      bottom: 5,
+    },
+    refsByName: {
+      "Don Valley Parkway": "DV",
+      "Gardiner Expressway": "G",
+    },
+  };
 
   // Prince Edward Island
   shields["CA:PE"] = {
-    backgroundImage: shieldImages.shield_ca_pe,
+    spriteBlank: "shield_ca_pe",
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -987,20 +474,17 @@ export function loadShields(shieldImages) {
 
   // Quebec
   shields["CA:QC:A"] = {
-    backgroundImage: [
-      shieldImages.shield_ca_qc_a_2,
-      shieldImages.shield_ca_qc_a_3,
-    ],
+    spriteBlank: ["shield_ca_qc_a_2", "shield_ca_qc_a_3"],
     textColor: Color.shields.white,
     padding: {
       left: 2,
       right: 2,
       top: 5.5,
-      bottom: 4,
+      bottom: 4.5,
     },
   };
   shields["CA:QC:R"] = {
-    backgroundImage: shieldImages.shield_ca_qc_r,
+    spriteBlank: "shield_ca_qc_r",
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -1017,7 +501,7 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
   shields["CA:SK:secondary"] = {
-    backgroundImage: shieldImages.shield_ca_sk_secondary,
+    spriteBlank: "shield_ca_sk_secondary",
     textColor: Color.shields.green,
     padding: {
       left: 2,
@@ -1033,7 +517,16 @@ export function loadShields(shieldImages) {
   );
 
   // Yukon
-  shields["CA:YT"] = roundedRectShield(Color.shields.white, Color.shields.red);
+  shields["CA:YT"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.red),
+    overrideByRef: {
+      2: roundedRectShield(Color.shields.white, "#ce9d00"),
+      3: roundedRectShield(Color.shields.white, "#ce9d00"),
+      5: roundedRectShield(Color.shields.white, Color.shields.blue),
+      6: roundedRectShield(Color.shields.white, Color.shields.green),
+      11: roundedRectShield(Color.shields.white, Color.shields.blue),
+    },
+  };
 
   // Haiti
   shields["HT:RN-road"] = shields["HT:RD-road"] = roundedRectShield(
@@ -1045,12 +538,101 @@ export function loadShields(shieldImages) {
 
   // Carreteras Federales
   shields["MX:MX"] = {
-    backgroundImage: shieldImages.shield_mx_mx,
+    spriteBlank: ["shield_mx_mx_2", "shield_mx_mx_3", "shield_mx_mx_4"],
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 1,
+      right: 1,
+      top: 5,
+      bottom: 4,
+    },
+  };
+  [
+    "AGS",
+    "BC",
+    "BCS",
+    "CAMP",
+    "COAH",
+    "COL",
+    "CHIS",
+    "CHIH",
+    "DGO",
+    "GTO",
+    "GRO",
+    "HGO",
+    "JAL",
+    // FIXME missing State of Mexico
+    "MICH",
+    "MOR",
+    "NAY",
+    "NL",
+    "OAX",
+    "PUE",
+    "QRO",
+    "Q.ROO",
+    "SLP",
+    "SIN",
+    "SON",
+    "TAB",
+    "TAM",
+    "TLAX",
+    "VER",
+    "YUC",
+    "ZAC",
+  ].forEach(
+    (state) =>
+      (shields[`MX:${state}`] = {
+        spriteBlank: ["shield_mx_state_2", "shield_mx_state_3"],
+        textColor: Color.shields.black,
+        padding: {
+          left: 2,
+          right: 2,
+          top: 5.5,
+          bottom: 4.5,
+        },
+      })
+  );
+
+  // Ejes Viales (CDMX)
+  shields["MX:CDMX:EJE:CENTRAL"] = {
+    noref: {
+      spriteBlank: "shield_mx_cdmx_eje_central",
+    },
+  };
+  shields["MX:CDMX:EJE:NTE"] = {
+    spriteBlank: "shield_mx_cdmx_eje_nte",
     padding: {
       left: 2,
       right: 2,
-      top: 3,
+      top: 8,
       bottom: 2,
+    },
+  };
+  shields["MX:CDMX:EJE:OTE"] = {
+    spriteBlank: "shield_mx_cdmx_eje_ote",
+    padding: {
+      left: 2,
+      right: 8,
+      top: 2,
+      bottom: 2,
+    },
+  };
+  shields["MX:CDMX:EJE:PTE"] = {
+    spriteBlank: "shield_mx_cdmx_eje_pte",
+    padding: {
+      left: 8,
+      right: 2,
+      top: 2,
+      bottom: 2,
+    },
+  };
+  shields["MX:CDMX:EJE:SUR"] = {
+    spriteBlank: "shield_mx_cdmx_eje_sur",
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 8,
     },
   };
 
@@ -1058,11 +640,8 @@ export function loadShields(shieldImages) {
 
   // Interstate Highways
   shields["US:I"] = {
-    backgroundImage: [
-      shieldImages.shield_us_interstate_2,
-      shieldImages.shield_us_interstate_3,
-    ],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    spriteBlank: ["shield_us_interstate_2", "shield_us_interstate_3"],
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -1070,19 +649,21 @@ export function loadShields(shieldImages) {
       top: 6,
       bottom: 5,
     },
+    bannerMap: {
+      "US:I:Alternate": ["ALT"],
+      "US:I:Express": ["EXPR"],
+      "US:I:Express:Toll": ["EXPR"],
+      "US:I:Future": ["FUT"],
+      "US:I:Spur": ["SPUR"],
+      "US:I:Truck": ["TRK"],
+    },
   };
-
-  shields["US:I:Alternate"] = banneredShield(shields["US:I"], ["ALT"]);
-  shields["US:I:Future"] = banneredShield(shields["US:I"], ["FUT"]);
-  shields["US:I:Truck"] = banneredShield(shields["US:I"], ["TRK"]);
-  shields["US:I:Express"] = banneredShield(shields["US:I"], ["EXPR"]);
-  shields["US:I:Express:Toll"] = shields["US:I:Express"];
 
   shields["US:I:Business:Loop"] = {
     ...shields["US:I"],
-    backgroundImage: [
-      shieldImages.shield_us_interstate_business_2,
-      shieldImages.shield_us_interstate_business_3,
+    spriteBlank: [
+      "shield_us_interstate_business_2",
+      "shield_us_interstate_business_3",
     ],
   };
 
@@ -1091,76 +672,121 @@ export function loadShields(shieldImages) {
   shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
 
   // US Highways
-  shields["US:US"] = badgeShield;
-
-  shields["US:US:Truck"] = banneredShield(shields["US:US"], ["TRK"]);
-  shields["US:US:Truck:Bypass"] = banneredShield(shields["US:US"], [
-    "TRK",
-    "BYP",
-  ]);
-
-  shields["US:US:Spur"] = banneredShield(shields["US:US"], ["SPUR"]);
-
-  shields["US:US:Connector"] = banneredShield(shields["US:US"], ["CONN"]);
-
-  shields["US:US:Bypass"] = banneredShield(shields["US:US"], ["BYP"]);
-
-  shields["US:US:Business"] = banneredShield(shields["US:US"], ["BUS"]);
-  shields["US:US:Business:Alternate"] = banneredShield(shields["US:US"], [
-    "BUS",
-    "ALT",
-  ]);
-  shields["US:US:Business:Truck"] = banneredShield(shields["US:US"], [
-    "BUS",
-    "TRK",
-  ]);
-
-  shields["US:US:Alternate"] = banneredShield(shields["US:US"], ["ALT"]);
-  shields["US:US:Alternate:Truck:Business"] = banneredShield(shields["US:US"], [
-    "ALT",
-    "TRK",
-    "BUS",
-  ]);
-
-  shields["US:US:Historic"] = {
+  shields["US:US"] = {
     ...badgeShield,
-    textColor: Color.shields.brown,
-    colorLighten: Color.shields.brown,
+    bannerMap: {
+      "US:US:Truck": ["TRK"],
+      "US:US:Truck:Bypass": ["TRK", "BYP"],
+      "US:US:Spur": ["SPUR"],
+      "US:US:Connector": ["CONN"],
+      "US:US:Bypass": ["BYP"],
+      "US:US:Future": ["FUT"],
+      "US:US:Business": ["BUS"],
+      "US:US:Business:Alternate": ["BUS", "ALT"],
+      "US:US:Business:Truck": ["BUS", "TRK"],
+      "US:US:Alternate": ["ALT"],
+      "US:US:Alternate:Truck:Business": ["ALT", "TRK", "BUS"],
+    },
   };
 
-  // Federal Agencies
+  shields["US:US:Historic"] = banneredShield(
+    {
+      ...badgeShieldCrossbar,
+      textColor: Color.shields.brown,
+      colorLighten: Color.shields.brown,
+    },
+    ["HIST"],
+    Color.shields.brown
+  );
+
+  // US Federal Agencies
+
+  // Bureau of Indian Affairs
   shields["US:BIA"] = {
-    backgroundImage: shieldImages.shield_us_bia,
+    spriteBlank: "shield_us_bia",
     textColor: Color.shields.black,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
+      left: 1,
+      right: 1,
+      top: 3,
       bottom: 5,
     },
   };
 
+  // Department of Energy: see California
+  // National Park Service
   shields["US:NPS:Blue_Ridge"] = {
-    norefImage: shieldImages.shield_us_nps_brp,
+    noref: {
+      spriteBlank: "shield_us_nps_brp",
+    },
+  };
+  shields["US:NPS:Natchez_Trace"] = {
+    noref: {
+      spriteBlank: "shield_us_nps_ntp",
+    },
+  };
+  shields["US:NHT"] = {
+    notext: true,
+    overrideByName: {
+      "Oregon National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_oreg",
+      },
+      "Overmountain Victory National Historic Trail Commemorative Motor Route":
+        {
+          spriteBlank: "shield_us_nht_ovvi",
+        },
+      "Selma to Montgomery National Historic Trail": {
+        spriteBlank: "shield_us_nht_semo",
+      },
+    },
+  };
+
+  // Other multistate routes
+
+  // Great Lakes Seaway Trail
+  shields["US:GLST"] = {
+    noref: {
+      spriteBlank: "shield_us_glst",
+    },
+  };
+
+  // Great River Road
+  shields["US:GRR"] = {
+    noref: {
+      spriteBlank: "shield_us_grr",
+    },
+  };
+
+  // Lincoln Heritage Trail
+  shields["US:LHT"] = {
+    spriteBlank: "shield_us_lht",
     notext: true,
   };
 
+  // Ohio River Scenic Byway
+  shields["US:ORSB"] = {
+    spriteBlank: ["shield_us_orsb"],
+    notext: true,
+  };
+
+  // US States
+
   // Alaska
   shields["US:AK"] = {
-    backgroundImage: shieldImages.shield_us_ak,
+    spriteBlank: "shield_us_ak",
     textColor: Color.shields.black,
     padding: {
-      left: 5,
-      right: 1,
-      top: 1,
-      bottom: 8,
+      left: 5.5,
+      right: 1.5,
+      top: 1.5,
+      bottom: 9,
     },
   };
 
   // Alabama
   shields["US:AL"] = {
-    backgroundImage: [shieldImages.shield_us_al_2, shieldImages.shield_us_al_3],
+    spriteBlank: ["shield_us_al_2", "shield_us_al_3"],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -1168,8 +794,11 @@ export function loadShields(shieldImages) {
       top: 3,
       bottom: 6,
     },
+    bannerMap: {
+      "US:AL:Truck": ["TRK"],
+    },
   };
-  shields["US:AL:Truck"] = banneredShield(shields["US:AL"], ["TRK"]);
+
   [
     "Autauga",
     "Baldwin",
@@ -1247,16 +876,37 @@ export function loadShields(shieldImages) {
         Color.shields.yellow
       ))
   );
+  shields["US:AL:Baldwin:Baldwin_Beach_Express"] = {
+    ...roundedRectShield(Color.shields.green, Color.shields.white),
+    ref: "BBX",
+  };
+  shields["US:AL:Baldwin:Foley_Beach_Express"] = {
+    spriteBlank: "shield_us_al_foley",
+    notext: true,
+  };
+
+  // Arizona
+  shields["US:AZ:Scenic"] = {
+    spriteBlank: "shield_us_az_scenic",
+    notext: true,
+  };
 
   // Arkansas
   shields["US:AR"] = {
-    backgroundImage: [shieldImages.shield_us_ar_2, shieldImages.shield_us_ar_3],
+    spriteBlank: ["shield_us_ar_2", "shield_us_ar_3"],
     textColor: Color.shields.black,
     padding: {
       left: 3,
       right: 4,
       top: 4,
       bottom: 5,
+    },
+    overrideByRef: {
+      980: {
+        textColor: Color.shields.white,
+        colorLighten: Color.shields.white,
+        colorDarken: Color.shields.blue,
+      },
     },
   };
   [
@@ -1308,7 +958,7 @@ export function loadShields(shieldImages) {
   );
 
   shields["US:AS"] = {
-    backgroundImage: shieldImages.shield_us_as,
+    spriteBlank: "shield_us_as",
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -1319,7 +969,7 @@ export function loadShields(shieldImages) {
   };
 
   shields["US:AZ"] = {
-    backgroundImage: [shieldImages.shield_us_az_2, shieldImages.shield_us_az_3],
+    spriteBlank: ["shield_us_az_2", "shield_us_az_3"],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -1327,10 +977,13 @@ export function loadShields(shieldImages) {
       top: 3,
       bottom: 4,
     },
+    bannerMap: {
+      "US:AZ:Spur": ["SPUR"],
+      "US:AZ:Loop": ["LOOP"],
+      "US:AZ:Business": ["BUS"],
+    },
   };
-  shields["US:AZ:Spur"] = banneredShield(shields["US:AZ"], ["SPUR"]);
-  shields["US:AZ:Loop"] = banneredShield(shields["US:AZ"], ["LOOP"]);
-  shields["US:AZ:Business"] = banneredShield(shields["US:AZ"], ["BUS"]);
+
   ["Coconino", "Mohave", "Yavapai"].forEach(
     (county) =>
       (shields[`US:AZ:${county}`] = pentagonUpShield(
@@ -1347,7 +1000,7 @@ export function loadShields(shieldImages) {
 
   // California
   shields["US:CA"] = {
-    backgroundImage: [shieldImages.shield_us_ca_2, shieldImages.shield_us_ca_3],
+    spriteBlank: ["shield_us_ca_2", "shield_us_ca_3"],
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -1355,26 +1008,34 @@ export function loadShields(shieldImages) {
       top: 6,
       bottom: 4,
     },
+    bannerMap: {
+      "US:CA:Business": ["BUS"],
+    },
   };
-  shields["US:CA:Business"] = banneredShield(shields["US:CA"], ["BUS"]);
-  shields["US:CA:CR"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
+  ["CR", "Nevada", "Sierra"].forEach(
+    (county) =>
+      (shields[`US:CA:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
   );
   shields["US:CA:Mendocino"] = roundedRectShield(
     Color.shields.green,
     Color.shields.white
   );
   shields["US:CA:San_Francisco:49_Mile_Scenic_Drive"] = {
-    backgroundImage: shieldImages.shield_us_ca_sf_49,
+    spriteBlank: "shield_us_ca_sf_49",
     notext: true,
   };
 
+  // Department of Energy
+  shields["US:DOE:Hanford"] = shields["US:CA"];
+
   // Colorado
   shields["US:CO"] = {
-    backgroundImage: shieldImages.shield_us_co,
+    spriteBlank: "shield_us_co",
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1384,12 +1045,12 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:CO:E470"] = {
-    backgroundImage: shieldImages.shield_us_co_e470,
+    spriteBlank: "shield_us_co_e470",
     textColor: Color.shields.black,
     padding: {
       left: 2,
       right: 2,
-      top: 9.5,
+      top: 10,
       bottom: 2,
     },
   };
@@ -1432,17 +1093,30 @@ export function loadShields(shieldImages) {
     Color.shields.green,
     Color.shields.white
   );
+  shields["US:CO:Weld:WCP"] = {
+    ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.green),
+    textHaloColor: Color.shields.white,
+  };
 
   // Connecticut
   shields["US:CT"] = roundedRectShield(
     Color.shields.white,
     Color.shields.black
   );
+  shields["US:CT:Parkway"] = {
+    notext: true,
+    overrideByName: {
+      "Merritt Parkway": {
+        spriteBlank: "shield_us_ct_parkway_merritt",
+      },
+    },
+  };
 
   // Washington, D.C.
   shields["US:DC"] = {
-    backgroundImage: shieldImages.shield_us_dc,
+    spriteBlank: "shield_us_dc",
     textColor: Color.shields.black,
+    textHaloColor: Color.shields.white,
     padding: {
       left: 2,
       right: 2,
@@ -1452,14 +1126,18 @@ export function loadShields(shieldImages) {
   };
 
   // Delaware
-  shields["US:DE"] = ovalShield(Color.shields.white, Color.shields.black);
-  shields["US:DE:Alternate"] = banneredShield(shields["US:DE"], ["ALT"]);
-  shields["US:DE:Business"] = banneredShield(shields["US:DE"], ["BUS"]);
-  shields["US:DE:Truck"] = banneredShield(shields["US:DE"], ["TRK"]);
+  shields["US:DE"] = {
+    ...ovalShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:DE:Alternate": ["ALT"],
+      "US:DE:Business": ["BUS"],
+      "US:DE:Truck": ["TRK"],
+    },
+  };
 
   // Florida
   shields["US:FL"] = {
-    backgroundImage: [shieldImages.shield_us_fl_2, shieldImages.shield_us_fl_3],
+    spriteBlank: ["shield_us_fl_2", "shield_us_fl_3"],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1469,7 +1147,7 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:FL:Toll"] = {
-    backgroundImage: shieldImages.shield_us_fl_toll,
+    spriteBlank: "shield_us_fl_toll",
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -1479,19 +1157,30 @@ export function loadShields(shieldImages) {
     },
   };
   shields["US:FL:Turnpike"] = {
-    norefImage: shieldImages.shield_us_fl_turnpike,
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_fl_turnpike",
+    },
   };
-  shields["US:FL:CR"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
-  );
+
+  shields["US:DE"] = {
+    ...ovalShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:DE:Alternate": ["ALT"],
+      "US:DE:Business": ["BUS"],
+      "US:DE:Truck": ["TRK"],
+    },
+  };
+
+  shields["US:FL:CR"] = {
+    ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.yellow),
+    bannerMap: {
+      "US:FL:CR:Truck": ["TRK"],
+    },
+  };
 
   // Georgia
   shields["US:GA"] = {
-    backgroundImage: [shieldImages.shield_us_ga_2, shieldImages.shield_us_ga_3],
+    spriteBlank: ["shield_us_ga_2", "shield_us_ga_3"],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -1499,22 +1188,31 @@ export function loadShields(shieldImages) {
       top: 5,
       bottom: 4,
     },
+    bannerMap: {
+      "US:GA:Truck:Bypass": ["TRK", "BYP"],
+      "US:GA:Spur": ["SPUR"],
+      "US:GA:Loop": ["LOOP"],
+      "US:GA:Connector": ["CONN"],
+      "US:GA:Bypass": ["BYP"],
+      "US:GA:Business": ["BUS"],
+      "US:GA:Alternate": ["ALT"],
+    },
+    overrideByRef: {
+      515: {
+        textColor: Color.shields.blue,
+        colorLighten: Color.shields.blue,
+      },
+      520: {
+        textColor: Color.shields.green,
+        colorLighten: Color.shields.green,
+      },
+    },
   };
-  shields["US:GA:Truck:Bypass"] = banneredShield(shields["US:GA"], [
-    "TRK",
-    "BYP",
-  ]);
-  shields["US:GA:Spur"] = banneredShield(shields["US:GA"], ["SPUR"]);
-  shields["US:GA:Loop"] = banneredShield(shields["US:GA"], ["LOOP"]);
-  shields["US:GA:Connector"] = banneredShield(shields["US:GA"], ["CONN"]);
-  shields["US:GA:Bypass"] = banneredShield(shields["US:GA"], ["BYP"]);
-  shields["US:GA:Business"] = banneredShield(shields["US:GA"], ["BUS"]);
-  shields["US:GA:Alternate"] = banneredShield(shields["US:GA"], ["ALT"]);
 
   // Guam
   shields["US:GU"] = {
-    backgroundImage: [shieldImages.shield_us_gu_2, shieldImages.shield_us_gu_3],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    spriteBlank: ["shield_us_gu_2", "shield_us_gu_3"],
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.white,
     padding: {
       left: 1,
@@ -1538,13 +1236,16 @@ export function loadShields(shieldImages) {
 
   // Idaho
   shields["US:ID"] = {
-    backgroundImage: [shieldImages.shield_us_id_2, shieldImages.shield_us_id_3],
+    spriteBlank: ["shield_us_id_2", "shield_us_id_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 5,
-      right: 1,
-      top: 1,
-      bottom: 8,
+      left: 5.5,
+      right: 1.5,
+      top: 1.5,
+      bottom: 9,
+    },
+    bannerMap: {
+      "US:ID:Business": ["BUS"],
     },
   };
 
@@ -1605,8 +1306,9 @@ export function loadShields(shieldImages) {
       ))
   );
   shields["US:IL:Cook:Chicago:Skyway"] = {
-    norefImage: shieldImages.shield_us_il_skyway,
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_il_skyway",
+    },
   };
 
   // Indiana
@@ -1615,24 +1317,32 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:IN:Toll"] = {
-    norefImage: shieldImages.shield_us_in_toll,
+    noref: {
+      spriteBlank: "shield_us_in_toll",
+    },
+  };
+  shields["US:IN:JHMHT"] = {
+    spriteBlank: ["shield_us_in_jhmht"],
     notext: true,
   };
 
   // Kansas
   shields["US:KS"] = {
-    backgroundImage: [shieldImages.shield_us_ks_2, shieldImages.shield_us_ks_3],
+    spriteBlank: ["shield_us_ks_2", "shield_us_ks_3"],
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 2,
     },
   };
+  shields["US:KS:Truck"] = banneredShield(shields["US:KS"], ["TRK"]);
   shields["US:KS:Turnpike"] = {
-    norefImage: shieldImages.shield_us_ks_turnpike,
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ks_turnpike",
+    },
   };
   [
     "Clay",
@@ -1658,10 +1368,15 @@ export function loadShields(shieldImages) {
   );
 
   // Kentucky
-  shields["US:KY"] = pillShield(Color.shields.white, Color.shields.black);
-  shields["US:KY:Business"] = banneredShield(shields["US:KY"], ["BUS"]);
+  shields["US:KY"] = {
+    ...pillShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:KY:Business": ["BUS"],
+    },
+  };
+
   shields["US:KY:AA"] = shields["US:KY:Parkway"] = {
-    backgroundImage: shieldImages.shield_us_ky_parkway,
+    spriteBlank: "shield_us_ky_parkway",
     textColor: Color.shields.blue,
     padding: {
       left: 2,
@@ -1669,11 +1384,20 @@ export function loadShields(shieldImages) {
       top: 2,
       bottom: 6,
     },
+    refsByName: {
+      "Audubon Parkway": "AU",
+      "Bluegrass Parkway": "BG",
+      "Cumberland Parkway": "LN",
+      "Hal Rogers Parkway": "HR",
+      "Mountain Parkway": "MP",
+      "Purchase Parkway": "JC",
+      "Western Kentucky Parkway": "WK",
+    },
   };
 
   // Louisiana
   shields["US:LA"] = {
-    backgroundImage: [shieldImages.shield_us_la_2, shieldImages.shield_us_la_3],
+    spriteBlank: ["shield_us_la_2", "shield_us_la_3"],
     textColor: Color.shields.black,
     padding: {
       left: 2.5,
@@ -1681,10 +1405,13 @@ export function loadShields(shieldImages) {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:LA:Business": ["BUS"],
+      "US:LA:Spur": ["SPUR"],
+      "US:LA:Truck": ["TRK"],
+    },
   };
-  shields["US:LA:Business"] = banneredShield(shields["US:LA"], ["BUS"]);
-  shields["US:LA:Spur"] = banneredShield(shields["US:LA"], ["SPUR"]);
-  shields["US:LA:Truck"] = banneredShield(shields["US:LA"], ["TRK"]);
+
   [
     "Bienville",
     "Caddo",
@@ -1705,14 +1432,18 @@ export function loadShields(shieldImages) {
     "Webster",
     "Winn",
   ].forEach(
-    (county) =>
-      (shields[`US:LA:${county}`] = pentagonUpShield(
+    (parish) =>
+      (shields[`US:LA:${parish}`] = pentagonUpShield(
         3,
         15,
         Color.shields.blue,
         Color.shields.yellow
       ))
   );
+  shields["US:LA:Causeway"] = {
+    spriteBlank: "shield_us_la_causeway",
+    notext: true,
+  };
 
   // Massachusetts
   shields["US:MA"] = roundedRectShield(
@@ -1720,46 +1451,66 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:MA:Turnpike"] = {
-    norefImage: shieldImages.shield_us_ma_pike,
+    noref: {
+      spriteBlank: "shield_us_ma_pike",
+    },
   };
 
   // Maryland
   shields["US:MD"] = {
-    backgroundImage: [shieldImages.shield_us_md_2, shieldImages.shield_us_md_3],
+    spriteBlank: ["shield_us_md_2", "shield_us_md_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 4,
-      right: 4,
-      top: 7,
-      bottom: 3,
+      left: 2,
+      right: 2,
+      top: 6,
+      bottom: 2,
+    },
+    bannerMap: {
+      "US:MD:Alternate": ["ALT"],
+      "US:MD:Bypass": ["BYP"],
     },
   };
-  shields["US:MD:Alternate"] = banneredShield(shields["US:MD"], ["ALT"]);
-  shields["US:MD:Bypass"] = banneredShield(shields["US:MD"], ["BYP"]);
   shields["US:MD:Business"] = banneredShield(
     {
       ...shields["US:MD"],
       textColor: Color.shields.green,
       colorLighten: Color.shields.green,
     },
-    ["BUS"]
+    ["BUS"],
+    Color.shields.green
   );
 
   // Maine
-  shields["US:ME"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:ME:Business"] = banneredShield(shields["US:ME"], ["BUS"]);
+  shields["US:ME"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:ME:Business": ["BUS"],
+    },
+  };
+  shields["US:ME:Turnpike"] = {
+    spriteBlank: "shield_us_me_turnpike",
+    notext: true,
+  };
 
   // Michigan
-  shields["US:MI"] = diamondShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    24
-  );
+  shields["US:MI"] = {
+    ...diamondShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:MI:Business": ["BUS"],
+      "US:MI:Connector": ["CONN"],
+    },
+    overrideByRef: {
+      185: diamondShield(
+        Color.shields.brown,
+        Color.shields.white,
+        Color.shields.white,
+        0,
+        24
+      ),
+    },
+  };
+
   ["CR", "Benzie", "Gogebic", "Kalkaska", "Montcalm", "Roscommon"].forEach(
     (county) =>
       (shields[`US:MI:${county}`] = pentagonUpShield(
@@ -1786,7 +1537,7 @@ export function loadShields(shieldImages) {
 
   // Minnesota
   shields["US:MN"] = {
-    backgroundImage: [shieldImages.shield_us_mn_2, shieldImages.shield_us_mn_3],
+    spriteBlank: ["shield_us_mn_2", "shield_us_mn_3"],
     textColor: Color.shields.white,
     padding: {
       left: 4,
@@ -1795,59 +1546,26 @@ export function loadShields(shieldImages) {
       bottom: 3,
     },
   };
+  shields["US:MN:Intercounty"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.yellow,
+    Color.shields.white
+  );
   [
-    "Aitkin",
-    "Anoka",
-    "Becker",
-    "Beltrami",
-    "Benton",
-    "Big_Stone",
-    "Blue_Earth",
     "Brown",
-    "Carlton",
-    "Carver",
-    "Cass",
-    "Chippewa",
     "Chisago",
-    "Clay",
     "Clearwater",
-    "Cook",
     "Cottonwood",
-    "Crow_Wing",
     "Dakota",
-    "Dodge",
-    "Douglas",
-    "Faribault",
-    "Fillmore",
     "Freeborn",
     "Goodhue",
-    "Grant",
-    "Hennepin",
-    "Houston",
-    "Hubbard",
     "Isanti",
-    "Itasca",
     "Jackson",
-    "Kanabec",
-    "Kandiyohi",
     "Kittson",
-    "Koochiching",
     "Lac_qui_Parle",
-    "Lake",
-    "Lake_of_the_Woods",
-    "Le_Sueur",
-    "Lincoln",
-    "Lyon",
-    "Mahnomen",
-    "Marshall",
-    "Martin",
     "McLeod",
     "Meeker",
-    "Mille_Lacs",
     "Morrison",
-    "Mower",
-    "Murray",
-    "Nicollet",
     "Nobles",
     "Norman",
     "Olmsted",
@@ -1856,40 +1574,24 @@ export function loadShields(shieldImages) {
     "Pine",
     "Pipestone",
     "Polk",
-    "Pope",
-    "Ramsey",
     "Red_Lake",
     "Redwood",
     "Renville",
-    "Rice",
-    "Rock",
     "Roseau",
     "Saint_Louis",
-    "Scott",
-    "Sherburne",
     "Sibley",
     "Stearns",
-    "Steele",
     "Stevens",
-    "Swift",
     "Todd",
     "Traverse",
     "Wabasha",
     "Wadena",
-    "Waseca",
     "Washington",
-    "Watonwan",
-    "Wilkin",
-    "Winona",
     "Wright",
     "Yellow_Medicine",
   ].forEach(
     (county) =>
-      ([
-        shields[`US:MN:${county}:CSAH`],
-        shields[`US:MN:${county}:CR`],
-        shields[`US:MN:${county}:Park_Access`],
-      ] = [
+      ([shields[`US:MN:${county}:CSAH`], shields[`US:MN:${county}:CR`]] = [
         pentagonUpShield(
           3,
           15,
@@ -1898,38 +1600,111 @@ export function loadShields(shieldImages) {
           Color.shields.white
         ),
         roundedRectShield(Color.shields.white, Color.shields.black),
-        trapezoidDownShield(
-          10,
-          Color.shields.brown,
-          Color.shields.white,
-          Color.shields.white,
-          2
-        ),
       ])
+  );
+  [
+    "Anoka",
+    "Blue_Earth",
+    "Fillmore",
+    "Hennepin",
+    "Kandiyohi",
+    "Lincoln",
+    "Mower",
+    "Murray",
+    "Pope",
+    "Ramsey",
+    "Scott",
+    "Wilkin",
+  ].forEach((county) =>
+    ["CSAH", "CR"].forEach(
+      (network) =>
+        (shields[`US:MN:${county}:${network}`] = pentagonUpShield(
+          3,
+          15,
+          Color.shields.blue,
+          Color.shields.yellow,
+          Color.shields.white
+        ))
+    )
+  );
+  [
+    "Aitkin",
+    "Becker",
+    "Beltrami",
+    "Benton",
+    "Big_Stone",
+    "Carlton",
+    "Carver",
+    "Cass",
+    "Chippewa",
+    "Clay",
+    "Cook",
+    "Crow_Wing",
+    "Dodge",
+    "Douglas",
+    "Faribault",
+    "Grant",
+    "Houston",
+    "Hubbard",
+    "Itasca",
+    "Kanabec",
+    "Koochiching",
+    "Lake",
+    "Lake_of_the_Woods",
+    "Le_Sueur",
+    "Lyon",
+    "Mahnomen",
+    "Marshall",
+    "Martin",
+    "Mille_Lacs",
+    "Nicollet",
+    "Rice",
+    "Rock",
+    "Sherburne",
+    "Steele",
+    "Swift",
+    "Waseca",
+    "Watonwan",
+    "Winona",
+  ].forEach((county) =>
+    ["CSAH", "CR"].forEach(
+      (network) =>
+        (shields[`US:MN:${county}:${network}`] = roundedRectShield(
+          Color.shields.white,
+          Color.shields.black
+        ))
+    )
+  );
+  shields[`US:MN:Hennepin:Park_Access`] = trapezoidDownShield(
+    10,
+    Color.shields.brown,
+    Color.shields.white,
+    Color.shields.white,
+    2
   );
 
   // Missouri
   shields["US:MO"] = {
-    backgroundImage: [shieldImages.shield_us_mo_2, shieldImages.shield_us_mo_3],
+    spriteBlank: ["shield_us_mo_2", "shield_us_mo_3"],
     textColor: Color.shields.black,
     padding: {
       left: 4,
-      right: 4.5,
-      top: 3,
-      bottom: 5.5,
+      right: 4,
+      top: 2,
+      bottom: 5,
+    },
+    bannerMap: {
+      "US:MO:Alternate": ["ALT"],
+      "US:MO:Business": ["BUS"],
+      "US:MO:Spur": ["SPUR"],
     },
   };
-  shields["US:MO:Alternate"] = banneredShield(shields["US:MO"], ["ALT"]);
-  shields["US:MO:Business"] = banneredShield(shields["US:MO"], ["BUS"]);
-  shields["US:MO:Spur"] = banneredShield(shields["US:MO"], ["SPUR"]);
-  shields["US:MO:Supplemental"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:MO:Supplemental:Spur"] = banneredShield(
-    shields["US:MO:Supplemental"],
-    ["SPUR"]
-  );
+  shields["US:MO:Supplemental"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:MO:Supplemental:Spur": ["SPUR"],
+    },
+  };
   [
     "Bollinger",
     "Butler",
@@ -1954,11 +1729,20 @@ export function loadShields(shieldImages) {
     Color.shields.brown,
     Color.shields.white
   );
-  shields["US:MO:Taney:Branson"] = {}; // See ref-specific cases below
+  shields["US:MO:Taney:Branson"] = {
+    overrideByRef: {
+      "Red Route": bransonRouteShield(Color.shields.red, Color.shields.white),
+      "Yellow Route": bransonRouteShield(
+        Color.shields.yellow,
+        Color.shields.green
+      ),
+      "Blue Route": bransonRouteShield(Color.shields.blue, Color.shields.white),
+    },
+  };
 
   // Northern Mariana Islands
   shields["US:MP"] = {
-    backgroundImage: [shieldImages.shield_us_mp_2, shieldImages.shield_us_mp_3],
+    spriteBlank: ["shield_us_mp_2", "shield_us_mp_3"],
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -1970,6 +1754,11 @@ export function loadShields(shieldImages) {
 
   // Mississippi
   shields["US:MS"] = ovalShield(Color.shields.white, Color.shields.black);
+  shields["US:MS:Scenic"] = banneredShield(
+    ovalShield(Color.shields.white, Color.shields.blue),
+    ["SCEN"],
+    Color.shields.blue
+  );
   [
     "Alcorn",
     "Calhoun",
@@ -1997,13 +1786,14 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:MT:secondary"] = {
-    backgroundImage: shieldImages.shield_us_mt_secondary,
+    spriteBlank: "shield_us_mt_secondary",
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 2,
-      right: 2,
-      top: 0,
-      bottom: 6,
+      left: 1,
+      right: 1,
+      top: 4,
+      bottom: 8,
     },
   };
   ["Dawson", "Richland"].forEach(
@@ -2017,16 +1807,20 @@ export function loadShields(shieldImages) {
   );
 
   // North Carolina
-  shields["US:NC"] = diamondShield(
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2,
-    24
-  );
-  shields["US:NC:Bypass"] = banneredShield(shields["US:NC"], ["BYP"]);
-  shields["US:NC:Business"] = banneredShield(shields["US:NC"], ["BUS"]);
-  shields["US:NC:Truck"] = banneredShield(shields["US:NC"], ["TRK"]);
+  shields["US:NC"] = {
+    ...diamondShield(
+      Color.shields.white,
+      Color.shields.black,
+      Color.shields.black,
+      2,
+      24
+    ),
+    bannerMap: {
+      "US:NC:Bypass": ["BYP"],
+      "US:NC:Business": ["BUS"],
+      "US:NC:Truck": ["TRK"],
+    },
+  };
   shields["US:NC:Mecklenburg:Charlotte"] = pentagonUpShield(
     3,
     15,
@@ -2036,7 +1830,7 @@ export function loadShields(shieldImages) {
 
   // North Dakota
   shields["US:ND"] = {
-    backgroundImage: [shieldImages.shield_us_nd_2, shieldImages.shield_us_nd_3],
+    spriteBlank: ["shield_us_nd_2", "shield_us_nd_3"],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2044,10 +1838,13 @@ export function loadShields(shieldImages) {
       top: 4,
       bottom: 4,
     },
+    bannerMap: {
+      "US:ND:Alternate": ["ALT"],
+      "US:ND:Business": ["BUS"],
+      "US:ND:Bypass": ["BYP"],
+      "US:ND:Truck": ["TRK"],
+    },
   };
-  shields["US:ND:Alternate"] = banneredShield(shields["US:ND"], ["ALT"]);
-  shields["US:ND:Business"] = banneredShield(shields["US:ND"], ["BUS"]);
-  shields["US:ND:Truck"] = banneredShield(shields["US:ND"], ["TRK"]);
   [
     "Barnes",
     "Benson",
@@ -2105,49 +1902,65 @@ export function loadShields(shieldImages) {
   );
 
   // Nebraska
-  shields["US:NE"] = trapezoidDownShield(
-    10,
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:NE:Business"] = banneredShield(shields["US:NE"], ["BUS"]);
-  shields["US:NE:Link"] = banneredShield(shields["US:NE"], ["LINK"]);
-  shields["US:NE:Rec"] = banneredShield(shields["US:NE"], ["REC"]);
-  shields["US:NE:Spur"] = banneredShield(shields["US:NE"], ["SPUR"]);
-  shields["US:NE:Truck"] = banneredShield(shields["US:NE"], ["TRK"]);
+  shields["US:NE"] = {
+    ...trapezoidDownShield(10, Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:NE:Business": ["BUS"],
+      "US:NE:Link": ["LINK"],
+      "US:NE:Rec": ["REC"],
+      "US:NE:Spur": ["SPUR"],
+      "US:NE:Truck": ["TRK"],
+    },
+  };
   shields["US:NE:Scenic"] = {
-    backgroundImage: shieldImages.shield_us_ne_byway_noref,
+    spriteBlank: "shield_us_ne_byway_noref",
     notext: true,
   };
 
   // New Hampshire
   shields["US:NH"] = {
-    backgroundImage: [shieldImages.shield_us_nh_2, shieldImages.shield_us_nh_3],
+    spriteBlank: ["shield_us_nh_2", "shield_us_nh_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 3.5,
+      left: 4,
       right: 2,
       top: 4,
       bottom: 5,
     },
+    bannerMap: {
+      "US:NH:Bypass": ["BYP"],
+    },
   };
-  shields["US:NH:Bypass"] = banneredShield(shields["US:NH"], ["BYP"]);
+  shields["US:NH:Turnpike"] = {
+    notext: true,
+    overrideByName: {
+      "Everett Turnpike": {
+        spriteBlank: "shield_us_nh_turnpike",
+        colorLighten: Color.shields.green,
+      },
+      "Spaulding Turnpike": {
+        spriteBlank: "shield_us_nh_turnpike",
+        colorLighten: Color.shields.blue,
+      },
+    },
+  };
 
   // New Jersey
   shields["US:NJ"] = ovalShield(Color.shields.white, Color.shields.black);
   shields["US:NJ:ACE"] = {
-    backgroundImage: shieldImages.shield_us_nj_ace_noref,
+    spriteBlank: "shield_us_nj_ace_noref",
     notext: true,
+    bannerTextColor: Color.shields.blue,
+    bannerMap: {
+      "US:NJ:ACE:Connector": ["CONN"],
+    },
   };
-  shields["US:NJ:ACE:Connector"] = banneredShield(shields["US:NJ:ACE"], [
-    "CONN",
-  ]);
   shields["US:NJ:GSP"] = {
-    backgroundImage: shieldImages.shield_us_nj_gsp_noref,
+    spriteBlank: "shield_us_nj_gsp_noref",
     notext: true,
   };
   shields["US:NJ:NJTP"] = {
-    backgroundImage: shieldImages.shield_us_nj_njtp_noref,
+    spriteBlank: "shield_us_nj_njtp_noref",
     notext: true,
   };
   //New Jersey county routes with standard shields
@@ -2186,17 +1999,38 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
-  shields["US:NJ:CR:Spur"] = banneredShield(shields["US:NJ:CR"], ["SPUR"]);
-  shields["US:NJ:CR:Truck"] = banneredShield(shields["US:NJ:CR"], ["TRK"]);
+  shields["US:NJ:CR:Spur"] = banneredShield(
+    shields["US:NJ:CR"],
+    ["SPUR"],
+    Color.shields.blue
+  );
+  shields["US:NJ:CR:Truck"] = banneredShield(
+    shields["US:NJ:CR"],
+    ["TRK"],
+    Color.shields.blue
+  );
+  ["Sussex", "Warren"].forEach(
+    (county) =>
+      (shields[`US:NJ:${county}:NPS`] = pillShield(
+        Color.shields.brown,
+        Color.shields.white
+      ))
+  );
 
   // New Mexico
-  shields["US:NM"] = pillShield(
-    Color.shields.white,
-    Color.shields.pink,
-    Color.shields.black
-  );
+  shields["US:NM"] = {
+    spriteBlank: ["shield40_us_nm_2", "shield40_us_nm_3"],
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 5,
+      right: 5,
+      top: 5,
+      bottom: 5,
+    },
+  };
   shields["US:NM:Frontage"] = {
-    backgroundImage: shieldImages.shield_us_nm_frontage,
+    spriteBlank: "shield_us_nm_frontage",
     textColor: Color.shields.black,
     padding: {
       left: 1.5,
@@ -2242,13 +2076,14 @@ export function loadShields(shieldImages) {
 
   // Nevada
   shields["US:NV"] = {
-    backgroundImage: shieldImages.shield_us_nv,
+    spriteBlank: "shield_us_nv",
     textColor: Color.shields.black,
+    textLayout: textConstraint("triangleDown"),
     padding: {
-      left: 2,
-      right: 2,
+      left: -2,
+      right: -2,
       top: 2,
-      bottom: 12,
+      bottom: 6,
     },
   };
   ["Clark", "Washoe"].forEach(
@@ -2263,7 +2098,7 @@ export function loadShields(shieldImages) {
 
   // New York
   shields["US:NY"] = {
-    backgroundImage: [shieldImages.shield_us_ny_2, shieldImages.shield_us_ny_3],
+    spriteBlank: ["shield_us_ny_2", "shield_us_ny_3"],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2271,25 +2106,71 @@ export function loadShields(shieldImages) {
       top: 5,
       bottom: 5,
     },
+    bannerMap: {
+      "US:NY:Truck": ["TRK"],
+    },
   };
+  shields["US:NY:Inner_Loop"] = {
+    ...trapezoidDownShield(
+      10,
+      Color.shields.white,
+      Color.shields.black,
+      Color.shields.black,
+      4
+    ),
+    padding: {
+      left: 4,
+      right: 4,
+      top: 3,
+      bottom: 3,
+    },
+  };
+  shields["US:NY:Inner_Loop"].ref = "LOOP";
   shields["US:NY:Thruway"] = {
-    norefImage: shieldImages.shield_us_ny_thruway,
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ny_thruway",
+    },
   };
   shields["US:NY:STE"] = {
-    norefImage: shieldImages.shield_us_ny_ste,
-    notext: true,
+    noref: {
+      spriteBlank: "shield_us_ny_ste",
+    },
   };
   shields["US:NY:Parkway"] = {
     ...shields["US:NY"],
-    backgroundImage: [
-      shieldImages.shield_us_ny_parkway_2,
-      shieldImages.shield_us_ny_parkway_3,
-    ],
     textColor: Color.shields.white,
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
+    refsByName: {
+      "Bear Mountain State Parkway": "BMP",
+      "Bronx River Parkway": "BRP",
+      "Cross County Parkway": "CCP",
+      "Hutchinson River Parkway": "HRP",
+      "Korean War Veterans Parkway": "KWVP",
+      "Mosholu Parkway": "MP",
+      "Niagara Scenic Parkway": "NSP",
+      "Saw Mill River Parkway": "SMP",
+      "Sprain Brook Parkway": "SBP",
+      "Taconic State Parkway": "TSP",
+    },
+  };
+  shields["US:NY:Parkway:LI"] = {
+    spriteBlank: "shield_us_ny_parkway_li",
+    textColor: Color.shields.black,
+    padding: {
+      left: 6,
+      right: 2,
+      top: 2,
+      bottom: 8,
+    },
+  };
+  shields["US:NY:Parkway:LOSP"] = {
+    noref: {
+      spriteBlank: "shield_us_ny_parkway_losp",
+    },
   };
   shields["US:NY:Parkway:NYC"] = {
-    backgroundImage: shieldImages.shield_us_ny_parkway_nyc,
+    spriteBlank: "shield_us_ny_parkway_nyc",
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2355,8 +2236,7 @@ export function loadShields(shieldImages) {
 
   // Ohio
   shields["US:OH"] = {
-    backgroundImage: [shieldImages.shield_us_oh_2, shieldImages.shield_us_oh_3],
-    norefImage: shieldImages.shield_us_oh_turnpike,
+    spriteBlank: ["shield_us_oh_2", "shield_us_oh_3"],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2364,9 +2244,19 @@ export function loadShields(shieldImages) {
       top: 4,
       bottom: 6,
     },
+    bannerMap: {
+      "US:OH:Bypass": ["BYP"],
+      "US:OH:Business": ["BUS"],
+    },
   };
-  shields["US:OH:Bypass"] = banneredShield(shields["US:OH"], ["BYP"]);
-  shields["US:OH:Business"] = banneredShield(shields["US:OH"], ["BUS"]);
+  shields["US:OH:Turnpike"] = {
+    spriteBlank: "shield_us_oh_turnpike",
+    notext: true,
+  };
+  shields["US:OH:OEC"] = {
+    spriteBlank: "shield_us_oh_oec",
+    notext: true,
+  };
 
   // Ohio county and township roads
 
@@ -2387,7 +2277,6 @@ export function loadShields(shieldImages) {
     "GAL",
     "HAS",
     "HOC",
-    "HOL",
     "KNO",
     "LAW",
     "LIC",
@@ -2426,6 +2315,12 @@ export function loadShields(shieldImages) {
     "WYA",
     "COS:Jackson",
     "FAI:Greenfield",
+    "HOL:Berlin",
+    "HOL:Clark",
+    "HOL:Knox",
+    "HOL:Monroe", // No black border in reality, but a border is needed for contrast.
+    "HOL:Paint",
+    "HOL:Salt_Creek",
     "JEF:Knox",
     "LOG:Bokescreek",
     "LOG:Pleasant",
@@ -2460,23 +2355,31 @@ export function loadShields(shieldImages) {
       ))
   );
   shields["US:OH:ASD"] = {
-    backgroundImage: [shieldImages.shield_us_oh_asd],
+    spriteBlank: ["shield_us_oh_asd"],
     textColor: Color.shields.green,
+    textLayout: textConstraint("triangleDown"),
     padding: {
-      left: 6,
-      right: 3,
+      left: 1,
+      right: 1,
       top: 4,
-      bottom: 7,
+      bottom: 2,
+    },
+  };
+  shields["US:OH:HOL"] = {
+    spriteBlank: ["shield_us_oh_hol"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 3,
+      top: 2,
+      bottom: 2,
     },
   };
   shields["US:OH:SCI"] = {
-    backgroundImage: [
-      shieldImages.shield_us_oh_sci_2,
-      shieldImages.shield_us_oh_sci_3,
-    ],
+    spriteBlank: ["shield_us_oh_sci_2", "shield_us_oh_sci_3"],
     textColor: Color.shields.black,
     padding: {
-      left: 3,
+      left: 2,
       right: 3,
       top: 4,
       bottom: 6,
@@ -2492,13 +2395,13 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   shields["US:OH:TUS:Salem"] = {
-    backgroundImage: [shieldImages.shield_us_oh_tus_salem],
+    spriteBlank: ["shield_us_oh_tus_salem"],
     textColor: Color.shields.black,
     padding: {
-      left: 1,
+      left: 2,
       right: 4,
-      top: 1,
-      bottom: 4,
+      top: 2,
+      bottom: 5,
     },
   };
 
@@ -2509,12 +2412,6 @@ export function loadShields(shieldImages) {
     ["ASD", "TWP"],
     ["ATH", "Trimble"],
     ["FAI", "Violet"],
-    ["HOL", "Berlin"],
-    ["HOL", "Clark"],
-    ["HOL", "Knox"],
-    ["HOL", "Monroe"], // No black border in reality, but a border is needed for contrast.
-    ["HOL", "Paint"],
-    ["HOL", "Salt_Creek"],
     ["KNO", "Liberty"],
     ["KNO", "Milford"],
     ["LIC", "Jersey"],
@@ -2545,10 +2442,14 @@ export function loadShields(shieldImages) {
       (shields[`US:OH:${countyAndTownship[0]}:${countyAndTownship[1]}`] =
         banneredShield(shields[`US:OH:${countyAndTownship[0]}`], ["TWP"]))
   );
+  shields["US:OH:JHMHT"] = {
+    spriteBlank: ["shield_us_oh_jhmht"],
+    notext: true,
+  };
 
   // Oklahoma
   shields["US:OK"] = {
-    backgroundImage: [shieldImages.shield_us_ok_2, shieldImages.shield_us_ok_3],
+    spriteBlank: ["shield_us_ok_2", "shield_us_ok_3"],
     textColor: Color.shields.black,
     textHaloColor: Color.shields.white,
     padding: {
@@ -2557,25 +2458,34 @@ export function loadShields(shieldImages) {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:OK:Toll": [],
+      "US:OK:Business": ["BUS"],
+      "US:OK:Loop": ["LOOP"],
+      "US:OK:Spur": ["SPUR"],
+      "US:OK:Truck": ["TRK"],
+    },
   };
-  shields["US:OK:Toll"] = shields["US:OK"];
-  shields["US:OK:Business"] = banneredShield(shields["US:OK"], ["BUS"]);
-  shields["US:OK:Loop"] = banneredShield(shields["US:OK"], ["LOOP"]);
-  shields["US:OK:Spur"] = banneredShield(shields["US:OK"], ["SPUR"]);
-  shields["US:OK:Truck"] = banneredShield(shields["US:OK"], ["TRK"]);
+  shields["US:OK:Turnpike"] = {
+    spriteBlank: "shield_us_ok_turnpike",
+    notext: true,
+  };
 
   // Oregon
   shields["US:OR"] = {
-    backgroundImage: [shieldImages.shield_us_or_2, shieldImages.shield_us_or_3],
+    spriteBlank: ["shield_us_or_2", "shield_us_or_3"],
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 3,
-      right: 3,
-      top: 4,
-      bottom: 6.5,
+      left: 1,
+      right: 1,
+      top: 1,
+      bottom: 4,
+    },
+    bannerMap: {
+      "US:OR:Business": ["BUS"],
     },
   };
-  shields["US:OR:Business"] = banneredShield(shields["US:OR"], ["BUS"]);
   ["Douglas", "Grant", "Lake", "Lane", "Morrow"].forEach(
     (county) =>
       (shields[`US:OR:${county}`] = pentagonUpShield(
@@ -2588,7 +2498,7 @@ export function loadShields(shieldImages) {
 
   // Pennsylvania
   shields["US:PA"] = {
-    backgroundImage: [shieldImages.shield_us_pa_2, shieldImages.shield_us_pa_3],
+    spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2596,16 +2506,14 @@ export function loadShields(shieldImages) {
       top: 5,
       bottom: 5,
     },
+    bannerMap: {
+      "US:PA:Truck": ["TRK"],
+      "US:PA:Business": ["BUS"],
+      "US:PA:Alternate": ["ALT"],
+    },
   };
-  shields["US:PA:Truck"] = banneredShield(shields["US:PA"], ["TRK"]);
-  shields["US:PA:Business"] = banneredShield(shields["US:PA"], ["BUS"]);
-  shields["US:PA:Alternate"] = banneredShield(shields["US:PA"], ["ALT"]);
   shields["US:PA:Turnpike"] = {
-    backgroundImage: [
-      shieldImages.shield_us_pa_turnpike_2,
-      shieldImages.shield_us_pa_turnpike_3,
-    ],
-    norefImage: shieldImages.shield_us_pa_turnpike_noref,
+    spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
     textColor: Color.shields.white,
     padding: {
       left: 3,
@@ -2613,8 +2521,24 @@ export function loadShields(shieldImages) {
       top: 5,
       bottom: 5,
     },
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
+    noref: {
+      spriteBlank: "shield_us_pa_turnpike_noref",
+      colorLighten: Color.shields.white,
+      colorDarken: Color.shields.green,
+    },
   };
-  shields["US:PA:Allegheny:Belt"] = {}; // See ref-specific cases below
+  shields["US:PA:Allegheny:Belt"] = {
+    overrideByRef: {
+      "Red Belt": paBeltShield(Color.shields.red, Color.shields.black),
+      "Orange Belt": paBeltShield(Color.shields.orange, Color.shields.black),
+      "Yellow Belt": paBeltShield(Color.shields.yellow, Color.shields.black),
+      "Green Belt": paBeltShield(Color.shields.green, Color.shields.white),
+      "Blue Belt": paBeltShield(Color.shields.blue, Color.shields.white),
+      "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
+    },
+  };
 
   // Puerto Rico
   shields["US:PR:primary"] = escutcheonDownShield(
@@ -2646,22 +2570,26 @@ export function loadShields(shieldImages) {
 
   // South Carolina
   shields["US:SC"] = {
-    backgroundImage: shieldImages.shield_us_sc,
+    spriteBlank: "shield_us_sc",
     textColor: Color.shields.blue,
+    bannerTextColor: Color.shields.blue,
     padding: {
       left: 2,
       right: 2,
       top: 6,
       bottom: 3,
     },
+    bannerMap: {
+      "US:SC:Truck": ["TRK"],
+      "US:SC:Business": ["BUS"],
+      "US:SC:Alternate": ["ALT"],
+      "US:SC:Connector": ["CONN"],
+    },
   };
-  shields["US:SC:Truck"] = banneredShield(shields["US:SC"], ["TRK"]);
-  shields["US:SC:Business"] = banneredShield(shields["US:SC"], ["BUS"]);
-  shields["US:SC:Alternate"] = banneredShield(shields["US:SC"], ["ALT"]);
 
   // South Dakota
   shields["US:SD"] = {
-    backgroundImage: [shieldImages.shield_us_sd_2, shieldImages.shield_us_sd_3],
+    spriteBlank: ["shield_us_sd_2", "shield_us_sd_3"],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2669,7 +2597,15 @@ export function loadShields(shieldImages) {
       top: 3,
       bottom: 5,
     },
+    bannerMap: {
+      "US:SD:Business": ["BUS"],
+      "US:SD:Truck": ["TRK"],
+    },
   };
+  shields["US:SD:Secondary"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
   [
     "Beadle",
     "Bon_Homme",
@@ -2720,10 +2656,25 @@ export function loadShields(shieldImages) {
         Color.shields.white
       ))
   );
+  shields["US:SD:Custer:CSP"] = {
+    spriteBlank: "shield_us_sd_csp",
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 8,
+      right: 7,
+      top: 2,
+      bottom: 8,
+    },
+  };
+  shields["US:SD:Custer:NPS"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.yellow
+  );
 
   // Tennessee
   shields["US:TN:primary"] = {
-    backgroundImage: shieldImages.shield_us_tn_primary,
+    spriteBlank: "shield_us_tn_primary",
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -2731,32 +2682,20 @@ export function loadShields(shieldImages) {
       top: 2,
       bottom: 7,
     },
+    bannerMap: {
+      "US:TN:primary:Business": ["BUS"],
+      "US:TN:primary:Bypass": ["BYP"],
+      "US:TN:primary:Truck": ["TRK"],
+    },
   };
-  shields["US:TN:primary:Business"] = banneredShield(shields["US:TN:primary"], [
-    "BUS",
-  ]);
-  shields["US:TN:primary:Bypass"] = banneredShield(shields["US:TN:primary"], [
-    "BYP",
-  ]);
-  shields["US:TN:primary:Truck"] = banneredShield(shields["US:TN:primary"], [
-    "TRK",
-  ]);
-  shields["US:TN:secondary"] = triangleDownShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:TN:secondary:Alternate"] = banneredShield(
-    shields["US:TN:secondary"],
-    ["ALT"]
-  );
-  shields["US:TN:secondary:Scenic"] = banneredShield(
-    shields["US:TN:secondary"],
-    ["SCEN"]
-  );
-  shields["US:TN:secondary:Truck"] = banneredShield(
-    shields["US:TN:secondary"],
-    ["TRK"]
-  );
+  shields["US:TN:secondary"] = {
+    ...triangleDownShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:TN:secondary:Alternate": ["ALT"],
+      "US:TN:secondary:Scenic": ["SCEN"],
+      "US:TN:secondary:Truck": ["TRK"],
+    },
+  };
   shields["US:TN:McMinn"] = pentagonUpShield(
     3,
     15,
@@ -2765,60 +2704,67 @@ export function loadShields(shieldImages) {
   );
 
   // Texas
-  shields["US:TX"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
-  shields["US:TX:Beltway"] = banneredShield(shields["US:TX"], ["BELT"]);
-  shields["US:TX:Business"] = banneredShield(shields["US:TX"], ["BUS"]);
-  shields["US:TX:Loop"] = banneredShield(shields["US:TX"], ["LOOP"]);
-  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
-  shields["US:TX:Park"] = banneredShield(shields["US:TX"], ["PARK"]);
-  shields["US:TX:PA"] = banneredShield(shields["US:TX"], ["P.A."]);
-  shields["US:TX:Spur"] = banneredShield(shields["US:TX"], ["SPUR"]);
+  shields["US:TX"] = {
+    ...roundedRectShield(Color.shields.white, Color.shields.black),
+    bannerMap: {
+      "US:TX:Beltway": ["BELT"],
+      "US:TX:Business": ["BUS"],
+      "US:TX:Loop": ["LOOP"],
+      "US:TX:NASA": ["NASA"],
+      "US:TX:Park": ["PARK"],
+      "US:TX:PA": ["P.A."],
+      "US:TX:Spur": ["SPUR"],
+    },
+  };
   shields["US:TX:FM"] = shields["US:TX:RM"] = {
-    backgroundImage: shieldImages.shield_us_tx_outline,
+    spriteBlank: "shield_us_tx_outline",
     textColor: Color.shields.black,
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    textLayout: textConstraint("ellipse"),
     padding: {
       left: 3,
       right: 0,
       top: 7,
       bottom: 10,
     },
+    bannerMap: {
+      "US:TX:FM:Business": ["BUS"],
+    },
   };
-  shields["US:TX:FM:Business"] = banneredShield(shields["US:TX:FM"], ["BUS"]);
   shields["US:TX:Recreational"] = banneredShield(
     {
       ...shields["US:TX:FM"],
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
-    ["R"]
+    ["R"],
+    Color.shields.brown
   );
-  shields["US:TX:NASA"] = banneredShield(shields["US:TX"], ["NASA"]);
 
   // Texas toll roads
+  shields["US:TX:Toll"] = {
+    ...roundedRectShield(Color.shields.blue, Color.shields.white),
+    bannerTextColor: Color.shields.blue,
+    bannerMap: {
+      "US:TX:NTTA": [],
+      "US:TX:Express:Toll": ["EXPR"],
+      "US:TX:Loop:Toll": ["LOOP"],
+      "US:TX:Loop:Express:Toll": ["EXPR", "LOOP"],
+    },
+  };
   shields["US:TX:Toll"] = shields["US:TX:NTTA"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
-  shields["US:TX:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
-    "EXPR",
-  ]);
-  shields["US:TX:Loop:Toll"] = banneredShield(shields["US:TX:Toll"], ["LOOP"]);
-  shields["US:TX:Loop:Express:Toll"] = banneredShield(shields["US:TX:Toll"], [
-    "EXPR",
-    "LOOP",
-  ]);
-  shields["US:TX:CTRMA"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.yellow,
-    Color.shields.white
-  );
-  shields["US:TX:CTRMA:Express"] = banneredShield(shields["US:TX:CTRMA"], [
-    "EXPR",
-  ]);
+  shields["US:TX:CTRMA"] = {
+    ...roundedRectShield(
+      Color.shields.blue,
+      Color.shields.yellow,
+      Color.shields.white
+    ),
+    bannerMap: {
+      "US:TX:CTRMA:Express": ["EXPR"],
+    },
+  };
   shields["US:TX:Montgomery:MCTRA"] = homePlateDownShield(
     5,
     Color.shields.blue,
@@ -2826,7 +2772,7 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
   shields["US:TX:Fort_Bend:FBCTRA"] = {
-    backgroundImage: shieldImages.shield_us_tx_fbctra,
+    spriteBlank: "shield_us_tx_fbctra",
     textColor: Color.shields.white,
     padding: {
       left: 3,
@@ -2834,17 +2780,21 @@ export function loadShields(shieldImages) {
       top: 2,
       bottom: 8,
     },
+    refsByName: {
+      "Fort Bend Parkway Toll Road": "FBP",
+      "Fort Bend Westpark Tollway": "WPT",
+    },
   };
-  shields["US:TX:Harris:HCTRA"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.purple,
-    Color.shields.yellow,
-    Color.shields.yellow,
-    2,
-    0,
-    28
-  );
+  shields["US:TX:Harris:HCTRA"] = {
+    ...pentagonUpShield(3, 15, Color.shields.purple, Color.shields.yellow),
+    refsByName: {
+      "Sam Houston Tollway": "SHT",
+      "Fort Bend Toll Road": "FBTR",
+      "Hardy Toll Road": "HTR",
+      "Tomball Tollway": "TBT",
+      "Westpark Tollway": "WPT",
+    },
+  };
 
   // Texas county roads
   [
@@ -2903,41 +2853,50 @@ export function loadShields(shieldImages) {
   );
   shields["US:TX:Jackson"] = banneredShield(
     roundedRectShield(Color.shields.blue, Color.shields.white),
-    ["CR"]
+    ["CR"],
+    Color.shields.blue
   );
   shields["US:TX:Andrews:Andrews:Loop"] = banneredShield(
     roundedRectShield(Color.shields.white, Color.shields.blue),
-    ["LOOP"]
+    ["LOOP"],
+    Color.shields.blue
   );
 
   // Utah
   shields["US:UT"] = {
-    backgroundImage: [shieldImages.shield_us_ut_2, shieldImages.shield_us_ut_3],
+    spriteBlank: ["shield_us_ut_2", "shield_us_ut_3"],
     textColor: Color.shields.black,
     padding: {
       left: 4,
       right: 4,
-      top: 5.5,
+      top: 6,
       bottom: 5,
     },
   };
-  shields["US:UT:Wayne"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
+  ["FA", "Washington"].forEach(
+    (county) =>
+      (shields[`US:UT:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
   );
 
   // Virginia
-  shields["US:VA"] = escutcheonDownShield(
-    12,
-    Color.shields.white,
-    Color.shields.black,
-    Color.shields.black,
-    2
-  );
-  shields["US:VA:Business"] = banneredShield(shields["US:VA"], ["BUS"]);
-  shields["US:VA:Alternate"] = banneredShield(shields["US:VA"], ["ALT"]);
+  shields["US:VA"] = {
+    ...escutcheonDownShield(
+      12,
+      Color.shields.white,
+      Color.shields.black,
+      Color.shields.black,
+      2
+    ),
+    bannerMap: {
+      "US:VA:Business": ["BUS"],
+      "US:VA:Alternate": ["ALT"],
+    },
+  };
   shields["US:VA:Secondary"] = pillShield(
     Color.shields.white,
     Color.shields.black
@@ -2948,7 +2907,7 @@ export function loadShields(shieldImages) {
 
   // Vermont
   shields["US:VT"] = {
-    backgroundImage: [shieldImages.shield_us_vt_2, shieldImages.shield_us_vt_3],
+    spriteBlank: ["shield_us_vt_2", "shield_us_vt_3"],
     textColor: Color.shields.green,
     padding: {
       left: 3,
@@ -2956,29 +2915,42 @@ export function loadShields(shieldImages) {
       top: 5,
       bottom: 2,
     },
+    bannerTextColor: Color.shields.green,
+    bannerMap: {
+      "US:VT:Alternate": ["ALT"],
+      "US:VT:Truck": ["TRK"],
+    },
   };
-  shields["US:VT:Alternate"] = banneredShield(shields["US:VT"], ["ALT"]);
+
   // Vermont routes town maintained sections - black and white ovals
   shields["US:VT:Town"] = ovalShield(Color.shields.white, Color.shields.black);
 
   // Washington (state)
   shields["US:WA"] = {
-    backgroundImage: shieldImages.shield_us_wa,
+    spriteBlank: "shield_us_wa",
     textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
     padding: {
-      left: 3,
-      right: 4,
-      top: 3,
-      bottom: 7,
+      left: 2,
+      right: 3,
+      top: 2,
+      bottom: 6,
+    },
+    bannerMap: {
+      "US:WA:Spur": ["SPUR"],
+      "US:WA:Business": ["BUS"],
+      "US:WA:Alternate": ["ALT"],
     },
   };
-  shields["US:WA:Spur"] = banneredShield(shields["US:WA"], ["SPUR"]);
-  shields["US:WA:Business"] = banneredShield(shields["US:WA"], ["BUS"]);
-  shields["US:WA:Alternate"] = banneredShield(shields["US:WA"], ["ALT"]);
+
+  shields["US:WA:Asotin"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white
+  );
 
   // Wisconsin
   shields["US:WI"] = {
-    backgroundImage: [shieldImages.shield_us_wi_2, shieldImages.shield_us_wi_3],
+    spriteBlank: ["shield_us_wi_2", "shield_us_wi_3"],
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -2986,9 +2958,11 @@ export function loadShields(shieldImages) {
       top: 3,
       bottom: 6,
     },
+    bannerMap: {
+      "US:WI:Business": ["BUS"],
+      "US:WI:Spur": ["SPUR"],
+    },
   };
-  shields["US:WI:Business"] = banneredShield(shields["US:WI"], ["BUS"]);
-  shields["US:WI:Spur"] = banneredShield(shields["US:WI"], ["SPUR"]);
   [
     "Adams",
     "Ashland",
@@ -3069,12 +3043,11 @@ export function loadShields(shieldImages) {
         Color.shields.black
       ))
   );
-  shields["US:WI:Marquette:Truck"] = banneredShield(
-    shields["US:WI:Marquette"],
-    ["TRK"]
-  );
+  shields["US:WI:Marquette"].bannerMap = {
+    "US:WI:Marquette:Truck": ["TRK"],
+  };
   shields["US:WI:Rustic"] = {
-    backgroundImage: shieldImages.shield_us_wi_rustic,
+    spriteBlank: "shield_us_wi_rustic",
     textColor: Color.shields.yellow,
     padding: {
       left: 1.5,
@@ -3093,6 +3066,14 @@ export function loadShields(shieldImages) {
     Color.shields.white,
     Color.shields.black
   );
+  shields["US:WV:HARP"] = homePlateUpShield(
+    6,
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    0,
+    0
+  );
 
   // Wyoming
   shields["US:WY"] = roundedRectShield(
@@ -3100,6 +3081,7 @@ export function loadShields(shieldImages) {
     Color.shields.black
   );
   [
+    "Albany",
     "Big_Horn",
     "Carbon",
     "Converse",
@@ -3131,17 +3113,16 @@ export function loadShields(shieldImages) {
 
   // Chile
   shields["CL:national"] = {
-    backgroundImage: [
-      shieldImages.shield_cl_national_2,
-      shieldImages.shield_cl_national_3,
-    ],
+    spriteBlank: ["shield_badge_2", "shield_badge_3"],
     textColor: Color.shields.white,
     padding: {
-      left: 2,
-      right: 2,
+      left: 3,
+      right: 3,
       top: 4,
       bottom: 5,
     },
+    colorLighten: Color.shields.white,
+    colorDarken: Color.shields.green,
   };
   shields["CL:regional"] = roundedRectShield(
     Color.shields.green,
@@ -3150,17 +3131,14 @@ export function loadShields(shieldImages) {
 
   // Colombia
   shields["co:national"] = {
-    backgroundImage: [
-      shieldImages.shield_co_national_2,
-      shieldImages.shield_co_national_3,
-    ],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    spriteBlank: ["shield_co_national_2", "shield_co_national_3"],
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.black,
     padding: {
       left: 4,
       right: 4,
       top: 3,
-      bottom: 6,
+      bottom: 7,
     },
   };
 
@@ -3205,7 +3183,7 @@ export function loadShields(shieldImages) {
         shields[`VE:R:${state}`],
       ] = [
         {
-          backgroundImage: shieldImages.shield_ve_t,
+          spriteBlank: "shield_ve_t",
           textColor: Color.shields.black,
           padding: {
             left: 4,
@@ -3222,7 +3200,7 @@ export function loadShields(shieldImages) {
   // AFRICA
 
   // Algeria
-  shields["DZ:highway"] = shields["DZ:national"] = roundedRectShield(
+  shields["DZ:motorway"] = shields["DZ:national"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
   );
@@ -3236,6 +3214,18 @@ export function loadShields(shieldImages) {
     shields["GH:inter-regional"] =
     shields["GH:regional"] =
       roundedRectShield(Color.shields.yellow, Color.shields.black);
+
+  // Madagascar
+  shields["MG:RN-road"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
+
+  // Niger
+  shields["NE:N-roads"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.white
+  );
 
   // ASIA
 
@@ -3261,10 +3251,10 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
   shields["CN:expressway"] = {
-    backgroundImage: [
-      shieldImages.shield_cn_national_expressway_2,
-      shieldImages.shield_cn_national_expressway_3,
-      shieldImages.shield_cn_national_expressway_4,
+    spriteBlank: [
+      "shield_cn_expressway_2",
+      "shield_cn_expressway_3",
+      "shield_cn_expressway_4",
     ],
     textColor: Color.shields.white,
     padding: {
@@ -3273,6 +3263,8 @@ export function loadShields(shieldImages) {
       top: 6,
       bottom: 2,
     },
+    colorLighten: Color.shields.red,
+    colorDarken: Color.shields.green,
   };
   [
     "AH",
@@ -3312,10 +3304,10 @@ export function loadShields(shieldImages) {
       Color.shields.black
     );
     shields[`CN:${province}:expressway`] = {
-      backgroundImage: [
-        shieldImages.shield_cn_regional_expressway_2,
-        shieldImages.shield_cn_regional_expressway_3,
-        shieldImages.shield_cn_regional_expressway_4,
+      spriteBlank: [
+        "shield_cn_expressway_2",
+        "shield_cn_expressway_3",
+        "shield_cn_expressway_4",
       ],
       textColor: Color.shields.white,
       padding: {
@@ -3324,6 +3316,8 @@ export function loadShields(shieldImages) {
         top: 6,
         bottom: 2,
       },
+      colorLighten: Color.shields.yellow,
+      colorDarken: Color.shields.green,
     };
   });
   [
@@ -3356,11 +3350,7 @@ export function loadShields(shieldImages) {
 
   // India
   shields["IN:NH"] = {
-    backgroundImage: [
-      shieldImages.shield_in_nh_2,
-      shieldImages.shield_in_nh_3,
-      shieldImages.shield_in_nh_4,
-    ],
+    spriteBlank: ["shield_in_nh_2", "shield_in_nh_3", "shield_in_nh_4"],
     textColor: Color.shields.black,
     padding: {
       left: 2,
@@ -3369,11 +3359,18 @@ export function loadShields(shieldImages) {
       bottom: 7,
     },
   };
+  shields["IN:NE"] = banneredShield(
+    {
+      ...shields["IN:NH"],
+      numberingSystem: "roman",
+    },
+    ["NE"]
+  );
 
   // Indonesia
   shields["ID:national"] = {
-    backgroundImage: [shieldImages.shield_id_national],
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    spriteBlank: ["shield_id_national"],
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -3381,11 +3378,13 @@ export function loadShields(shieldImages) {
       top: 4,
       bottom: 2,
     },
+    bannerMap: {
+      "ID:toll": ["TOL"],
+    },
   };
-  shields["ID:toll"] = banneredShield(shields["ID:national"], ["TOL"]);
 
   // Iran
-  shields["ir:freeways"] = roundedRectShield(
+  shields["ir:freeway"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
@@ -3463,16 +3462,12 @@ export function loadShields(shieldImages) {
 
   // South Korea
   shields["KR:expressway"] = {
-    backgroundImage: [
-      shieldImages.shield_kr_expressway_2,
-      shieldImages.shield_kr_expressway_3,
-    ],
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    spriteBlank: ["shield_kr_expressway_2", "shield_kr_expressway_3"],
     textColor: Color.shields.white,
     padding: {
       left: 4,
       right: 4,
-      top: 8,
+      top: 6,
       bottom: 4,
     },
   };
@@ -3527,8 +3522,8 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
   shields["PK:motorway"] = {
-    backgroundImage: shieldImages.shield_pk_motorway,
-    textLayoutConstraint: ShieldText.southHalfellipseTextConstraint,
+    spriteBlank: "shield_pk_motorway",
+    textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
     padding: {
       left: 2,
@@ -3547,11 +3542,15 @@ export function loadShields(shieldImages) {
     0,
     34
   );
+  shields["TR:national"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
 
   // Taiwan
   shields["TW:freeway"] = {
-    backgroundImage: shieldImages.shield_tw_freeway,
-    textLayoutConstraint: ShieldText.ellipseTextConstraint,
+    spriteBlank: "shield_tw_freeway",
+    textLayout: textConstraint("ellipse"),
     textColor: Color.shields.black,
     padding: {
       left: 4,
@@ -3571,11 +3570,11 @@ export function loadShields(shieldImages) {
   );
 
   // Vietnam
-  shields["vn:expressway"] = roundedRectShield(
+  shields["VN:expressway"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black
   );
-  shields["vn:national"] = roundedRectShield(
+  shields["VN:national"] = roundedRectShield(
     Color.shields.white,
     Color.shields.black
   );
@@ -3583,9 +3582,7 @@ export function loadShields(shieldImages) {
   // EUROPE
   shields["e-road"] = roundedRectShield(
     Color.shields.green,
-    Color.shields.white,
-    Color.shields.white,
-    34
+    Color.shields.white
   );
 
   // Austria
@@ -3633,6 +3630,10 @@ export function loadShields(shieldImages) {
     shields["BE:B-road"] =
     shields["BE:R-road"] =
       roundedRectShield(Color.shields.white, Color.shields.black);
+  shields["BE:VLG:Ring_Antwerpen"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black
+  );
 
   // Bulgaria
   shields["bg:motorway"] = roundedRectShield(
@@ -3651,6 +3652,12 @@ export function loadShields(shieldImages) {
   // Belarus
   shields["by:national"] = roundedRectShield(
     Color.shields.red,
+    Color.shields.white
+  );
+
+  // Switzerland
+  shields["ch:national"] = roundedRectShield(
+    Color.shields.blue,
     Color.shields.white
   );
 
@@ -3681,6 +3688,14 @@ export function loadShields(shieldImages) {
     Color.shields.white
   );
 
+  // Faroe Islands
+  shields["FO"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    34
+  );
+
   // Finland
   // Valtatie/riksväg
   shields["fi:national"] = roundedRectShield(
@@ -3704,10 +3719,56 @@ export function loadShields(shieldImages) {
   );
 
   // France
-  shields["FR:A-road"] = shields["FR:N-road"] = roundedRectShield(
-    Color.shields.red,
-    Color.shields.white
+  // Autoroutes/national routes
+  shields["FR:A-road"] =
+    shields["FR:N-road"] =
+    shields["FR:971:N-road"] =
+    shields["FR:972:A-road"] =
+    shields["FR:972:N-road"] =
+    shields["FR:973:N-road"] =
+    shields["FR:974:N-road"] =
+    shields["FR:975:N-road"] =
+    shields["FR:976:N-road"] =
+    shields["FR:978:N-road"] =
+    shields["FR:986:RT-road"] =
+    shields["FR:987:RT-road"] =
+    shields["FR:988:VE-road"] =
+    shields["FR:988:RT-road"] =
+      roundedRectShield(Color.shields.red, Color.shields.white);
+  // Departmental routes
+  // compute list of French department INSEE codes, 01 through 95, inclusive
+  let departments = Array.from({ length: 95 }, (_, i) =>
+    (i + 1).toString().padStart(2, "0")
   );
+  [...departments, "971", "972", "973", "974", "976", "977", "978"].forEach(
+    (department) => {
+      shields[`FR:${department}:D-road`] = roundedRectShield(
+        Color.shields.yellow,
+        Color.shields.black
+      );
+    }
+  );
+  // Metropolitan routes
+  [
+    "06",
+    "21",
+    "31",
+    "34",
+    "37",
+    "42",
+    "44",
+    "54",
+    "57",
+    "59",
+    "63",
+    "67",
+    "69",
+  ].forEach((department) => {
+    shields[`FR:${department}:M-road`] = roundedRectShield(
+      Color.shields.blue,
+      Color.shields.white
+    );
+  });
 
   // Germany
   shields["DE:national"] = roundedRectShield(
@@ -3733,6 +3794,31 @@ export function loadShields(shieldImages) {
     34
   );
 
+  // Croatia
+  shields["HR:Autoceste"] = hexagonVerticalShield(
+    3,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0,
+    34
+  );
+  shields["HR:Državne ceste"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white
+  );
+  shields["HR:Županijske ceste"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black
+  );
+  shields["HR:Lokalne ceste"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black
+  );
+
   // Iceland
   shields["IS"] = roundedRectShield(
     Color.shields.white,
@@ -3749,6 +3835,7 @@ export function loadShields(shieldImages) {
 
   shields["omt-ie-national"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
     Color.shields.yellow
   );
 
@@ -3819,15 +3906,15 @@ export function loadShields(shieldImages) {
     34
   );
 
-  // Netherlands
+  // Netherlands, Kingdom of the (European Netherlands, Aruba, and Curacao)
   // https://wiki.openstreetmap.org/wiki/The_Netherlands_road_network
   shields["NL:A"] = roundedRectShield(Color.shields.red, Color.shields.white);
-  shields["NL:N"] = roundedRectShield(
+  shields["NL:N"] = shields["AW:route"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black
   );
   let nlCityRoute = {
-    backgroundImage: shieldImages.shield_nl_city,
+    spriteBlank: "shield_nl_city",
     textColor: Color.shields.black,
     padding: {
       left: 3,
@@ -3844,7 +3931,7 @@ export function loadShields(shieldImages) {
     "Rotterdam",
     "Zaanstad",
   ].forEach((city) => (shields[`NL:S:${city}`] = nlCityRoute));
-  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both Netherlands and Curacao
+  shields["NL:binnenstedelijke_ring"] = nlCityRoute; // for both European Netherlands and Curacao
   [
     "Ommen",
     "Schouwen",
@@ -3861,13 +3948,12 @@ export function loadShields(shieldImages) {
   );
 
   // Poland
-  shields["pl:motorways"] = roundedRectShield(
+  shields["pl:expressway"] = shields["pl:motorway"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
     34
   );
-  shields["pl:expressways"] = shields["pl:motorways"];
   shields["pl:national"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
@@ -3964,6 +4050,7 @@ export function loadShields(shieldImages) {
 
   shields["omt-gb-trunk"] = roundedRectShield(
     Color.shields.green,
+    Color.shields.white,
     Color.shields.yellow
   );
 
@@ -3991,24 +4078,32 @@ export function loadShields(shieldImages) {
         Color.shields.white,
         Color.shields.black
       );
-      shields[`AU:${state_or_territory}:S`] = fishheadShieldBlue;
+      shields[`AU:${state_or_territory}:S`] = fishheadDownShield(
+        Color.shields.blue,
+        Color.shields.white
+      );
       shields[`AU:${state_or_territory}:T`] = pentagonUpShield(
         3,
         15,
         Color.shields.brown,
-        Color.shields.white
+        Color.shields.white,
+        Color.shields.white,
+        2,
+        2
       );
       shields[`AU:${state_or_territory}:ALT`] = banneredShield(
         roundedRectShield(Color.shields.green, Color.shields.yellow),
-        ["ALT"]
+        ["ALT"],
+        Color.shields.green
       );
       shields[`AU:${state_or_territory}:ALT_NR`] = banneredShield(
         homePlateDownShield(5, Color.shields.white, Color.shields.black),
         ["ALT"]
       );
       shields[`AU:${state_or_territory}:ALT_S`] = banneredShield(
-        fishheadShieldBlue,
-        ["ALT"]
+        fishheadDownShield(Color.shields.blue, Color.shields.white),
+        ["ALT"],
+        Color.shields.blue
       );
     }
   );
@@ -4027,7 +4122,7 @@ export function loadShields(shieldImages) {
   );
 
   // New Zealand
-  shields["NZ:SH"] = fishheadShieldRed;
+  shields["NZ:SH"] = fishheadDownShield(Color.shields.red, Color.shields.white);
   shields["NZ:UR"] = homePlateDownShield(
     5,
     Color.shields.white,
@@ -4035,121 +4130,16 @@ export function loadShields(shieldImages) {
   );
   shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
 
-  // Ref-specific cases. Each entry should be documented in CONTRIBUTE.md
-
-  shields["CA:ON:primary"].overrideByRef = {
-    QEW: {
-      backgroundImage: shieldImages.shield_ca_on_primary_qew,
-      textColor: Color.shields.blue,
+  return {
+    networks: shields,
+    options: {
+      bannerTextColor: Color.palette.black,
+      bannerTextHaloColor: Color.backgroundFill,
+      bannerHeight: 9,
+      bannerPadding: 1,
+      shieldFont:
+        '"Noto Sans Condensed", "Noto Sans Armenian Condensed", sans-serif-condensed, "Arial Narrow", sans-serif',
+      shieldSize: 20,
     },
   };
-
-  shields["CA:YT"].overrideByRef = {
-    2: roundedRectShield(Color.shields.white, "#ce9d00"),
-    3: roundedRectShield(Color.shields.white, "#ce9d00"),
-    5: roundedRectShield(Color.shields.white, Color.shields.blue),
-    6: roundedRectShield(Color.shields.white, Color.shields.green),
-    11: roundedRectShield(Color.shields.white, Color.shields.blue),
-  };
-
-  shields["US:AR"].overrideByRef = {
-    980: {
-      backgroundImage: shieldImages.shield_us_ar_980,
-      textColor: Color.shields.white,
-    },
-  };
-
-  shields["US:GA"].overrideByRef = {
-    515: {
-      textColor: Color.shields.blue,
-      colorLighten: Color.shields.blue,
-    },
-    520: {
-      textColor: Color.shields.green,
-      colorLighten: Color.shields.green,
-    },
-  };
-
-  shields["US:KY:Parkway"].refsByWayName = {
-    // FIXME: This object contains both spelled-out and abbreviated road
-    // names to accommodate both the abbreviated names from OpenMapTiles and
-    // the spelled-out names from Planetiler.
-    // https://github.com/onthegomap/planetiler/issues/14
-    "Audubon Parkway": "AU",
-    "Bluegrass Parkway": "BG",
-    "Bluegrass Pkwy": "BG",
-    "Cumberland Parkway": "LN",
-    "Cumberland Pkwy": "LN",
-    "Hal Rogers Parkway": "HR",
-    "Hal Rogers Pkwy": "HR",
-    "Mountain Parkway": "MP",
-    "Mountain Pkwy": "MP",
-    "Purchase Parkway": "JC",
-    "Purchase Pkwy": "JC",
-    "Western Kentucky Parkway": "WK",
-    "Western Kentucky Pkwy": "WK",
-  };
-
-  shields["US:MI"].overrideByRef = {
-    185: diamondShield(
-      Color.shields.brown,
-      Color.shields.white,
-      Color.shields.white,
-      0,
-      24
-    ),
-  };
-
-  shields["US:MO:Taney:Branson"].overrideByRef = {
-    "Red Route": bransonRouteShield(Color.shields.red, Color.shields.white),
-    "Yellow Route": bransonRouteShield(
-      Color.shields.yellow,
-      Color.shields.green
-    ),
-    "Blue Route": bransonRouteShield(Color.shields.blue, Color.shields.white),
-  };
-
-  shields["US:NY:Parkway"].refsByWayName = {
-    "Bear Mountain Parkway": "BMP",
-    "Bronx and Pelham Parkway": "PP",
-    "Bronx River Parkway": "BRP",
-    "Cross County Parkway": "CCP",
-    "Hutchinson River Parkway": "HRP",
-    "Korean War Veterans Parkway": "KWVP",
-    "Mosholu Parkway": "MP",
-    "Pelham Parkway": "PP",
-    "Saw Mill River Parkway": "SMP",
-    "Sprain Brook Parkway": "SBP",
-    "Taconic State Parkway": "TSP",
-  };
-
-  shields["US:PA:Allegheny:Belt"].overrideByRef = {
-    "Red Belt": paBeltShield(Color.shields.red, Color.shields.black),
-    "Orange Belt": paBeltShield(Color.shields.orange, Color.shields.black),
-    "Yellow Belt": paBeltShield(Color.shields.yellow, Color.shields.black),
-    "Green Belt": paBeltShield(Color.shields.green, Color.shields.white),
-    "Blue Belt": paBeltShield(Color.shields.blue, Color.shields.white),
-    "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
-  };
-
-  shields["US:TX:Fort_Bend:FBCTRA"].refsByWayName = {
-    "Fort Bend Parkway Toll Road": "FBP",
-    "Fort Bend Westpark Tollway": "WPT",
-  };
-  shields["US:TX:Harris:HCTRA"].refsByWayName = {
-    "East Sam Houston Tollway North": "SHT",
-    "East Sam Houston Tollway South": "SHT",
-    "North Sam Houston Tollway East": "SHT",
-    "North Sam Houston Tollway West": "SHT",
-    "South Sam Houston Tollway East": "SHT",
-    "South Sam Houston Tollway West": "SHT",
-    "West Sam Houston Tollway North": "SHT",
-    "West Sam Houston Tollway South": "SHT",
-    "Fort Bend Toll Road": "FBTR",
-    "Hardy Toll Road": "HTR",
-    "Tomball Tollway": "TBT",
-    "Westpark Tollway": "WPT",
-  };
-
-  return shields;
 }

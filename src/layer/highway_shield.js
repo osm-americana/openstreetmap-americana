@@ -1,31 +1,23 @@
 "use strict";
 
-export const namedRouteNetworks = [
-  "US:KY:Parkway",
-  "US:NY:Parkway",
-  "US:TX:Fort_Bend:FBCTRA",
-  "US:TX:Harris:HCTRA",
-];
+const orderedRouteAttributes = ["network", "ref", "name", "color"];
 
 export function getImageNameExpression(routeIndex) {
-  return [
-    "concat",
-    "shield\n",
-    ["get", "route_" + routeIndex],
-    [
-      "match",
-      ["get", "route_" + routeIndex],
-      namedRouteNetworks.map((n) => n + "="),
-      ["concat", "\n", ["get", "name"]],
-      "",
-    ],
-  ];
+  let concat = ["concat", "shield"];
+  for (let attr of orderedRouteAttributes) {
+    concat.push("\n");
+    concat.push(["coalesce", ["get", `route_${routeIndex}_${attr}`], ""]);
+  }
+  return concat;
 }
 
 function routeConcurrency(routeIndex) {
   return [
     "case",
-    ["!=", ["get", "route_" + routeIndex], null],
+    [
+      "any",
+      ...orderedRouteAttributes.map((a) => ["has", `route_${routeIndex}_${a}`]),
+    ],
     ["image", getImageNameExpression(routeIndex)],
     ["literal", ""],
   ];
@@ -35,12 +27,16 @@ function routeConcurrency(routeIndex) {
  * Returns a structured representation of the given image name.
  *
  * @param name An image name in the format returned by `routeConcurrency`.
+ * @return An object with the keys in `orderedRouteAttributes` plus the full image name in `imageName`.
  */
 export function parseImageName(imageName) {
   let lines = imageName.split("\n");
-  let [, network, ref] = lines[1].match(/^(.*?)=(.*)/) || [];
-  let name = lines[2];
-  return { imageName, network, ref, name };
+  lines.shift(); // "shield"
+  let parsed = Object.fromEntries(
+    orderedRouteAttributes.map((a, i) => [a, lines[i]])
+  );
+  parsed.imageName = imageName;
+  return parsed;
 }
 
 let shieldTextField = ["format"];
@@ -50,7 +46,7 @@ for (var i = 1; i <= 6; i++) {
 
 let shieldLayout = {
   "text-rotation-alignment": "viewport-glyph",
-  "text-font": ["OpenHistorical"],
+  "text-font": ["Americana-Regular"],
   "text-field": shieldTextField,
   "text-anchor": "center",
   "text-letter-spacing": 0.7,
@@ -78,7 +74,7 @@ export const shield = {
   type: "symbol",
   source: "openmaptiles",
   "source-layer": "transportation_name",
-  id: "highway_shield",
+  id: "highway-shield",
   layout: shieldLayout,
   paint: {
     "text-opacity": [
@@ -111,11 +107,6 @@ export const shield = {
   },
   filter: [
     "any",
-    ["has", "route_1"],
-    ["has", "route_2"],
-    ["has", "route_3"],
-    ["has", "route_4"],
-    ["has", "route_5"],
-    ["has", "route_6"],
+    ...orderedRouteAttributes.map((a) => ["has", `route_1_${a}`]),
   ],
 };

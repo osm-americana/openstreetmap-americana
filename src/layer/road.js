@@ -19,6 +19,7 @@ const roadExp = 1.2;
 
 const roadHue = 0;
 const tollRoadHue = 48;
+const buswayHue = 322;
 
 //Tunnel casing dash pattern
 const tunDashArray = [
@@ -32,6 +33,7 @@ const tunDashArray = [
 const getBrunnel = ["get", "brunnel"];
 const getClass = ["get", "class"];
 const getExpressway = ["coalesce", ["get", "expressway"], 0];
+const getLayer = ["coalesce", ["get", "layer"], 0];
 const getRamp = ["coalesce", ["get", "ramp"], 0];
 const getToll = ["coalesce", ["get", "toll"], 0];
 
@@ -79,7 +81,15 @@ const opacity = [
   minZoomTertiary,
   [
     ...classSelector,
-    ["motorway", "trunk", "primary", "secondary", "tertiary"],
+    [
+      "motorway",
+      "trunk",
+      "primary",
+      "secondary",
+      "tertiary",
+      "busway",
+      "bus_guideway",
+    ],
     1,
     0,
   ],
@@ -91,31 +101,21 @@ const opacity = [
   1,
 ];
 
-const layerSortKey = [
+const motorwaySortKey = [
   "+",
-  ["*", -28, getRamp],
-  [
-    "*",
-    4,
-    [
-      ...classSelector,
-      "motorway",
-      6,
-      "trunk",
-      5,
-      "primary",
-      4,
-      "secondary",
-      3,
-      "tertiary",
-      2,
-      "minor",
-      1,
-      0,
-    ],
-  ],
-  ["*", 2, getExpressway],
-  getToll,
+  getLayer,
+  0.1,
+  ["*", -0.1, getRamp],
+  ["*", 0.2, getToll],
+];
+
+const expresswaySortKey = [
+  "+",
+  getLayer,
+  0.1,
+  ["*", -0.1, getRamp],
+  ["*", 0.2, getToll],
+  ["*", 0.4, getExpressway],
 ];
 
 //Helper function to create a "filter" block for a particular road class.
@@ -131,6 +131,8 @@ function filterRoad(brunnel, constraints) {
         "primary",
         "secondary",
         "tertiary",
+        "busway",
+        "bus_guideway",
         "minor",
         "service",
       ],
@@ -188,7 +190,7 @@ const widthFactor = [
   [...linkSelector, 0.45, 0.9],
   "secondary",
   [...linkSelector, 0.3, [...expresswaySelector, 0.7, 0.6]],
-  "tertiary",
+  ["tertiary", "busway", "bus_guideway"],
   [...linkSelector, 0.25, 0.5],
   "minor",
   0.3,
@@ -247,7 +249,7 @@ const roadCasingColorTunnel = [
       ],
       `hsl(${roadHue}, 41%, 80%)`,
     ],
-    ["primary", "secondary", "tertiary"],
+    ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
     "hsl(0, 0%, 80%)",
     "hsl(0, 0%, 90%)",
   ],
@@ -295,6 +297,8 @@ const roadFillColorTunnel = [
       `hsl(${tollRoadHue}, 77%, 90%)`,
       `hsl(${roadHue}, 77%, 90%)`,
     ],
+    ["busway", "bus_guideway"],
+    `hsl(${buswayHue}, 25%, 93%)`,
     [
       ...tollSelector,
       `hsl(${tollRoadHue}, 100%, 95%)`,
@@ -406,6 +410,7 @@ class Road {
     this.minZoomCasing = 4;
     this.casingColor = roadCasingColor;
     this.fillColor = highwayFillColor;
+    this.sortKey = expresswaySortKey;
   }
   fill = function () {
     var layer = baseRoadLayer(
@@ -419,7 +424,7 @@ class Road {
       "line-cap": "round",
       "line-join": "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -446,7 +451,7 @@ class Road {
       "line-cap": this.brunnel === "bridge" ? "butt" : "round",
       "line-join": this.brunnel === "bridge" ? "bevel" : "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -478,7 +483,7 @@ class Road {
       "line-cap": "butt",
       "line-join": "round",
       visibility: "visible",
-      "line-sort-key": layerSortKey,
+      "line-sort-key": this.sortKey,
     };
     layer.paint = {
       "line-opacity": opacity,
@@ -532,7 +537,14 @@ class RoadSimpleFill extends Road {
       ["all", ["==", getClass, "trunk"], isNotLink],
       [
         "all",
-        ["in", getClass, ["literal", ["primary", "secondary", "tertiary"]]],
+        [
+          "in",
+          getClass,
+          [
+            "literal",
+            ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
+          ],
+        ],
         isExpressway,
       ],
     ];
@@ -593,7 +605,7 @@ class Motorway extends Road {
   constructor() {
     super();
     this.constraints = ["all", ["==", getClass, "motorway"], isNotLink];
-
+    this.sortKey = motorwaySortKey;
     this.minZoomFill = minZoomAllRoads;
     this.minZoomCasing = minZoomAllRoads;
 
@@ -875,6 +887,35 @@ class TertiaryExpressway extends Tertiary {
   }
 }
 
+class Busway extends Tertiary {
+  constructor() {
+    super();
+    this.constraints = [
+      "in",
+      getClass,
+      ["literal", ["busway", "bus_guideway"]],
+    ];
+
+    this.minZoomFill = minZoomTertiary;
+    this.minZoomCasing = minZoomTertiary;
+
+    this.fillColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      this.minZoomFill,
+      `hsl(${buswayHue}, 25%, 75%)`,
+      this.minZoomFill + 2,
+      `hsl(${buswayHue}, 25%, 50%)`,
+      14.9999,
+      `hsl(${buswayHue}, 25%, 50%)`,
+      15,
+      `hsl(${buswayHue}, 25%, 80%)`,
+    ];
+    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
+  }
+}
+
 class Minor extends Road {
   constructor() {
     super();
@@ -1056,6 +1097,14 @@ class TertiaryExpresswayBridge extends TertiaryExpressway {
   }
 }
 
+class BuswayBridge extends Busway {
+  constructor() {
+    //undifferentiated
+    super();
+    this.brunnel = "bridge";
+  }
+}
+
 class MinorBridge extends Minor {
   constructor() {
     //undifferentiated
@@ -1161,6 +1210,7 @@ export const secondaryExpressway = new SecondaryExpressway();
 export const tertiary = new Tertiary();
 export const tertiaryToll = new TertiaryToll();
 export const tertiaryExpressway = new TertiaryExpressway();
+export const busway = new Busway();
 export const minor = new Minor();
 export const minorToll = new MinorToll();
 
@@ -1175,6 +1225,7 @@ export const secondaryExpresswayBridge = new SecondaryExpresswayBridge();
 export const tertiaryBridge = new TertiaryBridge();
 export const tertiaryTollBridge = new TertiaryTollBridge();
 export const tertiaryExpresswayBridge = new TertiaryExpresswayBridge();
+export const buswayBridge = new BuswayBridge();
 export const minorBridge = new MinorBridge();
 export const minorTollBridge = new MinorTollBridge();
 
@@ -1272,6 +1323,11 @@ export const legendEntries = [
       roadSimpleCasing.casing().id,
     ],
     filter: isToll,
+  },
+  {
+    description: "Busway",
+    layers: [busway.fill().id, roadSimpleCasing.casing().id],
+    filter: ["==", getClass, "busway"],
   },
   {
     description: "Unpaved road",
