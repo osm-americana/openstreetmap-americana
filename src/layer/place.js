@@ -208,6 +208,175 @@ export const city = {
   metadata: {},
 };
 
+export const suburb = {
+  id: "place_suburb",
+  type: "symbol",
+  paint: {
+    "text-color": Color.urbanSubAreaLabel,
+    "text-halo-color": labelHaloColor,
+    "text-halo-width": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3,
+      1.5,
+      6,
+      2.5,
+    ],
+    "text-halo-blur": labelHaloBlur,
+  },
+  filter: ["==", ["get", "class"], "suburb"],
+  layout: {
+    "text-font": ["Americana-Regular"],
+    "text-size": {
+      base: 1.2,
+      stops: [
+        [10, 12],
+        [12, 15],
+        [14, 18],
+      ],
+    },
+    "text-field": Label.localizedName,
+    "text-padding": 1,
+    "text-transform": "uppercase",
+    "text-letter-spacing": {
+      base: 0.04,
+      stops: [
+        [11, 0.04],
+        [12, 0.08],
+        [13, 0.2],
+        [14, 0.4],
+      ],
+    },
+    "text-variable-anchor": ["center"],
+    "text-radial-offset": [
+      "interpolate",
+      ["exponential", 1.6],
+      ["zoom"],
+      3,
+      0.5,
+      7,
+      3,
+    ],
+    "text-max-width": 6,
+  },
+  source: "openmaptiles",
+  maxzoom: 15,
+  minzoom: 11,
+  "source-layer": "place",
+};
+
+export const quarter = {
+  id: "place_quarter",
+  type: "symbol",
+  paint: {
+    "text-color": Color.urbanSubAreaLabel,
+    "text-halo-color": labelHaloColor,
+    "text-halo-width": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3,
+      1.5,
+      6,
+      2.5,
+    ],
+    "text-halo-blur": labelHaloBlur,
+  },
+  filter: ["==", ["get", "class"], "quarter"],
+  layout: {
+    "text-font": ["Americana-Regular"],
+    "text-size": {
+      base: 1.2,
+      stops: [
+        [13, 12],
+        [14, 14],
+        [16, 18],
+      ],
+    },
+    "text-field": Label.localizedName,
+    "text-padding": 1,
+    "text-transform": "uppercase",
+    "text-letter-spacing": {
+      base: 0.04,
+      stops: [
+        [14, 0.08],
+        [15, 0.2],
+      ],
+    },
+    "text-variable-anchor": ["center"],
+    "text-radial-offset": [
+      "interpolate",
+      ["exponential", 1.6],
+      ["zoom"],
+      3,
+      0.5,
+      7,
+      3,
+    ],
+    "text-max-width": 6,
+  },
+  source: "openmaptiles",
+  maxzoom: 16,
+  minzoom: 13,
+  "source-layer": "place",
+};
+
+export const neighborhood = {
+  id: "place_neighborhood",
+  type: "symbol",
+  paint: {
+    "text-color": Color.urbanSubAreaLabel,
+    "text-halo-color": labelHaloColor,
+    "text-halo-width": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3,
+      1.5,
+      6,
+      2.5,
+    ],
+    "text-halo-blur": labelHaloBlur,
+  },
+  filter: ["==", ["get", "class"], "neighbourhood"],
+  layout: {
+    "text-font": ["Americana-Regular"],
+    "text-size": {
+      base: 1.2,
+      stops: [
+        [14, 12],
+        [16, 14],
+      ],
+    },
+    "text-field": Label.localizedName,
+    "text-padding": 1,
+    "text-transform": "uppercase",
+    "text-letter-spacing": {
+      base: 0.04,
+      stops: [
+        [15, 0.08],
+        [16, 0.2],
+      ],
+    },
+    "text-variable-anchor": ["center"],
+    "text-radial-offset": [
+      "interpolate",
+      ["exponential", 1.6],
+      ["zoom"],
+      3,
+      0.5,
+      7,
+      3,
+    ],
+    "text-max-width": 6,
+  },
+  source: "openmaptiles",
+  maxzoom: 17,
+  minzoom: 14,
+  "source-layer": "place",
+};
+
 export const state = {
   id: "place_state",
   type: "symbol",
@@ -441,6 +610,18 @@ export const legendEntries = [
     description: "Small village",
     layers: [village.id],
     filter: nonCapitalFilter,
+  },
+  {
+    description: "Major district",
+    layers: [suburb.id],
+  },
+  {
+    description: "Large neighborhood",
+    layers: [quarter.id],
+  },
+  {
+    description: "Neighborhood",
+    layers: [neighborhood.id],
   },
   {
     description: "National capital",
