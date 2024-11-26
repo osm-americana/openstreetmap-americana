@@ -670,6 +670,7 @@ export function loadShields() {
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
   shields["US:I:Downtown:Loop"] = shields["US:I:Business:Loop"];
   shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
+  shields["BO:fundamental"] = shields["US:I:Business:Loop"];
 
   // US Highways
   shields["US:US"] = {
