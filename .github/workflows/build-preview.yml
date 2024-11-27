@@ -18,10 +18,10 @@ jobs:
   build-preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Use Node.js 18.x
+      - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20.x
       - name: Checkout Main Branch 🛎️
         uses: actions/checkout@v4
         with:
@@ -43,12 +43,25 @@ jobs:
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
           npm ci --include=dev
+          rm -rf maplibre-gl-js
+          git clone https://github.com/1ec5/maplibre-gl-js.git --branch=complex-text-50 --depth=10 ../maplibre-gl-js
+          cd ../maplibre-gl-js/
+          npm install --include=dev
+          npm run build-dev
+          npm run build-dist
+          cd -
+          npm link ../maplibre-gl-js/
+          cd shieldlib/
+          npm link ../../maplibre-gl-js
+          cd ../
+          npm install
+          npm link ../maplibre-gl-js/
           npm run build
+          grep u200D ../maplibre-gl-js/build/generate-unicode-data.ts ../maplibre-gl-js/src/data/unicode_properties.ts node_modules/maplibre-gl/build/generate-unicode-data.ts node_modules/maplibre-gl/src/data/unicode_properties.ts node_modules/maplibre-gl/dist/maplibre-gl-unminified.js node_modules/maplibre-gl/dist/maplibre-gl-dev.js dist/americana.js
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
-          cp -r shieldlib/docs/* dist/shield-docs
           mv dist ..
         working-directory: pr-branch
       - name: Capture main branch usage statistics
@@ -109,6 +122,10 @@ jobs:
           cat ../pr/pr_preview-extra.md
           mv samples-diff ../dist/
         working-directory: pr-branch
+      - name: Verify build has latest changes
+        id: grep-build
+        run: |
+          grep u200D dist/americana.js
       - name: Upload Build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -127,3 +144,4 @@ jobs:
         with:
           name: pr_ci_artifacts
           path: pr/
+          overwrite: true
