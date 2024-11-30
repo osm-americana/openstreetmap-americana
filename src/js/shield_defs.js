@@ -649,7 +649,7 @@ export function loadShields() {
       top: 6,
       bottom: 5,
     },
-  }
+  };
   shields["US:I"] = {
     ...usInterstateShield,
     bannerMap: {
@@ -1469,7 +1469,7 @@ export function loadShields() {
       top: 6,
       bottom: 2,
     },
-  }
+  };
 
   shields["US:MD"] = {
     ...marylandShield,
@@ -2113,7 +2113,7 @@ export function loadShields() {
       top: 5,
       bottom: 5,
     },
-  }
+  };
   shields["US:NY"] = {
     ...usNewYorkShield,
     bannerMap: {
@@ -2134,7 +2134,7 @@ export function loadShields() {
       top: 3,
       bottom: 3,
     },
-    ref: "LOOP"
+    ref: "LOOP",
   };
   shields["US:NY:Thruway"] = {
     noref: {
@@ -2724,7 +2724,7 @@ export function loadShields() {
       top: 7,
       bottom: 10,
     },
-  }
+  };
 
   shields["US:TX"] = {
     ...roundedRectShield(Color.shields.white, Color.shields.black),
