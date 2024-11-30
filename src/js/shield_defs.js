@@ -670,7 +670,6 @@ export function loadShields() {
   shields["US:I:Business:Spur"] = shields["US:I:Business:Loop"];
   shields["US:I:Downtown:Loop"] = shields["US:I:Business:Loop"];
   shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
-  shields["BO:fundamental"] = shields["US:I:Business:Loop"];
 
   // US Highways
   shields["US:US"] = {
@@ -3141,6 +3140,14 @@ export function loadShields() {
       top: 3,
       bottom: 7,
     },
+  };
+
+  // Bolivia
+  shields["BO:fundamental"] = {
+    ...badgeShieldCrossbar,
+    colorDarken: Color.shields.green,
+    colorLighten: Color.shields.white,
+    textColor: Color.shields.white,
   };
 
   // Uruguay
