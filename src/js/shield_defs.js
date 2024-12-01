@@ -3150,6 +3150,53 @@ export function loadShields() {
     textColor: Color.shields.white,
   };
 
+  // Peru
+  shields["PE:national"] = {
+    spriteBlank: ["shield_pe_2", "shield_pe_3"],
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 7,
+      bottom: 4,
+    },
+  };
+  [
+    "AM",
+    "AN",
+    "AP",
+    "AR",
+    "AY",
+    "CA",
+    "CU",
+    "HU",
+    "HV",
+    "IC",
+    "JU",
+    "LA",
+    "LI",
+    "LM",
+    "LO",
+    "MD",
+    "MO",
+    "PA",
+    "PI",
+    "PU",
+    "SM",
+    "TA",
+    "TU",
+    "UC",
+  ].forEach(
+    (department) =>
+      ([
+        shields[`PE:departmental:${department}`],
+        shields[`PE:rural:${department}`],
+      ] = [
+        escutcheonDownShield(12, Color.shields.white, Color.shields.black),
+        pillShield(Color.shields.white, Color.shields.black),
+      ])
+  );
+
   // Uruguay
   shields["UY"] = homePlateDownShield(
     5,
