@@ -3148,6 +3148,14 @@ export function loadShields() {
     },
   };
 
+  // Bolivia
+  shields["BO:fundamental"] = {
+    ...badgeShieldCrossbar,
+    colorDarken: Color.shields.green,
+    colorLighten: Color.shields.white,
+    textColor: Color.shields.white,
+  };
+
   // Uruguay
   shields["UY"] = homePlateDownShield(
     5,
