@@ -729,6 +729,9 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "Mormon Pioneer National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_mopi",
+      },
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
       },
@@ -736,6 +739,9 @@ export function loadShields() {
         {
           spriteBlank: "shield_us_nht_ovvi",
         },
+      "Pony Express National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_poex",
+      },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
       },
