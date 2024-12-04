@@ -1058,6 +1058,7 @@ export function loadShields() {
     "Arapahoe",
     "Archuleta",
     "Chaffee",
+    "Clear_Creek",
     "Conejos",
     "Grand",
     "Gunnison",
