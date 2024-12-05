@@ -166,7 +166,7 @@ export const label = {
 };
 
 // A spacer label on each bridge to push any waterway label away from the bridge.
-// https://github.com/ZeLonewolf/openstreetmap-americana/issues/198
+// https://github.com/osm-americana/openstreetmap-americana/issues/198
 export const bridgeSpacer = {
   id: "bridge_spacer",
   type: "symbol",

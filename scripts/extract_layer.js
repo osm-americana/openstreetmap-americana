@@ -23,8 +23,8 @@ const locales = opts.locales[0].split(",");
 
 const style = Style.build(
   config.OPENMAPTILES_URL,
-  "https://zelonewolf.github.io/openstreetmap-americana/sprites/sprite",
-  "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+  "https://americanamap.org/sprites/sprite",
+  "https://font.americanamap.org/{fontstack}/{range}.pbf",
   locales
 );
 

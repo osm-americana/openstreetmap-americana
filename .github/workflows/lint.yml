@@ -18,10 +18,10 @@ jobs:
           # This is important to fetch the changes to the previous commit
           fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18" # Specify the Node.js version
+          node-version-file: package.json
 
       - name: Install dependencies
         run: npm install

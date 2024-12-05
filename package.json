@@ -5,7 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zelonewolf/openstreetmap-americana.git"
+    "url": "git+https://github.com/osm-americana/openstreetmap-americana.git"
   },
   "workspaces": [
     "shieldlib"
@@ -78,6 +78,6 @@
   },
   "engines": {
     "npm": ">=8.3.0",
-    "node": ">=18"
+    "node": ">=18 <=20"
   }
 }

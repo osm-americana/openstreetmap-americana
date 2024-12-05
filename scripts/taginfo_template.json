@@ -3,9 +3,9 @@
   "project": {
     "name": "OpenStreetMap Americana",
     "description": "A quintessentially American map style.",
-    "project_url": "https://github.com/ZeLonewolf/openstreetmap-americana/",
+    "project_url": "https://github.com/osm-americana/openstreetmap-americana/",
     "doc_url": "https://wiki.openstreetmap.org/wiki/OpenStreetMap_Americana",
-    "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/doc-img/osm-americana-logo.png",
+    "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/doc-img/osm-americana-logo.png",
     "contact_name": "Brian Sperlongano",
     "contact_email": "zelonewolf@gmail.com"
   },
@@ -21,7 +21,7 @@
       "object_types": ["node"],
       "description": "Marks the city with a national capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_nation_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star_in_circle.svg"
     },
     {
       "key": "capital",
@@ -29,7 +29,7 @@
       "object_types": ["node"],
       "description": "Marks the city with a national capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_nation_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star_in_circle.svg"
     },
     {
       "key": "capital",
@@ -37,7 +37,7 @@
       "object_types": ["node"],
       "description": "Marks the city with a state capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_state_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star.svg"
     },
     {
       "key": "capital",
@@ -45,7 +45,138 @@
       "object_types": ["node"],
       "description": "Marks the city with a state capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/star_state_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star.svg"
+    },
+    {
+      "key": "capital",
+      "value": "5",
+      "object_types": ["node"],
+      "description": "Marks the place with a local capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_dot_in_circle.svg"
+    },
+    {
+      "key": "capital",
+      "value": "6",
+      "object_types": ["node"],
+      "description": "Marks the place with a local capital icon.",
+      "doc_url": "https://openmaptiles.org/schema/#capital",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_dot_in_circle.svg"
+    },
+    {
+      "key": "boundary",
+      "value": "administrative",
+      "object_types": ["way"],
+      "description": "Administrative boundaries are marked by dashed lines, with different signatures for each value of admin_level.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "2",
+      "object_types": ["way"],
+      "description": "National boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "3",
+      "object_types": ["way"],
+      "description": "National boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "4",
+      "object_types": ["way"],
+      "description": "State boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "5",
+      "object_types": ["way"],
+      "description": "Regional boundaries are marked by a dashed line with a purple halo.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "6",
+      "object_types": ["way"],
+      "description": "County boundaries are marked by a dashed line.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "admin_level",
+      "value": "8",
+      "object_types": ["way"],
+      "description": "Municipal boundaries are marked by a dashed line.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
+      "key": "place",
+      "value": "continent",
+      "object_types": ["node"],
+      "description": "Continents are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "country",
+      "object_types": ["node"],
+      "description": "Countries are labeled in mixed case.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "state",
+      "object_types": ["node"],
+      "description": "States are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "city",
+      "object_types": ["node"],
+      "description": "Cities are marked with a dot.",
+      "doc_url": "https://openmaptiles.org/schema/#place",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
+      "key": "place",
+      "value": "town",
+      "object_types": ["node"],
+      "description": "Towns are marked with a dot.",
+      "doc_url": "https://openmaptiles.org/schema/#place",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
+      "key": "place",
+      "value": "village",
+      "object_types": ["node"],
+      "description": "Villages are marked with a dot.",
+      "doc_url": "https://openmaptiles.org/schema/#place",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
+      "key": "place",
+      "value": "suburb",
+      "object_types": ["node"],
+      "description": "Suburbs are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "quarter",
+      "object_types": ["node"],
+      "description": "Quarters are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "neighbourhood",
+      "object_types": ["node"],
+      "description": "Neighborhoods are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
     },
     {
       "key": "disputed",
@@ -129,7 +260,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "aerodrome:type",
@@ -144,7 +275,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "military",
@@ -152,7 +283,7 @@
       "object_types": ["node", "area"],
       "description": "Military air bases are marked by a fighter jet.",
       "doc_url": "https://openmaptiles.org/schema/#class",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_military_plane.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_military_plane.svg"
     },
     {
       "key": "aerialway",
@@ -389,7 +520,7 @@
       "object_types": ["node", "area"],
       "description": "Fuel stations are marked by an icon representing a gas pump.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_fuel.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_fuel.svg"
     },
     {
       "key": "amenity",
@@ -397,7 +528,7 @@
       "object_types": ["node", "area"],
       "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_school.svg"
     },
     {
       "key": "amenity",
@@ -405,7 +536,7 @@
       "object_types": ["node", "area"],
       "description": "Taxi stands are marked by an icon representing the front view of a taxi cab.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_taxi.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_taxi.svg"
     },
     {
       "key": "amenity",
@@ -413,7 +544,7 @@
       "object_types": ["node", "area"],
       "description": "Schools are marked by an icon representing a schoolhouse with a triangular flag raised above it.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_school.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_school.svg"
     },
     {
       "key": "amenity",
@@ -421,7 +552,7 @@
       "object_types": ["node", "area"],
       "description": "Colleges are marked by an icon representing a mortarboard cap.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_mortarboard.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_mortarboard.svg"
     },
     {
       "key": "amenity",
@@ -429,7 +560,7 @@
       "object_types": ["node", "area"],
       "description": "Colleges are marked by an icon representing a mortarboard cap.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_mortarboard.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_mortarboard.svg"
     },
     {
       "key": "amenity",
@@ -437,7 +568,7 @@
       "object_types": ["node", "area"],
       "description": "Cafes are marked by an icon representing a coffee cup.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_coffee_cup.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_coffee_cup.svg"
     },
     {
       "key": "amenity",
@@ -445,7 +576,7 @@
       "object_types": ["node", "area"],
       "description": "Bars are marked by an icon representing a martini glass.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_martini_glass.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_martini_glass.svg"
     },
     {
       "key": "amenity",
@@ -453,7 +584,31 @@
       "object_types": ["node", "area"],
       "description": "Bars are marked by an icon representing a martini glass.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_martini_glass.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_martini_glass.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "restaurant",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "fast_food",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "food_court",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
     },
     {
       "key": "amenity",
@@ -461,7 +616,7 @@
       "object_types": ["node", "area"],
       "description": "Hospitals are marked by a white letter 'H' in a blue shield.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hospital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_hospital.svg"
     },
     {
       "key": "amenity",
@@ -469,7 +624,7 @@
       "object_types": ["node", "area"],
       "description": "Medical offices are marked by a white cross in a blue shield.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_health_cross.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_health_cross.svg"
     },
     {
       "key": "amenity",
@@ -477,7 +632,15 @@
       "object_types": ["node", "area"],
       "description": "Police stations are marked by an icon representing a police badge.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_police_shield.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_police_shield.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "fire_station",
+      "object_types": ["node", "area"],
+      "description": "Fire stations are marked by an icon representing a firefighter's badge.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_fire_station.svg"
     },
     {
       "key": "amenity",
@@ -485,7 +648,7 @@
       "object_types": ["node", "area"],
       "description": "City halls are marked by an icon representing a domed building with a rectangular flag raised above it.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_town_hall.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_town_hall.svg"
     },
     {
       "key": "amenity",
@@ -493,7 +656,7 @@
       "object_types": ["node", "area"],
       "description": "Post offices are marked by an icon representing an envelope.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_envelope.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_envelope.svg"
     },
     {
       "key": "tourism",
@@ -501,7 +664,7 @@
       "object_types": ["node", "area"],
       "description": "Guest houses are marked by an icon representing a person laying in a bed.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_hotel.svg"
     },
     {
       "key": "tourism",
@@ -509,7 +672,7 @@
       "object_types": ["node", "area"],
       "description": "Hostels are marked by an icon representing two people laying in a bunk bed.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hostel.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_hostel.svg"
     },
     {
       "key": "tourism",
@@ -517,7 +680,7 @@
       "object_types": ["node", "area"],
       "description": "Hotels are marked by an icon representing a person laying in a bed.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_hotel.svg"
     },
     {
       "key": "tourism",
@@ -525,7 +688,7 @@
       "object_types": ["node", "area"],
       "description": "Motels are marked by an icon representing a person laying in a bed.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_hotel.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_hotel.svg"
     },
     {
       "key": "tourism",
@@ -533,7 +696,7 @@
       "object_types": ["node", "area"],
       "description": "Museums are marked by an icon representing a Classical columned building.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_museum.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_museum.svg"
     },
     {
       "key": "amenity",
@@ -541,7 +704,7 @@
       "object_types": ["node", "area"],
       "description": "Medical offices are marked by a white cross in a blue shield.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_health_cross.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_health_cross.svg"
     },
     {
       "key": "amenity",
@@ -549,7 +712,7 @@
       "object_types": ["node", "area"],
       "description": "Libraries are marked by an icon representing a book.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_book_upright.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_book_upright.svg"
     },
     {
       "key": "amenity",
@@ -557,7 +720,7 @@
       "object_types": ["node", "area"],
       "description": "Parking lots are marked by a blue letter 'P'.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_p.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_p.svg"
     },
     {
       "key": "amenity",
@@ -565,7 +728,7 @@
       "object_types": ["node", "area"],
       "description": "Places of worship are marked by a square representing a building, topped with a finial representing the religion for common religions.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_generic.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_generic.svg"
     },
     {
       "key": "amenity",
@@ -573,7 +736,7 @@
       "object_types": ["node", "area"],
       "description": "Bus stations are marked by an icon depicting the front of a bus.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_bus.svg"
     },
     {
       "key": "highway",
@@ -581,7 +744,7 @@
       "object_types": ["node"],
       "description": "Bus stops are marked by an icon depicting the front of a bus.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_bus.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_bus.svg"
     },
     {
       "key": "railway",
@@ -589,7 +752,7 @@
       "object_types": ["node"],
       "description": "Rail halts are marked by an icon depicting the front of a train.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_rail.svg"
     },
     {
       "key": "railway",
@@ -597,7 +760,7 @@
       "object_types": ["node", "area"],
       "description": "Rail stations are marked by an icon depicting the front of a train.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_rail.svg"
     },
     {
       "key": "aerialway",
@@ -605,7 +768,7 @@
       "object_types": ["node", "area"],
       "description": "Aerialway stations are marked by an icon depicting an aerial tramway car.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_aerialway_circle.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_aerialway_circle.svg"
     },
     {
       "key": "railway",
@@ -613,7 +776,7 @@
       "object_types": ["node"],
       "description": "Tram stops are marked by an icon depicting the front of a train.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_rail.svg"
     },
     {
       "key": "station",
@@ -621,7 +784,7 @@
       "object_types": ["node"],
       "description": "Subway stations are marked by an icon depicting the front of a train.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_rail.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_rail.svg"
     },
     {
       "key": "religion",
@@ -629,7 +792,7 @@
       "object_types": ["node", "area"],
       "description": "Buddhist places of worship are marked by an icon representing a building topped by a dharmachakra.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_buddhist.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_buddhist.svg"
     },
     {
       "key": "religion",
@@ -637,7 +800,7 @@
       "object_types": ["node", "area"],
       "description": "Christian places of worship are marked by an icon representing a building topped by a cross.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_christian.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_christian.svg"
     },
     {
       "key": "religion",
@@ -645,7 +808,7 @@
       "object_types": ["node", "area"],
       "description": "Hindu places of worship are marked by an icon representing a building topped by an om symbol.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_hindu.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_hindu.svg"
     },
     {
       "key": "religion",
@@ -653,7 +816,7 @@
       "object_types": ["node", "area"],
       "description": "Jewish places of worship are marked by an icon representing a building topped by a star of David.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_jewish.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_jewish.svg"
     },
     {
       "key": "religion",
@@ -661,7 +824,7 @@
       "object_types": ["node", "area"],
       "description": "Muslim places of worship are marked by an icon representing a building topped by a star and crescent.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_muslim.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_muslim.svg"
     },
     {
       "key": "religion",
@@ -669,7 +832,7 @@
       "object_types": ["node", "area"],
       "description": "Sikh places of worship are marked by an icon representing a building topped by a khanda.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_sikh.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_sikh.svg"
     },
     {
       "key": "religion",
@@ -677,7 +840,7 @@
       "object_types": ["node", "area"],
       "description": "Shinto places of worship are marked by an icon representing a building topped by a torii.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_shinto.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_shinto.svg"
     },
     {
       "key": "religion",
@@ -685,7 +848,7 @@
       "object_types": ["node", "area"],
       "description": "Taoist places of worship are marked by an icon representing a building topped by a yin-yang symbol.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_pow_taoist.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pow_taoist.svg"
     },
     {
       "key": "shop",
@@ -693,7 +856,7 @@
       "object_types": ["node", "area"],
       "description": "Bookstores are marked by an icon representing a book.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_book_upright.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_book_upright.svg"
     },
     {
       "key": "shop",
@@ -701,7 +864,7 @@
       "object_types": ["node", "area"],
       "description": "Car dealerships are marked by an icon representing a front facing vehicle.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_car_shop.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_car_shop.svg"
     },
     {
       "key": "shop",
@@ -709,7 +872,7 @@
       "object_types": ["node", "area"],
       "description": "Car mechanic shops are marked by an icon representing a front facing vehicle with a wrench above it.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_car_repair.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_car_repair.svg"
     },
     {
       "key": "shop",
@@ -717,7 +880,7 @@
       "object_types": ["node", "area"],
       "description": "Supermarkets are marked by an icon representing a grocery cart.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/ZeLonewolf/openstreetmap-americana/main/icons/poi_supermarket.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_supermarket.svg"
     },
     {
       "key": "highway",

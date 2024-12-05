@@ -10,7 +10,7 @@ Rendering shields requires the following compoments:
 
 1. **Encode shield information in vector tiles**. First, your tiles must contain the information which tells the shield renderer what shields to draw. In OpenMapTiles, shield information is encoded in the [`transportation_name`](https://openmaptiles.org/schema/#transportation_name) vector tile layer with a series of attributes named `route_1`, `route_2`, etc. Each attribute contains a text string which contains all of the information needed to determine which graphic to display, including numeric route number if the shield is numbered. However, this library allows you to specify how the shield information has been encoded, and it's possible to stitch together data from multiple fields when encoding shield data.
 
-2. **Expose shield information in a style layer**. Next, route information must be exposed in a maplibre expression using [image](https://maplibre.org/maplibre-gl-js-docs/style-spec/expressions/#types-image) in a structured string containing the route information. For example, you might encode Interstate 95 as an image named `shield|US:I=95`. Normally, the image expression is used to point to pre-designated sprites in a sprite sheet, but in this case, we're pointing to a sprite which doesn't exist called `shield|US:I=95`. This will trigger a `styleimagemissing` event which allows the shield renderer to create the required graphic on the fly. As an example of how to encode shield information, see OSM Americana's [`highway_shield`](https://github.com/ZeLonewolf/openstreetmap-americana/blob/main/src/layer/highway_shield.js) style layer.
+2. **Expose shield information in a style layer**. Next, route information must be exposed in a maplibre expression using [image](https://maplibre.org/maplibre-gl-js-docs/style-spec/expressions/#types-image) in a structured string containing the route information. For example, you might encode Interstate 95 as an image named `shield|US:I=95`. Normally, the image expression is used to point to pre-designated sprites in a sprite sheet, but in this case, we're pointing to a sprite which doesn't exist called `shield|US:I=95`. This will trigger a `styleimagemissing` event which allows the shield renderer to create the required graphic on the fly. As an example of how to encode shield information, see OSM Americana's [`highway_shield`](https://github.com/osm-americana/openstreetmap-americana/blob/main/src/layer/highway_shield.js) style layer.
 
 3. **Define a parser that describes how route information is encoded**. There are three parts to a route definition:
 
@@ -136,6 +136,10 @@ You should create one definition entry for each network. The entry key must matc
     }
   },
   "banners": ["ALT"],
+  "bannerMap": {
+    "ThisNetwork:Truck": ["TRK"],
+    "ThisNetwork:Truck:Bypass": ["TRK", "BYP"]
+  },
   "bannerTextColor": "#000",
   "bannerTextHaloColor": "#FFF",
   "textLayout": {
@@ -176,6 +180,7 @@ You should create one definition entry for each network. The entry key must matc
 
 ![Bannered routes near Downington, PA](https://wiki.openstreetmap.org/w/images/f/f8/Downington_bannered_routes_Americana.png)
 
+- **`bannerMap`**: a map of network-to-banner arrays listing networks that should have the same style but with specified banners.
 - **`bannerTextColor`**: specify the color of the banner text.
 - **`bannerTextHaloColor`**: specify the color of the banner knockout halo.
 - **`textLayout`**: specify how text should be inscribed within the padded bounds of the shield. The text will be drawn at the maximum size allowed by this constraint. See the [text layout functions](#text-layout-functions) section for text layout options.
@@ -323,4 +328,4 @@ In addition to the stock drawing functions, a custom draw function can be specif
 
 ## Documentation
 
-See [TypeDoc generated documentation](https://zelonewolf.github.io/openstreetmap-americana/shield-docs/index.html) for detailed API information.
+See [TypeDoc generated documentation](https://americanamap.org/shield-docs/index.html) for detailed API information.
