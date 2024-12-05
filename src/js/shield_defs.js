@@ -1058,12 +1058,14 @@ export function loadShields() {
     },
   };
   [
+    "Arapahoe",
     "Archuleta",
     "Chaffee",
     "Conejos",
     "Grand",
     "Gunnison",
     "Jackson",
+    "Jefferson",
     "Lake",
     "La_Plata",
     "Larimer",
@@ -3151,6 +3153,14 @@ export function loadShields() {
       top: 3,
       bottom: 7,
     },
+  };
+
+  // Bolivia
+  shields["BO:fundamental"] = {
+    ...badgeShieldCrossbar,
+    colorDarken: Color.shields.green,
+    colorLighten: Color.shields.white,
+    textColor: Color.shields.white,
   };
 
   // Uruguay
