@@ -394,7 +394,7 @@ export const state = {
     ],
     "text-halo-blur": labelHaloBlur,
   },
-  filter: ["==", ["get", "class"], "state"],
+  filter: ["in", ["get", "class"], ["literal", ["state", "province"]]],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
