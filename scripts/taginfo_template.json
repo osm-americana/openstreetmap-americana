@@ -21,7 +21,7 @@
       "object_types": ["node"],
       "description": "Marks the city with a national capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/star_nation_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star_in_circle.svg"
     },
     {
       "key": "capital",
@@ -29,7 +29,7 @@
       "object_types": ["node"],
       "description": "Marks the city with a national capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/star_nation_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star_in_circle.svg"
     },
     {
       "key": "capital",
@@ -37,7 +37,7 @@
       "object_types": ["node"],
       "description": "Marks the city with a state capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/star_state_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star.svg"
     },
     {
       "key": "capital",
@@ -45,7 +45,7 @@
       "object_types": ["node"],
       "description": "Marks the city with a state capital icon.",
       "doc_url": "https://openmaptiles.org/schema/#capital",
-      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/star_state_capital.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_star.svg"
     },
     {
       "key": "capital",
@@ -156,6 +156,27 @@
       "description": "Villages are marked with a dot.",
       "doc_url": "https://openmaptiles.org/schema/#place",
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
+      "key": "place",
+      "value": "suburb",
+      "object_types": ["node"],
+      "description": "Suburbs are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "quarter",
+      "object_types": ["node"],
+      "description": "Quarters are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
+    },
+    {
+      "key": "place",
+      "value": "neighbourhood",
+      "object_types": ["node"],
+      "description": "Neighborhoods are labeled in capital letters.",
+      "doc_url": "https://openmaptiles.org/schema/#place"
     },
     {
       "key": "disputed",
@@ -564,6 +585,30 @@
       "description": "Bars are marked by an icon representing a martini glass.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_martini_glass.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "restaurant",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "fast_food",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "food_court",
+      "object_types": ["node", "area"],
+      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
     },
     {
       "key": "amenity",

@@ -31,6 +31,8 @@ export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
 export const airportLabel = "hsl(250, 71%, 29%)";
 
+export const urbanSubAreaLabel = "hsl(211, 43%, 28%)";
+
 //TODO - rename this variable to "palette"
 export const palette = {
   black: "black",
