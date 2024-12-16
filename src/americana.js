@@ -16,6 +16,7 @@ import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
 import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
+import { debugOptions } from "./debug_config.js";
 
 function upgradeLegacyHash() {
   let hash = window.location.hash.substr(1);
@@ -28,22 +29,20 @@ upgradeLegacyHash();
 
 loadRTLPlugin();
 
-export const map = createMap(window, (shields) => shieldDefLoad(shields), {
-  container: "map", // container id
-  hash: "map",
-  antialias: true,
-  style: buildStyle(),
-  center: [-94, 40.5],
-  zoom: 4,
-  attributionControl: false,
-});
-
-let options = {};
-
-if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
-  options["SHIELD_TEXT_HALO_COLOR_OVERRIDE"] =
-    config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
-}
+export const map = createMap(
+  window,
+  (shields) => shieldDefLoad(shields),
+  {
+    container: "map", // container id
+    hash: "map",
+    antialias: true,
+    style: buildStyle(),
+    center: [-94, 40.5],
+    zoom: 4,
+    attributionControl: false,
+  },
+  debugOptions
+);
 
 // Add our sample data.
 let sampleControl = new SampleControl({ permalinks: true });

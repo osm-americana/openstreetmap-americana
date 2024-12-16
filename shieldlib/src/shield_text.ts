@@ -250,7 +250,7 @@ export function layoutShieldText(
   };
 }
 
-const defaultDefForLayout: ShieldDefinition = {
+const defaultDefForLayout: Partial<ShieldDefinition> = {
   padding: {
     top: 0,
     bottom: 0,
@@ -279,7 +279,7 @@ const defaultDefForLayout: ShieldDefinition = {
 export function layoutShieldTextFromDef(
   r: ShieldRenderingContext,
   text: string,
-  def: ShieldDefinition,
+  def: Partial<ShieldDefinition>,
   bounds: Dimension
 ): TextPlacement {
   //FIX

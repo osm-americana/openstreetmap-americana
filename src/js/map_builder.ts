@@ -17,6 +17,7 @@ import * as Poi from "../js/poi.js";
 import * as Label from "../constants/label.js";
 import * as Style from "../js/style.js";
 import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
+import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
 
 export function buildStyle(): StyleSpecification {
   var getUrl = window.location;
@@ -31,8 +32,7 @@ export function buildStyle(): StyleSpecification {
   return Style.build(
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
-    config.FONT_URL ??
-      "https://osm-americana.github.io/fontstack66/{fontstack}/{range}.pbf",
+    config.FONT_URL ?? "https://font.americanamap.org/{fontstack}/{range}.pbf",
     Label.getLocales()
   );
 }
@@ -54,14 +54,16 @@ export function loadRTLPlugin(): void {
 }
 
 export function createMap(
-  window,
+  window: Window,
   shieldDefCallback: (shields: ShieldDefinitions) => void,
-  options: MapOptions
+  options: MapOptions,
+  debugOptions: DebugOptions
 ): Map {
-  window.maplibregl = maplibregl;
-  let map: Map = (window.map = new maplibregl.Map(options));
+  window["maplibregl"] = maplibregl;
+  let map: Map = (window["map"] = new maplibregl.Map(options));
 
   const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
+    .debugOptions(debugOptions)
     .filterImageID(shieldPredicate)
     .filterNetwork(networkPredicate)
     .renderOnMaplibreGL(map)

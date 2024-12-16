@@ -97,18 +97,18 @@ function ellipse(
   return width;
 }
 
-export function blank(r: ShieldRenderingContext, ref: string) {
-  var shieldWidth =
-    ShieldText.calculateTextWidth(r, ref, r.px(genericShieldFontSize)) +
-    r.px(2);
-  var width = Math.max(
-    r.px(minGenericShieldWidth),
-    Math.min(r.px(maxGenericShieldWidth), shieldWidth)
-  );
-  return r.gfxFactory.createGraphics({
-    width: width,
-    height: r.shieldSize(),
-  });
+export function pill(
+  r: ShieldRenderingContext,
+  ctx: CanvasRenderingContext2D,
+  params: ShapeBlankParams,
+  ref?: string
+): number {
+  /*
+   shieldSize() has to be divided by r.px(1) to get down to 1x resolution.
+   Then we divide in half again to get a 50% height corner radius, hence px(2).
+  */
+  params.radius = r.shieldSize() / r.px(2);
+  return roundedRectangle(r, ctx, params, ref);
 }
 
 export function roundedRectangle(
@@ -803,6 +803,7 @@ registerDrawFunction("hexagonVertical", hexagonVertical);
 registerDrawFunction("hexagonHorizontal", hexagonHorizontal);
 registerDrawFunction("octagonVertical", octagonVertical);
 registerDrawFunction("pentagon", pentagon);
+registerDrawFunction("pill", pill);
 registerDrawFunction("roundedRectangle", roundedRectangle);
 registerDrawFunction("trapezoid", trapezoid);
 registerDrawFunction("triangle", triangle);
