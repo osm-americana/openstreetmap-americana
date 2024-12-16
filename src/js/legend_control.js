@@ -486,8 +486,12 @@ export default class LegendControl {
             shieldDef.overrideByName[image.name].spriteBlank;
         }
       } else if (!networkImages.ref && image.ref) {
+        // Store the numbered variant of a shield if required by the shield
+        // definition.
         networkImages.ref = image.imageName;
       } else if (!networkImages.noRef && !image.ref) {
+        // Store the unnumbered variant of a shield if required by the shield
+        // definition.
         networkImages.noRef = image.imageName;
       }
 
