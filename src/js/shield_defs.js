@@ -639,7 +639,7 @@ export function loadShields() {
   // United States
 
   // Interstate Highways
-  shields["US:I"] = {
+  const usInterstateShield = {
     spriteBlank: ["shield_us_interstate_2", "shield_us_interstate_3"],
     textLayout: textConstraint("southHalfEllipse"),
     textColor: Color.shields.white,
@@ -649,6 +649,9 @@ export function loadShields() {
       top: 6,
       bottom: 5,
     },
+  };
+  shields["US:I"] = {
+    ...usInterstateShield,
     bannerMap: {
       "US:I:Alternate": ["ALT"],
       "US:I:Express": ["EXPR"],
@@ -660,7 +663,7 @@ export function loadShields() {
   };
 
   shields["US:I:Business:Loop"] = {
-    ...shields["US:I"],
+    ...usInterstateShield,
     spriteBlank: [
       "shield_us_interstate_business_2",
       "shield_us_interstate_business_3",
@@ -1061,12 +1064,15 @@ export function loadShields() {
     },
   };
   [
+    "Arapahoe",
     "Archuleta",
     "Chaffee",
+    "Clear_Creek",
     "Conejos",
     "Grand",
     "Gunnison",
     "Jackson",
+    "Jefferson",
     "Lake",
     "La_Plata",
     "Larimer",
@@ -1463,7 +1469,7 @@ export function loadShields() {
   };
 
   // Maryland
-  shields["US:MD"] = {
+  const marylandShield = {
     spriteBlank: ["shield_us_md_2", "shield_us_md_3"],
     textColor: Color.shields.black,
     padding: {
@@ -1472,6 +1478,10 @@ export function loadShields() {
       top: 6,
       bottom: 2,
     },
+  };
+
+  shields["US:MD"] = {
+    ...marylandShield,
     bannerMap: {
       "US:MD:Alternate": ["ALT"],
       "US:MD:Bypass": ["BYP"],
@@ -1479,7 +1489,7 @@ export function loadShields() {
   };
   shields["US:MD:Business"] = banneredShield(
     {
-      ...shields["US:MD"],
+      ...marylandShield,
       textColor: Color.shields.green,
       colorLighten: Color.shields.green,
     },
@@ -2103,7 +2113,7 @@ export function loadShields() {
   );
 
   // New York
-  shields["US:NY"] = {
+  const usNewYorkShield = {
     spriteBlank: ["shield_us_ny_2", "shield_us_ny_3"],
     textColor: Color.shields.black,
     padding: {
@@ -2112,6 +2122,9 @@ export function loadShields() {
       top: 5,
       bottom: 5,
     },
+  };
+  shields["US:NY"] = {
+    ...usNewYorkShield,
     bannerMap: {
       "US:NY:Truck": ["TRK"],
     },
@@ -2130,8 +2143,8 @@ export function loadShields() {
       top: 3,
       bottom: 3,
     },
+    ref: "LOOP",
   };
-  shields["US:NY:Inner_Loop"].ref = "LOOP";
   shields["US:NY:Thruway"] = {
     noref: {
       spriteBlank: "shield_us_ny_thruway",
@@ -2143,7 +2156,7 @@ export function loadShields() {
     },
   };
   shields["US:NY:Parkway"] = {
-    ...shields["US:NY"],
+    ...usNewYorkShield,
     textColor: Color.shields.white,
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
@@ -2710,6 +2723,18 @@ export function loadShields() {
   );
 
   // Texas
+  const usTexasShapedShield = {
+    spriteBlank: "shield_us_tx_outline",
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 3,
+      right: 0,
+      top: 7,
+      bottom: 10,
+    },
+  };
+
   shields["US:TX"] = {
     ...roundedRectShield(Color.shields.white, Color.shields.black),
     bannerMap: {
@@ -2723,22 +2748,14 @@ export function loadShields() {
     },
   };
   shields["US:TX:FM"] = shields["US:TX:RM"] = {
-    spriteBlank: "shield_us_tx_outline",
-    textColor: Color.shields.black,
-    textLayout: textConstraint("ellipse"),
-    padding: {
-      left: 3,
-      right: 0,
-      top: 7,
-      bottom: 10,
-    },
+    ...usTexasShapedShield,
     bannerMap: {
       "US:TX:FM:Business": ["BUS"],
     },
   };
   shields["US:TX:Recreational"] = banneredShield(
     {
-      ...shields["US:TX:FM"],
+      ...usTexasShapedShield,
       textColor: Color.shields.brown,
       colorLighten: Color.shields.brown,
     },
@@ -2757,10 +2774,7 @@ export function loadShields() {
       "US:TX:Loop:Express:Toll": ["EXPR", "LOOP"],
     },
   };
-  shields["US:TX:Toll"] = shields["US:TX:NTTA"] = roundedRectShield(
-    Color.shields.blue,
-    Color.shields.white
-  );
+
   shields["US:TX:CTRMA"] = {
     ...roundedRectShield(
       Color.shields.blue,
