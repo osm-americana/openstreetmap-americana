@@ -18,6 +18,7 @@ const baseFilter = [
         "secondary",
         "tertiary",
         "busway",
+        "bus_guideway",
         "minor",
         "service",
       ],

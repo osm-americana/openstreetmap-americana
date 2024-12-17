@@ -190,9 +190,9 @@ const widthFactor = [
   [...linkSelector, 0.45, 0.9],
   "secondary",
   [...linkSelector, 0.3, [...expresswaySelector, 0.7, 0.6]],
-  ["tertiary", "busway", "bus_guideway"],
+  "tertiary",
   [...linkSelector, 0.25, 0.5],
-  "minor",
+  ["minor", "busway", "bus_guideway"],
   0.3,
   "service",
   [...smallServiceSelector, 0.15, 0.2],
@@ -887,35 +887,6 @@ class TertiaryExpressway extends Tertiary {
   }
 }
 
-class Busway extends Tertiary {
-  constructor() {
-    super();
-    this.constraints = [
-      "in",
-      getClass,
-      ["literal", ["busway", "bus_guideway"]],
-    ];
-
-    this.minZoomFill = minZoomTertiary;
-    this.minZoomCasing = minZoomTertiary;
-
-    this.fillColor = [
-      "interpolate",
-      ["exponential", roadExp],
-      ["zoom"],
-      this.minZoomFill,
-      `hsl(${buswayHue}, 25%, 75%)`,
-      this.minZoomFill + 2,
-      `hsl(${buswayHue}, 25%, 50%)`,
-      14.9999,
-      `hsl(${buswayHue}, 25%, 50%)`,
-      15,
-      `hsl(${buswayHue}, 25%, 80%)`,
-    ];
-    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
-  }
-}
-
 class Minor extends Road {
   constructor() {
     super();
@@ -942,6 +913,35 @@ class MinorToll extends Minor {
     ];
 
     this.fillColor = tollRoadFillColor(tollRoadHue, this.minZoomFill);
+  }
+}
+
+class Busway extends Minor {
+  constructor() {
+    super();
+    this.constraints = [
+      "in",
+      getClass,
+      ["literal", ["busway", "bus_guideway"]],
+    ];
+
+    this.minZoomFill = minZoomTertiary;
+    this.minZoomCasing = minZoomTertiary;
+
+    this.fillColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      this.minZoomFill,
+      `hsl(${buswayHue}, 25%, 75%)`,
+      this.minZoomFill + 2,
+      `hsl(${buswayHue}, 25%, 50%)`,
+      14.9999,
+      `hsl(${buswayHue}, 25%, 50%)`,
+      15,
+      `hsl(${buswayHue}, 25%, 80%)`,
+    ];
+    this.surfaceColor = `hsl(${this.hue}, 0%, 80%)`;
   }
 }
 

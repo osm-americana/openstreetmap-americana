@@ -8,7 +8,13 @@ const classSelector = ["match", ["get", "class"]];
 const motorwayToTrunk = ["motorway", "trunk"];
 const motorwayToPrimary = [...motorwayToTrunk, "primary"];
 const motorwayToSecondary = [...motorwayToPrimary, "secondary"];
-const motorwayToMinor = [...motorwayToSecondary, "tertiary", "minor", "busway"];
+const motorwayToMinor = [
+  ...motorwayToSecondary,
+  "tertiary",
+  "minor",
+  "busway",
+  "bus_guideway",
+];
 const motorwayToService = [...motorwayToMinor, "service"];
 
 const majorConstruction = ["motorway_construction", "trunk_construction"];
@@ -156,7 +162,7 @@ export const label = {
       3,
       "secondary",
       4,
-      ["tertiary", "minor", "busway"],
+      ["tertiary", "minor", "busway", "bus_guideway"],
       5,
       6,
     ],
