@@ -507,7 +507,7 @@ export default class LegendControl {
       let images = imagesByNetwork[network];
       if (!images) return [];
       return [
-        images.noRef,
+        Object.values(images.overridesByName).length > 0 ? "" : images.noRef,
         images.ref,
         ...Object.values(images.overridesByRef),
         ...Object.values(images.overridesByName), // Add overrides by name
