@@ -510,7 +510,7 @@ export default class LegendControl {
         Object.values(images.overridesByName).length > 0 ? "" : images.noRef,
         images.ref,
         ...Object.values(images.overridesByRef),
-        ...Object.values(images.overridesByName), // Add overrides by name
+        ...Object.values(images.overridesByName),
       ].filter((i) => i);
     };
 
