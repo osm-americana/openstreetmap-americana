@@ -6,6 +6,7 @@ import * as lyrAerialway from "./aerialway.js";
 import * as lyrAeroway from "./aeroway.js";
 import * as lyrBackground from "./background.js";
 import * as lyrBoundary from "./boundary.js";
+import * as lyrBridge from "./bridge.js";
 import * as lyrConstruction from "./construction.js";
 import * as lyrHighwayShield from "./highway_shield.js";
 import * as lyrLanduse from "./landuse.js";
@@ -145,7 +146,10 @@ export function build(locales) {
   layers.push(lyrBuilding.building);
 
   var bridgeLayers = [
-    lyrRail.bridgeCasing,
+    lyrBridge.bridgeCasingBackground,
+    lyrBridge.bridge,
+    lyrBridge.bridgeOutline,
+    lyrBridge.bridgeCasing,
 
     lyrRoad.trunkLinkBridge.casing(),
     lyrRoad.motorwayLinkBridge.casing(),
