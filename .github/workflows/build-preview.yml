@@ -104,7 +104,7 @@ jobs:
       - name: Generate map diff sample clips
         id: map-diff-samples
         run: |
-          npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
+          npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.americanamap.org/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
           mv pr_preview-extra.md ../pr/
           cat ../pr/pr_preview-extra.md
           mv samples-diff ../dist/
