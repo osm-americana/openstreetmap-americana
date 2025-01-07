@@ -96,6 +96,20 @@ export function loadShields() {
     textHaloColor: Color.backgroundFill,
   };
 
+  let escutcheonCrossbarShield = {
+    spriteBlank: [
+      "shield_escutcheon_crossbar_2",
+      "shield_escutcheon_crossbar_3",
+    ],
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 5.5,
+      bottom: 4.5,
+    },
+  };
+
   // NORTH AMERICA
   shields["GLCT"] = {
     notext: true,
@@ -573,19 +587,7 @@ export function loadShields() {
     "VER",
     "YUC",
     "ZAC",
-  ].forEach(
-    (state) =>
-      (shields[`MX:${state}`] = {
-        spriteBlank: ["shield_mx_state_2", "shield_mx_state_3"],
-        textColor: Color.shields.black,
-        padding: {
-          left: 2,
-          right: 2,
-          top: 5.5,
-          bottom: 4.5,
-        },
-      })
-  );
+  ].forEach((state) => (shields[`MX:${state}`] = escutcheonCrossbarShield));
 
   // Ejes Viales (CDMX)
   shields["MX:CDMX:EJE:CENTRAL"] = {
@@ -3200,7 +3202,7 @@ export function loadShields() {
         shields[`PE:departmental:${department}`],
         shields[`PE:rural:${department}`],
       ] = [
-        escutcheonDownShield(12, Color.shields.white, Color.shields.black),
+        escutcheonCrossbarShield,
         pillShield(Color.shields.white, Color.shields.black),
       ])
   );
