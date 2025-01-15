@@ -31,7 +31,7 @@ export class HillshadeControl {
     this._button = document.createElement("button");
     this._button.className = "maplibregl-ctrl-terrain";
     Promise.resolve(map.loaded() || map.once("load")).then(() =>
-      this._updateButton(),
+      this._updateButton()
     );
     this._button.addEventListener("click", this._onClick);
     this._container.append(this._button);
