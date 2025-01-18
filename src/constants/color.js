@@ -12,6 +12,8 @@ export const waterLine = "hsl(211, 42%, 70%)";
 export const waterLineBold = "hsl(211, 42%, 50%)";
 export const waterLabel = "hsl(211, 43%, 28%)";
 
+export const ridgeLabel = "hsl(39, 69%, 26%)";
+
 export const hueBorder = 0;
 export const hueBorderCasing = 281;
 
@@ -33,7 +35,6 @@ export const airportLabel = "hsl(250, 71%, 29%)";
 
 export const urbanSubAreaLabel = "hsl(211, 43%, 28%)";
 
-//TODO - rename this variable to "palette"
 export const palette = {
   black: "black",
   blue: "#003f87", // Pantone 294

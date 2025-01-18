@@ -69,7 +69,10 @@ function shieldDefLoad(shields) {
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
   map.addControl(new maplibregl.NavigationControl(), "top-left");
-  map.addControl(new HillshadeControl({ layerId: "hillshading" }), "top-left");
+  map.addControl(
+    new HillshadeControl({ layerIds: ["hillshading", "ridge_label"] }),
+    "top-left"
+  );
 
   window.addEventListener("languagechange", (event) => {
     console.log(`Changed to ${navigator.languages}`);
