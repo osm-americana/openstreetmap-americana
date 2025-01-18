@@ -1,10 +1,12 @@
 export class HillshadeControl {
-  constructor({ layerId }) {
-    this._layerId = layerId;
+  constructor({ layerIds }) {
+    this._layerIds = layerIds;
   }
 
   _updateButton() {
-    if (this._map.getLayoutProperty(this._layerId, "visibility") == "none") {
+    if (
+      this._map.getLayoutProperty(this._layerIds[0], "visibility") == "none"
+    ) {
       this._button.classList.remove("maplibregl-ctrl-terrain-enabled");
       this._button.title = "Enable terrain";
     } else {
@@ -15,10 +17,12 @@ export class HillshadeControl {
 
   _onClick = () => {
     const newValue =
-      this._map.getLayoutProperty(this._layerId, "visibility") == "none"
+      this._map.getLayoutProperty(this._layerIds[0], "visibility") == "none"
         ? "visible"
         : "none";
-    this._map.setLayoutProperty(this._layerId, "visibility", newValue);
+    this._layerIds.forEach((layerId) =>
+      this._map.setLayoutProperty(layerId, "visibility", newValue)
+    );
     this._updateButton();
   };
 

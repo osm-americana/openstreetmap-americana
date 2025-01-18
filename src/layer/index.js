@@ -18,6 +18,7 @@ import * as lyrRail from "./rail.js";
 import * as lyrRoad from "./road.js";
 import * as lyrTransportationLabel from "./transportation_label.js";
 import * as lyrWater from "./water.js";
+import * as lyrMountain from "./mountain.js";
 import * as lyrBuilding from "./building.js";
 import * as lyrHighwayExit from "./highway_exit.js";
 import * as lyrFerry from "./ferry.js";
@@ -212,6 +213,7 @@ export function build(locales) {
     lyrBoundary.countryLabelLeft,
     lyrBoundary.countryLabelRight,
     lyrWater.waterwayLabel,
+    lyrMountain.ridgeLabel,
 
     lyrTransportationLabel.bridgeSpacer,
     lyrTransportationLabel.label,
