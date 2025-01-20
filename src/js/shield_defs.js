@@ -1390,7 +1390,6 @@ export function loadShields() {
       "Cumberland Parkway": "LN",
       "Hal Rogers Parkway": "HR",
       "Mountain Parkway": "MP",
-      "Purchase Parkway": "JC",
       "Western Kentucky Parkway": "WK",
     },
   };
