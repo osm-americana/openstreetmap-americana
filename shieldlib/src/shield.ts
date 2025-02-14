@@ -14,6 +14,9 @@ import {
 import { TextPlacement } from "./shield_text";
 import { StyleImage } from "maplibre-gl";
 
+const narrowCharacters = /[1IJijl .-]/g;
+const maxRefLength = 7;
+
 function compoundShieldSize(
   r: ShieldRenderingContext,
   dimension: Dimension,
@@ -28,7 +31,7 @@ function compoundShieldSize(
 }
 
 export function isValidRef(ref: string): boolean {
-  return ref !== null && ref.length !== 0 && ref.length <= 6;
+  return ref !== null && ref.length !== 0 && ref.length <= maxRefLength;
 }
 
 /**
@@ -51,20 +54,22 @@ function getRasterShieldBlank(
   let bounds: Dimension;
 
   if (Array.isArray(shieldDef.spriteBlank)) {
-    for (var i = 0; i < shieldDef.spriteBlank.length; i++) {
-      shieldArtwork = r.spriteRepo.getSprite(shieldDef.spriteBlank[i]);
+    // Certain narrow characters count as two-thirds of a character
+    let narrowCharacterCount = (routeDef.ref.match(narrowCharacters) ?? [])
+      .length;
+    let refLength = Math.ceil(routeDef.ref.length - narrowCharacterCount / 3);
 
-      bounds = compoundShieldSize(r, shieldArtwork.data, bannerCount);
-      textPlacement = ShieldText.layoutShieldTextFromDef(
-        r,
-        routeDef.ref,
-        shieldDef,
-        bounds
-      );
-      if (textPlacement.fontPx > r.px(Gfx.fontSizeThreshold)) {
-        break;
-      }
-    }
+    // Choose icon based on optimal character length at end of filename
+    let finalIndex = shieldDef.spriteBlank.length - 1;
+    let optimalCharacters = shieldDef.spriteBlank.map((blank) =>
+      parseInt(blank.split("_").reverse()[0])
+    );
+    let spriteIndex =
+      refLength > optimalCharacters[finalIndex]
+        ? finalIndex
+        : Math.max(0, optimalCharacters.indexOf(refLength));
+
+    shieldArtwork = r.spriteRepo.getSprite(shieldDef.spriteBlank[spriteIndex]);
   } else {
     shieldArtwork = r.spriteRepo.getSprite(shieldDef.spriteBlank);
   }

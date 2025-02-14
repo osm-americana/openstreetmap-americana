@@ -27,8 +27,8 @@ const handler = shieldRenderer.getStyleImageMissingHandler();
 
 handler({ id: "shield\nBAB\n5\n\n" });
 handler({ id: "shield\nUS:RI\n\n\n" });
-handler({ id: "shield\nUS:RI\nABC123\n\n" });
-handler({ id: "shield\nUS:RI\nEquator\n\n" });
+handler({ id: "shield\nUS:RI\nABC1234\n\n" });
+handler({ id: "shield\nUS:RI\nLatitude\n\n" });
 handler({ id: "shield\nrwn\n\n\n" });
 handler({ id: "foo" });
 
@@ -51,9 +51,9 @@ describe("shield", function () {
       expect(isBlankSprite("shield\nUS:RI\n\n\n")).to.be.true;
     });
     it("rejects a long ref", function () {
-      expect(mockRepo.hasSprite("shield\nUS:RI\nABC123\n\n")).to.be.true;
-      expect(isBlankSprite("shield\nUS:RI\nABC123\n\n")).to.be.false;
-      expect(isBlankSprite("shield\nUS:RI\nEquator\n\n")).to.be.true;
+      expect(mockRepo.hasSprite("shield\nUS:RI\nABC1234\n\n")).to.be.true;
+      expect(isBlankSprite("shield\nUS:RI\nABC1234\n\n")).to.be.false;
+      expect(isBlankSprite("shield\nUS:RI\nLatitude\n\n")).to.be.true;
     });
   });
 });

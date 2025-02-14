@@ -217,7 +217,7 @@ export function triangleDownShield(
   rectWidth: number
 ): Partial<ShieldDefinition> {
   textColor = textColor ?? strokeColor;
-  radius = radius ?? 2;
+  radius = radius ?? 3;
 
   return {
     shapeBlank: {
@@ -232,10 +232,10 @@ export function triangleDownShield(
     },
     textLayout: textConstraint("triangleDown"),
     padding: {
-      left: 1,
-      right: 1,
-      top: 2,
-      bottom: 1,
+      left: 0,
+      right: 0,
+      top: 3,
+      bottom: 0,
     },
     textColor,
   };
@@ -674,12 +674,11 @@ export function pillShield(
   textColor = textColor ?? strokeColor;
   return {
     shapeBlank: {
-      drawFunc: "roundedRectangle",
+      drawFunc: "pill",
       params: {
         fillColor,
         strokeColor,
         rectWidth,
-        radius: 10,
       },
     },
     textLayout: textConstraint("ellipse"),

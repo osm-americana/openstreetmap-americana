@@ -121,6 +121,7 @@ let networks = [
   "US:VA",
   "US:PR:primary",
   "HK",
+  "MX:QRO",
   "CA:QC:A",
 
   "NZ:SH",
@@ -135,6 +136,7 @@ let networks = [
   "CA:PE",
   "US:FL:Toll",
   "CA:BC",
+  "MX:MX",
   "IN:NH",
   "PK:motorway",
   "US:US",
@@ -259,6 +261,8 @@ let refs = [
   "A 562",
   "1138-2",
   "A26/A7",
+  "GUA 10D",
+  "SS18var",
 ];
 
 export function getShieldCanvas(network, ref, name) {
@@ -304,6 +308,14 @@ const iterShields = function* () {
     refs: ["QEW"],
   };
   yield {
+    network: "CA:ON:Hamilton:Expressway",
+    names: ["Lincoln M. Alexander Parkway", "Red Hill Valley Parkway"],
+  };
+  yield {
+    network: "CA:ON:Toronto:Expressway",
+    refs: ["DV", "G"],
+  };
+  yield {
     network: "GLCT",
     refs: ["LECT", "LHCT", "LMCT", "LSCT"],
   };
@@ -346,6 +358,10 @@ const iterShields = function* () {
   yield {
     network: "US:NH:Turnpike",
     names: ["Blue Star Turnpike", "Everett Turnpike", "Spaulding Turnpike"],
+  };
+  yield {
+    network: "US:NY:Inner_Loop",
+    names: ["Inner Loop"],
   };
 };
 
