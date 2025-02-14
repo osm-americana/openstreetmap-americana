@@ -122,6 +122,7 @@ let networks = [
   "US:VA",
   "US:PR:primary",
   "HK",
+  "MX:QRO",
   "CA:QC:A",
 
   "NZ:SH",
@@ -136,6 +137,7 @@ let networks = [
   "CA:PE",
   "US:FL:Toll",
   "CA:BC",
+  "MX:MX",
   "IN:NH",
   "PK:motorway",
   "US:US",
@@ -260,6 +262,8 @@ let refs = [
   "A 562",
   "1138-2",
   "A26/A7",
+  "GUA 10D",
+  "SS18var",
 ];
 
 export function getShieldCanvas(network, ref, name) {
