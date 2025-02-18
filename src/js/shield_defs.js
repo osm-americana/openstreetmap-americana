@@ -1073,6 +1073,7 @@ export function loadShields() {
     "Saguache",
     "San_Juan",
     "Teller",
+    "Weld",
   ].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = pentagonUpShield(
