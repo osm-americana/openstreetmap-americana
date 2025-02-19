@@ -4011,6 +4011,16 @@ export function loadShields() {
         Color.shields.white
       ))
   );
+  shields["NL:DR:Hunebed_Highway"] = {
+    spriteBlank: ["shield_nl_dr_hunebed"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 4,
+    },
+  };
 
   // Poland
   shields["pl:expressway"] = shields["pl:motorway"] = roundedRectShield(
