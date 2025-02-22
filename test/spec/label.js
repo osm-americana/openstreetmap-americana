@@ -292,7 +292,7 @@ describe("label", function () {
       if (typeof evaluated === "string") {
         return [evaluated];
       }
-      return [evaluated.sections[0].text, evaluated.sections[4]?.text];
+      return [evaluated.sections[0].text, evaluated.sections[3]?.text];
     };
 
     let expectGloss = (
@@ -336,18 +336,14 @@ describe("label", function () {
         name: "Insula Nullius",
       });
 
-      expect(evaluated.sections.length).to.be.eql(7);
+      expect(evaluated.sections.length).to.be.eql(5);
       expect(evaluated.sections[0].text).to.be.eql("Null Island");
       expect(evaluated.sections[1].text).to.be.eql("\n");
-      expect(evaluated.sections[2].text).to.be.eql("(\u200B");
-      expect(evaluated.sections[3].text).to.be.eql("Null Island"[0] + " ");
-      expect(evaluated.sections[4].text).to.be.eql("Insula Nullius");
-      expect(evaluated.sections[5].text).to.be.eql(" " + "Null Island"[0]);
-      expect(evaluated.sections[6].text).to.be.eql("\u200B)");
+      expect(evaluated.sections[2].text).to.be.eql("(\u2068");
+      expect(evaluated.sections[3].text).to.be.eql("Insula Nullius");
+      expect(evaluated.sections[4].text).to.be.eql("\u2069)");
 
-      expect(evaluated.sections[3].scale).to.be.below(0.1);
-      expect(evaluated.sections[4].scale).to.be.below(1);
-      expect(evaluated.sections[5].scale).to.be.below(0.1);
+      expect(evaluated.sections[3].scale).to.be.below(1);
     });
     it("deduplicates matching anglicized and local names", function () {
       expectGloss("en", "Null Island", "Null Island", "Null Island");
