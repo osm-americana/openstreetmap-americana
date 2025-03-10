@@ -769,6 +769,12 @@ export function loadShields() {
     notext: true,
   };
 
+  // Palisades Interstate Parkway
+  shields["US:PIPC"] = {
+    spriteBlank: ["shield_us_pipc"],
+    notext: true,
+  };
+
   // US States
 
   // Alaska
