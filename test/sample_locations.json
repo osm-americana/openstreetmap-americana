@@ -95,5 +95,143 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "17/25.029431/121.520308",
+    "language": "zh",
+    "name": "heping_fuyou_branch",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "12/38.86185/-77.20877",
+    "language": "zh",
+    "name": "na_hang",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "6/20.298/95.846",
+    "language": "hi",
+    "name": "naypyitaw",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "14/28.63388/77.22034",
+    "language": "hi",
+    "name": "connaught_place",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "4.11/6.02/80.75",
+    "language": "si,en",
+    "name": "sri_lanka",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "2/28.93/51.74",
+    "language": "dv",
+    "name": "mideast",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "2.66/4.15/87.89",
+    "language": "th",
+    "name": "indian_ocean",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "6/14.171/100.518",
+    "language": "th",
+    "name": "tanintharyi",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "13/20.8724/92.33761",
+    "language": "mul",
+    "name": "paung_zar",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "15/49.02432/-123.10257",
+    "language": "hur",
+    "name": "blue_heron_nest_park",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "18/50.292153/57.185227",
+    "name": "ovi_derm",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "18/51.00589/8.006319",
+    "name": "grubenweiher",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "19/40.6752369/14.7714701",
+    "name": "we_heart_puro",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "18/18.53495/-72.398062",
+    "name": "hotel_79",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "19/49.483454/8.4965913",
+    "name": "garden_of_chernivtsi",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "18/-18.936429/-159.736903",
+    "name": "one_foot_island",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]
