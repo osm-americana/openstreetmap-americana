@@ -3459,10 +3459,6 @@ export function loadShields() {
     Color.shields.blue,
     Color.shields.white
   );
-  shields["IR:national"] = roundedRectShield(
-    Color.shields.green,
-    Color.shields.white
-  );
 
   // Iraq
   shields["IQ:national"] = roundedRectShield(
