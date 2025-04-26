@@ -2157,6 +2157,7 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
     refsByName: {
+      "Bear Mountain Parkway": "BMP",
       "Bear Mountain State Parkway": "BMP",
       "Bronx River Parkway": "BRP",
       "Cross County Parkway": "CCP",
