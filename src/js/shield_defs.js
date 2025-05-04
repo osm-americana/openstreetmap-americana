@@ -3605,6 +3605,20 @@ export function loadShields() {
     },
   };
 
+  // Saudi Arabia
+  shields["SA:national"] = {
+    spriteBlank: "shield_sa_national",
+    textLayout: textConstraint("diamond"),
+    textColor: Color.shields.black,
+    numberingSystem: "arab",
+    padding: {
+      left: 3,
+      right: 2,
+      top: 4,
+      bottom: 3,
+    },
+  };
+
   // Turkey
   shields["TR:motorway"] = hexagonVerticalShield(
     2,
