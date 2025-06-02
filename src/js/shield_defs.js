@@ -3605,6 +3605,12 @@ export function loadShields() {
     },
   };
 
+  // Singapore
+  shields["SG:expressway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
+
   // Turkey
   shields["TR:motorway"] = hexagonVerticalShield(
     2,
