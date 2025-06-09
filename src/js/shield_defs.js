@@ -2098,7 +2098,7 @@ export function loadShields() {
       bottom: 6,
     },
   };
-  ["Clark", "Washoe"].forEach(
+  ["Washoe"].forEach(
     (county) =>
       (shields[`US:NV:${county}`] = pentagonUpShield(
         3,
@@ -2106,8 +2106,20 @@ export function loadShields() {
         Color.shields.blue,
         Color.shields.yellow
       ))
-  );
+  ),
 
+    shields["US:NV:Clark"] = {
+    spriteBlank: "shield_us_nv_clark",
+    textColor: Color.shields.blue, // Color of the text is #003882
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: -2,
+      right: -2,
+      top: 2,
+      bottom: 6,
+    },
+  };
+  
   // New York
   const usNewYorkShield = {
     spriteBlank: ["shield_us_ny_2", "shield_us_ny_3"],
