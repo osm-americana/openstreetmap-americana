@@ -3456,7 +3456,7 @@ export function loadShields() {
   };
 
   // Iran
-  shields["ir:freeway"] = roundedRectShield(
+  shields["IR:freeway"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
