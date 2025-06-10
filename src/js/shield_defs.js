@@ -2157,6 +2157,7 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
     refsByName: {
+      "Bear Mountain Parkway": "BMP",
       "Bear Mountain State Parkway": "BMP",
       "Bronx River Parkway": "BRP",
       "Cross County Parkway": "CCP",
@@ -3603,6 +3604,12 @@ export function loadShields() {
       bottom: 7,
     },
   };
+
+  // Singapore
+  shields["SG:expressway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
 
   // Turkey
   shields["TR:motorway"] = hexagonVerticalShield(
