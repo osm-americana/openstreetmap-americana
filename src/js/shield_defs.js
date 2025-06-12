@@ -2200,7 +2200,7 @@ export function loadShields() {
     overrideByName: {
       "High Peaks Scenic Byway": {
         spriteBlank: "shield_us_ny_scenic_highpeaks",
-      }
+      },
     },
   };
   [
