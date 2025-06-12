@@ -2195,6 +2195,14 @@ export function loadShields() {
       bottom: 8,
     },
   };
+  shields["US:NY:Scenic"] = {
+    notext: true,
+    overrideByName: {
+      "High Peaks Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_highpeaks",
+      }
+    },
+  };
   [
     "Albany",
     "Allegany",
