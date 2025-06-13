@@ -180,6 +180,9 @@ boilerplate in `scripts/taginfo_template.json`.
    browser environment, add automated unit tests for it to `test/spec/`, then
    run `npm test` to ensure that they pass. This project structures unit tests
    using [Chai](https://www.chaijs.com/guide/styles/) for assertions.
+6. There are built-in GitHub actions that will generate a preview map of your
+   changes. We recommend initially creating a PR draft, and then using the preview
+   map to capture links and screenshots to add to your PR.
 
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
