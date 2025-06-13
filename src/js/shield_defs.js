@@ -2198,6 +2198,9 @@ export function loadShields() {
   shields["US:NY:Scenic"] = {
     notext: true,
     overrideByName: {
+      "Dude Ranch Trail": {
+        spriteBlank: "shield_us_ny_scenic_duderanch",
+      },
       "High Peaks Scenic Byway": {
         spriteBlank: "shield_us_ny_scenic_highpeaks",
       },
