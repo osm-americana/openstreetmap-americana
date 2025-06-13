@@ -2086,39 +2086,41 @@ export function loadShields() {
     Color.shields.pink
   );
 
-  // Nevada
-  shields["US:NV"] = {
-    spriteBlank: "shield_us_nv",
-    textColor: Color.shields.black,
-    textLayout: textConstraint("triangleDown"),
-    padding: {
-      left: -2,
-      right: -2,
-      top: 2,
-      bottom: 6,
-    },
-  };
-  ["Washoe"].forEach(
-    (county) =>
-      (shields[`US:NV:${county}`] = pentagonUpShield(
-        3,
-        15,
-        Color.shields.blue,
-        Color.shields.yellow
-      ))
-  );
+// Nevada
+shields["US:NV"] = {
+  spriteBlank: "shield_us_nv",
+  textColor: Color.shields.black,
+  textLayout: textConstraint("triangleDown"),
+  padding: {
+		left: -2,
+		right: -2,
+		top: 2,
+		bottom: 6
+	},
+};
 
-    shields["US:NV:Clark"] = {
-    spriteBlank: "shield_us_nv_clark",
-    textColor: Color.shields.blue, // Color of the text is #003882
-    textLayout: textConstraint("ellipse"),
-    padding: {
-      left: -2,
-      right: -2,
-      top: 2,
-      bottom: 6,
-    },
-  };
+// County shields (only Washoe in this case)
+["Washoe"].forEach(county => {
+  shields[`US:NV:${county}`] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.yellow
+  );
+});
+
+// Clark County Route 215 gets its own special highway shield and is not the same as a normal county route
+shields["US:NV:Clark"] = {
+  spriteBlank: "shield_us_nv_clark",
+  textColor: Color.shields.blue,   // #003882
+  textLayout: textConstraint("ellipse"),
+  padding: {
+		left: -2,
+		right: -2,
+		top: 2,
+		bottom: 6
+	},
+};
   
   // New York
   const usNewYorkShield = {
