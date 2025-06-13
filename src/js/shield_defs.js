@@ -2106,7 +2106,7 @@ export function loadShields() {
         Color.shields.blue,
         Color.shields.yellow
       ))
-  ),
+  );
 
     shields["US:NV:Clark"] = {
     spriteBlank: "shield_us_nv_clark",
