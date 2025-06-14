@@ -2207,6 +2207,9 @@ export function loadShields() {
       "Olympic Trail": {
         spriteBlank: "shield_us_ny_scenic_olympic",
       },
+      "Roosevelt-Marcy Trail": {
+        spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
+      },
     },
   };
   [
