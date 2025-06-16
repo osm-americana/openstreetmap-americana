@@ -271,11 +271,14 @@ function getShieldDef(
 
   //Determine whether a route without a ref gets drawn
   if (
+    //If the ref is missing
     !isValidRef(ref) &&
-    !shieldDef.notext &&
     !shieldDef.ref &&
-    !(shieldDef.refsByName && routeDef.name)
+    !(shieldDef.refsByName && routeDef.name) &&
+    //then the def must be marked as displayable without text and have a sprite or shape specified
+    (!shieldDef.notext || (!shieldDef.spriteBlank && !shieldDef.shapeBlank))
   ) {
+    //or else don't draw a shield
     return null;
   }
 
