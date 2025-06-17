@@ -2115,10 +2115,10 @@ export function loadShields() {
     textColor: Color.shields.blue, // #003882
     textLayout: textConstraint("ellipse"),
     padding: {
-      left: -2,
-      right: -2,
-      top: 2,
-      bottom: 6,
+      left: 2.5,
+      right: 2.5,
+      top: 5,
+      bottom: 7,
     },
   };
 
