@@ -769,6 +769,12 @@ export function loadShields() {
     notext: true,
   };
 
+  // Palisades Interstate Parkway
+  shields["US:PIPC"] = {
+    spriteBlank: ["shield_us_pipc"],
+    notext: true,
+  };
+
   // US States
 
   // Alaska
@@ -1073,6 +1079,7 @@ export function loadShields() {
     "Saguache",
     "San_Juan",
     "Teller",
+    "Weld",
   ].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = pentagonUpShield(
@@ -2150,6 +2157,7 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
     refsByName: {
+      "Bear Mountain Parkway": "BMP",
       "Bear Mountain State Parkway": "BMP",
       "Bronx River Parkway": "BRP",
       "Cross County Parkway": "CCP",
@@ -3448,7 +3456,7 @@ export function loadShields() {
   };
 
   // Iran
-  shields["ir:freeway"] = roundedRectShield(
+  shields["IR:freeway"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
@@ -3596,6 +3604,12 @@ export function loadShields() {
       bottom: 7,
     },
   };
+
+  // Singapore
+  shields["SG:expressway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
 
   // Turkey
   shields["TR:motorway"] = hexagonVerticalShield(
