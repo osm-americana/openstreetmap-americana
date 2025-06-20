@@ -1060,12 +1060,20 @@ export function loadShields() {
     },
   };
   shields["US:CO:NW"] = {
-    spriteBlank: "shield_us_co_nw",
     notext: true,
+    overrideByName: {
+      "Northwest Parkway": {
+        spriteBlank: "shield_us_co_nw",
+      },
+    },
   };
-  shields["US:CO:Pena"] = {
-    spriteBlank: "shield_us_co_pena",
+  shields["US:CO:Peña"] = {
     notext: true,
+    overrideByName: {
+      "Peña Boulevard": {
+        spriteBlank: "shield_us_co_pena",
+      },
+    },
   };
   [
     "Arapahoe",
