@@ -96,6 +96,20 @@ export function loadShields() {
     textHaloColor: Color.backgroundFill,
   };
 
+  let escutcheonCrossbarShield = {
+    spriteBlank: [
+      "shield_escutcheon_crossbar_2",
+      "shield_escutcheon_crossbar_3",
+    ],
+    textColor: Color.shields.black,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 5.5,
+      bottom: 4.5,
+    },
+  };
+
   // NORTH AMERICA
   shields["GLCT"] = {
     notext: true,
@@ -573,19 +587,7 @@ export function loadShields() {
     "VER",
     "YUC",
     "ZAC",
-  ].forEach(
-    (state) =>
-      (shields[`MX:${state}`] = {
-        spriteBlank: ["shield_mx_state_2", "shield_mx_state_3"],
-        textColor: Color.shields.black,
-        padding: {
-          left: 2,
-          right: 2,
-          top: 5.5,
-          bottom: 4.5,
-        },
-      })
-  );
+  ].forEach((state) => (shields[`MX:${state}`] = escutcheonCrossbarShield));
 
   // Ejes Viales (CDMX)
   shields["MX:CDMX:EJE:CENTRAL"] = {
@@ -764,6 +766,12 @@ export function loadShields() {
   // Ohio River Scenic Byway
   shields["US:ORSB"] = {
     spriteBlank: ["shield_us_orsb"],
+    notext: true,
+  };
+
+  // Palisades Interstate Parkway
+  shields["US:PIPC"] = {
+    spriteBlank: ["shield_us_pipc"],
     notext: true,
   };
 
@@ -1071,6 +1079,7 @@ export function loadShields() {
     "Saguache",
     "San_Juan",
     "Teller",
+    "Weld",
   ].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = pentagonUpShield(
@@ -1390,7 +1399,6 @@ export function loadShields() {
       "Cumberland Parkway": "LN",
       "Hal Rogers Parkway": "HR",
       "Mountain Parkway": "MP",
-      "Purchase Parkway": "JC",
       "Western Kentucky Parkway": "WK",
     },
   };
@@ -2149,6 +2157,7 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
     refsByName: {
+      "Bear Mountain Parkway": "BMP",
       "Bear Mountain State Parkway": "BMP",
       "Bronx River Parkway": "BRP",
       "Cross County Parkway": "CCP",
@@ -3158,6 +3167,53 @@ export function loadShields() {
     textColor: Color.shields.white,
   };
 
+  // Peru
+  shields["PE:national"] = {
+    spriteBlank: ["shield_pe_2", "shield_pe_3"],
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 3,
+      top: 7,
+      bottom: 4,
+    },
+  };
+  [
+    "AM",
+    "AN",
+    "AP",
+    "AR",
+    "AY",
+    "CA",
+    "CU",
+    "HU",
+    "HV",
+    "IC",
+    "JU",
+    "LA",
+    "LI",
+    "LM",
+    "LO",
+    "MD",
+    "MO",
+    "PA",
+    "PI",
+    "PU",
+    "SM",
+    "TA",
+    "TU",
+    "UC",
+  ].forEach(
+    (department) =>
+      ([
+        shields[`PE:departmental:${department}`],
+        shields[`PE:rural:${department}`],
+      ] = [
+        escutcheonCrossbarShield,
+        pillShield(Color.shields.white, Color.shields.black),
+      ])
+  );
+
   // Uruguay
   shields["UY"] = homePlateDownShield(
     5,
@@ -3400,7 +3456,7 @@ export function loadShields() {
   };
 
   // Iran
-  shields["ir:freeway"] = roundedRectShield(
+  shields["IR:freeway"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
@@ -3548,6 +3604,12 @@ export function loadShields() {
       bottom: 7,
     },
   };
+
+  // Singapore
+  shields["SG:expressway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
 
   // Turkey
   shields["TR:motorway"] = hexagonVerticalShield(
