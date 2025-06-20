@@ -23,6 +23,10 @@ Americana has demonstrated or pioneered several cartographic techniques of impor
 
 We do this proudly in an open source project using vector tile technology.
 
+## OpenStreetMap US
+
+OpenStreetMap Americana is a community project supported by [OSM US](https://openstreetmap.us), the OpenStreetMap local chapter for the United States. OSM US supports the project by providing tile rendering and other computing infrastructure.
+
 ## How to use
 
 You can install the OpenStreetMap Americana package and [deploy it anywhere](CONTRIBUTING.md#Production%20builds) as a static webpage. For your convenience, we’ve deployed it [on GitHub Pages](https://americanamap.org/). Click the Legend button to learn the meaning of each symbol, line, and color based on the features currently visible on the map.
