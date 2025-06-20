@@ -5,8 +5,8 @@ _'murica!_
 The style is located within **src/** and is organized as follows:
 
 - **layer/** - Individual style layers, organized by subject area. The ordering of layers is specified in `index.js`.
-- **icons/** - SVG icons, which get converted into PNG stylesheets
 - **constants/** - Style elements that are frequently re-used
+- **icons/** - SVG icons, which get converted into PNG stylesheets
 - **js/** - Dynamic javascript code for highway shields and stylesheet building
 - **config.js** - Configuration settings (MapTiler API key, OpenMapTiles tile server URL, etc)
 - **americana.js** - MapLibre loader and configuration for the demo map
@@ -182,7 +182,8 @@ boilerplate in `scripts/taginfo_template.json`.
    using [Chai](https://www.chaijs.com/guide/styles/) for assertions.
 6. There are built-in GitHub actions that will generate a preview map of your
    changes. We recommend initially creating a PR draft, and then using the preview
-   map to capture links and screenshots to add to your PR.
+   map to capture links and screenshots to add to your PR. To access the map,
+   expand the "checks" section at the bottom of the PR, and click on "PR Preview"
 
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
