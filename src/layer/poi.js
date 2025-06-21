@@ -65,7 +65,7 @@ var iconDefs = {
     },
     sprite: "poi_charging_station",
     color: Color.poi.consumer,
-    description: "Charging station"
+    description: "Charging station",
   },
   taxi: {
     classes: {
