@@ -61,7 +61,7 @@ var iconDefs = {
   },
   charging_station: {
     classes: {
-        car: ["charging"],
+      fuel: ["charging_station"],
     },
     sprite: "poi_charging_station",
     color: Color.poi.consumer,
