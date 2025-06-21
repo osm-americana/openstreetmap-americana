@@ -60,12 +60,12 @@ var iconDefs = {
     description: "Car dealership",
   },
   charging_station: {
-      classes: {
-          car: ["charging"],
-      },
-      sprite: "poi_charging_station",
-      color: Color.poi.consumer,
-      description: "Charging station"
+    classes: {
+        car: ["charging"],
+    },
+    sprite: "poi_charging_station",
+    color: Color.poi.consumer,
+    description: "Charging station"
   },
   taxi: {
     classes: {
