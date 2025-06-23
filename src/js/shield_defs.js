@@ -3570,7 +3570,7 @@ export function loadShields() {
   );
 
   // Malaysia
-  shields["MY:E"] = shields["my:federal"] = hexagonVerticalShield(
+  shields["MY:expressway"] = shields["my:federal"] = hexagonVerticalShield(
     3,
     Color.shields.yellow,
     Color.shields.black,
