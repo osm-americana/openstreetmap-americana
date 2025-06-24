@@ -2215,6 +2215,23 @@ export function loadShields() {
       bottom: 8,
     },
   };
+  shields["US:NY:Scenic"] = {
+    notext: true,
+    overrideByName: {
+      "Dude Ranch Trail": {
+        spriteBlank: "shield_us_ny_scenic_duderanch",
+      },
+      "High Peaks Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_highpeaks",
+      },
+      "Olympic Trail": {
+        spriteBlank: "shield_us_ny_scenic_olympic",
+      },
+      "Roosevelt-Marcy Trail": {
+        spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
+      },
+    },
+  };
   [
     "Albany",
     "Allegany",
