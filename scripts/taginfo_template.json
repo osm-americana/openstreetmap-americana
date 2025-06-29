@@ -652,6 +652,14 @@
     },
     {
       "key": "amenity",
+      "value": "courthouse",
+      "object_types": ["node", "area"],
+      "description": "A building which is home to a court of law, which administers justice according to the rule of law.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_courthouse.svg"
+    },
+    {
+      "key": "amenity",
       "value": "post_office",
       "object_types": ["node", "area"],
       "description": "Post offices are marked by an icon representing an envelope.",
