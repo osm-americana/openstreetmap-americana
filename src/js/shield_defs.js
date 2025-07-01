@@ -729,6 +729,9 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "Mormon Pioneer National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_mopi",
+      },
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
       },
@@ -736,6 +739,9 @@ export function loadShields() {
         {
           spriteBlank: "shield_us_nht_ovvi",
         },
+      "Pony Express National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_poex",
+      },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
       },
@@ -2125,10 +2131,10 @@ export function loadShields() {
     textColor: Color.shields.blue, // #003882
     textLayout: textConstraint("ellipse"),
     padding: {
-      left: 2.5,
-      right: 2.5,
-      top: 5,
-      bottom: 7,
+      left: 6,
+      right: 6,
+      top: 6,
+      bottom: 8,
     },
   };
 
@@ -2217,6 +2223,23 @@ export function loadShields() {
       right: 2,
       top: 2,
       bottom: 8,
+    },
+  };
+  shields["US:NY:Scenic"] = {
+    notext: true,
+    overrideByName: {
+      "Dude Ranch Trail": {
+        spriteBlank: "shield_us_ny_scenic_duderanch",
+      },
+      "High Peaks Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_highpeaks",
+      },
+      "Olympic Trail": {
+        spriteBlank: "shield_us_ny_scenic_olympic",
+      },
+      "Roosevelt-Marcy Trail": {
+        spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
+      },
     },
   };
   [
