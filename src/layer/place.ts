@@ -1,7 +1,8 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
+import { ColorSpecification, DataDrivenPropertyValueSpecification, ExpressionSpecification, LayerSpecification, ResolvedImageSpecification, SymbolLayerSpecification } from "maplibre-gl";
 
-const labelHaloColor = [
+const labelHaloColor: DataDrivenPropertyValueSpecification<ColorSpecification> = [
   "interpolate",
   ["linear"],
   ["zoom"],
@@ -11,16 +12,16 @@ const labelHaloColor = [
   Color.backgroundFill,
 ];
 
-const labelHaloBlur = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
+const labelHaloBlur: DataDrivenPropertyValueSpecification<number> = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
 
-const cityLabelPaint = {
+const cityLabelPaint: SymbolLayerSpecification["paint"] = {
   "text-color": "#444",
   "text-halo-color": labelHaloColor,
   "text-halo-width": 2,
   "text-halo-blur": labelHaloBlur,
 };
 
-const minorLocationStepFilter = [
+const minorLocationStepFilter: ExpressionSpecification = [
   "step",
   ["zoom"],
   ["<=", ["get", "rank"], 2],
@@ -34,7 +35,7 @@ const minorLocationStepFilter = [
   [">=", ["get", "rank"], 1],
 ];
 
-const iconImage = [
+const iconImage: DataDrivenPropertyValueSpecification<ResolvedImageSpecification> = [
   "match",
   ["get", "capital"],
   2,
@@ -50,34 +51,34 @@ const iconImage = [
   "place_dot",
 ];
 
-function filterPlace(type) {
+function filterPlace(type: string): ExpressionSpecification { 
   return ["==", ["get", "class"], type];
 }
 
-export const village = {
+export const village: LayerSpecification = {
   id: "place_village",
   type: "symbol",
   paint: cityLabelPaint,
   filter: ["all", filterPlace("village"), minorLocationStepFilter],
   layout: {
     "text-font": ["Americana-Bold"],
-    "text-size": {
-      base: 1.0,
-      stops: [
-        [5, 8],
-        [8, 10],
-        [12, 12],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.0],
+      ["zoom"],
+      5, 8,
+      8, 10,
+      12, 12
+    ],
     "icon-image": iconImage,
-    "icon-size": {
-      base: 1.0,
-      stops: [
-        [4, 0.12],
-        [7, 0.25],
-        [11, 0.5],
-      ],
-    },
+    "icon-size": [
+      "interpolate",
+      ["exponential", 1.0],
+      ["zoom"],
+      4, 0.12,
+      7, 0.25,
+      11, 0.5
+    ],
     "text-field": Label.localizedName,
     "text-anchor": "bottom",
     "text-variable-anchor": [
@@ -98,33 +99,33 @@ export const village = {
   source: "openmaptiles",
   minzoom: 11,
   maxzoom: 14,
-  "source-layer": "place",
+  "source-layer": "place"
 };
 
-export const town = {
-  id: "place_town",
+export const town: LayerSpecification = {
+  id: "place_town", 
   type: "symbol",
   paint: cityLabelPaint,
   filter: ["all", filterPlace("town"), minorLocationStepFilter],
   layout: {
     "text-font": ["Americana-Bold"],
-    "text-size": {
-      base: 1.2,
-      stops: [
-        [5, 8],
-        [8, 10],
-        [12, 18],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      5, 8,
+      8, 10,
+      12, 18
+    ],
     "icon-image": iconImage,
-    "icon-size": {
-      base: 1.2,
-      stops: [
-        [4, 0.25],
-        [7, 0.35],
-        [11, 0.7],
-      ],
-    },
+    "icon-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      4, 0.25,
+      7, 0.35,
+      11, 0.7
+    ],
     "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
@@ -148,7 +149,7 @@ export const town = {
   "source-layer": "place",
 };
 
-export const city = {
+export const city: LayerSpecification = {
   id: "place_city",
   type: "symbol",
   paint: cityLabelPaint,
@@ -167,23 +168,23 @@ export const city = {
   ],
   layout: {
     "text-font": ["Americana-Bold"],
-    "text-size": {
-      base: 1.2,
-      stops: [
-        [4, 11],
-        [7, 14],
-        [11, 24],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      4, 11,
+      7, 14,
+      11, 24
+    ],
     "icon-image": iconImage,
-    "icon-size": {
-      base: 1.2,
-      stops: [
-        [4, 0.4],
-        [7, 0.5],
-        [11, 0.9],
-      ],
-    },
+    "icon-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      4, 0.4,
+      7, 0.5,
+      11, 0.9
+    ],
     "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
@@ -208,7 +209,7 @@ export const city = {
   metadata: {},
 };
 
-export const suburb = {
+export const suburb: LayerSpecification = {
   id: "place_suburb",
   type: "symbol",
   paint: {
@@ -228,26 +229,26 @@ export const suburb = {
   filter: ["==", ["get", "class"], "suburb"],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      base: 1.2,
-      stops: [
-        [10, 12],
-        [12, 15],
-        [14, 18],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      10, 12,
+      12, 15,
+      14, 18
+    ],
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
-    "text-letter-spacing": {
-      base: 0.04,
-      stops: [
-        [11, 0.04],
-        [12, 0.08],
-        [13, 0.2],
-        [14, 0.4],
-      ],
-    },
+    "text-letter-spacing": [
+      "interpolate",
+      ["exponential", 1.6],
+      ["zoom"],
+      11, 0.04,
+      12, 0.08,
+      13, 0.2,
+      14, 0.4
+    ],
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
@@ -266,7 +267,7 @@ export const suburb = {
   "source-layer": "place",
 };
 
-export const quarter = {
+export const quarter: LayerSpecification = {
   id: "place_quarter",
   type: "symbol",
   paint: {
@@ -286,24 +287,24 @@ export const quarter = {
   filter: ["==", ["get", "class"], "quarter"],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      base: 1.2,
-      stops: [
-        [13, 12],
-        [14, 14],
-        [16, 18],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      13, 12,
+      14, 14,
+      16, 18
+    ],
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
-    "text-letter-spacing": {
-      base: 0.04,
-      stops: [
-        [14, 0.08],
-        [15, 0.2],
-      ],
-    },
+    "text-letter-spacing": [
+      "interpolate",
+      ["exponential", 1.6],
+      ["zoom"],
+      14, 0.08,
+      15, 0.2,
+    ],
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
@@ -322,7 +323,7 @@ export const quarter = {
   "source-layer": "place",
 };
 
-export const neighborhood = {
+export const neighborhood: LayerSpecification = {
   id: "place_neighborhood",
   type: "symbol",
   paint: {
@@ -342,23 +343,23 @@ export const neighborhood = {
   filter: ["==", ["get", "class"], "neighbourhood"],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      base: 1.2,
-      stops: [
-        [14, 12],
-        [16, 14],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      14, 12,
+      16, 14
+    ],
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
-    "text-letter-spacing": {
-      base: 0.04,
-      stops: [
-        [15, 0.08],
-        [16, 0.2],
-      ],
-    },
+    "text-letter-spacing": [
+      "interpolate",
+      ["exponential", 1.6],
+      ["zoom"],
+      15, 0.08,
+      16, 0.2,
+    ],
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
       "interpolate",
@@ -377,7 +378,7 @@ export const neighborhood = {
   "source-layer": "place",
 };
 
-export const state = {
+export const state: LayerSpecification = {
   id: "place_state",
   type: "symbol",
   paint: {
@@ -397,13 +398,13 @@ export const state = {
   filter: ["in", ["get", "class"], ["literal", ["state", "province"]]],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      base: 1.2,
-      stops: [
-        [3, 8],
-        [6, 14],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3, 8,
+      6, 14
+    ],
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
@@ -425,7 +426,7 @@ export const state = {
   minzoom: 3,
   "source-layer": "place",
 };
-export const countryOther = {
+export const countryOther: LayerSpecification = {
   id: "place_country-other",
   type: "symbol",
   paint: {
@@ -441,12 +442,13 @@ export const countryOther = {
   ],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      stops: [
-        [3, 9],
-        [7, 15],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3, 9,
+      7, 15
+    ],
     "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
@@ -454,7 +456,7 @@ export const countryOther = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-export const country3 = {
+export const country3: LayerSpecification = {
   id: "place_country-3",
   type: "symbol",
   paint: {
@@ -471,12 +473,13 @@ export const country3 = {
   ],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      stops: [
-        [3, 11],
-        [7, 17],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3, 11,
+      7, 17
+    ],
     "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
@@ -514,7 +517,7 @@ export const country2 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-export const country1 = {
+export const country1: LayerSpecification = {
   id: "place_country-1",
   type: "symbol",
   paint: {
@@ -541,13 +544,14 @@ export const country1 = {
   ],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      stops: [
-        [1, 11],
-        [4, 22],
-        [6, 19],
-      ],
-    },
+    "text-size": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      1, 11,
+      4, 22,
+      6, 19
+    ],
     "text-field": Label.localizedName,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
@@ -562,7 +566,7 @@ export const country1 = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-export const continent = {
+export const continent: LayerSpecification = {
   id: "place_continent",
   type: "symbol",
   paint: {
@@ -584,8 +588,8 @@ export const continent = {
   "source-layer": "place",
 };
 
-const populatedPlaceLayers = [village.id, town.id, city.id];
-const nonCapitalFilter = ["!", ["has", "capital"]];
+const populatedPlaceLayers: string[] = [village.id, town.id, city.id];
+const nonCapitalFilter: ExpressionSpecification = ["!", ["has", "capital"]];
 
 export const legendEntries = [
   {
