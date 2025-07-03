@@ -32,7 +32,7 @@
     "sprites": "node scripts/sprites.js",
     "start": "run-s clean-build build:shieldlib sprites shields serve",
     "stats": "node scripts/stats.js",
-    "style": "node scripts/generate_style.js -o dist/style.json",
+    "style": "tsx scripts/generate_style.ts -o dist/style.json",
     "status_map": "node scripts/status_map.js",
     "taginfo": "tsx scripts/taginfo",
     "test": "mocha"
