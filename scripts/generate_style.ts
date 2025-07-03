@@ -21,7 +21,7 @@ const opts: OptionValues = program.opts();
 
 const style = Style.build(
   config.OPENMAPTILES_URL,
-  "https://americanamap.org/sprites/sprite", 
+  "https://americanamap.org/sprites/sprite",
   "https://font.americanamap.org/{fontstack}/{range}.pbf",
   opts.locales
 );
