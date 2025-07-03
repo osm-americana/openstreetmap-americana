@@ -1,6 +1,7 @@
-import * as Color from "../constants/color.js";
+import { LayerSpecification } from "maplibre-gl";
+import * as Color from "../constants/color";
 
-export const hillshading = {
+export const hillshading: LayerSpecification = {
   id: "hillshading",
   type: "hillshade",
   source: "dem",

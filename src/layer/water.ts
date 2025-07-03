@@ -1,13 +1,14 @@
 "use strict";
 
 import * as Label from "../constants/label.js";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
+import { LayerSpecification, SymbolLayerSpecification } from "maplibre-gl";
 
 const bigRivers = ["river", "canal"];
 const mediumRivers = ["stream"];
 // drain, ditch
 
-export const waterway = {
+export const waterway: LayerSpecification = {
   id: "waterway",
   type: "line",
   source: "openmaptiles",
@@ -47,7 +48,7 @@ export const waterway = {
   },
 };
 
-export const waterwayIntermittent = {
+export const waterwayIntermittent: LayerSpecification = {
   ...waterway,
   id: "waterway_intermittent",
   filter: ["==", ["get", "intermittent"], 1],
@@ -57,7 +58,7 @@ export const waterwayIntermittent = {
   },
 };
 
-export const water = {
+export const water: LayerSpecification = {
   id: "water",
   type: "fill",
   paint: {
@@ -77,7 +78,7 @@ export const water = {
   "source-layer": "water",
 };
 
-export const waterLine = {
+export const waterLine: LayerSpecification = {
   id: "water_line",
   type: "line",
   filter: [
@@ -106,7 +107,7 @@ export const waterLine = {
   "source-layer": "water",
 };
 
-export const waterLineIntermittent = {
+export const waterLineIntermittent: LayerSpecification = {
   id: "water_line_intermittent",
   type: "line",
   minzoom: 8,
@@ -121,7 +122,7 @@ export const waterLineIntermittent = {
   "source-layer": "water",
 };
 
-const labelPaintProperties = {
+const labelPaintProperties: SymbolLayerSpecification["paint"] = {
   "text-halo-color": [
     "match",
     ["get", "class"],
@@ -134,14 +135,14 @@ const labelPaintProperties = {
   "text-halo-blur": 0.25,
 };
 
-const labelLayoutProperties = {
+const labelLayoutProperties: SymbolLayerSpecification["layout"] = {
   "symbol-placement": "line",
   "text-field": Label.localizedNameInline,
   "text-font": ["Americana-Italic"],
   "text-max-angle": 55,
 };
 
-export const waterwayLabel = {
+export const waterwayLabel: LayerSpecification = {
   id: "waterway_label",
   type: "symbol",
   source: "openmaptiles",
@@ -173,7 +174,7 @@ export const waterwayLabel = {
 };
 
 //Lake labels rendered as a linear feature
-export const waterLabel = {
+export const waterLabel: LayerSpecification = {
   id: "water_label",
   type: "symbol",
   filter: ["all", ["==", ["geometry-type"], "LineString"]],
@@ -198,7 +199,7 @@ export const waterLabel = {
 };
 
 //Lake labels rendered as a point feature
-export const waterPointLabel = {
+export const waterPointLabel: LayerSpecification = {
   id: "water_point_label",
   type: "symbol",
   source: "openmaptiles",

@@ -1,8 +1,10 @@
 "use strict";
 
+import { ExpressionFilterSpecification, LayerSpecification } from "maplibre-gl";
+
 // Common expressions
-const highwaySelector = ["match", ["get", "class"]];
-const baseFilter = [
+const highwaySelector: Partial<ExpressionFilterSpecification> = ["match", ["get", "class"]];
+const baseFilter: Partial<ExpressionFilterSpecification> = [
   "all",
   ["==", ["get", "oneway"], 1],
   ["!=", ["get", "ramp"], 1],
@@ -25,7 +27,7 @@ const baseFilter = [
   ],
 ];
 
-export const surface = {
+export const surface: LayerSpecification = {
   id: "oneway_surface",
   filter: [
     ...baseFilter,
@@ -85,7 +87,7 @@ export const surface = {
   },
 };
 
-export const tunnel = {
+export const tunnel: LayerSpecification = {
   ...surface,
   id: "oneway_tunnel",
   filter: [...baseFilter, ["==", ["get", "brunnel"], "tunnel"]],
@@ -94,7 +96,7 @@ export const tunnel = {
   },
 };
 
-export const bridge = {
+export const bridge: LayerSpecification = {
   ...surface,
   id: "oneway_bridge",
   filter: [...baseFilter, ["==", ["get", "brunnel"], "bridge"]],

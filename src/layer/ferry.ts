@@ -1,14 +1,15 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import { LineLayerSpecification } from "maplibre-gl";
+import * as Color from "../constants/color";
 
 // Filter properties in this layer should be updated to reflect consensus once
 // https://github.com/openmaptiles/openmaptiles/issues/1373 is closed
 
 //Exponent base for inter-zoom interpolation
-const ferryExp = 1.2; // same as for roads
+const ferryExp: number = 1.2; // same as for roads
 
-export const ferry = {
+export const ferry: LineLayerSpecification = {
   id: "ferry",
   type: "line",
   paint: {

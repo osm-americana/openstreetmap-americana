@@ -1,11 +1,12 @@
 "use strict";
 
 import * as Label from "../constants/label.js";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
+import { ExpressionFilterSpecification, LayerSpecification } from "maplibre-gl";
 
-const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
+const parkLayerFilter: ExpressionFilterSpecification = ["!=", ["get", "class"], "aboriginal_lands"];
 
-export const fill = {
+export const fill: LayerSpecification = {
   id: "protected-area_fill",
   filter: parkLayerFilter,
   type: "fill",
@@ -16,7 +17,7 @@ export const fill = {
   "source-layer": "park",
 };
 
-export const outline = {
+export const outline: LayerSpecification = {
   id: "protected-area_outline",
   filter: parkLayerFilter,
   type: "line",
@@ -28,7 +29,7 @@ export const outline = {
   "source-layer": "park",
 };
 
-export const label = {
+export const label: LayerSpecification = {
   id: "protected-area_label",
   type: "symbol",
   filter: ["all", ["has", "rank"], parkLayerFilter],
@@ -48,21 +49,21 @@ export const label = {
   "source-layer": "park",
 };
 
-export const parkFill = {
+export const parkFill: LayerSpecification = {
   ...fill,
   id: "park_fill",
   filter: ["==", ["get", "subclass"], "park"],
   "source-layer": "landcover",
 };
 
-export const parkOutline = {
+export const parkOutline: LayerSpecification = {
   ...outline,
   id: "park_outline",
   filter: ["==", ["get", "subclass"], "park"],
   "source-layer": "landcover",
 };
 
-export const parkLabel = {
+export const parkLabel: LayerSpecification = {
   ...label,
   id: "park_label",
   filter: ["==", ["get", "class"], "park"],

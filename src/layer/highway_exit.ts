@@ -1,8 +1,9 @@
 "use strict";
 
+import { LayerSpecification } from "maplibre-gl";
 import * as Label from "../constants/label.js";
 
-export const exits = {
+export const exits: LayerSpecification = {
   id: "highway-exit",
   type: "symbol",
   filter: [

@@ -1,8 +1,9 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import { LayerSpecification } from "maplibre-gl";
+import * as Color from "../constants/color";
 
-export const urbanizedArea = {
+export const urbanizedArea: LayerSpecification = {
   id: "urbanized-area",
   type: "fill",
   minzoom: 4,
