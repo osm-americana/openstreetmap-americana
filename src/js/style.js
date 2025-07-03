@@ -1,4 +1,4 @@
-import * as Layers from "../layer/index.js";
+import * as Layers from "../layer/index";
 
 // Generate style.json
 export function build(tileURL, spriteURL, glyphURL, locales) {
