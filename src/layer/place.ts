@@ -1,18 +1,34 @@
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
-import { ColorSpecification, DataDrivenPropertyValueSpecification, ExpressionSpecification, LayerSpecification, ResolvedImageSpecification, SymbolLayerSpecification } from "maplibre-gl";
+import {
+  ColorSpecification,
+  DataDrivenPropertyValueSpecification,
+  ExpressionSpecification,
+  LayerSpecification,
+  ResolvedImageSpecification,
+  SymbolLayerSpecification,
+} from "maplibre-gl";
 
-const labelHaloColor: DataDrivenPropertyValueSpecification<ColorSpecification> = [
+const labelHaloColor: DataDrivenPropertyValueSpecification<ColorSpecification> =
+  [
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    4,
+    Color.backgroundFillTranslucent,
+    5,
+    Color.backgroundFill,
+  ];
+
+const labelHaloBlur: DataDrivenPropertyValueSpecification<number> = [
   "interpolate",
   ["linear"],
   ["zoom"],
   4,
-  Color.backgroundFillTranslucent,
+  0.5,
   5,
-  Color.backgroundFill,
+  0,
 ];
-
-const labelHaloBlur: DataDrivenPropertyValueSpecification<number> = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
 
 const cityLabelPaint: SymbolLayerSpecification["paint"] = {
   "text-color": "#444",
@@ -35,23 +51,24 @@ const minorLocationStepFilter: ExpressionSpecification = [
   [">=", ["get", "rank"], 1],
 ];
 
-const iconImage: DataDrivenPropertyValueSpecification<ResolvedImageSpecification> = [
-  "match",
-  ["get", "capital"],
-  2,
-  "place_star_in_circle",
-  3,
-  "place_star",
-  4,
-  "place_star",
-  5,
-  "place_dot_in_circle",
-  6,
-  "place_dot_in_circle",
-  "place_dot",
-];
+const iconImage: DataDrivenPropertyValueSpecification<ResolvedImageSpecification> =
+  [
+    "match",
+    ["get", "capital"],
+    2,
+    "place_star_in_circle",
+    3,
+    "place_star",
+    4,
+    "place_star",
+    5,
+    "place_dot_in_circle",
+    6,
+    "place_dot_in_circle",
+    "place_dot",
+  ];
 
-function filterPlace(type: string): ExpressionSpecification { 
+function filterPlace(type: string): ExpressionSpecification {
   return ["==", ["get", "class"], type];
 }
 
@@ -66,18 +83,24 @@ export const village: LayerSpecification = {
       "interpolate",
       ["exponential", 1.0],
       ["zoom"],
-      5, 8,
-      8, 10,
-      12, 12
+      5,
+      8,
+      8,
+      10,
+      12,
+      12,
     ],
     "icon-image": iconImage,
     "icon-size": [
       "interpolate",
       ["exponential", 1.0],
       ["zoom"],
-      4, 0.12,
-      7, 0.25,
-      11, 0.5
+      4,
+      0.12,
+      7,
+      0.25,
+      11,
+      0.5,
     ],
     "text-field": Label.localizedName,
     "text-anchor": "bottom",
@@ -99,11 +122,11 @@ export const village: LayerSpecification = {
   source: "openmaptiles",
   minzoom: 11,
   maxzoom: 14,
-  "source-layer": "place"
+  "source-layer": "place",
 };
 
 export const town: LayerSpecification = {
-  id: "place_town", 
+  id: "place_town",
   type: "symbol",
   paint: cityLabelPaint,
   filter: ["all", filterPlace("town"), minorLocationStepFilter],
@@ -113,18 +136,24 @@ export const town: LayerSpecification = {
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      5, 8,
-      8, 10,
-      12, 18
+      5,
+      8,
+      8,
+      10,
+      12,
+      18,
     ],
     "icon-image": iconImage,
     "icon-size": [
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      4, 0.25,
-      7, 0.35,
-      11, 0.7
+      4,
+      0.25,
+      7,
+      0.35,
+      11,
+      0.7,
     ],
     "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
@@ -172,18 +201,24 @@ export const city: LayerSpecification = {
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      4, 11,
-      7, 14,
-      11, 24
+      4,
+      11,
+      7,
+      14,
+      11,
+      24,
     ],
     "icon-image": iconImage,
     "icon-size": [
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      4, 0.4,
-      7, 0.5,
-      11, 0.9
+      4,
+      0.4,
+      7,
+      0.5,
+      11,
+      0.9,
     ],
     "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
@@ -233,9 +268,12 @@ export const suburb: LayerSpecification = {
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      10, 12,
-      12, 15,
-      14, 18
+      10,
+      12,
+      12,
+      15,
+      14,
+      18,
     ],
     "text-field": Label.localizedName,
     "text-padding": 1,
@@ -244,10 +282,14 @@ export const suburb: LayerSpecification = {
       "interpolate",
       ["exponential", 1.6],
       ["zoom"],
-      11, 0.04,
-      12, 0.08,
-      13, 0.2,
-      14, 0.4
+      11,
+      0.04,
+      12,
+      0.08,
+      13,
+      0.2,
+      14,
+      0.4,
     ],
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
@@ -291,9 +333,12 @@ export const quarter: LayerSpecification = {
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      13, 12,
-      14, 14,
-      16, 18
+      13,
+      12,
+      14,
+      14,
+      16,
+      18,
     ],
     "text-field": Label.localizedName,
     "text-padding": 1,
@@ -302,8 +347,10 @@ export const quarter: LayerSpecification = {
       "interpolate",
       ["exponential", 1.6],
       ["zoom"],
-      14, 0.08,
-      15, 0.2,
+      14,
+      0.08,
+      15,
+      0.2,
     ],
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
@@ -347,8 +394,10 @@ export const neighborhood: LayerSpecification = {
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      14, 12,
-      16, 14
+      14,
+      12,
+      16,
+      14,
     ],
     "text-field": Label.localizedName,
     "text-padding": 1,
@@ -357,8 +406,10 @@ export const neighborhood: LayerSpecification = {
       "interpolate",
       ["exponential", 1.6],
       ["zoom"],
-      15, 0.08,
-      16, 0.2,
+      15,
+      0.08,
+      16,
+      0.2,
     ],
     "text-variable-anchor": ["center"],
     "text-radial-offset": [
@@ -398,13 +449,7 @@ export const state: LayerSpecification = {
   filter: ["in", ["get", "class"], ["literal", ["state", "province"]]],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": [
-      "interpolate",
-      ["exponential", 1.2],
-      ["zoom"],
-      3, 8,
-      6, 14
-    ],
+    "text-size": ["interpolate", ["exponential", 1.2], ["zoom"], 3, 8, 6, 14],
     "text-field": Label.localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
@@ -442,13 +487,7 @@ export const countryOther: LayerSpecification = {
   ],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": [
-      "interpolate",
-      ["exponential", 1.2],
-      ["zoom"],
-      3, 9,
-      7, 15
-    ],
+    "text-size": ["interpolate", ["exponential", 1.2], ["zoom"], 3, 9, 7, 15],
     "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
@@ -473,13 +512,7 @@ export const country3: LayerSpecification = {
   ],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": [
-      "interpolate",
-      ["exponential", 1.2],
-      ["zoom"],
-      3, 11,
-      7, 17
-    ],
+    "text-size": ["interpolate", ["exponential", 1.2], ["zoom"], 3, 11, 7, 17],
     "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
@@ -548,9 +581,12 @@ export const country1: LayerSpecification = {
       "interpolate",
       ["exponential", 1.2],
       ["zoom"],
-      1, 11,
-      4, 22,
-      6, 19
+      1,
+      11,
+      4,
+      22,
+      6,
+      19,
     ],
     "text-field": Label.localizedName,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],

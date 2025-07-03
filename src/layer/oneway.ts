@@ -3,7 +3,10 @@
 import { ExpressionFilterSpecification, LayerSpecification } from "maplibre-gl";
 
 // Common expressions
-const highwaySelector: Partial<ExpressionFilterSpecification> = ["match", ["get", "class"]];
+const highwaySelector: Partial<ExpressionFilterSpecification> = [
+  "match",
+  ["get", "class"],
+];
 const baseFilter: Partial<ExpressionFilterSpecification> = [
   "all",
   ["==", ["get", "oneway"], 1],

@@ -52,8 +52,10 @@ export const pierLine: LayerSpecification = {
       "interpolate",
       ["exponential", 1.7],
       ["zoom"],
-      14, 1,
-      20, 20,
+      14,
+      1,
+      20,
+      20,
     ],
   },
   layout: {

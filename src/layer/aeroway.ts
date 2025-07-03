@@ -2,7 +2,11 @@
 
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
-import { SymbolLayerSpecification, ExpressionSpecification, LayerSpecification } from "maplibre-gl";
+import {
+  SymbolLayerSpecification,
+  ExpressionSpecification,
+  LayerSpecification,
+} from "maplibre-gl";
 
 const minorAirport: ExpressionSpecification = [
   "any",
@@ -75,9 +79,12 @@ export const runway: LayerSpecification = {
       "interpolate",
       ["exponential", 1.7],
       ["zoom"],
-      12, 3,
-      15, 15,
-      17, 30
+      12,
+      3,
+      15,
+      15,
+      17,
+      30,
     ],
   },
   layout: {
@@ -118,13 +125,7 @@ export const taxiway: LayerSpecification = {
   ],
   paint: {
     "line-color": Color.airportRunway,
-    "line-width": [
-      "interpolate",
-      ["exponential", 1.7],
-      ["zoom"],
-      12, 1,
-      15, 5,
-    ],
+    "line-width": ["interpolate", ["exponential", 1.7], ["zoom"], 12, 1, 15, 5],
   },
   layout: {
     "line-cap": "butt",

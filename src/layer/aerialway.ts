@@ -68,7 +68,7 @@ export const lift: maplibregl.LayerSpecification = {
     "line-gap-width": lineGapWidth,
   },
   filter: [
-    "all", 
+    "all",
     ["==", ["get", "class"], "aerialway"],
     [
       "in",

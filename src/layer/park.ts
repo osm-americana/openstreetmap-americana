@@ -4,7 +4,11 @@ import * as Label from "../constants/label.js";
 import * as Color from "../constants/color";
 import { ExpressionFilterSpecification, LayerSpecification } from "maplibre-gl";
 
-const parkLayerFilter: ExpressionFilterSpecification = ["!=", ["get", "class"], "aboriginal_lands"];
+const parkLayerFilter: ExpressionFilterSpecification = [
+  "!=",
+  ["get", "class"],
+  "aboriginal_lands",
+];
 
 export const fill: LayerSpecification = {
   id: "protected-area_fill",
