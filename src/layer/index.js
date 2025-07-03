@@ -2,25 +2,25 @@
 
 import * as Label from "../constants/label.js";
 
-import * as lyrAerialway from "./aerialway";
-import * as lyrAeroway from "./aeroway";
-import * as lyrBackground from "./background";
+import * as lyrAerialway from "./aerialway.ts";
+import * as lyrAeroway from "./aeroway.ts";
+import * as lyrBackground from "./background.ts";
 import * as lyrBoundary from "./boundary.js";
 import * as lyrConstruction from "./construction.js";
 import * as lyrHighwayShield from "./highway_shield.js";
-import * as lyrHillshade from "./hillshade";
-import * as lyrLanduse from "./landuse";
-import * as lyrOneway from "./oneway";
-import * as lyrPark from "./park";
-import * as lyrPlace from "./place";
+import * as lyrHillshade from "./hillshade.ts";
+import * as lyrLanduse from "./landuse.ts";
+import * as lyrOneway from "./oneway.ts";
+import * as lyrPark from "./park.ts";
+import * as lyrPlace from "./place.ts";
 import * as lyrPoi from "./poi.js";
 import * as lyrRail from "./rail.js";
 import * as lyrRoad from "./road.js";
 import * as lyrTransportationLabel from "./transportation_label.js";
-import * as lyrWater from "./water";
-import * as lyrBuilding from "./building";
-import * as lyrHighwayExit from "./highway_exit";
-import * as lyrFerry from "./ferry";
+import * as lyrWater from "./water.ts";
+import * as lyrBuilding from "./building.ts";
+import * as lyrHighwayExit from "./highway_exit.ts";
+import * as lyrFerry from "./ferry.ts";
 
 /**
  * Builds the Americana layers property.
