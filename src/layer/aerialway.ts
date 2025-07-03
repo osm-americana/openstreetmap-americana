@@ -1,11 +1,11 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 // Exponent base for inter-zoom interpolation
 let aerialwayExp = 1.2;
 
-let lineWidth = [
+let lineWidth: maplibregl.ExpressionSpecification = [
   "interpolate",
   ["exponential", aerialwayExp],
   ["zoom"],
@@ -20,7 +20,7 @@ let lineWidth = [
   20,
   2.4,
 ];
-let lineGapWidth = [
+let lineGapWidth: maplibregl.ExpressionSpecification = [
   "interpolate",
   ["exponential", aerialwayExp],
   ["zoom"],
@@ -34,7 +34,7 @@ let lineGapWidth = [
   16,
 ];
 
-let casingLineWidth = [
+let casingLineWidth: maplibregl.ExpressionSpecification = [
   "interpolate",
   ["exponential", aerialwayExp],
   ["zoom"],
@@ -47,7 +47,7 @@ let casingLineWidth = [
   20,
   4,
 ];
-let casingLineGapWidth = [
+let casingLineGapWidth: maplibregl.ExpressionSpecification = [
   "interpolate",
   ["exponential", aerialwayExp],
   ["zoom"],
@@ -59,7 +59,7 @@ let casingLineGapWidth = [
   14.4,
 ];
 
-export const lift = {
+export const lift: maplibregl.LayerSpecification = {
   id: "lift",
   type: "line",
   paint: {
@@ -68,7 +68,7 @@ export const lift = {
     "line-gap-width": lineGapWidth,
   },
   filter: [
-    "all",
+    "all", 
     ["==", ["get", "class"], "aerialway"],
     [
       "in",
@@ -83,7 +83,7 @@ export const lift = {
   "source-layer": "transportation",
 };
 
-export const liftCasing = {
+export const liftCasing: maplibregl.LayerSpecification = {
   id: "lift_casing",
   type: "line",
   paint: {
@@ -107,7 +107,7 @@ export const liftCasing = {
   "source-layer": "transportation",
 };
 
-export const dragLift = {
+export const dragLift: maplibregl.LayerSpecification = {
   id: "drag_lift",
   type: "line",
   paint: {

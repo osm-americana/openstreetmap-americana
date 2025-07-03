@@ -1,6 +1,8 @@
 "use strict";
 
-export const building = {
+import { LayerSpecification } from "maplibre-gl";
+
+export const building: LayerSpecification = {
   id: "building",
   type: "fill-extrusion",
   paint: {

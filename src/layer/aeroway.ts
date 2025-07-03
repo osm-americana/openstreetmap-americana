@@ -2,21 +2,22 @@
 
 import * as Label from "../constants/label.js";
 import * as Color from "../constants/color.js";
+import { SymbolLayerSpecification, ExpressionSpecification, LayerSpecification } from "maplibre-gl";
 
-const minorAirport = [
+const minorAirport: ExpressionSpecification = [
   "any",
   ["!", ["has", "iata"]],
   ["!", ["has", "icao"]],
   ["==", ["get", "class"], "private"],
 ];
 
-const iconLayout = {
+const iconLayout: Partial<SymbolLayerSpecification["layout"]> = {
   "icon-image": [
     "match",
     ["get", "class"],
     "military",
-    "poi\nsprite=poi_military_plane\ncolor=" + Color.poi.airport,
-    "poi\nsprite=poi_plane\ncolor=" + Color.poi.airport,
+    `poi\nsprite=poi_military_plane\ncolor=${Color.poi.airport}`,
+    `poi\nsprite=poi_plane\ncolor=${Color.poi.airport}`,
   ],
   "text-anchor": "bottom",
   "text-variable-anchor": [
@@ -30,7 +31,7 @@ const iconLayout = {
   "icon-allow-overlap": false,
 };
 
-export const fill = {
+export const fill: LayerSpecification = {
   id: "airport_fill",
   type: "fill",
   filter: ["==", ["get", "class"], "aerodrome"],
@@ -45,7 +46,7 @@ export const fill = {
   "source-layer": "aeroway",
 };
 
-export const outline = {
+export const outline: LayerSpecification = {
   id: "airport_outline",
   type: "line",
   filter: ["==", ["get", "class"], "aerodrome"],
@@ -60,7 +61,7 @@ export const outline = {
   "source-layer": "aeroway",
 };
 
-export const runway = {
+export const runway: LayerSpecification = {
   id: "airport_runway",
   type: "line",
   filter: [
@@ -70,14 +71,14 @@ export const runway = {
   ],
   paint: {
     "line-color": Color.airportRunway,
-    "line-width": {
-      base: 1.7,
-      stops: [
-        [12, 3],
-        [15, 15],
-        [17, 30],
-      ],
-    },
+    "line-width": [
+      "interpolate",
+      ["exponential", 1.7],
+      ["zoom"],
+      12, 3,
+      15, 15,
+      17, 30
+    ],
   },
   layout: {
     "line-cap": "butt",
@@ -88,7 +89,7 @@ export const runway = {
   "source-layer": "aeroway",
 };
 
-export const runwayArea = {
+export const runwayArea: LayerSpecification = {
   id: "airport_runway_area",
   type: "fill",
   filter: [
@@ -107,7 +108,7 @@ export const runwayArea = {
   "source-layer": "aeroway",
 };
 
-export const taxiway = {
+export const taxiway: LayerSpecification = {
   id: "airport_taxiway",
   type: "line",
   filter: [
@@ -117,13 +118,13 @@ export const taxiway = {
   ],
   paint: {
     "line-color": Color.airportRunway,
-    "line-width": {
-      base: 1.7,
-      stops: [
-        [12, 1],
-        [15, 5],
-      ],
-    },
+    "line-width": [
+      "interpolate",
+      ["exponential", 1.7],
+      ["zoom"],
+      12, 1,
+      15, 5,
+    ],
   },
   layout: {
     "line-cap": "butt",
@@ -135,7 +136,7 @@ export const taxiway = {
   "source-layer": "aeroway",
 };
 
-export const taxiwayArea = {
+export const taxiwayArea: LayerSpecification = {
   id: "airport_taxiway_area",
   type: "fill",
   filter: [
@@ -155,7 +156,7 @@ export const taxiwayArea = {
   "source-layer": "aeroway",
 };
 
-export const airportRefLabel = {
+export const airportRefLabel: LayerSpecification = {
   id: "airport_ref_label",
   type: "symbol",
   maxzoom: 15,
@@ -178,7 +179,7 @@ export const airportRefLabel = {
   "source-layer": "aerodrome_label",
 };
 
-export const minorAirportRefLabel = {
+export const minorAirportRefLabel: LayerSpecification = {
   id: "airport_ref_label_minor",
   type: "symbol",
   minzoom: 13,
@@ -201,7 +202,7 @@ export const minorAirportRefLabel = {
   "source-layer": "aerodrome_label",
 };
 
-export const airportLabel = {
+export const airportLabel: LayerSpecification = {
   id: "airport_label",
   type: "symbol",
   minzoom: 11,
@@ -224,7 +225,7 @@ export const airportLabel = {
   "source-layer": "aerodrome_label",
 };
 
-export const minorAirportLabel = {
+export const minorAirportLabel: LayerSpecification = {
   id: "airport_label_minor",
   type: "symbol",
   minzoom: 13,
@@ -246,7 +247,7 @@ export const minorAirportLabel = {
   "source-layer": "aerodrome_label",
 };
 
-export const airportGate = {
+export const airportGate: LayerSpecification = {
   id: "airport_gate_label",
   type: "symbol",
   filter: ["==", ["get", "class"], "gate"],

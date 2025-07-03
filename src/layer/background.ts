@@ -1,6 +1,7 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
+import { LayerSpecification } from "maplibre-gl";
 
 /*
   Background Layer
@@ -10,7 +11,7 @@ import * as Color from "../constants/color.js";
 
 let backgroundColor = Color.backgroundFill;
 
-export const base = {
+export const base: LayerSpecification = {
   id: "background",
   type: "background",
   paint: {
@@ -19,7 +20,7 @@ export const base = {
   layout: { visibility: "visible" },
 };
 
-export const pierArea = {
+export const pierArea: LayerSpecification = {
   id: "pier_area",
   type: "fill",
   source: "openmaptiles",
@@ -35,7 +36,7 @@ export const pierArea = {
   layout: { visibility: "visible" },
 };
 
-export const pierLine = {
+export const pierLine: LayerSpecification = {
   id: "pier_line",
   type: "line",
   source: "openmaptiles",
@@ -47,13 +48,13 @@ export const pierLine = {
   ],
   paint: {
     "line-color": backgroundColor,
-    "line-width": {
-      base: 1.7,
-      stops: [
-        [14, 1],
-        [20, 20],
-      ],
-    },
+    "line-width": [
+      "interpolate",
+      ["exponential", 1.7],
+      ["zoom"],
+      14, 1,
+      20, 20,
+    ],
   },
   layout: {
     "line-cap": "butt",
