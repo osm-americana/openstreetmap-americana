@@ -520,7 +520,7 @@ export const country3: LayerSpecification = {
   source: "openmaptiles",
   "source-layer": "place",
 };
-export const country2 = {
+export const country2: LayerSpecification = {
   id: "place_country-2",
   type: "symbol",
   paint: {
@@ -537,12 +537,7 @@ export const country2 = {
   ],
   layout: {
     "text-font": ["Americana-Regular"],
-    "text-size": {
-      stops: [
-        [2, 11],
-        [5, 17],
-      ],
-    },
+    "text-size": ["interpolate", ["exponential", 1.2], ["zoom"], 2, 11, 5, 17],
     "text-field": Label.localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
