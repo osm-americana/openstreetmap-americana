@@ -680,6 +680,7 @@ export function loadShields() {
       "US:US:Connector": ["CONN"],
       "US:US:Bypass": ["BYP"],
       "US:US:Future": ["FUT"],
+      "US:US:Express": ["EXPR"],
       "US:US:Business": ["BUS"],
       "US:US:Business:Alternate": ["BUS", "ALT"],
       "US:US:Business:Truck": ["BUS", "TRK"],
@@ -1065,9 +1066,14 @@ export function loadShields() {
       bottom: 2,
     },
   };
+  shields["US:CO:NW"] = {
+    spriteBlank: "shield_us_co_nw",
+    notext: true,
+  };
   [
     "Arapahoe",
     "Archuleta",
+    "Boulder",
     "Chaffee",
     "Clear_Creek",
     "Conejos",
