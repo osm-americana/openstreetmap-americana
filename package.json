@@ -31,7 +31,7 @@
     "shields": "node scripts/generate_shield_defs.js -o dist/shields.json",
     "sprites": "node scripts/sprites.js",
     "start": "run-s clean-build build:shieldlib sprites shields serve",
-    "stats": "node scripts/stats.js",
+    "stats": "node scripts/stats.ts",
     "style": "tsx scripts/generate_style.ts -o dist/style.json",
     "status_map": "node scripts/status_map.js",
     "taginfo": "tsx scripts/taginfo",

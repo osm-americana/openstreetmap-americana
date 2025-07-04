@@ -54,7 +54,7 @@ jobs:
       - name: Capture main branch usage statistics
         id: main-stats
         run: |
-          MAIN_STATS=$(node ../pr-branch/scripts/stats.js -j)
+          MAIN_STATS=$(tsx ../pr-branch/scripts/stats.ts -j)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -88,7 +88,7 @@ jobs:
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
-          PR_STATS=$(node scripts/stats.js -j)
+          PR_STATS=$(tsx scripts/stats.ts -j)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
