@@ -1070,10 +1070,6 @@ export function loadShields() {
     spriteBlank: "shield_us_co_nw",
     notext: true,
   };
-  shields["US:CO:Peña"] = {
-    spriteBlank: "shield_us_co_pena",
-    notext: true,
-  };
   [
     "Arapahoe",
     "Archuleta",
