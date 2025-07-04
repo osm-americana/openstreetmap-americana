@@ -28,7 +28,7 @@
     "icon_grid": "tsx scripts/icon_grid",
     "presprites": "shx rm -rf dist/sprites",
     "serve": "tsx scripts/serve",
-    "shields": "tsx scripts/generate_shield_defs",
+    "shields": "tsx scripts/generate_shield_defs -o dist/shields.json",
     "sprites": "tsx scripts/sprites",
     "start": "run-s clean-build build:shieldlib sprites shields serve",
     "stats": "tsx scripts/stats",
