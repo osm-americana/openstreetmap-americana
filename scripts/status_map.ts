@@ -4,11 +4,13 @@ import * as fs from "fs";
 import * as ShieldDef from "../src/js/shield_defs.js";
 
 function fillPaths(svg: string, codes: string[]): string {
-  const selectors: Set<string> = new Set(codes.map((code) => `.${code.toLowerCase()}`));
+  const selectors: Set<string> = new Set(
+    codes.map((code) => `.${code.toLowerCase()}`)
+  );
   if (selectors.has(".fr")) {
     // French overseas territories use the FR prefix.
     selectors.add(".bl");
-    selectors.add(".mf"); 
+    selectors.add(".mf");
     selectors.add(".nc");
     selectors.add(".pf");
     selectors.add(".pm");
@@ -28,9 +30,12 @@ function fillPaths(svg: string, codes: string[]): string {
 // Inject a map of each sprite ID to an absolute image URL instead of the usual sprite metadata.
 const shields = ShieldDef.loadShields();
 
-let worldSVG: string = fs.readFileSync(`${process.cwd()}/scripts/blank_map_world.svg`, {
-  encoding: "utf8",
-});
+let worldSVG: string = fs.readFileSync(
+  `${process.cwd()}/scripts/blank_map_world.svg`,
+  {
+    encoding: "utf8",
+  }
+);
 worldSVG = fillPaths(
   worldSVG,
   Object.keys(shields.networks)

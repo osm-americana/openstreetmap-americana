@@ -1,5 +1,11 @@
 import Benchmark from "benchmark";
-import { expression, LayerSpecification, StyleExpression, EvaluationContext, Feature } from "@maplibre/maplibre-gl-style-spec";
+import {
+  expression,
+  LayerSpecification,
+  StyleExpression,
+  EvaluationContext,
+  Feature,
+} from "@maplibre/maplibre-gl-style-spec";
 
 import { build } from "../src/layer/index.js";
 import { VectorTile } from "@mapbox/vector-tile";
@@ -61,7 +67,7 @@ async function addTest(
       id: () => null,
       geometry: () => [],
       canonicalID: () => context.canonical,
-      parseColor: () => null as any
+      parseColor: () => null as any,
     };
     for (const layer of layers) {
       for (const feature of features) {

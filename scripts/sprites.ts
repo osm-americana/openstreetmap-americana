@@ -21,7 +21,8 @@ console.log(`Building ${sprites.length} sprites`);
 const generated: SpriteSheetResult[] = await Sprites.generate(sprites, [1, 2]);
 
 for (const result of generated) {
-  const scaleText: string = result.pixelRatio === 1 ? "" : `@${result.pixelRatio}x`;
+  const scaleText: string =
+    result.pixelRatio === 1 ? "" : `@${result.pixelRatio}x`;
   const outputPng: string = `./dist/sprites/sprite${scaleText}.png`;
   const outputJson: string = `./dist/sprites/sprite${scaleText}.json`;
 

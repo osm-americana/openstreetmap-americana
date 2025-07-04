@@ -36,7 +36,8 @@ const layerGroupMap = new Map<string, string[]>();
 for (let i = 0; i < layers.length; i++) {
   const layer = layers[i];
   layerMap.set(layer.id, layers[i]);
-  const layerGroup = layer["source-layer"] || (layer as any).source || layer.type;
+  const layerGroup =
+    layer["source-layer"] || (layer as any).source || layer.type;
   if (!layerGroupMap.has(layerGroup)) {
     layerGroupMap.set(layerGroup, [layer.id]);
   } else {
@@ -57,4 +58,6 @@ if (opts.printLayer) {
   outputObj = layerMap.get(opts.printLayer) ?? undefined;
 }
 
-process.stdout.write(JSON.stringify(outputObj, null, opts.pretty ? 2 : undefined));
+process.stdout.write(
+  JSON.stringify(outputObj, null, opts.pretty ? 2 : undefined)
+);

@@ -28,7 +28,8 @@ await mkdir("dist/shield-sample", { recursive: true });
 const shieldGfxMap = new Map<string, number>();
 
 // TODO: update types after loadShields is updated to return ShieldSpecification
-const shields: ShieldSpecification = ShieldDef.loadShields() as unknown as ShieldSpecification;
+const shields: ShieldSpecification =
+  ShieldDef.loadShields() as unknown as ShieldSpecification;
 
 const shieldRenderer = new ShieldRenderer(shields, routeParser)
   .filterImageID(shieldPredicate)
@@ -38,7 +39,10 @@ const shieldRenderer = new ShieldRenderer(shields, routeParser)
 
 const colorNames = new Map<string, string>();
 
-function getNamedColor(colorString: string | undefined, defaultColor: string): string {
+function getNamedColor(
+  colorString: string | undefined,
+  defaultColor: string
+): string {
   if (colorString) {
     if (colorString.startsWith("#")) {
       if (colorNames.has(colorString)) {

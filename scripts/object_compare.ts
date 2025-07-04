@@ -29,10 +29,14 @@ export function calculateDifference<T extends object>(
       typeof object2![key] === "number"
     ) {
       // Calculate the difference for numeric properties
-      difference[key] = (object2![key] as number) - (object1[key] as number) as T[Extract<keyof T, string>];
+      difference[key] = ((object2![key] as number) -
+        (object1[key] as number)) as T[Extract<keyof T, string>];
     } else {
       // If the property exists in object1 but not in object2, include it in the result
-      difference[key] = negate(object1[key] as object) as T[Extract<keyof T, string>];
+      difference[key] = negate(object1[key] as object) as T[Extract<
+        keyof T,
+        string
+      >];
     }
   }
 
