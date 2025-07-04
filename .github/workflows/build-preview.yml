@@ -88,7 +88,7 @@ jobs:
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
-          PR_STATS=$(npm run stats -- -j)
+          PR_STATS=$(npx tsx ../pr-branch/scripts/stats -j)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
