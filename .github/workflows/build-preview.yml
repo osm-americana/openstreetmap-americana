@@ -54,7 +54,8 @@ jobs:
       - name: Capture main branch usage statistics
         id: main-stats
         run: |
-          MAIN_STATS=$(npx tsx ../pr-branch/scripts/stats -j)
+          # Use PR branch's stats script but run against main branch's dist
+          MAIN_STATS=$(npx tsx ../pr-branch/scripts/stats -j -d dist)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -88,7 +89,7 @@ jobs:
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
-          PR_STATS=$(npx tsx ../pr-branch/scripts/stats -j)
+          PR_STATS=$(npx tsx ../pr-branch/scripts/stats -j -d dist)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
