@@ -728,6 +728,9 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "Mormon Pioneer National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_mopi",
+      },
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
       },
@@ -735,6 +738,9 @@ export function loadShields() {
         {
           spriteBlank: "shield_us_nht_ovvi",
         },
+      "Pony Express National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_poex",
+      },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
       },
@@ -2098,15 +2104,29 @@ export function loadShields() {
       bottom: 6,
     },
   };
-  ["Clark", "Washoe"].forEach(
-    (county) =>
-      (shields[`US:NV:${county}`] = pentagonUpShield(
-        3,
-        15,
-        Color.shields.blue,
-        Color.shields.yellow
-      ))
-  );
+
+  // County shields (only Washoe in this case)
+  ["Washoe"].forEach((county) => {
+    shields[`US:NV:${county}`] = pentagonUpShield(
+      3,
+      15,
+      Color.shields.blue,
+      Color.shields.yellow
+    );
+  });
+
+  // Clark County Route 215 gets its own special highway shield and is not the same as a normal county route
+  shields["US:NV:Clark"] = {
+    spriteBlank: "shield_us_nv_clark",
+    textColor: Color.shields.blue, // #003882
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 6,
+      right: 6,
+      top: 6,
+      bottom: 8,
+    },
+  };
 
   // New York
   const usNewYorkShield = {
@@ -2193,6 +2213,23 @@ export function loadShields() {
       right: 2,
       top: 2,
       bottom: 8,
+    },
+  };
+  shields["US:NY:Scenic"] = {
+    notext: true,
+    overrideByName: {
+      "Dude Ranch Trail": {
+        spriteBlank: "shield_us_ny_scenic_duderanch",
+      },
+      "High Peaks Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_highpeaks",
+      },
+      "Olympic Trail": {
+        spriteBlank: "shield_us_ny_scenic_olympic",
+      },
+      "Roosevelt-Marcy Trail": {
+        spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
+      },
     },
   };
   [
@@ -3556,7 +3593,7 @@ export function loadShields() {
   );
 
   // Malaysia
-  shields["MY:E"] = shields["my:federal"] = hexagonVerticalShield(
+  shields["MY:expressway"] = shields["my:federal"] = hexagonVerticalShield(
     3,
     Color.shields.yellow,
     Color.shields.black,
