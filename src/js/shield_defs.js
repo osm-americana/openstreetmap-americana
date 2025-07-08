@@ -1055,6 +1055,9 @@ export function loadShields() {
       top: 9.5,
       bottom: 2,
     },
+    bannerMap: {
+        "US:CO:Express": ["EXPR"],
+      },
   };
   shields["US:CO:E470"] = {
     spriteBlank: "shield_us_co_e470",
