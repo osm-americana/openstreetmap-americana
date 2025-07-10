@@ -38,6 +38,13 @@ jobs:
           npm run style
           npm run shields
           cp src/configs/config.aws.js src/config.js
+          # Verify required files exist
+          for file in "shields.json" "style.json" "taginfo.json"; do
+            if [ ! -f "dist/$file" ]; then
+              echo "Error: Required file main/dist/$file was not built"
+              exit 1
+            fi
+          done
         working-directory: main
       - name: Install and Build PR Branch 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
@@ -49,12 +56,20 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
-          mv dist ..
+          cp -prR dist ..
+          # Verify required files exist
+          for file in "shields.json" "style.json" "taginfo.json"; do
+            if [ ! -f "dist/$file" ]; then
+              echo "Error: Required file dist/$file was not built"
+              exit 1
+            fi
+          done
         working-directory: pr-branch
       - name: Capture main branch usage statistics
         id: main-stats
         run: |
-          MAIN_STATS=$(node ../pr-branch/scripts/stats.js -j)
+          echo "Capturing main branch usage statistics..."
+          MAIN_STATS=$(npx tsx ../pr-branch/scripts/stats -j -d ../main/dist)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -88,7 +103,7 @@ jobs:
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
-          PR_STATS=$(node scripts/stats.js -j)
+          PR_STATS=$(npx tsx scripts/stats -j -d dist)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV

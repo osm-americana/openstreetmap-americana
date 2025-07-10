@@ -24,6 +24,7 @@ import {
   bransonRouteShield,
 } from "@americana/maplibre-shield-generator";
 
+//TODO: ensure this returns ShieldSpecification
 export function loadShields() {
   const shields = {};
 
@@ -2218,11 +2219,17 @@ export function loadShields() {
   shields["US:NY:Scenic"] = {
     notext: true,
     overrideByName: {
+      "Black River Trail": {
+        spriteBlank: "shield_us_ny_scenic_blackriver",
+      },
       "Dude Ranch Trail": {
         spriteBlank: "shield_us_ny_scenic_duderanch",
       },
       "High Peaks Scenic Byway": {
         spriteBlank: "shield_us_ny_scenic_highpeaks",
+      },
+      "Maple Traditions Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_mapletraditions",
       },
       "Olympic Trail": {
         spriteBlank: "shield_us_ny_scenic_olympic",
