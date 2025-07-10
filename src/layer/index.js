@@ -145,7 +145,7 @@ export function build(locales) {
     lyrAerialway.dragLift
   );
 
-  layers.push(lyrBuilding.building, lyrBuilding.building2);
+  layers.push(lyrBuilding.building);
 
   var bridgeLayers = [
     lyrRail.bridgeCasing,
