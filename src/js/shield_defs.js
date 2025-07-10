@@ -2221,6 +2221,9 @@ export function loadShields() {
       "Black River Trail": {
         spriteBlank: "shield_us_ny_scenic_blackriver",
       },
+      "Central Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_centraladirondack",
+      },
       "Dude Ranch Trail": {
         spriteBlank: "shield_us_ny_scenic_duderanch",
       },
