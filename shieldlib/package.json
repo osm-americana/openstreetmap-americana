@@ -34,7 +34,7 @@
     "clean": "shx rm -rf dist docs",
     "docs": "typedoc src/index.ts",
     "test": "mocha",
-    "build:code": "tsx scripts/build",
+    "build:code": "node scripts/build.js",
     "build": "run-s clean build:code docs",
     "preversion": "npm version --no-git-tag-version --preid alpha",
     "publish-alpha": "npm publish --access=public --tag alpha"
