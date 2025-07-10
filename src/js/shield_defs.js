@@ -2242,6 +2242,9 @@ export function loadShields() {
       "Roosevelt-Marcy Trail": {
         spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
       },
+      "Southern Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_southernadirondack",
+      },
     },
   };
   [
