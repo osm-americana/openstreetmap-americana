@@ -66,7 +66,7 @@ jobs:
         run: |
           npm exec tsx scripts/icon_changes ../main/icons icons dist/icon-grids
           if [ -f dist/icon-grids/icon-changes.md ]; then
-            cp dist/icon-grids/icon-changes.md ../pr/
+            cp dist/icon-grids/icon-changes.md ../pr-branch/icon-changes.md
             echo "Icon changes detected and grids generated"
           else
             echo "No icon changes detected"
