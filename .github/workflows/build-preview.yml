@@ -33,10 +33,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: pr-branch
-      - name: Setup Node.js
+      - name: Setup Node.js for building main branch
         uses: actions/setup-node@v4
         with:
-          node-version-file: pr-branch/package.json
+          node-version-file: main/package.json
       - name: Install and Build Main Branch 🔧
         run: |
           npm ci --include=dev
@@ -45,6 +45,10 @@ jobs:
           npm run shields
           cp src/configs/config.aws.js src/config.js
         working-directory: main
+      - name: Setup Node.js for building pr branch
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: pr-branch/package.json
       - name: Install and Build PR Branch 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
@@ -65,12 +69,20 @@ jobs:
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
         working-directory: main
+      - name: Setup Node.js for running main branch map server
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: main/package.json
       - name: Start main branch map server
         id: main-start-server
         run: |
           npm start &
           until nc -z localhost 1776; do sleep 1; done
         working-directory: main
+      - name: Setup Node.js for capturing main branch sample clips with pr branch scripts
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: pr-branch/package.json
       - name: Capture main branch sample clips
         # Run PR branch scripts against server running from main branch
         id: main-samples
