@@ -2218,9 +2218,18 @@ export function loadShields() {
   };
   shields["US:NY:Scenic"] = {
     notext: true,
+    bannerMap: {
+      "US:NY:Scenic:Alternate": ["ALT"],
+    },
     overrideByName: {
+      "Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_adirondack",
+      },
       "Black River Trail": {
         spriteBlank: "shield_us_ny_scenic_blackriver",
+      },
+      "Central Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_centraladirondack",
       },
       "Dude Ranch Trail": {
         spriteBlank: "shield_us_ny_scenic_duderanch",
@@ -2236,6 +2245,9 @@ export function loadShields() {
       },
       "Roosevelt-Marcy Trail": {
         spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
+      },
+      "Southern Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_southernadirondack",
       },
     },
   };
