@@ -34,7 +34,10 @@ function generateGridPattern(xOffset: number, yOffset: number): Buffer {
 }
 
 // Convert and scale SVG (copied from icon_grid.ts)
-async function convertAndScaleSVG(svgFilename: string, outputFilename: string): Promise<void> {
+async function convertAndScaleSVG(
+  svgFilename: string,
+  outputFilename: string
+): Promise<void> {
   const svgBuffer = fs.readFileSync(svgFilename);
 
   // Get dimensions of the original SVG
@@ -75,9 +78,10 @@ async function convertAndScaleSVG(svgFilename: string, outputFilename: string): 
 // Get list of SVG files in a directory
 function getSvgFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir)
-    .filter(file => file.endsWith('.svg'))
-    .map(file => path.join(dir, file));
+  return fs
+    .readdirSync(dir)
+    .filter((file) => file.endsWith(".svg"))
+    .map((file) => path.join(dir, file));
 }
 
 // Check if two files are different
@@ -94,15 +98,15 @@ function filesAreDifferent(file1: string, file2: string): boolean {
 async function main() {
   const mainSvgFiles = getSvgFiles(mainIconsDir);
   const prSvgFiles = getSvgFiles(prIconsDir);
-  
+
   const changedIcons: string[] = [];
   const newIcons: string[] = [];
-  
+
   // Check for changed icons
   for (const prFile of prSvgFiles) {
     const filename = path.basename(prFile);
     const mainFile = path.join(mainIconsDir, filename);
-    
+
     if (fs.existsSync(mainFile)) {
       if (filesAreDifferent(mainFile, prFile)) {
         changedIcons.push(filename);
@@ -111,24 +115,27 @@ async function main() {
       newIcons.push(filename);
     }
   }
-  
+
   // Generate icon grids for changed and new icons
   const allChangedIcons = [...changedIcons, ...newIcons];
-  
+
   for (const icon of allChangedIcons) {
     const prIconPath = path.join(prIconsDir, icon);
-    const outputFilename = path.join(outputDir, `${path.parse(icon).name}_preview.png`);
-    
+    const outputFilename = path.join(
+      outputDir,
+      `${path.parse(icon).name}_preview.png`
+    );
+
     try {
       await convertAndScaleSVG(prIconPath, outputFilename);
     } catch (error) {
       console.error(`Error generating grid for ${icon}:`, error);
     }
   }
-  
+
   // Generate markdown report
   let mdContent = "## Icon Changes\n\n";
-  
+
   if (allChangedIcons.length === 0) {
     mdContent += "No icon changes detected.\n";
   } else {
@@ -137,7 +144,7 @@ async function main() {
       const iconName = path.parse(icon).name;
       mdContent += `- \`${icon}\` ![${iconName}](${outputDir}/${iconName}_preview.png)\n`;
     }
-    
+
     if (newIcons.length > 0) {
       mdContent += `\n### New Icons (${newIcons.length})\n`;
       for (const icon of newIcons) {
@@ -146,13 +153,15 @@ async function main() {
       }
     }
   }
-  
+
   // Write markdown report
   fs.writeFileSync(path.join(outputDir, "icon-changes.md"), mdContent);
-  
-  console.log(`Generated icon grids for ${allChangedIcons.length} icons in ${outputDir}/`);
+
+  console.log(
+    `Generated icon grids for ${allChangedIcons.length} icons in ${outputDir}/`
+  );
   console.log(`Changed icons: ${changedIcons.length}`);
   console.log(`New icons: ${newIcons.length}`);
 }
 
-main().catch(console.error); 
+main().catch(console.error);
