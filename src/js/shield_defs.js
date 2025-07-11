@@ -2217,6 +2217,9 @@ export function loadShields() {
   };
   shields["US:NY:Scenic"] = {
     notext: true,
+    bannerMap: {
+      "US:NY:Scenic:Alternate": ["ALT"],
+    },
     overrideByName: {
       "Adirondack Trail": {
         spriteBlank: "shield_us_ny_scenic_adirondack",
