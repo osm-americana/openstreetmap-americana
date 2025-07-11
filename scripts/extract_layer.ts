@@ -1,6 +1,7 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
-import { Command, Option } from "commander";
+import { Command, Option, OptionValues } from "commander";
+import { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";
 
 const program = new Command();
 program
@@ -15,7 +16,7 @@ program
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"]);
 program.parse(process.argv);
 
-const opts = program.opts();
+const opts: OptionValues = program.opts();
 
 if (Object.keys(opts).length === 1) program.help();
 
@@ -28,29 +29,35 @@ const style = Style.build(
   locales
 );
 
-const layers = style.layers;
-const layerMap = new Map();
-const layerGroupMap = new Map();
+const layers = style.layers as LayerSpecification[];
+const layerMap = new Map<string, LayerSpecification>();
+const layerGroupMap = new Map<string, string[]>();
 
 for (let i = 0; i < layers.length; i++) {
   const layer = layers[i];
   layerMap.set(layer.id, layers[i]);
-  const layerGroup = layer["source-layer"] || layer.source || layer.type;
+  const layerGroup =
+    layer["source-layer"] || (layer as any).source || layer.type;
   if (!layerGroupMap.has(layerGroup)) {
     layerGroupMap.set(layerGroup, [layer.id]);
   } else {
-    layerGroupMap.get(layerGroup).push(layer.id);
+    const group = layerGroupMap.get(layerGroup);
+    if (group) {
+      group.push(layer.id);
+    }
   }
 }
 
-let outputObj;
+let outputObj: string[] | LayerSpecification | undefined;
 
 if (opts.printGroup) {
   outputObj = layerGroupMap.get(opts.printGroup);
 }
 
 if (opts.printLayer) {
-  outputObj = layerMap.get(opts.printLayer) ?? {};
+  outputObj = layerMap.get(opts.printLayer) ?? undefined;
 }
 
-process.stdout.write(JSON.stringify(outputObj, null, opts.pretty ? 2 : null));
+process.stdout.write(
+  JSON.stringify(outputObj, null, opts.pretty ? 2 : undefined)
+);
