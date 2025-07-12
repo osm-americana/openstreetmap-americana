@@ -141,6 +141,11 @@ jobs:
           output: |
             {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
           output_text_description_file: stats-difference.md
+      - name: Create empty icon-changes.md if not exists
+        run: |
+          if [ ! -f icon-changes.md ]; then
+            echo "No icon changes detected in this PR." > icon-changes.md
+          fi
       - name: Print Icon Changes to GitHub Checks
         uses: LouisBrunner/checks-action@v2.0.0
         if: always()
