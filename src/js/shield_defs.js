@@ -2236,6 +2236,9 @@ export function loadShields() {
       "Dude Ranch Trail": {
         spriteBlank: "shield_us_ny_scenic_duderanch",
       },
+      "Durham Valley Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_durham",
+      },
       "High Peaks Scenic Byway": {
         spriteBlank: "shield_us_ny_scenic_highpeaks",
       },
