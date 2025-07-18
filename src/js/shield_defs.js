@@ -2227,11 +2227,17 @@ export function loadShields() {
       "Black River Trail": {
         spriteBlank: "shield_us_ny_scenic_blackriver",
       },
+      "Catskill Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_catskillmountains",
+      },
       "Central Adirondack Trail": {
         spriteBlank: "shield_us_ny_scenic_centraladirondack",
       },
       "Dude Ranch Trail": {
         spriteBlank: "shield_us_ny_scenic_duderanch",
+      },
+      "Durham Valley Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_durham",
       },
       "High Peaks Scenic Byway": {
         spriteBlank: "shield_us_ny_scenic_highpeaks",
