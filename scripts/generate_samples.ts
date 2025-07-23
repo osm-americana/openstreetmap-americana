@@ -79,50 +79,48 @@ for (const screenshot of screenshots) {
   await createImage(screenshot);
 }
 
-async function createImage(screenshot: SampleSpecification) {
-  const maxRetries = 5;
-  const baseDelay = 5000; // 5 seconds
+async function takeScreenshot(screenshot: SampleSpecification) {
+  const pagePath: string = screenshot.controls ? "" : "bare_map.html";
 
+  await page.goto(
+    `http://localhost:1776/${pagePath}#map=${screenshot.location}`
+  );
+
+  // Wait for map to load, then wait two more seconds for images, etc. to load.
+  try {
+    await page.waitForFunction(() => (window as WindowWithMap).map?.loaded(), {
+      timeout: 3000,
+    });
+  } catch (e) {
+    console.log(`Timed out waiting for map load`);
+  }
+
+  await page.screenshot({
+    path: `${sampleFolder}/${screenshot.name}.png`,
+    type: "png",
+  });
+  console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
+}
+
+async function withRetry<T>(
+  operation: () => Promise<T>,
+  name: string,
+  maxRetries = 5,
+  baseDelay = 5000
+): Promise<T> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const pagePath: string = screenshot.controls ? "" : "bare_map.html";
-
-      await page.goto(
-        `http://localhost:1776/${pagePath}#map=${screenshot.location}`
-      );
-
-      // Wait for map to load, then wait two more seconds for images, etc. to load.
-      try {
-        await page.waitForFunction(
-          () => (window as WindowWithMap).map?.loaded(),
-          {
-            timeout: 3000,
-          }
-        );
-      } catch (e) {
-        console.log(`Timed out waiting for map load`);
-      }
-
-      await page.screenshot({
-        path: `${sampleFolder}/${screenshot.name}.png`,
-        type: "png",
-      });
-      console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
-
-      return;
+      return await operation();
     } catch (err) {
       console.error(
-        `Attempt ${attempt}/${maxRetries} failed for ${screenshot.name}:`,
+        `Attempt ${attempt}/${maxRetries} failed for ${name}:`,
         err
       );
 
       if (attempt === maxRetries) {
-        console.error(
-          `Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`
-        );
-        throw new Error(
-          `Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`
-        );
+        const errorMessage = `Failed screenshot for ${name} after ${maxRetries} attempts`;
+        console.error(errorMessage);
+        throw new Error(errorMessage);
       }
 
       // Calculate delay with doubling backoff (5s, 10s, 20s, 40s)
@@ -131,6 +129,11 @@ async function createImage(screenshot: SampleSpecification) {
       await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
+  throw new Error("Unreachable");
+}
+
+async function createImage(screenshot: SampleSpecification) {
+  await withRetry(() => takeScreenshot(screenshot), screenshot.name);
 }
 
 await browser.close();
