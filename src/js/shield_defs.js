@@ -2217,18 +2217,42 @@ export function loadShields() {
   };
   shields["US:NY:Scenic"] = {
     notext: true,
+    bannerMap: {
+      "US:NY:Scenic:Alternate": ["ALT"],
+    },
     overrideByName: {
+      "Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_adirondack",
+      },
+      "Black River Trail": {
+        spriteBlank: "shield_us_ny_scenic_blackriver",
+      },
+      "Catskill Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_catskillmountains",
+      },
+      "Central Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_centraladirondack",
+      },
       "Dude Ranch Trail": {
         spriteBlank: "shield_us_ny_scenic_duderanch",
       },
+      "Durham Valley Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_durham",
+      },
       "High Peaks Scenic Byway": {
         spriteBlank: "shield_us_ny_scenic_highpeaks",
+      },
+      "Maple Traditions Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_mapletraditions",
       },
       "Olympic Trail": {
         spriteBlank: "shield_us_ny_scenic_olympic",
       },
       "Roosevelt-Marcy Trail": {
         spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
+      },
+      "Southern Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_southernadirondack",
       },
     },
   };
