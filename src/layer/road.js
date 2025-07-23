@@ -210,8 +210,10 @@ const roadFillWidth = [
     [...classSelector, "motorway", 3.2, [...expresswaySelector, 3.5, 4]],
     widthFactor,
   ],
+  16,
+  ["*", [...expresswaySelector, 8, 9], widthFactor],
   20,
-  ["*", [...expresswaySelector, 16, 18], widthFactor],
+  ["*", [...expresswaySelector, 64, 72], widthFactor],
 ];
 
 const roadCasingWidth = [
@@ -229,8 +231,10 @@ const roadCasingWidth = [
     [...classSelector, "motorway", 5, [...expresswaySelector, 7, 5]],
     widthFactor,
   ],
+  16,
+  ["*", [...expresswaySelector, 14, 11], widthFactor],
   20,
-  ["*", [...expresswaySelector, 28, 22], widthFactor],
+  ["*", [...expresswaySelector, 112, 88], widthFactor],
 ];
 
 const roadCasingColorTunnel = [

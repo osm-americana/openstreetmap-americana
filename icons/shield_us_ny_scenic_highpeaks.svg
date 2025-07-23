@@ -1,0 +1,24 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <path id="a" d="M2 4.25 2.5 4.25 4 2.75 6.5 4.75 8 3.5 9 4.75 10.25 3.5 12 3 13 2.25 16 5.25 17.5 4 18 4"/>
+ </defs>
+ <g fill="none">
+  <rect fill="#693F23" fill-rule="evenodd" width="20" height="20" rx="2"/>
+  <path stroke="#FFCD00" stroke-linecap="square" d="M2.5 6.5 2.5 11.5M5.5 6.5 5.5 11.5M7.5 6.5 7.5 11.5M12.75 7C12.4166667 6.66666667 11.8333333 6.5 11 6.5 9.8954305 6.5 9 7.3954305 9 8.5L9 9.5C9 10.6045695 9.8954305 11.5 11 11.5 12.1045695 11.5 13 10.6045695 13 9.5L13 9.5 13 9.5 11.8571429 9.5M5.5 15.5 7.5 15.5"/>
+  <g fill-rule="evenodd">
+   <path stroke="#FFCD00" stroke-linecap="square" d="M1.75 3.5 2.75 3.5" transform="translate(7.75 13)"/>
+   <path fill="#FFCD00" transform="matrix(-1 0 0 1 14 13)" d="M3.5 0 4.5 0 2.75 5 1.75 5z"/>
+   <path fill="#FFCD00" d="M1.75 0 2.75 0 1 5-7.10542736e-14 5z" transform="translate(7.75 13)"/>
+  </g>
+  <path stroke="#FFCD00" stroke-linecap="square" d="M5.5 13.5 7.5 13.5M5.5 17.5 7.5 17.5M5.5 13.5 5.5 17.5"/>
+  <g fill-rule="evenodd">
+   <path stroke="#FFCD00" stroke-linecap="square" d="M.5.5.5 4.5" transform="translate(12 13)"/>
+   <path fill="#FFCD00" d="M2.5 0 3.75 0 1.25 3 0 3z" transform="translate(12 13)"/>
+   <path fill="#FFCD00" transform="matrix(-1 0 0 1 15.75 13)" d="M2.5 2 3.75 2 1.25 5 0 5z"/>
+  </g>
+  <path d="M17.5915703 13.75C17.3934515 13.5833333 17.096224 13.5 16.6998878 13.5 15.511175 13.5 15.3024162 14.2082709 15.511175 14.7 15.8967726 15.6082709 17.5035188 15.3929438 17.8886007 16.3 18.0978752 16.7929438 17.8887485 17.5 16.7000357 17.5 16.303798 17.5 16.0066198 17.4166667 15.808501 17.25M2.5 8.5 4.5 8.5M14.5 6.5 14.5 11.5M17.5 6.5 17.5 11.5M15 8.5 17 8.5M2.5 17.5 2.5 13.5 3.75 13.5C4.30228475 13.5 4.75 13.9477153 4.75 14.5 4.75 15.0522847 4.30228475 15.5 3.75 15.5L2.5 15.5 2.5 15.5" stroke="#FFCD00" stroke-linecap="square"/>
+  <use stroke="#693F23" stroke-width="3" xlink:href="#a"/>
+  <use stroke="#FFCD00" xlink:href="#a"/>
+  <rect stroke="#FFCD00" x=".5" y=".5" width="19" height="19" rx="2"/>
+ </g>
+</svg>

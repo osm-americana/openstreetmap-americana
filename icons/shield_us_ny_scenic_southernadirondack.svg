@@ -1,0 +1,8 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none" fill-rule="evenodd">
+  <rect stroke="#FFCD00" fill="#693F23" x=".5" y=".5" width="19" height="19" rx="2"/>
+  <path stroke="#FFCD00" stroke-linejoin="round" d="M0 3.6 7.5 11 15 3.5 11.5 0 3.5 0z" transform="translate(2.5 5)"/>
+  <path d="M9,9.75 C6.66666667,8.91666667 6.16666667,8 7.5,7 C9.5,5.5 8,3.5 5.5,3.5 C8.5,5.75 5.5,6.25 5,7.25 C4.66666667,7.91666667 5.25,8.91666667 6.75,10.25 L7.5,10.5 L9,9.75 Z" fill="#FFCD00" transform="translate(2.5 5)"/>
+  <path d="M1 3.25C2.5 3.25 3 2.5 4 2.5 4.66666667 2.5 5.75 3.16666667 7.25 4.5M6 3.25C6.95366087 2.35124599 7.62032753 1.85124599 8 1.75 8.5695087 1.59813101 8.8704775 2.44753979 9.5 2.5 10.1295225 2.55246021 10.25 2 11 2 11.75 2 12.25 3.25 13.5 2.75" stroke="#FFCD00" stroke-width=".75" stroke-linecap="round" stroke-linejoin="round" transform="translate(2.5 5)"/>
+ </g>
+</svg>
