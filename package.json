@@ -56,7 +56,7 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.8.4",
     "benchmark": "^2.1.4",
-    "canvas": "^2.11.0",
+    "canvas": "^3.1.2",
     "chai": "^4.3.7",
     "color-namer": "^1.4.0",
     "commander": "^10.0.0",
@@ -77,6 +77,6 @@
   },
   "engines": {
     "npm": ">=8.3.0",
-    "node": ">=18 <=20"
+    "node": ">=20 <=22"
   }
 }
