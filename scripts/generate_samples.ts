@@ -82,7 +82,7 @@ for (const screenshot of screenshots) {
 async function createImage(screenshot: SampleSpecification) {
   const maxRetries = 5;
   const baseDelay = 5000; // 5 seconds
-  
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const pagePath: string = screenshot.controls ? "" : "bare_map.html";
@@ -93,9 +93,12 @@ async function createImage(screenshot: SampleSpecification) {
 
       // Wait for map to load, then wait two more seconds for images, etc. to load.
       try {
-        await page.waitForFunction(() => (window as WindowWithMap).map?.loaded(), {
-          timeout: 3000,
-        });
+        await page.waitForFunction(
+          () => (window as WindowWithMap).map?.loaded(),
+          {
+            timeout: 3000,
+          }
+        );
       } catch (e) {
         console.log(`Timed out waiting for map load`);
       }
@@ -105,21 +108,27 @@ async function createImage(screenshot: SampleSpecification) {
         type: "png",
       });
       console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
-      
+
       return;
-      
     } catch (err) {
-      console.error(`Attempt ${attempt}/${maxRetries} failed for ${screenshot.name}:`, err);
-      
+      console.error(
+        `Attempt ${attempt}/${maxRetries} failed for ${screenshot.name}:`,
+        err
+      );
+
       if (attempt === maxRetries) {
-        console.error(`Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`);
-        throw new Error(`Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`);
+        console.error(
+          `Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`
+        );
+        throw new Error(
+          `Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`
+        );
       }
-      
+
       // Calculate delay with doubling backoff (5s, 10s, 20s, 40s)
       const delay = baseDelay * Math.pow(2, attempt - 1);
       console.log(`Retrying in ${delay / 1000} seconds...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
 }
