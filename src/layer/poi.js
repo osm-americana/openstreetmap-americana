@@ -59,6 +59,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Car dealership",
   },
+  charging_station: {
+    classes: {
+      fuel: ["charging_station"],
+    },
+    sprite: "poi_charging_station",
+    color: Color.poi.consumer,
+    description: "Charging station",
+  },
   taxi: {
     classes: {
       office: ["taxi"],
@@ -82,6 +90,14 @@ var iconDefs = {
     sprite: "poi_fuel",
     color: Color.poi.consumer,
     description: "Gas station",
+  },
+  fire_station: {
+    classes: {
+      fire_station: ["fire_station"],
+    },
+    sprite: "poi_fire_station",
+    color: Color.poi.infrastructure,
+    description: "Fire station",
   },
   hospital: {
     classes: {
@@ -236,6 +252,15 @@ var iconDefs = {
     color: Color.poi.transport,
     description: "Tram stop",
   },
+  restaurant: {
+    classes: {
+      restaurant: ["restaurant"],
+      fast_food: ["fast_food", "food_court"],
+    },
+    sprite: "poi_restaurant",
+    color: Color.poi.consumer,
+    description: "Restaurant or fast food",
+  },
   school: {
     classes: {
       school: ["kindergarten", "school"],
@@ -328,6 +353,8 @@ export const poi = {
         ...getSubclasses(iconDefs.car_repair),
         ...getSubclasses(iconDefs.hotel),
         ...getSubclasses(iconDefs.hostel),
+        ...getSubclasses(iconDefs.restaurant),
+        ...getSubclasses(iconDefs.charging_station),
       ],
       Color.poi.consumer,
       [
@@ -342,6 +369,7 @@ export const poi = {
       Color.poi.attraction,
       [
         "hospital",
+        "fire_station",
         "parking",
         "police",
         "school",
@@ -376,6 +404,7 @@ export const poi = {
       14,
       [
         "bus_stop",
+        "fire_station",
         "hospital",
         "library",
         "museum",
@@ -392,6 +421,7 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_taoist),
         ...getSubclasses(iconDefs.school),
         ...getSubclasses(iconDefs.supermarket),
+        ...getSubclasses(iconDefs.charging_station),
         "townhall",
         "tram_stop",
       ],
@@ -405,6 +435,7 @@ export const poi = {
         ...getSubclasses(iconDefs.taxi),
         ...getSubclasses(iconDefs.hotel),
         ...getSubclasses(iconDefs.hostel),
+        ...getSubclasses(iconDefs.restaurant),
       ],
       16,
       ["clinic", "doctors", "parking"],
@@ -430,7 +461,7 @@ export const poi = {
       [
         "match",
         ["get", "subclass"],
-        ["bus_stop", "tram_stop", "fuel", "supermarket"],
+        ["bus_stop", "tram_stop", "fuel", "supermarket", "charging_station"],
         "",
         label.localizedName,
       ],

@@ -18,19 +18,25 @@ jobs:
   build-preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
+      - name: Install native dependencies for canvas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++ \
+            libpixman-1-dev pkg-config
       - name: Checkout Main Branch 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
           path: main
       - name: Checkout PR Branch 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: pr-branch
+      - name: Setup Node.js for building main branch
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: main/package.json
       - name: Install and Build Main Branch 🔧
         run: |
           npm ci --include=dev
@@ -39,6 +45,10 @@ jobs:
           npm run shields
           cp src/configs/config.aws.js src/config.js
         working-directory: main
+      - name: Setup Node.js for building pr branch
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: pr-branch/package.json
       - name: Install and Build PR Branch 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
@@ -59,12 +69,20 @@ jobs:
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
         working-directory: main
+      - name: Setup Node.js for running main branch map server
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: main/package.json
       - name: Start main branch map server
         id: main-start-server
         run: |
           npm start &
           until nc -z localhost 1776; do sleep 1; done
         working-directory: main
+      - name: Setup Node.js for capturing main branch sample clips with pr branch scripts
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: pr-branch/package.json
       - name: Capture main branch sample clips
         # Run PR branch scripts against server running from main branch
         id: main-samples
@@ -104,13 +122,13 @@ jobs:
       - name: Generate map diff sample clips
         id: map-diff-samples
         run: |
-          npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.ourmap.us/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
+          npm exec tsx scripts/folder_diff ../samples-main ../samples-pr https://preview.americanamap.org/pr/${{ github.event.pull_request.number }}/ ${{ github.event.pull_request.head.sha }}
           mv pr_preview-extra.md ../pr/
           cat ../pr/pr_preview-extra.md
           mv samples-diff ../dist/
         working-directory: pr-branch
       - name: Upload Build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: americana
           path: dist/
@@ -123,7 +141,7 @@ jobs:
           echo $PR_SHA > pr/pr_sha
           echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.event.pull_request.head.sha }} for upload"
       - name: Upload PR artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pr_ci_artifacts
           path: pr/

@@ -11,11 +11,13 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
 import LegendControl from "./js/legend_control.js";
+import { HillshadeControl } from "./js/hillshade_control.js";
 import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
 import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
+import { debugOptions } from "./debug_config.js";
 
 function upgradeLegacyHash() {
   let hash = window.location.hash.substr(1);
@@ -28,22 +30,20 @@ upgradeLegacyHash();
 
 loadRTLPlugin();
 
-export const map = createMap(window, (shields) => shieldDefLoad(shields), {
-  container: "map", // container id
-  hash: "map",
-  antialias: true,
-  style: buildStyle(),
-  center: [-94, 40.5],
-  zoom: 4,
-  attributionControl: false,
-});
-
-let options = {};
-
-if (config.SHIELD_TEXT_HALO_COLOR_OVERRIDE) {
-  options["SHIELD_TEXT_HALO_COLOR_OVERRIDE"] =
-    config.SHIELD_TEXT_HALO_COLOR_OVERRIDE;
-}
+export const map = createMap(
+  window,
+  (shields) => shieldDefLoad(shields),
+  {
+    container: "map", // container id
+    hash: "map",
+    antialias: true,
+    style: buildStyle(),
+    center: [-94, 40.5],
+    zoom: 4,
+    attributionControl: false,
+  },
+  debugOptions
+);
 
 // Add our sample data.
 let sampleControl = new SampleControl({ permalinks: true });
@@ -69,6 +69,7 @@ function shieldDefLoad(shields) {
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
   map.addControl(new maplibregl.NavigationControl(), "top-left");
+  map.addControl(new HillshadeControl({ layerId: "hillshading" }), "top-left");
 
   window.addEventListener("languagechange", (event) => {
     console.log(`Changed to ${navigator.languages}`);

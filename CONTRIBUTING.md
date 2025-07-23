@@ -5,8 +5,8 @@ _'murica!_
 The style is located within **src/** and is organized as follows:
 
 - **layer/** - Individual style layers, organized by subject area. The ordering of layers is specified in `index.js`.
-- **icons/** - SVG icons, which get converted into PNG stylesheets
 - **constants/** - Style elements that are frequently re-used
+- **icons/** - SVG icons, which get converted into PNG stylesheets
 - **js/** - Dynamic javascript code for highway shields and stylesheet building
 - **config.js** - Configuration settings (MapTiler API key, OpenMapTiles tile server URL, etc)
 - **americana.js** - MapLibre loader and configuration for the demo map
@@ -79,8 +79,8 @@ sudo apt install nodejs
 [51]: https://www.macports.org/
 [52]: https://nodejs.org
 [60]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
-[62]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132
-[63]: https://github.com/ZeLonewolf/openstreetmap-americana/issues/132#issuecomment-1027274543
+[62]: https://github.com/osm-americana/openstreetmap-americana/issues/132
+[63]: https://github.com/osm-americana/openstreetmap-americana/issues/132#issuecomment-1027274543
 
 ## Install Project Level NPM Dependencies
 
@@ -180,6 +180,10 @@ boilerplate in `scripts/taginfo_template.json`.
    browser environment, add automated unit tests for it to `test/spec/`, then
    run `npm test` to ensure that they pass. This project structures unit tests
    using [Chai](https://www.chaijs.com/guide/styles/) for assertions.
+6. There are built-in GitHub actions that will generate a preview map of your
+   changes. We recommend initially creating a PR draft, and then using the preview
+   map to capture links and screenshots to add to your PR. To access the map,
+   expand the "checks" section at the bottom of the PR, and click on "PR Preview"
 
 [90]: https://prettier.io/
 [svgo]: https://github.com/svg/svgo/
@@ -316,6 +320,8 @@ Additionally, **`refsByName`** is an object mapping way names to text that can b
 
 When using `overrideByRef` or `refsByName`, make sure to add a line to the Special Cases section of this page explaining why it is necessary, as they are only intended for use in special cases.
 
+In the case where all routes in a network should be drawn with the same shield text, set the text value in `ref`.
+
 ### Banners
 
 The shield definition supports a property **`banners`** which accepts an array of text strings which will be drawn atop each shield, in 10px height increments. This is used in cases where additional text is needed to differentiate shields with a common symbology, for example for [special routes of the US Numbered Highway System](https://en.wikipedia.org/wiki/List_of_special_routes_of_the_United_States_Numbered_Highway_System):
@@ -351,7 +357,7 @@ This style strives to draw representative highway shields wherever they are tagg
 - Shields for route networks where each individual route is identified by a color, rather than a number or letter. Such cases include:
   - **Allegheny County, PA Belt Routes**. Shields for this system use colors, with a colored circle and the words "<COLOR> BELT". These shields are drawn as squares with colored circles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (white shield with colored circle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
   - **Branson, MO color-coded routes**. Shields for this system use colors, with a colored rectangle and the words "<COLOR> ROUTE". These shields are drawn as squares with colored rectangles, with the `ref` values correctly corresponding to the text on the shield. Because of the common design (green shield with colored rectangle), these shields are properly part of a common route network. Special code is needed to convert the textual ref values to the colors displayed in the shield.
-- Shields with a stacked ref configuration, with `/` separating the two lines of text in the `ref` value. Currently, these `ref` values are displayed verbatim on one line, and the code necessary for stacked ref rendering has not been written yet ([#366](https://github.com/ZeLonewolf/openstreetmap-americana/issues/366)). Such cases include:
+- Shields with a stacked ref configuration, with `/` separating the two lines of text in the `ref` value. Currently, these `ref` values are displayed verbatim on one line, and the code necessary for stacked ref rendering has not been written yet ([#366](https://github.com/osm-americana/openstreetmap-americana/issues/366)). Such cases include:
   - **Italy "Diramazione" (branch) motorways**. Between their main autostrade "A" roads, the Italian motorway network has branch motorways which carry the name of both highways that they connect. For example, the A7 and A26 motorways have a branch motorway named A7/A26, which is correctly tagged `ref=A7/A26` and shown on shields with the two numbers stacked vertically.
   - **West Virginia County Routes**. The West Virginia Department of Transportation posts County Routes, which can have shields with two stacked numbers. For example, in Mercer County, County Route 460/1 is a branch off U.S. Route 460, and County Route 27/6 is a branch off County Route 27. These routes are correctly tagged `ref=460/1` and `ref=27/6` respectively, and shown on shields with the two numbers stacked vertically.
 - The [highway classification system of the United Kingdom](https://wiki.openstreetmap.org/wiki/Roads_in_the_United_Kingdom). In the UK, mappers need to and are able to tag the actual official road classifications independently of route networks. The color and style of route signage is based on a strict 1:1 correspondence with the `highway=*` value of the underlying road, and **not** based on M/A/B highway network type. While "M" roads are always motorways with blue route symbology, "A" roads can anything from primary through motorway, and thus may take one of three colors and may change along a single route. Even if mappers were to create route relations containing all roads with the same route number, these relations would not be usable for determining how to render route symbology. Additionally, there are no route concurrencies in the UK; all roads that are `highway=secondary` or higher carry a single `ref` value that can be directly rendered into a shield without pre-processing. There is established data consumers support for this highway classification-based symbology system, most notably OpenMapTiles, which has provided pseudo-network values for UK routes since the project's inception. Therefore, this project consumes the UK pseudo-network scheme established by OpenMapTiles and colors UK route network symbology strictly based on `highway=<motorway/trunk/primary/secondary>` consistent with UK signage.
@@ -361,16 +367,16 @@ This style strives to draw representative highway shields wherever they are tagg
 For testing out changes across a variety of different shield designs and ref lengths there is a shield test gallery available:
 
 - In local development: http://localhost:1776/shieldtest.html
-- On the public demo site: https://zelonewolf.github.io/openstreetmap-americana/shieldtest.html
+- On the public demo site: https://americanamap.org/shieldtest.html
 
 This aims to display a table of all the unique shield designs in the style with some example refs from 1 to 6 characters. The `networks` and `refs` arrays can be modified for testing with a different set of either:
 
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L16-L31
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L203-L218
+https://github.com/osm-americana/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L16-L31
+https://github.com/osm-americana/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L203-L218
 
 To test with a list of all the supported networks in the style this line can be uncommented:
 
-https://github.com/ZeLonewolf/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
+https://github.com/osm-americana/openstreetmap-americana/blob/581e1e5d97f5745c1bf764689439d93403888505/src/shieldtest.js#L200-L201
 
 This results in a very long page and can be quite slow or even crash the browser tab.
 
