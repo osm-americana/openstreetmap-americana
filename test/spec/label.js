@@ -57,7 +57,15 @@ describe("label", function () {
   describe("#getLocales", function () {
     beforeEach(function () {
       global.window = {};
-      global.navigator = {};
+      // Instead of reassigning navigator, define properties on it
+      Object.defineProperty(global, "navigator", {
+        value: {
+          languages: [],
+          language: "",
+        },
+        writable: true,
+        configurable: true,
+      });
     });
     afterEach(function () {
       delete global.window;
@@ -66,7 +74,17 @@ describe("label", function () {
 
     it("gets locales from preferences", function () {
       window.location = new URL("http://localhost:1776/#map=1/2/3");
-      navigator = { languages: ["tlh-UN", "ase"], language: "tlh" };
+      // Update the navigator properties instead of reassigning
+      Object.defineProperty(global.navigator, "languages", {
+        value: ["tlh-UN", "ase"],
+        writable: true,
+        configurable: true,
+      });
+      Object.defineProperty(global.navigator, "language", {
+        value: "tlh",
+        writable: true,
+        configurable: true,
+      });
       expect(Label.getLocales()).to.eql(["tlh-UN", "tlh", "ase"]);
     });
     it("gets locales from the URL", function () {

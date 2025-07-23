@@ -81,7 +81,7 @@ for (const screenshot of screenshots) {
   await createImage(screenshot);
 }
 
-async function createImage(screenshot: SampleSpecification) {
+async function takeScreenshot(screenshot: SampleSpecification) {
   const pagePath: string = screenshot.controls ? "" : "bare_map.html";
 
   await page.goto(
@@ -99,15 +99,45 @@ async function createImage(screenshot: SampleSpecification) {
     console.log(`Timed out waiting for map load`);
   }
 
-  try {
-    await page.screenshot({
-      path: `${sampleFolder}/${screenshot.name}.png`,
-      type: "png",
-    });
-    console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
-  } catch (err) {
-    console.error(err);
+  await page.screenshot({
+    path: `${sampleFolder}/${screenshot.name}.png`,
+    type: "png",
+  });
+  console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
+}
+
+async function withRetry<T>(
+  operation: () => Promise<T>,
+  name: string,
+  maxRetries = 5,
+  baseDelay = 5000
+): Promise<T> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (err) {
+      console.error(
+        `Attempt ${attempt}/${maxRetries} failed for ${name}:`,
+        err
+      );
+
+      if (attempt === maxRetries) {
+        const errorMessage = `Failed screenshot for ${name} after ${maxRetries} attempts`;
+        console.error(errorMessage);
+        throw new Error(errorMessage);
+      }
+
+      // Calculate delay with doubling backoff (5s, 10s, 20s, 40s)
+      const delay = baseDelay * Math.pow(2, attempt - 1);
+      console.log(`Retrying in ${delay / 1000} seconds...`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
   }
+  throw new Error("Unreachable");
+}
+
+async function createImage(screenshot: SampleSpecification) {
+  await withRetry(() => takeScreenshot(screenshot), screenshot.name);
 }
 
 await browser.close();
