@@ -614,9 +614,9 @@
       "key": "amenity",
       "value": "food_court",
       "object_types": ["node", "area"],
-      "description": "Restaurants are marked by an icon representing a knife and fork.",
+      "description": "Food courts are marked by an icon representing a knife and fork inscribed in a circle.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_restaurant_circle.svg"
     },
     {
       "key": "amenity",
