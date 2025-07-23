@@ -106,7 +106,6 @@ async function createImage(screenshot: SampleSpecification) {
       });
       console.log(`Created ${sampleFolder}/${screenshot.name}.png`);
       
-      // Success - exit the retry loop
       return;
       
     } catch (err) {
@@ -114,7 +113,7 @@ async function createImage(screenshot: SampleSpecification) {
       
       if (attempt === maxRetries) {
         console.error(`Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`);
-        return;
+        throw new Error(`Failed to create screenshot for ${screenshot.name} after ${maxRetries} attempts`);
       }
       
       // Calculate delay with doubling backoff (5s, 10s, 20s, 40s)
