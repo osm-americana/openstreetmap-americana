@@ -71,6 +71,27 @@ jobs:
           echo "Configuring deployment for PR# $PR_NUM commit $PR_SHA"
           echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
           echo "PR_SHA=$PR_SHA" >> $GITHUB_ENV
+          - name: Add fully qualified URLs to icon-changes.md for GitHub checks
+          run: |
+            if [ -f icon-grids/icon-changes.md ]; then
+              # Copy the file and replace relative paths with absolute URLs
+              sed "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" icon-grids/icon-changes.md > icon-grids/icon-changes.md
+              echo "Icon changes markdown created with absolute URLs"
+            else
+              mkdir -p icon-grids
+              echo "No icon change file found in this PR." > icon-grids/icon-changes.md
+            fi
+      - name: Print Icon Changes to GitHub Checks
+        uses: LouisBrunner/checks-action@v2.0.0
+        if: always()
+        with:
+          sha: ${{ env.PR_SHA }}
+          token: ${{ steps.checks_token.outputs.token }}
+          name: Icon Changes
+          conclusion: neutral
+          output: |
+            {"summary":"Icon changes and pixel alignment previews", "title":"View icon grid previews for changed icons"}
+          output_text_description_file: icon-grids/icon-changes.md
       - name: Deploy via S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -141,24 +162,3 @@ jobs:
           output: |
             {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
           output_text_description_file: stats-difference.md
-      - name: Add fully qualified URLs to icon-changes.md for GitHub checks
-        run: |
-          if [ -f icon-grids/icon-changes.md ]; then
-            # Copy the file and replace relative paths with absolute URLs
-            sed "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" icon-grids/icon-changes.md > icon-grids/icon-changes.md
-            echo "Icon changes markdown created with absolute URLs"
-          else
-            mkdir -p icon-grids
-            echo "No icon change file found in this PR." > icon-grids/icon-changes.md
-          fi
-      - name: Print Icon Changes to GitHub Checks
-        uses: LouisBrunner/checks-action@v2.0.0
-        if: always()
-        with:
-          sha: ${{ env.PR_SHA }}
-          token: ${{ steps.checks_token.outputs.token }}
-          name: Icon Changes
-          conclusion: neutral
-          output: |
-            {"summary":"Icon changes and pixel alignment previews", "title":"View icon grid previews for changed icons"}
-          output_text_description_file: icon-grids/icon-changes.md
