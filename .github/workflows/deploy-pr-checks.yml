@@ -148,7 +148,7 @@ jobs:
             sed "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" icon-grids/icon-changes.md > icon-changes.md
             echo "Icon changes markdown created with absolute URLs"
           else
-            echo "No icon change file found in this PR." > icon-changes.md
+            echo "No icon change file found in this PR." > icon-grids/icon-changes.md
           fi
       - name: Print Icon Changes to GitHub Checks
         uses: LouisBrunner/checks-action@v2.0.0
