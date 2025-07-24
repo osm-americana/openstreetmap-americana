@@ -42,12 +42,6 @@ export const label = {
       "#333",
     ],
     "text-halo-color": [
-      ...classSelector,
-      "ferry",
-      Color.waterFill,
-      Color.backgroundFill,
-    ],
-    "text-halo-color": [
       "step",
       ["zoom"],
       [...classSelector, "ferry", Color.waterFill, Color.backgroundFill],
