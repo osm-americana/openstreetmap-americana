@@ -10,8 +10,9 @@ import { loadShields } from "../../src/js/shield_defs";
 import {
   ShieldRenderer,
   InMemorySpriteRepository,
-  HeadlessGraphicsFactory,
 } from "@americana/maplibre-shield-generator";
+
+import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/src/headless_graphics";
 
 const shields = loadShields();
 const mockRepo = new InMemorySpriteRepository();
