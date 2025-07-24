@@ -148,6 +148,7 @@ jobs:
             sed "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" icon-grids/icon-changes.md > icon-changes.md
             echo "Icon changes markdown created with absolute URLs"
           else
+            mkdir -p icon-grids
             echo "No icon change file found in this PR." > icon-grids/icon-changes.md
           fi
       - name: Print Icon Changes to GitHub Checks
