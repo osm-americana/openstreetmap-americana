@@ -144,6 +144,10 @@ jobs:
       - name: Create icon-changes.md for GitHub checks
         working-directory: dist
         run: |
+          echo "Listing files in current directory:"
+          ls -la
+          echo -e "\nListing files in icon-grids directory (if it exists):"
+          [ -d icon-grids ] && ls -la icon-grids || echo "icon-grids directory not found"
           if [ -f icon-grids/icon-changes.md ]; then
             # Copy the file and replace relative paths with absolute URLs
             sed "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" icon-grids/icon-changes.md > icon-changes.md
