@@ -152,7 +152,7 @@ async function main() {
         const iconName = path.parse(icon).name;
         // Use only the basename of outputDir for markdown paths
         const outputDirName = path.basename(outputDir);
-        mdContent += `- \`${icon}\`\n  ![${iconName}](${outputDirName}/${iconName}_preview.png){width=400}\n`;
+        mdContent += `- \`${icon}\`\n  <img src="${outputDirName}/${iconName}_preview.png" width="400"/>\n`;
       }
     }
   }
