@@ -13,7 +13,7 @@ Rendering shields requires the following components:
 2. **Expose shield information in a style layer**. Next, route information must be exposed in a maplibre expression using [image](https://maplibre.org/maplibre-gl-js-docs/style-spec/expressions/#types-image) in a structured string containing the route information. For example, you might encode Interstate 95 as an image named `shield|US:I=95`. Normally, the image expression is used to point to pre-designated sprites in a sprite sheet, but in this case, we're pointing to a sprite which doesn't exist called `shield|US:I=95`. This will trigger a `styleimagemissing` event which allows the shield renderer to create the required graphic on the fly. As an example of how to encode shield information, see OSM Americana's [`highway_shield`](https://github.com/osm-americana/openstreetmap-americana/blob/main/src/layer/highway_shield.js) style layer.
 
 3. Import the library:
-   
+
    ```html
    <script type="text/javascript" src="maplibre-shield-generator.js"></script>
    ```
