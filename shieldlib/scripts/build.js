@@ -45,17 +45,20 @@ const buildWith = async (key, buildOptions) => {
     define: {
       ...buildOptions?.define,
     },
+    // Ensure proper ES module format
+    target: "es2020",
   };
 
   // esbuild will pretty-print its own error messages;
   // suppress node.js from printing the exception.
   const suppressErrors = () => process.exit(1);
 
-  return [
+  // Wait for all builds to complete
+  await Promise.all([
     esbuild[key](options).catch(suppressErrors),
     esbuild[key](cjsOptions).catch(suppressErrors),
     esbuild[key](esmOptions).catch(suppressErrors),
-  ];
+  ]);
 };
 
 export const buildContext = (buildOptions = {}) =>
