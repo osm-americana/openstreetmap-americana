@@ -142,14 +142,18 @@ async function main() {
     mdContent += `### Changed Icons (${changedIcons.length})\n`;
     for (const icon of changedIcons) {
       const iconName = path.parse(icon).name;
-      mdContent += `- \`${icon}\` ![${iconName}](${outputDir}/${iconName}_preview.png)\n`;
+      // Use only the basename of outputDir for markdown paths
+      const outputDirName = path.basename(outputDir);
+      mdContent += `- \`${icon}\` ![${iconName}](${outputDirName}/${iconName}_preview.png)\n`;
     }
 
     if (newIcons.length > 0) {
       mdContent += `\n### New Icons (${newIcons.length})\n`;
       for (const icon of newIcons) {
         const iconName = path.parse(icon).name;
-        mdContent += `- \`${icon}\` ![${iconName}](${outputDir}/${iconName}_preview.png)\n`;
+        // Use only the basename of outputDir for markdown paths
+        const outputDirName = path.basename(outputDir);
+        mdContent += `- \`${icon}\` ![${iconName}](${outputDirName}/${iconName}_preview.png)\n`;
       }
     }
   }
