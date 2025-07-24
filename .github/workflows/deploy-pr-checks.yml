@@ -142,11 +142,12 @@ jobs:
             {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
           output_text_description_file: stats-difference.md
       - name: Create icon-changes.md for GitHub checks
+        working-directory: dist
         run: |
           if [ -f icon-grids/icon-changes.md ]; then
             # Copy the file and replace relative paths with absolute URLs
             sed "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" icon-grids/icon-changes.md > icon-changes.md
-            echo "Icon changes markdown updated with absolute URLs"
+            echo "Icon changes markdown created with absolute URLs"
           else
             echo "No icon changes detected in this PR." > icon-changes.md
           fi
