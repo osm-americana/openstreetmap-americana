@@ -7,7 +7,7 @@ import { mkdir } from "node:fs/promises";
 import {
   ShieldRenderer,
   InMemorySpriteRepository,
-} from "@americana/maplibre-shield-generator/src/index";
+} from "@americana/maplibre-shield-generator";
 /**
  * TODO - BUG
  * Exporting HeadlessGraphicsFactory in shieldlib's index.ts causes an unexplained error in node-canvas
