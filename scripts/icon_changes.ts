@@ -96,7 +96,6 @@ function filesAreDifferent(file1: string, file2: string): boolean {
 
 // Main function
 async function main() {
-  const mainSvgFiles = getSvgFiles(mainIconsDir);
   const prSvgFiles = getSvgFiles(prIconsDir);
 
   const changedIcons: string[] = [];
