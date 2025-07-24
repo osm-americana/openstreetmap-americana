@@ -3,8 +3,10 @@
 import * as fs from "fs";
 import * as ShieldDef from "../src/js/shield_defs.js";
 
-function fillPaths(svg, codes) {
-  let selectors = new Set(codes.map((code) => `.${code.toLowerCase()}`));
+function fillPaths(svg: string, codes: string[]): string {
+  const selectors: Set<string> = new Set(
+    codes.map((code) => `.${code.toLowerCase()}`)
+  );
   if (selectors.has(".fr")) {
     // French overseas territories use the FR prefix.
     selectors.add(".bl");
@@ -22,20 +24,23 @@ function fillPaths(svg, codes) {
     // Routes in United States insular areas use US prefix with the U.S.
     selectors.add(".ust");
   }
-  return svg.replace(".supported", new Array(...selectors).join(",\n"));
+  return svg.replace(".supported", Array.from(selectors).join(",\n"));
 }
 
 // Inject a map of each sprite ID to an absolute image URL instead of the usual sprite metadata.
-let shields = ShieldDef.loadShields();
+const shields = ShieldDef.loadShields();
 
-let worldSVG = fs.readFileSync(`${process.cwd()}/scripts/blank_map_world.svg`, {
-  encoding: "utf8",
-});
+let worldSVG: string = fs.readFileSync(
+  `${process.cwd()}/scripts/blank_map_world.svg`,
+  {
+    encoding: "utf8",
+  }
+);
 worldSVG = fillPaths(
   worldSVG,
   Object.keys(shields.networks)
     .map((network) => network.match(/^(\w\w)(?::|$)|^omt-(\w\w)-/))
-    .filter((m) => m)
+    .filter((m): m is RegExpMatchArray => m !== null)
     .map((m) => m[1] || m[2])
 );
 worldSVG = worldSVG.replace(

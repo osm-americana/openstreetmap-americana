@@ -20,12 +20,16 @@ import {
   routeParser,
   shieldPredicate,
   networkPredicate,
-} from "../src/js/shield_format";
+} from "../src/js/shield_format.js";
+import { ShieldSpecification } from "@americana/maplibre-shield-generator/src/types.js";
 
 await mkdir("dist/shield-sample", { recursive: true });
 
-const shieldGfxMap = new Map();
-const shields = ShieldDef.loadShields();
+const shieldGfxMap = new Map<string, number>();
+
+// TODO: update types after loadShields is updated to return ShieldSpecification
+const shields: ShieldSpecification =
+  ShieldDef.loadShields() as unknown as ShieldSpecification;
 
 const shieldRenderer = new ShieldRenderer(shields, routeParser)
   .filterImageID(shieldPredicate)
@@ -33,13 +37,16 @@ const shieldRenderer = new ShieldRenderer(shields, routeParser)
   .graphicsFactory(new HeadlessGraphicsFactory("svg"))
   .renderOnRepository(new InMemorySpriteRepository());
 
-const colorNames = new Map();
+const colorNames = new Map<string, string>();
 
-function getNamedColor(colorString, defaultColor) {
+function getNamedColor(
+  colorString: string | undefined,
+  defaultColor: string
+): string {
   if (colorString) {
     if (colorString.startsWith("#")) {
       if (colorNames.has(colorString)) {
-        return colorNames.get(colorString);
+        return colorNames.get(colorString)!;
       } else {
         const result = namer(colorString)["pantone"][0].name.toLowerCase();
         colorNames.set(colorString, result);
@@ -52,13 +59,25 @@ function getNamedColor(colorString, defaultColor) {
   return defaultColor;
 }
 
+interface TagInfoTag {
+  key: string;
+  value: string;
+  object_types: string[];
+  description: string;
+  icon_url: string;
+}
+
+interface ProjectDescription {
+  tags: TagInfoTag[];
+}
+
 /**
  * Adds documentation about network=* tags to a project description object, modifying it in place.
  *
- * @param {*} project - The project description object to modify.
+ * @param project - The project description object to modify.
  */
-function addNetworkTags(project) {
-  let shieldSpec = shields;
+function addNetworkTags(project: ProjectDescription): void {
+  let shieldSpec: ShieldSpecification = shields;
 
   // Convert each shield's rendering metadata to an entry that taginfo understands.
   let tags = Object.entries(shieldSpec.networks)
@@ -72,7 +91,7 @@ function addNetworkTags(project) {
         icon = icon[0];
       }
 
-      let icon_url;
+      let icon_url: string;
       let defBanners = shieldDef.banners;
 
       if (icon == undefined && shieldDef?.shapeBlank !== undefined) {
@@ -87,7 +106,7 @@ function addNetworkTags(project) {
           shieldGfxMap.set(shieldDefText, shieldGfxMap.size);
         }
 
-        let network_filename_id = shieldGfxMap.get(shieldDefText);
+        let network_filename_id = shieldGfxMap.get(shieldDefText)!;
         let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
 
         if (!fs.existsSync(save_filename)) {
@@ -116,7 +135,7 @@ function addNetworkTags(project) {
           shieldGfxMap.set(def, shieldGfxMap.size);
         }
 
-        let network_filename_id = shieldGfxMap.get(def);
+        let network_filename_id = shieldGfxMap.get(def)!;
         let save_filename = `dist/shield-sample/shield_${network_filename_id}.svg`;
 
         if (!fs.existsSync(save_filename)) {
@@ -186,7 +205,7 @@ function addNetworkTags(project) {
 }
 
 let project = JSON.parse(
-  fs.readFileSync(`${process.cwd()}/scripts/taginfo_template.json`)
+  fs.readFileSync(`${process.cwd()}/scripts/taginfo_template.json`).toString()
 );
 addNetworkTags(project);
 fs.writeFileSync(
