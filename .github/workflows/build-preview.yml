@@ -86,7 +86,7 @@ jobs:
         run: |
           if [ -f pr/icon-changes.md ]; then
             # Copy the file and replace relative paths with absolute URLs
-            sed -i "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" pr/icon-changes.md
+            sed -i "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUMBER }}/icon-grids/|g" pr/icon-changes.md
             cat pr/icon-changes.md
             echo "Icon changes markdown created with absolute URLs"
           else
