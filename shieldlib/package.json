@@ -17,6 +17,13 @@
   "license": "CC0-1.0",
   "main": "dist/maplibre-shield-generator-cjs.js",
   "module": "dist/maplibre-shield-generator-esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/maplibre-shield-generator-esm.js",
+      "require": "./dist/maplibre-shield-generator-cjs.js",
+      "default": "./dist/maplibre-shield-generator-esm.js"
+    }
+  },
   "browser": {
     "dist/maplibre-shield-generator-cjs.js": "dist/maplibre-shield-generator.js",
     "dist/maplibre-shield-generator-esm.js": "dist/maplibre-shield-generator-esm.js"
@@ -58,9 +65,6 @@
     "maplibre-gl": "^2.4.0",
     "mocha": "^10.2.0"
   },
-  "files": [
-    "dist/*"
-  ],
   "directories": {
     "test": "test"
   },
