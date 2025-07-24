@@ -22,6 +22,14 @@
       "import": "./dist/maplibre-shield-generator-esm.js",
       "require": "./dist/maplibre-shield-generator-cjs.js",
       "default": "./dist/maplibre-shield-generator-esm.js"
+    },
+    "./src/index": {
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./src/headless_graphics": {
+      "import": "./src/headless_graphics.ts",
+      "default": "./src/headless_graphics.ts"
     }
   },
   "browser": {
