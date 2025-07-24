@@ -59,18 +59,20 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
-          cp -prR dist ..
         working-directory: pr-branch
       - name: Generate icon grid previews for changed icons
         id: icon-changes
         run: |
           npm exec tsx scripts/icon_changes ../main/icons icons dist/icon-grids
           if [ -f dist/icon-grids/icon-changes.md ]; then
-            cp dist/icon-grids/icon-changes.md ../pr-branch/icon-changes.md
             echo "Icon changes detected and grids generated"
           else
             echo "No icon changes detected"
           fi
+        working-directory: pr-branch
+      - name: Copy PR preview directory with all artifacts
+        run: |
+          cp -prR dist ..
         working-directory: pr-branch
       - name: Capture main branch usage statistics
         id: main-stats
