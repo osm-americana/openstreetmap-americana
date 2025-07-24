@@ -59,7 +59,7 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
-          mkdir -p pr
+          mkdir -p ../pr
         working-directory: pr-branch
       - name: Save PR attributes
         env:
@@ -79,7 +79,7 @@ jobs:
             echo "No icon changes detected"
           fi
           if [ -f dist/icon-grids/icon-changes.md ]; then
-            mv dist/icon-grids/icon-changes.md pr/icon-changes.md
+            mv dist/icon-grids/icon-changes.md ../pr/icon-changes.md
           fi
         working-directory: pr-branch
       - name: Add fully qualified URLs to icon-changes.md for GitHub checks
@@ -89,10 +89,8 @@ jobs:
             sed -i "s|icon-grids/|https://preview.americanamap.org/pr/${{ env.PR_NUM }}/icon-grids/|g" pr/icon-changes.md
             echo "Icon changes markdown created with absolute URLs"
           else
-            mkdir -p pr/icon-grids
             echo "No icon change file found in this PR." > pr/icon-changes.md
           fi
-        working-directory: pr-branch
       - name: Copy PR preview directory with all artifacts
         run: |
           cp -prR dist ..
