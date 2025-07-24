@@ -10,7 +10,7 @@ import { loadShields } from "../../src/js/shield_defs";
 import {
   ShieldRenderer,
   InMemorySpriteRepository,
-} from "@americana/maplibre-shield-generator/src/index";
+} from "@americana/maplibre-shield-generator";
 
 import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/src/headless_graphics";
 
