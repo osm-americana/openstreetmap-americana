@@ -151,4 +151,4 @@ jobs:
           conclusion: neutral
           output: |
             {"summary":"Icon changes and pixel alignment previews", "title":"View icon grid previews for changed icons"}
-          output_text_description_file: icon-grids/icon-changes.md
+          output_text_description_file: icon-changes.md
