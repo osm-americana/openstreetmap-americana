@@ -23,10 +23,6 @@
       "require": "./dist/maplibre-shield-generator-cjs.js",
       "default": "./dist/maplibre-shield-generator-esm.js"
     },
-    "./src/index": {
-      "import": "./src/index.ts",
-      "default": "./src/index.ts"
-    },
     "./src/headless_graphics": {
       "import": "./src/headless_graphics.ts",
       "default": "./src/headless_graphics.ts"
@@ -37,6 +33,7 @@
     "dist/maplibre-shield-generator-esm.js": "dist/maplibre-shield-generator-esm.js"
   },
   "source": "src/index.ts",
+  "types": "src/index.ts",
   "devDependencies": {
     "@types/color-rgba": "^2.1.0",
     "canvas": "^3.1.2",
