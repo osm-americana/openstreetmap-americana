@@ -2161,6 +2161,18 @@ export function loadShields() {
     },
     ref: "LOOP",
   };
+  // Triborough Bridge and Tunnel Authority (MTA Bridges and Tunnels)
+  shields["US:NY:TBTA"] = {
+    notext: true,
+    overrideByName: {
+      "Brooklyn–Battery Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_hughlcarey",
+      },
+      "Queens–Midtown Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_queensmidtown",
+      },
+    },
+  };
   shields["US:NY:Thruway"] = {
     noref: {
       spriteBlank: "shield_us_ny_thruway",
