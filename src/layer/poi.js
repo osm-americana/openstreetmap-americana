@@ -471,7 +471,14 @@ export const poi = {
       [
         "match",
         ["get", "subclass"],
-        ["bus_stop", "tram_stop", "fuel", "supermarket", "food_court", "charging_station"],
+        [
+          "bus_stop",
+          "tram_stop",
+          "fuel",
+          "supermarket",
+          "food_court",
+          "charging_station",
+        ],
         "",
         label.localizedName,
       ],
