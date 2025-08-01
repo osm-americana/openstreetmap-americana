@@ -2618,6 +2618,21 @@ export function loadShields() {
     },
   };
 
+  // Port Authority of New York and New Jersey
+  shields["US:PANYNJ"] = {
+    notext: true,
+    overrideByName: {
+      "Holland Tunnel": {
+        spriteBlank: "shield_us_panynj_tunnel",
+        colorLighten: Color.shields.red,
+      },
+      "Lincoln Tunnel": {
+        spriteBlank: "shield_us_panynj_tunnel",
+        colorLighten: Color.shields.green,
+      },
+    },
+  };
+
   // Puerto Rico
   shields["US:PR:primary"] = escutcheonDownShield(
     12,
