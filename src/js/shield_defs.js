@@ -1095,7 +1095,7 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
-  ["Fremont", "Ouray", "Routt"].forEach(
+  ["Fremont", "Larimer:Estes_Park", "Ouray", "Routt"].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = roundedRectShield(
         Color.shields.green,
