@@ -96,6 +96,13 @@ jobs:
           responseCode: "200"
           timeout: 120000
           interval: 500
+      - name: Wait for PR Preview Upload (3x Sprite)
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: "https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@3x.png"
+          responseCode: "200"
+          timeout: 120000
+          interval: 500
       - name: Generate Preview text
         run: |
           echo "## Live PR Preview:
@@ -111,6 +118,7 @@ jobs:
 
           <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite.png" />
           <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" />
+          <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@3x.png" />
           " > pr_preview.md
           [ -f pr_preview-extra.md ] && cat pr_preview-extra.md >> pr_preview.md || echo "No extra PR preview found."
       - uses: tibdex/github-app-token@v1

@@ -33,6 +33,12 @@ program
     ).conflicts("allJson")
   )
   .addOption(
+    new Option(
+      "-ss3, --spritesheet-3x-size",
+      "size of 3x sprite sheet"
+    ).conflicts("allJson")
+  )
+  .addOption(
     new Option("-sh, --shield-json-size", "size of ShieldJSON").conflicts(
       "allJson"
     )
@@ -82,8 +88,8 @@ if (opts.layerCount) {
   process.exit();
 }
 
-function spriteSheetSize(distDir, single) {
-  let size = single ? "" : "@2x";
+function spriteSheetSize(distDir, scale) {
+  let size = scale === 1 ? "" : `@${scale}x`;
   return (
     fs.statSync(`${distDir}/sprites/sprite${size}.png`).size +
     fs.statSync(`${distDir}/sprites/sprite${size}.json`).size
@@ -98,15 +104,21 @@ function gzipSize(content) {
   return zlib.gzipSync(content).length;
 }
 
-const spriteSheet1xSize = spriteSheetSize(distDir, true);
+const spriteSheet1xSize = spriteSheetSize(distDir, 1);
 if (opts.spritesheet1xSize) {
   console.log(spriteSheet1xSize);
   process.exit();
 }
 
-const spriteSheet2xSize = spriteSheetSize(distDir, false);
+const spriteSheet2xSize = spriteSheetSize(distDir, 2);
 if (opts.spritesheet2xSize) {
   console.log(spriteSheet2xSize);
+  process.exit();
+}
+
+const spriteSheet3xSize = spriteSheetSize(distDir, 3);
+if (opts.spritesheet3xSize) {
+  console.log(spriteSheet3xSize);
   process.exit();
 }
 
@@ -146,6 +158,7 @@ const stats = {
   layerGroup: {},
   spriteSheet1xSize,
   spriteSheet2xSize,
+  spriteSheet3xSize,
   shieldJSONSize,
   gzipShieldJSONSize,
 };

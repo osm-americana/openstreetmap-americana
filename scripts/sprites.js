@@ -18,7 +18,7 @@ const sprites = await Promise.all(
 
 console.log(`Building ${sprites.length} sprites`);
 
-const generated = await Sprites.generate(sprites, [1, 2]);
+const generated = await Sprites.generate(sprites, [1, 2, 3]);
 
 for (const result of generated) {
   const scaleText = result.pixelRatio === 1 ? "" : `@${result.pixelRatio}x`;
