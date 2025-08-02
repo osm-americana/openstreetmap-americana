@@ -30,7 +30,10 @@ const sprites: SvgId[] = await Promise.all(
 
 console.log(`Building ${sprites.length} sprites from ${opts.icons}`);
 
-const generated: SpriteSheetResult[] = await Sprites.generate(sprites, [1, 2, 3]);
+const generated: SpriteSheetResult[] = await Sprites.generate(
+  sprites,
+  [1, 2, 3]
+);
 
 for (const result of generated) {
   const scaleText: string =
@@ -42,4 +45,4 @@ for (const result of generated) {
   await fs.writeFile(outputJson, JSON.stringify(result.layout, null, 2));
   const kb: string = (result.buffer.length / 1024).toFixed(1);
   console.log(`Wrote ${kb}KiB to ${outputPng}`);
-} 
+}
