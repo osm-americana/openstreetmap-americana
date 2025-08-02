@@ -65,7 +65,8 @@ var iconDefs = {
     },
     sprite: "poi_gravestone",
     color: Color.poi.outdoor,
-    decription: "Cemetery",
+    description: "Cemetery",
+  },
   charging_station: {
     classes: {
       fuel: ["charging_station"],
