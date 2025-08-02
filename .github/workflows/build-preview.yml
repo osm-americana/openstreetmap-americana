@@ -45,6 +45,10 @@ jobs:
           npm run shields
           cp src/configs/config.aws.js src/config.js
         working-directory: main
+      - name: Generate sprites for main branch using PR branch script
+        run: |
+          node ../pr-branch/scripts/sprites.js
+        working-directory: main
       - name: Setup Node.js for building pr branch
         uses: actions/setup-node@v4
         with:
