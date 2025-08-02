@@ -47,8 +47,8 @@ jobs:
         working-directory: main
       - name: Generate sprites for main branch using PR branch script
         run: |
-          node ../pr-branch/scripts/sprites.js
-        working-directory: main
+          node scripts/sprites.js -i ../main/icons -o ../main/dist/sprites
+        working-directory: pr-branch
       - name: Setup Node.js for building pr branch
         uses: actions/setup-node@v4
         with:
