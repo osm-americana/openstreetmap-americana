@@ -7,8 +7,13 @@ const classSelector = ["match", ["get", "class"]];
 
 const motorwayToTrunk = ["motorway", "trunk"];
 const motorwayToPrimary = [...motorwayToTrunk, "primary"];
-const motorwayToSecondary = [...motorwayToPrimary, "secondary"];
-const motorwayToMinor = [...motorwayToSecondary, "tertiary", "minor", "busway"];
+const motorwayToTertiary = [
+  ...motorwayToPrimary,
+  "secondary",
+  "tertiary",
+  "busway",
+];
+const motorwayToMinor = [...motorwayToTertiary, "minor"];
 const motorwayToService = [...motorwayToMinor, "service"];
 
 const majorConstruction = ["motorway_construction", "trunk_construction"];
@@ -37,10 +42,29 @@ export const label = {
       "#333",
     ],
     "text-halo-color": [
-      ...classSelector,
-      "ferry",
-      Color.waterFill,
-      Color.backgroundFill,
+      "step",
+      ["zoom"],
+      [...classSelector, "ferry", Color.waterFill, Color.backgroundFill],
+      16,
+      [
+        ...classSelector,
+        "ferry",
+        Color.waterFill,
+        motorwayToTrunk,
+        "white",
+        Color.backgroundFill,
+      ],
+      17,
+      [
+        ...classSelector,
+        "ferry",
+        Color.waterFill,
+        motorwayToTertiary,
+        "white",
+        Color.backgroundFill,
+      ],
+      18,
+      [...classSelector, "ferry", Color.waterFill, "white"],
     ],
     "text-halo-blur": 0.5,
     "text-halo-width": 2,
@@ -53,7 +77,7 @@ export const label = {
       11,
       [...classSelector, motorwayToPrimary, 1, "ferry", 1, 0],
       12,
-      [...classSelector, motorwayToSecondary, 1, ["ferry", "aerialway"], 1, 0],
+      [...classSelector, motorwayToTertiary, 1, ["ferry", "aerialway"], 1, 0],
       13,
       [...classSelector, motorwayToMinor, 1, ["ferry", "aerialway"], 1, 0],
       14,
@@ -93,7 +117,9 @@ export const label = {
       16,
       [...classSelector, motorwayToTrunk, 10, 12],
       17,
-      [...classSelector, motorwayToSecondary, 10, 12],
+      [...classSelector, ["secondary", "tertiary", "busway"], 10, 12],
+      18,
+      [...classSelector, ["ferry", "aerialway", ...motorwayToTertiary], 12, 10],
     ],
     "text-anchor": [
       "step",
@@ -113,10 +139,12 @@ export const label = {
         ...classSelector,
         "aerialway",
         "center",
-        motorwayToSecondary,
+        motorwayToTertiary,
         "center",
         "bottom",
       ],
+      18,
+      "center",
     ],
     "text-offset": [
       "interpolate",

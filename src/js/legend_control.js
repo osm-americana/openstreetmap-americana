@@ -466,7 +466,10 @@ export default class LegendControl {
     let unrecognizedNetworks = new Set();
     for (let image of images) {
       if (!(image.network in imagesByNetwork)) {
-        imagesByNetwork[image.network] = { overridesByRef: {} };
+        imagesByNetwork[image.network] = {
+          overridesByRef: {},
+          overridesByName: {},
+        };
       }
       let networkImages = imagesByNetwork[image.network];
 
@@ -475,6 +478,12 @@ export default class LegendControl {
         // Store a different image for each override in the shield definition.
         if (!networkImages.overridesByRef[image.ref]) {
           networkImages.overridesByRef[image.ref] = image.imageName;
+        }
+      } else if (image.name && shieldDef?.overrideByName?.[image.name]) {
+        // Store a different image for each override in the shield definition.
+        if (!networkImages.overridesByName[image.name]) {
+          networkImages.overridesByName[image.name] =
+            shieldDef.overrideByName[image.name].spriteBlank;
         }
       } else if (!networkImages.ref && image.ref) {
         // Store the numbered variant of a shield if required by the shield
@@ -498,9 +507,10 @@ export default class LegendControl {
       let images = imagesByNetwork[network];
       if (!images) return [];
       return [
-        images.noRef,
+        Object.values(images.overridesByName).length > 0 ? "" : images.noRef,
         images.ref,
         ...Object.values(images.overridesByRef),
+        ...Object.values(images.overridesByName),
       ].filter((i) => i);
     };
 

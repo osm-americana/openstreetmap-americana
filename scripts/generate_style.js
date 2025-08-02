@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 
 import { Command } from "commander";
-import { validate } from "@maplibre/maplibre-gl-style-spec";
+import { validateStyleMin as validate } from "@maplibre/maplibre-gl-style-spec";
 
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
