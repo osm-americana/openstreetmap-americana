@@ -7,7 +7,11 @@ import { Command } from "commander";
 const program = new Command();
 program
   .option("-i, --icons <path>", "path to icons directory", "./icons")
-  .option("-o, --output <path>", "output directory for sprites", "./dist/sprites")
+  .option(
+    "-o, --output <path>",
+    "output directory for sprites",
+    "./dist/sprites"
+  )
   .parse(process.argv);
 
 const opts = program.opts();
