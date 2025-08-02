@@ -1096,7 +1096,7 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
-  ["Fremont", "Ouray", "Routt"].forEach(
+  ["Fremont", "Larimer:Estes_Park", "Ouray", "Routt"].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = roundedRectShield(
         Color.shields.green,
@@ -2161,6 +2161,18 @@ export function loadShields() {
       bottom: 3,
     },
     ref: "LOOP",
+  };
+  // Triborough Bridge and Tunnel Authority (MTA Bridges and Tunnels)
+  shields["US:NY:TBTA"] = {
+    notext: true,
+    overrideByName: {
+      "Brooklyn–Battery Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_hughlcarey",
+      },
+      "Queens–Midtown Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_queensmidtown",
+      },
+    },
   };
   shields["US:NY:Thruway"] = {
     noref: {
