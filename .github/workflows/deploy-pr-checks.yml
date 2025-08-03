@@ -111,14 +111,17 @@ jobs:
           * [style.json](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/style.json)
           * [shields.json](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/shields.json)
           * [taginfo.json](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/taginfo.json)
+          * [1x Sprite Sheet](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite.png)
+          * [2x Sprite Sheet](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png)
+          * [3x Sprite Sheet](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@3x.png)
 
           Live previews are automatically removed once the PR is merged.
 
           ## Sprite Sheets:
-
           <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite.png" alt="1x sprite sheet" />
           <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" alt="2x sprite sheet" />
           <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@3x.png" alt="3x sprite sheet" />
+
           " > pr_preview.md
           [ -f pr_preview-extra.md ] && cat pr_preview-extra.md >> pr_preview.md || echo "No extra PR preview found."
       - uses: tibdex/github-app-token@v1
