@@ -1054,6 +1054,9 @@ export function loadShields() {
       top: 9.5,
       bottom: 2,
     },
+    bannerMap: {
+        "US:CO:Express": ["EXPR"],
+      },
   };
   shields["US:CO:E470"] = {
     spriteBlank: "shield_us_co_e470",
@@ -1063,6 +1066,16 @@ export function loadShields() {
       right: 2,
       top: 10,
       bottom: 2,
+    },
+  };
+  shields["US:CO:NW"] = {
+    spriteBlank: "shield_us_co_nw",
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 6,
+      top: 2,
+      bottom: 16,
     },
   };
   [
