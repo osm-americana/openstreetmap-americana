@@ -61,6 +61,10 @@ jobs:
           cp -r shieldlib/docs/* dist/shield-docs
           mv dist ..
         working-directory: pr-branch
+      - name: Generate sprites for main branch using PR branch script
+        run: |
+          npm run sprites -- -i ../main/icons -o ../main/dist/sprites
+        working-directory: pr-branch
       - name: Capture main branch usage statistics
         id: main-stats
         run: |

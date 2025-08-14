@@ -29,7 +29,7 @@
     "presprites": "shx rm -rf dist/sprites",
     "serve": "tsx scripts/serve",
     "shields": "node scripts/generate_shield_defs.js -o dist/shields.json",
-    "sprites": "node scripts/sprites.js",
+    "sprites": "tsx scripts/sprites.ts",
     "start": "run-s clean-build build:shieldlib sprites shields serve",
     "stats": "node scripts/stats.js",
     "style": "node scripts/generate_style.js -o dist/style.json",
