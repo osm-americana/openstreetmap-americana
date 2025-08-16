@@ -458,12 +458,7 @@ export const poi = {
         ...getSubclasses(iconDefs.restaurant),
       ],
       16,
-      [
-        "clinic", 
-        "doctors", 
-        "parking",
-        ...getSubclasses(iconDefs.cemetery)
-      ],
+      ["clinic", "doctors", "parking", ...getSubclasses(iconDefs.cemetery)],
       17,
       99,
     ],
