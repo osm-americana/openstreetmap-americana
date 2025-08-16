@@ -35,6 +35,7 @@ export function build(locales) {
     lyrLanduse.urbanizedArea,
     lyrPark.fill,
     lyrAeroway.fill,
+    lyrPark.cemeteryFill,
     lyrPark.parkFill,
 
     lyrBoundary.countyCasing,
@@ -53,6 +54,7 @@ export function build(locales) {
     lyrPark.outline,
     lyrAeroway.outline,
     lyrPark.parkOutline,
+    lyrPark.cemeteryOutline,
 
     lyrBoundary.city,
     lyrBoundary.county,
