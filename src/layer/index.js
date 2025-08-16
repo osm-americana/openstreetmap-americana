@@ -235,6 +235,7 @@ export function build(locales) {
     lyrHighwayExit.exits,
 
     lyrPoi.poi,
+    lyrPoi.iconlessPoi,
 
     lyrPlace.state,
     lyrPlace.neighborhood,

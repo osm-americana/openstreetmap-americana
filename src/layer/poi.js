@@ -520,6 +520,32 @@ export const poi = {
   "source-layer": "poi",
 };
 
+// POIs that have no icon at lower zooms
+export const iconlessPoi = {
+  id: "iconless_poi",
+  type: "symbol",
+  paint: {
+    "text-halo-color": Color.parkLabelHalo,
+    "text-halo-width": 1,
+    "text-halo-blur": 1,
+    "text-color": Color.parkLabel,
+  },
+  filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "subclass"], "cemetery"]],
+  layout: {
+    "text-font": ["Americana-Bold"],
+    "text-size": 10,
+    "text-field": label.localizedName,
+    "text-anchor": "center",
+    "text-justify": "center",
+    "text-radial-offset": 0,
+    "text-max-width": 5,
+    "text-padding": 0,
+    "symbol-sort-key": ["get", "rank"],
+  },
+  source: "openmaptiles",
+  "source-layer": "poi",
+};
+
 export const legendEntries = Object.keys(iconDefs).map(function (id) {
   return {
     description: iconDefs[id].description,
