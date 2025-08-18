@@ -1576,6 +1576,19 @@ export function loadShields() {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:MN:Truck": ["TRK"],
+    },
+  };
+  shields["US:MN:Business"] = {
+    spriteBlank: ["shield_us_mn_business_2", "shield_us_mn_business_3"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 7,
+      bottom: 3,
+    },
   };
   shields["US:MN:Intercounty"] = roundedRectShield(
     Color.shields.blue,
@@ -1612,7 +1625,6 @@ export function loadShields() {
     "Sibley",
     "Stearns",
     "Stevens",
-    "Todd",
     "Traverse",
     "Wabasha",
     "Wadena",
@@ -1694,6 +1706,7 @@ export function loadShields() {
     "Sherburne",
     "Steele",
     "Swift",
+    "Todd",
     "Waseca",
     "Watonwan",
     "Winona",
