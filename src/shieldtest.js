@@ -75,6 +75,7 @@ let networks = [
   "US:PA:Turnpike",
 
   "CA:AB:primary",
+  "BR",
   "CA:SK:tertiary",
   "CA:SK:primary",
   "AU:WA:NH",
@@ -92,6 +93,7 @@ let networks = [
   "AU:ACT:T",
   "US:NM:San_Juan:NCM",
   "US:TX:Harris:HCTRA",
+  "BR:SP",
 
   "JP:prefectural",
   "PK:national",

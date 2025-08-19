@@ -3229,6 +3229,56 @@ export function loadShields() {
 
   // SOUTH AMERICA
 
+  // Brazil
+  shields["BR"] = homePlateDownShield(
+    5,
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black,
+    2,
+    0
+  );
+  [
+    "AC",
+    "AL",
+    "AM",
+    "AP",
+    "BA",
+    "CE",
+    "DF",
+    "ES",
+    "GO",
+    "MA",
+    "MG",
+    "MS",
+    "MT",
+    "PA",
+    "PB",
+    "PE",
+    "PI",
+    "PR",
+    "RJ",
+    "RN",
+    "RO",
+    "RR",
+    "RS",
+    "SC",
+    "SE",
+    "SP",
+    "TO",
+  ].forEach(
+    (state) =>
+      (shields[`BR:${state}`] = pentagonUpShield(
+        6,
+        15,
+        Color.shields.white,
+        Color.shields.black,
+        Color.shields.black,
+        0,
+        0
+      ))
+  );
+
   // Chile
   shields["CL:national"] = {
     spriteBlank: ["shield_badge_2", "shield_badge_3"],
