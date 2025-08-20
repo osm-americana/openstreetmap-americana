@@ -1563,6 +1563,19 @@ export function loadShields() {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:MN:Truck": ["TRK"],
+    },
+  };
+  shields["US:MN:Business"] = {
+    spriteBlank: ["shield_us_mn_business_2", "shield_us_mn_business_3"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 7,
+      bottom: 3,
+    },
   };
   shields["US:MN:Intercounty"] = roundedRectShield(
     Color.shields.blue,
@@ -1587,7 +1600,6 @@ export function loadShields() {
     "Nobles",
     "Norman",
     "Olmsted",
-    "Otter_Tail",
     "Pennington",
     "Pine",
     "Pipestone",
@@ -1600,7 +1612,6 @@ export function loadShields() {
     "Sibley",
     "Stearns",
     "Stevens",
-    "Todd",
     "Traverse",
     "Wabasha",
     "Wadena",
@@ -1676,11 +1687,13 @@ export function loadShields() {
     "Martin",
     "Mille_Lacs",
     "Nicollet",
+    "Otter_Tail",
     "Rice",
     "Rock",
     "Sherburne",
     "Steele",
     "Swift",
+    "Todd",
     "Waseca",
     "Watonwan",
     "Winona",
@@ -3387,6 +3400,17 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // South Africa
+  shields["za:national"] = pentagonUpShield(
+    6,
+    15,
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.yellow,
+    0,
+    0
+  );
+
   // ASIA
 
   // Armenia
@@ -4112,6 +4136,16 @@ export function loadShields() {
         Color.shields.white
       ))
   );
+  shields["NL:DR:Hunebed_Highway"] = {
+    spriteBlank: ["shield_nl_dr_hunebed"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 4,
+    },
+  };
 
   // Poland
   shields["pl:expressway"] = shields["pl:motorway"] = roundedRectShield(
