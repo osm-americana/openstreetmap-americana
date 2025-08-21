@@ -15,7 +15,7 @@ import {
 
 import * as Poi from "../js/poi.js";
 import * as Label from "../constants/label.js";
-import * as Style from "../js/style.js";
+import * as Style from "./style.js";
 import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
 import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
 
@@ -48,7 +48,6 @@ function removeAfterLastSlash(str: string): string {
 export function loadRTLPlugin(): void {
   maplibregl.setRTLTextPlugin(
     "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
-    null,
     true
   );
 }

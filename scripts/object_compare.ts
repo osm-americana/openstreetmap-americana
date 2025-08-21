@@ -2,14 +2,14 @@
  * Calculates the difference between two objects by comparing their properties.
  * If a property value is an object, it recursively calls itself to calculate the difference.
  * Positive numbers for a property means that property is greater in object2 than object1.
- * @param {Object|null} object1 - The first object to compare.
- * @param {Object|null} object2 - The second object to compare.
- * @returns {Object} - An object containing the differences between object2 and object1.
+ * @param {T|null} object1 - The first object to compare.
+ * @param {T|null} object2 - The second object to compare.
+ * @returns {T} - An object containing the differences between object2 and object1.
  */
-export function calculateDifference(
-  object1: object | null,
-  object2: object | null
-): object {
+export function calculateDifference<T extends object>(
+  object1: T | null,
+  object2: T | null
+): T {
   // If one object exists and the other doesn't, return the difference
   if (object1 === null && object2 !== null) {
     return object2;
@@ -17,22 +17,26 @@ export function calculateDifference(
     return negate(object1);
   }
 
-  const difference = {};
+  const difference = {} as T;
 
   // Iterate through each property in object1
   for (const key in object1) {
     if (typeof object1[key] === "object" && typeof object2![key] === "object") {
       // Recursively calculate the difference for nested objects
-      difference[key] = calculateDifference(object1[key], object2![key]);
+      difference[key] = calculateDifference(object1[key], object2![key]) as any;
     } else if (
       typeof object1[key] === "number" &&
       typeof object2![key] === "number"
     ) {
       // Calculate the difference for numeric properties
-      difference[key] = object2![key] - object1[key];
+      difference[key] = ((object2![key] as number) -
+        (object1[key] as number)) as T[Extract<keyof T, string>];
     } else {
       // If the property exists in object1 but not in object2, include it in the result
-      difference[key] = negate(object1![key]);
+      difference[key] = negate(object1[key] as object) as T[Extract<
+        keyof T,
+        string
+      >];
     }
   }
 
@@ -48,15 +52,15 @@ export function calculateDifference(
 
 /**
  * Negate all numeric properties of this object.
- * @param {Object} object - The object to process.
+ * @param {T} object - The object to process.
  */
-function negate(object: object) {
+function negate<T extends object>(object: T): T {
   if (typeof object === "number") {
-    return -object;
+    return -object as any;
   }
 
   // Create a new object to store the result
-  const result = {};
+  const result = {} as T;
 
   for (const key in object) {
     if (typeof object[key] === "object" && object[key] !== null) {
@@ -64,7 +68,7 @@ function negate(object: object) {
       result[key] = negate(object[key]);
     } else if (typeof object[key] === "number") {
       // If the property value is a number, multiply it by the multiplier
-      result[key] = -object[key];
+      result[key] = -object[key] as any;
     }
   }
 
