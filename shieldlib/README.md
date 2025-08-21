@@ -4,15 +4,21 @@ The Americana shield renderer is a library intended to draw highway shields on a
 
 ![Pictoral highway shields](https://wiki.openstreetmap.org/w/images/6/6d/Rendered_shields_americana.png)
 
-## Shield rendering workflow
+## Usage
 
-Rendering shields requires the following compoments:
+Rendering shields requires the following components:
 
 1. **Encode shield information in vector tiles**. First, your tiles must contain the information which tells the shield renderer what shields to draw. In OpenMapTiles, shield information is encoded in the [`transportation_name`](https://openmaptiles.org/schema/#transportation_name) vector tile layer with a series of attributes named `route_1`, `route_2`, etc. Each attribute contains a text string which contains all of the information needed to determine which graphic to display, including numeric route number if the shield is numbered. However, this library allows you to specify how the shield information has been encoded, and it's possible to stitch together data from multiple fields when encoding shield data.
 
 2. **Expose shield information in a style layer**. Next, route information must be exposed in a maplibre expression using [image](https://maplibre.org/maplibre-gl-js-docs/style-spec/expressions/#types-image) in a structured string containing the route information. For example, you might encode Interstate 95 as an image named `shield|US:I=95`. Normally, the image expression is used to point to pre-designated sprites in a sprite sheet, but in this case, we're pointing to a sprite which doesn't exist called `shield|US:I=95`. This will trigger a `styleimagemissing` event which allows the shield renderer to create the required graphic on the fly. As an example of how to encode shield information, see OSM Americana's [`highway_shield`](https://github.com/osm-americana/openstreetmap-americana/blob/main/src/layer/highway_shield.js) style layer.
 
-3. **Define a parser that describes how route information is encoded**. There are three parts to a route definition:
+3. Import the library:
+
+   ```html
+   <script type="text/javascript" src="maplibre-shield-generator.js"></script>
+   ```
+
+4. **Define a parser that describes how route information is encoded**. There are three parts to a route definition:
 
    1. The `network` string, which defines a network with a common shield shape, graphic, and color
    1. The `ref` string, which defines a text sequence that should be drawn on top of the shield graphic
@@ -36,7 +42,7 @@ Rendering shields requires the following compoments:
    };
    ```
 
-4. **(Optional) Create predicates that define which shields will be handled**. For example, if all sprite IDs in your style that need a shield begin with the string `shield|`, this would look like:
+5. **(Optional) Create predicates that define which shields will be handled**. For example, if all sprite IDs in your style that need a shield begin with the string `shield|`, this would look like:
 
    ```typescript
    let shieldPredicate = (imageID: string) => imageID.startsWith("shield");
@@ -51,25 +57,25 @@ Rendering shields requires the following compoments:
      !/^[lrni][chimpw]n$/.test(network);
    ```
 
-5. **Create shield definitions and artwork**. The shield definition is expressed as a JSON file along with a set of sprites containing any raster artwork used for the shields. It can be generated as an object or hosted as a JSON file accessible by URL. See the next section for how to create this definition.
+6. **Create shield definitions and artwork**. The shield definition is expressed as a JSON file along with a set of sprites containing any raster artwork used for the shields. It can be generated as an object or hosted as a JSON file accessible by URL. See the next section for how to create this definition.
 
-6. **Hook up the shield generator to a maplibre-gl-js map**. Pass either the URL of the JSON shield definition or create an object in javascript code. There are two separate classes for each approach.
+7. **Hook up the shield generator to a maplibre-gl-js map**. Pass either the URL of the JSON shield definition or create an object in javascript code. There are two separate classes for each approach.
 
    ```typescript
-   new URLShieldRenderer("shields.json", routeParser)
+   new mapLibreShieldGenerator.URLShieldRenderer("shields.json", routeParser)
      .filterImageID(shieldPredicate)
      .filterNetwork(networkPredicate)
      .renderOnMaplibreGL(map);
    ```
 
    ```typescript
-   new ShieldRenderer(shields, routeParser)
+   new mapLibreShieldGenerator.ShieldRenderer(shields, routeParser)
      .filterImageID(shieldPredicate)
      .filterNetwork(networkPredicate)
      .renderOnMaplibreGL(map);
    ```
 
-## Shield Definition
+## Shield definition
 
 The purpose of the shield definition is to define which graphics and text to draw for each network/ref/name combination that you wish to display. This can be created in javascript as an object, or as an HTTP-accessible JSON file.
 
