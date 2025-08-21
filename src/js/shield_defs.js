@@ -24,6 +24,7 @@ import {
   bransonRouteShield,
 } from "@americana/maplibre-shield-generator";
 
+//TODO: ensure this returns ShieldSpecification
 export function loadShields() {
   const shields = {};
 
