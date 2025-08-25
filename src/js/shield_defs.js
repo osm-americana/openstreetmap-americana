@@ -2290,6 +2290,9 @@ export function loadShields() {
       "Roosevelt-Marcy Trail": {
         spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
       },
+      "Shawangunk Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_shawangunk",
+      },
       "Southern Adirondack Trail": {
         spriteBlank: "shield_us_ny_scenic_southernadirondack",
       },
