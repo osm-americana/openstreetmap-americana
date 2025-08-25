@@ -2299,6 +2299,9 @@ export function loadShields() {
       "Upper Delaware Scenic Byway": {
         spriteBlank: "shield_us_ny_scenic_upperdelaware",
       },
+      "Western New York Southtowns Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_wnysouthtowns",
+      },
     },
   };
   [
