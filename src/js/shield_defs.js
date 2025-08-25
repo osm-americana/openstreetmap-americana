@@ -2293,6 +2293,9 @@ export function loadShields() {
       "Southern Adirondack Trail": {
         spriteBlank: "shield_us_ny_scenic_southernadirondack",
       },
+      "Upper Delaware Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_upperdelaware",
+      },
     },
   };
   [
