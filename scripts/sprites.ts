@@ -18,7 +18,10 @@ const sprites: SvgId[] = await Promise.all(
 
 console.log(`Building ${sprites.length} sprites`);
 
-const generated: SpriteSheetResult[] = await Sprites.generate(sprites, [1, 2, 3]);
+const generated: SpriteSheetResult[] = await Sprites.generate(
+  sprites,
+  [1, 2, 3]
+);
 
 for (const result of generated) {
   const scaleText: string =
