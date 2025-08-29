@@ -3243,6 +3243,17 @@ export function loadShields() {
 
   // SOUTH AMERICA
 
+  // Argentina
+  shields["AR:national"] = homePlateDownShield(
+    5,
+    Color.shields.white,
+    Color.shields.black
+  );
+  shields["AR:provincial"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
   // Chile
   shields["CL:national"] = {
     spriteBlank: ["shield_badge_2", "shield_badge_3"],
