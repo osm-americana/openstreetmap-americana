@@ -1,22 +1,40 @@
 import fs from "node:fs/promises";
 import path from "path";
+import { Command, Option } from "commander";
 
 import { glob } from "glob";
 import { Sprites, SpriteSheetResult, SvgId } from "@basemaps/sprites";
 
-const args = process.argv.slice(2);
-let inputDir = "./icons";
-let outputDir = "./dist/sprites";
+const program = new Command();
+program
+  .name("sprites")
+  .description("Generate sprite sheets from SVG icons")
+  .addOption(
+    new Option(
+      "-i, --input <dir>",
+      "input directory containing SVG icons"
+    ).default("./icons")
+  )
+  .addOption(
+    new Option(
+      "-o, --output <dir>",
+      "output directory for generated sprite sheets"
+    ).default("./dist/sprites")
+  )
+  .addOption(
+    new Option("-h, --help", "display help for command")
+  );
 
-for (let i = 0; i < args.length; i++) {
-  if (args[i] === "-i" && i + 1 < args.length) {
-    inputDir = args[i + 1];
-    i++;
-  } else if (args[i] === "-o" && i + 1 < args.length) {
-    outputDir = args[i + 1];
-    i++;
-  }
+program.parse(process.argv);
+
+const opts = program.opts();
+
+if (opts.help) {
+  program.help();
 }
+
+const inputDir = opts.input;
+const outputDir = opts.output;
 
 console.log(`Input directory: ${inputDir}`);
 console.log(`Output directory: ${outputDir}`);
