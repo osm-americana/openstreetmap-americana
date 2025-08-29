@@ -1,26 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
 import { glob } from "glob";
 import { Sprites, SpriteSheetResult, SvgId } from "@basemaps/sprites";
-import { Command } from "commander";
 
-const program = new Command();
-program
-  .option("-i, --icons <path>", "path to icons directory", "./icons")
-  .option(
-    "-o, --output <path>",
-    "output directory for sprites",
-    "./dist/sprites"
-  )
-  .parse(process.argv);
-
-const opts = program.opts();
-
-await fs.mkdir(opts.output, { recursive: true });
+await fs.mkdir("./dist/sprites/", { recursive: true });
 
 const sprites: SvgId[] = await Promise.all(
   (
-    await glob(`${opts.icons}/*.svg`)
+    await glob("./icons/*.svg")
   ).map(async (spritePath: string): Promise<SvgId> => {
     const id = path.parse(spritePath).name;
     const buffer = await fs.readFile(spritePath);
@@ -28,18 +16,15 @@ const sprites: SvgId[] = await Promise.all(
   })
 );
 
-console.log(`Building ${sprites.length} sprites from ${opts.icons}`);
+console.log(`Building ${sprites.length} sprites`);
 
-const generated: SpriteSheetResult[] = await Sprites.generate(
-  sprites,
-  [1, 2, 3]
-);
+const generated: SpriteSheetResult[] = await Sprites.generate(sprites, [1, 2, 3]);
 
 for (const result of generated) {
   const scaleText: string =
     result.pixelRatio === 1 ? "" : `@${result.pixelRatio}x`;
-  const outputPng: string = `${opts.output}/sprite${scaleText}.png`;
-  const outputJson: string = `${opts.output}/sprite${scaleText}.json`;
+  const outputPng: string = `./dist/sprites/sprite${scaleText}.png`;
+  const outputJson: string = `./dist/sprites/sprite${scaleText}.json`;
 
   await fs.writeFile(outputPng, result.buffer);
   await fs.writeFile(outputJson, JSON.stringify(result.layout, null, 2));

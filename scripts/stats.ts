@@ -1,8 +1,24 @@
-import * as Style from "../src/js/style.js";
-import config from "../src/config.js";
-import { Command, Option } from "commander";
+import { Command, Option, OptionValues } from "commander";
 import fs from "node:fs";
 import zlib from "node:zlib";
+import type { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";
+
+interface Stats {
+  layerCount: number;
+  styleSize: number;
+  gzipStyleSize: number;
+  layerGroup: {
+    [key: string]: {
+      size: number;
+      layerCount: number;
+    };
+  };
+  spriteSheet1xSize: number;
+  spriteSheet2xSize: number;
+  spriteSheet3xSize: number;
+  shieldJSONSize: number;
+  gzipShieldJSONSize: number;
+}
 
 const program = new Command();
 program
@@ -55,32 +71,33 @@ program
       "gzip compressed size of style"
     ).conflicts("allJson")
   )
-  .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"])
-  .option("-j, --all-json", "output all stats in JSON")
-  .option("-pp, --pretty", "pretty-print JSON output")
-  .option(
-    "-d, --directory <dir>",
-    "specify location of Americana distribution",
-    ["dist"]
+  .addOption(new Option("-j, --all-json", "output all stats in JSON"))
+  .addOption(new Option("-pp, --pretty", "pretty-print JSON output"))
+  .addOption(
+    new Option(
+      "-d, --directory <dir>",
+      "specify location of Americana distribution"
+    ).default("dist")
   );
 
 program.parse(process.argv);
 
-const opts = program.opts();
+const opts: OptionValues = program.opts();
 
 if (Object.keys(opts).length === 1) program.help();
 
-const locales = opts.locales[0].split(",");
 const distDir = opts.directory;
 
-const style = Style.build(
-  config.OPENMAPTILES_URL,
-  "https://americanamap.org/sprites/sprite",
-  "https://font.americanamap.org/{fontstack}/{range}.pbf",
-  locales
-);
+// File locations
+const sprite1xPNG = `${distDir}/sprites/sprite.png`;
+const sprite1xJSON = `${distDir}/sprites/sprite.json`;
+const sprite2xPNG = `${distDir}/sprites/sprite@2x.png`;
+const sprite2xJSON = `${distDir}/sprites/sprite@2x.json`;
+const shieldJSONPath = `${distDir}/shields.json`;
+const styleJSONPath = `${distDir}/style.json`;
 
-const layers = style.layers;
+const style = JSON.parse(fs.readFileSync(styleJSONPath, "utf8"));
+const layers = style.layers as LayerSpecification[];
 const layerCount = layers.length;
 
 if (opts.layerCount) {
@@ -88,19 +105,19 @@ if (opts.layerCount) {
   process.exit();
 }
 
-function spriteSheetSize(distDir, scale) {
-  let size = scale === 1 ? "" : `@${scale}x`;
+function spriteSheetSize(distDir: string, scale: number): number {
+  const scaleText = scale === 1 ? "" : `@${scale}x`;
   return (
-    fs.statSync(`${distDir}/sprites/sprite${size}.png`).size +
-    fs.statSync(`${distDir}/sprites/sprite${size}.json`).size
+    fs.statSync(`${distDir}/sprites/sprite${scaleText}.png`).size +
+    fs.statSync(`${distDir}/sprites/sprite${scaleText}.json`).size
   );
 }
 
-function distFileSize(distDir, path) {
+function distFileSize(distDir: string, path: string): number {
   return fs.statSync(`${distDir}/${path}`).size;
 }
 
-function gzipSize(content) {
+function gzipSize(content: string): number {
   return zlib.gzipSync(content).length;
 }
 
@@ -122,7 +139,6 @@ if (opts.spritesheet3xSize) {
   process.exit();
 }
 
-const shieldJSONPath = `${distDir}/shields.json`;
 const shieldJSONSize = distFileSize(distDir, "shields.json");
 if (opts.shieldJsonSize) {
   console.log(shieldJSONSize);
@@ -149,9 +165,9 @@ if (opts.gzipStyleSize) {
   process.exit();
 }
 
-const layerMap = new Map();
+const layerMap = new Map<string, LayerSpecification>();
 
-const stats = {
+const stats: Stats = {
   layerCount,
   styleSize,
   gzipStyleSize,
@@ -167,7 +183,8 @@ for (let i = 0; i < layerCount; i++) {
   const layer = layers[i];
   layerMap.set(layer.id, layers[i]);
   const layerSize = JSON.stringify(layer).length;
-  const layerGroup = layer["source-layer"] || layer.source || layer.type;
+  const layerGroup =
+    (layer as any)["source-layer"] || (layer as any).source || layer.type;
   if (stats.layerGroup[layerGroup]) {
     stats.layerGroup[layerGroup].size += layerSize;
     stats.layerGroup[layerGroup].layerCount++;
@@ -180,7 +197,9 @@ for (let i = 0; i < layerCount; i++) {
 }
 
 if (opts.allJson) {
-  process.stdout.write(JSON.stringify(stats, null, opts.pretty ? 2 : null));
+  process.stdout.write(
+    JSON.stringify(stats, undefined, opts.pretty ? 2 : undefined)
+  );
   process.exit();
 }
 
