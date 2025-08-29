@@ -21,9 +21,7 @@ program
       "output directory for generated sprite sheets"
     ).default("./dist/sprites")
   )
-  .addOption(
-    new Option("-h, --help", "display help for command")
-  );
+  .addOption(new Option("-h, --help", "display help for command"));
 
 program.parse(process.argv);
 
