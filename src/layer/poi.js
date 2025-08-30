@@ -59,6 +59,14 @@ var iconDefs = {
     color: Color.poi.consumer,
     description: "Car dealership",
   },
+  cemetery: {
+    classes: {
+      cemetery: ["cemetery"],
+    },
+    sprite: "poi_gravestone",
+    color: Color.poi.outdoor,
+    description: "Cemetery",
+  },
   charging_station: {
     classes: {
       fuel: ["charging_station"],
@@ -396,6 +404,8 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_taoist),
       ],
       Color.poi.infrastructure,
+      ["cemetery"],
+      Color.poi.outdoor,
       Color.poi.infrastructure,
     ],
   },
@@ -410,7 +420,7 @@ export const poi = {
       ["station", "halt"],
       12,
       ["bus_station", "subway"],
-      14,
+      13,
       [
         "bus_stop",
         "fire_station",
@@ -448,7 +458,7 @@ export const poi = {
         ...getSubclasses(iconDefs.restaurant),
       ],
       16,
-      ["clinic", "doctors", "parking"],
+      ["clinic", "doctors", "parking", ...getSubclasses(iconDefs.cemetery)],
       17,
       99,
     ],
@@ -482,6 +492,16 @@ export const poi = {
         "",
         label.localizedName,
       ],
+      15,
+      [
+        "match",
+        ["get", "subclass"],
+        [...getSubclasses(iconDefs.cemetery)],
+        label.localizedName,
+        ["bus_stop"],
+        "",
+        label.localizedName,
+      ],
       16,
       ["match", ["get", "subclass"], ["bus_stop"], "", label.localizedName],
       17,
@@ -494,6 +514,32 @@ export const poi = {
     "icon-padding": 0,
     "text-padding": 0,
     "icon-allow-overlap": false,
+    "symbol-sort-key": ["get", "rank"],
+  },
+  source: "openmaptiles",
+  "source-layer": "poi",
+};
+
+// POIs that have no icon at lower zooms
+export const iconlessPoi = {
+  id: "iconless_poi",
+  type: "symbol",
+  paint: {
+    "text-halo-color": Color.parkLabelHalo,
+    "text-halo-width": 1,
+    "text-halo-blur": 1,
+    "text-color": Color.parkLabel,
+  },
+  filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "subclass"], "cemetery"]],
+  layout: {
+    "text-font": ["Americana-Bold"],
+    "text-size": 10,
+    "text-field": label.localizedName,
+    "text-anchor": "center",
+    "text-justify": "center",
+    "text-radial-offset": 0,
+    "text-max-width": 5,
+    "text-padding": 0,
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
