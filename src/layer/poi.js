@@ -527,7 +527,9 @@ export const iconlessPoi = {
   paint: {
     "text-halo-color": Color.parkLabelHalo,
     "text-halo-width": 1,
+    "icon-halo-width": 0.4,
     "text-halo-blur": 1,
+    "icon-halo-blur": 0.2,
     "text-color": Color.parkLabel,
   },
   filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "subclass"], "cemetery"]],
