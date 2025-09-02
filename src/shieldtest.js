@@ -92,6 +92,7 @@ let networks = [
   "AU:ACT:T",
   "US:NM:San_Juan:NCM",
   "US:TX:Harris:HCTRA",
+  "za:national",
 
   "JP:prefectural",
   "PK:national",
@@ -158,6 +159,7 @@ let networks = [
   "US:KY:Parkway",
   "US:MD",
   "US:MN",
+  "US:MN:Business",
   "US:CO",
   "US:CO:E470",
   "US:DC",
@@ -217,6 +219,7 @@ let networks = [
   "US:GA:Connector",
   "US:LA:Business",
   "US:MD:Business",
+  "US:MN:Truck",
   "US:VT:Alternate",
   "US:VT:Truck",
   "US:MO:Spur",

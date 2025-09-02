@@ -141,3 +141,14 @@ jobs:
           output: |
             {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
           output_text_description_file: stats-difference.md
+      - name: Print Icon Changes to GitHub Checks
+        uses: LouisBrunner/checks-action@v2.0.0
+        if: always()
+        with:
+          sha: ${{ env.PR_SHA }}
+          token: ${{ steps.checks_token.outputs.token }}
+          name: Icon Changes
+          conclusion: neutral
+          output: |
+            {"summary":"Icon changes and pixel alignment previews", "title":"View icon grid previews for changed icons"}
+          output_text_description_file: icon-changes.md
