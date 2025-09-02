@@ -420,7 +420,7 @@ export const poi = {
       ["station", "halt"],
       12,
       ["bus_station", "subway"],
-      13,
+      14,
       [
         "bus_stop",
         "fire_station",
