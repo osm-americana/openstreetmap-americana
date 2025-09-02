@@ -8,12 +8,15 @@ jobs:
   build:
     runs-on: macos-13
     steps:
+      - name: Install native dependencies for canvas
+        run: |
+          brew install pkg-config cairo pango libpng jpeg giflib pixman
       - name: Checkout 🛎️
         uses: actions/checkout@v4
-      - name: Use Node.js 18.x
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version-file: package.json
       - name: Build Shield Library 🛡️
         run: |
           cd shieldlib

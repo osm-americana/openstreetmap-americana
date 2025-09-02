@@ -1,7 +1,8 @@
 import * as fs from "node:fs";
 
-import { Command } from "commander";
-import { validate } from "@maplibre/maplibre-gl-style-spec";
+import { Command, OptionValues } from "commander";
+import { validateStyleMin as validate } from "@maplibre/maplibre-gl-style-spec";
+import type { StyleSpecification } from "maplibre-gl";
 
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
@@ -17,9 +18,9 @@ program
   .option("-o, --outfile <file>", "output file", "-");
 program.parse(process.argv);
 
-let opts = program.opts();
+const opts: OptionValues = program.opts();
 
-let style = Style.build(
+const style: StyleSpecification = Style.build(
   config.OPENMAPTILES_URL,
   "https://americanamap.org/sprites/sprite",
   "https://font.americanamap.org/{fontstack}/{range}.pbf",
@@ -32,7 +33,7 @@ if (errors.length) {
   process.exit(1);
 }
 
-if (opts.outfile == "-") {
+if (opts.outfile === "-") {
   console.log("%j", style);
 } else {
   fs.writeFileSync(opts.outfile, JSON.stringify(style));

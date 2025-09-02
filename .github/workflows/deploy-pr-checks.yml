@@ -85,32 +85,32 @@ jobs:
       - name: Wait for PR Preview Upload (1x Sprite)
         uses: cygnetdigital/wait_for_response@v2.0.0
         with:
-          url: "https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png"
+          url: "https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite.png"
           responseCode: "200"
           timeout: 120000
           interval: 500
       - name: Wait for PR Preview Upload (2x Sprite)
         uses: cygnetdigital/wait_for_response@v2.0.0
         with:
-          url: "https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png"
+          url: "https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png"
           responseCode: "200"
           timeout: 120000
           interval: 500
       - name: Generate Preview text
         run: |
           echo "## Live PR Preview:
-          * [Map](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/)
-          * [Shield Test](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shieldtest.html)
-          * [style.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/style.json)
-          * [shields.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/shields.json)
-          * [taginfo.json](https://preview.ourmap.us/pr/${{ env.PR_NUM }}/taginfo.json)
+          * [Map](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/)
+          * [Shield Test](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/shieldtest.html)
+          * [style.json](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/style.json)
+          * [shields.json](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/shields.json)
+          * [taginfo.json](https://preview.americanamap.org/pr/${{ env.PR_NUM }}/taginfo.json)
 
           Live previews are automatically removed once the PR is merged.
 
           ## Sprite Sheets:
 
-          <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite.png" />
-          <img src="https://preview.ourmap.us/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" />
+          <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite.png" />
+          <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" />
           " > pr_preview.md
           [ -f pr_preview-extra.md ] && cat pr_preview-extra.md >> pr_preview.md || echo "No extra PR preview found."
       - uses: tibdex/github-app-token@v1
@@ -125,7 +125,7 @@ jobs:
           sha: ${{ env.PR_SHA }}
           token: ${{ steps.checks_token.outputs.token }}
           name: PR Preview
-          details_url: https://preview.ourmap.us/pr/${{ env.PR_NUM }}/
+          details_url: https://preview.americanamap.org/pr/${{ env.PR_NUM }}/
           conclusion: neutral
           output: |
             {"summary":"Preview map changes introduced by this PR", "title":"View live map and artifacts"}
@@ -141,3 +141,14 @@ jobs:
           output: |
             {"summary":"Style size changes introduced by this PR", "title":"View metrics on style size changes"}
           output_text_description_file: stats-difference.md
+      - name: Print Icon Changes to GitHub Checks
+        uses: LouisBrunner/checks-action@v2.0.0
+        if: always()
+        with:
+          sha: ${{ env.PR_SHA }}
+          token: ${{ steps.checks_token.outputs.token }}
+          name: Icon Changes
+          conclusion: neutral
+          output: |
+            {"summary":"Icon changes and pixel alignment previews", "title":"View icon grid previews for changed icons"}
+          output_text_description_file: icon-changes.md
