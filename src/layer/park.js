@@ -69,9 +69,46 @@ export const parkLabel = {
   "source-layer": "poi",
 };
 
+export const themeParkFill = {
+  ...fill,
+  id: "theme_park_fill",
+  filter: ["==", ["get", "subclass"], "theme_park"],
+  paint: {
+    "fill-color": Color.themeParkFill,
+  },
+  "source-layer": "landcover",
+};
+
+export const themeParkOutline = {
+  ...outline,
+  id: "theme_park_outline",
+  filter: ["==", ["get", "subclass"], "theme_park"],
+  paint: {
+    "line-color": Color.themeParkOutline,
+  },
+  "source-layer": "landcover",
+};
+
+export const themeParkLabel = {
+  ...label,
+  id: "theme_park_label",
+  filter: ["==", ["get", "class"], "theme_park"],
+  paint: {
+    "text-color": Color.themeParkLabel,
+    "text-halo-blur": 1,
+    "text-halo-color": Color.themeParkLabelHalo,
+    "text-halo-width": 1,
+  },
+  "source-layer": "poi",
+};
+
 export const legendEntries = [
   {
     description: "Park",
     layers: [fill.id, outline.id, parkFill.id, parkOutline.id],
+  },
+  {
+    description: "Theme park",
+    layers: [themeParkFill.id, themeParkOutline.id],
   },
 ];

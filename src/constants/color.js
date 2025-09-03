@@ -23,6 +23,11 @@ export const parkOutline = "hsla(136, 41%, 70%, 50%)";
 export const parkLabel = "hsl(136, 71%, 29%)";
 export const parkLabelHalo = "hsl(90, 27%, 94%)";
 
+export const themeParkFill = "hsl(316, 41%, 89%)";
+export const themeParkOutline = "hsla(316, 41%, 70%, 50%)";
+export const themeParkLabel = "hsl(316, 71%, 29%)";
+export const themeParkLabelHalo = "hsl(270, 27%, 94%)";
+
 export const aerialwayLine = "hsl(310, 41%, 59%)";
 export const aerialwayLabel = "hsl(310, 71%, 29%)";
 
