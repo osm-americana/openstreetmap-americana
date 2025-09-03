@@ -37,6 +37,7 @@ export function build(locales) {
     lyrAeroway.fill,
     lyrPark.parkFill,
     lyrPark.themeParkFill,
+    lyrPark.waterParkFill,
 
     lyrBoundary.countyCasing,
     lyrBoundary.regionCasing,
@@ -55,6 +56,7 @@ export function build(locales) {
     lyrAeroway.outline,
     lyrPark.parkOutline,
     lyrPark.themeParkOutline,
+    lyrPark.waterParkOutline,
 
     lyrBoundary.city,
     lyrBoundary.county,
@@ -221,6 +223,7 @@ export function build(locales) {
     lyrPark.label,
     lyrPark.parkLabel,
     lyrPark.themeParkLabel,
+    lyrPark.waterParkLabel,
 
     lyrWater.waterLabel,
     lyrWater.waterPointLabel,
