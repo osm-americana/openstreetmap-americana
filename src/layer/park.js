@@ -102,6 +102,39 @@ export const themeParkLabel = {
   "source-layer": "poi",
 };
 
+export const waterParkFill = {
+  ...fill,
+  id: "water_park_fill",
+  filter: ["==", ["get", "class"], "water_park"],
+  paint: {
+    "fill-color": Color.waterParkFill,
+  },
+  "source-layer": "landuse",
+};
+
+export const waterParkOutline = {
+  ...outline,
+  id: "water_park_outline",
+  filter: ["==", ["get", "class"], "water_park"],
+  paint: {
+    "line-color": Color.waterParkOutline,
+  },
+  "source-layer": "landuse",
+};
+
+export const waterParkLabel = {
+  ...label,
+  id: "water_park_label",
+  filter: ["==", ["get", "class"], "water_park"],
+  paint: {
+    "text-color": Color.waterParkLabel,
+    "text-halo-blur": 1,
+    "text-halo-color": Color.waterParkLabelHalo,
+    "text-halo-width": 1,
+  },
+  "source-layer": "poi",
+};
+
 export const legendEntries = [
   {
     description: "Park",
@@ -110,5 +143,9 @@ export const legendEntries = [
   {
     description: "Theme park",
     layers: [themeParkFill.id, themeParkOutline.id],
+  },
+  {
+    description: "Water park",
+    layers: [waterParkFill.id, waterParkOutline.id],
   },
 ];
