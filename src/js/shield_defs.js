@@ -1055,6 +1055,9 @@ export function loadShields() {
       top: 9.5,
       bottom: 2,
     },
+    bannerMap: {
+      "US:CO:Express": ["EXPR"],
+    },
   };
   shields["US:CO:E470"] = {
     spriteBlank: "shield_us_co_e470",
@@ -1066,18 +1069,32 @@ export function loadShields() {
       bottom: 2,
     },
   };
+  shields["US:CO:NW"] = {
+    spriteBlank: "shield_us_co_nw",
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 6,
+      top: 2,
+      bottom: 16,
+    },
+  };
   [
     "Arapahoe",
     "Archuleta",
     "Chaffee",
     "Clear_Creek",
     "Conejos",
+    "El_Paso",
     "Grand",
     "Gunnison",
+    "Hinsdale",
+    "Huerfano",
     "Jackson",
     "Jefferson",
     "Lake",
     "La_Plata",
+    "Las_Animas",
     "Larimer",
     "Moffat",
     "Park",
@@ -1096,7 +1113,7 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
-  ["Fremont", "Larimer:Estes_Park", "Ouray", "Routt"].forEach(
+  ["Boulder", "Fremont", "Larimer:Estes_Park", "Ouray", "Routt"].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = roundedRectShield(
         Color.shields.green,
@@ -2277,8 +2294,17 @@ export function loadShields() {
       "Roosevelt-Marcy Trail": {
         spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
       },
+      "Shawangunk Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_shawangunk",
+      },
       "Southern Adirondack Trail": {
         spriteBlank: "shield_us_ny_scenic_southernadirondack",
+      },
+      "Upper Delaware Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_upperdelaware",
+      },
+      "Western New York Southtowns Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_wnysouthtowns",
       },
     },
   };
@@ -3229,6 +3255,17 @@ export function loadShields() {
   );
 
   // SOUTH AMERICA
+
+  // Argentina
+  shields["AR:national"] = homePlateDownShield(
+    5,
+    Color.shields.white,
+    Color.shields.black
+  );
+  shields["AR:provincial"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
 
   // Chile
   shields["CL:national"] = {
