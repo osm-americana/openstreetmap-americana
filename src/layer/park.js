@@ -72,7 +72,7 @@ export const parkLabel = {
 export const themeParkFill = {
   ...fill,
   id: "theme_park_fill",
-  filter: ["==", ["get", "subclass"], "theme_park"],
+  filter: ["==", ["get", "class"], "theme_park"],
   paint: {
     "fill-color": Color.themeParkFill,
   },
@@ -82,7 +82,7 @@ export const themeParkFill = {
 export const themeParkOutline = {
   ...outline,
   id: "theme_park_outline",
-  filter: ["==", ["get", "subclass"], "theme_park"],
+  filter: ["==", ["get", "class"], "theme_park"],
   paint: {
     "line-color": Color.themeParkOutline,
   },
