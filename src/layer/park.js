@@ -76,7 +76,7 @@ export const themeParkFill = {
   paint: {
     "fill-color": Color.themeParkFill,
   },
-  "source-layer": "landcover",
+  "source-layer": "landuse",
 };
 
 export const themeParkOutline = {
@@ -86,7 +86,7 @@ export const themeParkOutline = {
   paint: {
     "line-color": Color.themeParkOutline,
   },
-  "source-layer": "landcover",
+  "source-layer": "landuse",
 };
 
 export const themeParkLabel = {
