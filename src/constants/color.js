@@ -23,13 +23,13 @@ export const parkOutline = "hsla(136, 41%, 70%, 50%)";
 export const parkLabel = "hsl(136, 71%, 29%)";
 export const parkLabelHalo = "hsl(90, 27%, 94%)";
 
-export const themeParkFill = "hsl(316, 41%, 89%)";
-export const themeParkOutline = "hsla(316, 41%, 70%, 50%)";
-export const themeParkLabel = "hsl(316, 71%, 29%)";
-export const themeParkLabelHalo = "hsl(270, 27%, 94%)";
+export const themeParkFill = "hsl(24, 50%, 80%)";
+export const themeParkOutline = "hsla(24, 50%, 27%)";
+export const themeParkLabel = "hsl(24, 50%, 27%)";
+export const themeParkLabelHalo = "hsl(24, 50%, 95%)";
 
 export const waterParkFill = themeParkFill;
-export const waterParkOutline = "hsla(211, 41%, 70%, 50%)";
+export const waterParkOutline = themeParkOutline;
 export const waterParkLabel = themeParkLabel;
 export const waterParkLabelHalo = themeParkLabelHalo;
 
