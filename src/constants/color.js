@@ -24,7 +24,7 @@ export const parkLabel = "hsl(136, 71%, 29%)";
 export const parkLabelHalo = "hsl(90, 27%, 94%)";
 
 export const themeParkFill = "hsl(24, 50%, 80%)";
-export const themeParkOutline = "hsla(24, 50%, 27%)";
+export const themeParkOutline = "hsla(24, 50%, 27%, 50%)";
 export const themeParkLabel = "hsl(24, 50%, 27%)";
 export const themeParkLabelHalo = "hsl(24, 50%, 95%)";
 
