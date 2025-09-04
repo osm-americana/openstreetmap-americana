@@ -69,67 +69,46 @@ export const parkLabel = {
   "source-layer": "poi",
 };
 
-export const themeParkFill = {
+export const attractionFill = {
   ...fill,
-  id: "theme_park_fill",
-  filter: ["==", ["get", "class"], "theme_park"],
+  id: "attraction_fill",
+  filter: [
+    "in",
+    ["get", "class"],
+    ["literal", ["theme_park", "water_park", "zoo"]],
+  ],
   paint: {
-    "fill-color": Color.themeParkFill,
+    "fill-color": Color.attractionFill,
   },
   "source-layer": "landuse",
 };
 
-export const themeParkOutline = {
+export const attractionOutline = {
   ...outline,
-  id: "theme_park_outline",
-  filter: ["==", ["get", "class"], "theme_park"],
+  id: "attraction_outline",
+  filter: [
+    "in",
+    ["get", "class"],
+    ["literal", ["theme_park", "water_park", "zoo"]],
+  ],
   paint: {
-    "line-color": Color.themeParkOutline,
+    "line-color": Color.attractionOutline,
   },
   "source-layer": "landuse",
 };
 
-export const themeParkLabel = {
+export const attractionLabel = {
   ...label,
-  id: "theme_park_label",
-  filter: ["==", ["get", "class"], "theme_park"],
+  id: "attraction_label",
+  filter: [
+    "in",
+    ["get", "class"],
+    ["literal", ["theme_park", "water_park", "zoo"]],
+  ],
   paint: {
-    "text-color": Color.themeParkLabel,
+    "text-color": Color.attractionLabel,
     "text-halo-blur": 1,
-    "text-halo-color": Color.themeParkLabelHalo,
-    "text-halo-width": 1,
-  },
-  "source-layer": "poi",
-};
-
-export const waterParkFill = {
-  ...fill,
-  id: "water_park_fill",
-  filter: ["==", ["get", "class"], "water_park"],
-  paint: {
-    "fill-color": Color.waterParkFill,
-  },
-  "source-layer": "landuse",
-};
-
-export const waterParkOutline = {
-  ...outline,
-  id: "water_park_outline",
-  filter: ["==", ["get", "class"], "water_park"],
-  paint: {
-    "line-color": Color.waterParkOutline,
-  },
-  "source-layer": "landuse",
-};
-
-export const waterParkLabel = {
-  ...label,
-  id: "water_park_label",
-  filter: ["==", ["get", "class"], "water_park"],
-  paint: {
-    "text-color": Color.waterParkLabel,
-    "text-halo-blur": 1,
-    "text-halo-color": Color.waterParkLabelHalo,
+    "text-halo-color": Color.attractionLabelHalo,
     "text-halo-width": 1,
   },
   "source-layer": "poi",
@@ -141,11 +120,7 @@ export const legendEntries = [
     layers: [fill.id, outline.id, parkFill.id, parkOutline.id],
   },
   {
-    description: "Theme park",
-    layers: [themeParkFill.id, themeParkOutline.id],
-  },
-  {
-    description: "Water park",
-    layers: [waterParkFill.id, waterParkOutline.id],
+    description: "Attraction",
+    layers: [attractionFill.id, attractionOutline.id],
   },
 ];
