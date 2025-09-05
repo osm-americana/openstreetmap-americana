@@ -53,7 +53,7 @@
   background-image: repeating-linear-gradient(
     -45deg,
     transparent 0 1.414em,
-    rgba(from highlight r g b / 0.2) 1.414em 2.828em
+    #def 1.414em 2.828em
   );
   background-size: 4em;
   animation: stripy-bar infinite 1.2s linear;
