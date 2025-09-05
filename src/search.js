@@ -170,7 +170,10 @@ async function doSearch(searchQuery) {
   lastSearchRequest = controller;
 
   try {
-    searchInput.classList.add("pending");
+    if (!searchInput.classList.contains("pending")) {
+      searchInput.classList.add("pending");
+      searchInput.animate({ backgroundImage: ["none", "none"] }, 300);
+    }
     const response = await fetch(searchQuery, { signal: controller.signal });
     const data = await response.json();
 
