@@ -108,6 +108,7 @@ function geocoderResultEntry(result) {
 
   let item = document.createElement("li");
   item.className = "gc-result-item";
+  item.role = "option";
 
   let itemCategory = document.createElement("div");
   itemCategory.className = "gc-result-category";
@@ -255,6 +256,8 @@ export class PhotonSearchControl extends maplibregl.Evented {
     searchInput.id = "geocoder-search-input";
     searchInput.type = "search";
     searchInput.role = "combobox";
+    searchInput.ariaExpanded = true;
+    searchInput.setAttribute("aria-controls", "geocoder-live-results");
     searchInput.placeholder = "Search";
     searchInput.autocomplete = "off";
     searchInput.addEventListener("input", search);
@@ -265,6 +268,7 @@ export class PhotonSearchControl extends maplibregl.Evented {
 
     liveResults = document.createElement("ul");
     liveResults.id = "geocoder-live-results";
+    liveResults.role = "listbox";
 
     this._container = document.createElement("div");
     this._container.id = "geocoder-search-panel";
