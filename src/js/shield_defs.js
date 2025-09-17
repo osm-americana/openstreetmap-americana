@@ -729,6 +729,9 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "Juan Bautista de Anza National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_juba",
+      },
       "Mormon Pioneer National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_mopi",
       },
