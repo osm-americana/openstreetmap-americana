@@ -707,6 +707,27 @@
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_museum.svg"
     },
     {
+      "key": "tourism",
+      "value": "theme_park",
+      "object_types": ["node", "area"],
+      "description": "Theme parks are shaded with the attraction color palette and labeled with the attraction text styling.",
+      "doc_url": "https://openmaptiles.org/schema/#landuse"
+    },
+    {
+      "key": "leisure",
+      "value": "water_park",
+      "object_types": ["node", "area"],
+      "description": "Water parks are shaded with the attraction color palette and labeled with the attraction text styling.",
+      "doc_url": "https://openmaptiles.org/schema/#landuse"
+    },
+    {
+      "key": "tourism",
+      "value": "zoo",
+      "object_types": ["node", "area"],
+      "description": "Zoos are shaded with the attraction color palette and labeled with the attraction text styling.",
+      "doc_url": "https://openmaptiles.org/schema/#landuse"
+    },
+    {
       "key": "amenity",
       "value": "clinic",
       "object_types": ["node", "area"],
