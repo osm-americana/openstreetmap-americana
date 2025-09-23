@@ -431,7 +431,6 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": opacity,
       "line-color": this.fillColor,
       "line-width": [
         "interpolate",
@@ -458,7 +457,6 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": opacity,
       "line-color": this.casingColor,
       "line-width": [
         "interpolate",
@@ -490,7 +488,6 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": opacity,
       "line-dasharray": [4, 4],
       "line-color": roadSurfaceColor,
       "line-width": [
