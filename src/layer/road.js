@@ -682,7 +682,7 @@ class Trunk extends Road {
     ];
 
     this.minZoomFill = minZoomAllRoads;
-    this.minZoomCasing = minZoomAllRoads;
+    this.minZoomCasing = 5;
 
     this.fillColor = highwayFillColor;
     this.casingColor = [
