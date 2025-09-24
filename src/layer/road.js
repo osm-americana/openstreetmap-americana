@@ -68,39 +68,6 @@ function combineConstraints(constraint1, constraint2) {
   return ["all", constraint1, constraint2];
 }
 
-const opacity = [
-  "step",
-  ["zoom"],
-  [...linkSelector, 0, ["match", ["get", "network"], "us-interstate", 1, 0]],
-  minZoomMotorwayTrunk,
-  [...linkSelector, 0, [...classSelector, ["motorway", "trunk"], 1, 0]],
-  minZoomPrimary,
-  [...classSelector, ["motorway", "trunk", "primary"], 1, 0],
-  minZoomSecondary,
-  [...classSelector, ["motorway", "trunk", "primary", "secondary"], 1, 0],
-  minZoomTertiary,
-  [
-    ...classSelector,
-    [
-      "motorway",
-      "trunk",
-      "primary",
-      "secondary",
-      "tertiary",
-      "busway",
-      "bus_guideway",
-    ],
-    1,
-    0,
-  ],
-  minZoomMinor,
-  [...classSelector, "service", 0, 1],
-  minZoomService,
-  [...classSelector, "service", [...smallServiceSelector, 0, 1], 1],
-  minZoomSmallService,
-  1,
-];
-
 const motorwaySortKey = [
   "+",
   getLayer,
