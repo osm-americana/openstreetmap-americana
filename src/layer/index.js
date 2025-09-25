@@ -124,6 +124,7 @@ export function build(locales) {
     lyrRoad.primaryToll.fill(),
     lyrRoad.roadSimpleFill.fill(),
     lyrRoad.motorway.fill(),
+    lyrRoad.trunk.fill(),
 
     lyrRoad.road.surface(),
 
