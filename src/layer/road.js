@@ -502,8 +502,6 @@ class RoadSimpleFill extends Road {
     super();
     this.constraints = [
       "any",
-      // Remove trunk roads from this class - let Trunk class handle them
-      // ["all", ["==", getClass, "trunk"], isNotLink],
       [
         "all",
         [
