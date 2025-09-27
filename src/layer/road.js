@@ -680,7 +680,7 @@ class Trunk extends Road {
       ],
     ];
 
-    // Override casing color to match motorway fill at zoom 4
+    // Override casing color to match motorway casing at zoom 4
     this.casingColor = [
       "interpolate",
       ["exponential", roadExp],
@@ -688,8 +688,8 @@ class Trunk extends Road {
       4,
       [
         ...tollSelector,
-        `hsl(${tollRoadHue}, 70%, 76%)`,
-        `hsl(${roadHue}, 70%, 76%)`,
+        `hsl(${tollRoadHue}, 10%, 85%)`,
+        `hsl(${roadHue}, 10%, 85%)`,
       ],
       5,
       [
