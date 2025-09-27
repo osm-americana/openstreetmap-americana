@@ -643,7 +643,7 @@ class Trunk extends Road {
     ];
 
     this.minZoomFill = minZoomAllRoads;
-    this.minZoomCasing = 4;
+    this.minZoomCasing = minZoomAllRoads;
 
     this.fillColor = [
       "interpolate",
@@ -652,26 +652,9 @@ class Trunk extends Road {
       4,
       zoom4MotorwayFillColor,
       6,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 70%, 66%)`,
-        `hsl(${roadHue}, 70%, 66%)`,
-      ],
-      minzoomBrunnel - 0.5,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 70%, 60%)`,
-        `hsl(${roadHue}, 70%, 60%)`,
-      ],
-      14,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 71%, 45%)`,
-        `hsl(${roadHue}, 71%, 35%)`,
-      ],
+      highwayFillColor,
     ];
 
-    // Override casing color to match motorway casing at zoom 4
     this.casingColor = [
       "interpolate",
       ["exponential", roadExp],
@@ -679,10 +662,18 @@ class Trunk extends Road {
       4,
       zoom4MotorwayCasingColor,
       5,
+      `hsl(${roadHue}, 77%, 50%)`,
+      9,
       [
         ...tollSelector,
         `hsl(${tollRoadHue}, 77%, 50%)`,
         `hsl(${roadHue}, 77%, 50%)`,
+      ],
+      15,
+      [
+        ...tollSelector,
+        `hsl(${tollRoadHue}, 70%, 18%)`,
+        `hsl(${roadHue}, 70%, 18%)`,
       ],
     ];
   }
