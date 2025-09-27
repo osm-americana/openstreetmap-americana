@@ -234,8 +234,8 @@ const roadCasingColorTrunkExpressway = [
   "trunk",
   [
     ...tollSelector,
-    `hsl(${tollRoadHue}, 70%, 76%)`,
-    `hsl(${roadHue}, 70%, 76%)`,
+    `hsl(${tollRoadHue}, 77%, 50%)`,
+    `hsl(${roadHue}, 77%, 50%)`,
   ],
 ];
 
