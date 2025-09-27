@@ -512,7 +512,7 @@ class RoadSimpleFill extends Road {
           getClass,
           [
             "literal",
-            ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
+            ["trunk", "primary", "secondary", "tertiary", "busway", "bus_guideway"],
           ],
         ],
         isExpressway,
