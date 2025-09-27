@@ -21,6 +21,9 @@ const roadHue = 0;
 const tollRoadHue = 48;
 const buswayHue = 322;
 
+const zoom4MotorwayFillColor = `hsl(${roadHue}, 70%, 76%)`;
+const zoom4MotorwayCasingColor = `hsl(${roadHue}, 10%, 85%)`;
+
 //Tunnel casing dash pattern
 const tunDashArray = [
   "step",
@@ -581,11 +584,7 @@ class Motorway extends Road {
       ["exponential", roadExp],
       ["zoom"],
       4,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 70%, 76%)`,
-        `hsl(${roadHue}, 70%, 76%)`,
-      ],
+      zoom4MotorwayFillColor,
       6,
       [
         ...tollSelector,
@@ -610,11 +609,7 @@ class Motorway extends Road {
       ["exponential", roadExp],
       ["zoom"],
       4,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 10%, 85%)`,
-        `hsl(${roadHue}, 10%, 85%)`,
-      ],
+      zoom4MotorwayCasingColor,
       6,
       [
         ...tollSelector,
@@ -655,11 +650,7 @@ class Trunk extends Road {
       ["exponential", roadExp],
       ["zoom"],
       4,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 70%, 76%)`,
-        `hsl(${roadHue}, 70%, 76%)`,
-      ],
+      zoom4MotorwayFillColor,
       6,
       [
         ...tollSelector,
@@ -686,11 +677,7 @@ class Trunk extends Road {
       ["exponential", roadExp],
       ["zoom"],
       4,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 10%, 85%)`,
-        `hsl(${roadHue}, 10%, 85%)`,
-      ],
+      zoom4MotorwayCasingColor,
       5,
       [
         ...tollSelector,
