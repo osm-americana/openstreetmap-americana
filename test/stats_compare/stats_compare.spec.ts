@@ -79,7 +79,11 @@ describe("stats_compare", function () {
     }
 
     function loadStats(filename: string): Stats {
-      const filePath = path.join(path.dirname(new URL(import.meta.url).pathname), "test-cases", filename);
+      const filePath = path.join(
+        path.dirname(new URL(import.meta.url).pathname),
+        "test-cases",
+        filename
+      );
       const content = fs.readFileSync(filePath, "utf8");
       return JSON.parse(content);
     }
@@ -92,13 +96,13 @@ describe("stats_compare", function () {
       // Check that urbanareas was added
       expect(difference.layerGroup.urbanareas).to.deep.equal({
         size: 18183,
-        layerCount: 3
+        layerCount: 3,
       });
 
       // Check that place was modified
       expect(difference.layerGroup.place).to.deep.equal({
         size: -18113, // 21701 - 39814
-        layerCount: -3  // 9 - 12
+        layerCount: -3, // 9 - 12
       });
 
       // Check overall stats changes
@@ -114,7 +118,7 @@ describe("stats_compare", function () {
       // Check that place was removed (negated)
       expect(difference.layerGroup.place).to.deep.equal({
         size: -39814, // -39814
-        layerCount: -12  // -12
+        layerCount: -12, // -12
       });
 
       // Check overall stats changes
@@ -130,13 +134,13 @@ describe("stats_compare", function () {
       // Check that place was added back (since it was removed in removedStats)
       expect(difference.layerGroup.place).to.deep.equal({
         size: 21701, // Just the new value since it was missing in removedStats
-        layerCount: 9  // Just the new value since it was missing in removedStats
+        layerCount: 9, // Just the new value since it was missing in removedStats
       });
 
       // Check that urbanareas was added
       expect(difference.layerGroup.urbanareas).to.deep.equal({
         size: 18183,
-        layerCount: 3
+        layerCount: 3,
       });
 
       // Check overall stats changes

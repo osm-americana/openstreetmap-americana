@@ -52,7 +52,10 @@ export function calculateDifference<T extends Record<string, any>>(
     if (!(key in object1!)) {
       if (typeof object2![key] === "object" && object2![key] !== null) {
         // For nested objects, recursively calculate the difference
-        (difference as any)[key] = calculateDifference(null, object2![key]) as any;
+        (difference as any)[key] = calculateDifference(
+          null,
+          object2![key]
+        ) as any;
       } else {
         (difference as any)[key] = object2![key];
       }
