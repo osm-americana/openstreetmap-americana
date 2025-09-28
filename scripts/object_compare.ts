@@ -93,22 +93,22 @@ function negate<T extends object>(object: T): T {
 // "|           | main          | this PR      | change          | % change        |",
 export type ComparedStats = {
   name: string;
-  beforeValue: number | null;
-  afterValue: number | null;
+  beforeValue: number | null | undefined;
+  afterValue: number | null | undefined;
   change: number;
   pctChange: number | null;
 };
 
 export function statsComparisonRow(
   name: string,
-  val1: number | null,
-  val2: number | null,
+  val1: number | null | undefined,
+  val2: number | null | undefined,
   change: number
 ): ComparedStats {
   let pctChange: number | null;
 
-  if (val1 !== null) {
-    if (val2 !== null) {
+  if (val1 !== null && val1 !== undefined) {
+    if (val2 !== null && val2 !== undefined) {
       pctChange = change / val1;
     } else {
       pctChange = -1;
@@ -133,8 +133,8 @@ const pctFormat: Intl.NumberFormatOptions = {
   signDisplay: "exceptZero",
 };
 
-function naLocString(val: number | null) {
-  return val !== null ? val.toLocaleString("en") : "N/A";
+function naLocString(val: number | null | undefined) {
+  return val !== null && val !== undefined ? val.toLocaleString("en") : "N/A";
 }
 
 /**
@@ -154,8 +154,8 @@ export function mdStringValues(stats: ComparedStats): string[] {
 
 export function mdCompareRow(
   name: string,
-  val1: number | null,
-  val2: number | null,
+  val1: number | null | undefined,
+  val2: number | null | undefined,
   change: number
 ): string {
   return mdStringValues(statsComparisonRow(name, val1, val2, change)).join(

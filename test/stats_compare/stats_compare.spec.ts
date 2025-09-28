@@ -59,6 +59,18 @@ describe("stats_compare", function () {
         simpleAnullmdRow
       );
     });
+    it("tests md compare with undefined values", function () {
+      // Test that undefined values are handled properly (this was the original bug)
+      expect(mdCompareRow("test", 5, undefined, 5)).to.deep.equal(
+        "test | 5 | N/A | 5 | -100.0%"
+      );
+      expect(mdCompareRow("test", undefined, 5, 5)).to.deep.equal(
+        "test | N/A | 5 | 5 | N/A"
+      );
+      expect(mdCompareRow("test", undefined, undefined, 0)).to.deep.equal(
+        "test | N/A | N/A | 0 | N/A"
+      );
+    });
   });
 
   describe("#calculateDifference with JSON test cases", function () {
