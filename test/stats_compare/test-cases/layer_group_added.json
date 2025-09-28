@@ -1,0 +1,79 @@
+{
+    "layerCount": 350,
+    "styleSize": 1122329,
+    "gzipStyleSize": 35206,
+    "layerGroup": {
+      "background": {
+        "size": 122,
+        "layerCount": 1
+      },
+      "landuse": {
+        "size": 309,
+        "layerCount": 1
+      },
+      "park": {
+        "size": 2517,
+        "layerCount": 3
+      },
+      "aeroway": {
+        "size": 2059,
+        "layerCount": 7
+      },
+      "landcover": {
+        "size": 361,
+        "layerCount": 2
+      },
+      "boundary": {
+        "size": 14392,
+        "layerCount": 11
+      },
+      "dem": {
+        "size": 271,
+        "layerCount": 1
+      },
+      "water": {
+        "size": 912,
+        "layerCount": 3
+      },
+      "waterway": {
+        "size": 3543,
+        "layerCount": 3
+      },
+      "transportation": {
+        "size": 1024566,
+        "layerCount": 291
+      },
+      "building": {
+        "size": 292,
+        "layerCount": 1
+      },
+      "transportation_name": {
+        "size": 9740,
+        "layerCount": 3
+      },
+      "poi": {
+        "size": 12415,
+        "layerCount": 2
+      },
+      "water_name": {
+        "size": 4647,
+        "layerCount": 2
+      },
+      "aerodrome_label": {
+        "size": 5951,
+        "layerCount": 4
+      },
+      "place": {
+        "size": 21701,
+        "layerCount": 9
+      },
+      "urbanareas": {
+        "size": 18183,
+        "layerCount": 3
+      }
+    },
+    "spriteSheet1xSize": 124089,
+    "spriteSheet2xSize": 248190,
+    "shieldJSONSize": 462657,
+    "gzipShieldJSONSize": 19144
+  }

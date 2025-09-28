@@ -6,13 +6,13 @@
  * @param {T|null} object2 - The second object to compare.
  * @returns {T} - An object containing the differences between object2 and object1.
  */
-export function calculateDifference<T extends object>(
+export function calculateDifference<T extends Record<string, any>>(
   object1: T | null,
-  object2: T | null
+  object2: Record<string, any> | null
 ): T {
   // If one object exists and the other doesn't, return the difference
   if (object1 === null && object2 !== null) {
-    return object2;
+    return object2 as T;
   } else if (object2 === null && object1 !== null) {
     return negate(object1);
   }
@@ -31,6 +31,13 @@ export function calculateDifference<T extends object>(
       // Calculate the difference for numeric properties
       difference[key] = ((object2![key] as number) -
         (object1[key] as number)) as T[Extract<keyof T, string>];
+    } else if (object2![key] === undefined) {
+      // If the property exists in object1 but not in object2, negate it
+      if (typeof object1[key] === "object" && object1[key] !== null) {
+        difference[key] = negate(object1[key]) as T[Extract<keyof T, string>];
+      } else {
+        difference[key] = -object1[key] as T[Extract<keyof T, string>];
+      }
     } else {
       // If the property exists in object1 but not in object2, include it in the result
       difference[key] = negate(object1[key] as object) as T[Extract<
@@ -43,7 +50,12 @@ export function calculateDifference<T extends object>(
   // Include properties that exist in object2 but not in object1
   for (const key in object2!) {
     if (!(key in object1!)) {
-      difference[key] = object2[key];
+      if (typeof object2![key] === "object" && object2![key] !== null) {
+        // For nested objects, recursively calculate the difference
+        (difference as any)[key] = calculateDifference(null, object2![key]) as any;
+      } else {
+        (difference as any)[key] = object2![key];
+      }
     }
   }
 
