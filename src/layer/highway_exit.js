@@ -1,6 +1,7 @@
 "use strict";
 
 import * as Label from "../constants/label.js";
+import * as Color from "../constants/color";
 
 export const exits = {
   id: "highway-exit",
@@ -20,8 +21,8 @@ export const exits = {
     "text-line-height": 1,
   },
   paint: {
-    "text-color": "hsla(60, 100%, 50%, 1)",
-    "text-halo-color": "#000000",
+    "text-color": Color.highwayExitText,
+    "text-halo-color": Color.highwayExitHalo,
     "text-halo-width": 0.75,
   },
 };

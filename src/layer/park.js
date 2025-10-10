@@ -1,7 +1,7 @@
 "use strict";
 
 import * as Label from "../constants/label.js";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
 

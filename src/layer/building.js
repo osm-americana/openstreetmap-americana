@@ -1,5 +1,7 @@
 "use strict";
 
+import * as Color from "../constants/color";
+
 export const building = {
   id: "building",
   type: "fill-extrusion",
@@ -9,9 +11,9 @@ export const building = {
       ["linear"],
       ["zoom"],
       13,
-      `hsl(0, 0%, 87%)`,
+      Color.buildingFillLZ,
       16,
-      `hsl(0, 0%, 80%)`,
+      Color.buildingFillHZ,
     ],
     "fill-extrusion-height": 3,
     "fill-extrusion-opacity": 0.85,
