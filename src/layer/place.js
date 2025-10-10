@@ -14,7 +14,7 @@ const labelHaloColor = [
 const labelHaloBlur = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
 
 const cityLabelPaint = {
-  "text-color": "#444",
+  "text-color": Color.placeLabelCity,
   "text-halo-color": labelHaloColor,
   "text-halo-width": 2,
   "text-halo-blur": labelHaloBlur,

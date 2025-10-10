@@ -13,6 +13,7 @@ export const waterLineBold = "hsl(211, 42%, 50%)";
 export const waterLabel = "hsl(211, 43%, 28%)";
 
 export const labelText = "#333";
+export const placeLabelCity = "#444";
 
 export const urbanizedAreaFill = "hsl(41, 90%, 85%)";
 export const urbanizedAreaFillFaded = "hsl(41, 90%, 80%)";
