@@ -14,6 +14,9 @@ export const waterLabel = "hsl(211, 43%, 28%)";
 
 export const labelText = "#333";
 
+export const urbanizedAreaFill = "hsl(41, 90%, 85%)";
+export const urbanizedAreaFillFaded = "hsl(41, 90%, 80%)";
+
 export const hueBorder = 0;
 export const hueBorderCasing = 281;
 
