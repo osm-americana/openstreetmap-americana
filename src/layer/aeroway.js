@@ -163,7 +163,7 @@ export const airportRefLabel = {
   paint: {
     "text-color": Color.airportLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.labelHalo,
     "text-halo-width": 1,
   },
   layout: {
@@ -187,7 +187,7 @@ export const minorAirportRefLabel = {
   paint: {
     "text-color": Color.airportLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.labelHaloWhite,
     "text-halo-width": 1,
   },
   layout: {
@@ -210,7 +210,7 @@ export const airportLabel = {
   paint: {
     "text-color": Color.airportLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.labelHaloWhite,
     "text-halo-width": 1,
   },
   layout: {
@@ -233,7 +233,7 @@ export const minorAirportLabel = {
   paint: {
     "text-color": Color.airportLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.labelHaloWhite,
     "text-halo-width": 1,
   },
   layout: {
@@ -254,7 +254,7 @@ export const airportGate = {
   paint: {
     "text-color": Color.airportLabel,
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(255, 255, 255, 1)",
+    "text-halo-color": Color.labelHaloWhite,
     "text-halo-width": 1,
   },
   layout: {
