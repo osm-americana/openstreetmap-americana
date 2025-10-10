@@ -1,5 +1,7 @@
 "use strict";
 
+import * as Color from "../constants/color";
+
 export const building = {
   id: "building",
   type: "fill-extrusion",
