@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 import * as Label from "../constants/label.js";
 
 export const city = {

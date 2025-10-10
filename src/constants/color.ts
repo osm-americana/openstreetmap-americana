@@ -12,6 +12,8 @@ export const waterLine = "hsl(211, 42%, 70%)";
 export const waterLineBold = "hsl(211, 42%, 50%)";
 export const waterLabel = "hsl(211, 43%, 28%)";
 
+export const labelText = "#333";
+
 export const hueBorder = 0;
 export const hueBorderCasing = 281;
 

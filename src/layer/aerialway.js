@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 // Exponent base for inter-zoom interpolation
 let aerialwayExp = 1.2;

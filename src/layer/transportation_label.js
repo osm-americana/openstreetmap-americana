@@ -1,7 +1,7 @@
 "use strict";
 
 import * as Label from "../constants/label.js";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 const classSelector = ["match", ["get", "class"]];
 
@@ -39,7 +39,7 @@ export const label = {
       Color.waterLineBold,
       "aerialway",
       Color.aerialwayLabel,
-      "#333",
+      Color.labelText,
     ],
     "text-halo-color": [
       "step",

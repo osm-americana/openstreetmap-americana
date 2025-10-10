@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 const textLayout = {
   "text-font": ["Metropolis Light"],
@@ -31,7 +31,7 @@ function zoomDependentLayout(minHighZoom) {
 }
 
 const textPaint = {
-  "text-color": "#333",
+  "text-color": Color.labelText,
   "text-halo-color": Color.backgroundFill,
   "text-halo-blur": 0.5,
   "text-halo-width": 2,
