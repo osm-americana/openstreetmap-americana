@@ -381,7 +381,7 @@ export const state = {
   id: "place_state",
   type: "symbol",
   paint: {
-    "text-color": "hsl(45, 6%, 10%)",
+    "text-color": Color.placeLabelState,
     "text-halo-color": labelHaloColor,
     "text-halo-width": [
       "interpolate",
