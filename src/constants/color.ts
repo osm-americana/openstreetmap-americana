@@ -15,6 +15,7 @@ export const waterLabel = "hsl(211, 43%, 28%)";
 export const labelText = "#333";
 export const placeLabelCity = "#444";
 export const placeLabelCountry = "#334";
+export const placeLabelContinent = "#633";
 
 export const urbanizedAreaFill = "hsl(41, 90%, 85%)";
 export const urbanizedAreaFillFaded = "hsl(41, 90%, 80%)";

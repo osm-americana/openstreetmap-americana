@@ -566,7 +566,7 @@ export const continent = {
   id: "place_continent",
   type: "symbol",
   paint: {
-    "text-color": "#633",
+    "text-color": Color.placeLabelContinent,
     "text-halo-color": labelHaloColor,
     "text-halo-blur": labelHaloBlur,
     "text-halo-width": 1,
