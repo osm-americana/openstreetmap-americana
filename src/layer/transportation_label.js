@@ -32,7 +32,7 @@ export const label = {
     "text-color": [
       ...classSelector,
       majorConstruction,
-      "maroon",
+      Color.constructionMajor,
       minorConstruction,
       "slategray",
       "ferry",
