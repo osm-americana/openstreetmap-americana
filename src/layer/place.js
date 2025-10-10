@@ -429,7 +429,7 @@ export const countryOther = {
   id: "place_country-other",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": 0.5,
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
@@ -458,7 +458,7 @@ export const country3 = {
   id: "place_country-3",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": labelHaloBlur,
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
@@ -488,7 +488,7 @@ export const country2 = {
   id: "place_country-2",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": labelHaloBlur,
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 1, 1, 5, 2.4],
@@ -518,7 +518,7 @@ export const country1 = {
   id: "place_country-1",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": labelHaloBlur,
     "text-halo-color": labelHaloColor,
     "text-halo-width": [
