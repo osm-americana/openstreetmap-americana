@@ -102,7 +102,9 @@ function hotReloadMap() {
 }
 
 export function updateLanguageLabel() {
-  languageLabel.displayLocales(Label.getLocales());
+  let locales = Label.getLocales();
+  document.documentElement.lang = locales[0];
+  languageLabel.displayLocales(locales);
   legendControl.onLanguageChange();
 }
 
