@@ -62,7 +62,7 @@ The dynamic shield generator is included as a [module](shieldlib/README.md) in t
 
 ## Artifacts
 
-- Style users can use the maplibre [StyleJSON](https://americanamap.org/style.json), and sprite sheets ([1x](https://americanamap.org/sprites/sprite.png), [2x](https://americanamap.org/sprites/sprite@2x.png)).
+- Style users can use the maplibre [StyleJSON](https://americanamap.org/style.json), and sprite sheets ([1x](https://americanamap.org/sprites/sprite.png), [2x](https://americanamap.org/sprites/sprite@2x.png), [3x](https://americanamap.org/sprites/sprite@3x.png)).
 - For highway shield library users, a [ShieldJSON](https://americanamap.org/shields.json) must be supplied to associate route networks with sprite images and drawn shield shapes.
 - The project [taginfo.json](https://americanamap.org/taginfo.json) lists which tags are used by the style.
 
