@@ -1,5 +1,6 @@
 import { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
 import * as Layers from "../layer/index.js";
+import * as urbanAreas from "./places-ua-ranked-wgs84.json";
 
 // Generate style.json
 export function build(
@@ -16,6 +17,10 @@ export function build(
       openmaptiles: {
         url: tileURL,
         type: "vector",
+      },
+      urbanareas: {
+        type: "geojson",
+        data: urbanAreas,
       },
       dem: {
         attribution:

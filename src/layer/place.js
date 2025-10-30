@@ -58,7 +58,19 @@ export const village = {
   id: "place_village",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: ["all", filterPlace("village"), minorLocationStepFilter],
+  filter: [
+    "any",
+    ["==", ["get", "place_type"], "village"],
+    [
+      "match",
+      ["get", "rank"],
+      "major",
+      false,
+      "minor",
+      ["==", ["get", "ua_name"], null],
+      true,
+    ],
+  ],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -94,18 +106,41 @@ export const village = {
     "icon-padding": 0,
     "text-padding": 1,
     "icon-allow-overlap": false,
+    "symbol-sort-key": ["*", -1, ["to-number", ["get", "population"]]],
   },
-  source: "openmaptiles",
+  source: "urbanareas",
   minzoom: 11,
   maxzoom: 14,
-  "source-layer": "place",
 };
 
 export const town = {
   id: "place_town",
   type: "symbol",
-  paint: cityLabelPaint,
-  filter: ["all", filterPlace("town"), minorLocationStepFilter],
+  paint: {
+    ...cityLabelPaint,
+    "text-color": [
+      "match",
+      ["get", "place_type"],
+      "city",
+      "olive",
+      "village",
+      "blue",
+      "black",
+    ],
+  },
+  filter: [
+    "all",
+    ["!=", ["get", "place_type"], "village"],
+    [
+      "match",
+      ["get", "rank"],
+      "major",
+      ["==", ["get", "ua_name"], null],
+      "minor",
+      ["!=", ["get", "ua_name"], null],
+      false,
+    ],
+  ],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -141,29 +176,34 @@ export const town = {
     "icon-padding": 0,
     "text-padding": 1,
     "icon-allow-overlap": false,
+    "symbol-sort-key": ["*", -1, ["to-number", ["get", "population"]]],
   },
-  source: "openmaptiles",
+  source: "urbanareas",
   minzoom: 4,
   maxzoom: 13,
-  "source-layer": "place",
 };
 
 export const city = {
   id: "place_city",
   type: "symbol",
-  paint: cityLabelPaint,
-  filter: [
-    "all",
-    filterPlace("city"),
-    [
-      "step",
-      ["zoom"],
-      ["<=", ["get", "rank"], 2],
-      5,
-      ["<=", ["get", "rank"], 4],
-      6,
-      [">=", ["get", "rank"], 1],
+  paint: {
+    ...cityLabelPaint,
+    "text-color": [
+      "match",
+      ["get", "place_type"],
+      "town",
+      "blue",
+      "village",
+      "blue",
+      "black",
     ],
+  },
+  filter: [
+    "match",
+    ["get", "rank"],
+    "major",
+    ["!=", ["get", "ua_name"], null],
+    false,
   ],
   layout: {
     "text-font": ["Americana-Bold"],
@@ -187,11 +227,11 @@ export const city = {
     "text-field": Label.localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
+      "right",
+      "left",
       "bottom",
       "bottom-right",
       "bottom-left",
-      "right",
-      "left",
     ],
     "text-justify": "auto",
     "text-radial-offset": ["match", ["get", "capital"], 2, 0.7, 0.5],
@@ -200,12 +240,11 @@ export const city = {
     "icon-padding": 0,
     "text-padding": 1,
     "icon-allow-overlap": false,
+    "symbol-sort-key": ["*", -10, ["to-number", ["get", "population"]]],
   },
-  source: "openmaptiles",
+  source: "urbanareas",
   minzoom: 4,
   maxzoom: 12,
-  "source-layer": "place",
-  metadata: {},
 };
 
 export const suburb = {
