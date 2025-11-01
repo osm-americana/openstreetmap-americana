@@ -301,6 +301,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "College or university",
   },
+  toilets: {
+    classes: {
+      toilets: ["toilets"],
+    },
+    sprite: "poi_toilet",
+    color: Color.poi.infrastructure,
+    description: "Restroom",
+  },
   townhall: {
     classes: {
       town_hall: ["townhall"],
@@ -392,6 +400,7 @@ export const poi = {
         "school",
         ...getSubclasses(iconDefs.college),
         "library",
+        "toilets",
         "townhall",
         ...getSubclasses(iconDefs.post_office),
         ...getSubclasses(iconDefs.pow_christian),
@@ -458,7 +467,7 @@ export const poi = {
         ...getSubclasses(iconDefs.restaurant),
       ],
       16,
-      ["clinic", "doctors", "parking"],
+      ["clinic", "doctors", "parking", "toilets"],
       17,
       99,
     ],
