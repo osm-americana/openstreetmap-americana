@@ -729,6 +729,9 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "Juan Bautista de Anza National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_juba",
+      },
       "Mormon Pioneer National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_mopi",
       },
@@ -2294,8 +2297,17 @@ export function loadShields() {
       "Roosevelt-Marcy Trail": {
         spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
       },
+      "Shawangunk Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_shawangunk",
+      },
       "Southern Adirondack Trail": {
         spriteBlank: "shield_us_ny_scenic_southernadirondack",
+      },
+      "Upper Delaware Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_upperdelaware",
+      },
+      "Western New York Southtowns Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_wnysouthtowns",
       },
     },
   };
@@ -4177,7 +4189,7 @@ export function loadShields() {
   };
 
   // Poland
-  shields["pl:expressway"] = shields["pl:motorway"] = roundedRectShield(
+  shields["PL:expressway"] = shields["PL:motorway"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
