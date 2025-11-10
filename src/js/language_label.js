@@ -3,6 +3,7 @@
 import Tokenfield from "tokenfield";
 import { updateLanguageLabel } from "../americana";
 import * as Label from "../constants/label.js";
+import * as Color from "../constants/color";
 
 var langField = labelControlElement("span", "language-field");
 
@@ -118,7 +119,7 @@ function labelControlElement(tag, id) {
   element.id = id;
   Object.assign(element.style, {
     margin: "0 2.5px",
-    color: "#444",
+    color: Color.placeLabelCity,
   });
   return element;
 }
@@ -177,7 +178,7 @@ class LanguageControl {
     Object.assign(this._container.style, {
       margin: "0",
       padding: "0 5px",
-      color: "#444",
+      color: Color.placeLabelCity,
       backgroundColor: "#ffffff80",
     });
     this._container.textContent = "";
