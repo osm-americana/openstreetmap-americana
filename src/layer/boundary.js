@@ -144,6 +144,7 @@ export const boundaryCasing = {
   minzoom: 2,
   layout: {
     "line-join": "round",
+    "line-sort-key": ["*", -1, ["get", "admin_level"]],
     visibility: "visible",
   },
   source: "openmaptiles",
