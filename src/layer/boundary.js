@@ -161,6 +161,55 @@ export const state = {
   "source-layer": "boundary",
 };
 
+// adm0_* properties are only available on international borders.
+const maritime = [
+  "any",
+  ["==", ["get", "maritime"], 0],
+  ["all", ["has", "adm0_l"], ["has", "adm0_r"]],
+];
+
+export const countryCasing = {
+  id: "boundary_country_casing",
+  type: "line",
+  paint: {
+    "line-color": {
+      base: 1.2,
+      stops: [
+        [3, `hsl(${Color.hueBorderCasing - 30}, 35%, 86%)`],
+        [7, `hsl(${Color.hueBorderCasing}, 35%, 86%)`],
+      ],
+    },
+    "line-opacity": {
+      base: 1,
+      stops: [
+        [0, 0.4],
+        [4, 1],
+      ],
+    },
+    "line-width": {
+      base: 1.2,
+      stops: [
+        [2, 4],
+        [12, 25],
+        [16, 50],
+      ],
+    },
+  },
+  filter: [
+    "all",
+    ["==", ["get", "admin_level"], 2],
+    ["==", ["get", "maritime"], 0],
+  ],
+  minzoom: 2,
+  layout: {
+    "line-cap": "round",
+    "line-join": "round",
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  "source-layer": "boundary",
+};
+
 export const country = {
   id: "boundary_country",
   type: "line",
@@ -196,7 +245,7 @@ export const country = {
     "all",
     ["==", ["get", "admin_level"], 2],
     ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    [...maritime],
   ],
   maxzoom: 24,
   layout: {
@@ -257,7 +306,7 @@ export const countryLabelLeft = {
     "text-letter-spacing": 0.1,
     "text-ignore-placement": true,
   },
-  filter: ["==", ["get", "maritime"], 0],
+  filter: [...maritime],
   maxzoom: 24,
   source: "openmaptiles",
   "source-layer": "boundary",
