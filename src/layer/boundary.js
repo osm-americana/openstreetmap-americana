@@ -54,7 +54,7 @@ export const boundaryCasing = {
         0,
         ["==", ["get", "admin_level"], 6],
         0,
-        0
+        0,
       ],
       3,
       [
@@ -67,7 +67,7 @@ export const boundaryCasing = {
         0,
         ["==", ["get", "admin_level"], 6],
         0,
-        0
+        0,
       ],
       8,
       [
@@ -80,7 +80,7 @@ export const boundaryCasing = {
         5,
         ["==", ["get", "admin_level"], 6],
         0,
-        0
+        0,
       ],
       9,
       [
@@ -93,7 +93,7 @@ export const boundaryCasing = {
         6,
         ["==", ["get", "admin_level"], 6],
         0,
-        0
+        0,
       ],
       11,
       [
@@ -106,7 +106,7 @@ export const boundaryCasing = {
         6,
         ["==", ["get", "admin_level"], 6],
         5,
-        0
+        0,
       ],
       12,
       [
@@ -119,7 +119,7 @@ export const boundaryCasing = {
         6,
         ["==", ["get", "admin_level"], 6],
         6,
-        0
+        0,
       ],
       16,
       [
@@ -132,8 +132,8 @@ export const boundaryCasing = {
         6,
         ["==", ["get", "admin_level"], 6],
         6,
-        0
-      ]
+        0,
+      ],
     ],
   },
   filter: [
@@ -159,19 +159,14 @@ export const countyCity = {
       "case",
       ["==", ["get", "admin_level"], 6],
       ["literal", [3, 3]],
-      ["literal", [2, 4]]
+      ["literal", [2, 4]],
     ],
     "line-opacity": [
       "step",
       ["zoom"],
-      [
-        "case",
-        ["==", ["get", "admin_level"], 8],
-        0,
-        1
-      ],
+      ["case", ["==", ["get", "admin_level"], 8], 0, 1],
       11,
-      1
+      1,
     ],
     "line-width": 1,
     "line-offset": 0,
@@ -180,7 +175,7 @@ export const countyCity = {
     "all",
     ["==", ["get", "disputed"], 0],
     ["==", ["get", "maritime"], 0],
-    ["in", ["get", "admin_level"], ["literal", [6, 8]]]
+    ["in", ["get", "admin_level"], ["literal", [6, 8]]],
   ],
   minzoom: 9,
   layout: {
