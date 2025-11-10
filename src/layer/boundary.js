@@ -44,13 +44,96 @@ export const boundaryCasing = {
       ["exponential", 1.2],
       ["zoom"],
       2,
-      ["match", ["get", "admin_level"], 2, 4, [3, 4], 0, 5, 0, 6, 0, 0],
+      [
+        "case",
+        ["==", ["get", "admin_level"], 2],
+        4,
+        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+        0,
+        ["==", ["get", "admin_level"], 5],
+        0,
+        ["==", ["get", "admin_level"], 6],
+        0,
+        0
+      ],
       3,
-      ["match", ["get", "admin_level"], 2, 4, [3, 4], 4, 5, 0, 6, 0, 0],
+      [
+        "case",
+        ["==", ["get", "admin_level"], 2],
+        4.81,
+        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+        4,
+        ["==", ["get", "admin_level"], 5],
+        0,
+        ["==", ["get", "admin_level"], 6],
+        0,
+        0
+      ],
+      8,
+      [
+        "case",
+        ["==", ["get", "admin_level"], 2],
+        12.03,
+        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+        9.72,
+        ["==", ["get", "admin_level"], 5],
+        5,
+        ["==", ["get", "admin_level"], 6],
+        0,
+        0
+      ],
+      9,
+      [
+        "case",
+        ["==", ["get", "admin_level"], 2],
+        14.45,
+        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+        11.64,
+        ["==", ["get", "admin_level"], 5],
+        6,
+        ["==", ["get", "admin_level"], 6],
+        0,
+        0
+      ],
+      11,
+      [
+        "case",
+        ["==", ["get", "admin_level"], 2],
+        20.83,
+        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+        16.69,
+        ["==", ["get", "admin_level"], 5],
+        6,
+        ["==", ["get", "admin_level"], 6],
+        5,
+        0
+      ],
       12,
-      ["match", ["get", "admin_level"], 2, 25, [3, 4], 20, 5, 6, 6, 6, 1],
+      [
+        "case",
+        ["==", ["get", "admin_level"], 2],
+        25,
+        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+        20,
+        ["==", ["get", "admin_level"], 5],
+        6,
+        ["==", ["get", "admin_level"], 6],
+        6,
+        0
+      ],
       16,
-      ["match", ["get", "admin_level"], 2, 50, [3, 4], 30, 1],
+      [
+        "case",
+        ["==", ["get", "admin_level"], 2],
+        50,
+        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+        30,
+        ["==", ["get", "admin_level"], 5],
+        6,
+        ["==", ["get", "admin_level"], 6],
+        6,
+        0
+      ]
     ],
   },
   filter: [
@@ -67,44 +150,37 @@ export const boundaryCasing = {
   "source-layer": "boundary",
 };
 
-export const city = {
-  id: "boundary_city",
+export const countyCity = {
+  id: "boundary_county_city",
   type: "line",
   paint: {
     "line-color": Color.border,
-    "line-dasharray": [2, 4],
+    "line-dasharray": [
+      "case",
+      ["==", ["get", "admin_level"], 6],
+      ["literal", [3, 3]],
+      ["literal", [2, 4]]
+    ],
+    "line-opacity": [
+      "step",
+      ["zoom"],
+      [
+        "case",
+        ["==", ["get", "admin_level"], 8],
+        0,
+        1
+      ],
+      11,
+      1
+    ],
     "line-width": 1,
     "line-offset": 0,
   },
   filter: [
     "all",
-    ["==", ["get", "admin_level"], 8],
     ["==", ["get", "disputed"], 0],
     ["==", ["get", "maritime"], 0],
-  ],
-  minzoom: 11,
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  "source-layer": "boundary",
-};
-
-export const county = {
-  id: "boundary_county",
-  type: "line",
-  paint: {
-    "line-color": Color.border,
-    "line-dasharray": [3, 3],
-    "line-width": 1,
-    "line-offset": 0,
-  },
-  filter: [
-    "all",
-    ["==", ["get", "admin_level"], 6],
-    ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    ["in", ["get", "admin_level"], ["literal", [6, 8]]]
   ],
   minzoom: 9,
   layout: {
