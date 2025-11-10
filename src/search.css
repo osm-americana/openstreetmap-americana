@@ -10,6 +10,8 @@
 }
 #geocoder-live-results {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
   position: absolute;
 }
 .gc-result-item {
@@ -17,6 +19,7 @@
   border-color: lightgray;
   border-width: 1px 1px 0px 1px;
   background-color: white;
+  display: block;
   padding: 2px;
   cursor: pointer;
 }
@@ -38,4 +41,23 @@
   color: slategray;
   font-size: 1em;
   font-style: italic;
+}
+
+@keyframes stripy-bar {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 4em;
+  }
+}
+
+#geocoder-search-input.pending {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 1.414em,
+    #def 1.414em 2.828em
+  );
+  background-size: 4em;
+  animation: stripy-bar infinite 1.2s linear;
 }

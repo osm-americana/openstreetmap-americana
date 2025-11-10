@@ -1,7 +1,13 @@
+import { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
 import * as Layers from "../layer/index.js";
 
 // Generate style.json
-export function build(tileURL, spriteURL, glyphURL, locales) {
+export function build(
+  tileURL: string,
+  spriteURL: string,
+  glyphURL: string,
+  locales: string[]
+): StyleSpecification {
   return {
     name: "Americana",
     glyphs: glyphURL,

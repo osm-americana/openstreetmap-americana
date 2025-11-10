@@ -806,8 +806,8 @@ export default class LegendControl {
         "?network wdt:P361 wd:Q115856945; p:P528 [ ps:P528 ?value; pq:P972 wd:Q110613756 ]";
     } else {
       triple = "?network wdt:P1282 ?tag";
-      filter = `FILTER(REGEX(?tag, "^Tag:network="))`;
-      bind = "BIND(SUBSTR(?tag, 13) AS ?value)";
+      filter = `FILTER(REGEX(?tag, "^network="))`;
+      bind = "BIND(SUBSTR(?tag, 9) AS ?value)";
     }
     return `
 SELECT ?value ?network ?networkLabel WHERE {

@@ -206,6 +206,13 @@ export const state = {
   "source-layer": "boundary",
 };
 
+// adm0_* properties are only available on international borders.
+const maritime = [
+  "any",
+  ["==", ["get", "maritime"], 0],
+  ["all", ["has", "adm0_l"], ["has", "adm0_r"]],
+];
+
 export const countryCasing = {
   id: "boundary_country_casing",
   type: "line",
@@ -283,7 +290,7 @@ export const country = {
     "all",
     ["==", ["get", "admin_level"], 2],
     ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    [...maritime],
   ],
   maxzoom: 24,
   layout: {
@@ -344,7 +351,7 @@ export const countryLabelLeft = {
     "text-letter-spacing": 0.1,
     "text-ignore-placement": true,
   },
-  filter: ["==", ["get", "maritime"], 0],
+  filter: [...maritime],
   maxzoom: 24,
   source: "openmaptiles",
   "source-layer": "boundary",
