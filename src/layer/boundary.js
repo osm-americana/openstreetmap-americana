@@ -60,7 +60,6 @@ export const boundaryCasing = {
   filter: [
     "all",
     ["in", ["get", "admin_level"], ["literal", [2, 3, 4, 5, 6]]],
-    ["==", ["get", "disputed"], 0],
     ["==", ["get", "maritime"], 0],
   ],
   minzoom: 2,
