@@ -150,13 +150,15 @@ export const boundaryCasing = {
   "source-layer": "boundary",
 };
 
-export const countyCity = {
-  id: "boundary_county_city",
+export const subnational = {
+  id: "boundary_subnational",
   type: "line",
   paint: {
     "line-color": Color.border,
     "line-dasharray": [
       "case",
+      ["==", ["get", "admin_level"], 5],
+      ["literal", [5, 4]],
       ["==", ["get", "admin_level"], 6],
       ["literal", [3, 3]],
       ["literal", [2, 4]],
@@ -164,7 +166,16 @@ export const countyCity = {
     "line-opacity": [
       "step",
       ["zoom"],
-      ["case", ["==", ["get", "admin_level"], 8], 0, 1],
+      [
+        "case",
+        ["==", ["get", "admin_level"], 5],
+        0,
+        ["==", ["get", "admin_level"], 8],
+        0,
+        1,
+      ],
+      6,
+      ["case", ["==", ["get", "admin_level"], 5], 1, 0],
       11,
       1,
     ],
@@ -175,31 +186,7 @@ export const countyCity = {
     "all",
     ["==", ["get", "disputed"], 0],
     ["==", ["get", "maritime"], 0],
-    ["in", ["get", "admin_level"], ["literal", [6, 8]]],
-  ],
-  minzoom: 9,
-  layout: {
-    "line-join": "round",
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  "source-layer": "boundary",
-};
-
-export const region = {
-  id: "boundary_region",
-  type: "line",
-  paint: {
-    "line-color": Color.border,
-    "line-dasharray": [5, 4],
-    "line-width": 1,
-    "line-offset": 0,
-  },
-  filter: [
-    "all",
-    ["==", ["get", "admin_level"], 5],
-    ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    ["in", ["get", "admin_level"], ["literal", [5, 6, 8]]],
   ],
   minzoom: 6,
   layout: {
