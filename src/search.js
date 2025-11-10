@@ -106,8 +106,9 @@ function geocoderResultEntry(result) {
     ", "
   );
 
-  let item = document.createElement("div");
+  let item = document.createElement("li");
   item.className = "gc-result-item";
+  item.role = "option";
 
   let itemCategory = document.createElement("div");
   itemCategory.className = "gc-result-category";
@@ -235,9 +236,11 @@ function arrowNavigate(e) {
     );
   }
   if (resultSelectIndex >= 0) {
-    liveResults.children[resultSelectIndex].classList.add(
-      "gc-result-item-selected"
-    );
+    const selectedItem = liveResults.children[resultSelectIndex];
+    selectedItem.classList.add("gc-result-item-selected");
+    searchInput.ariaActiveDescendantElement = selectedItem;
+  } else {
+    searchInput.ariaActiveDescendantElement = null;
   }
 }
 
@@ -252,6 +255,9 @@ export class PhotonSearchControl extends maplibregl.Evented {
     searchInput = document.createElement("input");
     searchInput.id = "geocoder-search-input";
     searchInput.type = "search";
+    searchInput.role = "combobox";
+    searchInput.ariaExpanded = true;
+    searchInput.setAttribute("aria-controls", "geocoder-live-results");
     searchInput.placeholder = "Search";
     searchInput.autocomplete = "off";
     searchInput.addEventListener("input", search);
@@ -260,14 +266,14 @@ export class PhotonSearchControl extends maplibregl.Evented {
     var form = document.createElement("form");
     form.appendChild(searchInput);
 
-    liveResults = document.createElement("div");
+    liveResults = document.createElement("ul");
     liveResults.id = "geocoder-live-results";
+    liveResults.role = "listbox";
 
     this._container = document.createElement("div");
     this._container.id = "geocoder-search-panel";
     this._container.className = "maplibregl-ctrl";
-    this._container.appendChild(form);
-    this._container.appendChild(liveResults);
+    this._container.append(form, liveResults);
 
     return this._container;
   }
