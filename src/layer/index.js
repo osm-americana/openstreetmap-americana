@@ -51,8 +51,7 @@ export function build(locales) {
     lyrAeroway.outline,
     lyrPark.parkOutline,
 
-    lyrBoundary.subnational,
-    lyrBoundary.country,
+    lyrBoundary.administrative,
 
     lyrBackground.pierArea,
     lyrBackground.pierLine,
