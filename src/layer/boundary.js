@@ -3,6 +3,13 @@
 import * as Color from "../constants/color.js";
 import * as Label from "../constants/label.js";
 
+const boundaryLayout = {
+  "line-join": "round",
+  "line-cap": "round",
+  "line-sort-key": ["*", -1, ["get", "admin_level"]],
+  visibility: "visible",
+};
+
 export const boundaryCasing = {
   id: "boundary_casing",
   type: "line",
@@ -142,12 +149,7 @@ export const boundaryCasing = {
     ["==", ["get", "maritime"], 0],
   ],
   minzoom: 2,
-  layout: {
-    "line-join": "round",
-    "line-cap": "round",
-    "line-sort-key": ["*", -1, ["get", "admin_level"]],
-    visibility: "visible",
-  },
+  layout: boundaryLayout,
   source: "openmaptiles",
   "source-layer": "boundary",
 };
@@ -427,12 +429,7 @@ export const administrative = {
   ],
   minzoom: 0,
   maxzoom: 24,
-  layout: {
-    "line-join": "round",
-    "line-cap": "round",
-    "line-sort-key": ["*", -1, ["get", "admin_level"]],
-    visibility: "visible",
-  },
+  layout: boundaryLayout,
   source: "openmaptiles",
   "source-layer": "boundary",
 };
