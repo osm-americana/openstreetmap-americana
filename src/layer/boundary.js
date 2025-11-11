@@ -444,48 +444,6 @@ const maritime = [
   ["all", ["has", "adm0_l"], ["has", "adm0_r"]],
 ];
 
-export const countryCasing = {
-  id: "boundary_country_casing",
-  type: "line",
-  paint: {
-    "line-color": {
-      base: 1.2,
-      stops: [
-        [3, `hsl(${Color.hueBorderCasing - 30}, 35%, 86%)`],
-        [7, `hsl(${Color.hueBorderCasing}, 35%, 86%)`],
-      ],
-    },
-    "line-opacity": {
-      base: 1,
-      stops: [
-        [0, 0.4],
-        [4, 1],
-      ],
-    },
-    "line-width": {
-      base: 1.2,
-      stops: [
-        [2, 4],
-        [12, 25],
-        [16, 50],
-      ],
-    },
-  },
-  filter: [
-    "all",
-    ["==", ["get", "admin_level"], 2],
-    ["==", ["get", "maritime"], 0],
-  ],
-  minzoom: 2,
-  layout: {
-    "line-cap": "round",
-    "line-join": "round",
-    visibility: "visible",
-  },
-  source: "openmaptiles",
-  "source-layer": "boundary",
-};
-
 /**
  * Returns an expression that converts the given country code to a
  * human-readable name in the user's preferred language.
