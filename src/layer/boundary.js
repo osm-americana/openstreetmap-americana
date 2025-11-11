@@ -51,12 +51,7 @@ export const boundaryCasing = {
       ["exponential", 1.2],
       ["zoom"],
       2,
-      [
-        "case",
-        ["==", ["get", "admin_level"], 2],
-        4,
-        0,
-      ],
+      ["case", ["==", ["get", "admin_level"], 2], 4, 0],
       3,
       [
         "case",
@@ -204,12 +199,7 @@ export const administrative = {
     "line-opacity": [
       "step",
       ["zoom"],
-      [
-        "case",
-        ["==", ["get", "admin_level"], 2],
-        0.65,
-        0,
-      ],
+      ["case", ["==", ["get", "admin_level"], 2], 0.65, 0],
       3,
       [
         "case",
@@ -220,12 +210,7 @@ export const administrative = {
         0,
       ],
       4,
-      [
-        "case",
-        ["in", ["get", "admin_level"], ["literal", [2, 3, 4]]],
-        1,
-        0,
-      ],
+      ["case", ["in", ["get", "admin_level"], ["literal", [2, 3, 4]]], 1, 0],
       5,
       [
         "case",
