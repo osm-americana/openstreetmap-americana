@@ -44,7 +44,7 @@ export const boundaryCasing = {
       0,
       ["case", ["==", ["get", "admin_level"], 2], 0.4, 1],
       4,
-      ["case", ["==", ["get", "admin_level"], 2], 1, 1],
+      1,
     ],
     "line-width": [
       "interpolate",
@@ -157,15 +157,6 @@ export const administrative = {
         `hsl(${Color.hueBorder}, 2%, 60%)`,
         Color.border,
       ],
-      3,
-      [
-        "case",
-        ["in", ["get", "admin_level"], ["literal", [2, 3]]],
-        `hsl(${Color.hueBorder}, 2%, 47%)`,
-        ["==", ["get", "admin_level"], 4],
-        `hsl(${Color.hueBorder}, 2%, 60%)`,
-        Color.border,
-      ],
       5,
       [
         "case",
@@ -243,15 +234,6 @@ export const administrative = {
         0.5,
         1,
       ],
-      2,
-      [
-        "case",
-        ["==", ["get", "admin_level"], 2],
-        1,
-        ["in", ["get", "admin_level"], ["literal", [3, 4]]],
-        0.5,
-        1,
-      ],
       4,
       [
         "case",
@@ -280,8 +262,6 @@ export const administrative = {
         1,
       ],
     ],
-    "line-offset": 0,
-    "line-blur": 0,
   },
   filter: [
     "all",
