@@ -26,14 +26,10 @@ export const parkLabelHalo = "hsl(90, 27%, 94%)";
 export const aerialwayLine = "hsl(310, 41%, 59%)";
 export const aerialwayLabel = "hsl(310, 71%, 29%)";
 
-export const aboriginalFill = "hsl(45, 90%, 89%)";
-export const aboriginalOutline = "hsl(45, 90%, 55%)";
-export const aboriginalLabel = "hsl(45, 90%, 29%)";
+export const aboriginalFill = "hsl(34, 40%, 92%)";
+export const aboriginalOutline = "hsl(34, 40%, 70%)";
+export const aboriginalLabel = "hsl(34, 40%, 35%)";
 export const aboriginalLabelHalo = "hsl(90, 27%, 94%)";
-//export const aboriginalFill = "hsl(41, 90%, 85%)";
-//export const aboriginalOutline = "hsl(41, 90%, 55%)";
-//export const aboriginalLabel = "hsl(41, 90%, 29%)";
-//export const aboriginalLabelHalo = "hsl(90, 27%, 94%)";
 //export const aboriginalFill = "hsl(24, 50%, 88%)";
 //export const aboriginalOutline = "hsla(24, 50%, 27%, 50%)";
 //export const aboriginalLabel = "hsl(24, 50%, 27%)";
