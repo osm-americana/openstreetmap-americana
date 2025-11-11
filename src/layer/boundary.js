@@ -276,7 +276,7 @@ export const administrative = {
       [
         "case",
         ["==", ["get", "admin_level"], 2],
-        ["literal", [10, 1, 3, 1]],
+        ["literal", [9, 2, 2.2, 2]],
         ["in", ["get", "admin_level"], ["literal", [3, 4]]],
         ["literal", [2, 2.5, 2, 2.5, 12, 2.5]],
         ["==", ["get", "admin_level"], 5],
