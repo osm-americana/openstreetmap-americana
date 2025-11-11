@@ -27,12 +27,9 @@ const style: StyleSpecification = Style.build(
   opts.locales
 );
 
-const filteredErrors = validate(style).filter(
-  (error) =>
-    !error.message.includes("line-dasharray: data expressions not supported")
-);
-if (filteredErrors.length) {
-  console.error(filteredErrors.map((e) => e.message).join("\n"));
+const errors = validate(style);
+if (errors.length) {
+  console.error(errors.map((e) => e.message).join("\n"));
   process.exit(1);
 }
 
