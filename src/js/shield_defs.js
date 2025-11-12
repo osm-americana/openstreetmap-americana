@@ -24,6 +24,7 @@ import {
   bransonRouteShield,
 } from "@americana/maplibre-shield-generator";
 
+//TODO: ensure this returns ShieldSpecification
 export function loadShields() {
   const shields = {};
 
@@ -728,6 +729,9 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "Juan Bautista de Anza National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_juba",
+      },
       "Mormon Pioneer National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_mopi",
       },
@@ -1054,6 +1058,9 @@ export function loadShields() {
       top: 9.5,
       bottom: 2,
     },
+    bannerMap: {
+      "US:CO:Express": ["EXPR"],
+    },
   };
   shields["US:CO:E470"] = {
     spriteBlank: "shield_us_co_e470",
@@ -1065,18 +1072,32 @@ export function loadShields() {
       bottom: 2,
     },
   };
+  shields["US:CO:NW"] = {
+    spriteBlank: "shield_us_co_nw",
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 6,
+      top: 2,
+      bottom: 16,
+    },
+  };
   [
     "Arapahoe",
     "Archuleta",
     "Chaffee",
     "Clear_Creek",
     "Conejos",
+    "El_Paso",
     "Grand",
     "Gunnison",
+    "Hinsdale",
+    "Huerfano",
     "Jackson",
     "Jefferson",
     "Lake",
     "La_Plata",
+    "Las_Animas",
     "Larimer",
     "Moffat",
     "Park",
@@ -1095,7 +1116,7 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
-  ["Fremont", "Ouray", "Routt"].forEach(
+  ["Boulder", "Fremont", "Larimer:Estes_Park", "Ouray", "Routt"].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = roundedRectShield(
         Color.shields.green,
@@ -1563,6 +1584,19 @@ export function loadShields() {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:MN:Truck": ["TRK"],
+    },
+  };
+  shields["US:MN:Business"] = {
+    spriteBlank: ["shield_us_mn_business_2", "shield_us_mn_business_3"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 7,
+      bottom: 3,
+    },
   };
   shields["US:MN:Intercounty"] = roundedRectShield(
     Color.shields.blue,
@@ -1587,7 +1621,6 @@ export function loadShields() {
     "Nobles",
     "Norman",
     "Olmsted",
-    "Otter_Tail",
     "Pennington",
     "Pine",
     "Pipestone",
@@ -1600,7 +1633,6 @@ export function loadShields() {
     "Sibley",
     "Stearns",
     "Stevens",
-    "Todd",
     "Traverse",
     "Wabasha",
     "Wadena",
@@ -1676,11 +1708,13 @@ export function loadShields() {
     "Martin",
     "Mille_Lacs",
     "Nicollet",
+    "Otter_Tail",
     "Rice",
     "Rock",
     "Sherburne",
     "Steele",
     "Swift",
+    "Todd",
     "Waseca",
     "Watonwan",
     "Winona",
@@ -2161,6 +2195,18 @@ export function loadShields() {
     },
     ref: "LOOP",
   };
+  // Triborough Bridge and Tunnel Authority (MTA Bridges and Tunnels)
+  shields["US:NY:TBTA"] = {
+    notext: true,
+    overrideByName: {
+      "Brooklyn–Battery Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_hughlcarey",
+      },
+      "Queens–Midtown Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_queensmidtown",
+      },
+    },
+  };
   shields["US:NY:Thruway"] = {
     noref: {
       spriteBlank: "shield_us_ny_thruway",
@@ -2251,8 +2297,17 @@ export function loadShields() {
       "Roosevelt-Marcy Trail": {
         spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
       },
+      "Shawangunk Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_shawangunk",
+      },
       "Southern Adirondack Trail": {
         spriteBlank: "shield_us_ny_scenic_southernadirondack",
+      },
+      "Upper Delaware Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_upperdelaware",
+      },
+      "Western New York Southtowns Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_wnysouthtowns",
       },
     },
   };
@@ -2614,6 +2669,21 @@ export function loadShields() {
       "Green Belt": paBeltShield(Color.shields.green, Color.shields.white),
       "Blue Belt": paBeltShield(Color.shields.blue, Color.shields.white),
       "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
+    },
+  };
+
+  // Port Authority of New York and New Jersey
+  shields["US:PANYNJ"] = {
+    notext: true,
+    overrideByName: {
+      "Holland Tunnel": {
+        spriteBlank: "shield_us_panynj_tunnel",
+        colorLighten: Color.shields.red,
+      },
+      "Lincoln Tunnel": {
+        spriteBlank: "shield_us_panynj_tunnel",
+        colorLighten: Color.shields.green,
+      },
     },
   };
 
@@ -3189,6 +3259,17 @@ export function loadShields() {
 
   // SOUTH AMERICA
 
+  // Argentina
+  shields["AR:national"] = homePlateDownShield(
+    5,
+    Color.shields.white,
+    Color.shields.black
+  );
+  shields["AR:provincial"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
   // Chile
   shields["CL:national"] = {
     spriteBlank: ["shield_badge_2", "shield_badge_3"],
@@ -3358,6 +3439,17 @@ export function loadShields() {
   shields["NE:N-roads"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white
+  );
+
+  // South Africa
+  shields["za:national"] = pentagonUpShield(
+    6,
+    15,
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.yellow,
+    0,
+    0
   );
 
   // ASIA
@@ -4085,9 +4177,19 @@ export function loadShields() {
         Color.shields.white
       ))
   );
+  shields["NL:DR:Hunebed_Highway"] = {
+    spriteBlank: ["shield_nl_dr_hunebed"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 4,
+    },
+  };
 
   // Poland
-  shields["pl:expressway"] = shields["pl:motorway"] = roundedRectShield(
+  shields["PL:expressway"] = shields["PL:motorway"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
