@@ -45,10 +45,25 @@ export const label = {
   },
   layout: {
     "text-field": Label.localizedName,
-    "text-font": ["Americana-Bold"],
-    "text-size": 10,
+    "text-font": ["Americana-Regular"],
+    "text-size": {
+      base: 10,
+      stops: [
+        [6, 11],
+        [10, 12],
+      ],
+    },
+    "text-padding": 1,
+    "text-transform": "uppercase",
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",
-  "source-layer": "boundary",
+  "source-layer": "place",
 };
+
+export const legendEntries = [
+  {
+    description: "Native lands",
+    layers: [fill.id, outline.id],
+  },
+];
