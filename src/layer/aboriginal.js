@@ -41,10 +41,10 @@ export const label = {
     "text-color": Color.aboriginalLabel,
     "text-halo-blur": 1,
     "text-halo-color": Color.aboriginalLabelHalo,
-    "text-halo-width": 1,
+    "text-halo-width": 1.5,
   },
   layout: {
-    "text-field": Label.localizedName,
+    "text-field": Label.localizedNameWithLocalGloss,
     "text-font": ["Americana-Regular"],
     "text-size": {
       base: 10,
@@ -63,7 +63,7 @@ export const label = {
 
 export const legendEntries = [
   {
-    description: "Native lands",
+    description: "Tribal reservations and other native lands",
     layers: [fill.id, outline.id],
   },
 ];
