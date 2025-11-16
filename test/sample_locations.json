@@ -121,6 +121,14 @@
     }
   },
   {
+    "location": "4/40.5/-94",
+    "name": "boundary_z4_Kansas",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
     "location": "5/42.03/-76.61",
     "name": "boundary_z5",
     "viewport": {
@@ -171,6 +179,14 @@
   {
     "location": "11/49.0033/-97.2148",
     "name": "boundary_z11",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "11/40.5969/-93.9961",
+    "name": "boundary_z11_state",
     "viewport": {
       "width": 400,
       "height": 400
