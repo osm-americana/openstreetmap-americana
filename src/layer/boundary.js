@@ -404,7 +404,10 @@ export const administrative = {
   ],
   minzoom: 0,
   maxzoom: 24,
-  layout: boundaryLayout,
+  layout: {
+    ...boundaryLayout,
+    "line-cap": "butt",
+  },
   source: "openmaptiles",
   "source-layer": "boundary",
 };
