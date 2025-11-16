@@ -199,5 +199,77 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "3/55.1752/-2.6662",
+    "name": "england_boundary_z3",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "4/55.1752/-2.6662",
+    "name": "england_boundary_z4",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "5/55.1752/-2.6662",
+    "name": "england_boundary_z5",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "6/55.1752/-2.6662",
+    "name": "england_boundary_z6",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "7/55.1752/-2.6662",
+    "name": "england_boundary_z7",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "8/55.1752/-2.6662",
+    "name": "england_boundary_z8",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "9/55.1752/-2.6662",
+    "name": "england_boundary_z9",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "10/55.1752/-2.6662",
+    "name": "england_boundary_z10",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "11/55.1752/-2.6662",
+    "name": "england_boundary_z11",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]
