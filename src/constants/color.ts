@@ -12,6 +12,24 @@ export const waterLine = "hsl(211, 42%, 70%)";
 export const waterLineBold = "hsl(211, 42%, 50%)";
 export const waterLabel = "hsl(211, 43%, 28%)";
 
+export const labelText = "#333";
+export const labelHalo = "rgba(255, 255, 255, 1)";
+export const placeLabelCity = "#444";
+export const placeLabelCountry = "#334";
+export const placeLabelContinent = "#633";
+export const placeLabelState = "hsl(45, 6%, 10%)";
+
+export const highwayExitText = "hsla(60, 100%, 50%, 1)";
+export const highwayExitHalo = "#000000";
+
+export const urbanizedAreaFill = "hsl(41, 90%, 85%)";
+export const urbanizedAreaFillFaded = "hsl(41, 90%, 80%)";
+
+export const buildingFillLZ = "hsl(0, 0%, 87%)";
+export const buildingFillHZ = "hsl(0, 0%, 80%)";
+
+export const constructionMajor = "maroon";
+
 export const hueBorder = 0;
 export const hueBorderCasing = 281;
 

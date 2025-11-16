@@ -1,5 +1,5 @@
 import * as label from "../constants/label.js";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 var iconDefs = {
   aerialway_station: {
