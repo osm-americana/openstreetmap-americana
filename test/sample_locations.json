@@ -271,5 +271,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "2.99/40.5/-94",
+    "name": "state_boundary_minzoom_test",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]
