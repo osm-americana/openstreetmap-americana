@@ -20,7 +20,7 @@ export const borderCasing = `hsl(${hueBorderCasing}, 35%, 86%)`;
 
 export const parkFill = "hsl(136, 41%, 89%)";
 export const parkOutline = "hsla(136, 41%, 70%, 50%)";
-export const parkLabel = "hsl(136, 71%, 29%)";
+export const parkLabel = "hsl(136, 71%, 29%)"; //hsl(136, 50%, 40%)
 export const parkLabelHalo = "hsl(90, 27%, 94%)";
 
 export const aerialwayLine = "hsl(310, 41%, 59%)";
