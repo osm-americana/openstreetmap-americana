@@ -51,6 +51,8 @@ export const label = {
       stops: [
         [6, 11],
         [10, 12],
+        [12, 15],
+        [14, 18],
       ],
     },
     "text-padding": 1,
