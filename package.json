@@ -42,6 +42,7 @@
     "color-rgba": "^2.4.0",
     "events": "^3.3.0",
     "fonteditor-core": "^2.1.11",
+    "github-fork-ribbon-css": "^0.2.3",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
     "tokenfield": "^1.5.2"
