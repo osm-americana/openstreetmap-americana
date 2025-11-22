@@ -471,25 +471,14 @@ export const localizedNameWithLocalGloss = [
             "format",
             ["var", "localizedNameList"],
             "\n",
-            "(\u200B",
+            "(\u2068",
             { "font-scale": 0.8 },
-            // GL JS lacks support for bidirectional isolating characters, so use a
-            // character from the localized name to insulate the parentheses from the
-            // embedded text's writing direction. Make it so small that GL JS doesn't
-            // bother rendering it.
-            ["concat", ["slice", ["var", "localizedName"], 0, 1], " "],
-            { "font-scale": 0.001 },
             listValuesExpression(["get", "name"], inlineSeparator, [
               "var",
               "localizedName",
             ]),
             { "font-scale": 0.8 },
-            ["concat", " ", ["slice", ["var", "localizedName"], 0, 1]],
-            { "font-scale": 0.001 },
-            // A ZWSP prevents GL JS from combining this component with the preceding
-            // one, which would cause it to vanish along with the faux isolating
-            // character.
-            "\u200B)",
+            "\u2069)",
             { "font-scale": 0.8 },
           ],
         ],
