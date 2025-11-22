@@ -36,11 +36,16 @@ export const label = {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
     "text-halo-color": Color.parkLabelHalo,
-    "text-halo-width": 1,
+    "text-halo-width": {
+      base: 1,
+      stops: [
+        [10, 1.5],
+      ],
+    },
   },
   layout: {
     "text-field": Label.localizedName,
-    "text-font": ["Americana-Bold"],
+    "text-font": ["Americana-Regular"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],
   },
