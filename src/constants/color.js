@@ -31,6 +31,11 @@ export const attractionLabelHalo = "hsl(24, 50%, 95%)";
 export const aerialwayLine = "hsl(310, 41%, 59%)";
 export const aerialwayLabel = "hsl(310, 71%, 29%)";
 
+export const aboriginalFill = "hsl(34, 40%, 92%)";
+export const aboriginalOutline = "hsl(34, 40%, 80%)";
+export const aboriginalLabel = "hsl(34, 40%, 35%)";
+export const aboriginalLabelHalo = "hsl(34, 40%, 96%)";
+
 export const airportFill = "hsl(250, 41%, 95%)";
 export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
