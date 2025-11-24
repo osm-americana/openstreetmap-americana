@@ -4,7 +4,7 @@ export const backgroundFillTranslucent = `hsla(30, 44%, 96%, 0.8)`;
 export const hillshadeShadow = "hsla(30, 14%, 63%, 1)";
 export const hillshadeHighlight = "hsla(30, 44%, 99%, 1)";
 
-export const waterFill = "hsl(211, 50%, 90%)";
+export const waterFill = "hsl(211, 50%, 85%)";
 export const waterFillTranslucent = "hsla(211, 50%, 85%, 0.5)";
 export const waterIntermittentFill = "hsla(211, 60%, 85%, 0.3)";
 export const waterIntermittentOutline = "hsl(211, 100%, 30%)";
