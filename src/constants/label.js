@@ -23,9 +23,17 @@ export function getLocales() {
     let components = locale.split("-");
     while (components.length > 0) {
       let parent = components.join("-");
-      if (!localeSet.has(parent)) locales.push(parent);
-      localeSet.add(parent);
+      try {
+        // Preflight the parent locale in case it’s incomplete like `en-x`.
+        new Intl.Locale(parent);
+        if (!localeSet.has(parent)) locales.push(parent);
+        localeSet.add(parent);
+      } catch {}
       components.pop();
+      // A Unicode extension like -u-nu must be followed by another subtag.
+      if (components.at(-1)?.length === 2 && components.at(-2) === "u") {
+        components.pop();
+      }
     }
   }
   return locales;
