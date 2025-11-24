@@ -252,6 +252,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "Taoist place of worship",
   },
+  pow_uu: {
+    classes: {
+      place_of_worship: ["unitarian_universalist"],
+    },
+    sprite: "poi_pow_uu",
+    color: Color.poi.infrastructure,
+    description: "Unitarian Universalist place of worship",
+  },
   railway_station: {
     classes: {
       railway: ["station", "halt", "subway"],
@@ -402,6 +410,7 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_sikh),
         ...getSubclasses(iconDefs.pow_shinto),
         ...getSubclasses(iconDefs.pow_taoist),
+        ...getSubclasses(iconDefs.pow_uu),
       ],
       Color.poi.infrastructure,
       ["cemetery"],
@@ -439,6 +448,7 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_sikh),
         ...getSubclasses(iconDefs.pow_shinto),
         ...getSubclasses(iconDefs.pow_taoist),
+        ...getSubclasses(iconDefs.pow_uu),
         ...getSubclasses(iconDefs.school),
         ...getSubclasses(iconDefs.supermarket),
         ...getSubclasses(iconDefs.charging_station),
