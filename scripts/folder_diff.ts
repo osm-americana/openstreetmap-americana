@@ -63,9 +63,7 @@ async function compareImages(
 
 // Main async function to process image comparisons
 async function processImageComparisons() {
-  const files = fs
-    .readdirSync(folder1)
-    .filter((file) => file.endsWith(".png"));
+  const files = fs.readdirSync(folder1).filter((file) => file.endsWith(".png"));
 
   // Process all comparisons in parallel
   await Promise.all(
