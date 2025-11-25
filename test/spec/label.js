@@ -92,6 +92,20 @@ describe("label", function () {
         "http://localhost:1776/#map=1/2/3&language=tlh-UN,ase"
       );
       expect(Label.getLocales()).to.eql(["tlh-UN", "tlh", "ase"]);
+      window.location = new URL(
+        "http://localhost:1776/#map=1/2/3&language=en-t-zh,zh-u-nu-hant,en-u-sd-usnc,es-fonipa,fr-x-gallo"
+      );
+      expect(Label.getLocales()).to.eql([
+        "en-t-zh",
+        "en",
+        "zh-u-nu-hant",
+        "zh",
+        "en-u-sd-usnc",
+        "es-fonipa",
+        "es",
+        "fr-x-gallo",
+        "fr",
+      ]);
     });
   });
 
