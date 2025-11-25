@@ -413,7 +413,7 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_uu),
       ],
       Color.poi.infrastructure,
-      ["cemetery"],
+      [...getSubclasses(iconDefs.cemetery)],
       Color.poi.outdoor,
       Color.poi.infrastructure,
     ],
