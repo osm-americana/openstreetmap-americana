@@ -2381,6 +2381,12 @@ export function loadShields() {
       "US:OH:Business": ["BUS"],
     },
   };
+  shields["US:OH:ODNR"] = {
+    ...shields["US:OH"],
+    banners: ["NR"],
+    textColor: Color.shields.brown,
+    colorLighten: Color.shields.brown,
+  };
   shields["US:OH:Turnpike"] = {
     spriteBlank: "shield_us_oh_turnpike",
     notext: true,
