@@ -90,6 +90,18 @@ export function loadShields() {
     },
   };
 
+  let usInterstateShield = {
+    spriteBlank: ["shield_us_interstate_2", "shield_us_interstate_3"],
+    textLayout: textConstraint("southHalfEllipse"),
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 5,
+    },
+  };
+
   // Default
 
   shields["default"] = {
@@ -537,6 +549,46 @@ export function loadShields() {
     },
   };
 
+  // Guatemala
+  shields["GT:CA"] = banneredShield(
+    {
+      spriteBlank: "shield_gt_ca",
+      padding: {
+        left: 3,
+        right: 3,
+        top: 7,
+        bottom: 4,
+      },
+    },
+    ["CA"]
+  );
+  shields["GT:RN"] = banneredShield(badgeShieldCrossbar, ["RN"]);
+  shields["GT:RD"] = banneredShield(
+    {
+      spriteBlank: "shield_gt_rd",
+      textColor: Color.shields.black,
+      padding: {
+        left: 4,
+        right: 4,
+        top: 6,
+        bottom: 7,
+      },
+    },
+    ["RD"]
+  );
+  shields["GT:CR"] = banneredShield(
+    {
+      spriteBlank: "shield_gt_cr",
+      padding: {
+        left: 6,
+        right: 7,
+        top: 8,
+        bottom: 4,
+      },
+    },
+    ["CR"]
+  );
+
   // Haiti
   shields["HT:RN-road"] = shields["HT:RD-road"] = roundedRectShield(
     Color.shields.blue,
@@ -636,17 +688,6 @@ export function loadShields() {
   // United States
 
   // Interstate Highways
-  const usInterstateShield = {
-    spriteBlank: ["shield_us_interstate_2", "shield_us_interstate_3"],
-    textLayout: textConstraint("southHalfEllipse"),
-    textColor: Color.shields.white,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 6,
-      bottom: 5,
-    },
-  };
   shields["US:I"] = {
     ...usInterstateShield,
     bannerMap: {

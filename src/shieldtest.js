@@ -130,6 +130,7 @@ let networks = [
 
   "US:I",
   "US:I:Business:Loop",
+  "GT:RD",
   "co:national",
   "US:BIA",
   "US:MT:secondary",
@@ -141,12 +142,13 @@ let networks = [
   "IN:NH",
   "PK:motorway",
   "US:US",
-  "US:US:Historic",
   "CL:national",
+  "GT:RN",
 
   "KR:expressway",
   "CA:QC:R",
   "VE:T:AM",
+  "GT:CA",
   "US:WI",
 
   "TW:freeway",
@@ -176,6 +178,7 @@ let networks = [
   "CA:SK:secondary",
   "CN:expressway",
   "CN:AH:expressway",
+  "GT:CR",
 
   // Detailed Shapes
   "US:NV",
@@ -212,6 +215,7 @@ let networks = [
   "US:US:Spur",
   "US:US:Business:Alternate",
   "US:US:Alternate:Truck:Business",
+  "US:US:Historic",
   "US:AL:Truck",
   "US:AZ:Loop",
   "US:CA:Business",
