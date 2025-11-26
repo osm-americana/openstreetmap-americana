@@ -39,3 +39,22 @@
   font-size: 1em;
   font-style: italic;
 }
+
+@keyframes stripy-bar {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 4em;
+  }
+}
+
+#geocoder-search-input.pending {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 1.414em,
+    #def 1.414em 2.828em
+  );
+  background-size: 4em;
+  animation: stripy-bar infinite 1.2s linear;
+}

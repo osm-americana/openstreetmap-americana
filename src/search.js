@@ -31,6 +31,7 @@ function goToResult(index) {
 
   //Clear search box
   searchInput.value = "";
+  searchInput.classList.remove("pending");
   map.getCanvas().focus();
 
   //Zoom map to search result
@@ -141,6 +142,7 @@ function search(e) {
   let queryTerm = e.target.value;
   resultSelectIndex = -1;
   if (queryTerm.length < 3) {
+    searchInput.classList.remove("pending");
     liveResults.innerHTML = "";
     return;
   }
@@ -168,12 +170,17 @@ async function doSearch(searchQuery) {
   lastSearchRequest = controller;
 
   try {
+    if (!searchInput.classList.contains("pending")) {
+      searchInput.classList.add("pending");
+      searchInput.animate({ backgroundImage: ["none", "none"] }, 300);
+    }
     const response = await fetch(searchQuery, { signal: controller.signal });
     const data = await response.json();
 
     if (controller.signal.aborted) {
       return;
     }
+    searchInput.classList.remove("pending");
     geocoderResponse(data);
   } catch (e) {
     if (e instanceof DOMException) {

@@ -24,6 +24,7 @@ import {
   bransonRouteShield,
 } from "@americana/maplibre-shield-generator";
 
+//TODO: ensure this returns ShieldSpecification
 export function loadShields() {
   const shields = {};
 
@@ -728,6 +729,9 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "Mormon Pioneer National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_mopi",
+      },
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
       },
@@ -735,6 +739,9 @@ export function loadShields() {
         {
           spriteBlank: "shield_us_nht_ovvi",
         },
+      "Pony Express National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_poex",
+      },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
       },
@@ -766,6 +773,12 @@ export function loadShields() {
   // Ohio River Scenic Byway
   shields["US:ORSB"] = {
     spriteBlank: ["shield_us_orsb"],
+    notext: true,
+  };
+
+  // Palisades Interstate Parkway
+  shields["US:PIPC"] = {
+    spriteBlank: ["shield_us_pipc"],
     notext: true,
   };
 
@@ -1042,6 +1055,9 @@ export function loadShields() {
       top: 9.5,
       bottom: 2,
     },
+    bannerMap: {
+      "US:CO:Express": ["EXPR"],
+    },
   };
   shields["US:CO:E470"] = {
     spriteBlank: "shield_us_co_e470",
@@ -1053,18 +1069,32 @@ export function loadShields() {
       bottom: 2,
     },
   };
+  shields["US:CO:NW"] = {
+    spriteBlank: "shield_us_co_nw",
+    textColor: Color.shields.black,
+    padding: {
+      left: 3,
+      right: 6,
+      top: 2,
+      bottom: 16,
+    },
+  };
   [
     "Arapahoe",
     "Archuleta",
     "Chaffee",
     "Clear_Creek",
     "Conejos",
+    "El_Paso",
     "Grand",
     "Gunnison",
+    "Hinsdale",
+    "Huerfano",
     "Jackson",
     "Jefferson",
     "Lake",
     "La_Plata",
+    "Las_Animas",
     "Larimer",
     "Moffat",
     "Park",
@@ -1073,6 +1103,7 @@ export function loadShields() {
     "Saguache",
     "San_Juan",
     "Teller",
+    "Weld",
   ].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = pentagonUpShield(
@@ -1082,7 +1113,7 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
-  ["Fremont", "Ouray", "Routt"].forEach(
+  ["Boulder", "Fremont", "Larimer:Estes_Park", "Ouray", "Routt"].forEach(
     (county) =>
       (shields[`US:CO:${county}`] = roundedRectShield(
         Color.shields.green,
@@ -1550,6 +1581,19 @@ export function loadShields() {
       top: 7,
       bottom: 3,
     },
+    bannerMap: {
+      "US:MN:Truck": ["TRK"],
+    },
+  };
+  shields["US:MN:Business"] = {
+    spriteBlank: ["shield_us_mn_business_2", "shield_us_mn_business_3"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 7,
+      bottom: 3,
+    },
   };
   shields["US:MN:Intercounty"] = roundedRectShield(
     Color.shields.blue,
@@ -1574,7 +1618,6 @@ export function loadShields() {
     "Nobles",
     "Norman",
     "Olmsted",
-    "Otter_Tail",
     "Pennington",
     "Pine",
     "Pipestone",
@@ -1587,7 +1630,6 @@ export function loadShields() {
     "Sibley",
     "Stearns",
     "Stevens",
-    "Todd",
     "Traverse",
     "Wabasha",
     "Wadena",
@@ -1663,11 +1705,13 @@ export function loadShields() {
     "Martin",
     "Mille_Lacs",
     "Nicollet",
+    "Otter_Tail",
     "Rice",
     "Rock",
     "Sherburne",
     "Steele",
     "Swift",
+    "Todd",
     "Waseca",
     "Watonwan",
     "Winona",
@@ -2091,15 +2135,29 @@ export function loadShields() {
       bottom: 6,
     },
   };
-  ["Clark", "Washoe"].forEach(
-    (county) =>
-      (shields[`US:NV:${county}`] = pentagonUpShield(
-        3,
-        15,
-        Color.shields.blue,
-        Color.shields.yellow
-      ))
-  );
+
+  // County shields (only Washoe in this case)
+  ["Washoe"].forEach((county) => {
+    shields[`US:NV:${county}`] = pentagonUpShield(
+      3,
+      15,
+      Color.shields.blue,
+      Color.shields.yellow
+    );
+  });
+
+  // Clark County Route 215 gets its own special highway shield and is not the same as a normal county route
+  shields["US:NV:Clark"] = {
+    spriteBlank: "shield_us_nv_clark",
+    textColor: Color.shields.blue, // #003882
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 6,
+      right: 6,
+      top: 6,
+      bottom: 8,
+    },
+  };
 
   // New York
   const usNewYorkShield = {
@@ -2134,6 +2192,18 @@ export function loadShields() {
     },
     ref: "LOOP",
   };
+  // Triborough Bridge and Tunnel Authority (MTA Bridges and Tunnels)
+  shields["US:NY:TBTA"] = {
+    notext: true,
+    overrideByName: {
+      "Brooklyn–Battery Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_hughlcarey",
+      },
+      "Queens–Midtown Tunnel": {
+        spriteBlank: "shield_us_ny_tbta_queensmidtown",
+      },
+    },
+  };
   shields["US:NY:Thruway"] = {
     noref: {
       spriteBlank: "shield_us_ny_thruway",
@@ -2150,6 +2220,7 @@ export function loadShields() {
     colorLighten: Color.shields.white,
     colorDarken: Color.shields.green,
     refsByName: {
+      "Bear Mountain Parkway": "BMP",
       "Bear Mountain State Parkway": "BMP",
       "Bronx River Parkway": "BRP",
       "Cross County Parkway": "CCP",
@@ -2185,6 +2256,56 @@ export function loadShields() {
       right: 2,
       top: 2,
       bottom: 8,
+    },
+  };
+  shields["US:NY:Scenic"] = {
+    notext: true,
+    bannerMap: {
+      "US:NY:Scenic:Alternate": ["ALT"],
+    },
+    overrideByName: {
+      "Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_adirondack",
+      },
+      "Black River Trail": {
+        spriteBlank: "shield_us_ny_scenic_blackriver",
+      },
+      "Catskill Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_catskillmountains",
+      },
+      "Central Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_centraladirondack",
+      },
+      "Dude Ranch Trail": {
+        spriteBlank: "shield_us_ny_scenic_duderanch",
+      },
+      "Durham Valley Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_durham",
+      },
+      "High Peaks Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_highpeaks",
+      },
+      "Maple Traditions Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_mapletraditions",
+      },
+      "Olympic Trail": {
+        spriteBlank: "shield_us_ny_scenic_olympic",
+      },
+      "Roosevelt-Marcy Trail": {
+        spriteBlank: "shield_us_ny_scenic_rooseveltmarcy",
+      },
+      "Shawangunk Mountains Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_shawangunk",
+      },
+      "Southern Adirondack Trail": {
+        spriteBlank: "shield_us_ny_scenic_southernadirondack",
+      },
+      "Upper Delaware Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_upperdelaware",
+      },
+      "Western New York Southtowns Scenic Byway": {
+        spriteBlank: "shield_us_ny_scenic_wnysouthtowns",
+      },
     },
   };
   [
@@ -2545,6 +2666,21 @@ export function loadShields() {
       "Green Belt": paBeltShield(Color.shields.green, Color.shields.white),
       "Blue Belt": paBeltShield(Color.shields.blue, Color.shields.white),
       "Purple Belt": paBeltShield(Color.shields.purple, Color.shields.white),
+    },
+  };
+
+  // Port Authority of New York and New Jersey
+  shields["US:PANYNJ"] = {
+    notext: true,
+    overrideByName: {
+      "Holland Tunnel": {
+        spriteBlank: "shield_us_panynj_tunnel",
+        colorLighten: Color.shields.red,
+      },
+      "Lincoln Tunnel": {
+        spriteBlank: "shield_us_panynj_tunnel",
+        colorLighten: Color.shields.green,
+      },
     },
   };
 
@@ -3120,6 +3256,17 @@ export function loadShields() {
 
   // SOUTH AMERICA
 
+  // Argentina
+  shields["AR:national"] = homePlateDownShield(
+    5,
+    Color.shields.white,
+    Color.shields.black
+  );
+  shields["AR:provincial"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
+
   // Chile
   shields["CL:national"] = {
     spriteBlank: ["shield_badge_2", "shield_badge_3"],
@@ -3291,6 +3438,17 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // South Africa
+  shields["za:national"] = pentagonUpShield(
+    6,
+    15,
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.yellow,
+    0,
+    0
+  );
+
   // ASIA
 
   // Armenia
@@ -3448,7 +3606,7 @@ export function loadShields() {
   };
 
   // Iran
-  shields["ir:freeway"] = roundedRectShield(
+  shields["IR:freeway"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
   );
@@ -3548,7 +3706,7 @@ export function loadShields() {
   );
 
   // Malaysia
-  shields["MY:E"] = shields["my:federal"] = hexagonVerticalShield(
+  shields["MY:expressway"] = shields["my:federal"] = hexagonVerticalShield(
     3,
     Color.shields.yellow,
     Color.shields.black,
@@ -3596,6 +3754,12 @@ export function loadShields() {
       bottom: 7,
     },
   };
+
+  // Singapore
+  shields["SG:expressway"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white
+  );
 
   // Turkey
   shields["TR:motorway"] = hexagonVerticalShield(
@@ -4010,6 +4174,16 @@ export function loadShields() {
         Color.shields.white
       ))
   );
+  shields["NL:DR:Hunebed_Highway"] = {
+    spriteBlank: ["shield_nl_dr_hunebed"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 4,
+    },
+  };
 
   // Poland
   shields["pl:expressway"] = shields["pl:motorway"] = roundedRectShield(

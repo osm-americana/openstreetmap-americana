@@ -18,6 +18,12 @@ jobs:
   build-preview:
     runs-on: ubuntu-latest
     steps:
+      - name: Install native dependencies for canvas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++ \
+            libpixman-1-dev pkg-config
       - name: Checkout Main Branch 🛎️
         uses: actions/checkout@v4
         with:
@@ -27,10 +33,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: pr-branch
-      - name: Setup Node.js
+      - name: Setup Node.js for building main branch
         uses: actions/setup-node@v4
         with:
-          node-version-file: pr-branch/package.json
+          node-version-file: main/package.json
       - name: Install and Build Main Branch 🔧
         run: |
           npm ci --include=dev
@@ -39,6 +45,10 @@ jobs:
           npm run shields
           cp src/configs/config.aws.js src/config.js
         working-directory: main
+      - name: Setup Node.js for building pr branch
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: pr-branch/package.json
       - name: Install and Build PR Branch 🔧
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
@@ -49,22 +59,65 @@ jobs:
           cp src/configs/config.aws.js src/config.js
           mkdir -p dist/shield-docs
           cp -r shieldlib/docs/* dist/shield-docs
-          mv dist ..
+          mkdir -p ../pr
+        working-directory: pr-branch
+      - name: Save PR attributes
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          echo $PR_NUMBER > pr/pr_number
+          echo $PR_SHA > pr/pr_sha
+          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.event.pull_request.head.sha }} for upload"
+      - name: Generate icon grid previews for changed icons
+        id: icon-changes
+        run: |
+          npm exec tsx scripts/icon_changes ../main/icons icons dist/icon-grids
+          if [ -f dist/icon-grids/icon-changes.md ]; then
+            echo "Icon changes detected and grids generated"
+          else
+            echo "No icon changes detected"
+          fi
+          if [ -f dist/icon-grids/icon-changes.md ]; then
+            mv dist/icon-grids/icon-changes.md ../pr/icon-changes.md
+          fi
+        working-directory: pr-branch
+      - name: Add fully qualified URLs to icon-changes.md for GitHub checks
+        run: |
+          if [ -f pr/icon-changes.md ]; then
+            # Copy the file and replace relative paths with absolute URLs
+            sed -i "s|icon-grids/|https://preview.americanamap.org/pr/${{ github.event.pull_request.number }}/icon-grids/|g" pr/icon-changes.md
+            cat pr/icon-changes.md
+            echo "Icon changes markdown created with absolute URLs"
+          else
+            echo "No icon change file found in this PR." > pr/icon-changes.md
+          fi
+      - name: Copy PR preview directory with all artifacts
+        run: |
+          cp -prR dist ..
         working-directory: pr-branch
       - name: Capture main branch usage statistics
         id: main-stats
         run: |
-          MAIN_STATS=$(node ../pr-branch/scripts/stats.js -j)
+          MAIN_STATS=$(npx tsx ../pr-branch/scripts/stats -j -d ../main/dist)
           echo "MAIN_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$MAIN_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
         working-directory: main
+      - name: Setup Node.js for running main branch map server
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: main/package.json
       - name: Start main branch map server
         id: main-start-server
         run: |
           npm start &
           until nc -z localhost 1776; do sleep 1; done
         working-directory: main
+      - name: Setup Node.js for capturing main branch sample clips with pr branch scripts
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: pr-branch/package.json
       - name: Capture main branch sample clips
         # Run PR branch scripts against server running from main branch
         id: main-samples
@@ -88,7 +141,7 @@ jobs:
       - name: Capture PR branch usage statistics
         id: pr-stats
         run: |
-          PR_STATS=$(node scripts/stats.js -j)
+          PR_STATS=$(npx tsx scripts/stats -j -d dist)
           echo "PR_STATS<<EOF" >> $GITHUB_ENV
           echo -e "$PR_STATS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -96,7 +149,6 @@ jobs:
       - name: Compare Stats
         id: compare-stats
         run: |
-          mkdir -p ../pr
           echo '${{ env.MAIN_STATS }}'
           echo '${{ env.PR_STATS }}'
           npm exec tsx scripts/stats_compare '${{ env.MAIN_STATS }}' '${{ env.PR_STATS }}' > ../pr/stats-difference.md
@@ -114,14 +166,6 @@ jobs:
         with:
           name: americana
           path: dist/
-      - name: Save PR attributes
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          PR_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          echo $PR_NUMBER > pr/pr_number
-          echo $PR_SHA > pr/pr_sha
-          echo "Saved PR# ${{ github.event.pull_request.number }}, SHA# ${{ github.event.pull_request.head.sha }} for upload"
       - name: Upload PR artifacts
         uses: actions/upload-artifact@v4
         with:
