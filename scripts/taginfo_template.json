@@ -71,6 +71,13 @@
       "doc_url": "https://openmaptiles.org/schema/#boundary"
     },
     {
+      "key": "boundary",
+      "value": "aboriginal_lands",
+      "object_types": ["area"],
+      "description": "Aboriginal land areas are shaded tan.",
+      "doc_url": "https://openmaptiles.org/schema/#boundary"
+    },
+    {
       "key": "admin_level",
       "value": "2",
       "object_types": ["way"],

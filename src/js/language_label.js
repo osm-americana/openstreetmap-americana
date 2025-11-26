@@ -407,7 +407,13 @@ export var label = new LanguageControl();
 export function displayLocales(locales) {
   let languageNames = new Intl.DisplayNames(locales, { type: "language" });
   let listFormat = new Intl.ListFormat(locales, { type: "disjunction" });
-  document.getElementById("language-field").textContent = listFormat.format(
-    locales.map((locale) => languageNames.of(locale))
-  );
+  let formattedNames = locales.map((locale) => {
+    try {
+      return languageNames.of(locale);
+    } catch {
+      return locale;
+    }
+  });
+  document.getElementById("language-field").textContent =
+    listFormat.format(formattedNames);
 }
