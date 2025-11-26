@@ -41,6 +41,7 @@ export const map = createMap(
     center: [-94, 40.5],
     zoom: 4,
     attributionControl: false,
+    experimentalZoomLevelsToOverscale: 0,
   },
   debugOptions
 );
