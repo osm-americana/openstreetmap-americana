@@ -19,6 +19,7 @@ export const map = createMap(
     zoom: 4,
     fadeDuration: 0,
     attributionControl: false,
+    experimentalZoomLevelsToOverscale: 0,
   },
   debugOptions
 );
