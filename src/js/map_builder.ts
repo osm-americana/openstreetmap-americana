@@ -14,7 +14,7 @@ import {
 } from "../js/shield_format.js";
 
 import * as Poi from "../js/poi.js";
-import * as Label from "../constants/label.js";
+import * as Label from "@americana/diplomat";
 import * as Style from "./style.js";
 import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
 import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";

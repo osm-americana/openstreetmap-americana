@@ -1,7 +1,7 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
-import * as Label from "../constants/label.js";
+import * as Label from "@americana/diplomat";
 
 export const city = {
   id: "boundary_city",

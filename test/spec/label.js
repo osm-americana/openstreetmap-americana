@@ -1,7 +1,7 @@
 "use strict";
 
 import { expect } from "chai";
-import * as Label from "../../src/constants/label.js";
+import * as Label from "@americana/diplomat";
 import { expression } from "@maplibre/maplibre-gl-style-spec";
 
 function localizedTextField(textField, locales) {
@@ -211,9 +211,9 @@ describe("label", function () {
           layout: {
             "text-field": [
               "let",
-              "localizedCollator",
+              "diplomat__localizedCollator",
               "",
-              ["var", "localizedCollator"],
+              ["var", "diplomat__localizedCollator"],
             ],
           },
         },
@@ -232,9 +232,9 @@ describe("label", function () {
           layout: {
             "text-field": [
               "let",
-              "diacriticInsensitiveCollator",
+              "diplomat__diacriticInsensitiveCollator",
               "",
-              ["var", "diacriticInsensitiveCollator"],
+              ["var", "diplomat__diacriticInsensitiveCollator"],
             ],
           },
         },
@@ -253,9 +253,9 @@ describe("label", function () {
           layout: {
             "text-field": [
               "let",
-              "diacriticInsensitiveCollator",
+              "diplomat__diacriticInsensitiveCollator",
               "",
-              ["var", "diacriticInsensitiveCollator"],
+              ["var", "diplomat__diacriticInsensitiveCollator"],
             ],
           },
         },

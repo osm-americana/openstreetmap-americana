@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "../constants/label.js";
+import * as Label from "@americana/diplomat";
 
 export const exits = {
   id: "highway-exit",

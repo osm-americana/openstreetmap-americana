@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "../constants/label.js";
+import * as Label from "@americana/diplomat";
 
 import * as lyrAboriginal from "./aboriginal.js";
 import * as lyrAerialway from "./aerialway.js";

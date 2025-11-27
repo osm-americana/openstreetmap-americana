@@ -1,4 +1,4 @@
-import * as label from "../constants/label.js";
+import * as label from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {

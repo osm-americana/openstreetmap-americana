@@ -2,7 +2,7 @@
 
 import config from "./config.js";
 
-import * as Label from "./constants/label.js";
+import * as Label from "@americana/diplomat";
 
 import * as languageLabel from "./js/language_label.js";
 

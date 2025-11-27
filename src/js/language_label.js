@@ -2,7 +2,7 @@
 
 import Tokenfield from "tokenfield";
 import { updateLanguageLabel } from "../americana";
-import * as Label from "../constants/label.js";
+import * as Label from "@americana/diplomat";
 
 var langField = labelControlElement("span", "language-field");
 

@@ -1,4 +1,4 @@
-import * as Label from "../constants/label.js";
+import * as Label from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 const labelHaloColor = [

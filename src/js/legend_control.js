@@ -1,7 +1,7 @@
 "use strict";
 
 import { getDOMPixelRatio } from "@americana/maplibre-shield-generator";
-import * as Label from "../constants/label.js";
+import * as Label from "@americana/diplomat";
 
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 
