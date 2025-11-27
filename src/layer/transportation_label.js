@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "@americana/diplomat";
+import { localizedNameInline } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 const classSelector = ["match", ["get", "class"]];
@@ -107,7 +107,7 @@ export const label = {
       ["literal", ["Americana-Italic"]],
       ["literal", ["Americana-Regular"]],
     ],
-    "text-field": [...Label.localizedNameInline],
+    "text-field": [...localizedNameInline],
     "text-max-angle": 20,
     "symbol-placement": "line",
     "text-size": [

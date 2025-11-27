@@ -14,7 +14,7 @@ import {
 } from "../js/shield_format.js";
 
 import * as Poi from "../js/poi.js";
-import * as Label from "@americana/diplomat";
+import { getLocales } from "@americana/diplomat";
 import * as Style from "./style.js";
 import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
 import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
@@ -33,7 +33,7 @@ export function buildStyle(): StyleSpecification {
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
     config.FONT_URL ?? "https://font.americanamap.org/{fontstack}/{range}.pbf",
-    Label.getLocales()
+    getLocales()
   );
 }
 

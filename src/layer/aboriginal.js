@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "@americana/diplomat";
+import { localizedNameWithLocalGloss } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 export const fill = {
@@ -44,7 +44,7 @@ export const label = {
     "text-halo-width": 1.5,
   },
   layout: {
-    "text-field": Label.localizedNameWithLocalGloss,
+    "text-field": localizedNameWithLocalGloss,
     "text-font": ["Americana-Regular"],
     "text-size": {
       base: 10,

@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "@americana/diplomat";
+import { localizedName } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
@@ -39,7 +39,7 @@ export const label = {
     "text-halo-width": 1,
   },
   layout: {
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-font": ["Americana-Bold"],
     "text-size": 10,
     "symbol-sort-key": ["get", "rank"],

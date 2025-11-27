@@ -1,4 +1,4 @@
-import * as label from "@americana/diplomat";
+import { localizedName } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {
@@ -490,12 +490,12 @@ export const poi = {
           "charging_station",
         ],
         "",
-        label.localizedName,
+        localizedName,
       ],
       16,
-      ["match", ["get", "subclass"], ["bus_stop"], "", label.localizedName],
+      ["match", ["get", "subclass"], ["bus_stop"], "", localizedName],
       17,
-      label.localizedName,
+      localizedName,
     ],
     "text-variable-anchor": ["left", "right", "bottom"],
     "text-justify": "auto",
