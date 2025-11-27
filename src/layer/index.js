@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "../constants/label.js";
+import { localizeLayers } from "@americana/diplomat";
 
 import * as lyrAboriginal from "./aboriginal.js";
 import * as lyrAerialway from "./aerialway.js";
@@ -255,7 +255,7 @@ export function build(locales) {
     lyrPlace.continent
   );
 
-  Label.localizeLayers(layers, locales);
+  localizeLayers(layers, locales);
 
   return layers;
 }
