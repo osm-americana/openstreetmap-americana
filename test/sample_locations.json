@@ -103,5 +103,13 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "14/34.62355/-98.38551",
+    "name": "oklahoma_landuses",
+    "viewport": {
+      "width": 400,
+      "height": 800
+    }
   }
 ]
