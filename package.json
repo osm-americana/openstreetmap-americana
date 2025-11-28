@@ -38,6 +38,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "@americana/diplomat": "^0.1.0",
     "@americana/maplibre-shield-generator": "*",
     "color-rgba": "^2.4.0",
     "events": "^3.3.0",
@@ -71,6 +72,7 @@
     "open": "^8.4.2",
     "pbf": "^3.2.1",
     "prettier": "^2.3.2",
+    "resemblejs": "^5.0.0",
     "sharp": "^0.33.2",
     "shx": "^0.3.4",
     "svgo": "^2.8.0",

@@ -974,6 +974,21 @@
       "object_types": ["way"],
       "description": "Bus guideways are styled with a purple solid line.",
       "doc_url": "https://openmaptiles.org/schema/#network"
+    },
+    {
+      "key": "landuse",
+      "value": "cemetery",
+      "object_types": ["node", "area"],
+      "description": "Cemeteries are filled with a light green color and outlined with a subtle border. At lower zoom levels, they appear as labeled areas without icons.",
+      "doc_url": "https://openmaptiles.org/schema/#landuse",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_gravestone.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "grave_yard",
+      "object_types": ["node", "area"],
+      "description": "Graveyards are marked by an icon representing a gravestone.",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_gravestone.svg"
     }
   ]
 }
