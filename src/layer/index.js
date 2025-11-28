@@ -37,6 +37,7 @@ export function build(locales) {
     lyrAboriginal.fill,
     lyrPark.fill,
     lyrAeroway.fill,
+    lyrPark.cemeteryFill,
     lyrPark.parkFill,
 
     lyrBoundary.countyCasing,
@@ -56,6 +57,7 @@ export function build(locales) {
     lyrPark.outline,
     lyrAeroway.outline,
     lyrPark.parkOutline,
+    lyrPark.cemeteryOutline,
 
     lyrBoundary.city,
     lyrBoundary.county,
@@ -237,6 +239,7 @@ export function build(locales) {
     lyrHighwayExit.exits,
 
     lyrPoi.poi,
+    lyrPoi.iconlessPoi,
 
     lyrPlace.state,
     lyrPlace.neighborhood,

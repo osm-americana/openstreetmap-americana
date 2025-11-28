@@ -55,11 +55,41 @@ export const parkFill = {
   "source-layer": "landcover",
 };
 
+export const cemeteryFill = {
+  id: "cemetery-fill",
+  type: "fill",
+  filter: ["==", "class", "cemetery"],
+  paint: {
+    "fill-color": Color.cemeteryFill,
+  },
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "landuse",
+};
+
 export const parkOutline = {
   ...outline,
   id: "park_outline",
   filter: ["==", ["get", "subclass"], "park"],
   "source-layer": "landcover",
+};
+
+export const cemeteryOutline = {
+  id: "cemetery-outline",
+  type: "line",
+  filter: ["==", "class", "cemetery"],
+  paint: {
+    "line-color": Color.cemeteryOutline,
+  },
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "landuse",
 };
 
 export const parkLabel = {
@@ -74,4 +104,5 @@ export const legendEntries = [
     description: "Park",
     layers: [fill.id, outline.id, parkFill.id, parkOutline.id],
   },
+  { description: "Cemetery", layers: [cemeteryFill.id, cemeteryOutline.id] },
 ];
