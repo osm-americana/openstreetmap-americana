@@ -60,6 +60,8 @@ The technology stack for this style can be summarized below:
 
 The dynamic shield generator is included as a [module](shieldlib/README.md) in this repository and also [published to npm](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
 
+Automatic label localization is powered by the [Diplomat](https://github.com/osm-americana/diplomat/) plugin, which is also [available on npm](https://www.npmjs.com/package/@americana/diplomat).
+
 ## Artifacts
 
 - Style users can use the maplibre [StyleJSON](https://americanamap.org/style.json), and sprite sheets ([1x](https://americanamap.org/sprites/sprite.png), [2x](https://americanamap.org/sprites/sprite@2x.png)).
