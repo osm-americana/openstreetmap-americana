@@ -536,7 +536,7 @@ export const iconlessPoi = {
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": 10,
-    "text-field": label.localizedName,
+    "text-field": localizedName,
     "text-anchor": "center",
     "text-justify": "center",
     "text-radial-offset": 0,
