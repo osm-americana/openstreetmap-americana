@@ -4375,7 +4375,46 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.black
   );
-  shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
+  shields["NZ:WRR"] = {
+    spriteBlank: "shield_nz_wrr",
+    notext: true,
+  };
+  shields["NZ:Touring:AH"] = {
+    spriteBlank: "shield_nz_ah",
+    notext: true,
+  };
+  shields["NZ:Touring:CNZWT"] = {
+    spriteBlank: "shield_nz_wine",
+    notext: true,
+  };
+  shields["NZ:Touring:MWT"] = {
+    spriteBlank: "shield_nz_wine",
+    notext: true,
+  };
+  shields["NZ:Touring:PCH"] = {
+    spriteBlank: "shield_nz_pch",
+    notext: true,
+  };
+  shields["NZ:Touring:SLH"] = {
+    spriteBlank: "shield_nz_slh",
+    notext: true,
+  };
+  shields["NZ:Touring:SSR"] = {
+    spriteBlank: "shield_nz_ssr",
+    notext: true,
+  };
+  shields["NZ:Touring:TCDH"] = {
+    spriteBlank: "shield_nz_tcdh",
+    notext: true,
+  };
+  shields["NZ:Touring:TEH"] = {
+    spriteBlank: "shield_nz_teh",
+    notext: true,
+  };
+  shields["NZ:Touring:VLH"] = {
+    spriteBlank: "shield_nz_vlh",
+    notext: true,
+  };
 
   return {
     networks: shields,
