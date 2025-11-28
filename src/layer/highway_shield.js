@@ -1,6 +1,7 @@
 "use strict";
 
 const orderedRouteAttributes = ["network", "ref", "name", "color"];
+const maxConcurrencyCardinality = 8;
 
 export function getImageNameExpression(routeIndex) {
   let concat = ["concat", "shield"];
@@ -40,7 +41,7 @@ export function parseImageName(imageName) {
 }
 
 let shieldTextField = ["format"];
-for (var i = 1; i <= 6; i++) {
+for (var i = 1; i <= maxConcurrencyCardinality; i++) {
   shieldTextField.push(routeConcurrency(i));
 }
 
