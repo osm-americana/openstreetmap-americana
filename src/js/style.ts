@@ -1,4 +1,5 @@
 import { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
+import { getGlobalStateForLocalization } from "@americana/diplomat";
 import * as Layers from "../layer/index.js";
 
 // Generate style.json
@@ -8,7 +9,7 @@ export function build(
   glyphURL: string,
   locales: string[]
 ): StyleSpecification {
-  return {
+  const style = {
     name: "Americana",
     glyphs: glyphURL,
     layers: Layers.build(locales),
@@ -38,4 +39,8 @@ export function build(
     },
     version: 8,
   };
+  style.state = getGlobalStateForLocalization(locales, {
+    uppercaseCountryNames: true,
+  });
+  return style;
 }
