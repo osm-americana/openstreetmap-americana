@@ -18,6 +18,7 @@ import { getLocales } from "@americana/diplomat";
 import * as Style from "./style.js";
 import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
 import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
+import { getGlobalStateForLocalization, getLocales } from "@americana/diplomat";
 
 export function buildStyle(): StyleSpecification {
   var getUrl = window.location;
@@ -67,6 +68,15 @@ export function createMap(
     .filterNetwork(networkPredicate)
     .renderOnMaplibreGL(map)
     .onShieldDefLoad(shieldDefCallback);
+
+  map.once("styledata", (event) => {
+    let localizationState = getGlobalStateForLocalization(getLocales(), {
+      uppercaseCountryNames: true,
+    });
+    for (let [key, value] of Object.entries(localizationState)) {
+      map.setGlobalStateProperty(key, value);
+    }
+  });
 
   map.on("styleimagemissing", function (e) {
     switch (e.id.split("\n")[0]) {
