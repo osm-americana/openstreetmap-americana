@@ -9,7 +9,7 @@ export function build(
   glyphURL: string,
   locales: string[]
 ): StyleSpecification {
-  const style = {
+  return {
     name: "Americana",
     glyphs: glyphURL,
     layers: Layers.build(locales),
@@ -39,8 +39,4 @@ export function build(
     },
     version: 8,
   };
-  style.state = getGlobalStateForLocalization(locales, {
-    uppercaseCountryNames: true,
-  });
-  return style;
 }
