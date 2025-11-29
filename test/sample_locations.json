@@ -103,5 +103,189 @@
       "width": 400,
       "height": 400
     }
+  },
+  {
+    "location": "2/38.3/-78.85",
+    "name": "boundary_z2",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "3/40.64/-80.26",
+    "name": "boundary_z3",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "4/44.6/-69.71",
+    "name": "boundary_z4",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "4/40.5/-94",
+    "name": "boundary_z4_Kansas",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "5/42.03/-76.61",
+    "name": "boundary_z5",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "6/44.815/-71.105",
+    "name": "boundary_z6",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "7/45.124/-72.158",
+    "name": "boundary_z7",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "8/45.276/-70.847",
+    "name": "boundary_z8",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "9/48.9717/-96.9775",
+    "name": "boundary_z9",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "10/48.9872/-97.2144",
+    "name": "boundary_z10",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "11/49.0033/-97.2148",
+    "name": "boundary_z11",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "11/40.5969/-93.9961",
+    "name": "boundary_z11_state",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "12/49.00104/-97.22697",
+    "name": "boundary_z12",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "3/55.1752/-2.6662",
+    "name": "england_boundary_z3",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "4/55.1752/-2.6662",
+    "name": "england_boundary_z4",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "5/55.1752/-2.6662",
+    "name": "england_boundary_z5",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "6/55.1752/-2.6662",
+    "name": "england_boundary_z6",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "7/55.1752/-2.6662",
+    "name": "england_boundary_z7",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "8/55.1752/-2.6662",
+    "name": "england_boundary_z8",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "9/55.1752/-2.6662",
+    "name": "england_boundary_z9",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "10/55.1752/-2.6662",
+    "name": "england_boundary_z10",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "11/55.1752/-2.6662",
+    "name": "england_boundary_z11",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "2.99/40.5/-94",
+    "name": "state_boundary_minzoom_test",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
   }
 ]

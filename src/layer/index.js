@@ -40,10 +40,7 @@ export function build(locales) {
     lyrPark.cemeteryFill,
     lyrPark.parkFill,
 
-    lyrBoundary.countyCasing,
-    lyrBoundary.regionCasing,
-    lyrBoundary.stateCasing,
-    lyrBoundary.countryCasing,
+    lyrBoundary.boundaryCasing,
 
     lyrHillshade.hillshading,
 
@@ -59,11 +56,7 @@ export function build(locales) {
     lyrPark.parkOutline,
     lyrPark.cemeteryOutline,
 
-    lyrBoundary.city,
-    lyrBoundary.county,
-    lyrBoundary.region,
-    lyrBoundary.state,
-    lyrBoundary.country,
+    lyrBoundary.administrative,
 
     lyrBackground.pierArea,
     lyrBackground.pierLine,
