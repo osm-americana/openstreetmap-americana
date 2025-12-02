@@ -22,6 +22,14 @@
         bottom: 0;
         width: 100%;
       }
+
+      /* quick and dirty dark mode hack */
+      @media (prefers-color-scheme: dark) {
+        #map {
+          filter: invert(1) hue-rotate(180deg) saturate(75%);
+        }
+      }
+
       #attribution-logo {
         position: absolute;
         bottom: 10px;
