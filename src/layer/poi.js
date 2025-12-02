@@ -293,6 +293,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "School",
   },
+  childcare: {
+    classes: {
+      childcare: ["childcare"],
+    },
+    sprite: "poi_childcare",
+    color: Color.poi.infrastructure,
+    description: "Day care",
+  },
   supermarket: {
     classes: {
       grocery: ["supermarket"],
@@ -398,6 +406,7 @@ export const poi = {
         "parking",
         "police",
         "school",
+        "childcare",
         ...getSubclasses(iconDefs.college),
         "library",
         "townhall",
@@ -450,6 +459,7 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_taoist),
         ...getSubclasses(iconDefs.pow_uu),
         ...getSubclasses(iconDefs.school),
+        ...getSubclasses(iconDefs.childcare),
         ...getSubclasses(iconDefs.supermarket),
         ...getSubclasses(iconDefs.charging_station),
         "townhall",
