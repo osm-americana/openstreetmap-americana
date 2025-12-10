@@ -1,4 +1,4 @@
-name: Test Build (MacOS 15)
+name: Test Build (macOS 15)
 
 on:
   pull_request:
