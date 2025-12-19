@@ -1133,7 +1133,6 @@ export function loadShields() {
     ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.green),
     textHaloColor: Color.shields.white,
   };
-  // Colorado
   shields["US:CO:Scenic"] = {
     spriteBlank: "shield_us_co_scenic",
     notext: true
