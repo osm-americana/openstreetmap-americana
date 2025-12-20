@@ -1135,7 +1135,7 @@ export function loadShields() {
   };
   shields["US:CO:Scenic"] = {
     spriteBlank: "shield_us_co_scenic",
-    notext: true
+    notext: true,
   };
 
   // Connecticut
