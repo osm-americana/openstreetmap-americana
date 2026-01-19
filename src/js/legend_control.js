@@ -464,26 +464,31 @@ export default class LegendControl {
     // Unique the images by network.
     let imagesByNetwork = {};
     let unrecognizedNetworks = new Set();
+    let calledImagesByNetwork = {};
     for (let image of images) {
       if (!(image.network in imagesByNetwork)) {
         imagesByNetwork[image.network] = {
           overridesByRef: {},
           overridesByName: {},
         };
+        calledImagesByNetwork[image.network] = [];
       }
       let networkImages = imagesByNetwork[image.network];
 
       let shieldDef = this._shieldDefs[image.network];
       if (image.ref && shieldDef?.overrideByRef?.[image.ref]) {
         // Store a different image for each override in the shield definition.
-        if (!networkImages.overridesByRef[image.ref]) {
+        let shieldByRefSprite = shieldDef.overrideByRef[image.ref].spriteBlank
+        if (!networkImages.overridesByRef[image.ref] && !calledImagesByNetwork[image.network].includes(shieldByRefSprite)) {
           networkImages.overridesByRef[image.ref] = image.imageName;
+          calledImagesByNetwork[image.network].push(shieldByRefSprite)
         }
       } else if (image.name && shieldDef?.overrideByName?.[image.name]) {
         // Store a different image for each override in the shield definition.
-        if (!networkImages.overridesByName[image.name]) {
-          networkImages.overridesByName[image.name] =
-            shieldDef.overrideByName[image.name].spriteBlank;
+        let shieldByNameSprite = shieldDef.overrideByName[image.name].spriteBlank
+        if (!networkImages.overridesByName[image.name] && !calledImagesByNetwork[image.network].includes(shieldByNameSprite)) {
+          networkImages.overridesByName[image.name] = shieldByNameSprite;
+          calledImagesByNetwork[image.network].push(shieldByNameSprite)
         }
       } else if (!networkImages.ref && image.ref) {
         // Store the numbered variant of a shield if required by the shield
