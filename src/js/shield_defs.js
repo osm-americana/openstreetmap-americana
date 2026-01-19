@@ -3702,8 +3702,8 @@ export function loadShields() {
     padding: {
       left: 4,
       right: 4,
-      top: 6,
-      bottom: 4,
+      top: 7.5,
+      bottom: 3,
     },
   };
   shields["KR:national"] = ovalShield(
@@ -3717,6 +3717,147 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.blue
   );
+  let krMunicipal = {
+      spriteBlank: ["shield_kr_municipal", "shield_kr_municipal_4"],
+    textColor: Color.shields.blue,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
+    },
+  };
+  let krMunicipalMotor = {
+      spriteBlank: "shield_kr_municipal_motorway",
+    textColor: Color.shields.blue,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 4,
+      bottom: 4,
+    },
+  };
+  shields["KR:11"] = {
+    ...krMunicipal,
+    overrideByRef: {
+      30: krMunicipalMotor,
+      61: krMunicipalMotor,
+      70: krMunicipalMotor,
+      88: krMunicipalMotor,
+      94: krMunicipalMotor
+    }
+  };
+  shields["KR:26"] = {
+    ...krMunicipal,
+    overrideByRef: {
+      11: krMunicipalMotor,
+      22: krMunicipalMotor,
+      33: krMunicipalMotor,
+      66: krMunicipalMotor,
+      77: krMunicipalMotor,
+      88: krMunicipalMotor,
+    }
+  };
+  shields["KR:27"] = {
+    ...krMunicipal,
+    overrideByRef: {
+      10: krMunicipalMotor,
+      11: krMunicipalMotor,
+    }
+  };
+  shields["KR:41:Namyangju"] = {
+    ...krMunicipal,
+    overrideByRef: {
+      18: krMunicipalMotor,
+      112: krMunicipalMotor,
+    }
+  };
+
+  [
+    "28",
+    "29",
+    "30",
+    "31",
+    "50",
+    "41:Goyang",
+    "41:Gwacheon",
+    "41:Gwangmyeong",
+    "41:Gwangju",
+    "41:Guri",
+    "41:Gunpo",
+    "41:Gimpo",
+    "41:Dongducheon",
+    "41:Bucheon",
+    "41:Seongnam",
+    "41:Suwon",
+    "41:Siheung",
+    "41:Ansan",
+    "41:Anseong",
+    "41:Anyang",
+    "41:Yangju",
+    "41:Yeoju",
+    "41:Osan",
+    "41:Yongin",
+    "41:Uiwang",
+    "41:Uijeongbu",
+    "41:Icheon",
+    "41:Paju",
+    "41:Pyeongtaek",
+    "41:Pocheon",
+    "41:Hanam",
+    "41:Hwaseong",
+    "42:Gangneung",
+    "42:Donghae",
+    "42:Samcheok",
+    "42:Sokcho",
+    "42:Wonju",
+    "42:Chuncheon",
+    "42:Taebaek",
+    "43:Jechon",
+    "43:Cheongju",
+    "43:Chungju",
+    "44:Gyeryong",
+    "44:Gongju",
+    "44:Nonsan",
+    "44:Dangjin",
+    "44:Boryeong",
+    "44:Seosan",
+    "44:Asan",
+    "44:Cheonan",
+    "45:Gunsan",
+    "45:Gimje",
+    "45:Namwon",
+    "45:Iksan",
+    "45:Jeonju",
+    "45:Jeongeup",
+    "46:Gwangyang",
+    "46:Naju",
+    "46:Mokpo",
+    "46:Suncheon",
+    "46:Yeosu",
+    "47:Gyeongsan",
+    "47:Gyeongju",
+    "47:Gumi",
+    "47:Gimcheon",
+    "47:Mungyeong",
+    "47:Sangju",
+    "47:Andong",
+    "47:Yeongju",
+    "47:Yeongcheon",
+    "47:Pohang",
+    "48:Geoje",
+    "48:Gimhae",
+    "48:Miryang",
+    "48:Sacheon",
+    "48:Yangsan",
+    "48:Jinju",
+    "48:Changwon",
+    "48:Tongyeong",
+    "49:Jeju",
+    "49:Seogwipo"
+  ].forEach((city) => {
+    shields[`KR:${city}`] = krMunicipal;
+  });
 
   // Malaysia
   shields["MY:expressway"] = shields["my:federal"] = hexagonVerticalShield(
