@@ -3718,7 +3718,7 @@ export function loadShields() {
     Color.shields.blue
   );
   let krMunicipal = {
-      spriteBlank: ["shield_kr_municipal", "shield_kr_municipal_4"],
+    spriteBlank: ["shield_kr_municipal", "shield_kr_municipal_4"],
     textColor: Color.shields.blue,
     padding: {
       left: 4,
@@ -3728,7 +3728,7 @@ export function loadShields() {
     },
   };
   let krMunicipalMotor = {
-      spriteBlank: "shield_kr_municipal_motorway",
+    spriteBlank: "shield_kr_municipal_motorway",
     textColor: Color.shields.blue,
     padding: {
       left: 4,
@@ -3744,8 +3744,8 @@ export function loadShields() {
       61: krMunicipalMotor,
       70: krMunicipalMotor,
       88: krMunicipalMotor,
-      94: krMunicipalMotor
-    }
+      94: krMunicipalMotor,
+    },
   };
   shields["KR:26"] = {
     ...krMunicipal,
@@ -3756,21 +3756,21 @@ export function loadShields() {
       66: krMunicipalMotor,
       77: krMunicipalMotor,
       88: krMunicipalMotor,
-    }
+    },
   };
   shields["KR:27"] = {
     ...krMunicipal,
     overrideByRef: {
       10: krMunicipalMotor,
       11: krMunicipalMotor,
-    }
+    },
   };
   shields["KR:41:Namyangju"] = {
     ...krMunicipal,
     overrideByRef: {
       18: krMunicipalMotor,
       112: krMunicipalMotor,
-    }
+    },
   };
 
   [
@@ -3854,7 +3854,7 @@ export function loadShields() {
     "48:Changwon",
     "48:Tongyeong",
     "49:Jeju",
-    "49:Seogwipo"
+    "49:Seogwipo",
   ].forEach((city) => {
     shields[`KR:${city}`] = krMunicipal;
   });
