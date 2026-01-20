@@ -3703,7 +3703,7 @@ export function loadShields() {
       left: 4,
       right: 4,
       top: 7.5,
-      bottom: 3,
+      bottom: 3.5,
     },
   };
   shields["KR:national"] = ovalShield(
@@ -3717,63 +3717,11 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.blue
   );
-  let krMunicipal = {
-    spriteBlank: ["shield_kr_municipal", "shield_kr_municipal_4"],
-    textColor: Color.shields.blue,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
-    },
-  };
-  let krMunicipalMotor = {
-    spriteBlank: "shield_kr_municipal_motorway",
-    textColor: Color.shields.blue,
-    padding: {
-      left: 4,
-      right: 4,
-      top: 4,
-      bottom: 4,
-    },
-  };
-  shields["KR:11"] = {
-    ...krMunicipal,
-    overrideByRef: {
-      30: krMunicipalMotor,
-      61: krMunicipalMotor,
-      70: krMunicipalMotor,
-      88: krMunicipalMotor,
-      94: krMunicipalMotor,
-    },
-  };
-  shields["KR:26"] = {
-    ...krMunicipal,
-    overrideByRef: {
-      11: krMunicipalMotor,
-      22: krMunicipalMotor,
-      33: krMunicipalMotor,
-      66: krMunicipalMotor,
-      77: krMunicipalMotor,
-      88: krMunicipalMotor,
-    },
-  };
-  shields["KR:27"] = {
-    ...krMunicipal,
-    overrideByRef: {
-      10: krMunicipalMotor,
-      11: krMunicipalMotor,
-    },
-  };
-  shields["KR:41:Namyangju"] = {
-    ...krMunicipal,
-    overrideByRef: {
-      18: krMunicipalMotor,
-      112: krMunicipalMotor,
-    },
-  };
 
   [
+    "11",
+    "26",
+    "27",
     "28",
     "29",
     "30",
@@ -3786,6 +3734,7 @@ export function loadShields() {
     "41:Guri",
     "41:Gunpo",
     "41:Gimpo",
+    "41:Namyangju",
     "41:Dongducheon",
     "41:Bucheon",
     "41:Seongnam",
@@ -3856,7 +3805,26 @@ export function loadShields() {
     "49:Jeju",
     "49:Seogwipo",
   ].forEach((city) => {
-    shields[`KR:${city}`] = krMunicipal;
+    shields[`KR:${city}`] = {
+      spriteBlank: ["shield_kr_municipal", "shield_kr_municipal_4"],
+      textColor: Color.shields.blue,
+      padding: {
+        left: 4,
+        right: 4,
+        top: 4,
+        bottom: 4,
+      },
+    };
+    shields[`KR:${city}:expressway`] = {
+      spriteBlank: "shield_kr_municipal_motorway",
+      textColor: Color.shields.blue,
+      padding: {
+        left: 4,
+        right: 4,
+        top: 4,
+        bottom: 4,
+      },
+    };
   });
 
   // Malaysia
