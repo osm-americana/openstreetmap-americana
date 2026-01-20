@@ -97,6 +97,7 @@ let networks = [
   "JP:prefectural",
   "PK:national",
   "ID:national",
+  "KR:26",
 
   "AU:QLD:MR",
   "GR:motorway",
@@ -259,6 +260,8 @@ let refs = [
   "111",
   "281",
   "980",
+  "1610",
+  "2032",
   "H201",
   "480N",
   "A 562",
