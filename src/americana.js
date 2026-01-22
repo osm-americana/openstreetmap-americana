@@ -70,6 +70,7 @@ function shieldDefLoad(shields) {
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
   map.addControl(new maplibregl.NavigationControl(), "top-left");
+  map.addControl(new maplibregl.GlobeControl(), "top-left");
   map.addControl(new HillshadeControl({ layerId: "hillshading" }), "top-left");
 
   window.addEventListener("languagechange", (event) => {
@@ -80,16 +81,23 @@ function shieldDefLoad(shields) {
 
   window.addEventListener("hashchange", (event) => {
     upgradeLegacyHash();
-    let oldLanguage = getLanguageFromURL(new URL(event.oldURL));
-    let newLanguage = getLanguageFromURL(new URL(event.newURL));
+    const oldURL = new URL(event.oldURL);
+    const oldLanguage = getLanguageFromURL(oldURL);
+    const newURL = new URL(event.newURL);
+    const newLanguage = getLanguageFromURL(newURL);
     if (oldLanguage !== newLanguage) {
       console.log(`Changed to ${newLanguage}`);
       hotReloadMap();
-      updateLanguageLabel();
+    }
+    const oldParams = new URLSearchParams(oldURL.hash.substr(1));
+    const newParams = new URLSearchParams(newURL.hash.substr(1));
+    if (oldParams.get("projection") !== newParams.get("projection")) {
+      setLanguageLabel(newParams.get("projection"));
     }
   });
 
   updateLanguageLabel();
+  setProjection();
 
   if (window.LIVE_RELOAD) {
     new EventSource("/esbuild").addEventListener("change", () =>
@@ -105,6 +113,13 @@ function hotReloadMap() {
 export function updateLanguageLabel() {
   languageLabel.displayLocales(getLocales());
   legendControl.onLanguageChange();
+}
+
+function setProjection(type) {
+  type ||=
+    new URLSearchParams(location.hash.substring(1)).get("projection") ||
+    "mercator";
+  map.setProjection({ type });
 }
 
 let attributionConfig = {
