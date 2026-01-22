@@ -88,11 +88,12 @@ function shieldDefLoad(shields) {
     if (oldLanguage !== newLanguage) {
       console.log(`Changed to ${newLanguage}`);
       hotReloadMap();
+      updateLanguageLabel();
     }
     const oldParams = new URLSearchParams(oldURL.hash.substr(1));
     const newParams = new URLSearchParams(newURL.hash.substr(1));
     if (oldParams.get("projection") !== newParams.get("projection")) {
-      setLanguageLabel(newParams.get("projection"));
+      setProjection(newParams.get("projection"));
     }
   });
 
