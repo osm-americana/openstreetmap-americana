@@ -2,7 +2,7 @@
 
 import config from "./config.js";
 
-import { LanguageControl } from "./js/language_label.js";
+import { LanguageControl } from "./js/language_control.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
