@@ -58,6 +58,8 @@ export default class LegendControl {
       this.open(anchor);
     });
 
+    this._map.on("americana.languagechange", () => this.onLanguageChange());
+
     return this._container;
   }
 

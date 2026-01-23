@@ -1,7 +1,6 @@
 "use strict";
 
 import Tokenfield from "tokenfield";
-import { updateLanguageLabel } from "../americana";
 import { getLocales } from "@americana/diplomat";
 
 var langField = labelControlElement("span", "language-field");
@@ -162,14 +161,13 @@ langChanger.onclick = function () {
 langCancel.onclick = function () {
   document.querySelectorAll(".tokenfield").forEach((e) => hide(e));
   hide(langHeader);
-  updateLanguageLabel();
   show(langChanger);
 };
 
 /**
  * Label for displaying the current language being used
  */
-class LanguageControl {
+export class LanguageControl {
   onAdd(map) {
     this._map = map;
     this._container = document.createElement("div");
@@ -185,27 +183,28 @@ class LanguageControl {
     this._container.appendChild(langPicker);
     this._container.appendChild(langField);
     this._container.appendChild(langChanger);
+    this._map.on("americana.languagechange", (event) => this.displayLocales());
     return this._container;
   }
 
   onRemove() {
     this._container.parentNode.removeChild(this._container);
+    this._map.off("americana.languagechange");
     this._map = undefined;
   }
-}
 
-export var label = new LanguageControl();
-
-export function displayLocales(locales) {
-  let languageNames = new Intl.DisplayNames(locales, { type: "language" });
-  let listFormat = new Intl.ListFormat(locales, { type: "disjunction" });
-  let formattedNames = locales.map((locale) => {
-    try {
-      return languageNames.of(locale);
-    } catch {
-      return locale;
-    }
-  });
-  document.getElementById("language-field").textContent =
-    listFormat.format(formattedNames);
+  displayLocales() {
+    const locales = this._map.locales;
+    let languageNames = new Intl.DisplayNames(locales, { type: "language" });
+    let listFormat = new Intl.ListFormat(locales, { type: "disjunction" });
+    let formattedNames = locales.map((locale) => {
+      try {
+        return languageNames.of(locale);
+      } catch {
+        return locale;
+      }
+    });
+    document.getElementById("language-field").textContent =
+      listFormat.format(formattedNames);
+  }
 }

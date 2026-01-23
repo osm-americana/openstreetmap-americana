@@ -2,12 +2,7 @@
 
 import config from "./config.js";
 
-import {
-  getLocales,
-  localizeStyle,
-} from "@americana/diplomat";
-
-import * as languageLabel from "./js/language_label.js";
+import { LanguageControl } from "./js/language_label.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -68,8 +63,9 @@ function shieldDefLoad(shields) {
     map.getCanvas().focus();
   }
 
+  const languageControl = new LanguageControl();
   map.addControl(new maplibregl.AttributionControl(attributionConfig));
-  map.addControl(languageLabel.label, "bottom-right");
+  map.addControl(languageControl, "bottom-right");
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
   map.addControl(new maplibregl.NavigationControl(), "top-left");
@@ -77,43 +73,16 @@ function shieldDefLoad(shields) {
   map.addControl(new HillshadeControl(), "top-left");
 
   window.addEventListener("languagechange", (event) => {
-    localizeStyle(map);
-    updateLanguageLabel();
+    map.localize();
   });
 
   window.addEventListener("hashchange", (event) => {
     upgradeLegacyHash();
-    const oldURL = new URL(event.oldURL);
-    const oldParams = new URLSearchParams(oldURL.hash.substr(1));
-    const newURL = new URL(event.newURL);
-    const newParams = new URLSearchParams(newURL.hash.substr(1));
-
-    if (
-      (oldParams.get("language") || null) !==
-      (newParams.get("language") || null)
-    ) {
-      localizeStyle(map);
-      updateLanguageLabel();
-    }
-
-    if (
-      (oldParams.get("projection") || null) !==
-      (newParams.get("projection") || null)
-    ) {
-      map.setProjection({ type: newParams.get("projection") });
-    }
-
-    if (oldParams.has("terrain") !== newParams.has("terrain")) {
-      map.shadesHills = newParams.has("terrain");
-    }
+    hashChanged(new URL(event.oldURL), new URL(event.newURL));
   });
 
   map.once("styledata", () => {
-    const params = new URLSearchParams(window.location.hash.substr(1));
-    localizeStyle(map);
-    updateLanguageLabel();
-    map.setProjection({ type: params.get("projection") });
-    map.shadesHills = params.has("terrain");
+    hashChanged(null, window.location);
   });
 
   if (window.LIVE_RELOAD) {
@@ -123,9 +92,26 @@ function shieldDefLoad(shields) {
   }
 }
 
-export function updateLanguageLabel() {
-  languageLabel.displayLocales(getLocales());
-  legendControl.onLanguageChange();
+function hashChanged(oldURL, newURL) {
+  const oldParams = new URLSearchParams(oldURL?.hash.substr(1));
+  const newParams = new URLSearchParams(newURL.hash.substr(1));
+
+  if (
+    (oldParams.get("language") || null) !== (newParams.get("language") || null)
+  ) {
+    map.localize();
+  }
+
+  if (
+    (oldParams.get("projection") || null) !==
+    (newParams.get("projection") || null)
+  ) {
+    map.setProjection({ type: newParams.get("projection") || "mercator" });
+  }
+
+  if (oldParams.has("terrain") !== newParams.has("terrain")) {
+    map.shadesHills = newParams.has("terrain");
+  }
 }
 
 let attributionConfig = {
