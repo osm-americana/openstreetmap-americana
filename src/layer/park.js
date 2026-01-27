@@ -99,10 +99,59 @@ export const parkLabel = {
   "source-layer": "poi",
 };
 
+export const attractionFill = {
+  ...fill,
+  id: "attraction_fill",
+  filter: [
+    "in",
+    ["get", "class"],
+    ["literal", ["theme_park", "water_park", "zoo"]],
+  ],
+  paint: {
+    "fill-color": Color.attractionFill,
+  },
+  "source-layer": "landuse",
+};
+
+export const attractionOutline = {
+  ...outline,
+  id: "attraction_outline",
+  filter: [
+    "in",
+    ["get", "class"],
+    ["literal", ["theme_park", "water_park", "zoo"]],
+  ],
+  paint: {
+    "line-color": Color.attractionOutline,
+  },
+  "source-layer": "landuse",
+};
+
+export const attractionLabel = {
+  ...label,
+  id: "attraction_label",
+  filter: [
+    "in",
+    ["get", "class"],
+    ["literal", ["theme_park", "water_park", "zoo"]],
+  ],
+  paint: {
+    "text-color": Color.attractionLabel,
+    "text-halo-blur": 1,
+    "text-halo-color": Color.attractionLabelHalo,
+    "text-halo-width": 1,
+  },
+  "source-layer": "poi",
+};
+
 export const legendEntries = [
   {
     description: "Park",
     layers: [fill.id, outline.id, parkFill.id, parkOutline.id],
+  },
+  {
+    description: "Attraction",
+    layers: [attractionFill.id, attractionOutline.id],
   },
   { description: "Cemetery", layers: [cemeteryFill.id, cemeteryOutline.id] },
 ];
