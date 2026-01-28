@@ -183,6 +183,7 @@ export class LanguageControl {
     this._container.appendChild(langPicker);
     this._container.appendChild(langField);
     this._container.appendChild(langChanger);
+    this._map.once("load", (event) => this.displayLocales());
     this._map.on("americana.languagechange", (event) => this.displayLocales());
     return this._container;
   }
