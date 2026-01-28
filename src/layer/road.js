@@ -21,6 +21,9 @@ const roadHue = 0;
 const tollRoadHue = 48;
 const buswayHue = 322;
 
+const zoom4MotorwayFillColor = `hsl(${roadHue}, 70%, 76%)`;
+const zoom4MotorwayCasingColor = `hsl(${roadHue}, 10%, 85%)`;
+
 //Tunnel casing dash pattern
 const tunDashArray = [
   "step",
@@ -67,39 +70,6 @@ function combineConstraints(constraint1, constraint2) {
   }
   return ["all", constraint1, constraint2];
 }
-
-const opacity = [
-  "step",
-  ["zoom"],
-  [...linkSelector, 0, ["match", ["get", "network"], "us-interstate", 1, 0]],
-  minZoomMotorwayTrunk,
-  [...linkSelector, 0, [...classSelector, ["motorway", "trunk"], 1, 0]],
-  minZoomPrimary,
-  [...classSelector, ["motorway", "trunk", "primary"], 1, 0],
-  minZoomSecondary,
-  [...classSelector, ["motorway", "trunk", "primary", "secondary"], 1, 0],
-  minZoomTertiary,
-  [
-    ...classSelector,
-    [
-      "motorway",
-      "trunk",
-      "primary",
-      "secondary",
-      "tertiary",
-      "busway",
-      "bus_guideway",
-    ],
-    1,
-    0,
-  ],
-  minZoomMinor,
-  [...classSelector, "service", 0, 1],
-  minZoomService,
-  [...classSelector, "service", [...smallServiceSelector, 0, 1], 1],
-  minZoomSmallService,
-  1,
-];
 
 const motorwaySortKey = [
   "+",
@@ -431,7 +401,6 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": opacity,
       "line-color": this.fillColor,
       "line-width": [
         "interpolate",
@@ -458,7 +427,6 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": opacity,
       "line-color": this.casingColor,
       "line-width": [
         "interpolate",
@@ -490,7 +458,6 @@ class Road {
       "line-sort-key": this.sortKey,
     };
     layer.paint = {
-      "line-opacity": opacity,
       "line-dasharray": [4, 4],
       "line-color": roadSurfaceColor,
       "line-width": [
@@ -538,7 +505,6 @@ class RoadSimpleFill extends Road {
     super();
     this.constraints = [
       "any",
-      ["all", ["==", getClass, "trunk"], isNotLink],
       [
         "all",
         [
@@ -546,7 +512,14 @@ class RoadSimpleFill extends Road {
           getClass,
           [
             "literal",
-            ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
+            [
+              "trunk",
+              "primary",
+              "secondary",
+              "tertiary",
+              "busway",
+              "bus_guideway",
+            ],
           ],
         ],
         isExpressway,
@@ -618,11 +591,7 @@ class Motorway extends Road {
       ["exponential", roadExp],
       ["zoom"],
       4,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 70%, 76%)`,
-        `hsl(${roadHue}, 70%, 76%)`,
-      ],
+      zoom4MotorwayFillColor,
       6,
       [
         ...tollSelector,
@@ -647,11 +616,7 @@ class Motorway extends Road {
       ["exponential", roadExp],
       ["zoom"],
       4,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 10%, 85%)`,
-        `hsl(${roadHue}, 10%, 85%)`,
-      ],
+      zoom4MotorwayCasingColor,
       6,
       [
         ...tollSelector,
@@ -687,17 +652,24 @@ class Trunk extends Road {
     this.minZoomFill = minZoomAllRoads;
     this.minZoomCasing = minZoomAllRoads;
 
-    this.fillColor = highwayFillColor;
+    this.fillColor = [
+      "interpolate",
+      ["exponential", roadExp],
+      ["zoom"],
+      4,
+      zoom4MotorwayFillColor,
+      6,
+      highwayFillColor,
+    ];
+
     this.casingColor = [
       "interpolate",
       ["exponential", roadExp],
       ["zoom"],
+      4,
+      zoom4MotorwayCasingColor,
       5,
-      [
-        ...tollSelector,
-        `hsl(${tollRoadHue}, 77%, 50%)`,
-        `hsl(${roadHue}, 77%, 50%)`,
-      ],
+      `hsl(${roadHue}, 77%, 50%)`,
       9,
       [
         ...tollSelector,
