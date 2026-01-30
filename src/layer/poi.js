@@ -366,7 +366,7 @@ export const poi = {
     "icon-halo-blur": 0.2,
     "text-color": [
       "match",
-      ["get", "subclass"],
+      ["get", "class"],
       [
         ...getSubclasses(iconDefs.fuel),
         ...getSubclasses(iconDefs.bar),
@@ -423,7 +423,7 @@ export const poi = {
     ["zoom"],
     [
       "match",
-      ["get", "subclass"],
+      ["get", "class"],
       [...getSubclasses(iconDefs.college)],
       10,
       ["station", "halt"],
@@ -490,7 +490,7 @@ export const poi = {
       ["zoom"],
       [
         "match",
-        ["get", "subclass"],
+        ["get", "class"],
         [
           "bus_stop",
           "tram_stop",
@@ -503,7 +503,7 @@ export const poi = {
         localizedName,
       ],
       16,
-      ["match", ["get", "subclass"], ["bus_stop"], "", localizedName],
+      ["match", ["get", "class"], ["bus_stop"], "", localizedName],
       17,
       localizedName,
     ],
@@ -514,10 +514,9 @@ export const poi = {
     "icon-padding": 0,
     "text-padding": 0,
     "icon-allow-overlap": false,
-    "symbol-sort-key": ["get", "rank"],
   },
-  source: "openmaptiles",
-  "source-layer": "poi",
+  source: "ohm",
+  "source-layer": "other_points_centroids",
 };
 
 // POIs that have no icon at lower zooms
@@ -532,7 +531,7 @@ export const iconlessPoi = {
     "icon-halo-blur": 0.2,
     "text-color": Color.parkLabel,
   },
-  filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "subclass"], "cemetery"]],
+  filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "type"], "cemetery"]],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": 10,
@@ -542,10 +541,10 @@ export const iconlessPoi = {
     "text-radial-offset": 0,
     "text-max-width": 5,
     "text-padding": 0,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": ["*", -1, ["get", "area_km2"]],
   },
-  source: "openmaptiles",
-  "source-layer": "poi",
+  source: "ohm",
+  "source-layer": "landuse_points_centroids",
 };
 
 export const legendEntries = Object.keys(iconDefs).map(function (id) {
@@ -554,8 +553,8 @@ export const legendEntries = Object.keys(iconDefs).map(function (id) {
     layers: [poi.id],
     filter: [
       "all",
-      ["in", ["get", "class"], ["literal", Object.keys(iconDefs[id].classes)]],
-      ["in", ["get", "subclass"], ["literal", getSubclasses(iconDefs[id])]],
+      ["in", ["get", "type"], ["literal", Object.keys(iconDefs[id].classes)]],
+      ["in", ["get", "class"], ["literal", getSubclasses(iconDefs[id])]],
     ],
   };
 });
