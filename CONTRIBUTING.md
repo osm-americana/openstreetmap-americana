@@ -1,9 +1,9 @@
 # Contributing
 
-We’re glad you’re interested in contributing to OpenStreetMap Americana! Before you dive in, please take a moment to learn about:
+We’re glad you’re interested in contributing to OpenHistoricalMap Americana! Before you dive in, please take a moment to learn about:
 
 - [This project’s architecture](ARCHITECTURE.md), including how this repository fits into the overall technology stack
-- [How to install and run OSM Americana](INSTALL.md)
+- [How to install and run OHM Americana](INSTALL.md)
 
 You can also help out indirectly by contributing to [our data sources](ACKNOWLEDGMENTS.md#data-sources).
 
@@ -28,8 +28,8 @@ Some general guidelines:
    representative feature. Also try out the Samples button to catch any visual
    conflicts.
 3. If you are introducing a novel approach to depicting a layer or feature
-   property from the OpenMapTiles schema, document how the corresponding
-   OpenStreetMap key or tag is used in `scripts/taginfo_template.json`.
+   property from the OpenHistoricalMap vector tile schema, document how the corresponding
+   OpenHistoricalMap key or tag is used in `scripts/taginfo_template.json`.
 4. If any shield background icons are introduced, add lines to `src/shieldtest.js`
    to demonstrate overlaid text on each of them.
 5. If you are introducing new JavaScript code that can run independently of a
@@ -70,7 +70,7 @@ To see layer statistics, run `npm run stats` to get a list of options.
 
 ## Highway Shield Contributor's Guide
 
-Highway shields are a key feature of the OpenStreetMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
+Highway shields are a key feature of the OpenHistoricalMap Americana style. This guide describes some of the style principles that contributors of highway shield artwork should consider when submitting new shields. The required elements are as follows:
 
 1. Shields are in .svg format
 2. Shields are 20px on the smallest dimension (this will be rasterized to 20px or 40px depending on display resolution)

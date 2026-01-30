@@ -24,16 +24,12 @@ export const ferry = {
       1,
     ],
   },
-  filter: [
-    "any",
-    ["==", ["get", "class"], "ferry"],
-    ["==", ["get", "subclass"], "ferry"],
-  ],
+  filter: ["==", ["get", "type"], "ferry"],
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
 };
 
 export const legendEntries = [

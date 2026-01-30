@@ -10,6 +10,8 @@ Route shields are rendered on demand at runtime using the [Americana Shield Gene
 
 Automatic label localization is powered by the [Diplomat](https://github.com/osm-americana/diplomat/) plugin, which is also [available on NPM](https://www.npmjs.com/package/@americana/diplomat).
 
+The [maplibre-gl-dates](https://github.com/OpenHistoricalMap/maplibre-gl-dates/) plugin filters features by date. The user can control the date using [Timescope](https://xenodrive.github.io/timescope/).
+
 ## Structure
 
 The repository is organized as follows:

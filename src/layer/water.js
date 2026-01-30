@@ -10,8 +10,8 @@ const mediumRivers = ["stream"];
 export const waterway = {
   id: "waterway",
   type: "line",
-  source: "openmaptiles",
-  "source-layer": "waterway",
+  source: "ohm",
+  "source-layer": "water_lines",
   layout: {
     "line-join": "round",
     "line-cap": "round",
@@ -63,18 +63,14 @@ export const water = {
   paint: {
     "fill-color": [
       "case",
-      [
-        "any",
-        ["==", ["get", "intermittent"], 1],
-        ["==", ["get", "brunnel"], "tunnel"],
-      ],
+      ["any", ["==", ["get", "intermittent"], 1], ["==", ["get", "tunnel"], 1]],
       Color.waterIntermittentFill,
       Color.waterFill,
     ],
     "fill-outline-color": Color.waterFillTranslucent,
   },
-  source: "openmaptiles",
-  "source-layer": "water",
+  source: "ohm",
+  "source-layer": "water_areas",
 };
 
 export const waterLine = {
@@ -102,8 +98,8 @@ export const waterLine = {
     "line-cap": "round",
     "line-join": "round",
   },
-  source: "openmaptiles",
-  "source-layer": "water",
+  source: "ohm",
+  "source-layer": "water_areas",
 };
 
 export const waterLineIntermittent = {
@@ -117,8 +113,8 @@ export const waterLineIntermittent = {
     "line-width": 0.5,
   },
   layout: waterLine.layout,
-  source: "openmaptiles",
-  "source-layer": "water",
+  source: "ohm",
+  "source-layer": "water_areas",
 };
 
 const labelPaintProperties = {
@@ -144,9 +140,9 @@ const labelLayoutProperties = {
 export const waterwayLabel = {
   id: "waterway_label",
   type: "symbol",
-  source: "openmaptiles",
-  "source-layer": "waterway",
-  filter: ["!=", ["get", "brunnel"], "tunnel"],
+  source: "ohm",
+  "source-layer": "water_lines",
+  filter: ["!=", ["get", "tunnel"], 1],
   layout: {
     ...labelLayoutProperties,
     "text-size": [
@@ -156,13 +152,13 @@ export const waterwayLabel = {
       3,
       8,
       12,
-      ["case", ["in", ["get", "class"], ["literal", bigRivers]], 14, 10],
+      ["case", ["in", ["get", "type"], ["literal", bigRivers]], 14, 10],
       20,
       [
         "case",
-        ["in", ["get", "class"], ["literal", bigRivers]],
+        ["in", ["get", "type"], ["literal", bigRivers]],
         40,
-        ["in", ["get", "class"], ["literal", mediumRivers]],
+        ["in", ["get", "type"], ["literal", mediumRivers]],
         20,
         15,
       ],
@@ -177,8 +173,8 @@ export const waterLabel = {
   id: "water_label",
   type: "symbol",
   filter: ["all", ["==", ["geometry-type"], "LineString"]],
-  source: "openmaptiles",
-  "source-layer": "water_name",
+  source: "ohm",
+  "source-layer": "water_areas_centerlines",
   layout: {
     ...labelLayoutProperties,
     "text-size": [
@@ -201,8 +197,8 @@ export const waterLabel = {
 export const waterPointLabel = {
   id: "water_point_label",
   type: "symbol",
-  source: "openmaptiles",
-  "source-layer": "water_name",
+  source: "ohm",
+  "source-layer": "water_areas_centroids",
   filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
     "text-field": localizedName,
@@ -212,11 +208,11 @@ export const waterPointLabel = {
       ["exponential", 2],
       ["zoom"],
       3,
-      ["match", ["get", "class"], "ocean", 16, "sea", 12, 8],
+      ["match", ["get", "type"], "ocean", 16, "sea", 12, 8],
       12,
-      ["match", ["get", "class"], "ocean", 28, "sea", 21, 14],
+      ["match", ["get", "type"], "ocean", 28, "sea", 21, 14],
       20,
-      ["match", ["get", "class"], "ocean", 80, "sea", 60, 40],
+      ["match", ["get", "type"], "ocean", 80, "sea", 60, 40],
     ],
     "text-letter-spacing": 0.25,
   },
@@ -227,14 +223,14 @@ export const legendEntries = [
   {
     description: "Ocean, sea, or bay",
     layers: [water.id, waterLine.id],
-    filter: ["==", ["get", "class"], "ocean"],
+    filter: ["==", ["get", "type"], "ocean"],
   },
   {
     description: "Lake or pond",
     layers: [water.id, waterLine.id],
     filter: [
       "all",
-      ["==", ["get", "class"], "lake"],
+      ["==", ["get", "type"], "lake"],
       ["!=", ["get", "intermittent"], 1],
     ],
   },
@@ -243,7 +239,7 @@ export const legendEntries = [
     layers: [water.id, waterLineIntermittent.id],
     filter: [
       "all",
-      ["==", ["get", "class"], "lake"],
+      ["==", ["get", "type"], "lake"],
       ["==", ["get", "intermittent"], 1],
     ],
   },
@@ -252,7 +248,7 @@ export const legendEntries = [
     layers: [waterway.id],
     filter: [
       "all",
-      ["==", ["get", "class"], "river"],
+      ["==", ["get", "type"], "river"],
       ["!=", ["get", "intermittent"], 1],
     ],
   },
@@ -261,7 +257,7 @@ export const legendEntries = [
     layers: [waterway.id],
     filter: [
       "all",
-      ["==", ["get", "class"], "canal"],
+      ["==", ["get", "type"], "canal"],
       ["!=", ["get", "intermittent"], 1],
     ],
   },
@@ -270,7 +266,7 @@ export const legendEntries = [
     layers: [waterway.id],
     filter: [
       "all",
-      ["==", ["get", "class"], "stream"],
+      ["==", ["get", "type"], "stream"],
       ["!=", ["get", "intermittent"], 1],
     ],
   },

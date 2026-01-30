@@ -15,16 +15,16 @@ export const city = {
   filter: [
     "all",
     ["==", ["get", "admin_level"], 8],
-    ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "disputed"]],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 11,
   layout: {
     "line-join": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const countyCasing = {
@@ -42,16 +42,16 @@ export const countyCasing = {
   filter: [
     "all",
     ["==", ["get", "admin_level"], 6],
-    ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "disputed"]],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 11,
   layout: {
     "line-join": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const county = {
@@ -66,16 +66,16 @@ export const county = {
   filter: [
     "all",
     ["==", ["get", "admin_level"], 6],
-    ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "disputed"]],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 9,
   layout: {
     "line-join": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const regionCasing = {
@@ -93,16 +93,16 @@ export const regionCasing = {
   filter: [
     "all",
     ["==", ["get", "admin_level"], 5],
-    ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "disputed"]],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 8,
   layout: {
     "line-join": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const region = {
@@ -117,16 +117,16 @@ export const region = {
   filter: [
     "all",
     ["==", ["get", "admin_level"], 5],
-    ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "disputed"]],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 6,
   layout: {
     "line-join": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const stateCasing = {
@@ -152,7 +152,7 @@ export const stateCasing = {
   filter: [
     "all",
     ["in", ["get", "admin_level"], ["literal", [3, 4]]],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 3,
   layout: {
@@ -160,8 +160,8 @@ export const stateCasing = {
     "line-cap": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const state = {
@@ -194,7 +194,7 @@ export const state = {
   filter: [
     "all",
     ["in", ["get", "admin_level"], ["literal", [3, 4]]],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 3,
   layout: {
@@ -202,14 +202,14 @@ export const state = {
     "line-cap": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 // adm0_* properties are only available on international borders.
 const maritime = [
   "any",
-  ["==", ["get", "maritime"], 0],
+  ["!", ["has", "maritime"]],
   ["all", ["has", "adm0_l"], ["has", "adm0_r"]],
 ];
 
@@ -243,7 +243,7 @@ export const countryCasing = {
   filter: [
     "all",
     ["==", ["get", "admin_level"], 2],
-    ["==", ["get", "maritime"], 0],
+    ["!", ["has", "maritime"]],
   ],
   minzoom: 2,
   layout: {
@@ -251,8 +251,8 @@ export const countryCasing = {
     "line-join": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const country = {
@@ -289,7 +289,7 @@ export const country = {
   filter: [
     "all",
     ["==", ["get", "admin_level"], 2],
-    ["==", ["get", "disputed"], 0],
+    ["!", ["has", "disputed"]],
     [...maritime],
   ],
   maxzoom: 24,
@@ -297,8 +297,8 @@ export const country = {
     "line-join": "round",
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const countryLabelLeft = {
@@ -330,8 +330,8 @@ export const countryLabelLeft = {
   },
   filter: [...maritime],
   maxzoom: 24,
-  source: "openmaptiles",
-  "source-layer": "boundary",
+  source: "ohm",
+  "source-layer": "land_ohm_lines",
 };
 
 export const countryLabelRight = {
@@ -368,6 +368,6 @@ export const legendEntries = [
   {
     description: "Disputed border",
     layers: [countryCasing.id, stateCasing.id, countyCasing.id],
-    filter: ["==", ["get", "disputed"], 1],
+    filter: ["has", "disputed"],
   },
 ];
