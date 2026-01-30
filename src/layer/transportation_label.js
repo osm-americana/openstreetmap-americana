@@ -3,7 +3,7 @@
 import { localizedNameInline } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
-const classSelector = ["match", ["get", "class"]];
+const classSelector = ["match", ["get", "type"]];
 
 const motorwayToTrunk = ["motorway", "trunk"];
 const motorwayToPrimary = [...motorwayToTrunk, "primary"];
@@ -189,8 +189,8 @@ export const label = {
       6,
     ],
   },
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
+  source: "ohm",
+  "source-layer": "transport_lines",
 };
 
 // A spacer label on each bridge to push any waterway label away from the bridge.
@@ -198,11 +198,11 @@ export const label = {
 export const bridgeSpacer = {
   id: "bridge_spacer",
   type: "symbol",
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
   filter: [
     "all",
-    ["==", ["get", "brunnel"], "bridge"],
+    ["==", ["get", "bridge"], 1],
     ["in", ["geometry-type"], ["literal", ["LineString"]]],
     ["!=", ["get", "oneway"], 1],
   ],

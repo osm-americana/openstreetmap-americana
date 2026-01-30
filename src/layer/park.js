@@ -3,7 +3,7 @@
 import { localizedName } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
-const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
+const parkLayerFilter = ["==", ["get", "type"], "nature_reserve"];
 
 export const fill = {
   id: "protected-area_fill",
@@ -12,8 +12,8 @@ export const fill = {
   paint: {
     "fill-color": Color.parkFill,
   },
-  source: "openmaptiles",
-  "source-layer": "park",
+  source: "ohm",
+  "source-layer": "landuse_areas",
 };
 
 export const outline = {
@@ -23,15 +23,15 @@ export const outline = {
   paint: {
     "line-color": Color.parkOutline,
   },
-  source: "openmaptiles",
+  source: "ohm",
   metadata: {},
-  "source-layer": "park",
+  "source-layer": "landuse_areas",
 };
 
 export const label = {
   id: "protected-area_label",
   type: "symbol",
-  filter: ["all", ["has", "rank"], parkLayerFilter],
+  filter: parkLayerFilter,
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
@@ -42,45 +42,45 @@ export const label = {
     "text-field": localizedName,
     "text-font": ["Americana-Bold"],
     "text-size": 10,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": ["*", -1, ["get", "area"]],
   },
-  source: "openmaptiles",
-  "source-layer": "park",
+  source: "ohm",
+  "source-layer": "landuse_areas",
 };
 
 export const parkFill = {
   ...fill,
   id: "park_fill",
-  filter: ["==", ["get", "subclass"], "park"],
-  "source-layer": "landcover",
+  filter: ["==", ["get", "type"], "park"],
+  "source-layer": "landuse_areas",
 };
 
 export const cemeteryFill = {
   id: "cemetery-fill",
   type: "fill",
-  filter: ["==", "class", "cemetery"],
+  filter: ["==", "type", "cemetery"],
   paint: {
     "fill-color": Color.cemeteryFill,
   },
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm",
   metadata: {},
-  "source-layer": "landuse",
+  "source-layer": "landuse_areas",
 };
 
 export const pitchFill = {
   id: "pitch-fill",
   type: "fill",
-  filter: ["==", "class", "pitch"],
+  filter: ["==", "type", "pitch"],
   paint: {
     "fill-color": Color.pitchFill,
   },
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm",
   metadata: {},
   "source-layer": "landuse",
 };
@@ -88,36 +88,36 @@ export const pitchFill = {
 export const parkOutline = {
   ...outline,
   id: "park_outline",
-  filter: ["==", ["get", "subclass"], "park"],
-  "source-layer": "landcover",
+  filter: ["==", ["get", "type"], "park"],
+  "source-layer": "landuse_areas",
 };
 
 export const cemeteryOutline = {
   id: "cemetery-outline",
   type: "line",
-  filter: ["==", "class", "cemetery"],
+  filter: ["==", "type", "cemetery"],
   paint: {
     "line-color": Color.cemeteryOutline,
   },
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm",
   metadata: {},
-  "source-layer": "landuse",
+  "source-layer": "landuse_areas",
 };
 
 export const pitchOutline = {
   id: "pitch-outline",
   type: "line",
-  filter: ["==", "class", "pitch"],
+  filter: ["==", "type", "pitch"],
   paint: {
     "line-color": Color.pitchOutline,
   },
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm",
   metadata: {},
   "source-layer": "landuse",
 };
@@ -125,8 +125,8 @@ export const pitchOutline = {
 export const parkLabel = {
   ...label,
   id: "park_label",
-  filter: ["==", ["get", "class"], "park"],
-  "source-layer": "poi",
+  filter: ["==", ["get", "type"], "park"],
+  "source-layer": "landuse_points_centroids",
 };
 
 export const legendEntries = [
