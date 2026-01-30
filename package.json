@@ -40,12 +40,14 @@
   "dependencies": {
     "@americana/diplomat": "^0.4.0",
     "@americana/maplibre-shield-generator": "*",
+    "@openhistoricalmap/maplibre-gl-dates": "^1.3.0",
     "color-rgba": "^2.4.0",
     "events": "^3.3.0",
     "fonteditor-core": "^2.1.11",
     "github-fork-ribbon-css": "^0.2.3",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
+    "timescope": "^0.0.0-alpha.11",
     "tokenfield": "^1.5.2"
   },
   "devDependencies": {

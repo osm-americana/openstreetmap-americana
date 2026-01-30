@@ -19,10 +19,10 @@ describe("highway_shield", function () {
 
     let expectImageName = (network, ref, name, color, expectedImageName) => {
       let properties = {
-        route_1_network: network || "",
-        route_1_ref: ref || "",
-        route_1_name: name || "",
-        route_1_color: color || "",
+        route_road_1_network: network || "",
+        route_road_1_ref: ref || "",
+        route_road_1_name: name || "",
+        route_road_1_color: color || "",
       };
       let evaluated = evaluatedExpression(properties);
       let expectedProperties = {
