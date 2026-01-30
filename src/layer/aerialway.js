@@ -69,18 +69,18 @@ export const lift = {
   },
   filter: [
     "all",
-    ["==", ["get", "class"], "aerialway"],
+    ["==", ["get", "type"], "aerialway"],
     [
       "in",
-      ["get", "subclass"],
+      ["get", "class"],
       ["literal", ["chair_lift", "cable_car", "gondola", "mixed_lift"]],
     ],
   ],
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
 };
 
 export const liftCasing = {
@@ -93,18 +93,18 @@ export const liftCasing = {
   },
   filter: [
     "all",
-    ["==", ["get", "class"], "aerialway"],
+    ["==", ["get", "type"], "aerialway"],
     [
       "in",
-      ["get", "subclass"],
+      ["get", "class"],
       ["literal", ["chair_lift", "cable_car", "gondola", "mixed_lift"]],
     ],
   ],
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
 };
 
 export const dragLift = {
@@ -118,18 +118,18 @@ export const dragLift = {
   },
   filter: [
     "all",
-    ["==", ["get", "class"], "aerialway"],
+    ["==", ["get", "type"], "aerialway"],
     [
       "in",
-      ["get", "subclass"],
+      ["get", "class"],
       ["literal", ["drag_lift", "platter", "j-bar", "t-bar"]],
     ],
   ],
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
 };
 
 export const legendEntries = [

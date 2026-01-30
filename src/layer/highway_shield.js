@@ -7,7 +7,7 @@ export function getImageNameExpression(routeIndex) {
   let concat = ["concat", "shield"];
   for (let attr of orderedRouteAttributes) {
     concat.push("\n");
-    concat.push(["coalesce", ["get", `route_${routeIndex}_${attr}`], ""]);
+    concat.push(["coalesce", ["get", `route_road_${routeIndex}_${attr}`], ""]);
   }
   return concat;
 }
@@ -17,7 +17,10 @@ function routeConcurrency(routeIndex) {
     "case",
     [
       "any",
-      ...orderedRouteAttributes.map((a) => ["has", `route_${routeIndex}_${a}`]),
+      ...orderedRouteAttributes.map((a) => [
+        "has",
+        `route_road_${routeIndex}_${a}`,
+      ]),
     ],
     ["image", getImageNameExpression(routeIndex)],
     ["literal", ""],
@@ -57,15 +60,15 @@ let shieldLayout = {
   "symbol-sort-key": [
     "match",
     ["get", "class"],
-    "motorway",
+    ["motorway", "motorway_link"],
     0,
-    "trunk",
+    ["trunk", "trunk_link"],
     1,
-    "primary",
+    ["primary", "primary_link"],
     2,
-    "secondary",
+    ["secondary", "secondary_link"],
     3,
-    "tertiary",
+    ["tertiary", "tertiary_link"],
     4,
     5,
   ],
@@ -73,34 +76,73 @@ let shieldLayout = {
 
 export const shield = {
   type: "symbol",
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
+  source: "ohm",
+  "source-layer": "route_lines",
   id: "highway-shield",
   layout: shieldLayout,
   paint: {
     "text-opacity": [
       "step",
       ["zoom"],
-      ["match", ["get", "class"], "motorway", 1, 0],
+      ["match", ["get", "class"], ["motorway", "motorway_link"], 1, 0],
       8,
-      ["match", ["get", "class"], ["motorway", "trunk"], 1, 0],
+      [
+        "match",
+        ["get", "class"],
+        ["motorway", "motorway_link", "trunk", "trunk_link"],
+        1,
+        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
+      ],
       10,
-      ["match", ["get", "class"], ["motorway", "trunk", "primary"], 1, 0],
+      [
+        "match",
+        ["get", "class"],
+        [
+          "motorway",
+          "motorway_link",
+          "trunk",
+          "trunk_link",
+          "primary",
+          "primary_link",
+        ],
+        1,
+        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
+      ],
       11,
       [
         "match",
         ["get", "class"],
-        ["motorway", "trunk", "primary", "secondary"],
+        [
+          "motorway",
+          "motorway_link",
+          "trunk",
+          "trunk_link",
+          "primary",
+          "primary_link",
+          "secondary",
+          "secondary_link",
+        ],
         1,
-        0,
+        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
       ],
       12,
       [
         "match",
         ["get", "class"],
-        ["motorway", "trunk", "primary", "secondary", "tertiary"],
+        [
+          "motorway",
+          "motorway_link",
+          "trunk",
+          "trunk_link",
+          "primary",
+          "primary_link",
+          "secondary",
+          "secondary_link",
+          "tertiary",
+          "tertiary_link",
+        ],
         1,
-        0,
+        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
       ],
       14,
       1,
@@ -108,6 +150,6 @@ export const shield = {
   },
   filter: [
     "any",
-    ...orderedRouteAttributes.map((a) => ["has", `route_1_${a}`]),
+    ...orderedRouteAttributes.map((a) => ["has", `route_road_1_${a}`]),
   ],
 };

@@ -33,6 +33,8 @@ export function build(locales) {
 
   layers.push(
     lyrBackground.base,
+    lyrBackground.landLine,
+    lyrBackground.land,
     lyrLanduse.urbanizedArea,
     lyrAboriginal.fill,
     lyrPark.fill,
@@ -242,6 +244,7 @@ export function build(locales) {
     lyrPoi.iconlessPoi,
 
     lyrPlace.state,
+    lyrPlace.county,
     lyrPlace.neighborhood,
     lyrPlace.quarter,
     lyrPlace.suburb,
