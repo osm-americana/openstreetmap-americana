@@ -13,9 +13,9 @@ export const fill = {
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm",
   metadata: {},
-  "source-layer": "boundary",
+  "source-layer": "land_ohm_lines",
 };
 
 export const outline = {
@@ -28,9 +28,9 @@ export const outline = {
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm",
   metadata: {},
-  "source-layer": "boundary",
+  "source-layer": "land_ohm_lines",
 };
 
 export const label = {
@@ -59,8 +59,8 @@ export const label = {
     "text-transform": "uppercase",
     "symbol-sort-key": ["get", "rank"],
   },
-  source: "openmaptiles",
-  "source-layer": "place",
+  source: "ohm",
+  "source-layer": "land_ohm_centroids",
 };
 
 export const legendEntries = [
