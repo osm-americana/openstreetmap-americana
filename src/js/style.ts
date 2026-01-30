@@ -14,8 +14,20 @@ export function build(
     glyphs: glyphURL,
     layers: Layers.build(locales),
     sources: {
-      openmaptiles: {
-        url: tileURL,
+      ohm: {
+        tiles: [
+          "https://vtiles.openhistoricalmap.org/maps/osm/{z}/{x}/{y}.pbf",
+        ],
+        type: "vector",
+      },
+      osm_land: {
+        tiles: [
+          "https://vtiles.openhistoricalmap.org/maps/osm_land/{z}/{x}/{y}.pbf",
+        ],
+        type: "vector",
+      },
+      ne: {
+        tiles: ["https://vtiles.openhistoricalmap.org/maps/ne/{z}/{x}/{y}.pbf"],
         type: "vector",
       },
       dem: {

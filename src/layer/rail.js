@@ -43,17 +43,17 @@ function filterRail(brunnel) {
   return [
     "all",
     brunnel === "surface"
-      ? ["match", ["get", "brunnel"], ["bridge", "tunnel"], false, true]
-      : ["match", ["get", "brunnel"], brunnel, true, false],
-    ["in", ["get", "class"], ["literal", ["rail", "transit"]]],
+      ? ["!=", ["+", ["get", "bridge"], ["get", "tunnel"]], 0]
+      : ["match", ["get", brunnel], 1, true, false],
+    ["==", ["get", "type"], "rail"],
   ];
 }
 
 // Base definition that applies to all railways
 var defRail = {
   type: "line",
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
 };
 
 var serviceSelector = ["match", ["get", "service"], ["siding", "spur", "yard"]];
@@ -63,12 +63,12 @@ let isNotCrossover = ["!=", ["get", "service"], "crossover"];
 
 var lineColor = [
   "match",
-  ["get", "brunnel"],
-  "tunnel",
+  ["get", "tunnel"],
+  1,
   Color.railwayTunnelFill,
   [
     "match",
-    ["get", "subclass"],
+    ["get", "type"],
     "subway",
     Color.subwayFill,
     "light_rail",
@@ -87,7 +87,7 @@ var lineColor = [
 
 var lineWidth = [
   "match",
-  ["get", "subclass"],
+  ["get", "type"],
   ["rail", "preserved", "narrow_gauge", "subway"],
   [...serviceSelector, 2, 4],
   "monorail",
@@ -98,7 +98,7 @@ var lineWidth = [
 var opacity = [
   "step",
   ["zoom"],
-  ["match", ["get", "subclass"], ["rail", "preserved", "narrow_gauge"], 1, 0],
+  ["match", ["get", "type"], ["rail", "preserved", "narrow_gauge"], 1, 0],
   14,
   1,
 ];
@@ -109,7 +109,7 @@ export const bridgeCasing = {
   id: "rail_bridge-casing",
   filter: [
     "all",
-    ["==", ["get", "brunnel"], "bridge"],
+    ["==", ["get", "bridge"], 1],
     ["in", ["get", "class"], ["literal", ["rail", "transit"]]],
   ],
   minzoom: 13,
@@ -227,7 +227,7 @@ class Rail extends Railway {
     super();
     this.constraints = [
       "all",
-      ["in", ["get", "subclass"], ["literal", ["rail", "preserved"]]],
+      ["in", ["get", "type"], ["literal", ["rail", "preserved"]]],
       isNotService,
     ];
     this.brunnel = "surface";
@@ -242,7 +242,7 @@ class RailService extends Rail {
     super();
     this.constraints = [
       "all",
-      ["in", ["get", "subclass"], ["literal", ["rail", "preserved"]]],
+      ["in", ["get", "type"], ["literal", ["rail", "preserved"]]],
       isService,
     ];
 
@@ -256,7 +256,7 @@ class NarrowGauge extends Rail {
     super();
     this.constraints = [
       "all",
-      ["==", ["get", "subclass"], "narrow_gauge"],
+      ["==", ["get", "type"], "narrow_gauge"],
       isNotService,
     ];
 
@@ -270,7 +270,7 @@ class NarrowGaugeService extends NarrowGauge {
     super();
     this.constraints = [
       "all",
-      ["==", ["get", "subclass"], "narrow_gauge"],
+      ["==", ["get", "type"], "narrow_gauge"],
       isService,
     ];
 
@@ -284,7 +284,7 @@ class LightRailTram extends Railway {
     super();
     this.constraints = [
       "all",
-      ["in", ["get", "subclass"], ["literal", ["light_rail", "tram"]]],
+      ["in", ["get", "type"], ["literal", ["light_rail", "tram"]]],
       isNotService,
     ];
     this.brunnel = "surface";
@@ -300,7 +300,7 @@ class LightRailTramService extends LightRailTram {
     super();
     this.constraints = [
       "all",
-      ["in", ["get", "subclass"], ["literal", ["light_rail", "tram"]]],
+      ["in", ["get", "type"], ["literal", ["light_rail", "tram"]]],
       isService,
     ];
 
@@ -312,7 +312,7 @@ class LightRailTramService extends LightRailTram {
 class Funicular extends Railway {
   constructor() {
     super();
-    this.constraints = ["==", ["get", "subclass"], "funicular"];
+    this.constraints = ["==", ["get", "type"], "funicular"];
     this.brunnel = "surface";
 
     this.minZoom = 14;
@@ -484,12 +484,12 @@ export const funicular = new Funicular();
 export const funicularBridge = new FunicularBridge();
 export const funicularTunnel = new FunicularTunnel();
 
-const isGenericRail = ["==", ["get", "subclass"], "rail"];
-const isStandardGauge = ["!=", ["get", "subclass"], "narrow_gauge"];
-const isNarrowGauge = ["==", ["get", "subclass"], "narrow_gauge"];
-const isSubway = ["==", ["get", "subclass"], "subway"];
-const isLightRail = ["==", ["get", "subclass"], "light_rail"];
-const isTram = ["==", ["get", "subclass"], "tram"];
+const isGenericRail = ["==", ["get", "type"], "rail"];
+const isStandardGauge = ["!=", ["get", "type"], "narrow_gauge"];
+const isNarrowGauge = ["==", ["get", "type"], "narrow_gauge"];
+const isSubway = ["==", ["get", "type"], "subway"];
+const isLightRail = ["==", ["get", "type"], "light_rail"];
+const isTram = ["==", ["get", "type"], "tram"];
 
 export const legendEntries = [
   {
@@ -530,7 +530,7 @@ export const legendEntries = [
     ],
     filter: [
       "all",
-      ["==", ["get", "subclass"], "monorail"],
+      ["==", ["get", "type"], "monorail"],
       isNotService,
       isNotCrossover,
     ],
@@ -558,6 +558,6 @@ export const legendEntries = [
   {
     description: "Funicular or inclined elevator",
     layers: [funicular.dashes().id, railway.fill().id],
-    filter: ["==", ["get", "subclass"], "funicular"],
+    filter: ["==", ["get", "type"], "funicular"],
   },
 ];
