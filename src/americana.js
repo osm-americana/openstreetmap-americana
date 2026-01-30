@@ -2,9 +2,7 @@
 
 import config from "./config.js";
 
-import { getLanguageFromURL, getLocales } from "@americana/diplomat";
-
-import * as languageLabel from "./js/language_label.js";
+import { LanguageControl } from "./js/language_control.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -65,31 +63,27 @@ function shieldDefLoad(shields) {
     map.getCanvas().focus();
   }
 
+  const languageControl = new LanguageControl();
   map.addControl(new maplibregl.AttributionControl(attributionConfig));
-  map.addControl(languageLabel.label, "bottom-right");
+  map.addControl(languageControl, "bottom-right");
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
   map.addControl(new maplibregl.NavigationControl(), "top-left");
-  map.addControl(new HillshadeControl({ layerId: "hillshading" }), "top-left");
+  map.addControl(new maplibregl.GlobeControl(), "top-left");
+  map.addControl(new HillshadeControl(), "top-left");
 
   window.addEventListener("languagechange", (event) => {
-    console.log(`Changed to ${navigator.languages}`);
-    hotReloadMap();
-    updateLanguageLabel();
+    map.localize();
   });
 
   window.addEventListener("hashchange", (event) => {
     upgradeLegacyHash();
-    let oldLanguage = getLanguageFromURL(new URL(event.oldURL));
-    let newLanguage = getLanguageFromURL(new URL(event.newURL));
-    if (oldLanguage !== newLanguage) {
-      console.log(`Changed to ${newLanguage}`);
-      hotReloadMap();
-      updateLanguageLabel();
-    }
+    hashChanged(new URL(event.oldURL), new URL(event.newURL));
   });
 
-  updateLanguageLabel();
+  map.once("styledata", () => {
+    hashChanged(null, window.location);
+  });
 
   if (window.LIVE_RELOAD) {
     new EventSource("/esbuild").addEventListener("change", () =>
@@ -98,13 +92,26 @@ function shieldDefLoad(shields) {
   }
 }
 
-function hotReloadMap() {
-  map.setStyle(buildStyle());
-}
+function hashChanged(oldURL, newURL) {
+  const oldParams = new URLSearchParams(oldURL?.hash.substr(1));
+  const newParams = new URLSearchParams(newURL.hash.substr(1));
 
-export function updateLanguageLabel() {
-  languageLabel.displayLocales(getLocales());
-  legendControl.onLanguageChange();
+  if (
+    (oldParams.get("language") || null) !== (newParams.get("language") || null)
+  ) {
+    map.localize();
+  }
+
+  if (
+    (oldParams.get("projection") || null) !==
+    (newParams.get("projection") || null)
+  ) {
+    map.setProjection({ type: newParams.get("projection") || "mercator" });
+  }
+
+  if (oldParams.has("terrain") !== newParams.has("terrain")) {
+    map.shadesHills = newParams.has("terrain");
+  }
 }
 
 let attributionConfig = {

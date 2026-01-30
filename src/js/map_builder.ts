@@ -16,7 +16,8 @@ import {
 import * as Poi from "../js/poi.js";
 import { getLocales } from "@americana/diplomat";
 import * as Style from "./style.js";
-import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
+import maplibregl, { MapOptions, StyleSpecification } from "maplibre-gl";
+import { MapView } from "./map_view.js";
 import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
 import { getGlobalStateForLocalization, getLocales } from "@americana/diplomat";
 
@@ -58,9 +59,9 @@ export function createMap(
   shieldDefCallback: (shields: ShieldDefinitions) => void,
   options: MapOptions,
   debugOptions: DebugOptions
-): Map {
+): MapView {
   window["maplibregl"] = maplibregl;
-  let map: Map = (window["map"] = new maplibregl.Map(options));
+  let map: MapView = (window["map"] = new MapView(options));
 
   const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
     .debugOptions(debugOptions)
