@@ -7,11 +7,11 @@ export const exits = {
   type: "symbol",
   filter: [
     "all",
-    ["==", ["get", "subclass"], "junction"],
+    ["==", ["get", "type"], "motorway_junction"],
     ["!=", ["get", "ref"], ""],
   ],
-  source: "openmaptiles",
-  "source-layer": "transportation_name",
+  source: "ohm",
+  "source-layer": "transport_lines_centroids",
   minzoom: 14,
   layout: {
     "text-field": listValuesExpression(["get", "ref"], "\n"),
