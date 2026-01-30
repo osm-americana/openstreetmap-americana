@@ -23,20 +23,6 @@ const cityLabelPaint = {
   "text-halo-blur": labelHaloBlur,
 };
 
-const minorLocationStepFilter = [
-  "step",
-  ["zoom"],
-  ["<=", ["get", "rank"], 2],
-  6,
-  ["<=", ["get", "rank"], 4],
-  7,
-  ["<=", ["get", "rank"], 5],
-  8,
-  ["<=", ["get", "rank"], 9],
-  10,
-  [">=", ["get", "rank"], 1],
-];
-
 const iconImage = [
   "match",
   ["get", "capital"],
@@ -54,14 +40,14 @@ const iconImage = [
 ];
 
 function filterPlace(type) {
-  return ["==", ["get", "class"], type];
+  return ["==", ["get", "type"], type];
 }
 
 export const village = {
   id: "place_village",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: ["all", filterPlace("village"), minorLocationStepFilter],
+  filter: filterPlace("village"),
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -98,17 +84,17 @@ export const village = {
     "text-padding": 1,
     "icon-allow-overlap": false,
   },
-  source: "openmaptiles",
+  source: "ohm",
   minzoom: 11,
   maxzoom: 14,
-  "source-layer": "place",
+  "source-layer": "place_points_centroids",
 };
 
 export const town = {
   id: "place_town",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: ["all", filterPlace("town"), minorLocationStepFilter],
+  filter: filterPlace("town"),
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -145,29 +131,17 @@ export const town = {
     "text-padding": 1,
     "icon-allow-overlap": false,
   },
-  source: "openmaptiles",
+  source: "ohm",
   minzoom: 4,
   maxzoom: 13,
-  "source-layer": "place",
+  "source-layer": "place_points_centroids",
 };
 
 export const city = {
   id: "place_city",
   type: "symbol",
   paint: cityLabelPaint,
-  filter: [
-    "all",
-    filterPlace("city"),
-    [
-      "step",
-      ["zoom"],
-      ["<=", ["get", "rank"], 2],
-      5,
-      ["<=", ["get", "rank"], 4],
-      6,
-      [">=", ["get", "rank"], 1],
-    ],
-  ],
+  filter: filterPlace("city"),
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": {
@@ -197,17 +171,17 @@ export const city = {
       "left",
     ],
     "text-justify": "auto",
-    "text-radial-offset": ["match", ["get", "capital"], 2, 0.7, 0.5],
+    "text-radial-offset": ["match", ["get", "capital"], "yes", 0.7, 0.5],
     "icon-optional": false,
     "text-max-width": 8,
     "icon-padding": 0,
     "text-padding": 1,
     "icon-allow-overlap": false,
   },
-  source: "openmaptiles",
+  source: "ohm",
   minzoom: 4,
   maxzoom: 12,
-  "source-layer": "place",
+  "source-layer": "place_points_centroids",
   metadata: {},
 };
 
@@ -228,7 +202,7 @@ export const suburb = {
     ],
     "text-halo-blur": labelHaloBlur,
   },
-  filter: ["==", ["get", "class"], "suburb"],
+  filter: ["==", ["get", "type"], "suburb"],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -263,10 +237,10 @@ export const suburb = {
     ],
     "text-max-width": 6,
   },
-  source: "openmaptiles",
+  source: "ohm",
   maxzoom: 15,
   minzoom: 11,
-  "source-layer": "place",
+  "source-layer": "place_points_centroids",
 };
 
 export const quarter = {
@@ -286,7 +260,7 @@ export const quarter = {
     ],
     "text-halo-blur": labelHaloBlur,
   },
-  filter: ["==", ["get", "class"], "quarter"],
+  filter: ["==", ["get", "type"], "quarter"],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -319,10 +293,10 @@ export const quarter = {
     ],
     "text-max-width": 6,
   },
-  source: "openmaptiles",
+  source: "ohm",
   maxzoom: 16,
   minzoom: 13,
-  "source-layer": "place",
+  "source-layer": "place_points_centroids",
 };
 
 export const neighborhood = {
@@ -342,7 +316,7 @@ export const neighborhood = {
     ],
     "text-halo-blur": labelHaloBlur,
   },
-  filter: ["==", ["get", "class"], "neighbourhood"],
+  filter: ["==", ["get", "type"], "neighbourhood"],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -374,10 +348,10 @@ export const neighborhood = {
     ],
     "text-max-width": 6,
   },
-  source: "openmaptiles",
+  source: "ohm",
   maxzoom: 17,
   minzoom: 14,
-  "source-layer": "place",
+  "source-layer": "place_points_centroids",
 };
 
 export const state = {
@@ -397,7 +371,7 @@ export const state = {
     ],
     "text-halo-blur": labelHaloBlur,
   },
-  filter: ["in", ["get", "class"], ["literal", ["state", "province"]]],
+  filter: ["in", ["get", "admin_level"], ["literal", [3, 4]]],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -423,11 +397,61 @@ export const state = {
     ],
     "text-max-width": 6,
   },
-  source: "openmaptiles",
+  source: "ohm",
   maxzoom: 7,
   minzoom: 3,
-  "source-layer": "place",
+  "source-layer": "land_ohm_centroids",
 };
+
+export const county = {
+  id: "place_county",
+  type: "symbol",
+  paint: {
+    "text-color": "hsl(45, 6%, 10%)",
+    "text-halo-color": labelHaloColor,
+    "text-halo-width": [
+      "interpolate",
+      ["exponential", 1.2],
+      ["zoom"],
+      3,
+      1.5,
+      6,
+      2.5,
+    ],
+    "text-halo-blur": labelHaloBlur,
+  },
+  filter: ["in", ["get", "admin_level"], ["literal", [5, 6]]],
+  layout: {
+    "text-font": ["Americana-Regular"],
+    "text-size": {
+      base: 1.2,
+      stops: [
+        [6, 8],
+        [9, 14],
+      ],
+    },
+    "text-field": localizedName,
+    "text-padding": 1,
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.04,
+    "text-variable-anchor": ["center", "top", "bottom"],
+    "text-radial-offset": [
+      "interpolate",
+      ["exponential", 1.6],
+      ["zoom"],
+      3,
+      0.5,
+      7,
+      3,
+    ],
+    "text-max-width": 6,
+  },
+  source: "ohm",
+  maxzoom: 10,
+  minzoom: 6,
+  "source-layer": "land_ohm_centroids",
+};
+
 export const countryOther = {
   id: "place_country-other",
   type: "symbol",
@@ -437,11 +461,7 @@ export const countryOther = {
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
   },
-  filter: [
-    "all",
-    ["==", ["get", "class"], "country"],
-    ["!", ["has", "iso_a2"]],
-  ],
+  filter: ["==", ["get", "admin_level"], 2],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -454,8 +474,8 @@ export const countryOther = {
     "text-max-width": 6.25,
     "text-transform": "none",
   },
-  source: "openmaptiles",
-  "source-layer": "place",
+  source: "ohm",
+  "source-layer": "land_ohm_centroids",
 };
 export const country3 = {
   id: "place_country-3",
@@ -468,9 +488,8 @@ export const country3 = {
   },
   filter: [
     "all",
-    [">=", ["get", "rank"], 3],
-    ["==", ["get", "class"], "country"],
-    ["has", "iso_a2"],
+    [">=", ["get", "area_km2"], 100000],
+    ["==", ["get", "admin_level"], 2],
   ],
   layout: {
     "text-font": ["Americana-Regular"],
@@ -484,8 +503,8 @@ export const country3 = {
     "text-max-width": 6.25,
     "text-transform": "none",
   },
-  source: "openmaptiles",
-  "source-layer": "place",
+  source: "ohm",
+  "source-layer": "land_ohm_centroids",
 };
 export const country2 = {
   id: "place_country-2",
@@ -498,9 +517,8 @@ export const country2 = {
   },
   filter: [
     "all",
-    ["==", ["get", "rank"], 2],
-    ["==", ["get", "class"], "country"],
-    ["has", "iso_a2"],
+    [">=", ["get", "area_km2"], 300000],
+    ["==", ["get", "admin_level"], 2],
   ],
   layout: {
     "text-font": ["Americana-Regular"],
@@ -514,8 +532,8 @@ export const country2 = {
     "text-max-width": 6.25,
     "text-transform": "none",
   },
-  source: "openmaptiles",
-  "source-layer": "place",
+  source: "ohm",
+  "source-layer": "land_ohm_centroids",
 };
 export const country1 = {
   id: "place_country-1",
@@ -536,12 +554,7 @@ export const country1 = {
       3,
     ],
   },
-  filter: [
-    "all",
-    ["==", ["get", "rank"], 1],
-    ["==", ["get", "class"], "country"],
-    ["has", "iso_a2"],
-  ],
+  filter: ["==", ["get", "admin_level"], 1],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -562,8 +575,8 @@ export const country1 = {
       ["literal", [0, 0.5]],
     ],
   },
-  source: "openmaptiles",
-  "source-layer": "place",
+  source: "ohm",
+  "source-layer": "land_ohm_centroids",
 };
 export const continent = {
   id: "place_continent",
@@ -574,7 +587,7 @@ export const continent = {
     "text-halo-blur": labelHaloBlur,
     "text-halo-width": 1,
   },
-  filter: ["==", ["get", "class"], "continent"],
+  filter: ["==", ["get", "type"], "continent"],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": 13,
@@ -582,9 +595,9 @@ export const continent = {
     "text-justify": "center",
     "text-transform": "uppercase",
   },
-  source: "openmaptiles",
+  source: "ohm",
   maxzoom: 1,
-  "source-layer": "place",
+  "source-layer": "land_ohm_centroids",
 };
 
 const populatedPlaceLayers = [village.id, town.id, city.id];
@@ -602,6 +615,10 @@ export const legendEntries = [
   {
     description: "State or province",
     layers: [state.id],
+  },
+  {
+    description: "County or parish",
+    layers: [county.id],
   },
   {
     description: "Large city",
@@ -629,7 +646,7 @@ export const legendEntries = [
   {
     description: "National capital",
     layers: populatedPlaceLayers,
-    filter: ["==", ["get", "capital"], 2],
+    filter: ["==", ["get", "capital"], "yes"],
   },
   {
     description: "Regional capital",
