@@ -2,8 +2,8 @@ import { Timescope } from "timescope";
 
 export class TimeControl {
   _update() {
-    if (this._timescope) {
-      this._timescope.setTime(this._map.date);
+    if (this._map._timescope) {
+      // this._map._timescope.setTime(this._map.date);
     }
   }
 
@@ -22,8 +22,8 @@ export class TimeControl {
     this._container.className = "maplibregl-ctrl maplibregl-ctrl-group";
     this._container.id = "maplibregl-ctrl-time";
 
-    Promise.resolve(this._map.loaded() || this._map.once("load")).then(() => {
-      this._timescope = new Timescope({
+    Promise.resolve(map.style.loaded() || map.once("styledata")).then(() => {
+      map._timescope = new Timescope({
         target: "#maplibregl-ctrl-time",
         style: {
           width: "50vw",
@@ -38,7 +38,7 @@ export class TimeControl {
           },
         },
       });
-      this._timescope.on("timechanged", (event) => this._onTimeChanged(event));
+      map._timescope.on("timechanged", (event) => this._onTimeChanged(event));
     });
     this._map.on("americana.datechanged", () => this._update());
 
@@ -47,7 +47,7 @@ export class TimeControl {
 
   onRemove() {
     this._container.remove();
-    this._timescope.dispose();
+    this._map._timescope.dispose();
     this._map.off("americana.datechanged");
     this._map = undefined;
   }
