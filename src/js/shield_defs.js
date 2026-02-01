@@ -4121,6 +4121,15 @@ export function loadShields() {
   });
 
   // Germany
+  shields["DE:BAB"] = hexagonVerticalShield(
+    3,
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white,
+    0,
+    34
+  );
+
   shields["DE:national"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black,
@@ -4308,7 +4317,7 @@ export function loadShields() {
   };
 
   // Poland
-  shields["PL:expressway"] = shields["PL:motorway"] = roundedRectShield(
+  shields["PL:A"] = shields["PL:S"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
