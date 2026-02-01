@@ -4393,7 +4393,7 @@ export function loadShields() {
   );
 
   // Poland
-  shields["PL:expressway"] = shields["PL:motorway"] = roundedRectShield(
+  shields["PL:A"] = shields["PL:S"] = roundedRectShield(
     Color.shields.red,
     Color.shields.white,
     Color.shields.white,
