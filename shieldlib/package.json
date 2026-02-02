@@ -50,7 +50,7 @@
   "dependencies": {
     "@types/node": "^20.8.4",
     "color-rgba": "^2.4.0",
-    "maplibre-gl": "^2.4.0",
+    "maplibre-gl": "^5.17.0",
     "mocha": "^10.2.0"
   },
   "directories": {
