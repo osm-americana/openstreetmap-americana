@@ -25,7 +25,7 @@
     "prettier": "^2.8.4",
     "shx": "^0.3.4",
     "tsx": "^4.6.2",
-    "typedoc": "^0.24.8",
+    "typedoc": "^0.28.16",
     "typescript": "^4.9.5"
   },
   "scripts": {
