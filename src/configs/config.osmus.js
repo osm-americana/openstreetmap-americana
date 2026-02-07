@@ -1,9 +1,10 @@
 "use strict";
 
 /*
-Planetiler tile server, hosted at AWS
+OpenMapTiles vector tiles, hosted by OpenStreetMap US
 */
-const OPENMAPTILES_URL = "https://tile.ourmap.us/data/v3.json";
+const OPENMAPTILES_URL =
+  "https://tiles.openstreetmap.us/vector/openmaptiles.json";
 
 /*
 The following two variables override the color of the bounding box and halo of
