@@ -15,6 +15,7 @@ interface Stats {
   };
   spriteSheet1xSize: number;
   spriteSheet2xSize: number;
+  spriteSheet3xSize: number;
   shieldJSONSize: number;
   gzipShieldJSONSize: number;
 }
@@ -45,6 +46,12 @@ program
     new Option(
       "-ss2, --spritesheet-2x-size",
       "size of 2x sprite sheet"
+    ).conflicts("allJson")
+  )
+  .addOption(
+    new Option(
+      "-ss3, --spritesheet-3x-size",
+      "size of 3x sprite sheet"
     ).conflicts("allJson")
   )
   .addOption(
@@ -98,10 +105,12 @@ if (opts.layerCount) {
   process.exit();
 }
 
-function spriteSheetSize(distDir: string, single: boolean): number {
-  const pngPath = single ? sprite1xPNG : sprite2xPNG;
-  const jsonPath = single ? sprite1xJSON : sprite2xJSON;
-  return fs.statSync(pngPath).size + fs.statSync(jsonPath).size;
+function spriteSheetSize(distDir: string, scale: number): number {
+  const scaleText = scale === 1 ? "" : `@${scale}x`;
+  return (
+    fs.statSync(`${distDir}/sprites/sprite${scaleText}.png`).size +
+    fs.statSync(`${distDir}/sprites/sprite${scaleText}.json`).size
+  );
 }
 
 function distFileSize(distDir: string, path: string): number {
@@ -112,15 +121,21 @@ function gzipSize(content: string): number {
   return zlib.gzipSync(content).length;
 }
 
-const spriteSheet1xSize = spriteSheetSize(distDir, true);
+const spriteSheet1xSize = spriteSheetSize(distDir, 1);
 if (opts.spritesheet1xSize) {
   console.log(spriteSheet1xSize);
   process.exit();
 }
 
-const spriteSheet2xSize = spriteSheetSize(distDir, false);
+const spriteSheet2xSize = spriteSheetSize(distDir, 2);
 if (opts.spritesheet2xSize) {
   console.log(spriteSheet2xSize);
+  process.exit();
+}
+
+const spriteSheet3xSize = spriteSheetSize(distDir, 3);
+if (opts.spritesheet3xSize) {
+  console.log(spriteSheet3xSize);
   process.exit();
 }
 
@@ -159,6 +174,7 @@ const stats: Stats = {
   layerGroup: {},
   spriteSheet1xSize,
   spriteSheet2xSize,
+  spriteSheet3xSize,
   shieldJSONSize,
   gzipShieldJSONSize,
 };
