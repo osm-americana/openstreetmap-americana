@@ -3719,7 +3719,6 @@ export function loadShields() {
     shields["KR:42:Hongcheon"] =
     shields["KR:45:Wanju"] =
     shields["KR:45:Gochang"] =
-    shields["KR:45:Wanju"] =
     shields["KR:48:Namhae"] =
       shield(Color.shields.yellow, Color.shields.white, Color.shields.blue);
 
