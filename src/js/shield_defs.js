@@ -3715,12 +3715,21 @@ export function loadShields() {
     30
   );
 
-  shields["KR:27:Gunwi"] =
-    shields["KR:42:Hongcheon"] =
-    shields["KR:45:Wanju"] =
+  shields["KR:42:Hongcheon"] =
     shields["KR:45:Gochang"] =
     shields["KR:48:Namhae"] =
-      shield(Color.shields.yellow, Color.shields.white, Color.shields.blue);
+      roundedRectShield(
+        Color.shields.yellow,
+        Color.shields.white,
+        Color.shields.blue
+      );
+  shields["KR:27:Gunwi"] = shields["KR:45:Wanju"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.white,
+    Color.shields.blue,
+    35,
+    0
+  );
 
   shields["KR:local"] = roundedRectShield(
     Color.shields.yellow,
