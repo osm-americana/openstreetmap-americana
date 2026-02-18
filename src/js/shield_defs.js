@@ -3727,7 +3727,7 @@ export function loadShields() {
     Color.shields.yellow,
     Color.shields.white,
     Color.shields.blue,
-    35,
+    30,
     0
   );
 
