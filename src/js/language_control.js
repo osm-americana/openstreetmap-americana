@@ -205,7 +205,12 @@ export class LanguageControl {
         return locale;
       }
     });
-    document.getElementById("language-field").textContent =
-      listFormat.format(formattedNames);
+    const label = document.getElementById("language-field");
+    if (formattedNames.length > 1) {
+      label.textContent = `${formattedNames[0]} +${formattedNames.length - 1}`;
+    } else {
+      label.textContent = formattedNames[0];
+    }
+    label.setAttribute("title", listFormat.format(formattedNames));
   }
 }
