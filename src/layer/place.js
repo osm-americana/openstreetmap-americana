@@ -81,7 +81,7 @@ export const village = {
         [11, 0.5],
       ],
     },
-    "text-field": localizedName,
+    "text-field": localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
