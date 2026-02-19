@@ -51,7 +51,7 @@
     "@types/node": "^20.8.4",
     "color-rgba": "^2.4.0",
     "maplibre-gl": "^2.4.0",
-    "mocha": "^10.2.0"
+    "mocha": "^11.7.5"
   },
   "directories": {
     "test": "test"
