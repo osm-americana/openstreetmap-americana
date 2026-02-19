@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/osm-americana/openstreetmap-americana#readme",
   "dependencies": {
-    "@types/node": "^20.8.4",
+    "@types/node": "^24.10.1",
     "color-rgba": "^2.4.0",
     "maplibre-gl": "^2.4.0",
     "mocha": "^10.2.0"
