@@ -60,7 +60,7 @@
     "@types/node": "^20.8.4",
     "benchmark": "^2.1.4",
     "canvas": "^3.2.0",
-    "chai": "^4.3.7",
+    "chai": "^6.2.1",
     "color-namer": "^1.4.0",
     "commander": "^10.0.0",
     "esbuild": "^0.17.4",
