@@ -5,7 +5,6 @@ const highwaySelector = ["match", ["get", "class"]];
 const baseFilter = [
   "all",
   ["==", ["get", "oneway"], 1],
-  ["!=", ["get", "ramp"], 1],
   [
     "in",
     ["get", "class"],
@@ -31,8 +30,8 @@ export const surface = {
     ...baseFilter,
     ["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]],
   ],
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
   type: "symbol",
   minzoom: 15,
 
