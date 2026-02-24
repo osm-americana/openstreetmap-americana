@@ -4129,6 +4129,14 @@ export function loadShields() {
   );
 
   // Switzerland
+  shields["CH:A"] = hexagonVerticalShield(
+    3,
+    Color.shields.red,
+    Color.shields.white,
+    Color.shields.white,
+    0,
+    34
+  );
   shields["ch:national"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
@@ -4171,6 +4179,23 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.white,
     34
+  );
+
+  // Denmark
+  shields["DK:E"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white
+  );
+  shields["DK:P"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black
+  );
+  shields["DK:A"] = shields["DK:S"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black
   );
 
   // Estonia
@@ -4267,7 +4292,7 @@ export function loadShields() {
     );
   });
 
-  // Germany
+  // Germany, West Germany
   shields["DE:BAB"] = hexagonVerticalShield(
     3,
     Color.shields.blue,
@@ -4277,7 +4302,15 @@ export function loadShields() {
     34
   );
 
-  shields["DE:national"] = roundedRectShield(
+  shields["DE:B"] = shields["DE:R"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black,
+    34
+  );
+
+  // East Germany
+  shields["DD:F"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.black,
     Color.shields.black,
@@ -4480,10 +4513,18 @@ export function loadShields() {
     Color.shields.white,
     34
   );
-  shields["pl:national"] = roundedRectShield(
-    Color.shields.red,
+  shields["PL:DK"] = roundedRectShield(Color.shields.red, Color.shields.white);
+  shields["PL:DW"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black
+  );
+  shields["PL:DM"] = roundedRectShield(
+    Color.shields.green,
+    Color.shields.white,
     Color.shields.white
   );
+  shields["PL:DP"] = roundedRectShield(Color.shields.red, Color.shields.white);
 
   // Portugal
   shields["PT:national"] = roundedRectShield(
