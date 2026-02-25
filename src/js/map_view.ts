@@ -9,7 +9,9 @@ export class MapView extends maplibregl.Map {
   }
 
   set locales(newValue: [String]) {
-    localizeStyle(this);
+    localizeStyle(this, getLocales(), {
+      localizedNamePropertyFormat: "name_$1",
+    });
     this.fire("americana.languagechange");
   }
 
