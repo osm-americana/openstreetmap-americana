@@ -88,7 +88,7 @@ export const label = {
   },
   filter: [
     "in",
-    ["get", "class"],
+    ["get", "highway"],
     [
       "literal",
       [
