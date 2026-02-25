@@ -1,4 +1,4 @@
-import * as label from "../constants/label.js";
+import { localizedName } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 var iconDefs = {
@@ -58,6 +58,14 @@ var iconDefs = {
     sprite: "poi_car_shop",
     color: Color.poi.consumer,
     description: "Car dealership",
+  },
+  cemetery: {
+    classes: {
+      cemetery: ["cemetery", "grave_yard"],
+    },
+    sprite: "poi_gravestone",
+    color: Color.poi.outdoor,
+    description: "Cemetery",
   },
   charging_station: {
     classes: {
@@ -405,6 +413,8 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_uu),
       ],
       Color.poi.infrastructure,
+      [...getSubclasses(iconDefs.cemetery)],
+      Color.poi.outdoor,
       Color.poi.infrastructure,
     ],
   },
@@ -458,7 +468,7 @@ export const poi = {
         ...getSubclasses(iconDefs.restaurant),
       ],
       16,
-      ["clinic", "doctors", "parking"],
+      ["clinic", "doctors", "parking", ...getSubclasses(iconDefs.cemetery)],
       17,
       99,
     ],
@@ -490,12 +500,12 @@ export const poi = {
           "charging_station",
         ],
         "",
-        label.localizedName,
+        localizedName,
       ],
       16,
-      ["match", ["get", "subclass"], ["bus_stop"], "", label.localizedName],
+      ["match", ["get", "subclass"], ["bus_stop"], "", localizedName],
       17,
-      label.localizedName,
+      localizedName,
     ],
     "text-variable-anchor": ["left", "right", "bottom"],
     "text-justify": "auto",
@@ -504,6 +514,34 @@ export const poi = {
     "icon-padding": 0,
     "text-padding": 0,
     "icon-allow-overlap": false,
+    "symbol-sort-key": ["get", "rank"],
+  },
+  source: "openmaptiles",
+  "source-layer": "poi",
+};
+
+// POIs that have no icon at lower zooms
+export const iconlessPoi = {
+  id: "iconless_poi",
+  type: "symbol",
+  paint: {
+    "text-halo-color": Color.parkLabelHalo,
+    "text-halo-width": 1,
+    "icon-halo-width": 0.4,
+    "text-halo-blur": 1,
+    "icon-halo-blur": 0.2,
+    "text-color": Color.parkLabel,
+  },
+  filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "subclass"], "cemetery"]],
+  layout: {
+    "text-font": ["Americana-Bold"],
+    "text-size": 10,
+    "text-field": localizedName,
+    "text-anchor": "center",
+    "text-justify": "center",
+    "text-radial-offset": 0,
+    "text-max-width": 5,
+    "text-padding": 0,
     "symbol-sort-key": ["get", "rank"],
   },
   source: "openmaptiles",

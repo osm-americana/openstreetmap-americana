@@ -1,7 +1,7 @@
 "use strict";
 
 import { getDOMPixelRatio } from "@americana/maplibre-shield-generator";
-import * as Label from "../constants/label.js";
+import { getLocales } from "@americana/diplomat";
 
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 
@@ -57,6 +57,8 @@ export default class LegendControl {
       let anchor = [buttonRect.x, buttonRect.y];
       this.open(anchor);
     });
+
+    this._map.on("americana.languagechange", () => this.onLanguageChange());
 
     return this._container;
   }
@@ -565,7 +567,7 @@ export default class LegendControl {
 
     // Map country codes to localized names and sort the lists of networks by
     // those names.
-    let locales = Label.getLocales();
+    let locales = getLocales();
     let countryNames = new Intl.DisplayNames(locales, {
       type: "region",
     });
@@ -650,7 +652,7 @@ export default class LegendControl {
       link.setAttribute("lang", locale);
       descriptionCell.replaceChildren(link);
 
-      let locales = Label.getLocales();
+      let locales = getLocales();
       if (locale.match(/^\w+/)?.[0] !== locales[0].match(/^\w+/)?.[0]) {
         let languageTag = document.createElement("span");
         languageTag.className = "language";
@@ -797,7 +799,7 @@ export default class LegendControl {
    * @param region ISO 3166-1 alpha-2 country code.
    */
   getNetworkMetadataQuery(region) {
-    let locales = Label.getLocales().join(",");
+    let locales = getLocales().join(",");
     let triple,
       filter = "",
       bind = "";

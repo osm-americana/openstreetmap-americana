@@ -33,6 +33,10 @@ const buildWith = async (
       "fonts.css",
     ].map((f) => copyFile(`src/${f}`, `dist/${f}`))
   );
+  await copyFile(
+    "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
+    "dist/gh-fork-ribbon.css"
+  );
 
   const localConfig = await maybeLocalConfig();
 

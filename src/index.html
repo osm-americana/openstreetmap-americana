@@ -91,6 +91,12 @@
     </style>
     <script type="module" src="americana.js"></script>
     <link rel="stylesheet" href="americana.css" />
+    <link rel="stylesheet" href="gh-fork-ribbon.css" />
+    <style>
+      .github-fork-ribbon::before {
+        background-color: #006747;
+      }
+    </style>
     <link
       rel="stylesheet"
       href="https://kanecohen.github.io/tokenfield/css/tokenfield.css"
@@ -100,22 +106,13 @@
   <body>
     <div id="map"></div>
     <div id="attribution-logo"></div>
-    <a href="https://github.com/osm-americana/openstreetmap-americana/"
-      ><img
-        loading="lazy"
-        width="149"
-        height="149"
-        src="https://github.blog/wp-content/uploads/2008/12/forkme_right_green_007200.png?resize=149%2C149"
-        alt="Fork me on GitHub"
-        style="
-          position: absolute;
-          top: 0;
-          right: 0;
-          border: 0;
-          z-index: 100;
-          clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
-        "
-    /></a>
+    <a
+      class="github-fork-ribbon right-top"
+      href="https://github.com/osm-americana/openstreetmap-americana/"
+      data-ribbon="Fork me on GitHub"
+      title="OpenStreetMap Americana is dedicated to the public domain. You can freely adapt it for any purpose. To get started, visit our repository on GitHub."
+      >Fork me on GitHub</a
+    >
     <template id="legend">
       <h2>Legend</h2>
       <div id="legend-container"></div>
