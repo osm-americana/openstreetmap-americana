@@ -10,7 +10,9 @@ export class MapView extends maplibregl.Map {
   }
 
   set locales(newValue: [String]) {
-    localizeStyle(this);
+    localizeStyle(this, getLocales(), {
+      localizedNamePropertyFormat: "name_$1",
+    });
     let peakTextExpression = this.getLayoutProperty("peak", "text-field");
     updateVariable(peakTextExpression, "eleUnits", getEleUnits(newValue[0]));
     this.setLayoutProperty("peak", "text-field", peakTextExpression);
