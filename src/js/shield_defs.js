@@ -1305,6 +1305,7 @@ export function loadShields() {
     "Clay",
     "Clinton",
     "Coles",
+    "Cook",
     "Cumberland",
     "DeKalb",
     "De_Witt",
@@ -1336,6 +1337,7 @@ export function loadShields() {
     "Schuyler",
     "Shelby",
     "Saint_Clair",
+    "Will",
     "Winnebago",
     "Woodford",
   ].forEach(
