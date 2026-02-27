@@ -183,7 +183,11 @@ langChanger.onclick = function () {
     tf = new Tokenfield({
       el: document.querySelector("#language-picker"), // Attach Tokenfield to the input element with class "text-input"
       items: getLanguageNamesByCode(),
-      newItems: false,
+      validateNewItem: (value) => {
+        try {
+          return new Intl.Locale(value);
+        } catch (e) {}
+      },
     });
     document.querySelectorAll(".tokenfield").forEach((e) => {
       Object.assign(e.style, {
@@ -196,7 +200,7 @@ langChanger.onclick = function () {
     tf.on("change", function () {
       let items = tf.getItems();
       let langCodes = [];
-      items.forEach((element) => langCodes.push(element.id));
+      items.forEach((element) => langCodes.push(element.id || element.name));
       let langQuery = langCodes.join(",");
       let hash = window.location.hash.substr(1); // omit #
       let searchParams = new URLSearchParams(hash);
