@@ -35,82 +35,133 @@ function show(element) {
   element.style.removeProperty("display");
 }
 
-let languageNames = new Intl.DisplayNames(getLocales(), {
+const languageNames = new Intl.DisplayNames(getLocales(), {
   type: "language",
 });
-let langCodes = [
-  "am",
-  "ar",
-  "az",
-  "be",
-  "bg",
-  "br",
-  "bs",
-  "ca",
-  "co",
-  "cs",
-  "cy",
-  "da",
-  "de",
-  "el",
-  "en",
-  "eo",
-  "es",
-  "et",
-  "eu",
-  "fi",
-  "fr",
-  "fy",
-  "ga",
-  "gd",
-  "he",
-  "hi",
-  "hr",
-  "hu",
-  "hy",
-  "id",
-  "is",
-  "it",
-  "ja",
-  // "ja_kana",
-  "ja-Latn",
+
+/// IETF language tags that include subtags and are prevalent in a name:*=* subkey.
+// https://qlever.dev/osm-planet/soyLnO
+const subtags = [
+  "ar-Latn",
+  "az-Arab",
+  "az-Latn",
+  "ba-Arab",
+  "ba-Cyrl",
+  "be-tarask",
+  "bo-Latn-pinyin",
+  "bo-Latn-wylie",
+  "bs-Cyrl",
+  "bs-Latn",
+  "cmn-Latn",
+  "cnr-Cyrl",
+  "cnr-Latn",
+  "cr-Latn",
+  "cr-latin",
+  "crh-Arab",
+  "crh-Cyrl",
+  "crk-Latn",
+  "el-Latn",
+  "en-US",
+  "en-fonipa",
+  "fa-Latn",
+  "fr-gallo",
+  "hak-Hant",
+  "hi-Latn",
+  "iu-Latn",
   "ja-Hira",
-  "ka",
-  "kk",
-  "kn",
-  "ko",
+  "ja-Hrkt",
+  "ja-Jpan",
+  "ja-Kana",
+  "ja-Latn",
+  "ka-Latn",
+  "kab-Arab",
+  "kab-Tfng",
+  "kk-Arab",
+  "kk-Cyrl",
+  "kk-Latn",
+  "km-Latn",
+  "ko-CN",
+  "ko-Hani",
+  "ko-KP",
+  "ko-KR",
+  "ko-Kana",
+  "ko-Kore",
   "ko-Latn",
-  "ku",
-  "la",
-  "lb",
-  "lt",
-  "lv",
-  "mk",
-  "mt",
-  "ml",
-  "nl",
-  "no",
-  "oc",
-  "pl",
-  "pt",
-  "rm",
-  "ro",
-  "ru",
-  "sk",
-  "sl",
-  "sq",
-  "sr",
+  "ku-Arab",
+  "ky-Arab",
+  "ky-Cyrl",
+  "lo-Latn",
+  "mn-Cyrl",
+  "mn-Mong",
+  "ms-Arab",
+  "my-Latn",
+  "nan-Hans",
+  "nan-Hant",
+  "nan-Latn-pehoeji",
+  "nan-Latn-tailo",
+  "oc-provenc-grmistr",
+  "pa-Arab",
+  "pt-BR",
+  "ru-Latn",
   "sr-Latn",
-  "sv",
-  "ta",
-  "te",
-  "th",
-  "tr",
-  "uk",
-  "zh",
-].map((id) => {
-  return { id, name: languageNames.of(id) };
-});
+  "su-Latn",
+  "th-Latn",
+  "tk-Arab",
+  "tt-Arab",
+  "tt-Cyrl",
+  "ug-Arab",
+  "uk-Latn",
+  "uz-Arab",
+  "uz-Cyrl",
+  "uz-Latn",
+  "vi-Hani",
+  "yue-Hans",
+  "yue-Hant",
+  "yue-Latn",
+  "yue-Latn-HK",
+  "yue-Latn-jyutping",
+  "zh-Bopo",
+  "zh-Hans",
+  "zh-Hans-CN",
+  "zh-Hans-MY",
+  "zh-Hans-SG",
+  "zh-Hant",
+  "zh-Hant-CN",
+  "zh-Hant-HK",
+  "zh-Hant-MO",
+  "zh-Hant-TW",
+  "zh-Latn",
+  "zh-Latn-pinyin",
+  "zh-Latn-tongyong",
+  "zh-Latn-wadegile",
+];
+
+let _languageNamesByCode;
+function getLanguageNamesByCode() {
+  if (_languageNamesByCode) return _languageNamesByCode;
+
+  // Generate all letter permutations that would be well-formed ISO 639-2 or ISO 639-3 codes, not necessarily valid ones.
+  const allLanguageCodes = "abcdefghijklmnopqrstuvwxyz"
+    .split("")
+    .flatMap((l1, i, a) =>
+      a.flatMap((l2) => [l1 + l2].concat(a.map((l3) => l1 + l2 + l3)))
+    );
+  allLanguageCodes.push(...subtags);
+  allLanguageCodes.sort();
+  // Weed out codes that the browser doesn’t support.
+  const supportedLanguageCodes =
+    Intl.DisplayNames.supportedLocalesOf(allLanguageCodes);
+  // Restore common name:*=* subkeys.
+  // Map language codes to localized language names then memoize them.
+  const languageNamesByCode = {};
+  for (let code of supportedLanguageCodes) {
+    languageNamesByCode[code] = languageNames.of(code);
+  }
+  _languageNamesByCode = Object.entries(languageNamesByCode).map(
+    ([id, name]) => ({ id, name })
+  );
+  return _languageNamesByCode;
+}
 
 function labelControlElement(tag, id) {
   var element = document.createElement(tag);
@@ -131,8 +182,12 @@ langChanger.onclick = function () {
   if (tf == null) {
     tf = new Tokenfield({
       el: document.querySelector("#language-picker"), // Attach Tokenfield to the input element with class "text-input"
-      items: langCodes,
-      newItems: false,
+      items: getLanguageNamesByCode(),
+      validateNewItem: (value) => {
+        try {
+          return new Intl.Locale(value);
+        } catch (e) {}
+      },
     });
     document.querySelectorAll(".tokenfield").forEach((e) => {
       Object.assign(e.style, {
@@ -145,7 +200,7 @@ langChanger.onclick = function () {
     tf.on("change", function () {
       let items = tf.getItems();
       let langCodes = [];
-      items.forEach((element) => langCodes.push(element.id));
+      items.forEach((element) => langCodes.push(element.id || element.name));
       let langQuery = langCodes.join(",");
       let hash = window.location.hash.substr(1); // omit #
       let searchParams = new URLSearchParams(hash);
@@ -196,11 +251,10 @@ export class LanguageControl {
 
   displayLocales() {
     const locales = this._map.locales;
-    let languageNames = new Intl.DisplayNames(locales, { type: "language" });
     let listFormat = new Intl.ListFormat(locales, { type: "disjunction" });
     let formattedNames = locales.map((locale) => {
       try {
-        return languageNames.of(locale);
+        return languageNames.of(locale) || locale;
       } catch {
         return locale;
       }
