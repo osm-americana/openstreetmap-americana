@@ -3,7 +3,8 @@
 import Tokenfield from "tokenfield";
 import { getLocales } from "@americana/diplomat";
 
-const languageNames = new Intl.DisplayNames(getLocales(), {
+const initialLocales = getLocales();
+const languageNames = new Intl.DisplayNames(initialLocales, {
   type: "language",
 });
 
@@ -180,8 +181,17 @@ export class LanguageControl {
     document.body.classList.add("language-dialog-open");
 
     if (!this._tokenField) {
-      this._tokenField = new Tokenfield({
-        el: document.getElementById("language-field"),
+      const inputField = document.getElementById("language-field");
+      const listFormat = new Intl.ListFormat(initialLocales, { type: "unit" });
+      const firstLocale = new Intl.Locale(initialLocales[0]).minimize();
+      const examples = new Set([
+        languageNames.of(firstLocale),
+        firstLocale.baseName,
+      ]);
+      inputField.placeholder = listFormat.format([...examples]);
+
+      const tokenField = (this._tokenField = new Tokenfield({
+        el: inputField,
         items: getLanguageNamesByCode(),
         validateNewItem: (value) => {
           // Write-ins must be well-formed IETF language tags.
@@ -189,12 +199,17 @@ export class LanguageControl {
             return new Intl.Locale(value);
           } catch (e) {}
         },
-      });
-      this._tokenField.on("change", function () {
+      }));
+      tokenField.on("change", function () {
         // A write-in has no ID, so fall back to the literal name entered by the user.
         let langCodes = this.getItems().map((item) => item.id || item.name);
         setLanguages(langCodes);
       });
+      document
+        .getElementById("language-reset")
+        .addEventListener("click", () => {
+          tokenField.emptyItems();
+        });
     }
 
     // Prevent <dialog> from focusing the first link by autofocusing the raw input field.

@@ -58,6 +58,9 @@
       #language-dialog .dialog-controls {
         text-align: right;
       }
+      dialog .dialog-controls button[type="submit"] {
+        font-weight: bold;
+      }
       .openmapsamples-control-container {
         margin-left: 70px !important;
       }
@@ -157,6 +160,7 @@
       </p>
       <textarea id="language-field" autofocus></textarea>
       <div class="dialog-controls">
+        <button id="language-reset">Reset</button>
         <button type="submit" commandfor="language-dialog" command="close">
           Done
         </button>
