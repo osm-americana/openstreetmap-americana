@@ -120,7 +120,8 @@ function getLanguageNamesByCode() {
   // Weed out codes that the browser doesn’t support.
   const supportedLanguageCodes =
     Intl.DisplayNames.supportedLocalesOf(allLanguageCodes);
-  // Restore common name:*=* subkeys.
+  // The default name key is considered to result in multilingual content.
+  supportedLanguageCodes.push("mul");
   // Map language codes to localized language names then memoize them.
   const languageNamesByCode = {};
   for (let code of supportedLanguageCodes) {
