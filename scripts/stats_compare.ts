@@ -79,12 +79,20 @@ const ss2xRow: string = mdCompareRow(
   difference.spriteSheet2xSize
 );
 
+const ss3xRow = mdCompareRow(
+  "3x Sprite Sheet Size (b)",
+  stats1.spriteSheet3xSize,
+  stats2.spriteSheet3xSize,
+  difference.spriteSheet3xSize
+);
+
 printTable("Style size statistics", [
   layersRow,
   sizeRow,
   gzSizeRow,
   ss1xRow,
   ss2xRow,
+  ss3xRow,
   shieldRow,
   gzShieldRow,
 ]);
