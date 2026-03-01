@@ -3,39 +3,8 @@
 import Tokenfield from "tokenfield";
 import { getLocales } from "@americana/diplomat";
 
-var langField = labelControlElement("span", "language-field");
-
-var langChanger = labelControlElement("button", "language-switcher");
-langChanger.textContent = "Change";
-
-var langPicker = labelControlElement("input", "language-picker");
-hide(langPicker);
-
-var langHeader = labelControlElement("span", "lang-header");
-var langHints = labelControlElement("span", "lang-hints");
-langHints.textContent = "Begin typing to add languages";
-
-var langCancel = labelControlElement("button", "language-cancel");
-langCancel.textContent = "X";
-Object.assign(langCancel.style, {
-  "margin-top": "0.3em",
-});
-
-langHeader.appendChild(langCancel);
-langHeader.appendChild(langHints);
-
-hide(langHeader);
-
-function hide(element) {
-  Object.assign(element.style, {
-    display: "none",
-  });
-}
-function show(element) {
-  element.style.removeProperty("display");
-}
-
-const languageNames = new Intl.DisplayNames(getLocales(), {
+const initialLocales = getLocales();
+const languageNames = new Intl.DisplayNames(initialLocales, {
   type: "language",
 });
 
@@ -151,7 +120,8 @@ function getLanguageNamesByCode() {
   // Weed out codes that the browser doesn’t support.
   const supportedLanguageCodes =
     Intl.DisplayNames.supportedLocalesOf(allLanguageCodes);
-  // Restore common name:*=* subkeys.
+  // The default name key is considered to result in multilingual content.
+  supportedLanguageCodes.push("mul");
   // Map language codes to localized language names then memoize them.
   const languageNamesByCode = {};
   for (let code of supportedLanguageCodes) {
@@ -163,61 +133,13 @@ function getLanguageNamesByCode() {
   return _languageNamesByCode;
 }
 
-function labelControlElement(tag, id) {
-  var element = document.createElement(tag);
-  element.id = id;
-  Object.assign(element.style, {
-    margin: "0 2.5px",
-    color: "#444",
-  });
-  return element;
+function setLanguages(langCodes) {
+  let langQuery = langCodes.join(",");
+  let hash = window.location.hash.substr(1); // omit #
+  let searchParams = new URLSearchParams(hash);
+  searchParams.set("language", langQuery);
+  window.location.hash = `#${searchParams}`;
 }
-
-var tf = null;
-
-langChanger.onclick = function () {
-  hide(langChanger);
-  show(langHeader);
-
-  if (tf == null) {
-    tf = new Tokenfield({
-      el: document.querySelector("#language-picker"), // Attach Tokenfield to the input element with class "text-input"
-      items: getLanguageNamesByCode(),
-      validateNewItem: (value) => {
-        try {
-          return new Intl.Locale(value);
-        } catch (e) {}
-      },
-    });
-    document.querySelectorAll(".tokenfield").forEach((e) => {
-      Object.assign(e.style, {
-        height: "5em",
-        width: "20em",
-        "margin-bottom": "4em",
-        "margin-top": "0.3em",
-      });
-    });
-    tf.on("change", function () {
-      let items = tf.getItems();
-      let langCodes = [];
-      items.forEach((element) => langCodes.push(element.id || element.name));
-      let langQuery = langCodes.join(",");
-      let hash = window.location.hash.substr(1); // omit #
-      let searchParams = new URLSearchParams(hash);
-      searchParams.set("language", langQuery);
-      window.location.hash = `#${searchParams}`;
-    });
-  }
-
-  document.querySelectorAll(".tokenfield").forEach((e) => show(e));
-  tf.focus();
-};
-
-langCancel.onclick = function () {
-  document.querySelectorAll(".tokenfield").forEach((e) => hide(e));
-  hide(langHeader);
-  show(langChanger);
-};
 
 /**
  * Label for displaying the current language being used
@@ -226,27 +148,80 @@ export class LanguageControl {
   onAdd(map) {
     this._map = map;
     this._container = document.createElement("div");
-    this._container.className = "maplibregl-ctrl";
-    Object.assign(this._container.style, {
-      margin: "0",
-      padding: "0 5px",
-      color: "#444",
-      backgroundColor: "#ffffff80",
-    });
-    this._container.textContent = "";
-    this._container.appendChild(langHeader);
-    this._container.appendChild(langPicker);
-    this._container.appendChild(langField);
-    this._container.appendChild(langChanger);
+    this._container.className = "maplibregl-ctrl language-control";
+    this._label = document.createElement("span");
+    this._label.className = "language-label";
+    this._container.appendChild(this._label);
+
+    this._dialog = document.getElementById("language-dialog");
+    this._dialog.addEventListener("close", this.dialogDidClose);
+
+    this._opener = document.createElement("button");
+    this._opener.className = "language-dialog-opener";
+    this._opener.textContent = "Change";
+    this._opener.setAttribute("command", "show-modal");
+    this._opener.setAttribute("commandfor", "language-dialog");
+    this._opener.addEventListener("click", this.openDialog);
+    this._container.appendChild(this._opener);
+
     this._map.once("load", (event) => this.displayLocales());
     this._map.on("americana.languagechange", (event) => this.displayLocales());
+
     return this._container;
   }
 
   onRemove() {
     this._container.parentNode.removeChild(this._container);
     this._map.off("americana.languagechange");
-    this._map = undefined;
+    delete this._map;
+    this._dialog.removeEventListener("close", this.dialogDidClose);
+    delete this._dialog;
+  }
+
+  openDialog() {
+    document.body.classList.add("language-dialog-open");
+
+    if (!this._tokenField) {
+      const inputField = document.getElementById("language-field");
+      const listFormat = new Intl.ListFormat(initialLocales, { type: "unit" });
+      const firstLocale = new Intl.Locale(initialLocales[0]).minimize();
+      const examples = new Set([
+        languageNames.of(firstLocale),
+        firstLocale.baseName,
+      ]);
+      inputField.placeholder = listFormat.format([...examples]);
+
+      const tokenField = (this._tokenField = new Tokenfield({
+        el: inputField,
+        items: getLanguageNamesByCode(),
+        validateNewItem: (value) => {
+          // Write-ins must be well-formed IETF language tags.
+          try {
+            return new Intl.Locale(value);
+          } catch (e) {}
+        },
+      }));
+      tokenField.on("change", function () {
+        // A write-in has no ID, so fall back to the literal name entered by the user.
+        let langCodes = this.getItems().map((item) => item.id || item.name);
+        setLanguages(langCodes);
+      });
+      document
+        .getElementById("language-reset")
+        .addEventListener("click", () => {
+          tokenField.emptyItems();
+        });
+    }
+
+    // Prevent <dialog> from focusing the first link by autofocusing the raw input field.
+    document
+      .querySelectorAll(".tokenfield-input")
+      .forEach((elt) => elt.setAttribute("autofocus", ""));
+    this._tokenField.focus();
+  }
+
+  dialogDidClose() {
+    document.body.classList.remove("language-dialog-open");
   }
 
   displayLocales() {
@@ -259,12 +234,13 @@ export class LanguageControl {
         return locale;
       }
     });
-    const label = document.getElementById("language-field");
     if (formattedNames.length > 1) {
-      label.textContent = `${formattedNames[0]} +${formattedNames.length - 1}`;
+      this._label.textContent = `${formattedNames[0]} +${
+        formattedNames.length - 1
+      }`;
     } else {
-      label.textContent = formattedNames[0];
+      this._label.textContent = formattedNames[0];
     }
-    label.setAttribute("title", listFormat.format(formattedNames));
+    this._label.setAttribute("title", listFormat.format(formattedNames));
   }
 }
