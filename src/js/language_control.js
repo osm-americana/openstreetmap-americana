@@ -131,6 +131,8 @@ function getLanguageNamesByCode() {
   _languageNamesByCode = Object.entries(languageNamesByCode).map(
     ([id, name]) => ({ id, name })
   );
+  const collator = new Intl.Collator(initialLocales);
+  _languageNamesByCode.sort((a, b) => collator.compare(a.name, b.name));
   return _languageNamesByCode;
 }
 
