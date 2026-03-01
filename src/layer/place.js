@@ -43,6 +43,14 @@ function filterPlace(type) {
   return ["==", ["get", "type"], type];
 }
 
+function filterCentroid(adminLevels) {
+  return [
+    "all",
+    ["==", ["get", "type"], "administrative"],
+    ["in", ["get", "admin_level"], ["literal", adminLevels]],
+  ];
+}
+
 export const village = {
   id: "place_village",
   type: "symbol",
@@ -371,7 +379,7 @@ export const state = {
     ],
     "text-halo-blur": labelHaloBlur,
   },
-  filter: ["in", ["get", "admin_level"], ["literal", [3, 4]]],
+  filter: filterCentroid([3, 4]),
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -420,7 +428,7 @@ export const county = {
     ],
     "text-halo-blur": labelHaloBlur,
   },
-  filter: ["in", ["get", "admin_level"], ["literal", [5, 6]]],
+  filter: filterCentroid([5, 6]),
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -461,7 +469,7 @@ export const countryOther = {
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
   },
-  filter: ["==", ["get", "admin_level"], 2],
+  filter: filterCentroid([2]),
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -486,11 +494,7 @@ export const country3 = {
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
   },
-  filter: [
-    "all",
-    [">=", ["get", "area_km2"], 100000],
-    ["==", ["get", "admin_level"], 2],
-  ],
+  filter: ["all", [">=", ["get", "area_km2"], 100000], filterCentroid([2])],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -515,11 +519,7 @@ export const country2 = {
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 1, 1, 5, 2.4],
   },
-  filter: [
-    "all",
-    [">=", ["get", "area_km2"], 300000],
-    ["==", ["get", "admin_level"], 2],
-  ],
+  filter: ["all", [">=", ["get", "area_km2"], 300000], filterCentroid([2])],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -554,7 +554,7 @@ export const country1 = {
       3,
     ],
   },
-  filter: ["==", ["get", "admin_level"], 1],
+  filter: filterCentroid([1]),
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
