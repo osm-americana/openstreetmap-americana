@@ -117,15 +117,16 @@ function getLanguageNamesByCode() {
     );
   allLanguageCodes.push(...subtags);
   allLanguageCodes.sort();
-  // Weed out codes that the browser doesn’t support.
-  const supportedLanguageCodes =
-    Intl.DisplayNames.supportedLocalesOf(allLanguageCodes);
-  // The default name key is considered to result in multilingual content.
-  supportedLanguageCodes.push("mul");
+  const canonicalLanguageCodes = new Set(
+    allLanguageCodes.map((c) => new Intl.Locale(c).baseName)
+  );
   // Map language codes to localized language names then memoize them.
   const languageNamesByCode = {};
-  for (let code of supportedLanguageCodes) {
-    languageNamesByCode[code] = languageNames.of(code);
+  for (let code of canonicalLanguageCodes) {
+    let name = languageNames.of(code);
+    if (name !== code) {
+      languageNamesByCode[code] = name;
+    }
   }
   _languageNamesByCode = Object.entries(languageNamesByCode).map(
     ([id, name]) => ({ id, name })
