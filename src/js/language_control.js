@@ -155,6 +155,12 @@ export class LanguageControl {
     this._label = document.createElement("span");
     this._label.className = "language-label";
     this._container.appendChild(this._label);
+    this._languageNameLabel = document.createElement("span");
+    this._languageNameLabel.className = "language-name";
+    this._label.appendChild(this._languageNameLabel);
+    this._overflowLabel = document.createElement("span");
+    this._overflowLabel.className = "language-overflow";
+    this._label.appendChild(this._overflowLabel);
 
     this._dialog = document.getElementById("language-dialog");
     this._dialog.addEventListener("close", this.dialogDidClose);
@@ -237,13 +243,38 @@ export class LanguageControl {
         return locale;
       }
     });
-    if (formattedNames.length > 1) {
-      this._label.textContent = `${formattedNames[0]} +${
-        formattedNames.length - 1
-      }`;
-    } else {
-      this._label.textContent = formattedNames[0];
+
+    // Update most preferred language name label.
+    const bestFormattedName = formattedNames[0];
+    // Isolate parentheticals between opening and close punctuation marks.
+    const bestFormattedComponents = bestFormattedName.split(
+      /(\p{gc=Ps}.+?\p{gc=Pe})/u
+    );
+    const languageNameNodes = [];
+    for (const component of bestFormattedComponents) {
+      // Deemphasize parentheticals.
+      if (component.match(/\p{gc=Ps}/u)) {
+        const componentSpan = document.createElement("span");
+        componentSpan.className = "language-qualifier";
+        componentSpan.textContent = component;
+        languageNameNodes.push(componentSpan);
+      } else {
+        languageNameNodes.push(document.createTextNode(component));
+      }
     }
+    this._languageNameLabel.replaceChildren(...languageNameNodes);
+
+    // Update overflow label.
+    if (formattedNames.length > 1) {
+      const numRemainingLocales = formattedNames.length - 1;
+      const numberFormat = new Intl.NumberFormat(initialLocales, {
+        signDisplay: "always",
+      });
+      this._overflowLabel.textContent =
+        numberFormat.format(numRemainingLocales);
+    }
+
+    // Update tooltip with all the locales.
     this._label.setAttribute("title", listFormat.format(formattedNames));
   }
 }
