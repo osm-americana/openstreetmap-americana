@@ -756,7 +756,7 @@ export function loadShields() {
   // Chicago-Kansas City Expressway
   shields["US:CKC"] = {
     spriteBlank: "shield_us_ckc",
-    notext: true;
+    notext: true,
   };
 
   // Great Lakes Seaway Trail
