@@ -1074,12 +1074,12 @@ export function loadShields() {
   };
   shields["US:CO:NW"] = {
     spriteBlank: "shield_us_co_nw",
-    textColor: Color.shields.black,
+    textColor: Color.shields.blue,
     padding: {
       left: 3,
-      right: 6,
-      top: 2,
-      bottom: 16,
+      right: 3,
+      top: 12,
+      bottom: 2,
     },
   };
   [

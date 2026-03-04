@@ -1,8 +1,9 @@
 <svg width="20" height="22" viewBox="0 0 5.292 5.821" xmlns="http://www.w3.org/2000/svg">
- <rect style="fill:#fff;stroke:none;stroke-width:.264583;stroke-linecap:round;stroke-linejoin:round" width="5.292" height="5.821" rx=".529" ry=".529"/>
- <path d="M 2.3219837,5.2916675 H 2.0203581 L 1.1313565,4.1962905 v 1.095377 H 0.82814344 V 3.7041646 H 1.1218315 L 2.0140081,4.8138291 V 3.7041646 H 2.3219837 Z M 4.4635239,3.7041646 4.1285608,5.2916675 H 3.8047102 L 3.5300722,4.2994782 3.2586092,5.2916675 H 2.9395211 L 2.607733,3.7041646 H 2.9125335 L 3.1189089,4.6741288 3.3856094,3.7041646 h 0.296863 L 3.9491729,4.6741288 4.1555483,3.7041646 Z" style="font-size:2.77813px;line-height:1.25;font-family:'Roadgeek 2014 Series F';-inkscape-font-specification:'Roadgeek 2014 Series F';text-align:center;text-anchor:middle;fill:#003f87;stroke-width:.198437" aria-label="NW"/>
- <path style="fill:#003f87;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 0.52916666,2.1166665 2.6458332,0.52916663 4.7624999,2.1166665 Z"/>
+ <rect style="fill:#fff;stroke:#003f87;stroke-width:.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" width="5.027" height="5.556" x=".132" y=".132" rx=".529" ry=".529"/>
+ <path style="fill:#003f87;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 1.0583334,2.1166666 1.5874998,-1.58749997 1.5875,1.58749987 z"/>
  <path style="fill:#c4d600;stroke:none;stroke-width:.264583;stroke-linecap:round;stroke-linejoin:round" d="M.529 2.117H4.762V3.175H.529z"/>
+ <path style="fill:#fff;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 1.8520833,1.5874999 2.6458332,0.79374996 3.1749999,1.3229166 Z"/>
+ <path style="fill:#003f87;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M.52916665 2.1166665 1.3229166 1.0583333 2.1166666 2.1166665ZM3.1749999 2.1166665l.7937499-.7937499.79375.7937499z"/>
+ <path style="fill:#fff;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M.92604161 1.8520832 1.3229166 1.3229166 1.5874999 1.5874999ZM3.4395832 2.1166665 3.9687498 1.5874999 4.2333332 1.8520832ZM.79374997 2.1166665l1.32291663 1.0583333 2.6458332 0-2.6458332-1.0583333z"/>
  <path style="fill:#003f87;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 1.0583333,2.1166665 1.5874999,1.0583332 1.5875,1e-7 L 1.5875,2.1166665 Z"/>
- <path style="fill:#fff;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 1.3229166,1.8520832 2.6458332,0.79374996 3.4395833,1.3229166 Z"/>
 </svg>
