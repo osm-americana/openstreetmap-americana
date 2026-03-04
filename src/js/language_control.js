@@ -162,14 +162,17 @@ export class LanguageControl {
     this._overflowLabel.className = "language-overflow";
     this._label.appendChild(this._overflowLabel);
 
-    this._dialog = document.getElementById("language-dialog");
+    const dialog = (this._dialog = document.getElementById("language-dialog"));
+    // FIXME: Replace with Command Invokers API once Firefox ESR supports it.
+    const dialogDone = document.getElementById("language-dialog-done");
+    dialogDone.addEventListener("click", () => {
+      dialog.close();
+    });
     this._dialog.addEventListener("close", this.dialogDidClose);
 
     this._opener = document.createElement("button");
     this._opener.className = "language-dialog-opener";
     this._opener.textContent = "Change";
-    this._opener.setAttribute("command", "show-modal");
-    this._opener.setAttribute("commandfor", "language-dialog");
     this._opener.addEventListener("click", this.openDialog);
     this._container.appendChild(this._opener);
 
@@ -183,11 +186,15 @@ export class LanguageControl {
     this._container.parentNode.removeChild(this._container);
     this._map.off("americana.languagechange");
     delete this._map;
+    this._opener.removeEventListener("click", this.openDialog);
+    delete this._opener;
     this._dialog.removeEventListener("close", this.dialogDidClose);
     delete this._dialog;
   }
 
   openDialog() {
+    // FIXME: Replace with Command Invokers API once Firefox ESR supports it.
+    document.getElementById("language-dialog").showModal();
     document.body.classList.add("language-dialog-open");
 
     if (!this._tokenField) {
