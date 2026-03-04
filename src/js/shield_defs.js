@@ -1088,7 +1088,9 @@ export function loadShields() {
     "Chaffee",
     "Clear_Creek",
     "Conejos",
+    "Eagle",
     "El_Paso",
+    "Garfield",
     "Grand",
     "Gunnison",
     "Hinsdale",
@@ -1132,6 +1134,10 @@ export function loadShields() {
   shields["US:CO:Weld:WCP"] = {
     ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.green),
     textHaloColor: Color.shields.white,
+  };
+  shields["US:CO:Scenic"] = {
+    spriteBlank: "shield_us_co_scenic",
+    notext: true,
   };
 
   // Connecticut
@@ -1299,6 +1305,7 @@ export function loadShields() {
     "Clay",
     "Clinton",
     "Coles",
+    "Cook",
     "Cumberland",
     "DeKalb",
     "De_Witt",
@@ -1330,6 +1337,7 @@ export function loadShields() {
     "Schuyler",
     "Shelby",
     "Saint_Clair",
+    "Will",
     "Winnebago",
     "Woodford",
   ].forEach(
@@ -2380,6 +2388,12 @@ export function loadShields() {
       "US:OH:Bypass": ["BYP"],
       "US:OH:Business": ["BUS"],
     },
+  };
+  shields["US:OH:ODNR"] = {
+    ...shields["US:OH"],
+    banners: ["NR"],
+    textColor: Color.shields.brown,
+    colorLighten: Color.shields.brown,
   };
   shields["US:OH:Turnpike"] = {
     spriteBlank: "shield_us_oh_turnpike",
@@ -3692,8 +3706,8 @@ export function loadShields() {
     padding: {
       left: 4,
       right: 4,
-      top: 6,
-      bottom: 4,
+      top: 7.5,
+      bottom: 3.5,
     },
   };
   shields["KR:national"] = ovalShield(
@@ -3702,11 +3716,138 @@ export function loadShields() {
     Color.shields.white,
     30
   );
+
+  shields["KR:42:Hongcheon"] =
+    shields["KR:45:Gochang"] =
+    shields["KR:48:Namhae"] =
+      roundedRectShield(
+        Color.shields.yellow,
+        Color.shields.white,
+        Color.shields.blue
+      );
+  shields["KR:27:Gunwi"] = shields["KR:45:Wanju"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.white,
+    Color.shields.blue,
+    30,
+    0
+  );
+
   shields["KR:local"] = roundedRectShield(
     Color.shields.yellow,
     Color.shields.white,
     Color.shields.blue
   );
+
+  [
+    "11",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "50",
+    "41:Gapyeong",
+    "41:Goyang",
+    "41:Gwacheon",
+    "41:Gwangmyeong",
+    "41:Gwangju",
+    "41:Guri",
+    "41:Gunpo",
+    "41:Gimpo",
+    "41:Namyangju",
+    "41:Dongducheon",
+    "41:Bucheon",
+    "41:Seongnam",
+    "41:Suwon",
+    "41:Siheung",
+    "41:Ansan",
+    "41:Anseong",
+    "41:Anyang",
+    "41:Yangju",
+    "41:Yeoju",
+    "41:Osan",
+    "41:Yongin",
+    "41:Uiwang",
+    "41:Uijeongbu",
+    "41:Icheon",
+    "41:Paju",
+    "41:Pyeongtaek",
+    "41:Pocheon",
+    "41:Hanam",
+    "41:Hwaseong",
+    "42:Gangneung",
+    "42:Donghae",
+    "42:Samcheok",
+    "42:Sokcho",
+    "42:Wonju",
+    "42:Chuncheon",
+    "42:Taebaek",
+    "43:Jechon",
+    "43:Cheongju",
+    "43:Chungju",
+    "44:Gyeryong",
+    "44:Gongju",
+    "44:Nonsan",
+    "44:Dangjin",
+    "44:Boryeong",
+    "44:Seosan",
+    "44:Asan",
+    "44:Cheonan",
+    "45:Gunsan",
+    "45:Gimje",
+    "45:Namwon",
+    "45:Iksan",
+    "45:Jeonju",
+    "45:Jeongeup",
+    "46:Gwangyang",
+    "46:Naju",
+    "46:Mokpo",
+    "46:Suncheon",
+    "46:Yeosu",
+    "47:Gyeongsan",
+    "47:Gyeongju",
+    "47:Gumi",
+    "47:Gimcheon",
+    "47:Mungyeong",
+    "47:Sangju",
+    "47:Andong",
+    "47:Yeongju",
+    "47:Yeongcheon",
+    "47:Pohang",
+    "48:Geoje",
+    "48:Gimhae",
+    "48:Miryang",
+    "48:Sacheon",
+    "48:Yangsan",
+    "48:Jinju",
+    "48:Changwon",
+    "48:Tongyeong",
+    "49:Jeju",
+    "49:Seogwipo",
+  ].forEach((city) => {
+    shields[`KR:${city}`] = {
+      spriteBlank: ["shield_kr_municipal", "shield_kr_municipal_4"],
+      textColor: Color.shields.blue,
+      padding: {
+        left: 4,
+        right: 4,
+        top: 4,
+        bottom: 4,
+      },
+    };
+    shields[`KR:${city}:expressway`] = {
+      spriteBlank: "shield_kr_municipal_motorway",
+      textColor: Color.shields.blue,
+      padding: {
+        left: 4,
+        right: 4,
+        top: 4,
+        bottom: 4,
+      },
+    };
+  });
 
   // Malaysia
   shields["MY:expressway"] = shields["my:federal"] = hexagonVerticalShield(
@@ -4369,7 +4510,46 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.black
   );
-  shields["NZ:WRR"] = circleShield(Color.shields.white, Color.shields.black);
+  shields["NZ:WRR"] = {
+    spriteBlank: "shield_nz_wrr",
+    notext: true,
+  };
+  shields["NZ:Touring:AH"] = {
+    spriteBlank: "shield_nz_ah",
+    notext: true,
+  };
+  shields["NZ:Touring:CNZWT"] = {
+    spriteBlank: "shield_nz_wine",
+    notext: true,
+  };
+  shields["NZ:Touring:MWT"] = {
+    spriteBlank: "shield_nz_wine",
+    notext: true,
+  };
+  shields["NZ:Touring:PCH"] = {
+    spriteBlank: "shield_nz_pch",
+    notext: true,
+  };
+  shields["NZ:Touring:SLH"] = {
+    spriteBlank: "shield_nz_slh",
+    notext: true,
+  };
+  shields["NZ:Touring:SSR"] = {
+    spriteBlank: "shield_nz_ssr",
+    notext: true,
+  };
+  shields["NZ:Touring:TCDH"] = {
+    spriteBlank: "shield_nz_tcdh",
+    notext: true,
+  };
+  shields["NZ:Touring:TEH"] = {
+    spriteBlank: "shield_nz_teh",
+    notext: true,
+  };
+  shields["NZ:Touring:VLH"] = {
+    spriteBlank: "shield_nz_vlh",
+    notext: true,
+  };
 
   return {
     networks: shields,

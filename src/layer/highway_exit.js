@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "../constants/label.js";
+import { listValuesExpression } from "@americana/diplomat";
 import * as Color from "../constants/color";
 
 export const exits = {
@@ -15,7 +15,7 @@ export const exits = {
   "source-layer": "transportation_name",
   minzoom: 14,
   layout: {
-    "text-field": Label.listValuesExpression(["get", "ref"], "\n"),
+    "text-field": listValuesExpression(["get", "ref"], "\n"),
     "text-font": ["Americana-Bold"],
     "text-size": 9,
     "text-line-height": 1,

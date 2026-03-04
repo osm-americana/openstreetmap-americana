@@ -1,24 +1,16 @@
 export class HillshadeControl {
-  constructor({ layerId }) {
-    this._layerId = layerId;
-  }
-
   _updateButton() {
-    if (this._map.getLayoutProperty(this._layerId, "visibility") == "none") {
-      this._button.classList.remove("maplibregl-ctrl-terrain-enabled");
-      this._button.title = "Enable terrain";
-    } else {
+    if (this._map.shadesHills) {
       this._button.classList.add("maplibregl-ctrl-terrain-enabled");
       this._button.title = "Disable terrain";
+    } else {
+      this._button.classList.remove("maplibregl-ctrl-terrain-enabled");
+      this._button.title = "Enable terrain";
     }
   }
 
   _onClick = () => {
-    const newValue =
-      this._map.getLayoutProperty(this._layerId, "visibility") == "none"
-        ? "visible"
-        : "none";
-    this._map.setLayoutProperty(this._layerId, "visibility", newValue);
+    this._map.shadesHills = !this._map.shadesHills;
     this._updateButton();
   };
 
@@ -30,9 +22,7 @@ export class HillshadeControl {
 
     this._button = document.createElement("button");
     this._button.className = "maplibregl-ctrl-terrain";
-    Promise.resolve(map.loaded() || map.once("load")).then(() =>
-      this._updateButton()
-    );
+    this._map.on("americana.terrain", () => this._updateButton());
     this._button.addEventListener("click", this._onClick);
     this._container.append(this._button);
 
@@ -46,6 +36,7 @@ export class HillshadeControl {
 
   onRemove() {
     this._container.remove();
+    this._map.off("americana.terrain");
     this._map = undefined;
   }
 }

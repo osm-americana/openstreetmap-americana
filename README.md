@@ -29,7 +29,7 @@ OpenStreetMap Americana is a community project supported by [OSM US](https://ope
 
 ## How to use
 
-You can install the OpenStreetMap Americana package and [deploy it anywhere](CONTRIBUTING.md#Production%20builds) as a static webpage. For your convenience, we’ve deployed it [on GitHub Pages](https://americanamap.org/). Click the Legend button to learn the meaning of each symbol, line, and color based on the features currently visible on the map.
+You can install the OpenStreetMap Americana package and [deploy it anywhere](CONTRIBUTING.md#Production%20builds) as a static webpage. For your convenience, we’ve deployed it [on GitHub Pages](https://americanamap.org/). Click the Legend button to learn the meaning of each symbol, line, and color based on the features currently visible on the map. Click the 🌐 button to simulate a physical globe. Click the ⛰️ button to simulate a relief map.
 
 The style tries to label places in [your browser’s preferred language](https://www.w3.org/International/questions/qa-lang-priorities). To change this preference, consult your browser’s documentation: [Chrome](https://support.google.com/chrome/answer/173424), [Firefox](https://support.mozilla.org/en-US/kb/use-firefox-another-language), [Safari for macOS](https://support.apple.com/guide/mac-help/change-the-system-language-mh26684/mac), [Safari for iOS](https://support.apple.com/en-us/HT204031). You can also override this preference by adding `&language=` to the URL, followed by a comma-separated list of [IETF language tags](https://www.w3.org/International/articles/language-tags/). For example, here’s a map labeled [in Portuguese, falling back to Spanish](https://americanamap.org/#language=pt,es). If we don’t have the name of a place in any of your preferred languages, the style shows the name in the local language as a last resort.
 
@@ -60,6 +60,8 @@ The technology stack for this style can be summarized below:
 
 The dynamic shield generator is included as a [module](shieldlib/README.md) in this repository and also [published to npm](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
 
+Automatic label localization is powered by the [Diplomat](https://github.com/osm-americana/diplomat/) plugin, which is also [available on npm](https://www.npmjs.com/package/@americana/diplomat).
+
 ## Artifacts
 
 - Style users can use the maplibre [StyleJSON](https://americanamap.org/style.json), and sprite sheets ([1x](https://americanamap.org/sprites/sprite.png), [2x](https://americanamap.org/sprites/sprite@2x.png)).
@@ -88,4 +90,4 @@ We are hoping that it will support more countries; you can [help us](https://git
 
 ## Tile Server
 
-Although the source code in this repository is dedicated to the public domain under a CC0 waiver, it is configured by default to load map tiles from an [OpenStreetMap US](https://www.openstreetmap.us/) hosted community [tile server](https://tile.ourmap.us). OpenStreetMap US, the local chapter for OpenStreetMap in the United States, makes this server available for use by other hobbyist and community projects with constraints. See the [tile server usage policy](https://tile.ourmap.us/usage.html) for more details. This usage policy describes the allowable usage of the tiles for other projects, separate from this style or the application being developed in this repository.
+Although the source code in this repository is dedicated to the public domain under a CC0 waiver, it is configured by default to load map tiles from an [OpenStreetMap US](https://www.openstreetmap.us/) hosted community [tile server](https://tiles.openstreetmap.us/). OpenStreetMap US, the local chapter for OpenStreetMap in the United States, makes this server available for use by other hobbyist and community projects with constraints. See the [tile server usage policy](https://tiles.openstreetmap.us/usage-policy/) for more details. This usage policy describes the allowable usage of the tiles for other projects, separate from this style or the application being developed in this repository.

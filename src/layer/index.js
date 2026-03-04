@@ -1,7 +1,8 @@
 "use strict";
 
-import * as Label from "../constants/label.js";
+import { localizeLayers } from "@americana/diplomat";
 
+import * as lyrAboriginal from "./aboriginal.js";
 import * as lyrAerialway from "./aerialway.js";
 import * as lyrAeroway from "./aeroway.js";
 import * as lyrBackground from "./background.js";
@@ -33,8 +34,10 @@ export function build(locales) {
   layers.push(
     lyrBackground.base,
     lyrLanduse.urbanizedArea,
+    lyrAboriginal.fill,
     lyrPark.fill,
     lyrAeroway.fill,
+    lyrPark.cemeteryFill,
     lyrPark.parkFill,
 
     lyrBoundary.countyCasing,
@@ -50,9 +53,11 @@ export function build(locales) {
     lyrWater.waterwayIntermittent,
     lyrWater.water,
 
+    lyrAboriginal.outline,
     lyrPark.outline,
     lyrAeroway.outline,
     lyrPark.parkOutline,
+    lyrPark.cemeteryOutline,
 
     lyrBoundary.city,
     lyrBoundary.county,
@@ -216,6 +221,7 @@ export function build(locales) {
     lyrTransportationLabel.bridgeSpacer,
     lyrTransportationLabel.label,
 
+    lyrAboriginal.label,
     lyrPark.label,
     lyrPark.parkLabel,
 
@@ -233,6 +239,7 @@ export function build(locales) {
     lyrHighwayExit.exits,
 
     lyrPoi.poi,
+    lyrPoi.iconlessPoi,
 
     lyrPlace.state,
     lyrPlace.neighborhood,
@@ -248,7 +255,7 @@ export function build(locales) {
     lyrPlace.continent
   );
 
-  Label.localizeLayers(layers, locales);
+  localizeLayers(layers, locales);
 
   return layers;
 }
