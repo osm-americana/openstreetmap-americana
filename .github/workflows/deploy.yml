@@ -28,7 +28,7 @@ jobs:
         # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
           npm ci --include=dev
-          cp src/configs/config.aws.js src/config.js
+          cp src/configs/config.osmus.js src/config.js
           npm run build
           npm run style
           npm run shields

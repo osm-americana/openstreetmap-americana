@@ -43,7 +43,7 @@ jobs:
           npm run build
           npm run style
           npm run shields
-          cp src/configs/config.aws.js src/config.js
+          cp src/configs/config.osmus.js src/config.js
         working-directory: main
       - name: Setup Node.js for building pr branch
         uses: actions/setup-node@v4
@@ -69,7 +69,7 @@ jobs:
           npm run build
           npm run style
           npm run shields
-          cp src/configs/config.aws.js src/config.js
+          cp src/configs/config.osmus.js src/config.js
           mkdir -p dist/shield-docs
           mkdir -p ../pr
         working-directory: pr-branch
