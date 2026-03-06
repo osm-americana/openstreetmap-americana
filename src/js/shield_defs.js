@@ -753,6 +753,12 @@ export function loadShields() {
 
   // Other multistate routes
 
+  // Chicago-Kansas City Expressway
+  shields["US:CKC"] = {
+    spriteBlank: "shield_us_ckc",
+    notext: true,
+  };
+
   // Great Lakes Seaway Trail
   shields["US:GLST"] = {
     noref: {
