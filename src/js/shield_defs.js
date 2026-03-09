@@ -3963,6 +3963,16 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Albania
+  shields["AL:A"] = octagonVerticalShield(
+    2,
+    10,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0
+  );
+
   // Austria
   shields["AT:A-road"] = roundedRectShield(
     Color.shields.blue,
