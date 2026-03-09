@@ -4345,7 +4345,7 @@ export function loadShields() {
     },
   };
 
-  // Kosovo
+  // Macedonia
   shields["mk:national"] = hexagonVerticalShield(
     3,
     Color.shields.green,
@@ -4388,6 +4388,16 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Serbia
+  shields["RS:motorway"] = hexagonVerticalShield(
+    3,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0,
+    34
+  );
+  
   // Sweden
   [
     "RV", // Riksväg - national road
