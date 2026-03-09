@@ -4397,7 +4397,7 @@ export function loadShields() {
     0,
     34
   );
-  
+
   // Sweden
   [
     "RV", // Riksväg - national road
