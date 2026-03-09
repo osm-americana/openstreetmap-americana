@@ -4335,6 +4335,16 @@ export function loadShields() {
     },
   };
 
+  // Kosovo
+  shields["mk:national"] = hexagonVerticalShield(
+    3,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0,
+    34
+  );
+
   // Poland
   shields["PL:expressway"] = shields["PL:motorway"] = roundedRectShield(
     Color.shields.red,
