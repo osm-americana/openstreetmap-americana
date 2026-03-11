@@ -3963,6 +3963,16 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Albania
+  shields["AL:A"] = octagonVerticalShield(
+    2,
+    10,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0
+  );
+
   // Austria
   shields["AT:A-road"] = roundedRectShield(
     Color.shields.blue,
@@ -4335,6 +4345,16 @@ export function loadShields() {
     },
   };
 
+  // Macedonia
+  shields["mk:national"] = hexagonVerticalShield(
+    3,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0,
+    34
+  );
+
   // Poland
   shields["PL:expressway"] = shields["PL:motorway"] = roundedRectShield(
     Color.shields.red,
@@ -4366,6 +4386,16 @@ export function loadShields() {
   shields["ru:national"] = roundedRectShield(
     Color.shields.blue,
     Color.shields.white
+  );
+
+  // Serbia
+  shields["RS:motorway"] = hexagonVerticalShield(
+    3,
+    Color.shields.green,
+    Color.shields.white,
+    Color.shields.white,
+    0,
+    34
   );
 
   // Sweden
