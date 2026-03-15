@@ -65,7 +65,7 @@ export const label = {
 
 export const legendEntries = [
   {
-    description: "Tribal reservations and other native lands",
+    description: "Tribal reservation or other native land",
     layers: [fill.id, outline.id],
   },
 ];
