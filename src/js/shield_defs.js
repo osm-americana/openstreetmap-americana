@@ -686,6 +686,7 @@ export function loadShields() {
       "US:US:Business:Truck": ["BUS", "TRK"],
       "US:US:Alternate": ["ALT"],
       "US:US:Alternate:Truck:Business": ["ALT", "TRK", "BUS"],
+      "US:US:Express": ["EXPR"],
     },
   };
 
