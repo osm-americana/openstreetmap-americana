@@ -34,7 +34,6 @@ export function buildStyle(): StyleSpecification {
   return Style.build(
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
-    config.FONT_URL ?? "https://font.americanamap.org/{fontstack}/{range}.pbf",
     getLocales()
   );
 }
