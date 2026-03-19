@@ -30,11 +30,12 @@ const tunDashArray = [
   ["literal", [0.5, 0.25]],
 ];
 
-const getBrunnel = ["get", "brunnel"];
-const getClass = ["get", "class"];
+const getBridge = ["get", "bridge"];
+const getTunnel = ["get", "tunnel"];
+const getClass = ["get", "type"];
 const getExpressway = ["coalesce", ["get", "expressway"], 0];
 const getLayer = ["coalesce", ["get", "layer"], 0];
-const getRamp = ["coalesce", ["get", "ramp"], 0];
+const getRamp = ["case", ["in", "_link", ["get", "type"]], 1, 0];
 const getToll = ["coalesce", ["get", "toll"], 0];
 
 // Common filter expressions
@@ -73,20 +74,60 @@ const opacity = [
   ["zoom"],
   [...linkSelector, 0, ["match", ["get", "network"], "us-interstate", 1, 0]],
   minZoomMotorwayTrunk,
-  [...linkSelector, 0, [...classSelector, ["motorway", "trunk"], 1, 0]],
+  [
+    ...linkSelector,
+    0,
+    [
+      ...classSelector,
+      ["motorway", "motorway_link", "trunk", "trunk_link"],
+      1,
+      0,
+    ],
+  ],
   minZoomPrimary,
-  [...classSelector, ["motorway", "trunk", "primary"], 1, 0],
+  [
+    ...classSelector,
+    [
+      "motorway",
+      "motorway_link",
+      "trunk",
+      "trunk_link",
+      "primary",
+      "primary_link",
+    ],
+    1,
+    0,
+  ],
   minZoomSecondary,
-  [...classSelector, ["motorway", "trunk", "primary", "secondary"], 1, 0],
+  [
+    ...classSelector,
+    [
+      "motorway",
+      "motorway_link",
+      "trunk",
+      "trunk_link",
+      "primary",
+      "primary_link",
+      "secondary",
+      "secondary_link",
+    ],
+    1,
+    0,
+  ],
   minZoomTertiary,
   [
     ...classSelector,
     [
       "motorway",
+      "motorway_link",
       "trunk",
+      "trunk_link",
       "primary",
+      "primary_link",
       "secondary",
+      "secondary_link",
       "tertiary",
+      "tertiary_link",
       "busway",
       "bus_guideway",
     ],
@@ -127,13 +168,19 @@ function filterRoad(brunnel, constraints) {
       "literal",
       [
         "motorway",
+        "motorway_link",
         "trunk",
+        "trunk_link",
         "primary",
+        "primary_link",
         "secondary",
+        "secondary_link",
         "tertiary",
+        "tertiary_link",
         "busway",
         "bus_guideway",
-        "minor",
+        "unclassified",
+        "residential",
         "service",
       ],
     ],
@@ -144,16 +191,16 @@ function filterRoad(brunnel, constraints) {
   }
   let brunnelFilter =
     brunnel === "surface"
-      ? ["!", ["in", getBrunnel, ["literal", ["bridge", "tunnel"]]]]
-      : ["==", getBrunnel, brunnel];
+      ? ["==", 0, ["+", getBridge, getTunnel]]
+      : ["==", ["get", brunnel], 1];
   return combineConstraints(baseFilter, brunnelFilter);
 }
 
 //Base definition that applies to all roads (fill and casing).
 var defRoad = {
   type: "line",
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
 };
 
 //Generate a unique layer ID
@@ -184,15 +231,15 @@ function baseRoadLayer(id, brunnel, minzoom, maxzoom, constraints) {
 
 const widthFactor = [
   ...classSelector,
-  ["motorway", "trunk"],
+  ["motorway", "motorway_link", "trunk", "trunk_link"],
   [...linkSelector, 0.5, 1],
-  "primary",
+  ["primary", "primary_link"],
   [...linkSelector, 0.45, 0.9],
-  "secondary",
+  ["secondary", "secondary_link"],
   [...linkSelector, 0.3, [...expresswaySelector, 0.7, 0.6]],
-  ["tertiary", "busway", "bus_guideway"],
+  ["tertiary", "tertiary_link", "busway", "bus_guideway"],
   [...linkSelector, 0.25, 0.5],
-  "minor",
+  ["unclassified", "residential"],
   0.3,
   "service",
   [...smallServiceSelector, 0.15, 0.2],
@@ -207,7 +254,12 @@ const roadFillWidth = [
   12,
   [
     "*",
-    [...classSelector, "motorway", 3.2, [...expresswaySelector, 3.5, 4]],
+    [
+      ...classSelector,
+      ["motorway", "motorway_link"],
+      3.2,
+      [...expresswaySelector, 3.5, 4],
+    ],
     widthFactor,
   ],
   16,
@@ -218,17 +270,31 @@ const roadFillWidth = [
 
 const roadCasingWidth = [
   4,
-  ["*", [...classSelector, "motorway", 1.5, 0.5], widthFactor],
+  [
+    "*",
+    [...classSelector, ["motorway", "motorway_link"], 1.5, 0.5],
+    widthFactor,
+  ],
   9,
   [
     "*",
-    [...classSelector, "motorway", 3, [...expresswaySelector, 3, 1.2]],
+    [
+      ...classSelector,
+      ["motorway", "motorway_link"],
+      3,
+      [...expresswaySelector, 3, 1.2],
+    ],
     widthFactor,
   ],
   12,
   [
     "*",
-    [...classSelector, "motorway", 5, [...expresswaySelector, 7, 5]],
+    [
+      ...classSelector,
+      ["motorway", "motorway_link"],
+      5,
+      [...expresswaySelector, 7, 5],
+    ],
     widthFactor,
   ],
   16,
@@ -239,11 +305,11 @@ const roadCasingWidth = [
 
 const roadCasingColorTunnel = [
   "match",
-  getBrunnel,
-  "tunnel",
+  getTunnel,
+  1,
   [
     ...classSelector,
-    ["motorway", "trunk"],
+    ["motorway", "motorway_link", "trunk", "trunk_link"],
     [
       ...tollSelector,
       [
@@ -253,7 +319,16 @@ const roadCasingColorTunnel = [
       ],
       `hsl(${roadHue}, 41%, 80%)`,
     ],
-    ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
+    [
+      "primary",
+      "primary_link",
+      "secondary",
+      "secondary_link",
+      "tertiary",
+      "tertiary_link",
+      "busway",
+      "bus_guideway",
+    ],
     "hsl(0, 0%, 80%)",
     "hsl(0, 0%, 90%)",
   ],
@@ -261,7 +336,7 @@ const roadCasingColorTunnel = [
 
 const roadCasingColorTrunkExpressway = [
   ...classSelector,
-  "trunk",
+  ["trunk", "trunk_link"],
   [
     ...tollSelector,
     `hsl(${tollRoadHue}, 77%, 50%)`,
@@ -285,17 +360,17 @@ const roadCasingColor = [
 
 const roadFillColorTunnel = [
   "match",
-  getBrunnel,
-  "tunnel",
+  getTunnel,
+  1,
   [
     ...classSelector,
-    "motorway",
+    ["motorway", "motorway_link"],
     [
       ...tollSelector,
       `hsl(${tollRoadHue}, 71%, 90%)`,
       `hsl(${roadHue}, 71%, 90%)`,
     ],
-    "trunk",
+    ["trunk", "trunk_link"],
     [
       ...tollSelector,
       `hsl(${tollRoadHue}, 77%, 90%)`,
@@ -315,7 +390,7 @@ const highwayFillColor = [
   ...roadFillColorTunnel,
   [
     ...classSelector,
-    "trunk",
+    ["trunk", "trunk_link"],
     [
       ...expresswaySelector,
       [
@@ -339,13 +414,13 @@ const highwayFillColor = [
 
 const roadSurfaceColor = [
   ...classSelector,
-  "motorway",
+  ["motorway", "motorway_link"],
   [
     ...tollSelector,
     `hsl(${tollRoadHue}, 50%, 70%)`,
     `hsl(${roadHue}, 50%, 70%)`,
   ],
-  "trunk",
+  ["trunk", "trunk_link"],
   [
     ...tollSelector,
     `hsl(${tollRoadHue}, 95%, 80%)`,
@@ -526,7 +601,7 @@ class RoadLinkSimpleCasing extends Road {
     super();
     this.constraints = [
       "all",
-      ["!", ["in", getClass, ["literal", ["motorway", "trunk"]]]],
+      ["!", ["in", getClass, ["literal", ["motorway_link", "trunk_link"]]]],
       isNotExpressway,
       isLink,
     ];
@@ -538,7 +613,7 @@ class RoadSimpleFill extends Road {
     super();
     this.constraints = [
       "any",
-      ["all", ["==", getClass, "trunk"], isNotLink],
+      ["==", getClass, "trunk"],
       [
         "all",
         [
@@ -546,7 +621,16 @@ class RoadSimpleFill extends Road {
           getClass,
           [
             "literal",
-            ["primary", "secondary", "tertiary", "busway", "bus_guideway"],
+            [
+              "primary",
+              "primary_link",
+              "secondary",
+              "secondary_link",
+              "tertiary",
+              "tertiary_link",
+              "busway",
+              "bus_guideway",
+            ],
           ],
         ],
         isExpressway,
@@ -558,7 +642,7 @@ class RoadSimpleFill extends Road {
 class RoadLinkSimpleFill extends Road {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "trunk"], isLink];
+    this.constraints = ["==", getClass, "trunk_link"];
   }
 }
 
@@ -608,7 +692,7 @@ class RoadTunnel extends Road {
 class Motorway extends Road {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "motorway"], isNotLink];
+    this.constraints = ["==", getClass, "motorway"];
     this.sortKey = motorwaySortKey;
     this.minZoomFill = minZoomAllRoads;
     this.minZoomCasing = minZoomAllRoads;
@@ -677,12 +761,7 @@ class Motorway extends Road {
 class Trunk extends Road {
   constructor() {
     super();
-    this.constraints = [
-      "all",
-      ["==", getClass, "trunk"],
-      isNotLink,
-      isNotExpressway,
-    ];
+    this.constraints = ["all", ["==", getClass, "trunk"], isNotExpressway];
 
     this.minZoomFill = minZoomAllRoads;
     this.minZoomCasing = minZoomAllRoads;
@@ -720,7 +799,6 @@ class Primary extends Road {
     this.constraints = [
       "all",
       ["==", getClass, "primary"],
-      isNotLink,
       isNotExpressway,
       isNotToll,
     ];
@@ -742,7 +820,6 @@ class PrimaryToll extends Primary {
     this.constraints = [
       "all",
       ["==", getClass, "primary"],
-      isNotLink,
       isNotExpressway,
       isToll,
     ];
@@ -758,12 +835,7 @@ class PrimaryToll extends Primary {
 class PrimaryExpressway extends Primary {
   constructor() {
     super();
-    this.constraints = [
-      "all",
-      ["==", getClass, "primary"],
-      isNotLink,
-      isExpressway,
-    ];
+    this.constraints = ["all", ["==", getClass, "primary"], isExpressway];
 
     this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
@@ -779,7 +851,6 @@ class Secondary extends Road {
     this.constraints = [
       "all",
       ["==", getClass, "secondary"],
-      isNotLink,
       isNotExpressway,
       isNotToll,
     ];
@@ -801,7 +872,6 @@ class SecondaryToll extends Secondary {
     this.constraints = [
       "all",
       ["==", getClass, "secondary"],
-      isNotLink,
       isNotExpressway,
       isToll,
     ];
@@ -817,12 +887,7 @@ class SecondaryToll extends Secondary {
 class SecondaryExpressway extends Secondary {
   constructor() {
     super();
-    this.constraints = [
-      "all",
-      ["==", getClass, "secondary"],
-      isNotLink,
-      isExpressway,
-    ];
+    this.constraints = ["all", ["==", getClass, "secondary"], isExpressway];
 
     this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
@@ -838,7 +903,6 @@ class Tertiary extends Road {
     this.constraints = [
       "all",
       ["==", getClass, "tertiary"],
-      isNotLink,
       isNotExpressway,
       isNotToll,
     ];
@@ -860,7 +924,6 @@ class TertiaryToll extends Tertiary {
     this.constraints = [
       "all",
       ["==", getClass, "tertiary"],
-      isNotLink,
       isNotExpressway,
       isToll,
     ];
@@ -876,12 +939,7 @@ class TertiaryToll extends Tertiary {
 class TertiaryExpressway extends Tertiary {
   constructor() {
     super();
-    this.constraints = [
-      "all",
-      ["==", getClass, "tertiary"],
-      isNotLink,
-      isExpressway,
-    ];
+    this.constraints = ["all", ["==", getClass, "tertiary"], isExpressway];
 
     this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
@@ -925,7 +983,7 @@ class Minor extends Road {
     super();
     this.constraints = [
       "all",
-      ["in", getClass, ["literal", ["minor", "service"]]],
+      ["in", getClass, ["literal", ["unclassified", "residential", "service"]]],
       isNotToll,
     ];
 
@@ -941,7 +999,7 @@ class MinorToll extends Minor {
     super();
     this.constraints = [
       "all",
-      ["in", getClass, ["literal", ["minor", "service"]]],
+      ["in", getClass, ["literal", ["unclassified", "residential", "service"]]],
       isToll,
     ];
 
@@ -952,7 +1010,7 @@ class MinorToll extends Minor {
 class MotorwayLink extends Motorway {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "motorway"], isLink];
+    this.constraints = ["==", getClass, "motorway_link"];
     this.minZoomFill = minZoomPrimary;
     this.minZoomCasing = minZoomPrimary;
   }
@@ -961,7 +1019,7 @@ class MotorwayLink extends Motorway {
 class TrunkLink extends Trunk {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "trunk"], isLink];
+    this.constraints = ["==", getClass, "trunk_link"];
     this.minZoomFill = minZoomPrimary;
     this.minZoomCasing = minZoomPrimary;
   }
@@ -970,47 +1028,42 @@ class TrunkLink extends Trunk {
 class PrimaryLink extends Primary {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "primary"], isLink, isNotToll];
+    this.constraints = ["all", ["==", getClass, "primary_link"], isNotToll];
   }
 }
 
 class PrimaryLinkToll extends PrimaryToll {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "primary"], isLink, isToll];
+    this.constraints = ["all", ["==", getClass, "primary_link"], isToll];
   }
 }
 
 class SecondaryLink extends Secondary {
   constructor() {
     super();
-    this.constraints = [
-      "all",
-      ["==", getClass, "secondary"],
-      isLink,
-      isNotToll,
-    ];
+    this.constraints = ["all", ["==", getClass, "secondary_link"], isNotToll];
   }
 }
 
 class SecondaryLinkToll extends SecondaryToll {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "secondary"], isLink, isToll];
+    this.constraints = ["all", ["==", getClass, "secondary_link"], isToll];
   }
 }
 
 class TertiaryLink extends Tertiary {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "tertiary"], isLink, isNotToll];
+    this.constraints = ["all", ["==", getClass, "tertiary_link"], isNotToll];
   }
 }
 
 class TertiaryLinkToll extends TertiaryToll {
   constructor() {
     super();
-    this.constraints = ["all", ["==", getClass, "tertiary"], isLink, isToll];
+    this.constraints = ["all", ["==", getClass, "tertiary_link"], isToll];
   }
 }
 
@@ -1303,7 +1356,13 @@ export const legendEntries = [
   {
     description: "Local road",
     layers: [minor.fill().id, roadSimpleCasing.casing().id],
-    filter: ["match", getClass, ["minor", "service"], true, false],
+    filter: [
+      "match",
+      getClass,
+      ["unclassified", "residential", "service"],
+      true,
+      false,
+    ],
   },
   {
     description: "Driveway or parking aisle",
