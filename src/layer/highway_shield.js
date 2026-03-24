@@ -1,7 +1,8 @@
 "use strict";
 
 const orderedRouteAttributes = ["network_wikidata", "ref", "name", "color"];
-const maxConcurrencyCardinality = 8;
+// https://github.com/OpenHistoricalMap/ohm-deploy/blob/9f006433e8ad9d9eaa90af5847a0d85e23ac6caf/images/tiler-imposm/queries/ohm_mviews/routes_03_mv.sql#L95
+const maxConcurrencyCardinality = 6;
 
 export function getImageNameExpression(routeIndex) {
   let concat = ["concat", "shield"];
