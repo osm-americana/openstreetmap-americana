@@ -647,7 +647,7 @@ export function loadShields() {
       bottom: 5,
     },
   };
-  shields["US:I"] = {
+  shields["US:I"] = shields.Q94247 = {
     ...usInterstateShield,
     bannerMap: {
       "US:I:Alternate": ["ALT"],
@@ -672,7 +672,7 @@ export function loadShields() {
   shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
 
   // US Highways
-  shields["US:US"] = {
+  shields["US:US"] = shields.Q96348143 = {
     ...badgeShield,
     bannerMap: {
       "US:US:Truck": ["TRK"],
@@ -1002,7 +1002,7 @@ export function loadShields() {
     },
   };
 
-  shields["US:AZ"] = {
+  shields["US:AZ"] = shields.Q97940193 = {
     spriteBlank: ["shield_us_az_2", "shield_us_az_3"],
     textColor: Color.shields.black,
     padding: {
@@ -1034,7 +1034,7 @@ export function loadShields() {
   );
 
   // California
-  shields["US:CA"] = {
+  shields["US:CA"] = shields.Q97400332 = {
     spriteBlank: ["shield_us_ca_2", "shield_us_ca_3"],
     textColor: Color.shields.white,
     padding: {
@@ -1443,7 +1443,7 @@ export function loadShields() {
   );
 
   // Kentucky
-  shields["US:KY"] = {
+  shields["US:KY"] = shields.Q97365173 = {
     ...pillShield(Color.shields.white, Color.shields.black),
     bannerMap: {
       "US:KY:Business": ["BUS"],
@@ -1614,7 +1614,7 @@ export function loadShields() {
   );
 
   // Minnesota
-  shields["US:MN"] = {
+  shields["US:MN"] = shields.Q98601319 = {
     spriteBlank: ["shield_us_mn_2", "shield_us_mn_3"],
     textColor: Color.shields.white,
     padding: {
@@ -2406,7 +2406,7 @@ export function loadShields() {
   );
 
   // Ohio
-  shields["US:OH"] = {
+  shields["US:OH"] = shields.Q96348143 = {
     spriteBlank: ["shield_us_oh_2", "shield_us_oh_3"],
     textColor: Color.shields.black,
     padding: {
@@ -4004,7 +4004,7 @@ export function loadShields() {
     Color.shields.yellow,
     Color.shields.black
   );
-  shields["VN:national"] = roundedRectShield(
+  shields["VN:national"] = shields.Q10810927 = roundedRectShield(
     Color.shields.white,
     Color.shields.black
   );

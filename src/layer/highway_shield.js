@@ -1,13 +1,18 @@
 "use strict";
 
-const orderedRouteAttributes = ["network", "ref", "name", "color"];
+const orderedRouteAttributes = ["network_wikidata", "ref", "name", "color"];
 const maxConcurrencyCardinality = 8;
 
 export function getImageNameExpression(routeIndex) {
   let concat = ["concat", "shield"];
   for (let attr of orderedRouteAttributes) {
     concat.push("\n");
-    concat.push(["coalesce", ["get", `route_road_${routeIndex}_${attr}`], ""]);
+    let coalesce = [["get", `route_road_${routeIndex}_${attr}`]];
+    if (attr.endsWith("_wikidata")) {
+      let basicAttr = attr.replace(/_wikidata$/, "");
+      coalesce.push(["get", `route_road_${routeIndex}_${basicAttr}`]);
+    }
+    concat.push(["coalesce", ...coalesce, ""]);
   }
   return concat;
 }
@@ -21,6 +26,12 @@ function routeConcurrency(routeIndex) {
         "has",
         `route_road_${routeIndex}_${a}`,
       ]),
+      ...orderedRouteAttributes
+        .filter((a) => a.endsWith("_wikidata"))
+        .map((a) => [
+          "has",
+          `route_road_${routeIndex}_${a.replace(/_wikidata$/, "")}`,
+        ]),
     ],
     ["image", getImageNameExpression(routeIndex)],
     ["literal", ""],
@@ -37,7 +48,10 @@ export function parseImageName(imageName) {
   let lines = imageName.split("\n");
   lines.shift(); // "shield"
   let parsed = Object.fromEntries(
-    orderedRouteAttributes.map((a, i) => [a, lines[i]])
+    orderedRouteAttributes.map((a, i) => [
+      a.replace(/_wikidata$/, ""),
+      lines[i],
+    ])
   );
   parsed.imageName = imageName;
   return parsed;
@@ -151,5 +165,8 @@ export const shield = {
   filter: [
     "any",
     ...orderedRouteAttributes.map((a) => ["has", `route_road_1_${a}`]),
+    ...orderedRouteAttributes
+      .filter((a) => a.endsWith("_wikidata"))
+      .map((a) => ["has", `route_road_1_${a.replace(/_wikidata$/, "")}`]),
   ],
 };
