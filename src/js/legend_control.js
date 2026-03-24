@@ -533,17 +533,26 @@ export default class LegendControl {
       // Skip shield definitions for which no shield is currently visible.
       if (!(network in imagesByNetwork)) continue;
 
+      let qid;
+      if (network.match(/^Q\d+$/)) {
+        qid = `http://www.wikidata.org/entity/${network}`;
+      }
+
       // Skip any network whose Wikidata QID has already been added.
       let binding =
-        this._networkMetadata?.[network] || this._ukNetworkMetadata?.[network];
-      let qid = binding?.network.value;
+        this._networkMetadata?.[qid ?? network] ||
+        this._ukNetworkMetadata?.[qid ?? network];
+      qid = binding?.network.value;
       if (qid) {
         if (seenQIDs.has(qid)) continue;
         seenQIDs.add(qid);
       }
 
       // Add the images for this network and any network associated with the same QID.
-      let relatedNetworks = (qid && this._networksByQID[qid]) || [network];
+      let relatedNetworks = [network];
+      if (qid) {
+        relatedNetworks.push(...this._networksByQID[qid]);
+      }
       let sortedImages = relatedNetworks.flatMap((network) =>
         getSortedImages(network)
       );
@@ -553,9 +562,9 @@ export default class LegendControl {
 
       // Extract an ISO 3166-1 alpha-2 country code from the network.
       // OpenMapTiles synthesizes fake networks in some countries.
-      let country = network
-        .match(/^(?:omt-)?(\w\w)(?:[-:]|$)/)?.[1]
-        ?.toUpperCase();
+      let country =
+        binding?.country?.value ??
+        network.match(/^(?:omt-)?(\w\w)(?:[-:]|$)/)?.[1]?.toUpperCase();
       if (country) {
         if (!(country in shieldRowsByCountry)) {
           shieldRowsByCountry[country] = [];
@@ -753,8 +762,11 @@ export default class LegendControl {
     });
     const json = await response.json();
     this._networkMetadata = Object.fromEntries(
-      json.results.bindings.map((binding) => {
-        return [binding.value.value, binding];
+      json.results.bindings.flatMap((binding) => {
+        return [
+          [binding.value.value, binding],
+          [binding.network.value, binding],
+        ];
       })
     );
 
@@ -822,8 +834,11 @@ export default class LegendControl {
       bind = "BIND(SUBSTR(?tag, 9) AS ?value)";
     }
     return `
-SELECT ?value ?network ?networkLabel WHERE {
+SELECT ?value ?network ?networkLabel ?country WHERE {
   ${triple}.
+  OPTIONAL {
+    ?network wdt:P17/wdt:P297 ?country.
+  }
   ${filter}
   ${bind}
   SERVICE wikibase:label { bd:serviceParam wikibase:language "${locales},en". }
