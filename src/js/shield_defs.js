@@ -2650,7 +2650,7 @@ export function loadShields() {
   );
 
   // Pennsylvania
-  shields["US:PA"] = {
+  shields["US:PA"] = shields.Q98756512 = {
     spriteBlank: ["shield_us_pa_2", "shield_us_pa_3"],
     textColor: Color.shields.black,
     padding: {
