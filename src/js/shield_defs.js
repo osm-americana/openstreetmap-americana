@@ -3456,6 +3456,28 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Morocco
+  shields["MA:A"] = roundedRectShield(
+    Color.shields.blue,
+    Color.shields.white,
+    Color.shields.white
+  );
+  shields["MA:RN"] = roundedRectShield(
+    Color.shields.red,
+    Color.shields.black,
+    Color.shields.white
+  );
+  shields["MA:RR"] = roundedRectShield(
+    Color.shields.yellow,
+    Color.shields.black,
+    Color.shields.black
+  );
+  shields["MA:RP"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.black
+  );
+
   // Niger
   shields["NE:N-roads"] = roundedRectShield(
     Color.shields.red,
