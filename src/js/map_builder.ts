@@ -14,10 +14,12 @@ import {
 } from "../js/shield_format.js";
 
 import * as Poi from "../js/poi.js";
-import * as Label from "../constants/label.js";
+import { getLocales } from "@americana/diplomat";
 import * as Style from "./style.js";
-import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
+import maplibregl, { MapOptions, StyleSpecification } from "maplibre-gl";
+import { MapView } from "./map_view.js";
 import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
+import { getGlobalStateForLocalization, getLocales } from "@americana/diplomat";
 
 export function buildStyle(): StyleSpecification {
   var getUrl = window.location;
@@ -33,7 +35,7 @@ export function buildStyle(): StyleSpecification {
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
     config.FONT_URL ?? "https://font.americanamap.org/{fontstack}/{range}.pbf",
-    Label.getLocales()
+    getLocales()
   );
 }
 
@@ -57,9 +59,9 @@ export function createMap(
   shieldDefCallback: (shields: ShieldDefinitions) => void,
   options: MapOptions,
   debugOptions: DebugOptions
-): Map {
+): MapView {
   window["maplibregl"] = maplibregl;
-  let map: Map = (window["map"] = new maplibregl.Map(options));
+  let map: MapView = (window["map"] = new MapView(options));
 
   const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
     .debugOptions(debugOptions)
@@ -67,6 +69,15 @@ export function createMap(
     .filterNetwork(networkPredicate)
     .renderOnMaplibreGL(map)
     .onShieldDefLoad(shieldDefCallback);
+
+  map.once("styledata", (event) => {
+    let localizationState = getGlobalStateForLocalization(getLocales(), {
+      uppercaseCountryNames: true,
+    });
+    for (let [key, value] of Object.entries(localizationState)) {
+      map.setGlobalStateProperty(key, value);
+    }
+  });
 
   map.on("styleimagemissing", function (e) {
     switch (e.id.split("\n")[0]) {

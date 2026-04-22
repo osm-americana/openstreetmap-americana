@@ -45,7 +45,7 @@ let networks = [
   "default",
 
   // Circles, pills, ovals
-  "NZ:WRR",
+  "VE:L:ZU",
   "US:DE",
   "CA:MB:PR",
   "KR:national",
@@ -97,6 +97,7 @@ let networks = [
   "JP:prefectural",
   "PK:national",
   "ID:national",
+  "KR:26",
 
   "AU:QLD:MR",
   "GR:motorway",
@@ -162,6 +163,7 @@ let networks = [
   "US:MN:Business",
   "US:CO",
   "US:CO:E470",
+  "US:CO:NW",
   "US:DC",
   "US:FL",
   "US:NH",
@@ -259,6 +261,8 @@ let refs = [
   "111",
   "281",
   "980",
+  "1610",
+  "2032",
   "H201",
   "480N",
   "A 562",
