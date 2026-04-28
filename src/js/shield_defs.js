@@ -2790,6 +2790,7 @@ export function loadShields() {
     "Faulk",
     "Grant",
     "Hamlin",
+    "Hand",
     "Harding",
     "Hyde",
     "Kingsbury",
@@ -2838,6 +2839,10 @@ export function loadShields() {
   shields["US:SD:Custer:NPS"] = roundedRectShield(
     Color.shields.brown,
     Color.shields.yellow
+  );
+  shields["US:US:Historic:SD"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.white
   );
 
   // Tennessee
