@@ -9,11 +9,11 @@ const majorConstruction = [
 export const road = {
   id: "highway-construction",
   type: "line",
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "transport_lines",
   filter: [
     "in",
-    ["get", "class"],
+    ["get", "type"],
     [
       "literal",
       [
