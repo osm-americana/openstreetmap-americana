@@ -3,6 +3,9 @@
 import * as Color from "../constants/color.js";
 import * as Util from "../js/util.js";
 
+const getBridge = ["coalesce", ["get", "bridge"], 0];
+const getTunnel = ["coalesce", ["get", "tunnel"], 0];
+
 // Exponent base for inter-zoom interpolation
 let railExp = 1.2;
 
@@ -43,7 +46,7 @@ function filterRail(brunnel) {
   return [
     "all",
     brunnel === "surface"
-      ? ["!=", ["+", ["get", "bridge"], ["get", "tunnel"]], 0]
+      ? ["!=", ["+", getBridge, getTunnel], 0]
       : ["match", ["get", brunnel], 1, true, false],
     ["==", ["get", "type"], "rail"],
   ];
@@ -63,7 +66,7 @@ let isNotCrossover = ["!=", ["get", "service"], "crossover"];
 
 var lineColor = [
   "match",
-  ["get", "tunnel"],
+  getTunnel,
   1,
   Color.railwayTunnelFill,
   [
@@ -109,7 +112,7 @@ export const bridgeCasing = {
   id: "rail_bridge-casing",
   filter: [
     "all",
-    ["==", ["get", "bridge"], 1],
+    ["==", getBridge, 1],
     ["in", ["get", "class"], ["literal", ["rail", "transit"]]],
   ],
   minzoom: 13,
