@@ -30,8 +30,8 @@ const tunDashArray = [
   ["literal", [0.5, 0.25]],
 ];
 
-const getBridge = ["get", "bridge"];
-const getTunnel = ["get", "tunnel"];
+const getBridge = ["coalesce", ["get", "bridge"], 0];
+const getTunnel = ["coalesce", ["get", "tunnel"], 0];
 const getClass = ["get", "type"];
 const getExpressway = ["coalesce", ["get", "expressway"], 0];
 const getLayer = ["coalesce", ["get", "layer"], 0];
