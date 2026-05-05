@@ -1297,7 +1297,13 @@ export function loadShields() {
       "US:ID:Business": ["BUS"],
     },
   };
-
+  shields["US:ID:Bonneville"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.white
+  );
+  
   // Illinois
   shields["US:IL"] = roundedRectShield(
     Color.shields.white,
