@@ -252,7 +252,7 @@ export function loadShields() {
         spriteBlank: "shield_ca_ns_s_mdb",
       },
       "Bras d'Or Lakes Scenic Drive": {
-        spriteBlank: "shield_ca_ns_s_bdolsd",
+        spriteBlank: "shield_ca_ns_s_bdol",
       },
       "Ceilidh Trail": {
         spriteBlank: "shield_ca_ns_s_cet",
@@ -261,7 +261,7 @@ export function loadShields() {
         spriteBlank: "shield_ca_ns_s_ct",
       },
       "Digby Neck and Islands Scenic Drive": {
-        spriteBlank: "shield_ca_ns_s_dnisd",
+        spriteBlank: "shield_ca_ns_s_dni",
       },
       "Evangeline Trail": {
         spriteBlank: "shield_ca_ns_s_et",
@@ -273,7 +273,7 @@ export function loadShields() {
         spriteBlank: "shield_ca_ns_s_gt",
       },
       "Kejimkujik Scenic Drive": {
-        spriteBlank: "shield_ca_ns_s_ksd",
+        spriteBlank: "shield_ca_ns_s_k",
       },
       "Lighthouse Route": {
         spriteBlank: "shield_ca_ns_s_lr",
@@ -1100,7 +1100,7 @@ export function loadShields() {
     "Garfield",
     "Grand",
     "Gunnison",
-    "Hinsdale",
+    "Hinale",
     "Huerfano",
     "Jackson",
     "Jefferson",
@@ -1297,7 +1297,13 @@ export function loadShields() {
       "US:ID:Business": ["BUS"],
     },
   };
-
+  shields["US:ID:Bonneville"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.white
+  );
+  
   // Illinois
   shields["US:IL"] = roundedRectShield(
     Color.shields.white,
@@ -2507,8 +2513,8 @@ export function loadShields() {
         Color.shields.black
       ))
   );
-  shields["US:OH:ASD"] = {
-    spriteBlank: ["shield_us_oh_asd"],
+  shields["US:OH:A"] = {
+    spriteBlank: ["shield_us_oh_a"],
     textColor: Color.shields.green,
     textLayout: textConstraint("triangleDown"),
     padding: {
@@ -2562,7 +2568,7 @@ export function loadShields() {
   // add a banner to distinguish the township road shields from the more prominent county road shields.
 
   [
-    ["ASD", "TWP"],
+    ["A", "TWP"],
     ["ATH", "Trimble"],
     ["FAI", "Violet"],
     ["KNO", "Liberty"],
@@ -2756,7 +2762,7 @@ export function loadShields() {
   };
 
   // South Dakota
-  shields["US:SD"] = {
+  shields["US:"] = {
     spriteBlank: ["shield_us_sd_2", "shield_us_sd_3"],
     textColor: Color.shields.black,
     padding: {
