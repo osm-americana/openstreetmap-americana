@@ -252,7 +252,7 @@ export function loadShields() {
         spriteBlank: "shield_ca_ns_s_mdb",
       },
       "Bras d'Or Lakes Scenic Drive": {
-        spriteBlank: "shield_ca_ns_s_bdol",
+        spriteBlank: "shield_ca_ns_s_bdolsd",
       },
       "Ceilidh Trail": {
         spriteBlank: "shield_ca_ns_s_cet",
@@ -261,7 +261,7 @@ export function loadShields() {
         spriteBlank: "shield_ca_ns_s_ct",
       },
       "Digby Neck and Islands Scenic Drive": {
-        spriteBlank: "shield_ca_ns_s_dni",
+        spriteBlank: "shield_ca_ns_s_dnisd",
       },
       "Evangeline Trail": {
         spriteBlank: "shield_ca_ns_s_et",
@@ -273,7 +273,7 @@ export function loadShields() {
         spriteBlank: "shield_ca_ns_s_gt",
       },
       "Kejimkujik Scenic Drive": {
-        spriteBlank: "shield_ca_ns_s_k",
+        spriteBlank: "shield_ca_ns_s_ksd",
       },
       "Lighthouse Route": {
         spriteBlank: "shield_ca_ns_s_lr",
@@ -1100,7 +1100,7 @@ export function loadShields() {
     "Garfield",
     "Grand",
     "Gunnison",
-    "Hinale",
+    "Hinsdale",
     "Huerfano",
     "Jackson",
     "Jefferson",
@@ -2513,8 +2513,8 @@ export function loadShields() {
         Color.shields.black
       ))
   );
-  shields["US:OH:A"] = {
-    spriteBlank: ["shield_us_oh_a"],
+  shields["US:OH:ASD"] = {
+    spriteBlank: ["shield_us_oh_asd"],
     textColor: Color.shields.green,
     textLayout: textConstraint("triangleDown"),
     padding: {
@@ -2568,7 +2568,7 @@ export function loadShields() {
   // add a banner to distinguish the township road shields from the more prominent county road shields.
 
   [
-    ["A", "TWP"],
+    ["ASD", "TWP"],
     ["ATH", "Trimble"],
     ["FAI", "Violet"],
     ["KNO", "Liberty"],
@@ -2762,7 +2762,7 @@ export function loadShields() {
   };
 
   // South Dakota
-  shields["US:"] = {
+  shields["US:SD"] = {
     spriteBlank: ["shield_us_sd_2", "shield_us_sd_3"],
     textColor: Color.shields.black,
     padding: {
