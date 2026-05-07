@@ -1303,7 +1303,7 @@ export function loadShields() {
     Color.shields.blue,
     Color.shields.white
   );
-  
+
   // Illinois
   shields["US:IL"] = roundedRectShield(
     Color.shields.white,
