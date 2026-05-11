@@ -1298,16 +1298,11 @@ export function loadShields() {
       "US:ID:Spur": ["SPUR"],
     },
   };
-  [
-    "Clark",
-  ].forEach(
-    (county) =>
-      (shields[`US:ID:${county}`] = pentagonUpShield(
-        3,
-        15,
-        Color.shields.blue,
-        Color.shields.yellow
-      ))
+  shields["US:ID:Clark"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.yellow
   );
   shields["US:ID:Bonneville"] = pentagonUpShield(
     3,
