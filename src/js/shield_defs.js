@@ -1295,8 +1295,20 @@ export function loadShields() {
     },
     bannerMap: {
       "US:ID:Business": ["BUS"],
+      "US:ID:Spur": ["SPUR"],
     },
   };
+  [
+    "Clark",
+  ].forEach(
+    (county) =>
+      (shields[`US:ID:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
+  );
   shields["US:ID:Bonneville"] = pentagonUpShield(
     3,
     15,
