@@ -1298,17 +1298,17 @@ export function loadShields() {
       "US:ID:Spur": ["SPUR"],
     },
   };
-  shields["US:ID:Clark"] = pentagonUpShield(
-    3,
-    15,
-    Color.shields.blue,
-    Color.shields.yellow
-  );
   shields["US:ID:Bonneville"] = pentagonUpShield(
     3,
     15,
     Color.shields.blue,
     Color.shields.white
+  );
+  shields["US:ID:Clark"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.yellow
   );
 
   // Illinois
