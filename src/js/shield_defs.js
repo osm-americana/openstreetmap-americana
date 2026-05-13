@@ -1185,7 +1185,7 @@ export function loadShields() {
   };
 
   // Florida
-  shields["US:FL"] = {
+  shields["US:FL"] = shields.Q98399543 = {
     spriteBlank: ["shield_us_fl_2", "shield_us_fl_3"],
     textColor: Color.shields.black,
     padding: {
