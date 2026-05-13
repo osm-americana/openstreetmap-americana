@@ -1295,6 +1295,7 @@ export function loadShields() {
     },
     bannerMap: {
       "US:ID:Business": ["BUS"],
+      "US:ID:Spur": ["SPUR"],
     },
   };
   shields["US:ID:Bonneville"] = pentagonUpShield(
@@ -1302,6 +1303,12 @@ export function loadShields() {
     15,
     Color.shields.blue,
     Color.shields.white
+  );
+  shields["US:ID:Clark"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.yellow
   );
 
   // Illinois
