@@ -1542,7 +1542,7 @@ export function loadShields() {
     },
   };
 
-  shields["US:MD"] = {
+  shields["US:MD"] = shields.Q98596703 = {
     ...marylandShield,
     bannerMap: {
       "US:MD:Alternate": ["ALT"],
