@@ -672,7 +672,7 @@ export function loadShields() {
   shields["US:I:Downtown:Spur"] = shields["US:I:Business:Spur"];
 
   // US Highways
-  shields["US:US"] = shields.Q96348143 = {
+  shields["US:US"] = shields.Q408192 = {
     ...badgeShield,
     bannerMap: {
       "US:US:Truck": ["TRK"],
