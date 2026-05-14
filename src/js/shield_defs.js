@@ -1210,16 +1210,6 @@ export function loadShields() {
       spriteBlank: "shield_us_fl_turnpike",
     },
   };
-
-  shields["US:DE"] = {
-    ...ovalShield(Color.shields.white, Color.shields.black),
-    bannerMap: {
-      "US:DE:Alternate": ["ALT"],
-      "US:DE:Business": ["BUS"],
-      "US:DE:Truck": ["TRK"],
-    },
-  };
-
   shields["US:FL:CR"] = {
     ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.yellow),
     bannerMap: {
