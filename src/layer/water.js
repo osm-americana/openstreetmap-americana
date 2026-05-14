@@ -6,6 +6,8 @@ import * as Color from "../constants/color.js";
 const bigRivers = ["river", "canal"];
 const mediumRivers = ["stream"];
 // drain, ditch
+const getTunnel = ["coalesce", ["get", "tunnel"], 0];
+const isTunnel = ["!=", getTunnel, 0];
 
 export const waterway = {
   id: "waterway",
@@ -43,7 +45,7 @@ export const waterway = {
         2,
       ],
     ],
-    "line-opacity": ["case", ["==", ["get", "brunnel"], "tunnel"], 0.3, 1],
+    "line-opacity": ["case", isTunnel, 0.3, 1],
   },
 };
 
