@@ -1223,6 +1223,7 @@ export function loadShields() {
   shields["US:FL:CR"] = {
     ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.yellow),
     bannerMap: {
+      "US:FL:CR:Alternate": ["ALT"],
       "US:FL:CR:Truck": ["TRK"],
     },
   };
