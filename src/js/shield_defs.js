@@ -1194,6 +1194,9 @@ export function loadShields() {
       top: 6,
       bottom: 4,
     },
+    bannerMap: {
+      "US:FL:Business": ["BUS"],
+    },
   };
   shields["US:FL:Toll"] = {
     spriteBlank: "shield_us_fl_toll",
