@@ -1,7 +1,7 @@
 import * as Style from "../src/js/style.js";
 import config from "../src/config.js";
-import { Command, Option, OptionValues } from "commander";
-import { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";
+import { Command, Option, type OptionValues } from "commander";
+import type { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";
 
 const program = new Command();
 program

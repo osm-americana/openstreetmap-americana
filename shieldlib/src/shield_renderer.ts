@@ -1,10 +1,10 @@
-import {
+import type {
   Map as MapLibre,
   MapStyleImageMissingEvent,
   StyleImage,
   StyleImageMetadata,
 } from "maplibre-gl";
-import {
+import type {
   Bounds,
   DebugOptions,
   GraphicsFactory,

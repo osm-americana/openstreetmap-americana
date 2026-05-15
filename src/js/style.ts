@@ -1,4 +1,4 @@
-import { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
+import type { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
 import { getGlobalStateForLocalization } from "@americana/diplomat";
 import * as Layers from "../layer/index.js";
 
