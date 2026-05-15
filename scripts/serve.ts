@@ -1,4 +1,4 @@
-import { BuildContext } from "esbuild";
+import type { BuildContext } from "esbuild";
 import open from "open";
 
 import { buildContext } from "./build";

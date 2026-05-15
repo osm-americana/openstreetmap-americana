@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import { glob } from "glob";
-import { Sprites, SpriteSheetResult, SvgId } from "@basemaps/sprites";
+import { Sprites, type SpriteSheetResult, type SvgId } from "@basemaps/sprites";
 
 await fs.mkdir("./dist/sprites/", { recursive: true });
 
