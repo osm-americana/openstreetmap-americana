@@ -1,8 +1,8 @@
-import {
+import type {
   Map as MapLibre,
-  type MapStyleImageMissingEvent,
-  type StyleImage,
-  type StyleImageMetadata,
+  MapStyleImageMissingEvent,
+  StyleImage,
+  StyleImageMetadata,
 } from "maplibre-gl";
 import type {
   Bounds,
