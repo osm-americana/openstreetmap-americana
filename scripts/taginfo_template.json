@@ -166,6 +166,14 @@
     },
     {
       "key": "place",
+      "value": "hamlet",
+      "object_types": ["node"],
+      "description": "Hamlets are marked with a dot.",
+      "doc_url": "https://openmaptiles.org/schema/#place",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/place_dot.svg"
+    },
+    {
+      "key": "place",
       "value": "suburb",
       "object_types": ["node"],
       "description": "Suburbs are labeled in capital letters.",

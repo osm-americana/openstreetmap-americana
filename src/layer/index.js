@@ -245,6 +245,7 @@ export function build(locales) {
     lyrPlace.neighborhood,
     lyrPlace.quarter,
     lyrPlace.suburb,
+    lyrPlace.hamlet,
     lyrPlace.village,
     lyrPlace.town,
     lyrPlace.city,

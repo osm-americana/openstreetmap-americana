@@ -104,6 +104,53 @@ export const village = {
   "source-layer": "place",
 };
 
+export const hamlet = {
+  id: "place_hamlet",
+  type: "symbol",
+  paint: cityLabelPaint,
+  filter: ["all", filterPlace("hamlet"), minorLocationStepFilter],
+  layout: {
+    "text-font": ["Americana-Bold"],
+    "text-size": {
+      base: 1.0,
+      stops: [
+        [12, 8],
+        [14, 9],
+        [16, 11],
+      ],
+    },
+    "icon-image": iconImage,
+    "icon-size": {
+      base: 1.0,
+      stops: [
+        [12, 0.15],
+        [14, 0.25],
+        [16, 0.35],
+      ],
+    },
+    "text-field": localizedNameWithLocalGloss,
+    "text-anchor": "bottom",
+    "text-variable-anchor": [
+      "bottom",
+      "bottom-right",
+      "bottom-left",
+      "right",
+      "left",
+    ],
+    "text-justify": "auto",
+    "text-radial-offset": 0.5,
+    "icon-optional": false,
+    "text-max-width": 8,
+    "icon-padding": 0,
+    "text-padding": 1,
+    "icon-allow-overlap": false,
+  },
+  source: "openmaptiles",
+  minzoom: 13,
+  maxzoom: 17,
+  "source-layer": "place",
+};
+
 export const town = {
   id: "place_town",
   type: "symbol",
@@ -613,6 +660,10 @@ export const legendEntries = [
     description: "Small village",
     layers: [village.id],
     filter: nonCapitalFilter,
+  },
+  {
+    description: "Hamlet",
+    layers: [hamlet.id],
   },
   {
     description: "Major district",
