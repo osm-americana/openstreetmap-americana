@@ -2142,7 +2142,7 @@ export function loadShields() {
   );
 
   // Nevada
-  shields["US:NV"] = {
+  shields["US:NV"] = shields.Q98695192 = {
     spriteBlank: "shield_us_nv",
     textColor: Color.shields.black,
     textLayout: textConstraint("triangleDown"),
@@ -2165,7 +2165,7 @@ export function loadShields() {
   });
 
   // Clark County Route 215 gets its own special highway shield and is not the same as a normal county route
-  shields["US:NV:Clark"] = {
+  shields["US:NV:Clark"] = shields.Q99194438 = {
     spriteBlank: "shield_us_nv_clark",
     textColor: Color.shields.blue, // #003882
     textLayout: textConstraint("ellipse"),
