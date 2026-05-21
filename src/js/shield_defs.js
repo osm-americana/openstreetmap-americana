@@ -749,6 +749,9 @@ export function loadShields() {
       "Pony Express National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_poex",
       },
+      "Santa Fe National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_safe",
+      },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
       },
