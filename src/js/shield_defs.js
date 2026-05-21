@@ -742,6 +742,9 @@ export function loadShields() {
       "Mormon Pioneer National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_mopi",
       },
+      "Nez Perce National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_nez_perce",
+      },
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
       },
