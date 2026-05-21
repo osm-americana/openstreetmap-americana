@@ -730,11 +730,20 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "California National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_cali",
+      },
       "Juan Bautista de Anza National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_juba",
       },
+      "Lewis and Clark National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_lecl",
+      },
       "Mormon Pioneer National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_mopi",
+      },
+      "Nez Perce National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_nez_perce",
       },
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
@@ -745,6 +754,9 @@ export function loadShields() {
         },
       "Pony Express National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_poex",
+      },
+      "Santa Fe National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_safe",
       },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
