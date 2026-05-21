@@ -736,6 +736,9 @@ export function loadShields() {
       "Juan Bautista de Anza National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_juba",
       },
+      "Lewis and Clark National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_lecl",
+      },
       "Mormon Pioneer National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_mopi",
       },
