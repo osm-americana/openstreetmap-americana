@@ -1407,10 +1407,12 @@ export function loadShields() {
       top: 2,
       bottom: 2,
     },
+    bannerMap: {
+      "US:KS:Alternate": ["ALT"],
+      "US:KS:Spur": ["SPUR"],
+      "US:KS:Truck": ["TRK"],
+    },
   };
-  shields["US:KS:Alternate"] = banneredShield(shields["US:KS"], ["ALT"]);  
-  shields["US:KS:Spur"] = banneredShield(shields["US:KS"], ["SPUR"]);
-  shields["US:KS:Truck"] = banneredShield(shields["US:KS"], ["TRK"]);
   shields["US:KS:Turnpike"] = {
     noref: {
       spriteBlank: "shield_us_ks_turnpike",
