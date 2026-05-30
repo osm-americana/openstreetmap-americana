@@ -2649,7 +2649,7 @@ export function loadShields() {
   };
 
   // Oregon
-  shields["US:OR"] = {
+  shields["US:OR"] = shields.Q98756109 = {
     spriteBlank: ["shield_us_or_2", "shield_us_or_3"],
     textColor: Color.shields.black,
     textLayout: textConstraint("ellipse"),
