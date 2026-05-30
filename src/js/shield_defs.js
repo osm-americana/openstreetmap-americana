@@ -2250,7 +2250,7 @@ export function loadShields() {
       bottom: 5,
     },
   };
-  shields["US:NY"] = {
+  shields["US:NY"] = shields.Q98696173 = {
     ...usNewYorkShield,
     bannerMap: {
       "US:NY:Truck": ["TRK"],
