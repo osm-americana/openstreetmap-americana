@@ -1069,7 +1069,7 @@ export function loadShields() {
   shields["US:DOE:Hanford"] = shields["US:CA"];
 
   // Colorado
-  shields["US:CO"] = {
+  shields["US:CO"] = shields.Q97940295 = {
     spriteBlank: "shield_us_co",
     textColor: Color.shields.black,
     padding: {
