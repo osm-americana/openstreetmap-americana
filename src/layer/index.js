@@ -220,6 +220,7 @@ export function build(locales) {
 
     lyrBoundary.countryLabelLeft,
     lyrBoundary.countryLabelRight,
+    lyrAboriginal.edgeLabel,
     lyrWater.waterwayLabel,
 
     lyrTransportationLabel.bridgeSpacer,
