@@ -63,6 +63,32 @@ export const label = {
   "source-layer": "non_admin_boundaries_centroids",
 };
 
+export const edgeLabel = {
+  id: "aboriginal_edge_label",
+  type: "symbol",
+  filter: ["==", ["get", "type"], "aboriginal_lands"],
+  paint: label.paint,
+  layout: {
+    "symbol-placement": "line",
+    "text-font": ["Americana-Regular"],
+    "text-size": {
+      stops: [
+        [3, 6],
+        [7, 10],
+      ],
+    },
+    "text-field": localizedNameWithLocalGloss,
+    "text-offset": [0, 1],
+    "text-max-angle": 30,
+    "text-letter-spacing": 0.1,
+    "text-ignore-placement": true,
+    "text-transform": "uppercase",
+  },
+  maxzoom: 24,
+  source: "ohm_other_boundaries",
+  "source-layer": "non_admin_boundaries_areas",
+};
+
 export const legendEntries = [
   {
     description: "Tribal reservation or other native land",
