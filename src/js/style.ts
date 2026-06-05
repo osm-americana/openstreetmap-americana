@@ -20,6 +20,12 @@ export function build(
         ],
         type: "vector",
       },
+      ohm_other_boundaries: {
+        tiles: [
+          "https://vtiles.openhistoricalmap.org/maps/ohm_other_boundaries/{z}/{x}/{y}.pbf",
+        ],
+        type: "vector",
+      },
       osm_land: {
         tiles: [
           "https://vtiles.openhistoricalmap.org/maps/osm_land/{z}/{x}/{y}.pbf",
