@@ -6,37 +6,37 @@ import * as Color from "../constants/color.js";
 export const fill = {
   id: "aboriginal_fill",
   type: "fill",
-  filter: ["==", ["get", "class"], "aboriginal_lands"],
+  filter: ["==", ["get", "type"], "aboriginal_lands"],
   paint: {
     "fill-color": Color.aboriginalFill,
   },
   layout: {
     visibility: "visible",
   },
-  source: "ohm",
+  source: "ohm_other_boundaries",
   metadata: {},
-  "source-layer": "land_ohm_lines",
+  "source-layer": "non_admin_boundaries_areas",
 };
 
 export const outline = {
   id: "aboriginal_outline",
   type: "line",
-  filter: ["==", ["get", "class"], "aboriginal_lands"],
+  filter: ["==", ["get", "type"], "aboriginal_lands"],
   paint: {
     "line-color": Color.aboriginalOutline,
   },
   layout: {
     visibility: "visible",
   },
-  source: "ohm",
+  source: "ohm_other_boundaries",
   metadata: {},
-  "source-layer": "land_ohm_lines",
+  "source-layer": "non_admin_boundaries_areas",
 };
 
 export const label = {
   id: "aboriginal_label",
   type: "symbol",
-  filter: ["==", ["get", "class"], "aboriginal_lands"],
+  filter: ["==", ["get", "type"], "aboriginal_lands"],
   paint: {
     "text-color": Color.aboriginalLabel,
     "text-halo-blur": 1,
@@ -59,8 +59,8 @@ export const label = {
     "text-transform": "uppercase",
     "symbol-sort-key": ["get", "rank"],
   },
-  source: "ohm",
-  "source-layer": "land_ohm_centroids",
+  source: "ohm_other_boundaries",
+  "source-layer": "non_admin_boundaries_centroids",
 };
 
 export const legendEntries = [
