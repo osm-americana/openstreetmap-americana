@@ -17,6 +17,7 @@ import * as lyrPlace from "./place.js";
 import * as lyrPoi from "./poi.js";
 import * as lyrRail from "./rail.js";
 import * as lyrRoad from "./road.js";
+import * as lyrTimezone from "./timezone.js";
 import * as lyrTransportationLabel from "./transportation_label.js";
 import * as lyrWater from "./water.js";
 import * as lyrBuilding from "./building.js";
@@ -45,6 +46,7 @@ export function build(locales) {
     lyrBoundary.countyCasing,
     lyrBoundary.regionCasing,
     lyrBoundary.stateCasing,
+    lyrTimezone.casing,
     lyrBoundary.countryCasing,
 
     lyrHillshade.hillshading,
@@ -219,6 +221,7 @@ export function build(locales) {
     lyrBoundary.countryLabelLeft,
     lyrBoundary.countryLabelRight,
     lyrAboriginal.edgeLabel,
+    lyrTimezone.label,
     lyrWater.waterwayLabel,
 
     lyrTransportationLabel.bridgeSpacer,
