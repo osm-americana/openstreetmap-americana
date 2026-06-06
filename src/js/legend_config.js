@@ -16,6 +16,7 @@ import * as FerryLayers from "../layer/ferry.js";
 import * as AerialwayLayers from "../layer/aerialway.js";
 import * as AboriginalLayers from "../layer/aboriginal.js";
 import * as PeakLayers from "../layer/peak.js";
+import * as TimezoneLayers from "../layer/timezone.js";
 
 export const sections = [
   {
@@ -24,7 +25,7 @@ export const sections = [
   },
   {
     name: "Borders",
-    entries: BoundaryLayers.legendEntries,
+    entries: [...BoundaryLayers.legendEntries, ...TimezoneLayers.legendEntries],
   },
   {
     name: "Roads",
