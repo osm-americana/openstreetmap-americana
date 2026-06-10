@@ -19,6 +19,10 @@ export function build(
         url: tileURL,
         type: "vector",
       },
+      ua: {
+        url: "pmtiles://https://tiles.1ec5.org/urban-areas/tl_2025_us_uac20.pmtiles",
+        type: "vector",
+      },
       urbanareas: {
         type: "geojson",
         data: urbanAreas,
