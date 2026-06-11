@@ -439,11 +439,7 @@ export const poi = {
       10,
       ["station", "halt"],
       12,
-      [
-        "bus_station", 
-        "subway",
-        ...getSubclasses(iconDefs.campsite),
-      ],
+      ["bus_station", "subway", ...getSubclasses(iconDefs.campsite)],
       14,
       [
         "bus_stop",
