@@ -309,6 +309,14 @@ var iconDefs = {
     color: Color.poi.infrastructure,
     description: "College or university",
   },
+  campsite: {
+    classes: {
+      campsite: ["camp_site"],
+    },
+    sprite: "poi_tent_circle",
+    color: Color.poi.outdoor,
+    description: "Campground",
+  },
   townhall: {
     classes: {
       town_hall: ["townhall"],
@@ -413,7 +421,10 @@ export const poi = {
         ...getSubclasses(iconDefs.pow_uu),
       ],
       Color.poi.infrastructure,
-      [...getSubclasses(iconDefs.cemetery)],
+      [
+        ...getSubclasses(iconDefs.cemetery),
+        ...getSubclasses(iconDefs.campsite),
+      ],
       Color.poi.outdoor,
       Color.poi.infrastructure,
     ],
@@ -428,7 +439,11 @@ export const poi = {
       10,
       ["station", "halt"],
       12,
-      ["bus_station", "subway"],
+      [
+        "bus_station", 
+        "subway",
+        ...getSubclasses(iconDefs.campsite),
+      ],
       14,
       [
         "bus_stop",
