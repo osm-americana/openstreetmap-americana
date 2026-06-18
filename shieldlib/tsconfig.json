@@ -4,7 +4,9 @@
     "module": "ES2020",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true
   },
   "exclude": ["node_modules", "**/*.json"],
   "include": ["src/**/*.ts", "scripts/**.ts", "src/shield.js", "src/shield.js"]

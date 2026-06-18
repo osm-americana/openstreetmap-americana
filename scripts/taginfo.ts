@@ -21,7 +21,7 @@ import {
   shieldPredicate,
   networkPredicate,
 } from "../src/js/shield_format.js";
-import { ShieldSpecification } from "@americana/maplibre-shield-generator/src/types.js";
+import type { ShieldSpecification } from "@americana/maplibre-shield-generator/src/types.js";
 
 await mkdir("dist/shield-sample", { recursive: true });
 
