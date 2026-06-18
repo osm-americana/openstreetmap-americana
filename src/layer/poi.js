@@ -397,44 +397,39 @@ export const poi = {
         [
           [
             [
-              iconDefs.fuel, 
-              iconDefs.bar, 
-              iconDefs.bookstore, 
-              iconDefs.coffee, 
-              iconDefs.supermarket, 
-              iconDefs.car_shop, 
-              iconDefs.car_repair, 
-              iconDefs.food_court, 
-              iconDefs.hotel, 
-              iconDefs.hostel, 
-              iconDefs.restaurant, 
-              iconDefs.charging_station
+              iconDefs.fuel,
+              iconDefs.bar,
+              iconDefs.bookstore,
+              iconDefs.coffee,
+              iconDefs.supermarket,
+              iconDefs.car_shop,
+              iconDefs.car_repair,
+              iconDefs.food_court,
+              iconDefs.hotel,
+              iconDefs.hostel,
+              iconDefs.restaurant,
+              iconDefs.charging_station,
             ],
             Color.poi.consumer,
           ],
           [
             [
-              iconDefs.bus_station, 
-              iconDefs.bus_stop, 
-              iconDefs.railway_station, 
-              iconDefs.rail_subway_station, 
-              iconDefs.railway_stop, 
-              iconDefs.taxi
+              iconDefs.bus_station,
+              iconDefs.bus_stop,
+              iconDefs.railway_station,
+              iconDefs.rail_subway_station,
+              iconDefs.railway_stop,
+              iconDefs.taxi,
             ],
             Color.poi.transport,
           ],
+          [[iconDefs.museum], Color.poi.attraction],
           [
             [
-              iconDefs.museum
-            ],
-            Color.poi.attraction,
-          ],
-          [
-            [
-              iconDefs.hospital, 
-              iconDefs.fire_station, 
-              iconDefs.parking, 
-              iconDefs.police, 
+              iconDefs.hospital,
+              iconDefs.fire_station,
+              iconDefs.parking,
+              iconDefs.police,
               iconDefs.school,
               iconDefs.college,
               iconDefs.library,
@@ -452,12 +447,7 @@ export const poi = {
             ],
             Color.poi.infrastructure,
           ],
-          [
-            [
-              iconDefs.cemetery
-            ],
-            Color.poi.outdoor,
-          ],
+          [[iconDefs.cemetery], Color.poi.outdoor],
         ],
         Color.poi.infrastructure //Fallback for match expression in helper function
       ),
@@ -472,25 +462,9 @@ export const poi = {
       ["get", "class"],
       ...getClassSubclassGroups(
         [
-          [
-            [
-              iconDefs.college
-            ],
-            10,
-          ],
-          [
-            [
-              iconDefs.railway_station
-            ],
-            12,
-          ],
-          [
-            [
-              iconDefs.rail_subway_station,
-              iconDefs.bus_station
-            ],
-            14,
-          ],
+          [[iconDefs.college], 10],
+          [[iconDefs.railway_station], 12],
+          [[iconDefs.rail_subway_station, iconDefs.bus_station], 14],
           [
             [
               iconDefs.bus_stop,
@@ -515,7 +489,7 @@ export const poi = {
               iconDefs.supermarket,
               iconDefs.charging_station,
               iconDefs.railway_stop,
-              iconDefs.townhall
+              iconDefs.townhall,
             ],
             15,
           ],
@@ -533,14 +507,7 @@ export const poi = {
             ],
             16,
           ],
-          [
-            [
-              iconDefs.medical,
-              iconDefs.parking,
-              iconDefs.cemetery,
-            ],
-            17,
-          ],
+          [[iconDefs.medical, iconDefs.parking, iconDefs.cemetery], 17],
         ],
         99 //Fallback for match expression in helper function
       ),
@@ -548,7 +515,7 @@ export const poi = {
     ],
   ],
 
-//POIs that have no labels at lower zooms
+  //POIs that have no labels at lower zooms
   layout: {
     "text-font": ["Americana-Regular"],
     "icon-optional": false,
@@ -571,12 +538,12 @@ export const poi = {
           [
             [
               [
-                iconDefs.bus_stop, 
-                iconDefs.railway_stop, 
-                iconDefs.fuel, 
+                iconDefs.bus_stop,
+                iconDefs.railway_stop,
+                iconDefs.fuel,
                 iconDefs.supermarket,
                 iconDefs.food_court,
-                iconDefs.charging_station
+                iconDefs.charging_station,
               ],
               "",
             ],
@@ -589,17 +556,7 @@ export const poi = {
       [
         "match",
         ["get", "class"],
-        ...getClassSubclassGroups(
-          [
-            [
-              [
-                iconDefs.bus_stop, 
-              ],
-              "",
-            ],
-          ],
-          localizedName
-        ),
+        ...getClassSubclassGroups([[[iconDefs.bus_stop], ""]], localizedName),
         localizedName,
       ],
       17,
