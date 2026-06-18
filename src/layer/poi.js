@@ -262,11 +262,19 @@ var iconDefs = {
   },
   railway_station: {
     classes: {
-      railway: ["station", "halt", "subway"],
+      railway: ["station", "halt"],
     },
     sprite: "poi_rail_circle",
     color: Color.poi.transport,
-    description: "Train or subway station",
+    description: "Train station",
+  },
+  rail_subway_station: {
+    classes: {
+      railway: ["subway"],
+    },
+    sprite: "poi_rail_circle",
+    color: Color.poi.transport,
+    description: "Subway station",
   },
   railway_stop: {
     classes: {
@@ -353,8 +361,26 @@ var imageExpression = [
   ],
 ];
 
-const getSubclasses = (iconDef) => Object.values(iconDef.classes).flat();
-
+function getClassSubclassGroups(groups, fallback) {
+  let mapping = {};
+  for (let [iconDefList, value] of groups) {
+    for (let iconDef of iconDefList) {
+      for (let cls in iconDef.classes) {
+        if (!mapping[cls]) {
+          mapping[cls] = ["match", ["get", "subclass"]];
+        }
+        mapping[cls].push(iconDef.classes[cls]);
+        mapping[cls].push(value);
+      }
+    }
+  }
+  let out = [];
+  for (let cls in mapping) {
+    out.push(cls);
+    out.push(mapping[cls].concat([fallback]));
+  }
+  return out;
+}
 export const poi = {
   id: "poi",
   type: "symbol",
@@ -366,56 +392,76 @@ export const poi = {
     "icon-halo-blur": 0.2,
     "text-color": [
       "match",
-      ["get", "subclass"],
-      [
-        ...getSubclasses(iconDefs.fuel),
-        ...getSubclasses(iconDefs.bar),
-        ...getSubclasses(iconDefs.bookstore),
-        ...getSubclasses(iconDefs.coffee),
-        ...getSubclasses(iconDefs.supermarket),
-        ...getSubclasses(iconDefs.car_shop),
-        ...getSubclasses(iconDefs.car_repair),
-        ...getSubclasses(iconDefs.food_court),
-        ...getSubclasses(iconDefs.hotel),
-        ...getSubclasses(iconDefs.hostel),
-        ...getSubclasses(iconDefs.restaurant),
-        ...getSubclasses(iconDefs.charging_station),
-      ],
-      Color.poi.consumer,
-      [
-        "bus_station",
-        "bus_stop",
-        ...getSubclasses(iconDefs.railway_station),
-        ...getSubclasses(iconDefs.railway_stop),
-        ...getSubclasses(iconDefs.taxi),
-      ],
-      Color.poi.transport,
-      ["museum"],
-      Color.poi.attraction,
-      [
-        "hospital",
-        "fire_station",
-        "parking",
-        "police",
-        "school",
-        ...getSubclasses(iconDefs.college),
-        "library",
-        "townhall",
-        ...getSubclasses(iconDefs.post_office),
-        ...getSubclasses(iconDefs.pow_christian),
-        ...getSubclasses(iconDefs.pow_buddhist),
-        ...getSubclasses(iconDefs.pow_hindu),
-        ...getSubclasses(iconDefs.pow_jewish),
-        ...getSubclasses(iconDefs.pow_muslim),
-        ...getSubclasses(iconDefs.pow_sikh),
-        ...getSubclasses(iconDefs.pow_shinto),
-        ...getSubclasses(iconDefs.pow_taoist),
-        ...getSubclasses(iconDefs.pow_uu),
-      ],
-      Color.poi.infrastructure,
-      [...getSubclasses(iconDefs.cemetery)],
-      Color.poi.outdoor,
-      Color.poi.infrastructure,
+      ["get", "class"],
+      ...getClassSubclassGroups(
+        [
+          [
+            [
+              iconDefs.fuel, 
+              iconDefs.bar, 
+              iconDefs.bookstore, 
+              iconDefs.coffee, 
+              iconDefs.supermarket, 
+              iconDefs.car_shop, 
+              iconDefs.car_repair, 
+              iconDefs.food_court, 
+              iconDefs.hotel, 
+              iconDefs.hostel, 
+              iconDefs.restaurant, 
+              iconDefs.charging_station
+            ],
+            Color.poi.consumer,
+          ],
+          [
+            [
+              iconDefs.bus_station, 
+              iconDefs.bus_stop, 
+              iconDefs.railway_station, 
+              iconDefs.rail_subway_station, 
+              iconDefs.railway_stop, 
+              iconDefs.taxi
+            ],
+            Color.poi.transport,
+          ],
+          [
+            [
+              iconDefs.museum
+            ],
+            Color.poi.attraction,
+          ],
+          [
+            [
+              iconDefs.hospital, 
+              iconDefs.fire_station, 
+              iconDefs.parking, 
+              iconDefs.police, 
+              iconDefs.school,
+              iconDefs.college,
+              iconDefs.library,
+              iconDefs.townhall,
+              iconDefs.post_office,
+              iconDefs.pow_christian,
+              iconDefs.pow_buddhist,
+              iconDefs.pow_hindu,
+              iconDefs.pow_jewish,
+              iconDefs.pow_muslim,
+              iconDefs.pow_sikh,
+              iconDefs.pow_shinto,
+              iconDefs.pow_taoist,
+              iconDefs.pow_uu,
+            ],
+            Color.poi.infrastructure,
+          ],
+          [
+            [
+              iconDefs.cemetery
+            ],
+            Color.poi.outdoor,
+          ],
+        ],
+        Color.poi.infrastructure //Fallback for match expression in helper function
+      ),
+      Color.poi.infrastructure, //Fallback for match expression here
     ],
   },
   filter: [
@@ -423,56 +469,86 @@ export const poi = {
     ["zoom"],
     [
       "match",
-      ["get", "subclass"],
-      [...getSubclasses(iconDefs.college)],
-      10,
-      ["station", "halt"],
-      12,
-      ["bus_station", "subway"],
-      14,
-      [
-        "bus_stop",
-        "fire_station",
-        "food_court",
-        "hospital",
-        "library",
-        "museum",
-        "police",
-        ...getSubclasses(iconDefs.fuel),
-        ...getSubclasses(iconDefs.post_office),
-        ...getSubclasses(iconDefs.pow_buddhist),
-        ...getSubclasses(iconDefs.pow_christian),
-        ...getSubclasses(iconDefs.pow_hindu),
-        ...getSubclasses(iconDefs.pow_jewish),
-        ...getSubclasses(iconDefs.pow_muslim),
-        ...getSubclasses(iconDefs.pow_sikh),
-        ...getSubclasses(iconDefs.pow_shinto),
-        ...getSubclasses(iconDefs.pow_taoist),
-        ...getSubclasses(iconDefs.pow_uu),
-        ...getSubclasses(iconDefs.school),
-        ...getSubclasses(iconDefs.supermarket),
-        ...getSubclasses(iconDefs.charging_station),
-        "townhall",
-        "tram_stop",
-      ],
-      15,
-      [
-        ...getSubclasses(iconDefs.bar),
-        ...getSubclasses(iconDefs.bookstore),
-        ...getSubclasses(iconDefs.coffee),
-        ...getSubclasses(iconDefs.car_shop),
-        ...getSubclasses(iconDefs.car_repair),
-        ...getSubclasses(iconDefs.taxi),
-        ...getSubclasses(iconDefs.hotel),
-        ...getSubclasses(iconDefs.hostel),
-        ...getSubclasses(iconDefs.restaurant),
-      ],
-      16,
-      ["clinic", "doctors", "parking", ...getSubclasses(iconDefs.cemetery)],
-      17,
-      99,
+      ["get", "class"],
+      ...getClassSubclassGroups(
+        [
+          [
+            [
+              iconDefs.college
+            ],
+            10,
+          ],
+          [
+            [
+              iconDefs.railway_station
+            ],
+            12,
+          ],
+          [
+            [
+              iconDefs.rail_subway_station,
+              iconDefs.bus_station
+            ],
+            14,
+          ],
+          [
+            [
+              iconDefs.bus_stop,
+              iconDefs.fire_station,
+              iconDefs.food_court,
+              iconDefs.hospital,
+              iconDefs.library,
+              iconDefs.museum,
+              iconDefs.police,
+              iconDefs.fuel,
+              iconDefs.post_office,
+              iconDefs.pow_buddhist,
+              iconDefs.pow_christian,
+              iconDefs.pow_hindu,
+              iconDefs.pow_jewish,
+              iconDefs.pow_muslim,
+              iconDefs.pow_sikh,
+              iconDefs.pow_shinto,
+              iconDefs.pow_taoist,
+              iconDefs.pow_uu,
+              iconDefs.school,
+              iconDefs.supermarket,
+              iconDefs.charging_station,
+              iconDefs.railway_stop,
+              iconDefs.townhall
+            ],
+            15,
+          ],
+          [
+            [
+              iconDefs.bar,
+              iconDefs.bookstore,
+              iconDefs.coffee,
+              iconDefs.car_shop,
+              iconDefs.car_repair,
+              iconDefs.taxi,
+              iconDefs.hotel,
+              iconDefs.hostel,
+              iconDefs.restaurant,
+            ],
+            16,
+          ],
+          [
+            [
+              iconDefs.medical,
+              iconDefs.parking,
+              iconDefs.cemetery,
+            ],
+            17,
+          ],
+        ],
+        99 //Fallback for match expression in helper function
+      ),
+      99, //Fallback for match expression here
     ],
   ],
+
+//POIs that have no labels at lower zooms
   layout: {
     "text-font": ["Americana-Regular"],
     "icon-optional": false,
@@ -490,20 +566,42 @@ export const poi = {
       ["zoom"],
       [
         "match",
-        ["get", "subclass"],
-        [
-          "bus_stop",
-          "tram_stop",
-          "fuel",
-          "supermarket",
-          "food_court",
-          "charging_station",
-        ],
-        "",
+        ["get", "class"],
+        ...getClassSubclassGroups(
+          [
+            [
+              [
+                iconDefs.bus_stop, 
+                iconDefs.railway_stop, 
+                iconDefs.fuel, 
+                iconDefs.supermarket,
+                iconDefs.food_court,
+                iconDefs.charging_station
+              ],
+              "",
+            ],
+          ],
+          localizedName
+        ),
         localizedName,
       ],
       16,
-      ["match", ["get", "subclass"], ["bus_stop"], "", localizedName],
+      [
+        "match",
+        ["get", "class"],
+        ...getClassSubclassGroups(
+          [
+            [
+              [
+                iconDefs.bus_stop, 
+              ],
+              "",
+            ],
+          ],
+          localizedName
+        ),
+        localizedName,
+      ],
       17,
       localizedName,
     ],
@@ -547,6 +645,8 @@ export const iconlessPoi = {
   source: "openmaptiles",
   "source-layer": "poi",
 };
+
+const getSubclasses = (iconDef) => Object.values(iconDef.classes).flat(); //It's possible this can be eliminated, it used to be used more but now a relic used only below
 
 export const legendEntries = Object.keys(iconDefs).map(function (id) {
   return {
