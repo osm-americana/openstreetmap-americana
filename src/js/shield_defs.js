@@ -4101,6 +4101,16 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Cyprus
+  shields["CY:B"] =
+    shields["CY:E"] =
+    shields["CY:F"] =
+      roundedRectShield(
+        Color.shields.blue,
+        Color.shields.yellow,
+        Color.shields.yellow
+      );
+
   // Czechia
   shields["CZ:national"] = roundedRectShield(
     Color.shields.red,
