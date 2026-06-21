@@ -1015,6 +1015,7 @@ export function loadShields() {
       "US:AZ:Spur": ["SPUR"],
       "US:AZ:Loop": ["LOOP"],
       "US:AZ:Business": ["BUS"],
+      "US:AZ:Truck": ["TRK"],
     },
   };
 
