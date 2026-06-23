@@ -1,14 +1,13 @@
 "use strict";
 
 // Common expressions
-const highwaySelector = ["match", ["get", "class"]];
+const highwaySelector = ["match", ["get", "highway"]];
 const baseFilter = [
   "all",
   ["==", ["get", "oneway"], 1],
-  ["!=", ["get", "ramp"], 1],
   [
     "in",
-    ["get", "class"],
+    ["get", "highway"],
     [
       "literal",
       [
@@ -24,15 +23,16 @@ const baseFilter = [
     ],
   ],
 ];
+const getBridge = ["coalesce", ["get", "bridge"], 0];
+const isBridge = ["!=", getBridge, 0];
+const getTunnel = ["coalesce", ["get", "tunnel"], 0];
+const isTunnel = ["!=", getTunnel, 0];
 
 export const surface = {
   id: "oneway_surface",
-  filter: [
-    ...baseFilter,
-    ["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]],
-  ],
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  filter: [...baseFilter, ["==", 0, ["+", getBridge, getTunnel]]],
+  source: "ohm",
+  "source-layer": "transport_lines",
   type: "symbol",
   minzoom: 15,
 
@@ -54,9 +54,8 @@ export const surface = {
       ],
     ],
     "icon-image": [
-      "match",
-      ["get", "brunnel"],
-      "tunnel",
+      "case",
+      isTunnel,
       "oneway_black",
       [
         "match",
@@ -88,7 +87,7 @@ export const surface = {
 export const tunnel = {
   ...surface,
   id: "oneway_tunnel",
-  filter: [...baseFilter, ["==", ["get", "brunnel"], "tunnel"]],
+  filter: [...baseFilter, isTunnel],
   paint: {
     "icon-opacity": 0.2,
   },
@@ -97,5 +96,5 @@ export const tunnel = {
 export const bridge = {
   ...surface,
   id: "oneway_bridge",
-  filter: [...baseFilter, ["==", ["get", "brunnel"], "bridge"]],
+  filter: [...baseFilter, isBridge],
 };

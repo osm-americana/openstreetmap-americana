@@ -19,8 +19,8 @@ export const building = {
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
-  "source-layer": "building",
+  source: "ohm",
+  "source-layer": "buildings",
 };
 
 export const legendEntries = [

@@ -12,8 +12,7 @@ var iconDefs = {
   },
   bar: {
     classes: {
-      bar: ["bar"],
-      beer: ["beer", "pub"],
+      amenity: ["bar", "pub"],
     },
     sprite: "poi_martini_glass",
     color: Color.poi.consumer,
@@ -21,7 +20,7 @@ var iconDefs = {
   },
   bookstore: {
     classes: {
-      library: ["books"],
+      shop: ["books"],
     },
     sprite: "poi_book_upright",
     color: Color.poi.consumer,
@@ -29,7 +28,7 @@ var iconDefs = {
   },
   bus_station: {
     classes: {
-      bus: ["bus_station"],
+      amenity: ["bus_station"],
     },
     sprite: "poi_bus_circle",
     color: Color.poi.transport,
@@ -37,7 +36,7 @@ var iconDefs = {
   },
   bus_stop: {
     classes: {
-      bus: ["bus_stop"],
+      highway: ["bus_stop"],
     },
     sprite: "poi_bus",
     color: Color.poi.transport,
@@ -45,7 +44,7 @@ var iconDefs = {
   },
   car_repair: {
     classes: {
-      car: ["car_repair"],
+      shop: ["car_repair"],
     },
     sprite: "poi_car_repair",
     color: Color.poi.consumer,
@@ -53,7 +52,7 @@ var iconDefs = {
   },
   car_shop: {
     classes: {
-      car: ["car"],
+      shop: ["car"],
     },
     sprite: "poi_car_shop",
     color: Color.poi.consumer,
@@ -61,7 +60,8 @@ var iconDefs = {
   },
   cemetery: {
     classes: {
-      cemetery: ["cemetery", "grave_yard"],
+      amenity: ["grave_yard"],
+      landuse: ["cemetery"],
     },
     sprite: "poi_gravestone",
     color: Color.poi.outdoor,
@@ -69,7 +69,7 @@ var iconDefs = {
   },
   charging_station: {
     classes: {
-      fuel: ["charging_station"],
+      amenity: ["charging_station"],
     },
     sprite: "poi_charging_station",
     color: Color.poi.consumer,
@@ -77,7 +77,7 @@ var iconDefs = {
   },
   taxi: {
     classes: {
-      office: ["taxi"],
+      amenity: ["taxi"],
     },
     sprite: "poi_taxi",
     color: Color.poi.transport,
@@ -85,7 +85,7 @@ var iconDefs = {
   },
   coffee: {
     classes: {
-      cafe: ["cafe"],
+      amenity: ["cafe"],
     },
     sprite: "poi_coffee_cup",
     color: Color.poi.consumer,
@@ -93,7 +93,7 @@ var iconDefs = {
   },
   food_court: {
     classes: {
-      fast_food: ["food_court"],
+      amenity: ["food_court"],
     },
     sprite: "poi_restaurant_circle",
     color: Color.poi.consumer,
@@ -101,7 +101,7 @@ var iconDefs = {
   },
   fire_station: {
     classes: {
-      fire_station: ["fire_station"],
+      amenity: ["fire_station"],
     },
     sprite: "poi_fire_station",
     color: Color.poi.infrastructure,
@@ -109,7 +109,7 @@ var iconDefs = {
   },
   fuel: {
     classes: {
-      fuel: ["fuel"],
+      amenity: ["fuel"],
     },
     sprite: "poi_fuel",
     color: Color.poi.consumer,
@@ -117,7 +117,7 @@ var iconDefs = {
   },
   hospital: {
     classes: {
-      hospital: ["hospital"],
+      amenity: ["hospital"],
     },
     sprite: "poi_hospital",
     color: Color.poi.infrastructure,
@@ -125,7 +125,7 @@ var iconDefs = {
   },
   hotel: {
     classes: {
-      lodging: ["hotel", "motel", "guest_house"],
+      tourism: ["hotel", "motel", "guest_house"],
     },
     sprite: "poi_hotel",
     color: Color.poi.consumer,
@@ -133,7 +133,7 @@ var iconDefs = {
   },
   hostel: {
     classes: {
-      lodging: ["hostel"],
+      tourism: ["hostel"],
     },
     sprite: "poi_hostel",
     color: Color.poi.consumer,
@@ -141,7 +141,7 @@ var iconDefs = {
   },
   library: {
     classes: {
-      library: ["library"],
+      amenity: ["library"],
     },
     sprite: "poi_book_upright",
     color: Color.poi.infrastructure,
@@ -149,8 +149,7 @@ var iconDefs = {
   },
   medical: {
     classes: {
-      hospital: ["clinic"],
-      doctors: ["doctors"],
+      amenity: ["clinic", "doctors"],
     },
     sprite: "poi_health_cross",
     color: Color.poi.infrastructure,
@@ -158,7 +157,7 @@ var iconDefs = {
   },
   museum: {
     classes: {
-      museum: ["museum"],
+      tourism: ["museum"],
     },
     sprite: "poi_museum",
     color: Color.poi.attraction,
@@ -166,7 +165,7 @@ var iconDefs = {
   },
   parking: {
     classes: {
-      parking: ["parking"],
+      amenity: ["parking"],
     },
     sprite: "poi_p",
     color: Color.poi.infrastructure,
@@ -174,7 +173,7 @@ var iconDefs = {
   },
   police: {
     classes: {
-      police: ["police"],
+      amenity: ["police"],
     },
     sprite: "poi_police_shield",
     color: Color.poi.infrastructure,
@@ -182,7 +181,7 @@ var iconDefs = {
   },
   post_office: {
     classes: {
-      post: ["post_office"],
+      amenity: ["post_office"],
     },
     sprite: "poi_envelope",
     color: Color.poi.infrastructure,
@@ -190,7 +189,7 @@ var iconDefs = {
   },
   pow_buddhist: {
     classes: {
-      place_of_worship: ["buddhist"],
+      religion: ["buddhist"],
     },
     sprite: "poi_pow_buddhist",
     color: Color.poi.infrastructure,
@@ -198,7 +197,7 @@ var iconDefs = {
   },
   pow_christian: {
     classes: {
-      place_of_worship: ["christian"],
+      religion: ["christian"],
     },
     sprite: "poi_pow_christian",
     color: Color.poi.infrastructure,
@@ -206,7 +205,7 @@ var iconDefs = {
   },
   pow_hindu: {
     classes: {
-      place_of_worship: ["hindu"],
+      religion: ["hindu"],
     },
     sprite: "poi_pow_hindu",
     color: Color.poi.infrastructure,
@@ -214,7 +213,7 @@ var iconDefs = {
   },
   pow_jewish: {
     classes: {
-      place_of_worship: ["jewish"],
+      religion: ["jewish"],
     },
     sprite: "poi_pow_jewish",
     color: Color.poi.infrastructure,
@@ -222,7 +221,7 @@ var iconDefs = {
   },
   pow_muslim: {
     classes: {
-      place_of_worship: ["muslim"],
+      religion: ["muslim"],
     },
     sprite: "poi_pow_muslim",
     color: Color.poi.infrastructure,
@@ -230,7 +229,7 @@ var iconDefs = {
   },
   pow_sikh: {
     classes: {
-      place_of_worship: ["sikh"],
+      religion: ["sikh"],
     },
     sprite: "poi_pow_sikh",
     color: Color.poi.infrastructure,
@@ -238,7 +237,7 @@ var iconDefs = {
   },
   pow_shinto: {
     classes: {
-      place_of_worship: ["shinto"],
+      religion: ["shinto"],
     },
     sprite: "poi_pow_shinto",
     color: Color.poi.infrastructure,
@@ -246,7 +245,7 @@ var iconDefs = {
   },
   pow_taoist: {
     classes: {
-      place_of_worship: ["taoist"],
+      religion: ["taoist"],
     },
     sprite: "poi_pow_taoist",
     color: Color.poi.infrastructure,
@@ -254,7 +253,7 @@ var iconDefs = {
   },
   pow_uu: {
     classes: {
-      place_of_worship: ["unitarian_universalist"],
+      religion: ["unitarian_universalist"],
     },
     sprite: "poi_pow_uu",
     color: Color.poi.infrastructure,
@@ -278,8 +277,7 @@ var iconDefs = {
   },
   restaurant: {
     classes: {
-      restaurant: ["restaurant"],
-      fast_food: ["fast_food"],
+      amenity: ["restaurant", "fast_food"],
     },
     sprite: "poi_restaurant",
     color: Color.poi.consumer,
@@ -287,7 +285,7 @@ var iconDefs = {
   },
   school: {
     classes: {
-      school: ["kindergarten", "school"],
+      amenity: ["kindergarten", "school"],
     },
     sprite: "poi_school",
     color: Color.poi.infrastructure,
@@ -295,7 +293,7 @@ var iconDefs = {
   },
   supermarket: {
     classes: {
-      grocery: ["supermarket"],
+      shop: ["supermarket"],
     },
     sprite: "poi_supermarket",
     color: Color.poi.consumer,
@@ -303,7 +301,7 @@ var iconDefs = {
   },
   college: {
     classes: {
-      college: ["college", "university"],
+      amenity: ["college", "university"],
     },
     sprite: "poi_mortarboard",
     color: Color.poi.infrastructure,
@@ -311,7 +309,7 @@ var iconDefs = {
   },
   townhall: {
     classes: {
-      town_hall: ["townhall"],
+      amenity: ["townhall"],
     },
     sprite: "poi_town_hall",
     color: Color.poi.infrastructure,
@@ -325,7 +323,7 @@ function iconImageDefs() {
     let classes = iconDefs[key].classes;
     for (var poiClass in classes) {
       if (!mapping[poiClass]) {
-        mapping[poiClass] = ["match", ["get", "subclass"]];
+        mapping[poiClass] = ["match", ["get", "type"]];
       }
       mapping[poiClass].push(classes[poiClass]);
       mapping[poiClass].push(
@@ -366,7 +364,7 @@ export const poi = {
     "icon-halo-blur": 0.2,
     "text-color": [
       "match",
-      ["get", "subclass"],
+      ["get", "type"],
       [
         ...getSubclasses(iconDefs.fuel),
         ...getSubclasses(iconDefs.bar),
@@ -423,7 +421,7 @@ export const poi = {
     ["zoom"],
     [
       "match",
-      ["get", "subclass"],
+      ["get", "type"],
       [...getSubclasses(iconDefs.college)],
       10,
       ["station", "halt"],
@@ -490,7 +488,7 @@ export const poi = {
       ["zoom"],
       [
         "match",
-        ["get", "subclass"],
+        ["get", "type"],
         [
           "bus_stop",
           "tram_stop",
@@ -503,7 +501,7 @@ export const poi = {
         localizedName,
       ],
       16,
-      ["match", ["get", "subclass"], ["bus_stop"], "", localizedName],
+      ["match", ["get", "type"], ["bus_stop"], "", localizedName],
       17,
       localizedName,
     ],
@@ -514,10 +512,15 @@ export const poi = {
     "icon-padding": 0,
     "text-padding": 0,
     "icon-allow-overlap": false,
-    "symbol-sort-key": ["get", "rank"],
   },
-  source: "openmaptiles",
-  "source-layer": "poi",
+  source: "ohm",
+  "source-layer": "other_points_centroids",
+};
+
+export const amenity = {
+  ...poi,
+  id: "amenity",
+  "source-layer": "amenity_points_centroids",
 };
 
 // POIs that have no icon at lower zooms
@@ -532,7 +535,7 @@ export const iconlessPoi = {
     "icon-halo-blur": 0.2,
     "text-color": Color.parkLabel,
   },
-  filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "subclass"], "cemetery"]],
+  filter: ["all", ["<", ["zoom"], 17], ["==", ["get", "type"], "cemetery"]],
   layout: {
     "text-font": ["Americana-Bold"],
     "text-size": 10,
@@ -542,20 +545,20 @@ export const iconlessPoi = {
     "text-radial-offset": 0,
     "text-max-width": 5,
     "text-padding": 0,
-    "symbol-sort-key": ["get", "rank"],
+    "symbol-sort-key": ["*", -1, ["get", "area_km2"]],
   },
-  source: "openmaptiles",
-  "source-layer": "poi",
+  source: "ohm",
+  "source-layer": "landuse_points_centroids",
 };
 
 export const legendEntries = Object.keys(iconDefs).map(function (id) {
   return {
     description: iconDefs[id].description,
-    layers: [poi.id],
+    layers: [poi.id, amenity.id],
     filter: [
       "all",
       ["in", ["get", "class"], ["literal", Object.keys(iconDefs[id].classes)]],
-      ["in", ["get", "subclass"], ["literal", getSubclasses(iconDefs[id])]],
+      ["in", ["get", "type"], ["literal", getSubclasses(iconDefs[id])]],
     ],
   };
 });
