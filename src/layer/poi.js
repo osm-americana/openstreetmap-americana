@@ -266,7 +266,7 @@ var iconDefs = {
     },
     sprite: "poi_rail_circle",
     color: Color.poi.transport,
-    description: "Train station",
+    description: "Train or subway station",
   },
   rail_subway_station: {
     classes: {
@@ -274,7 +274,7 @@ var iconDefs = {
     },
     sprite: "poi_rail_circle",
     color: Color.poi.transport,
-    description: "Subway station",
+    description: "Train or subway station",
   },
   railway_stop: {
     classes: {
@@ -414,6 +414,7 @@ export const poi = {
           ],
           [
             [
+              iconDefs.aerialway_station,
               iconDefs.bus_station,
               iconDefs.bus_stop,
               iconDefs.railway_station,
@@ -464,7 +465,14 @@ export const poi = {
         [
           [[iconDefs.college], 10],
           [[iconDefs.railway_station], 12],
-          [[iconDefs.rail_subway_station, iconDefs.bus_station], 14],
+          [
+            [
+              iconDefs.aerialway_station,
+              iconDefs.rail_subway_station,
+              iconDefs.bus_station,
+            ],
+            14,
+          ],
           [
             [
               iconDefs.bus_stop,
@@ -603,16 +611,39 @@ export const iconlessPoi = {
   "source-layer": "poi",
 };
 
-const getSubclasses = (iconDef) => Object.values(iconDef.classes).flat(); //It's possible this can be eliminated, it used to be used more but now a relic used only below
+export const legendEntries = Object.values(
+  // Dedupicates entries that have the same sprite, color, and description but appear at multiple zoom levels
+  Object.entries(iconDefs).reduce((unique_list, [id, def]) => {
+    const duplicate_key = `${def.sprite}|${def.color}|${def.description}`;
 
-export const legendEntries = Object.keys(iconDefs).map(function (id) {
-  return {
-    description: iconDefs[id].description,
-    layers: [poi.id],
-    filter: [
-      "all",
-      ["in", ["get", "class"], ["literal", Object.keys(iconDefs[id].classes)]],
-      ["in", ["get", "subclass"], ["literal", getSubclasses(iconDefs[id])]],
-    ],
-  };
-});
+    if (!unique_list[duplicate_key]) {
+      unique_list[duplicate_key] = {
+        description: def.description,
+        classes: { ...def.classes },
+      };
+    } else {
+      Object.entries(def.classes).forEach(([cls, subclasses]) => {
+        if (!unique_list[duplicate_key].classes[cls]) {
+          unique_list[duplicate_key].classes[cls] = subclasses;
+        } else {
+          unique_list[duplicate_key].classes[cls] = [
+            ...new Set([
+              ...unique_list[duplicate_key].classes[cls],
+              ...subclasses,
+            ]),
+          ];
+        }
+      });
+    }
+
+    return unique_list;
+  }, {})
+).map(({ description, classes }) => ({
+  description,
+  layers: [poi.id],
+  filter: [
+    "all",
+    ["in", ["get", "class"], ["literal", Object.keys(classes)]],
+    ["in", ["get", "subclass"], ["literal", Object.values(classes).flat()]],
+  ],
+}));
