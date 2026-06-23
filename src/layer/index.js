@@ -249,6 +249,7 @@ export function build(locales) {
 
     lyrPeak.peak,
     lyrPoi.poi,
+    lyrPoi.amenity,
     lyrPoi.iconlessPoi,
 
     lyrPlace.state,
