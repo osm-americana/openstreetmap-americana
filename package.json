@@ -11,7 +11,7 @@
     "shieldlib"
   ],
   "scripts": {
-    "build:shieldlib": "cd shieldlib && run-s build:code docs",
+    "build:shieldlib": "cd shieldlib && run-s build:code",
     "build:code": "tsx scripts/build",
     "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
     "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
