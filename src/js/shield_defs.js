@@ -2672,6 +2672,62 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
+  shields["US:OR:Scenic"] = {
+    notext: true,
+    overrideByName: {
+      "Blue Mountain Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_blue_mountain",
+      },
+      "Cascade Lakes Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_cascade_lakes",
+      },
+      "Elkhorn Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_elkhorn",
+      },
+      "Hells Canyon Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_hells_canyon",
+      },
+      "High Desert Discovery Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_high_desert",
+      },
+      "Journey Through Time Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_journey_through_time",
+      },
+      "Marys Peak to Pacific Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_marys_peak_to_pacific",
+      },
+      "McKenzie Pass-Santiam Pass Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_mckenzie_santiam",
+      },
+      "McKenzie River Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_mckenzie_river",
+      },
+      "Mount Hood Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_mount_hood",
+      },
+      "Oregon Outback Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_oregon_outback",
+      },
+      "Over The Rivers And Through The Woods Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_over_the_rivers",
+      },
+      "Rogue-Umpqua Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_rogue_umpqua",
+      },
+      "Trees to Sea Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_trees_to_sea",
+      },
+      "Umpqua River Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_umpqua_river",
+      },
+      "Volcanic Legacy Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_volcanic_legacy",
+      },
+      "West Cascades Scenic Byway": {
+        spriteBlank: "shield_us_or_scenic_west_cascades",
+      },
+    },
+  };
 
   // Pennsylvania
   shields["US:PA"] = {
