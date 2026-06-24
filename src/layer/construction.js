@@ -1,5 +1,7 @@
 "use strict";
 
+import * as Color from "../constants/color";
+
 const majorConstruction = [
   "match",
   ["get", "class"],
@@ -36,9 +38,9 @@ export const road = {
       10,
       [...majorConstruction, "lightcoral", "lightslategray"],
       13,
-      [...majorConstruction, "maroon", "lightslategray"],
+      [...majorConstruction, Color.constructionMajor, "lightslategray"],
       15,
-      [...majorConstruction, "maroon", "slategray"],
+      [...majorConstruction, Color.constructionMajor, "slategray"],
     ],
     "line-opacity": ["interpolate", ["exponential", 2], ["zoom"], 10, 0, 11, 1],
     "line-blur": 0.75,

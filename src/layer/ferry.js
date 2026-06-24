@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 // Filter properties in this layer should be updated to reflect consensus once
 // https://github.com/openmaptiles/openmaptiles/issues/1373 is closed

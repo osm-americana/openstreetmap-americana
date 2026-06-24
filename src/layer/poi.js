@@ -1,5 +1,5 @@
 import { localizedName } from "@americana/diplomat";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 var iconDefs = {
   aerialway_station: {

@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 import * as Util from "../js/util.js";
 
 // Exponent base for inter-zoom interpolation

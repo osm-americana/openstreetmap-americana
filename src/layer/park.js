@@ -1,7 +1,7 @@
 "use strict";
 
 import { localizedName } from "@americana/diplomat";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
 

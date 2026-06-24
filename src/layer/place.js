@@ -1,8 +1,8 @@
+import * as Color from "../constants/color";
 import {
   localizedName,
   localizedNameWithLocalGloss,
 } from "@americana/diplomat";
-import * as Color from "../constants/color.js";
 
 const labelHaloColor = [
   "interpolate",
@@ -17,7 +17,7 @@ const labelHaloColor = [
 const labelHaloBlur = ["interpolate", ["linear"], ["zoom"], 4, 0.5, 5, 0];
 
 const cityLabelPaint = {
-  "text-color": "#444",
+  "text-color": Color.placeLabelCity,
   "text-halo-color": labelHaloColor,
   "text-halo-width": 2,
   "text-halo-blur": labelHaloBlur,
@@ -384,7 +384,7 @@ export const state = {
   id: "place_state",
   type: "symbol",
   paint: {
-    "text-color": "hsl(45, 6%, 10%)",
+    "text-color": Color.placeLabelState,
     "text-halo-color": labelHaloColor,
     "text-halo-width": [
       "interpolate",
@@ -432,7 +432,7 @@ export const countryOther = {
   id: "place_country-other",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": 0.5,
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
@@ -461,7 +461,7 @@ export const country3 = {
   id: "place_country-3",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": labelHaloBlur,
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
@@ -491,7 +491,7 @@ export const country2 = {
   id: "place_country-2",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": labelHaloBlur,
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 1, 1, 5, 2.4],
@@ -521,7 +521,7 @@ export const country1 = {
   id: "place_country-1",
   type: "symbol",
   paint: {
-    "text-color": "#334",
+    "text-color": Color.placeLabelCountry,
     "text-halo-blur": labelHaloBlur,
     "text-halo-color": labelHaloColor,
     "text-halo-width": [
@@ -569,7 +569,7 @@ export const continent = {
   id: "place_continent",
   type: "symbol",
   paint: {
-    "text-color": "#633",
+    "text-color": Color.placeLabelContinent,
     "text-halo-color": labelHaloColor,
     "text-halo-blur": labelHaloBlur,
     "text-halo-width": 1,

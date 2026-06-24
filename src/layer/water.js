@@ -1,7 +1,7 @@
 "use strict";
 
 import { localizedName, localizedNameInline } from "@americana/diplomat";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 const bigRivers = ["river", "canal"];
 const mediumRivers = ["stream"];
