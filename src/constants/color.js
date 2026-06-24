@@ -26,6 +26,11 @@ export const cemeteryOutline = "hsla(80, 23%, 62%, 45%)";
 export const parkLabel = "hsl(136, 71%, 29%)";
 export const parkLabelHalo = "hsl(90, 27%, 94%)";
 
+export const attractionFill = "hsl(24, 50%, 88%)";
+export const attractionOutline = "hsla(24, 50%, 27%, 50%)";
+export const attractionLabel = "hsl(24, 50%, 27%)";
+export const attractionLabelHalo = "hsl(24, 50%, 95%)";
+
 export const aerialwayLine = "hsl(310, 41%, 59%)";
 export const aerialwayLabel = "hsl(310, 71%, 29%)";
 
