@@ -456,13 +456,7 @@ export const poi = {
             ],
             Color.poi.infrastructure,
           ],
-          [
-            [
-              iconDefs.cemetery,
-              iconDefs.campsite,
-            ], 
-            Color.poi.outdoor
-          ],
+          [[iconDefs.cemetery, iconDefs.campsite], Color.poi.outdoor],
         ],
         Color.poi.infrastructure //Fallback for match expression in helper function
       ),
