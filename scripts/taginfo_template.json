@@ -714,6 +714,14 @@
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_museum.svg"
     },
     {
+      "key": "tourism",
+      "value": "camp_site",
+      "object_types": ["node", "area"],
+      "description": "Campgrounds are marked by a circled icon representing a tent.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_tent_circle.svg"
+    },
+    {
       "key": "amenity",
       "value": "clinic",
       "object_types": ["node", "area"],

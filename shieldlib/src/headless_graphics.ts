@@ -1,4 +1,4 @@
-import { Bounds, GraphicsFactory } from "./types";
+import type { Bounds, GraphicsFactory } from "./types";
 import { createCanvas } from "canvas";
 
 export class HeadlessGraphicsFactory implements GraphicsFactory {

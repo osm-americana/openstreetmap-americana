@@ -730,11 +730,20 @@ export function loadShields() {
   shields["US:NHT"] = {
     notext: true,
     overrideByName: {
+      "California National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_cali",
+      },
       "Juan Bautista de Anza National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_juba",
       },
+      "Lewis and Clark National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_lecl",
+      },
       "Mormon Pioneer National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_mopi",
+      },
+      "Nez Perce National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_nez_perce",
       },
       "Oregon National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_oreg",
@@ -745,6 +754,9 @@ export function loadShields() {
         },
       "Pony Express National Historic Trail Auto Tour Route": {
         spriteBlank: "shield_us_nht_poex",
+      },
+      "Santa Fe National Historic Trail Auto Tour Route": {
+        spriteBlank: "shield_us_nht_safe",
       },
       "Selma to Montgomery National Historic Trail": {
         spriteBlank: "shield_us_nht_semo",
@@ -1003,6 +1015,7 @@ export function loadShields() {
       "US:AZ:Spur": ["SPUR"],
       "US:AZ:Loop": ["LOOP"],
       "US:AZ:Business": ["BUS"],
+      "US:AZ:Truck": ["TRK"],
     },
   };
 
@@ -1194,6 +1207,9 @@ export function loadShields() {
       top: 6,
       bottom: 4,
     },
+    bannerMap: {
+      "US:FL:Business": ["BUS"],
+    },
   };
   shields["US:FL:Toll"] = {
     spriteBlank: "shield_us_fl_toll",
@@ -1210,19 +1226,10 @@ export function loadShields() {
       spriteBlank: "shield_us_fl_turnpike",
     },
   };
-
-  shields["US:DE"] = {
-    ...ovalShield(Color.shields.white, Color.shields.black),
-    bannerMap: {
-      "US:DE:Alternate": ["ALT"],
-      "US:DE:Business": ["BUS"],
-      "US:DE:Truck": ["TRK"],
-    },
-  };
-
   shields["US:FL:CR"] = {
     ...pentagonUpShield(3, 15, Color.shields.blue, Color.shields.yellow),
     bannerMap: {
+      "US:FL:CR:Alternate": ["ALT"],
       "US:FL:CR:Truck": ["TRK"],
     },
   };
@@ -1295,8 +1302,21 @@ export function loadShields() {
     },
     bannerMap: {
       "US:ID:Business": ["BUS"],
+      "US:ID:Spur": ["SPUR"],
     },
   };
+  shields["US:ID:Bonneville"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.white
+  );
+  shields["US:ID:Clark"] = pentagonUpShield(
+    3,
+    15,
+    Color.shields.blue,
+    Color.shields.yellow
+  );
 
   // Illinois
   shields["US:IL"] = roundedRectShield(
@@ -1388,8 +1408,12 @@ export function loadShields() {
       top: 2,
       bottom: 2,
     },
+    bannerMap: {
+      "US:KS:Alternate": ["ALT"],
+      "US:KS:Spur": ["SPUR"],
+      "US:KS:Truck": ["TRK"],
+    },
   };
-  shields["US:KS:Truck"] = banneredShield(shields["US:KS"], ["TRK"]);
   shields["US:KS:Turnpike"] = {
     noref: {
       spriteBlank: "shield_us_ks_turnpike",
@@ -2790,6 +2814,7 @@ export function loadShields() {
     "Faulk",
     "Grant",
     "Hamlin",
+    "Hand",
     "Harding",
     "Hyde",
     "Kingsbury",
@@ -2838,6 +2863,10 @@ export function loadShields() {
   shields["US:SD:Custer:NPS"] = roundedRectShield(
     Color.shields.brown,
     Color.shields.yellow
+  );
+  shields["US:US:Historic:SD"] = roundedRectShield(
+    Color.shields.brown,
+    Color.shields.white
   );
 
   // Tennessee
