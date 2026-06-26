@@ -39,6 +39,16 @@ export const airportOutline = "hsl(250, 41%, 79%)";
 export const airportRunway = "hsl(250, 41%, 79%)";
 export const airportLabel = "hsl(250, 71%, 29%)";
 
+export const militaryFill = "hsl(345, 55%, 92%)";
+export const militaryOutline = "hsl(345, 55%, 80%)";
+export const militaryLabel = "hsl(326, 40%, 35%)";
+export const militaryLabelHalo = "hsl(326, 40%, 96%)";
+
+//export const militaryFill = "hsl(345, 0%, 80%)";
+//export const militaryOutline = "hsl(345, 0%, 68%)";
+//export const militaryLabel = "hsl(326, 40%, 35%)";
+//export const militaryLabelHalo = "hsl(326, 40%, 96%)";
+
 export const urbanSubAreaLabel = "hsl(211, 43%, 28%)";
 
 //TODO - rename this variable to "palette"
