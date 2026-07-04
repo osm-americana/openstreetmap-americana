@@ -1,7 +1,7 @@
 "use strict";
 
 import { localizedNameWithLocalGloss } from "@americana/diplomat";
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 export const fill = {
   id: "aboriginal_fill",

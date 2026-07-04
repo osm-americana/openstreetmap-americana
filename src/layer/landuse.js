@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Color from "../constants/color.js";
+import * as Color from "../constants/color";
 
 export const urbanizedArea = {
   id: "urbanized-area",
@@ -14,11 +14,11 @@ export const urbanizedArea = {
       ["linear"],
       ["zoom"],
       4,
-      "hsl(41, 90%, 85%)",
+      Color.urbanizedAreaFill,
       5,
-      "hsl(41, 90%, 80%)",
+      Color.urbanizedAreaFillFaded,
       5.5,
-      "hsl(41, 90%, 80%)",
+      Color.urbanizedAreaFillFaded,
       6,
       Color.backgroundFill,
     ],
