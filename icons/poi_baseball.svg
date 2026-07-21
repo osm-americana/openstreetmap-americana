@@ -1,0 +1,4 @@
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+ <circle style="fill:#000;stroke:#fff;stroke-width:2;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" cx="10" cy="10" r="6"/>
+ <path style="fill:none;stroke:#fff;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" d="M6.1707473 5.7573591A6 6 0 0 1 7.9281068 10 6 6 0 0 1 6.1707475 14.242641M13.787011 14.287341a6 6 0 0 1 0-8.485281"/>
+</svg>

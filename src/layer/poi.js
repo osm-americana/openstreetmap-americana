@@ -325,6 +325,86 @@ var iconDefs = {
     color: Color.poi.outdoor,
     description: "Campground",
   },
+  baseball: {
+    classes: {
+      pitch: ["baseball", "softball"],
+    },
+    sprite: "poi_baseball",
+    color: Color.poi.outdoor,
+    description: "Baseball or softball field",
+  },
+  basketball: {
+    classes: {
+      pitch: ["basketball"],
+    },
+    sprite: "poi_basketball",
+    color: Color.poi.outdoor,
+    description: "Basketball court",
+  },
+  football: {
+    classes: {
+      pitch: ["american_football"],
+    },
+    sprite: "poi_american_football",
+    color: Color.poi.outdoor,
+    description: "Football field",
+  },
+  equestrian: {
+    classes: {
+      pitch: ["equestrian"],
+    },
+    sprite: "poi_horse",
+    color: Color.poi.outdoor,
+    description: "Horse riding arena",
+  },
+  four_square: {
+    classes: {
+      pitch: ["four_square"],
+    },
+    sprite: "poi_four_square",
+    color: Color.poi.outdoor,
+    description: "Four square court",
+  },
+  pickleball: {
+    classes: {
+      pitch: ["pickleball"],
+    },
+    sprite: "poi_pickleball",
+    color: Color.poi.outdoor,
+    description: "Pickleball court",
+  },
+  skateboard: {
+    classes: {
+      pitch: ["skateboard"],
+    },
+    sprite: "poi_skateboard",
+    color: Color.poi.outdoor,
+    description: "Skate park",
+  },
+  soccer: {
+    classes: {
+      pitch: ["soccer", "futsal"],
+    },
+    sprite: "poi_soccer",
+    color: Color.poi.outdoor,
+    description: "Soccer field",
+  },
+  tennis: {
+    classes: {
+      pitch: ["tennis"],
+    },
+    sprite: "poi_tennis_racket",
+    color: Color.poi.outdoor,
+    description: "Tennis court",
+  },
+  volleyball: {
+    classes: {
+      pitch: ["volleyball", "beachvolleyball"],
+    },
+    sprite: "poi_volleyball",
+    color: Color.poi.outdoor,
+    description: "Volleyball court",
+  },
   townhall: {
     classes: {
       town_hall: ["townhall"],
@@ -456,7 +536,23 @@ export const poi = {
             ],
             Color.poi.infrastructure,
           ],
-          [[iconDefs.cemetery, iconDefs.campsite], Color.poi.outdoor],
+          [
+            [
+              iconDefs.cemetery,
+              iconDefs.campsite,
+              iconDefs.baseball,
+              iconDefs.basketball,
+              iconDefs.equestrian,
+              iconDefs.football,
+              iconDefs.four_square,
+              iconDefs.pickleball,
+              iconDefs.skateboard,
+              iconDefs.soccer,
+              iconDefs.tennis,
+              iconDefs.volleyball,
+            ],
+            Color.poi.outdoor,
+          ],
         ],
         Color.poi.infrastructure //Fallback for match expression in helper function
       ),
@@ -521,10 +617,20 @@ export const poi = {
               iconDefs.hotel,
               iconDefs.hostel,
               iconDefs.restaurant,
+              iconDefs.baseball,
+              iconDefs.basketball,
+              iconDefs.equestrian,
+              iconDefs.football,
+              iconDefs.pickleball,
+              iconDefs.skateboard,
+              iconDefs.soccer,
+              iconDefs.tennis,
+              iconDefs.volleyball,
             ],
             16,
           ],
           [[iconDefs.medical, iconDefs.parking, iconDefs.cemetery], 17],
+          [[iconDefs.four_square], 18],
         ],
         99 //Fallback for match expression in helper function
       ),

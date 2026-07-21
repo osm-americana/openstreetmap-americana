@@ -39,6 +39,7 @@ export function build(locales) {
     lyrAeroway.fill,
     lyrPark.cemeteryFill,
     lyrPark.parkFill,
+    lyrPark.pitchFill,
 
     lyrBoundary.countyCasing,
     lyrBoundary.regionCasing,
@@ -58,6 +59,7 @@ export function build(locales) {
     lyrAeroway.outline,
     lyrPark.parkOutline,
     lyrPark.cemeteryOutline,
+    lyrPark.pitchOutline,
 
     lyrBoundary.city,
     lyrBoundary.county,

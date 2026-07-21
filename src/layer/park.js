@@ -70,6 +70,21 @@ export const cemeteryFill = {
   "source-layer": "landuse",
 };
 
+export const pitchFill = {
+  id: "pitch-fill",
+  type: "fill",
+  filter: ["==", "class", "pitch"],
+  paint: {
+    "fill-color": Color.pitchFill,
+  },
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "landuse",
+};
+
 export const parkOutline = {
   ...outline,
   id: "park_outline",
@@ -92,6 +107,21 @@ export const cemeteryOutline = {
   "source-layer": "landuse",
 };
 
+export const pitchOutline = {
+  id: "pitch-outline",
+  type: "line",
+  filter: ["==", "class", "pitch"],
+  paint: {
+    "line-color": Color.pitchOutline,
+  },
+  layout: {
+    visibility: "visible",
+  },
+  source: "openmaptiles",
+  metadata: {},
+  "source-layer": "landuse",
+};
+
 export const parkLabel = {
   ...label,
   id: "park_label",
@@ -105,4 +135,5 @@ export const legendEntries = [
     layers: [fill.id, outline.id, parkFill.id, parkOutline.id],
   },
   { description: "Cemetery", layers: [cemeteryFill.id, cemeteryOutline.id] },
+  { description: "Sports field", layers: [pitchFill.id, pitchOutline.id] },
 ];
