@@ -1030,7 +1030,7 @@
       "object_types": ["node", "area"],
       "description": "Four square courts are marked by an icon representing the markings of a four square court.",
       "doc_url": "https://openmaptiles.org/schema/#poi",
-      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_foursquare.svg"
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_four_square.svg"
     },
     {
       "key": "sport",
