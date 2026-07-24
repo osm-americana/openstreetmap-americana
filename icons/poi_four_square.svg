@@ -1,3 +1,3 @@
-<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
- <path style="stroke-width:2;stroke-linecap:square;stroke-miterlimit:2;paint-order:stroke fill markers;stroke:#fff;stroke-opacity:1" d="m 16.000287,15.001727 -2.88e-4,1 -11.9999992,-0.0035 2.878e-4,-1 z m -1.43e-4,-5.4999996 -2.88e-4,1.0000006 -11.9999993,-0.0035 2.879e-4,-1.0000005 z m -10e-7,-5.4985613 -2.87e-4,0.9999999 -11.9999998,-0.00345 2.879e-4,-1 z M 15,4 h 1 V 16 H 15 Z M 9.5,4 h 1 v 12 h -1 z M 4,4 H 5 V 16 H 4 Z"/>
+<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+ <path style="stroke:#fff;stroke-width:1.99974;stroke-linecap:square;stroke-miterlimit:2;stroke-opacity:1;paint-order:stroke fill markers" d="m 12.999841,12.000029 -2.88e-4,0.999806 -11.9992501,-0.0035 2.878e-4,-0.999806 z m -1.43e-4,-5.4989289 -2.88e-4,0.9998061 -11.9992502,-0.0035 2.879e-4,-0.999806 z m -1e-6,-5.4974917 -2.87e-4,0.9998053 -11.9992507,-0.00345 2.879e-4,-0.9998055 z m -1.000081,-0.00317 h 0.999938 V 12.998108 h -0.999938 z m -5.4996565,0 H 7.499897 V 12.998108 H 6.4999595 Z m -5.4996564,0 H 2.0002407 V 12.998108 H 1.0003031 Z"/>
 </svg>
