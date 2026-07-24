@@ -421,7 +421,10 @@ function iconImageDefs() {
     let classes = iconDefs[key].classes;
     for (var poiClass in classes) {
       if (!mapping[poiClass]) {
-        mapping[poiClass] = ["match", ["get", "subclass"]];
+        mapping[poiClass] = [
+          "match",
+          ["at", 0, ["split", ["get", "subclass"], ";"]], // Split if it does
+        ];
       }
       mapping[poiClass].push(classes[poiClass]);
       mapping[poiClass].push(
@@ -455,7 +458,10 @@ function getClassSubclassGroups(groups, fallback) {
     for (let iconDef of iconDefList) {
       for (let cls in iconDef.classes) {
         if (!mapping[cls]) {
-          mapping[cls] = ["match", ["get", "subclass"]];
+          mapping[cls] = [
+            "match",
+            ["at", 0, ["split", ["get", "subclass"], ";"]],
+          ];
         }
         mapping[cls].push(iconDef.classes[cls]);
         mapping[cls].push(value);
