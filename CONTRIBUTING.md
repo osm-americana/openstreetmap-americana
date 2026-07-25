@@ -408,7 +408,7 @@ For consistency, POI icons use the following color palette:
 | Geographic Place Names | N/A             | $`{\color{#000000} \blacksquare}`$ Black             | 0 0 0       | #000000     |
 | Infrastructure         | Pantone 294     | $`{\color{#003f87} \blacksquare}`$ Blue              | 0 63 135    | #003f87     |
 | Consumer               | UTexas Orange   | $`{\color{#bf5700} \blacksquare}`$ Orange            | 191 87 0    | #bf5700     |
-| Outdoor                | Pantone 342     | $`{\color{#006747} \blacksquare}`$ Green            | 0 103 71    | #006747     |
+| Outdoor                | Pantone 342     | $`{\color{#006747} \blacksquare}`$ Green             | 0 103 71    | #006747     |
 | Attraction             | Pantone 469     | $`{\color{#693f23} \blacksquare}`$ Brown             | 105 63 35   | #693f23     |
 | Airport                | Medium Purple C | $`{\color{#4e008e} \blacksquare}`$ Purple            | 78 0 142    | #4e008e     |
 | Transport              | Pantone 234 C   | $`{\color{#a20067} \blacksquare}`$ Mauve             | 162 0 103   | #a20067     |
