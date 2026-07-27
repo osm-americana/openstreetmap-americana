@@ -980,21 +980,21 @@
     {
       "key": "boundary",
       "value": "protected_area",
-      "object_types": ["node", "area"],
+      "object_types": ["area"],
       "description": "Park areas shaded with a green fill and labeled in green text.",
       "doc_url": "https://openmaptiles.org/schema/#park"
     },
     {
       "key": "boundary",
       "value": "national_park",
-      "object_types": ["node", "area"],
+      "object_types": ["area"],
       "description": "Park areas shaded with a green fill and labeled in green text.",
       "doc_url": "https://openmaptiles.org/schema/#park"
     },
     {
       "key": "leisure",
       "value": "nature_reserve",
-      "object_types": ["node", "area"],
+      "object_types": ["area"],
       "description": "Park areas shaded with a green fill and labeled in green text.",
       "doc_url": "https://openmaptiles.org/schema/#park"
     },
