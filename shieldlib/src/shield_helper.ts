@@ -1,4 +1,4 @@
-import { ShieldDefinition, TextLayout } from "./types";
+import type { ShieldDefinition, TextLayout } from "./types";
 
 /**
  * Constrain the text to a rounded rectangle

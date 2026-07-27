@@ -2,7 +2,7 @@
 
 _A quintessentially American map style_ [🗺 View the map](https://americanamap.org/)
 
-<img src="doc-img/osm-americana-logo.png" alt="Americana map style logo" width="200"/>
+<img src="doc-img/osm-americana-logo.svg" alt="Americana map style logo" width="200"/>
 
 > _The United States of America is such a glorious mess of contradiction, such a crazy quilt of competing themes, such a fecund mishmash of people and ideas, that defining us is pretty much pointless. There is, of course, a kind of faded notion of "Americana", one that concerns Route 66, diners, freak rock formations, and the like—but even in its halcyon days this "roadside attraction" version of America was never an accurate or nuanced distillation of our massively complicated culture._ <br/><sub>-Hampton Sides, <i>[Americana: Dispatches from the New Frontier](<https://en.wikipedia.org/wiki/Americana_(Sides_book)>)</i> (2004)</sub>
 

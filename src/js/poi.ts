@@ -2,7 +2,11 @@ import {
   transposeImageData,
   AbstractShieldRenderer,
 } from "@americana/maplibre-shield-generator";
-import { Map, MapStyleImageMissingEvent, StyleImage } from "maplibre-gl";
+import {
+  Map,
+  type MapStyleImageMissingEvent,
+  type StyleImage,
+} from "maplibre-gl";
 
 export function missingIconHandler(
   shieldRenderer: AbstractShieldRenderer,

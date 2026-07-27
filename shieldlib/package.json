@@ -25,8 +25,8 @@
     "prettier": "^2.8.4",
     "shx": "^0.3.4",
     "tsx": "^4.6.2",
-    "typedoc": "^0.28.16",
-    "typescript": "^4.9.5"
+    "typedoc": "^0.28.19",
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "code_format": "run-s code_format:prettier",
@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/osm-americana/openstreetmap-americana#readme",
   "dependencies": {
-    "@types/node": "^20.8.4",
+    "@types/node": "^22.19.19",
     "color-rgba": "^2.4.0",
     "maplibre-gl": "^2.4.0",
     "mocha": "^10.2.0"

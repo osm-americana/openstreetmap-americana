@@ -14,11 +14,13 @@ import {
 } from "../js/shield_format.js";
 
 import * as Poi from "../js/poi.js";
-import { getLocales } from "@americana/diplomat";
 import * as Style from "./style.js";
-import maplibregl, { MapOptions, StyleSpecification } from "maplibre-gl";
+import maplibregl, {
+  type MapOptions,
+  type StyleSpecification,
+} from "maplibre-gl";
 import { MapView } from "./map_view.js";
-import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
+import type { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
 import { getGlobalStateForLocalization, getLocales } from "@americana/diplomat";
 
 export function buildStyle(): StyleSpecification {

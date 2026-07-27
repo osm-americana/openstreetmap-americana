@@ -1,8 +1,6 @@
-"use strict";
-
 import * as Gfx from "./screen_gfx.js";
 import { ShieldRenderingContext } from "./shield_renderer.js";
-import {
+import type {
   BoxPadding,
   Dimension,
   ShieldDefinition,

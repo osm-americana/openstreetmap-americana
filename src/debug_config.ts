@@ -1,4 +1,4 @@
-import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
+import type { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
 import config from "./config.js";
 
 export const debugOptions: DebugOptions = {};

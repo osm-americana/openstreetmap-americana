@@ -9,6 +9,8 @@ import * as maplibregl from "maplibre-gl";
 
 const maxPopupWidth = 30; /* em */
 const PXR = getDOMPixelRatio();
+const userAgent = "OpenStreetMap Americana";
+
 /**
  * Wikidata labels are normally lowercased so that they can appear in any
  * context. Convert them to sentence case for consistency with the rest of the
@@ -744,7 +746,11 @@ export default class LegendControl {
     let url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(
       this.getNetworkMetadataQuery()
     )}&format=json`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "Api-User-Agent": userAgent,
+      },
+    });
     const json = await response.json();
     this._networkMetadata = Object.fromEntries(
       json.results.bindings.map((binding) => {
@@ -777,7 +783,11 @@ export default class LegendControl {
     let url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(
       this.getNetworkMetadataQuery("GB")
     )}&format=json`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "Api-User-Agent": userAgent,
+      },
+    });
     const json = await response.json();
     this._ukNetworkMetadata = Object.fromEntries(
       json.results.bindings.map((binding) => {
