@@ -51,7 +51,7 @@
   "devDependencies": {
     "@basemaps/sprites": "^7.0.0",
     "@mapbox/vector-tile": "^2.0.4",
-    "@maplibre/maplibre-gl-style-spec": "^24.3.1",
+    "@maplibre/maplibre-gl-style-spec": "^26.1.0",
     "@playwright/test": "^1.38.1",
     "@types/benchmark": "^2.1.5",
     "@types/chai": "^4.3.4",
