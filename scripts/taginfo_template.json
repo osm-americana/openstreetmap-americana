@@ -978,6 +978,34 @@
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_gravestone.svg"
     },
     {
+      "key": "boundary",
+      "value": "protected_area",
+      "object_types": ["node", "area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#park"
+    },
+    {
+      "key": "boundary",
+      "value": "national_park",
+      "object_types": ["node", "area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#park"
+    },
+    {
+      "key": "leisure",
+      "value": "nature_reserve",
+      "object_types": ["node", "area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#park"
+    },
+    {
+      "key": "leisure",
+      "value": "park",
+      "object_types": ["node", "area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#landcover"
+    },
+    {
       "key": "leisure",
       "value": "pitch",
       "object_types": ["area"],
