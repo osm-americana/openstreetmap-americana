@@ -210,6 +210,7 @@ export class LanguageControl {
       const tokenField = (this._tokenField = new Tokenfield({
         el: inputField,
         items: getLanguageNamesByCode(),
+        addItemOnBlur: true,
         validateNewItem: (value) => {
           // Write-ins must be well-formed IETF language tags.
           try {
