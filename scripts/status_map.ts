@@ -10,6 +10,8 @@ function fillPaths(svg: string, codes: string[]): string {
   if (selectors.has(".cy")) {
     // Akrotiri and Dhekelia uses Cypriot road signage.
     selectors.add(".akrotiridhekelia");
+    // Northern Cyprus routes use CY prefix with Cyprus.
+    selectors.add(".northerncyprus");
   }
   if (selectors.has(".fr")) {
     // French overseas territories use the FR prefix.
