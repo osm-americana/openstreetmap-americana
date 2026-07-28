@@ -546,7 +546,7 @@ export function loadShields() {
   // Mexico
 
   // Carreteras Federales
-  shields["MX:MX"] = {
+  shields["MX:MX"] = shields.Q6825768 = {
     spriteBlank: ["shield_mx_mx_2", "shield_mx_mx_3", "shield_mx_mx_4"],
     textLayout: textConstraint("ellipse"),
     padding: {
@@ -570,7 +570,7 @@ export function loadShields() {
     "GRO",
     "HGO",
     "JAL",
-    // FIXME missing State of Mexico
+    "MEX",
     "MICH",
     "MOR",
     "NAY",
@@ -589,6 +589,11 @@ export function loadShields() {
     "YUC",
     "ZAC",
   ].forEach((state) => (shields[`MX:${state}`] = escutcheonCrossbarShield));
+  [
+    117474706, // Jalisco
+    140741898, // Mexico
+    140743072, // Sonora
+  ].forEach((qid) => (shields[`Q${qid}`] = escutcheonCrossbarShield));
 
   // Ejes Viales (CDMX)
   shields["MX:CDMX:EJE:CENTRAL"] = {
