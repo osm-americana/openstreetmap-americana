@@ -522,6 +522,26 @@
       "doc_url": "https://openmaptiles.org/schema/#water"
     },
     {
+      "key": "natural",
+      "value": "peak",
+      "object_types": ["node"],
+      "description": "Mountain peaks are marked with a triangle icon.",
+      "doc_url": "https://openmaptiles.org/schema/#mountain_peak"
+    },
+    {
+      "key": "natural",
+      "value": "volcano",
+      "object_types": ["node"],
+      "description": "Mountain peaks are rendered with a triangle icon.",
+      "doc_url": "https://openmaptiles.org/schema/#mountain_peak"
+    },
+    {
+      "key": "ele",
+      "object_types": ["node"],
+      "description": "Elevations of mountain peaks are displayed in local units.",
+      "doc_url": "https://openmaptiles.org/schema/#mountain_peak"
+    },
+    {
       "key": "amenity",
       "value": "fuel",
       "object_types": ["node", "area"],
