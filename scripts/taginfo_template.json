@@ -714,6 +714,14 @@
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_museum.svg"
     },
     {
+      "key": "tourism",
+      "value": "camp_site",
+      "object_types": ["node", "area"],
+      "description": "Campgrounds are marked by a circled icon representing a tent.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_tent_circle.svg"
+    },
+    {
       "key": "amenity",
       "value": "clinic",
       "object_types": ["node", "area"],
@@ -968,6 +976,145 @@
       "object_types": ["node", "area"],
       "description": "Graveyards are marked by an icon representing a gravestone.",
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_gravestone.svg"
+    },
+    {
+      "key": "boundary",
+      "value": "protected_area",
+      "object_types": ["area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#park"
+    },
+    {
+      "key": "boundary",
+      "value": "national_park",
+      "object_types": ["area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#park"
+    },
+    {
+      "key": "leisure",
+      "value": "nature_reserve",
+      "object_types": ["area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#park"
+    },
+    {
+      "key": "leisure",
+      "value": "park",
+      "object_types": ["node", "area"],
+      "description": "Park areas shaded with a green fill and labeled in green text.",
+      "doc_url": "https://openmaptiles.org/schema/#landcover"
+    },
+    {
+      "key": "leisure",
+      "value": "pitch",
+      "object_types": ["area"],
+      "description": "Sports pitch areas shaded with a saturated green fill.",
+      "doc_url": "https://openmaptiles.org/schema/#landuse"
+    },
+    {
+      "key": "sport",
+      "value": "american_football",
+      "object_types": ["node", "area"],
+      "description": "American football fields are marked by an icon representing a football.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_american_football.svg"
+    },
+    {
+      "key": "sport",
+      "value": "baseball",
+      "object_types": ["node", "area"],
+      "description": "Baseball fields are marked by an icon representing a baseball.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_baseball.svg"
+    },
+    {
+      "key": "sport",
+      "value": "basketball",
+      "object_types": ["node", "area"],
+      "description": "Basketball courts are marked by an icon representing a basketball.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_basketball.svg"
+    },
+    {
+      "key": "sport",
+      "value": "beachvolleyball",
+      "object_types": ["node", "area"],
+      "description": "Beach volleyball courts are marked by an icon representing a volleyball.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_volleyball.svg"
+    },
+    {
+      "key": "sport",
+      "value": "equestrian",
+      "object_types": ["node", "area"],
+      "description": "Horse riding arenas are marked by an icon representing a trotting horse.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_horse.svg"
+    },
+    {
+      "key": "sport",
+      "value": "four_square",
+      "object_types": ["node", "area"],
+      "description": "Four square courts are marked by an icon representing the markings of a four square court.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_four_square.svg"
+    },
+    {
+      "key": "sport",
+      "value": "futsal",
+      "object_types": ["node", "area"],
+      "description": "Futsal fields are marked by an icon representing a soccer ball.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_soccer.svg"
+    },
+    {
+      "key": "sport",
+      "value": "pickleball",
+      "object_types": ["node", "area"],
+      "description": "Pickleball courts are marked by an icon representing a pickleball paddle.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_pickleball.svg"
+    },
+    {
+      "key": "sport",
+      "value": "skateboard",
+      "object_types": ["node", "area"],
+      "description": "Skate parks are marked by an icon representing a skateboard.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_skateboard.svg"
+    },
+    {
+      "key": "sport",
+      "value": "soccer",
+      "object_types": ["node", "area"],
+      "description": "Soccer fields are marked by an icon representing a soccer ball.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_soccer.svg"
+    },
+    {
+      "key": "sport",
+      "value": "softball",
+      "object_types": ["node", "area"],
+      "description": "Softball fields are marked by an icon representing a baseball.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_baseball.svg"
+    },
+    {
+      "key": "sport",
+      "value": "tennis",
+      "object_types": ["node", "area"],
+      "description": "Tennis courts are marked by an icon representing a tennis racket.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_tennis_racket.svg"
+    },
+    {
+      "key": "sport",
+      "value": "volleyball",
+      "object_types": ["node", "area"],
+      "description": "Volleyball courts are marked by an icon representing a volleyball.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_volleyball.svg"
     }
   ]
 }

@@ -1,6 +1,6 @@
 import { stat, copyFile, mkdir } from "node:fs/promises";
 
-import esbuild, { BuildContext, BuildOptions } from "esbuild";
+import esbuild, { type BuildContext, type BuildOptions } from "esbuild";
 
 const maybeLocalConfig = async (name = "local.config.js") => {
   let exists = await stat(name)

@@ -1,4 +1,4 @@
-import { Command, Option, OptionValues } from "commander";
+import { Command, Option, type OptionValues } from "commander";
 import fs from "node:fs";
 import zlib from "node:zlib";
 import type { LayerSpecification } from "@maplibre/maplibre-gl-style-spec";

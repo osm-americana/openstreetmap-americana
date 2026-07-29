@@ -1,13 +1,14 @@
-"use strict";
-
 /**
  * Shield blanks which are drawn rather built from raster shield blanks
  */
 
 import * as ShieldText from "./shield_text";
 import { loadCustomShields } from "./custom_shields";
-import { ShapeDrawFunction, ShieldRenderingContext } from "./shield_renderer";
-import { ShapeBlankParams } from "./types";
+import {
+  type ShapeDrawFunction,
+  ShieldRenderingContext,
+} from "./shield_renderer";
+import type { ShapeBlankParams } from "./types";
 
 const minGenericShieldWidth = 20;
 const maxGenericShieldWidth = 34;
