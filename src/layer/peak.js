@@ -17,8 +17,8 @@ const peakStepFilter = [
 const eleUnits = [
   "case",
   ["==", ["get", "customary_ft"], 1], //customary_ft variable is essentially whether the object is in the US or not
-  ["concat", ["get", "ele_ft"], " ft"], //If customary_ft, return ele in ft
-  ["concat", ["get", "ele"], " m"], //Otherwise return it in m
+  ["number-format", ["get", "ele_ft"], { unit: "foot" }], //If customary_ft, return ele in ft
+  ["number-format", ["get", "ele"], { unit: "meter" }], //Otherwise return it in m
 ];
 
 var peakTextExpression = [
