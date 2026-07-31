@@ -1,6 +1,7 @@
 import {
   localizedName,
   localizedNameWithLocalGloss,
+  getLocales,
 } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
@@ -17,8 +18,8 @@ const peakStepFilter = [
 const eleUnits = [
   "case",
   ["==", ["get", "customary_ft"], 1], //customary_ft variable is essentially whether the object is in the US or not
-  ["number-format", ["get", "ele_ft"], { unit: "foot" }], //If customary_ft, return ele in ft
-  ["number-format", ["get", "ele"], { unit: "meter" }], //Otherwise return it in m
+  ["number-format", ["get", "ele_ft"], { unit: "foot", locale: getLocales()[0] }], //If customary_ft, return ele in ft
+  ["number-format", ["get", "ele"], { unit: "meter", locale: getLocales()[0] }], //Otherwise return it in m
 ];
 
 var peakTextExpression = [
