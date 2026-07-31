@@ -578,7 +578,7 @@ export function loadShields() {
     "OAX",
     "PUE",
     "QRO",
-    "Q.ROO",
+    "QROO",
     "SLP",
     "SIN",
     "SON",
