@@ -55,7 +55,7 @@ export const peak = {
     "icon-size": 1.0,
     "text-field": peakTextExpression,
     "text-anchor": "bottom",
-    "text-variable-anchor": ["right", "left"],
+    "text-variable-anchor": ["left", "right"],
     "text-justify": "auto",
     "text-radial-offset": 0.7,
     "icon-optional": false,
