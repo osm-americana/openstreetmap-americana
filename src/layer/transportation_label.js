@@ -13,7 +13,7 @@ const motorwayToTertiary = [
   "tertiary",
   "busway",
 ];
-const motorwayToMinor = [...motorwayToTertiary, "minor"];
+const motorwayToMinor = [...motorwayToTertiary, "unclassified", "residential"];
 const motorwayToService = [...motorwayToMinor, "service"];
 
 const majorConstruction = ["motorway_construction", "trunk_construction"];
@@ -184,7 +184,7 @@ export const label = {
       3,
       "secondary",
       4,
-      ["tertiary", "minor", "busway"],
+      ["tertiary", "unclassified", "residential", "busway"],
       5,
       6,
     ],
