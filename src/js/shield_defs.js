@@ -1296,7 +1296,7 @@ export function loadShields() {
   // Idaho
   shields["US:ID"] = {
     spriteBlank: ["shield_us_id_2", "shield_us_id_3"],
-    textColor: Color.shields.black,
+    textColor: Color.shields.white,
     padding: {
       left: 5.5,
       right: 1.5,
