@@ -543,6 +543,9 @@ export function loadShields() {
     Color.shields.white
   );
 
+  // Panama
+  shields["PA:national"] = badgeShieldCrossbar;
+
   // Mexico
 
   // Carreteras Federales

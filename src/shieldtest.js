@@ -73,6 +73,7 @@ let networks = [
   "US:MN:Hennepin:Park_Access",
   "US:PA",
   "US:PA:Turnpike",
+  "PA:national",
 
   "CA:AB:primary",
   "CA:SK:tertiary",
