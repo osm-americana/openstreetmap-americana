@@ -1,6 +1,7 @@
 import { getLocales, localizeStyle, updateVariable } from "@americana/diplomat";
 import maplibregl from "maplibre-gl";
 import { hillshading } from "../layer/hillshade.js";
+import { getEleUnits } from "../layer/peak.js";
 
 export class MapView extends maplibregl.Map {
   get locales(): [String] {
@@ -9,13 +10,9 @@ export class MapView extends maplibregl.Map {
 
   set locales(newValue: [String]) {
     localizeStyle(this);
-    let peakTextExpression = this.getLayerProperty("peak", "text-field");
-    peakTextExpression = updateVariable(
-      peakTextExpression,
-      "eleUnits",
-      getEleUnits(newValue[0])
-    );
-    this.setLayerProperty("peak", "text-field", peakTextExpression);
+    let peakTextExpression = this.getLayoutProperty("peak", "text-field");
+    updateVariable(peakTextExpression, "eleUnits", getEleUnits(newValue[0]));
+    this.setLayoutProperty("peak", "text-field", peakTextExpression);
     this.fire("americana.languagechange");
   }
 

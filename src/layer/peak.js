@@ -15,7 +15,7 @@ const peakStepFilter = [
   [">=", ["get", "rank"], 1], //Show all past z14
 ];
 
-function getEleUnits(unitlocale = getLocales()[0]) {
+export function getEleUnits(unitlocale = getLocales()[0]) {
   return [
     "case",
     ["==", ["get", "customary_ft"], 1], //customary_ft variable is essentially whether the object is in the US or not
