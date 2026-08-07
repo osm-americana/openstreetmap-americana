@@ -15,6 +15,7 @@ import * as WaterLayers from "../layer/water.js";
 import * as FerryLayers from "../layer/ferry.js";
 import * as AerialwayLayers from "../layer/aerialway.js";
 import * as AboriginalLayers from "../layer/aboriginal.js";
+import * as PeakLayers from "../layer/peak.js";
 
 export const sections = [
   {
@@ -52,7 +53,7 @@ export const sections = [
   },
   {
     name: "Points of interest",
-    entries: POILayers.legendEntries,
+    entries: [...POILayers.legendEntries, ...PeakLayers.legendEntries],
   },
   {
     name: "Structures",
