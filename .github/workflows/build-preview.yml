@@ -25,16 +25,16 @@ jobs:
             libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++ \
             libpixman-1-dev pkg-config
       - name: Checkout Main Branch 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
           path: main
       - name: Checkout PR Branch 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: pr-branch
       - name: Setup Node.js for building main branch
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: main/package.json
       - name: Install and Build Main Branch 🔧
@@ -46,7 +46,7 @@ jobs:
           cp src/configs/config.osmus.js src/config.js
         working-directory: main
       - name: Setup Node.js for building pr branch
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: pr-branch/package.json
       - name: Install and Build PR Branch 🔧
@@ -105,7 +105,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
         working-directory: main
       - name: Setup Node.js for running main branch map server
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: main/package.json
       - name: Start main branch map server
@@ -115,7 +115,7 @@ jobs:
           until nc -z localhost 1776; do sleep 1; done
         working-directory: main
       - name: Setup Node.js for capturing main branch sample clips with pr branch scripts
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: pr-branch/package.json
       - name: Capture main branch sample clips
@@ -162,12 +162,12 @@ jobs:
           mv samples-diff ../dist/
         working-directory: pr-branch
       - name: Upload Build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: americana
           path: dist/
       - name: Upload PR artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pr_ci_artifacts
           path: pr/

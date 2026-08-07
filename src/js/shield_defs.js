@@ -633,6 +633,9 @@ export function loadShields() {
     },
   };
 
+  // Panama
+  shields["PA:national"] = badgeShieldCrossbar;
+
   // United States
 
   // Interstate Highways
