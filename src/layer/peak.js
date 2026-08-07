@@ -16,31 +16,36 @@ const peakStepFilter = [
 ];
 
 function getEleUnits() {
-  return ["case",
+  return [
+    "case",
     ["==", ["get", "customary_ft"], 1], //customary_ft variable is essentially whether the object is in the US or not
     [
       "number-format",
       ["get", "ele_ft"],
       { unit: "foot", locale: getLocales()[0] },
     ], //If customary_ft, return ele in ft
-    ["number-format", ["get", "ele"], { unit: "meter", locale: getLocales()[0] }], //Otherwise return it in m
+    [
+      "number-format",
+      ["get", "ele"],
+      { unit: "meter", locale: getLocales()[0] },
+    ], //Otherwise return it in m
   ];
 }
 
-var peakTextExpression = 
-[
+var peakTextExpression = [
   "let",
   "eleUnits",
   getEleUnits(),
-    ["case",
-      ["all", ["has", "name"], ["has", "ele"]], //If name and ele present, use name with ele on next line
-      ["concat", localizedNameWithLocalGloss, "\n", ["var", "eleUnits"]],
-      ["has", "name"], //If name but no ele, just return the name
-      localizedNameWithLocalGloss,
-      ["has", "ele"], //If ele but no name, just return the ele
-      ["var", "eleUnits"],
-      ["literal", ""], //Fallback: return nothing
-    ],
+  [
+    "case",
+    ["all", ["has", "name"], ["has", "ele"]], //If name and ele present, use name with ele on next line
+    ["concat", localizedNameWithLocalGloss, "\n", ["var", "eleUnits"]],
+    ["has", "name"], //If name but no ele, just return the name
+    localizedNameWithLocalGloss,
+    ["has", "ele"], //If ele but no name, just return the ele
+    ["var", "eleUnits"],
+    ["literal", ""], //Fallback: return nothing
+  ],
 ];
 
 export const peak = {
@@ -62,7 +67,7 @@ export const peak = {
   layout: {
     "text-font": ["Americana-Italic"],
     "text-size": 9,
-    "icon-image": ["literal", "peak"],
+    "icon-image": "peak",
     "icon-size": 1.0,
     "text-field": peakTextExpression,
     "text-anchor": "bottom",
