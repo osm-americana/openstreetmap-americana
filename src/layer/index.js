@@ -17,6 +17,7 @@ import * as lyrPlace from "./place.js";
 import * as lyrPoi from "./poi.js";
 import * as lyrRail from "./rail.js";
 import * as lyrRoad from "./road.js";
+import * as lyrTrack from "./track.js";
 import * as lyrTransportationLabel from "./transportation_label.js";
 import * as lyrWater from "./water.js";
 import * as lyrBuilding from "./building.js";
@@ -99,6 +100,9 @@ export function build(locales) {
     lyrAeroway.taxiway,
     lyrAeroway.taxiwayArea,
 
+    lyrTrack.track,
+    lyrTrack.pavedTrack,
+
     lyrRoad.motorwayLink.casing(),
     lyrRoad.trunkLink.casing(),
 
@@ -158,6 +162,9 @@ export function build(locales) {
   var bridgeLayers = [
     lyrRail.bridgeCasing,
 
+    lyrTrack.bridgeCasing,
+    lyrTrack.bridgeFill,
+
     lyrRoad.trunkLinkBridge.casing(),
     lyrRoad.motorwayLinkBridge.casing(),
 
@@ -193,6 +200,9 @@ export function build(locales) {
     lyrRoad.motorwayBridge.fill(),
 
     lyrRoad.roadBridge.surface(),
+
+    lyrTrack.trackBridge,
+    lyrTrack.pavedTrackBridge,
 
     lyrRail.railBridge.dashes(),
     lyrRail.railServiceBridge.dashes(),
