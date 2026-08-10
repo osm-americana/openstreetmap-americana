@@ -3,11 +3,16 @@
 import { localizedName } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
-const parkLayerFilter = ["!=", ["get", "class"], "aboriginal_lands"];
+const parkStepFilter = [
+  "step",
+  ["zoom"],
+  ["<=", ["get", "rank"], 2], //Only rank 2 (dynamic) to z10
+  10,
+  [">=", ["get", "rank"], 1], //Show all past z10
+];
 
 export const fill = {
   id: "protected-area_fill",
-  filter: parkLayerFilter,
   type: "fill",
   paint: {
     "fill-color": Color.parkFill,
@@ -18,7 +23,6 @@ export const fill = {
 
 export const outline = {
   id: "protected-area_outline",
-  filter: parkLayerFilter,
   type: "line",
   paint: {
     "line-color": Color.parkOutline,
@@ -31,7 +35,7 @@ export const outline = {
 export const label = {
   id: "protected-area_label",
   type: "symbol",
-  filter: ["all", ["has", "rank"], parkLayerFilter],
+  filter: parkStepFilter,
   paint: {
     "text-color": Color.parkLabel,
     "text-halo-blur": 1,
