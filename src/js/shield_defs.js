@@ -3359,6 +3359,22 @@ export function loadShields() {
     textColor: Color.shields.white,
   };
 
+  // Ecuador
+  shields["EC:primaria"] = {
+    ...usInterstateShield,
+  };
+  shields["EC:secundaria"] = {
+    spriteBlank: ["shield_ec_secundaria_2", "shield_ec_secundaria_3"],
+    textLayout: textConstraint("southHalfEllipse"),
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 4,
+      top: 6,
+      bottom: 5,
+    },
+  };
+
   // Peru
   shields["PE:national"] = {
     spriteBlank: ["shield_pe_2", "shield_pe_3"],
