@@ -59,5 +59,7 @@
     #def 1.414em 2.828em
   );
   background-size: 4em;
-  animation: stripy-bar infinite 1.2s linear;
+  @media not (prefers-reduced-motion) {
+    animation: stripy-bar infinite 1.2s linear;
+  }
 }
