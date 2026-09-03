@@ -923,10 +923,40 @@ export function loadShields() {
   };
 
   // Arizona
+  shields["US:AZ"] = {
+    spriteBlank: ["shield_us_az_2", "shield_us_az_3"],
+    textColor: Color.shields.black,
+    padding: {
+      left: 4,
+      right: 3,
+      top: 3,
+      bottom: 4,
+    },
+    bannerMap: {
+      "US:AZ:Spur": ["SPUR"],
+      "US:AZ:Loop": ["LOOP"],
+      "US:AZ:Business": ["BUS"],
+      "US:AZ:Truck": ["TRK"],
+    },
+  };
   shields["US:AZ:Scenic"] = {
     spriteBlank: "shield_us_az_scenic",
     notext: true,
   };
+
+  ["Coconino", "Mohave", "Yavapai"].forEach(
+    (county) =>
+      (shields[`US:AZ:${county}`] = pentagonUpShield(
+        3,
+        15,
+        Color.shields.blue,
+        Color.shields.yellow
+      ))
+  );
+  shields["US:AZ:Apache"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black
+  );
 
   // Arkansas
   shields["US:AR"] = {
@@ -1004,37 +1034,6 @@ export function loadShields() {
       bottom: 2,
     },
   };
-
-  shields["US:AZ"] = {
-    spriteBlank: ["shield_us_az_2", "shield_us_az_3"],
-    textColor: Color.shields.black,
-    padding: {
-      left: 4,
-      right: 3,
-      top: 3,
-      bottom: 4,
-    },
-    bannerMap: {
-      "US:AZ:Spur": ["SPUR"],
-      "US:AZ:Loop": ["LOOP"],
-      "US:AZ:Business": ["BUS"],
-      "US:AZ:Truck": ["TRK"],
-    },
-  };
-
-  ["Coconino", "Mohave", "Yavapai"].forEach(
-    (county) =>
-      (shields[`US:AZ:${county}`] = pentagonUpShield(
-        3,
-        15,
-        Color.shields.blue,
-        Color.shields.yellow
-      ))
-  );
-  shields["US:AZ:Apache"] = roundedRectShield(
-    Color.shields.white,
-    Color.shields.black
-  );
 
   // California
   shields["US:CA"] = {
