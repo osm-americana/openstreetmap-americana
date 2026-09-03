@@ -713,8 +713,8 @@ export function loadShields() {
     padding: {
       left: 1,
       right: 1,
-      top: 3,
-      bottom: 5,
+      top: 5,
+      bottom: 7,
     },
   };
 
@@ -957,6 +957,18 @@ export function loadShields() {
     Color.shields.white,
     Color.shields.black
   );
+
+  shields["US:AZ:Indian"] = {
+    spriteBlank: "shield_us_az_indian",
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 1,
+      right: 1,
+      top: 3,
+      bottom: 5,
+    },
+  };
 
   // Arkansas
   shields["US:AR"] = {
