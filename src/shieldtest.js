@@ -134,6 +134,8 @@ let networks = [
   "US:I:Business:Loop",
   "co:national",
   "US:BIA",
+  "US:AZ:Indian",
+  "US:Navajo",
   "US:MT:secondary",
 
   "CA:PE",
