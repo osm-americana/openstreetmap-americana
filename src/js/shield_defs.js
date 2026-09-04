@@ -807,6 +807,25 @@ export function loadShields() {
     notext: true,
   };
 
+  // Native Sovereign Nations
+
+  // Navajo Nation
+  shields["US:Navajo"] = {
+    spriteBlank: [
+      "shield_us_navajo_2",
+      "shield_us_navajo_3",
+      "shield_us_navajo_4",
+    ],
+    textColor: Color.shields.black,
+    textLayout: textConstraint("ellipse"),
+    padding: {
+      left: 2,
+      right: 2,
+      top: 7,
+      bottom: 7,
+    },
+  };
+
   // US States
 
   // Alaska
