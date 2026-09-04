@@ -3,10 +3,20 @@
 import { localizedNameWithLocalGloss } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
+const topLevelFilter = [
+  "any",
+  ["==", ["get", "type"], "aboriginal_lands"],
+  [
+    "all",
+    ["==", ["get", "type"], "indigenous_administration"],
+    ["==", ["get", "admin_level"], 2],
+  ],
+];
+
 export const fill = {
   id: "aboriginal_fill",
   type: "fill",
-  filter: ["==", ["get", "type"], "aboriginal_lands"],
+  filter: topLevelFilter,
   paint: {
     "fill-color": Color.aboriginalFill,
   },
@@ -21,7 +31,7 @@ export const fill = {
 export const outline = {
   id: "aboriginal_outline",
   type: "line",
-  filter: ["==", ["get", "type"], "aboriginal_lands"],
+  filter: topLevelFilter,
   paint: {
     "line-color": Color.aboriginalOutline,
   },
@@ -36,7 +46,7 @@ export const outline = {
 export const label = {
   id: "aboriginal_label",
   type: "symbol",
-  filter: ["==", ["get", "type"], "aboriginal_lands"],
+  filter: topLevelFilter,
   paint: {
     "text-color": Color.aboriginalLabel,
     "text-halo-blur": 1,
@@ -66,7 +76,7 @@ export const label = {
 export const edgeLabel = {
   id: "aboriginal_edge_label",
   type: "symbol",
-  filter: ["==", ["get", "type"], "aboriginal_lands"],
+  filter: topLevelFilter,
   paint: label.paint,
   layout: {
     "symbol-placement": "line",
@@ -91,7 +101,7 @@ export const edgeLabel = {
 
 export const legendEntries = [
   {
-    description: "Tribal reservation or other native land",
+    description: "Self-governing indigenous territory",
     layers: [fill.id, outline.id],
   },
 ];
