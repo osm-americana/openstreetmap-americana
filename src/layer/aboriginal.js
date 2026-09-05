@@ -3,40 +3,50 @@
 import { localizedNameWithLocalGloss } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
+const topLevelFilter = [
+  "any",
+  ["==", ["get", "type"], "aboriginal_lands"],
+  [
+    "all",
+    ["==", ["get", "type"], "indigenous_administration"],
+    ["==", ["get", "admin_level"], 2],
+  ],
+];
+
 export const fill = {
   id: "aboriginal_fill",
   type: "fill",
-  filter: ["==", ["get", "class"], "aboriginal_lands"],
+  filter: topLevelFilter,
   paint: {
     "fill-color": Color.aboriginalFill,
   },
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm_other_boundaries",
   metadata: {},
-  "source-layer": "boundary",
+  "source-layer": "non_admin_boundaries_areas",
 };
 
 export const outline = {
   id: "aboriginal_outline",
   type: "line",
-  filter: ["==", ["get", "class"], "aboriginal_lands"],
+  filter: topLevelFilter,
   paint: {
     "line-color": Color.aboriginalOutline,
   },
   layout: {
     visibility: "visible",
   },
-  source: "openmaptiles",
+  source: "ohm_other_boundaries",
   metadata: {},
-  "source-layer": "boundary",
+  "source-layer": "non_admin_boundaries_areas",
 };
 
 export const label = {
   id: "aboriginal_label",
   type: "symbol",
-  filter: ["==", ["get", "class"], "aboriginal_lands"],
+  filter: topLevelFilter,
   paint: {
     "text-color": Color.aboriginalLabel,
     "text-halo-blur": 1,
@@ -59,13 +69,39 @@ export const label = {
     "text-transform": "uppercase",
     "symbol-sort-key": ["get", "rank"],
   },
-  source: "openmaptiles",
-  "source-layer": "place",
+  source: "ohm_other_boundaries",
+  "source-layer": "non_admin_boundaries_centroids",
+};
+
+export const edgeLabel = {
+  id: "aboriginal_edge_label",
+  type: "symbol",
+  filter: topLevelFilter,
+  paint: label.paint,
+  layout: {
+    "symbol-placement": "line",
+    "text-font": ["Americana-Regular"],
+    "text-size": {
+      stops: [
+        [3, 6],
+        [7, 10],
+      ],
+    },
+    "text-field": localizedNameWithLocalGloss,
+    "text-offset": [0, 1],
+    "text-max-angle": 30,
+    "text-letter-spacing": 0.1,
+    "text-ignore-placement": true,
+    "text-transform": "uppercase",
+  },
+  maxzoom: 24,
+  source: "ohm_other_boundaries",
+  "source-layer": "non_admin_boundaries_areas",
 };
 
 export const legendEntries = [
   {
-    description: "Tribal reservation or other native land",
+    description: "Self-governing indigenous territory",
     layers: [fill.id, outline.id],
   },
 ];
