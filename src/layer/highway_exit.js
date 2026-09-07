@@ -11,7 +11,7 @@ export const exits = {
     ["!=", ["get", "ref"], ""],
   ],
   source: "ohm",
-  "source-layer": "transport_lines_centroids",
+  "source-layer": "transport_points_centroids",
   minzoom: 14,
   layout: {
     "text-field": listValuesExpression(["get", "ref"], "\n"),
