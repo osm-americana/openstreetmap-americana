@@ -7,6 +7,7 @@ import { LanguageControl } from "./js/language_control.js";
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
+import { Protocol } from "pmtiles";
 
 import LegendControl from "./js/legend_control.js";
 import { HillshadeControl } from "./js/hillshade_control.js";
@@ -27,6 +28,9 @@ function upgradeLegacyHash() {
 upgradeLegacyHash();
 
 loadRTLPlugin();
+
+let protocol = new Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
 
 export const map = createMap(
   window,

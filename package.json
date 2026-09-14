@@ -46,6 +46,7 @@
     "github-fork-ribbon-css": "^0.2.3",
     "openmapsamples": "github:adamfranco/OpenMapSamples",
     "openmapsamples-maplibre": "github:adamfranco/OpenMapSamples-MapLibre",
+    "pmtiles": "^4.4.1",
     "tokenfield": "^1.5.2"
   },
   "devDependencies": {
