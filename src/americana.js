@@ -13,6 +13,7 @@ import { HillshadeControl } from "./js/hillshade_control.js";
 import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
+import { getLocales } from "@americana/diplomat";
 
 import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
 import { debugOptions } from "./debug_config.js";
@@ -74,6 +75,7 @@ function shieldDefLoad(shields) {
 
   window.addEventListener("languagechange", (event) => {
     map.localize();
+    document.documentElement.lang = getLocales()[0];
   });
 
   window.addEventListener("hashchange", (event) => {
@@ -100,6 +102,7 @@ function hashChanged(oldURL, newURL) {
     (oldParams.get("language") || null) !== (newParams.get("language") || null)
   ) {
     map.localize();
+    document.documentElement.lang = getLocales()[0];
   }
 
   if (
