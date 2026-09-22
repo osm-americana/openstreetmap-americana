@@ -12,7 +12,7 @@ const peakStepFilter = [
   13,
   ["<=", ["get", "rank"], 2], //Start showing rank 1+2 at z13
   14,
-  [">=", ["get", "rank"], 1], //Show all past z14
+  true, //Show all past z14
 ];
 
 export function getEleUnits(unitlocale = getLocales()[0]) {
@@ -53,7 +53,7 @@ export const peak = {
   },
   filter: [
     "all",
-    ["in", ["get", "class"], ["literal", ["peak", "volcano"]]],
+    ["in", ["get", "type"], ["literal", ["peak", "volcano"]]],
     peakStepFilter,
   ],
   layout: {
@@ -74,8 +74,8 @@ export const peak = {
     "symbol-sort-key": ["*", -1, ["get", "ele"]], //Highest elevations take priority
   },
   minzoom: 8,
-  source: "openmaptiles",
-  "source-layer": "mountain_peak",
+  source: "ohm",
+  "source-layer": "landuse_points_centroids",
 };
 
 export const legendEntries = [
