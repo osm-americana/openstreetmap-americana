@@ -2,7 +2,7 @@
 
 const majorConstruction = [
   "match",
-  ["get", "class"],
+  ["get", "type"],
   ["motorway_construction", "trunk_construction"],
 ];
 
