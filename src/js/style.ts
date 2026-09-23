@@ -6,12 +6,10 @@ import * as Layers from "../layer/index.js";
 export function build(
   tileURL: string,
   spriteURL: string,
-  glyphURL: string,
   locales: string[]
 ): StyleSpecification {
   return {
     name: "Americana",
-    glyphs: glyphURL,
     layers: Layers.build(locales),
     sources: {
       openmaptiles: {
