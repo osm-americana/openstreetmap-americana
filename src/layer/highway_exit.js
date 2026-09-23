@@ -1,6 +1,6 @@
 "use strict";
 
-import { listValuesExpression } from "@americana/diplomat";
+import { listValuesExpression, localizedName } from "@americana/diplomat";
 
 export const exits = {
   id: "highway-exit",
@@ -14,7 +14,10 @@ export const exits = {
   "source-layer": "transportation_name",
   minzoom: 14,
   layout: {
-    "text-field": listValuesExpression(["get", "ref"], "\n"),
+    "text-field": listValuesExpression(
+      ["concat", ["get", "ref"], ";", localizedName],
+      "\n"
+    ),
     "text-font": ["Americana-Bold"],
     "text-size": 9,
     "text-line-height": 1,
