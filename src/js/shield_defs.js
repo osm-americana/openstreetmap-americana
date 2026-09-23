@@ -171,6 +171,11 @@ export function loadShields() {
     Color.shields.black,
     30
   );
+  shields["CA:AB:QEII"] = {
+    noref: {
+      spriteBlank: "shield_ca_ab_qeii",
+    },
+  };
 
   // British Columbia
   shields["CA:BC"] = {
