@@ -14,6 +14,7 @@ export const city = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["==", ["get", "admin_level"], 8],
     ["!", ["has", "disputed"]],
     ["!", ["has", "maritime"]],
@@ -41,6 +42,7 @@ export const countyCasing = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["==", ["get", "admin_level"], 6],
     ["!", ["has", "disputed"]],
     ["!", ["has", "maritime"]],
@@ -65,6 +67,7 @@ export const county = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["==", ["get", "admin_level"], 6],
     ["!", ["has", "disputed"]],
     ["!", ["has", "maritime"]],
@@ -92,6 +95,7 @@ export const regionCasing = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["==", ["get", "admin_level"], 5],
     ["!", ["has", "disputed"]],
     ["!", ["has", "maritime"]],
@@ -116,6 +120,7 @@ export const region = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["==", ["get", "admin_level"], 5],
     ["!", ["has", "disputed"]],
     ["!", ["has", "maritime"]],
@@ -151,6 +156,7 @@ export const stateCasing = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["in", ["get", "admin_level"], ["literal", [3, 4]]],
     ["!", ["has", "maritime"]],
   ],
@@ -193,6 +199,7 @@ export const state = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["in", ["get", "admin_level"], ["literal", [3, 4]]],
     ["!", ["has", "maritime"]],
   ],
@@ -242,6 +249,7 @@ export const countryCasing = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["==", ["get", "admin_level"], 2],
     ["!", ["has", "maritime"]],
   ],
@@ -288,6 +296,7 @@ export const country = {
   },
   filter: [
     "all",
+    ["==", ["get", "type"], "administrative"],
     ["==", ["get", "admin_level"], 2],
     ["!", ["has", "disputed"]],
     [...maritime],
