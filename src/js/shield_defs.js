@@ -769,6 +769,12 @@ export function loadShields() {
 
   // Other multistate routes
 
+  // Avenue of the Saints
+  shields["US:AotS"] = {
+    spriteBlank: "shield_us_aots",
+    notext: true,
+  };
+
   // Chicago-Kansas City Expressway
   shields["US:CKC"] = {
     spriteBlank: "shield_us_ckc",
