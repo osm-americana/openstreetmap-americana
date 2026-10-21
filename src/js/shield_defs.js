@@ -3115,7 +3115,7 @@ export function loadShields() {
       bottom: 5,
     },
   };
-  ["FA", "Washington"].forEach(
+  ["FA", "Daggett", "Duchesne", "Washington"].forEach(
     (county) =>
       (shields[`US:UT:${county}`] = pentagonUpShield(
         3,
