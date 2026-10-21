@@ -210,6 +210,9 @@ let networks = [
 
   "US:SD:Custer:CSP",
 
+  "US:UT:San_Juan",
+  "US:UT:Uintah",
+
   // With banners
   "US:I:Truck",
   "US:I:Express",

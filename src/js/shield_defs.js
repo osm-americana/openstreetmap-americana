@@ -3124,6 +3124,26 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
+  shields["US:UT:San_Juan"] = {
+    spriteBlank: ["shield_us_ut_san_juan"],
+    textColor: Color.shields.yellow,
+    padding: {
+      left: 6,
+      right: 2,
+      top: 8,
+      bottom: 2,
+    },
+  };
+  shields["US:UT:Uintah"] = {
+    spriteBlank: ["shield_us_ut_uintah"],
+    textColor: Color.shields.white,
+    padding: {
+      left: 4,
+      right: 2,
+      top: 8,
+      bottom: 4,
+    },
+  };
 
   // Virginia
   shields["US:VA"] = {
