@@ -40,7 +40,7 @@
   "dependencies": {
     "@americana/diplomat": "^0.6.0",
     "@americana/maplibre-shield-generator": "*",
-    "@openhistoricalmap/maplibre-gl-dates": "^1.3.0",
+    "@openhistoricalmap/maplibre-gl-dates": "^2.0.0",
     "color-rgba": "^2.4.0",
     "events": "^3.3.0",
     "fonteditor-core": "^2.1.11",
