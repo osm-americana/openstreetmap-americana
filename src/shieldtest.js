@@ -165,7 +165,6 @@ let networks = [
   "US:MN",
   "US:MN:Business",
   "US:CO",
-  "US:CO:E470",
   "US:CO:NW",
   "US:DC",
   "US:FL",

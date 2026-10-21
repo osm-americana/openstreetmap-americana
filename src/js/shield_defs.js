@@ -1128,13 +1128,7 @@ export function loadShields() {
   };
   shields["US:CO:E470"] = {
     spriteBlank: "shield_us_co_e470",
-    textColor: Color.shields.black,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 10,
-      bottom: 2,
-    },
+    notext: true,
   };
   shields["US:CO:NW"] = {
     spriteBlank: "shield_us_co_nw",
