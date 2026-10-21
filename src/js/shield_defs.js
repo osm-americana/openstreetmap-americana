@@ -3312,6 +3312,11 @@ export function loadShields() {
       bottom: 4,
     },
   };
+  // Frank Lloyd Wright Trail
+  shields["US:WI:FLWT"] = {
+    spriteBlank: "shield_us_wi_flwt",
+    notext: true,
+  };
 
   // West Virginia
   shields["US:WV"] = roundedRectShield(
