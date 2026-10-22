@@ -1,9 +1,9 @@
 import { getLocales, localizeStyle, updateVariable } from "@americana/diplomat";
-import maplibregl from "maplibre-gl";
+import { Map } from "maplibre-gl";
 import { hillshading } from "../layer/hillshade.js";
 import { getEleUnits } from "../layer/peak.js";
 
-export class MapView extends maplibregl.Map {
+export class MapView extends Map {
   get locales(): [String] {
     return getLocales();
   }

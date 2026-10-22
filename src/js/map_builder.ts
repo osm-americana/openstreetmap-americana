@@ -16,7 +16,8 @@ import {
 
 import * as Poi from "../js/poi.js";
 import * as Style from "./style.js";
-import maplibregl, {
+import {
+  setWorkerUrl,
   type MapOptions,
   type StyleSpecification,
 } from "maplibre-gl";
@@ -49,21 +50,14 @@ function removeAfterLastSlash(str: string): string {
   return str.substring(0, lastSlashIndex + 1);
 }
 
-export function loadRTLPlugin(): void {
-  maplibregl.setRTLTextPlugin(
-    "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
-    true
-  );
-}
-
 export function createMap(
   window: Window,
   shieldDefCallback: (shields: ShieldDefinitions) => void,
   options: MapOptions,
   debugOptions: DebugOptions
 ): MapView {
-  window["maplibregl"] = maplibregl;
-  let map: MapView = (window["map"] = new MapView(options));
+  setWorkerUrl(new URL("./maplibre-gl-worker.mjs", import.meta.url).toString());
+  let map: MapView = (window.map = new MapView(options));
 
   const shieldRenderer = new URLShieldRenderer(
     new URL("shields.json", window.location.href),
@@ -84,15 +78,15 @@ export function createMap(
     }
   });
 
-  map.on("styleimagemissing", function (e) {
-    switch (e.id.split("\n")[0]) {
+  map.setMissingStyleImageResolver((id) => {
+    switch (id.split("\n")[0]) {
       case "shield":
         break;
       case "poi":
-        Poi.missingIconHandler(shieldRenderer, map, e);
+        Poi.missingIconHandler(shieldRenderer, map, id);
         break;
       default:
-        console.warn("Image id not recognized:", JSON.stringify(e.id));
+        console.warn("Image id not recognized:", JSON.stringify(id));
         break;
     }
   });
