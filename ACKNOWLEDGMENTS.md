@@ -23,4 +23,3 @@ The legend’s “Route markers” section is labeled using labels of Wikidata i
 ## Code
 
 - Initial layer code is derived from Oliver Wipfli's [openmaptiles-starter](https://github.com/wipfli/openmaptiles-starter/) style.
-- Support for right-to-left Arabic and Hebrew text is provided by the [mapbox-gl-rtl-text](https://github.com/mapbox/mapbox-gl-rtl-text/) plugin.

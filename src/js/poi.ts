@@ -11,22 +11,22 @@ import {
 export function missingIconHandler(
   shieldRenderer: AbstractShieldRenderer,
   map: Map,
-  e: MapStyleImageMissingEvent
+  id: string
 ) {
   try {
-    missingIconLoader(shieldRenderer, map, e);
+    missingIconLoader(shieldRenderer, map, id);
   } catch (err) {
-    console.error(`Exception while loading image ‘${e?.id}’:\n`, err);
+    console.error(`Exception while loading image ‘${id}’:\n`, err);
   }
 }
 
 export function missingIconLoader(
   shieldRenderer: AbstractShieldRenderer,
   map: Map,
-  e: MapStyleImageMissingEvent
+  id: string
 ) {
-  const sprite: string = e.id.split("\n")[1].split("=")[1];
-  const color: string = e.id.split("\n")[2].split("=")[1];
+  const sprite: string = id.split("\n")[1].split("=")[1];
+  const color: string = id.split("\n")[2].split("=")[1];
 
   const sourceSprite: StyleImage = map.style.getImage(sprite);
 
@@ -46,7 +46,7 @@ export function missingIconLoader(
 
   if (ctx == null) {
     // Want to return null here, but that gives a corrupted display. See #243
-    console.warn("Didn't produce an icon for", JSON.stringify(e.id));
+    console.warn("Didn't produce an icon for", JSON.stringify(id));
     ctx = shieldRenderer.createGraphics({ width: 1, height: 1 });
   }
 
@@ -57,7 +57,7 @@ export function missingIconLoader(
     ctx.canvas.height
   );
   map.addImage(
-    e.id,
+    id,
     {
       width: ctx.canvas.width,
       height: ctx.canvas.height,
