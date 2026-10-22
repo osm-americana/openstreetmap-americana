@@ -2,10 +2,8 @@
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
-import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
+import { createMap, buildStyle } from "./js/map_builder.js";
 import { debugOptions } from "./debug_config.js";
-
-loadRTLPlugin();
 
 export const map = createMap(
   window,
@@ -19,7 +17,6 @@ export const map = createMap(
     zoom: 4,
     fadeDuration: 0,
     attributionControl: false,
-    experimentalZoomLevelsToOverscale: 0,
   },
   debugOptions
 );
