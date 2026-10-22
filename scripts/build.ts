@@ -1,6 +1,6 @@
 import { stat, copyFile, mkdir } from "node:fs/promises";
 
-import esbuild, { BuildContext, BuildOptions } from "esbuild";
+import esbuild, { type BuildContext, type BuildOptions } from "esbuild";
 
 const maybeLocalConfig = async (name = "local.config.js") => {
   let exists = await stat(name)
@@ -32,6 +32,10 @@ const buildWith = async (
       "favicon.ico",
       "fonts.css",
     ].map((f) => copyFile(`src/${f}`, `dist/${f}`))
+  );
+  await copyFile(
+    "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
+    "dist/gh-fork-ribbon.css"
   );
 
   const localConfig = await maybeLocalConfig();

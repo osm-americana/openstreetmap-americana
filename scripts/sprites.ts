@@ -3,7 +3,7 @@ import path from "path";
 import { Command, Option } from "commander";
 
 import { glob } from "glob";
-import { Sprites, SpriteSheetResult, SvgId } from "@basemaps/sprites";
+import { Sprites, type SpriteSheetResult, type SvgId } from "@basemaps/sprites";
 
 const program = new Command();
 program

@@ -1,4 +1,4 @@
-import { StyleImage } from "maplibre-gl";
+import type { StyleImage } from "maplibre-gl";
 
 import rgba from "color-rgba";
 

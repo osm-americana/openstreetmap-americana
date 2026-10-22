@@ -2,7 +2,6 @@ node_modules
 sprites
 build
 .DS_Store
-config.js
 .parcel-cache
 dist
 download

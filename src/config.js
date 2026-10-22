@@ -6,7 +6,7 @@ const importConfig = () => {
   if (typeof CONFIG_PATH !== "undefined") {
     return import(CONFIG_PATH);
   } else {
-    return import("./configs/config.aws.js");
+    return import("./configs/config.osmus.js");
   }
 };
 

@@ -385,8 +385,8 @@ This results in a very long page and can be quite slow or even crash the browser
 A "point of interest" or POI is any feature on the map represented by an icon on the map. To add a new POI:
 
 1. Identify the `subclass` of the POI you are adding from the [OpenMapTiles schema](https://openmaptiles.org/schema/#poi).
-2. Place the icon file under [/icons](/icons) using the `poi_` prefix. Icons should have a black fill and may have a 1px white halo.
-3. In [poi.js](/src/layer/poi.js), add an entry to `iconDefs` with the `subclass`, sprite name, color category (see below), and legend description. Also update the `paint` and `filter` statements with the new `subclass`.
+2. Place the (.svg) icon file under [/icons](/icons) using the `poi_` prefix. Icons should have a black fill and may have a 1px white halo. Icons should be maximum 20x20 pixels, and pixel-aligned (snapped to a 1px grid) if the shape permits. Icons depicting small-scale features may be smaller than 20x20px.
+3. In [poi.js](/src/layer/poi.js), add an entry to `iconDefs` with the `subclass`, sprite name, color category (see below), and legend description. Also update the `paint` and `filter` statements with the new `subclass`, choosing the earliest (furthest-out) zoom the icon can appear at appropriately.
 
 ### Categories
 
@@ -408,15 +408,15 @@ For consistency, POI icons use the following color palette:
 | Geographic Place Names | N/A             | $`{\color{#000000} \blacksquare}`$ Black             | 0 0 0       | #000000     |
 | Infrastructure         | Pantone 294     | $`{\color{#003f87} \blacksquare}`$ Blue              | 0 63 135    | #003f87     |
 | Consumer               | UTexas Orange   | $`{\color{#bf5700} \blacksquare}`$ Orange            | 191 87 0    | #bf5700     |
-| Outdoor                |                 | TBD (green?)                                         |             |             |
+| Outdoor                | Pantone 342     | $`{\color{#006747} \blacksquare}`$ Green             | 0 103 71    | #006747     |
 | Attraction             | Pantone 469     | $`{\color{#693f23} \blacksquare}`$ Brown             | 105 63 35   | #693f23     |
 | Airport                | Medium Purple C | $`{\color{#4e008e} \blacksquare}`$ Purple            | 78 0 142    | #4e008e     |
 | Transport              | Pantone 234 C   | $`{\color{#a20067} \blacksquare}`$ Mauve             | 162 0 103   | #a20067     |
 | Knockout               |                 | $`{\color{#f9f5f0} \blacksquare}`$ Lt Grayish Orange | 249 245 240 | #f9f5f0     |
 
-## Fonts
+## Labels
 
-Fonts for style labels are packaged and defined in [fontstack66](https://github.com/osm-americana/fontstack66), Americana's font package.
+Fonts for style labels are packaged and defined in [fontstack66](https://github.com/osm-americana/fontstack66), Americana's font package. For some icons, it may be stylistically advantageous to show the icon at an earlier zoom level than the label.
 
 ## Render Samples
 
