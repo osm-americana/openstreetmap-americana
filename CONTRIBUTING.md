@@ -5,7 +5,7 @@ We’re glad you’re interested in contributing to OpenStreetMap Americana! Bef
 - [This project’s architecture](ARCHITECTURE.md), including how this repository fits into the overall technology stack
 - [How to install and run OSM Americana](INSTALL.md)
 
-You can also help out indirectly by contributing to [our data sources](ACKNOWLEDGEMENTS.md#data-sources).
+You can also help out indirectly by contributing to [our data sources](ACKNOWLEDGMENTS.md#data-sources).
 
 ## Ground rules
 
