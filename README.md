@@ -1,4 +1,4 @@
-# OpenStreetMap Americana
+# OpenHistoricalMap Americana
 
 _A quintessentially American map style_ [🗺 View the map](https://americanamap.org/)
 
@@ -10,11 +10,11 @@ _A quintessentially American map style_ [🗺 View the map](https://americanamap
 
 The purpose of the Americana style is to:
 
-- Promote collaboration and common purpose in OpenStreetMap’s American mapping community
+- Promote collaboration and common purpose in OpenHistoricalMap’s American mapping community
 - Express the American experience through cartography, taking inspiration from the familiar features of North American paper maps
 - Challenge the status quo by showcasing innovation and invention
 
-Americana has demonstrated or pioneered several cartographic techniques of importance to Americans that we hope will someday become commonplace among OpenStreetMap-based map styles:
+Americana has demonstrated or pioneered several cartographic techniques of importance to Americans that we hope will someday become commonplace among OpenHistoricalMap-based map styles:
 
 - Nuanced line styles help you distinguish roads, raiload tracks, and waterways based on a variety of intuitive characteristics.
 - Highway routes are identified by shields that resemble the signs on the road, with special support for roads that carry multiple routes concurrently.
@@ -25,11 +25,11 @@ We do this proudly in an open source project using vector tile technology.
 
 ## OpenStreetMap US
 
-OpenStreetMap Americana is a community project supported by [OSM US](https://openstreetmap.us), the OpenStreetMap local chapter for the United States. OSM US supports the project by providing tile rendering and other computing infrastructure.
+OpenHistoricalMap Americana is a fork of OpenStreetMap Americana, a community project supported by [OSM US](https://openstreetmap.us), the OpenStreetMap local chapter for the United States. OSM US supports the project by providing tile rendering and other computing infrastructure.
 
 ## How to use
 
-You can install the OpenStreetMap Americana package and [deploy it anywhere](CONTRIBUTING.md#Production%20builds) as a static webpage. For your convenience, we’ve deployed it [on GitHub Pages](https://americanamap.org/). Click the Legend button to learn the meaning of each symbol, line, and color based on the features currently visible on the map. Click the 🌐 button to simulate a physical globe. Click the ⛰️ button to simulate a relief map.
+You can install the OpenHistoricalMap Americana package and [deploy it anywhere](CONTRIBUTING.md#Production%20builds) as a static webpage. For your convenience, we’ve deployed it [on GitHub Pages](https://americanamap.org/). Click the Legend button to learn the meaning of each symbol, line, and color based on the features currently visible on the map. Click the 🌐 button to simulate a physical globe. Click the ⛰️ button to simulate a relief map. Adjust the time slider to travel back in time.
 
 The style tries to label places in [your browser’s preferred language](https://www.w3.org/International/questions/qa-lang-priorities). To change this preference, consult your browser’s documentation: [Chrome](https://support.google.com/chrome/answer/173424), [Firefox](https://support.mozilla.org/en-US/kb/use-firefox-another-language), [Safari for macOS](https://support.apple.com/guide/mac-help/change-the-system-language-mh26684/mac), [Safari for iOS](https://support.apple.com/en-us/HT204031). You can also override this preference by adding `&language=` to the URL, followed by a comma-separated list of [IETF language tags](https://www.w3.org/International/articles/language-tags/). For example, here’s a map labeled [in Portuguese, falling back to Spanish](https://americanamap.org/#language=pt,es). If we don’t have the name of a place in any of your preferred languages, the style shows the name in the local language as a last resort.
 
@@ -70,11 +70,10 @@ Automatic label localization is powered by the [Diplomat](https://github.com/osm
 
 ## Data sources
 
-The OpenStreetMap Americana style is built upon the [OpenMapTiles schema](https://openmaptiles.org/schema/), which includes:
+The OpenHistoricalMap Americana style is built upon the [OpenMapTiles schema](https://openmaptiles.org/schema/), which includes:
 
-- Feature data from OpenStreetMap
-- Translated name labels from [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) for places, POIs, airports, roads, bodies of water, parks, and mountain peaks.
-- Low-zoom ocean/water, boundary, and urbanized area data from [Natural Earth](https://www.naturalearthdata.com/).
+- Feature data from OpenHistoricalMap
+- Coastline data from OpenStreetMap
 
 The legend’s “Route markers” section is labeled using labels of Wikidata items that are tagged with the [corresponding OSM tag](https://www.wikidata.org/wiki/Property:P1282).
 
