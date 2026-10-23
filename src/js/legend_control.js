@@ -5,7 +5,7 @@ import { getLocales } from "@americana/diplomat";
 
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 
-import * as maplibregl from "maplibre-gl";
+import { Popup } from "maplibre-gl";
 
 const maxPopupWidth = 30; /* em */
 const PXR = getDOMPixelRatio();
@@ -41,7 +41,7 @@ export default class LegendControl {
     button.style.width = "5em";
     controlGroup.appendChild(button);
 
-    this._popup = new maplibregl.Popup({
+    this._popup = new Popup({
       closeOnMove: true,
       anchor: "bottom-left",
       maxWidth: `${maxPopupWidth}em`,
