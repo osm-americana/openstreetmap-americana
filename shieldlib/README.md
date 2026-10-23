@@ -1,10 +1,24 @@
 # Americana Shield Renderer
 
-The Americana shield renderer is a library intended to draw highway shields on a [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) vector-tiled map.
+The Americana Shield Renderer is a plugin for [MapLibre GL&nbsp;JS](https://github.com/maplibre/maplibre-gl-js/) that adds graphical highway route shields to the map.
 
 ![Pictoral highway shields](https://wiki.openstreetmap.org/w/images/6/6d/Rendered_shields_americana.png)
 
-## Shield rendering workflow
+## Requirements
+
+The Americana Shield Renderer is compatible with applications using MapLibre GL&nbsp;JS v2.4.0 and above.
+
+## Installation
+
+This plugin is available as [an NPM package](https://www.npmjs.com/package/@americana/maplibre-shield-generator). To install it, run the following command:
+
+```sh
+npm install @americana/maplibre-shield-generator
+```
+
+Alternatively, you can include the plugin as a standalone script from a CDN such as [unpkg](https://unpkg.com/@americana/maplibre-shield-generator/dist/index.js).
+
+## Usage
 
 Rendering shields requires the following compoments:
 
@@ -51,7 +65,7 @@ Rendering shields requires the following compoments:
      !/^[lrni][chimpw]n$/.test(network);
    ```
 
-5. **Create shield definitions and artwork**. The shield definition is expressed as a JSON file along with a set of sprites containing any raster artwork used for the shields. It can be generated as an object or hosted as a JSON file accessible by URL. See the next section for how to create this definition.
+5. **Create shield definitions and artwork**. The shield definition is expressed as a JSON file along with a set of sprites containing any raster artwork used for the shields. It can be generated as an object or hosted as a JSON file accessible by URL. See the next section for how to create this definition. [A premade shield definition file](https://americanamap.org/shields.json) is available for maps that have a color scheme and visual style similar to OSM Americana.
 
 6. **Hook up the shield generator to a maplibre-gl-js map**. Pass either the URL of the JSON shield definition or create an object in javascript code. There are two separate classes for each approach.
 
@@ -69,9 +83,9 @@ Rendering shields requires the following compoments:
      .renderOnMaplibreGL(map);
    ```
 
-## Shield Definition
+## Shield definition
 
-The purpose of the shield definition is to define which graphics and text to draw for each network/ref/name combination that you wish to display. This can be created in javascript as an object, or as an HTTP-accessible JSON file.
+The purpose of the shield definition is to define which graphics and text to draw for each network/ref/name combination that you wish to display. This can be created in JavaScript as an object, or as an HTTP-accessible JSON file.
 
 This description uses the following conventions:
 
