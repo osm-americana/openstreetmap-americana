@@ -57,8 +57,6 @@ The same caveats apply if you set up a simple MapLibre map using this JSON file.
 - [Americana Shield Renderer](shieldlib/README.md) ([@americana/maplibre-shield-generator](https://www.npmjs.com/package/@americana/maplibre-shield-generator)) for route shields. [Shield definitions](https://americanamap.org/shields.json) are available for typical maps.
 - [Diplomat](https://github.com/osm-americana/diplomat/) ([@americana/diplomat](https://www.npmjs.com/package/@americana/diplomat)) for localized labels.
 
-These plugins are compatible with any MapLibre style. Install them on your Web page to lend your map an Americana level of sophistication.
-
 The map’s contents come from tiles that conform to the [OpenMapTiles schema](https://openmaptiles.org/schema/). The default configuration uses tiles hosted by the [OpenStreetMap U.S. Tileservice](https://tiles.openstreetmap.us/vector/openmaptiles/). The [tile server usage policy](https://tiles.openstreetmap.us/usage-policy/) describes the allowable usage of this tileset. Compatible tilesets are also available from several commercial hosts. Alternatively, you can [set up your own tile server](INSTALL.md#running-your-own-tile-server) on cloud infrastructure at relatively modest cost.
 
 ## It takes a village
