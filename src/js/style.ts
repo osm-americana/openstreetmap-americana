@@ -1,6 +1,7 @@
 import type { StyleSpecification } from "@maplibre/maplibre-gl-style-spec";
 import { getGlobalStateForLocalization } from "@americana/diplomat";
 import * as Layers from "../layer/index.js";
+import * as urbanAreas from "./places-ua-ranked-wgs84.json";
 
 // Generate style.json
 export function build(
@@ -17,6 +18,14 @@ export function build(
       openmaptiles: {
         url: tileURL,
         type: "vector",
+      },
+      ua: {
+        url: "pmtiles://https://tiles.1ec5.org/urban-areas/tl_2025_us_uac20.pmtiles",
+        type: "vector",
+      },
+      urbanareas: {
+        type: "geojson",
+        data: urbanAreas,
       },
       dem: {
         attribution:
