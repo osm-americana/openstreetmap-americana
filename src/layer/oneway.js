@@ -53,19 +53,7 @@ export const surface = {
         0.6,
       ],
     ],
-    "icon-image": [
-      "match",
-      ["get", "brunnel"],
-      "tunnel",
-      "oneway_black",
-      [
-        "match",
-        ["get", "toll"],
-        1,
-        "oneway_black",
-        [...highwaySelector, "motorway", "oneway_white", "oneway_black"],
-      ],
-    ],
+    "icon-image": "oneway_black",
     visibility: "visible",
     "icon-padding": 2,
     "symbol-spacing": [
@@ -79,6 +67,8 @@ export const surface = {
     ],
     "symbol-placement": "line",
     "icon-rotation-alignment": "map",
+    // Assumes driving on the right.
+    "icon-offset": [0, 10],
   },
   paint: {
     "icon-opacity": 0.5,
