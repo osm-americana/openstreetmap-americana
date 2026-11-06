@@ -3608,6 +3608,23 @@ export function loadShields() {
 
   // ASIA
 
+  // Mashreq
+  shields["Arab Mashreq International Road Network"] = {
+    spriteBlank: [
+      "shield_arab_mashreq_2",
+      "shield_arab_mashreq_3",
+      "shield_arab_mashreq_4",
+    ],
+    textLayout: textConstraint("ellipse"),
+    textColor: Color.shields.blue,
+    padding: {
+      left: 2,
+      right: 2,
+      top: 2,
+      bottom: 4,
+    },
+  };
+
   // Armenia
   shields["am:national"] = roundedRectShield(
     Color.shields.blue,
