@@ -157,6 +157,8 @@ let networks = [
   "US:MP",
   "US:AS",
 
+  "Arab Mashreq International Road Network",
+
   // Fancy Rectangles
   "US:AK",
   "US:ID",
