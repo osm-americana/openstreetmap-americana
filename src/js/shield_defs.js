@@ -4026,6 +4026,19 @@ export function loadShields() {
     Color.shields.black
   );
 
+  // Oman
+  shields["OM:N-road"] = shields["Arab Mashreq International Road Network"];
+  shields["OM:A-road"] = circleShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.blue
+  );
+  shields["OM:S-road"] = shields["OM:D-road"] = roundedRectShield(
+    Color.shields.white,
+    Color.shields.black,
+    Color.shields.blue
+  );
+
   // Philippines
   shields["PH:N"] = homePlateDownShield(
     5,
