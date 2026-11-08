@@ -7,6 +7,7 @@ import { mkdir } from "node:fs/promises";
 import {
   ShieldRenderer,
   InMemorySpriteRepository,
+  type ShieldSpecification,
 } from "@americana/maplibre-shield-generator";
 import { HeadlessGraphicsFactory } from "../src/js/headless_graphics.js";
 import {
@@ -14,7 +15,6 @@ import {
   shieldPredicate,
   networkPredicate,
 } from "../src/js/shield_format.js";
-import type { ShieldSpecification } from "../src/js/shield_generator_types.js";
 
 await mkdir("dist/shield-sample", { recursive: true });
 

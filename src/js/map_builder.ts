@@ -1,7 +1,11 @@
 /**
  * Functions for assembling user-facing map components
  */
-import { URLShieldRenderer } from "@americana/maplibre-shield-generator";
+import {
+  URLShieldRenderer,
+  type DebugOptions,
+  type ShieldDefinitions,
+} from "@americana/maplibre-shield-generator";
 import config from "../config.js";
 
 import {
@@ -17,10 +21,6 @@ import maplibregl, {
   type StyleSpecification,
 } from "maplibre-gl";
 import { MapView } from "./map_view.js";
-import type {
-  DebugOptions,
-  ShieldDefinitions,
-} from "./shield_generator_types.js";
 import { getGlobalStateForLocalization, getLocales } from "@americana/diplomat";
 
 export function buildStyle(): StyleSpecification {
