@@ -56,8 +56,6 @@ jobs:
           npm run style
           npm run shields
           cp src/configs/config.osmus.js src/config.js
-          mkdir -p dist/shield-docs
-          cp -r node_modules/@americana/maplibre-shield-generator/docs/* dist/shield-docs
           mkdir -p ../pr
         working-directory: pr-branch
       - name: Save PR attributes

@@ -54,7 +54,7 @@ OSM Americana is a Web application that generates a [MapLibre stylesheet](https:
 
 The same caveats apply if you set up a simple MapLibre map using this JSON file. For the full OSM Americana experience, install the following MapLibre plugins:
 
-- [Americana Shield Renderer](https://www.npmjs.com/package/@americana/maplibre-shield-generator) (`@americana/maplibre-shield-generator`) for route shields. [Shield definitions](https://americanamap.org/shields.json) are available for typical maps.
+- [Americana Shield Renderer](https://github.com/osm-americana/maplibre-gl-shields) ([`@americana/maplibre-shield-generator`](https://www.npmjs.com/package/@americana/maplibre-shield-generator)) for route shields. [Shield definitions](https://americanamap.org/shields.json) are available for typical maps.
 - [Diplomat](https://github.com/osm-americana/diplomat/) ([@americana/diplomat](https://www.npmjs.com/package/@americana/diplomat)) for localized labels.
 
 These plugins are compatible with any MapLibre style. Install them on your Web page to lend your map an Americana level of sophistication.
