@@ -5,7 +5,7 @@ import { buildContext } from "./build";
 
 const port = 1776;
 
-const mainContext: BuildContext = await buildContext({
+const [mainContext]: BuildContext[] = await buildContext({
   define: { "window.LIVE_RELOAD": "true" },
 });
 

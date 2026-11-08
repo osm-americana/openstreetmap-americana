@@ -21,7 +21,7 @@ const maybeLocalConfig = async (name = "local.config.js") => {
 const buildWith = async (
   key: string,
   buildOptions: BuildOptions
-): Promise<BuildContext> => {
+): Promise<BuildContext[]> => {
   await mkdir("dist", { recursive: true });
 
   await Promise.all(
@@ -62,15 +62,19 @@ const buildWith = async (
 
   // esbuild will pretty-print its own error messages;
   // suppress node.js from printing the exception.
-  return esbuild[key](options).catch(() => process.exit(1));
+  const suppressErrors = () => process.exit(1);
+
+  return await Promise.all([
+    esbuild[key](options).catch(suppressErrors),
+  ]);
 };
 
 export const buildContext = (
   buildOptions: BuildOptions = {}
-): Promise<BuildContext> => buildWith("context", buildOptions);
+): Promise<BuildContext[]> => buildWith("context", buildOptions);
 
 export const build = (
   buildOptions: BuildOptions = {}
-): Promise<BuildContext> => buildWith("build", buildOptions);
+): Promise<BuildContext[]> => buildWith("build", buildOptions);
 
 await build();
