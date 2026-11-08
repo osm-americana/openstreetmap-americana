@@ -65,7 +65,10 @@ export function createMap(
   window["maplibregl"] = maplibregl;
   let map: MapView = (window["map"] = new MapView(options));
 
-  const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
+  const shieldRenderer = new URLShieldRenderer(
+    new URL("shields.json", window.location.href),
+    routeParser
+  )
     .debugOptions(debugOptions)
     .filterImageID(shieldPredicate)
     .filterNetwork(networkPredicate)
