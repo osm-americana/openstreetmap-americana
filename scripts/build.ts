@@ -64,9 +64,7 @@ const buildWith = async (
   // suppress node.js from printing the exception.
   const suppressErrors = () => process.exit(1);
 
-  return await Promise.all([
-    esbuild[key](options).catch(suppressErrors),
-  ]);
+  return await Promise.all([esbuild[key](options).catch(suppressErrors)]);
 };
 
 export const buildContext = (
