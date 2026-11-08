@@ -9,7 +9,7 @@ import {
   InMemorySpriteRepository,
   type ShieldSpecification,
 } from "@americana/maplibre-shield-generator";
-import { HeadlessGraphicsFactory } from "../src/js/headless_graphics.js";
+import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/headless";
 import {
   routeParser,
   shieldPredicate,
