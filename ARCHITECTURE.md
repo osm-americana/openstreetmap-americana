@@ -6,7 +6,7 @@ The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
 
-The dynamic shield generator lives in a [separate repository](https://github.com/osm-americana/maplibre-gl-shields) and is [published to NPM](https://www.npmjs.com/package/@americana/maplibre-shield-generator) as `@americana/maplibre-shield-generator`.
+The dynamic shield generator is published to NPM as [`@americana/maplibre-shield-generator`](https://www.npmjs.com/package/@americana/maplibre-shield-generator) ([source repository](https://github.com/osm-americana/maplibre-gl-shields)).
 
 Automatic label localization is powered by the [Diplomat](https://github.com/osm-americana/diplomat/) plugin, which is also [available on NPM](https://www.npmjs.com/package/@americana/diplomat).
 
