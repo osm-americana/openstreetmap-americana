@@ -20,11 +20,6 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version-file: package.json
-      - name: Build Shield Library 🛡️
-        run: |
-          cd shieldlib
-          npm ci --include=dev
-          npm run build
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev
@@ -32,6 +27,4 @@ jobs:
           npm run style
       - name: Test 🧪
         run: |
-          npm test
-          cd shieldlib
           npm test

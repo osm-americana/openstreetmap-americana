@@ -1,20 +1,15 @@
-import type {
-  StringPredicate,
-  RouteParser,
-} from "@americana/maplibre-shield-generator";
-
 import { parseImageName } from "../layer/highway_shield.js";
 
-export const shieldPredicate: StringPredicate = (imageID: string) =>
+export const shieldPredicate = (imageID: string) =>
   imageID && imageID.startsWith("shield");
 
-export const networkPredicate: StringPredicate = (network: string) =>
+export const networkPredicate = (network: string) =>
   // On recreational route relations, network=* indicates the network's scope,
   // not the network itself.
   // https://github.com/osm-americana/openstreetmap-americana/issues/94
   !/^[lrni][chimpw]n$/.test(network);
 
-export const routeParser: RouteParser = {
+export const routeParser = {
   parse: (id: string) => {
     return parseImageName(id);
   },

@@ -21,7 +21,7 @@ const maybeLocalConfig = async (name = "local.config.js") => {
 const buildWith = async (
   key: string,
   buildOptions: BuildOptions
-): Promise<BuildContext[]> => {
+): Promise<BuildContext> => {
   await mkdir("dist", { recursive: true });
 
   await Promise.all(
@@ -60,38 +60,17 @@ const buildWith = async (
     },
   };
 
-  const shieldLibOptions = {
-    entryPoints: ["shieldlib/src/index.ts"],
-    format: "esm",
-    bundle: true,
-    minify: true,
-    sourcemap: true,
-    outdir: "shieldlib/dist",
-    logLevel: "info",
-    ...localConfig,
-    ...buildOptions,
-    define: {
-      ...localConfig?.define,
-      ...buildOptions?.define,
-    },
-  };
-
   // esbuild will pretty-print its own error messages;
   // suppress node.js from printing the exception.
-  const suppressErrors = () => process.exit(1);
-
-  return await Promise.all([
-    esbuild[key](options).catch(suppressErrors),
-    esbuild[key](shieldLibOptions).catch(suppressErrors),
-  ]);
+  return esbuild[key](options).catch(() => process.exit(1));
 };
 
 export const buildContext = (
   buildOptions: BuildOptions = {}
-): Promise<BuildContext[]> => buildWith("context", buildOptions);
+): Promise<BuildContext> => buildWith("context", buildOptions);
 
 export const build = (
   buildOptions: BuildOptions = {}
-): Promise<BuildContext[]> => buildWith("build", buildOptions);
+): Promise<BuildContext> => buildWith("build", buildOptions);
 
 await build();

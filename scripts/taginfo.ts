@@ -8,20 +8,13 @@ import {
   ShieldRenderer,
   InMemorySpriteRepository,
 } from "@americana/maplibre-shield-generator";
-/**
- * TODO - BUG
- * Exporting HeadlessGraphicsFactory in shieldlib's index.ts causes an unexplained error in node-canvas
- * where it thinks it's running in a browser and attempts to create a browser canvas, and fails. The same
- * behavior occurs in skia-canvas. This hack works well enough for the taginfo script, but ideally the shield
- * library should be capable of generating shields outside the browser.
- */
-import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/src/headless_graphics";
+import { HeadlessGraphicsFactory } from "../src/js/headless_graphics.js";
 import {
   routeParser,
   shieldPredicate,
   networkPredicate,
 } from "../src/js/shield_format.js";
-import type { ShieldSpecification } from "@americana/maplibre-shield-generator/src/types.js";
+import type { ShieldSpecification } from "../src/js/shield_generator_types.js";
 
 await mkdir("dist/shield-sample", { recursive: true });
 
