@@ -64,7 +64,7 @@ let networks = [
   "CA:YT",
   "IS",
   "e-road",
-  "pl:motorways",
+  "PL:motorway",
 
   // Basic Angular Shapes
   "CA:ON:secondary",
