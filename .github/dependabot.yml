@@ -11,3 +11,7 @@ updates:
       semver-patch-days: 7
     labels:
       - "build"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
