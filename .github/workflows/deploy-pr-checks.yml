@@ -113,7 +113,7 @@ jobs:
           <img src="https://preview.americanamap.org/pr/${{ env.PR_NUM }}/sprites/sprite@2x.png" />
           " > pr_preview.md
           [ -f pr_preview-extra.md ] && cat pr_preview-extra.md >> pr_preview.md || echo "No extra PR preview found."
-      - uses: tibdex/github-app-token@v1
+      - uses: tibdex/github-app-token@v2
         id: checks_token
         with:
           app_id: 396440 #osm-americana checks app
