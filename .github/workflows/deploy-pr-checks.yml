@@ -13,7 +13,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     steps:
       - name: "Download PR Number"
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
@@ -33,7 +33,7 @@ jobs:
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/pr_ci_artifacts.zip`, Buffer.from(download.data));
       - name: "Download Build"
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
