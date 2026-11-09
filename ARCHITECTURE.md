@@ -6,7 +6,7 @@ The technology stack for this style can be summarized below:
 
 <img src="doc-img/architecture.drawio.svg" alt="Americana technology stack" />
 
-The dynamic shield generator is included as a [module](shieldlib/README.md) in this repository and also [published to NPM](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
+Route shields are rendered on demand at runtime using the [Americana Shield Generator](https://github.com/osm-americana/maplibre-gl-shields/) plugin, which is [available on NPM](https://www.npmjs.com/package/@americana/maplibre-shield-generator).
 
 Automatic label localization is powered by the [Diplomat](https://github.com/osm-americana/diplomat/) plugin, which is also [available on NPM](https://www.npmjs.com/package/@americana/diplomat).
 
@@ -17,7 +17,6 @@ The repository is organized as follows:
 - **src/** - The map style.
 - **dev/** - Development tools used for style development. See [Style Developer Tools](dev/README.md).
 - **test/** - Automated unit tests.
-- **shieldlib/** - Maplibre [shield rendering library](shieldlib/README.md).
 
 The style is located within **src/** and is organized as follows:
 

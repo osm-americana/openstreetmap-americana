@@ -7,17 +7,12 @@
     "type": "git",
     "url": "git+https://github.com/osm-americana/openstreetmap-americana.git"
   },
-  "workspaces": [
-    "shieldlib"
-  ],
   "scripts": {
-    "build:shieldlib": "cd shieldlib && run-s build:code docs",
     "build:code": "tsx scripts/build",
-    "build": "run-s clean-build sprites build:shieldlib build:code taginfo status_map",
-    "clean": "run-s clean:shieldlib clean:code clean-download clean-build",
+    "build": "run-s clean-build sprites build:code taginfo status_map",
+    "clean": "run-s clean:code clean-download clean-build",
     "clean-download": "shx rm -rf download",
     "clean-build": "shx rm -rf dist build",
-    "clean:shieldlib": "cd shieldlib && shx rm -rf dist docs",
     "clean:code": "shx rm -rf dist",
     "config": "shx cp src/configs/config.maptiler.js src/config.js",
     "code_format": "run-s code_format:prettier code_format:svgo",
@@ -30,7 +25,7 @@
     "serve": "tsx scripts/serve",
     "shields": "tsx scripts/generate_shield_defs -o dist/shields.json",
     "sprites": "tsx scripts/sprites",
-    "start": "run-s clean-build build:shieldlib sprites shields style serve",
+    "start": "run-s clean-build sprites shields style serve",
     "stats": "tsx scripts/stats",
     "style": "tsx scripts/generate_style -o dist/style.json",
     "status_map": "tsx scripts/status_map",
@@ -39,7 +34,7 @@
   },
   "dependencies": {
     "@americana/diplomat": "^0.6.0",
-    "@americana/maplibre-shield-generator": "*",
+    "@americana/maplibre-shield-generator": "^0.2.1",
     "color-rgba": "^2.4.0",
     "events": "^3.3.0",
     "fonteditor-core": "^2.1.11",

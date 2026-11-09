@@ -25,15 +25,12 @@ jobs:
         with:
           node-version-file: package.json
       - name: Install and Build 🔧
-        # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
           npm ci --include=dev
           cp src/configs/config.osmus.js src/config.js
           npm run build
           npm run style
           npm run shields
-          mkdir -p dist/shield-docs
-          cp -r shieldlib/docs/* dist/shield-docs
       - name: Upload 🏗
         uses: actions/upload-pages-artifact@v5
         with:

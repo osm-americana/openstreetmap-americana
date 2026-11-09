@@ -2,8 +2,9 @@
  * Functions for assembling user-facing map components
  */
 import {
-  ShieldDefinitions,
   URLShieldRenderer,
+  type DebugOptions,
+  type ShieldDefinitions,
 } from "@americana/maplibre-shield-generator";
 import config from "../config.js";
 
@@ -20,7 +21,6 @@ import maplibregl, {
   type StyleSpecification,
 } from "maplibre-gl";
 import { MapView } from "./map_view.js";
-import type { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
 import { getGlobalStateForLocalization, getLocales } from "@americana/diplomat";
 
 export function buildStyle(): StyleSpecification {
@@ -65,7 +65,10 @@ export function createMap(
   window["maplibregl"] = maplibregl;
   let map: MapView = (window["map"] = new MapView(options));
 
-  const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
+  const shieldRenderer = new URLShieldRenderer(
+    new URL("shields.json", window.location.href),
+    routeParser
+  )
     .debugOptions(debugOptions)
     .filterImageID(shieldPredicate)
     .filterNetwork(networkPredicate)
