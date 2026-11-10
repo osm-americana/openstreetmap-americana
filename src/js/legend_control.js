@@ -289,7 +289,8 @@ export default class LegendControl {
    * from a symbol layer.
    */
   getIconImageFromSymbol(symbol) {
-    let imageName = symbol.layer.layout["icon-image"]?.name;
+    let imageValue = symbol.layer.layout["icon-image"];
+    let imageName = imageValue?.name ?? imageValue;
     if (!imageName) return;
 
     let iconSize = symbol.layer.layout["icon-size"];
