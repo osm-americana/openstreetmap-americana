@@ -20,7 +20,15 @@ export const track = {
   filter: ["all", trackSelect, unpavedSelect],
   minzoom: 12,
   paint: {
-    "line-color": ["match", getBrunnel, "ford", Color.waterLine, "tunnel", Color.trackTunnelStroke, Color.trackStroke],
+    "line-color": [
+      "match",
+      getBrunnel,
+      "ford",
+      Color.waterLine,
+      "tunnel",
+      Color.trackTunnelStroke,
+      Color.trackStroke,
+    ],
     "line-opacity": opacity,
     "line-blur": 0.75,
     "line-width": 0.5,
