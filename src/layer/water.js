@@ -1,6 +1,6 @@
 "use strict";
 
-import * as Label from "../constants/label.js";
+import { localizedName, localizedNameInline } from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 const bigRivers = ["river", "canal"];
@@ -136,7 +136,7 @@ const labelPaintProperties = {
 
 const labelLayoutProperties = {
   "symbol-placement": "line",
-  "text-field": Label.localizedNameInline,
+  "text-field": localizedNameInline,
   "text-font": ["Americana-Italic"],
   "text-max-angle": 55,
 };
@@ -205,7 +205,7 @@ export const waterPointLabel = {
   "source-layer": "water_name",
   filter: ["all", ["==", ["geometry-type"], "Point"]],
   layout: {
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-font": ["Americana-Bold-Italic"],
     "text-size": [
       "interpolate",

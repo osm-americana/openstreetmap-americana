@@ -31,6 +31,7 @@ function goToResult(index) {
 
   //Clear search box
   searchInput.value = "";
+  searchInput.classList.remove("pending");
   map.getCanvas().focus();
 
   //Zoom map to search result
@@ -105,8 +106,9 @@ function geocoderResultEntry(result) {
     ", "
   );
 
-  let item = document.createElement("div");
+  let item = document.createElement("li");
   item.className = "gc-result-item";
+  item.role = "option";
 
   let itemCategory = document.createElement("div");
   itemCategory.className = "gc-result-category";
@@ -141,6 +143,7 @@ function search(e) {
   let queryTerm = e.target.value;
   resultSelectIndex = -1;
   if (queryTerm.length < 3) {
+    searchInput.classList.remove("pending");
     liveResults.innerHTML = "";
     return;
   }
@@ -168,12 +171,17 @@ async function doSearch(searchQuery) {
   lastSearchRequest = controller;
 
   try {
+    if (!searchInput.classList.contains("pending")) {
+      searchInput.classList.add("pending");
+      searchInput.animate({ backgroundImage: ["none", "none"] }, 300);
+    }
     const response = await fetch(searchQuery, { signal: controller.signal });
     const data = await response.json();
 
     if (controller.signal.aborted) {
       return;
     }
+    searchInput.classList.remove("pending");
     geocoderResponse(data);
   } catch (e) {
     if (e instanceof DOMException) {
@@ -228,9 +236,11 @@ function arrowNavigate(e) {
     );
   }
   if (resultSelectIndex >= 0) {
-    liveResults.children[resultSelectIndex].classList.add(
-      "gc-result-item-selected"
-    );
+    const selectedItem = liveResults.children[resultSelectIndex];
+    selectedItem.classList.add("gc-result-item-selected");
+    searchInput.ariaActiveDescendantElement = selectedItem;
+  } else {
+    searchInput.ariaActiveDescendantElement = null;
   }
 }
 
@@ -245,6 +255,9 @@ export class PhotonSearchControl extends maplibregl.Evented {
     searchInput = document.createElement("input");
     searchInput.id = "geocoder-search-input";
     searchInput.type = "search";
+    searchInput.role = "combobox";
+    searchInput.ariaExpanded = true;
+    searchInput.setAttribute("aria-controls", "geocoder-live-results");
     searchInput.placeholder = "Search";
     searchInput.autocomplete = "off";
     searchInput.addEventListener("input", search);
@@ -253,14 +266,14 @@ export class PhotonSearchControl extends maplibregl.Evented {
     var form = document.createElement("form");
     form.appendChild(searchInput);
 
-    liveResults = document.createElement("div");
+    liveResults = document.createElement("ul");
     liveResults.id = "geocoder-live-results";
+    liveResults.role = "listbox";
 
     this._container = document.createElement("div");
     this._container.id = "geocoder-search-panel";
     this._container.className = "maplibregl-ctrl";
-    this._container.appendChild(form);
-    this._container.appendChild(liveResults);
+    this._container.append(form, liveResults);
 
     return this._container;
   }

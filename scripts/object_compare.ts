@@ -6,13 +6,13 @@
  * @param {T|null} object2 - The second object to compare.
  * @returns {T} - An object containing the differences between object2 and object1.
  */
-export function calculateDifference<T extends object>(
+export function calculateDifference<T extends Record<string, any>>(
   object1: T | null,
-  object2: T | null
+  object2: Record<string, any> | null
 ): T {
   // If one object exists and the other doesn't, return the difference
   if (object1 === null && object2 !== null) {
-    return object2;
+    return object2 as T;
   } else if (object2 === null && object1 !== null) {
     return negate(object1);
   }
@@ -31,6 +31,13 @@ export function calculateDifference<T extends object>(
       // Calculate the difference for numeric properties
       difference[key] = ((object2![key] as number) -
         (object1[key] as number)) as T[Extract<keyof T, string>];
+    } else if (object2![key] === undefined) {
+      // If the property exists in object1 but not in object2, negate it
+      if (typeof object1[key] === "object" && object1[key] !== null) {
+        difference[key] = negate(object1[key]) as T[Extract<keyof T, string>];
+      } else {
+        difference[key] = -object1[key] as T[Extract<keyof T, string>];
+      }
     } else {
       // If the property exists in object1 but not in object2, include it in the result
       difference[key] = negate(object1[key] as object) as T[Extract<
@@ -43,7 +50,15 @@ export function calculateDifference<T extends object>(
   // Include properties that exist in object2 but not in object1
   for (const key in object2!) {
     if (!(key in object1!)) {
-      difference[key] = object2[key];
+      if (typeof object2![key] === "object" && object2![key] !== null) {
+        // For nested objects, recursively calculate the difference
+        (difference as any)[key] = calculateDifference(
+          null,
+          object2![key]
+        ) as any;
+      } else {
+        (difference as any)[key] = object2![key];
+      }
     }
   }
 
@@ -78,22 +93,22 @@ function negate<T extends object>(object: T): T {
 // "|           | main          | this PR      | change          | % change        |",
 export type ComparedStats = {
   name: string;
-  beforeValue: number | null;
-  afterValue: number | null;
+  beforeValue: number | null | undefined;
+  afterValue: number | null | undefined;
   change: number;
   pctChange: number | null;
 };
 
 export function statsComparisonRow(
   name: string,
-  val1: number | null,
-  val2: number | null,
+  val1: number | null | undefined,
+  val2: number | null | undefined,
   change: number
 ): ComparedStats {
   let pctChange: number | null;
 
-  if (val1 !== null) {
-    if (val2 !== null) {
+  if (val1 !== null && val1 !== undefined) {
+    if (val2 !== null && val2 !== undefined) {
       pctChange = change / val1;
     } else {
       pctChange = -1;
@@ -118,8 +133,8 @@ const pctFormat: Intl.NumberFormatOptions = {
   signDisplay: "exceptZero",
 };
 
-function naLocString(val: number | null) {
-  return val !== null ? val.toLocaleString("en") : "N/A";
+function naLocString(val: number | null | undefined) {
+  return val !== null && val !== undefined ? val.toLocaleString("en") : "N/A";
 }
 
 /**
@@ -139,8 +154,8 @@ export function mdStringValues(stats: ComparedStats): string[] {
 
 export function mdCompareRow(
   name: string,
-  val1: number | null,
-  val2: number | null,
+  val1: number | null | undefined,
+  val2: number | null | undefined,
   change: number
 ): string {
   return mdStringValues(statsComparisonRow(name, val1, val2, change)).join(

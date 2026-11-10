@@ -1,4 +1,7 @@
-import * as Label from "../constants/label.js";
+import {
+  localizedName,
+  localizedNameWithLocalGloss,
+} from "@americana/diplomat";
 import * as Color from "../constants/color.js";
 
 const labelHaloColor = [
@@ -78,7 +81,7 @@ export const village = {
         [11, 0.5],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -125,7 +128,7 @@ export const town = {
         [11, 0.7],
       ],
     },
-    "text-field": Label.localizedNameWithLocalGloss,
+    "text-field": localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -184,7 +187,7 @@ export const city = {
         [11, 0.9],
       ],
     },
-    "text-field": Label.localizedNameWithLocalGloss,
+    "text-field": localizedNameWithLocalGloss,
     "text-anchor": "bottom",
     "text-variable-anchor": [
       "bottom",
@@ -236,7 +239,7 @@ export const suburb = {
         [14, 18],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": {
@@ -294,7 +297,7 @@ export const quarter = {
         [16, 18],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": {
@@ -349,7 +352,7 @@ export const neighborhood = {
         [16, 14],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": {
@@ -404,7 +407,7 @@ export const state = {
         [6, 14],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-padding": 1,
     "text-transform": "uppercase",
     "text-letter-spacing": 0.04,
@@ -447,7 +450,7 @@ export const countryOther = {
         [7, 15],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -477,7 +480,7 @@ export const country3 = {
         [7, 17],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -507,7 +510,7 @@ export const country2 = {
         [5, 17],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-max-width": 6.25,
     "text-transform": "none",
   },
@@ -548,7 +551,7 @@ export const country1 = {
         [6, 19],
       ],
     },
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-max-width": ["step", ["zoom"], 6.25, 3, 12],
     "text-transform": "none",
     "text-offset": [
@@ -575,7 +578,7 @@ export const continent = {
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": 13,
-    "text-field": Label.localizedName,
+    "text-field": localizedName,
     "text-justify": "center",
     "text-transform": "uppercase",
   },

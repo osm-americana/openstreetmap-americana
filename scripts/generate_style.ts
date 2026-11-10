@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 
-import { Command, OptionValues } from "commander";
+import { Command, type OptionValues } from "commander";
 import { validateStyleMin as validate } from "@maplibre/maplibre-gl-style-spec";
 import type { StyleSpecification } from "maplibre-gl";
 

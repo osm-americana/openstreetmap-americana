@@ -2,8 +2,9 @@
  * Functions for assembling user-facing map components
  */
 import {
-  ShieldDefinitions,
   URLShieldRenderer,
+  type DebugOptions,
+  type ShieldDefinitions,
 } from "@americana/maplibre-shield-generator";
 import config from "../config.js";
 
@@ -14,10 +15,13 @@ import {
 } from "../js/shield_format.js";
 
 import * as Poi from "../js/poi.js";
-import * as Label from "../constants/label.js";
 import * as Style from "./style.js";
-import maplibregl, { Map, MapOptions, StyleSpecification } from "maplibre-gl";
-import { DebugOptions } from "@americana/maplibre-shield-generator/src/types.js";
+import maplibregl, {
+  type MapOptions,
+  type StyleSpecification,
+} from "maplibre-gl";
+import { MapView } from "./map_view.js";
+import { getGlobalStateForLocalization, getLocales } from "@americana/diplomat";
 
 export function buildStyle(): StyleSpecification {
   var getUrl = window.location;
@@ -33,7 +37,7 @@ export function buildStyle(): StyleSpecification {
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
     config.FONT_URL ?? "https://font.americanamap.org/{fontstack}/{range}.pbf",
-    Label.getLocales()
+    getLocales()
   );
 }
 
@@ -57,16 +61,28 @@ export function createMap(
   shieldDefCallback: (shields: ShieldDefinitions) => void,
   options: MapOptions,
   debugOptions: DebugOptions
-): Map {
+): MapView {
   window["maplibregl"] = maplibregl;
-  let map: Map = (window["map"] = new maplibregl.Map(options));
+  let map: MapView = (window["map"] = new MapView(options));
 
-  const shieldRenderer = new URLShieldRenderer("shields.json", routeParser)
+  const shieldRenderer = new URLShieldRenderer(
+    new URL("shields.json", window.location.href),
+    routeParser
+  )
     .debugOptions(debugOptions)
     .filterImageID(shieldPredicate)
     .filterNetwork(networkPredicate)
     .renderOnMaplibreGL(map)
     .onShieldDefLoad(shieldDefCallback);
+
+  map.once("styledata", (event) => {
+    let localizationState = getGlobalStateForLocalization(getLocales(), {
+      uppercaseCountryNames: true,
+    });
+    for (let [key, value] of Object.entries(localizationState)) {
+      map.setGlobalStateProperty(key, value);
+    }
+  });
 
   map.on("styleimagemissing", function (e) {
     switch (e.id.split("\n")[0]) {
