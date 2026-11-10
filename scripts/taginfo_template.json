@@ -244,7 +244,6 @@
     },
     {
       "key": "surface",
-      "value": "track",
       "object_types": ["way"],
       "description": "Track roads have a two-track line pattern that is dashed if unpaved and solid if paved.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
@@ -434,7 +433,7 @@
       "key": "ford",
       "value": "yes",
       "object_types": ["way"],
-      "description": "The color of track roads changes from brown to blue for ways tagged as fords.",
+      "description": "A track road with a ford blends in with the waterway it crosses.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
     },
     {
