@@ -72,6 +72,9 @@ export function build(locales) {
     lyrBackground.pierArea,
     lyrBackground.pierLine,
 
+    lyrTrack.trackTunnel,
+    lyrTrack.pavedTrackTunnel,
+
     lyrRail.railTunnel.dashes(),
     lyrRail.railServiceTunnel.dashes(),
 

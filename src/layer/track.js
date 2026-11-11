@@ -9,16 +9,22 @@ const bridgeSelect = ["==", ["get", "brunnel"], "bridge"];
 const tunnelSelect = ["==", ["get", "brunnel"], "tunnel"];
 const fordSelect = ["==", ["get", "brunnel"], "ford"];
 const notFordSelect = ["!=", ["get", "brunnel"], "ford"];
+const notBridgeTunnelSelect = [
+  "!",
+  ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]],
+];
 const opacity = ["interpolate", ["exponential", 1.2], ["zoom"], 12, 0, 13, 1];
 const getBrunnel = ["get", "brunnel"];
+const getLayer = ["coalesce", ["get", "layer"], 0];
 
 export const track = {
   id: "highway-track",
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", trackSelect, unpavedSelect],
+  filter: ["all", trackSelect, unpavedSelect, notBridgeTunnelSelect],
   minzoom: 12,
+  layout: { "line-sort-key": getLayer },
   paint: {
     "line-color": [
       "match",
@@ -51,7 +57,7 @@ export const pavedTrack = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", trackSelect, pavedSelect],
+  filter: ["all", trackSelect, pavedSelect, notBridgeTunnelSelect],
   minzoom: 12,
   paint: { ...track.paint },
 };
@@ -68,7 +74,7 @@ export const trackBridge = {
 };
 
 export const trackTunnel = {
-  id: "highway-track-tunnell",
+  id: "highway-track-tunnel",
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
