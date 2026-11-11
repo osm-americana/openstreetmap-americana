@@ -20,7 +20,7 @@ const maybeLocalConfig = async (name = "local.config.js") => {
 
 const buildWith = async (
   key: string,
-  buildOptions: BuildOptions
+  buildOptions: BuildOptions,
 ): Promise<BuildContext[]> => {
   await mkdir("dist", { recursive: true });
 
@@ -31,11 +31,11 @@ const buildWith = async (
       "shieldtest.html",
       "favicon.ico",
       "fonts.css",
-    ].map((f) => copyFile(`src/${f}`, `dist/${f}`))
+    ].map((f) => copyFile(`src/${f}`, `dist/${f}`)),
   );
   await copyFile(
     "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
-    "dist/gh-fork-ribbon.css"
+    "dist/gh-fork-ribbon.css",
   );
 
   const localConfig = await maybeLocalConfig();
@@ -68,11 +68,11 @@ const buildWith = async (
 };
 
 export const buildContext = (
-  buildOptions: BuildOptions = {}
+  buildOptions: BuildOptions = {},
 ): Promise<BuildContext[]> => buildWith("context", buildOptions);
 
 export const build = (
-  buildOptions: BuildOptions = {}
+  buildOptions: BuildOptions = {},
 ): Promise<BuildContext[]> => buildWith("build", buildOptions);
 
 await build();

@@ -12,11 +12,11 @@ function generateGridPattern(xOffset: number, yOffset: number): Buffer {
   const gridSvg = `<svg width="${scale}" height="${scale}" xmlns="http://www.w3.org/2000/svg">
         <rect x="0" y="0" width="${scale}" height="${scale}" fill="none"/>
         <path d="M ${scale - xOffset} 0 V ${scale} M 0 ${
-    scale - yOffset
-  } H ${scale}" stroke="magenta" stroke-opacity="0.9" stroke-width="1"/>
+          scale - yOffset
+        } H ${scale}" stroke="magenta" stroke-opacity="0.9" stroke-width="1"/>
         <path d="M ${scale / 2 - xOffset} 0 V ${scale} M 0 ${
-    scale / 2 - yOffset
-  } H ${scale}" stroke="gray" stroke-opacity="0.2" stroke-width="1"/>
+          scale / 2 - yOffset
+        } H ${scale}" stroke="gray" stroke-opacity="0.2" stroke-width="1"/>
   </svg>`;
   return Buffer.from(gridSvg);
 }

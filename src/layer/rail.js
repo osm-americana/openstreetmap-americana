@@ -158,7 +158,7 @@ class Railway {
       this.brunnel,
       this.minZoom,
       null,
-      this.constraints
+      this.constraints,
     );
     layer.layout = {
       "line-cap": "butt",
@@ -181,7 +181,7 @@ class Railway {
       this.brunnel,
       this.minZoom,
       null,
-      this.constraints
+      this.constraints,
     );
     layer.layout = {
       "line-cap": "butt",
@@ -192,10 +192,10 @@ class Railway {
       "line-color": lineColor,
       "line-opacity": opacity,
       "line-width": zoomInterpolate(
-        multiplyMatchExpression(lineWidth, this.dashWidthFactor)
+        multiplyMatchExpression(lineWidth, this.dashWidthFactor),
       ),
       "line-dasharray": this.dashArray.map(
-        (stop) => stop / 2 / this.dashWidthFactor
+        (stop) => stop / 2 / this.dashWidthFactor,
       ),
     };
     if (this.constraints != null) {
@@ -429,8 +429,8 @@ export function getLayerSeparatedBridgeLayers(bridgeLayers) {
   //Render bridge without layer on the lowest bridge layer
   bridgeLayers.forEach((layer) =>
     layers.push(
-      Util.filteredClone(layer, ["!", ["has", "layer"]], "_layer_bottom")
-    )
+      Util.filteredClone(layer, ["!", ["has", "layer"]], "_layer_bottom"),
+    ),
   );
 
   //One layer at a time to handle stacked bridges
@@ -444,9 +444,9 @@ export function getLayerSeparatedBridgeLayers(bridgeLayers) {
       Util.filteredClone(
         layer,
         [">=", ["coalesce", ["get", "layer"], 0], 5],
-        "_layer_top"
-      )
-    )
+        "_layer_top",
+      ),
+    ),
   );
 
   return layers;

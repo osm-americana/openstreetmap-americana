@@ -29,7 +29,7 @@ export class MapView extends maplibregl.Map {
       this.setLayoutProperty(
         hillshading.id,
         "visibility",
-        newValue ? "visible" : "none"
+        newValue ? "visible" : "none",
       );
       this.fire("americana.terrain");
     });

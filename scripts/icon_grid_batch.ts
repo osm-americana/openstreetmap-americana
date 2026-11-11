@@ -8,7 +8,7 @@ fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
 // Get changed/new icons from git diff
 const diff = execSync(
-  `git diff --name-status origin/main...HEAD -- ${ICONS_DIR}/`
+  `git diff --name-status origin/main...HEAD -- ${ICONS_DIR}/`,
 )
   .toString()
   .split("\n")
@@ -16,7 +16,7 @@ const diff = execSync(
   .map((line) => line.split("\t"))
   .filter(
     ([status, file]) =>
-      (status === "A" || status === "M") && file.endsWith(".svg")
+      (status === "A" || status === "M") && file.endsWith(".svg"),
   )
   .map(([, file]) => file);
 
@@ -28,7 +28,7 @@ if (diff.length === 0) {
   for (const icon of diff) {
     const outPng = path.join(
       OUTPUT_DIR,
-      path.basename(icon, ".svg") + "_preview.png"
+      path.basename(icon, ".svg") + "_preview.png",
     );
     try {
       execSync(`npm run icon_grid -- ${icon}`);

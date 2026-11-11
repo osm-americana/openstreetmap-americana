@@ -37,7 +37,7 @@ export function buildStyle(): StyleSpecification {
     config.OPENMAPTILES_URL,
     `${baseUrl}/sprites/sprite`,
     config.FONT_URL ?? "https://font.americanamap.org/{fontstack}/{range}.pbf",
-    getLocales()
+    getLocales(),
   );
 }
 
@@ -52,7 +52,7 @@ function removeAfterLastSlash(str: string): string {
 export function loadRTLPlugin(): void {
   maplibregl.setRTLTextPlugin(
     "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
-    true
+    true,
   );
 }
 
@@ -60,14 +60,14 @@ export function createMap(
   window: Window,
   shieldDefCallback: (shields: ShieldDefinitions) => void,
   options: MapOptions,
-  debugOptions: DebugOptions
+  debugOptions: DebugOptions,
 ): MapView {
   window["maplibregl"] = maplibregl;
   let map: MapView = (window["map"] = new MapView(options));
 
   const shieldRenderer = new URLShieldRenderer(
     new URL("shields.json", window.location.href),
-    routeParser
+    routeParser,
   )
     .debugOptions(debugOptions)
     .filterImageID(shieldPredicate)

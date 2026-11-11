@@ -83,7 +83,7 @@ async function takeScreenshot(screenshot: SampleSpecification) {
   const pagePath: string = screenshot.controls ? "" : "bare_map.html";
 
   await page.goto(
-    `http://localhost:1776/${pagePath}#map=${screenshot.location}`
+    `http://localhost:1776/${pagePath}#map=${screenshot.location}`,
   );
 
   // Wait for map to load, then wait two more seconds for images, etc. to load.
@@ -106,7 +106,7 @@ async function withRetry<T>(
   operation: () => Promise<T>,
   name: string,
   maxRetries = 5,
-  baseDelay = 5000
+  baseDelay = 5000,
 ): Promise<T> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -114,7 +114,7 @@ async function withRetry<T>(
     } catch (err) {
       console.error(
         `Attempt ${attempt}/${maxRetries} failed for ${name}:`,
-        err
+        err,
       );
 
       if (attempt === maxRetries) {

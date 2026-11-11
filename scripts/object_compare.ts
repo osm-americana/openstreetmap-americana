@@ -8,7 +8,7 @@
  */
 export function calculateDifference<T extends Record<string, any>>(
   object1: T | null,
-  object2: Record<string, any> | null
+  object2: Record<string, any> | null,
 ): T {
   // If one object exists and the other doesn't, return the difference
   if (object1 === null && object2 !== null) {
@@ -54,7 +54,7 @@ export function calculateDifference<T extends Record<string, any>>(
         // For nested objects, recursively calculate the difference
         (difference as any)[key] = calculateDifference(
           null,
-          object2![key]
+          object2![key],
         ) as any;
       } else {
         (difference as any)[key] = object2![key];
@@ -103,7 +103,7 @@ export function statsComparisonRow(
   name: string,
   val1: number | null | undefined,
   val2: number | null | undefined,
-  change: number
+  change: number,
 ): ComparedStats {
   let pctChange: number | null;
 
@@ -156,9 +156,9 @@ export function mdCompareRow(
   name: string,
   val1: number | null | undefined,
   val2: number | null | undefined,
-  change: number
+  change: number,
 ): string {
   return mdStringValues(statsComparisonRow(name, val1, val2, change)).join(
-    " | "
+    " | ",
   );
 }

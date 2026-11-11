@@ -422,7 +422,7 @@ class Road {
       this.brunnel,
       this.minZoomFill,
       this.maxZoomFill,
-      this.constraints
+      this.constraints,
     );
     layer.layout = {
       "line-cap": "round",
@@ -449,7 +449,7 @@ class Road {
       this.brunnel,
       this.minZoomCasing,
       this.maxZoomCasing,
-      this.constraints
+      this.constraints,
     );
     layer.layout = {
       "line-cap": this.brunnel === "bridge" ? "butt" : "round",
@@ -480,7 +480,7 @@ class Road {
       this.brunnel,
       Math.min(this.minZoomCasing, this.minZoomFill),
       Math.max(this.maxZoomCasing, this.maxZoomFill),
-      this.constraints
+      this.constraints,
     );
     layer.filter = combineConstraints(layer.filter, isUnpaved);
     layer.layout = {
@@ -731,7 +731,7 @@ class Primary extends Road {
     this.fillColor = roadFillColor(
       roadHue,
       this.minZoomFill,
-      this.minZoomFill + 2
+      this.minZoomFill + 2,
     );
   }
 }
@@ -750,7 +750,7 @@ class PrimaryToll extends Primary {
     this.fillColor = tollRoadFillColor(
       tollRoadHue,
       this.minZoomFill,
-      this.minZoomFill + 2
+      this.minZoomFill + 2,
     );
   }
 }
@@ -768,7 +768,7 @@ class PrimaryExpressway extends Primary {
     this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
       this.minZoomCasing,
-      this.minZoomCasing + 2
+      this.minZoomCasing + 2,
     );
   }
 }
@@ -790,7 +790,7 @@ class Secondary extends Road {
     this.fillColor = roadFillColor(
       roadHue,
       this.minZoomFill,
-      this.minZoomFill + 2
+      this.minZoomFill + 2,
     );
   }
 }
@@ -809,7 +809,7 @@ class SecondaryToll extends Secondary {
     this.fillColor = tollRoadFillColor(
       tollRoadHue,
       this.minZoomFill,
-      this.minZoomFill + 2
+      this.minZoomFill + 2,
     );
   }
 }
@@ -827,7 +827,7 @@ class SecondaryExpressway extends Secondary {
     this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
       this.minZoomCasing,
-      this.minZoomCasing + 2
+      this.minZoomCasing + 2,
     );
   }
 }
@@ -849,7 +849,7 @@ class Tertiary extends Road {
     this.fillColor = roadFillColor(
       roadHue,
       this.minZoomFill,
-      this.minZoomFill + 2
+      this.minZoomFill + 2,
     );
   }
 }
@@ -868,7 +868,7 @@ class TertiaryToll extends Tertiary {
     this.fillColor = tollRoadFillColor(
       tollRoadHue,
       this.minZoomFill,
-      this.minZoomFill + 2
+      this.minZoomFill + 2,
     );
   }
 }
@@ -886,7 +886,7 @@ class TertiaryExpressway extends Tertiary {
     this.fillColor = highwayFillColor;
     this.casingColor = expresswayCasingColor(
       this.minZoomCasing,
-      this.minZoomCasing + 2
+      this.minZoomCasing + 2,
     );
   }
 }

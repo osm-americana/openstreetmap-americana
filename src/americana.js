@@ -41,7 +41,7 @@ export const map = createMap(
     attributionControl: false,
     experimentalZoomLevelsToOverscale: 0,
   },
-  debugOptions
+  debugOptions,
 );
 
 // Add our sample data.
@@ -87,7 +87,7 @@ function shieldDefLoad(shields) {
 
   if (window.LIVE_RELOAD) {
     new EventSource("/esbuild").addEventListener("change", () =>
-      location.reload()
+      location.reload(),
     );
   }
 }

@@ -11,7 +11,7 @@ import {
 export function missingIconHandler(
   shieldRenderer: AbstractShieldRenderer,
   map: Map,
-  e: MapStyleImageMissingEvent
+  e: MapStyleImageMissingEvent,
 ) {
   try {
     missingIconLoader(shieldRenderer, map, e);
@@ -23,7 +23,7 @@ export function missingIconHandler(
 export function missingIconLoader(
   shieldRenderer: AbstractShieldRenderer,
   map: Map,
-  e: MapStyleImageMissingEvent
+  e: MapStyleImageMissingEvent,
 ) {
   const sprite: string = e.id.split("\n")[1].split("=")[1];
   const color: string = e.id.split("\n")[2].split("=")[1];
@@ -54,7 +54,7 @@ export function missingIconLoader(
     0,
     0,
     ctx.canvas.width,
-    ctx.canvas.height
+    ctx.canvas.height,
   );
   map.addImage(
     e.id,
@@ -65,6 +65,6 @@ export function missingIconLoader(
     },
     {
       pixelRatio: shieldRenderer.pixelRatio(),
-    }
+    },
   );
 }

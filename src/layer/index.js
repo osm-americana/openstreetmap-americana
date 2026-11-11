@@ -150,7 +150,7 @@ export function build(locales) {
 
     lyrOneway.surface,
 
-    lyrAerialway.dragLift
+    lyrAerialway.dragLift,
   );
 
   layers.push(lyrBuilding.building);
@@ -256,7 +256,7 @@ export function build(locales) {
     lyrPlace.country3,
     lyrPlace.country2,
     lyrPlace.country1,
-    lyrPlace.continent
+    lyrPlace.continent,
   );
 
   localizeLayers(layers, locales);
