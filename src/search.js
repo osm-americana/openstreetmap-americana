@@ -90,7 +90,7 @@ function geocoderResultEntry(result) {
   let p = result.properties;
   let type = mapResultToDescription(p.type, p.osm_key, p.osm_value).replaceAll(
     "_",
-    " "
+    " ",
   );
 
   let addr = collapseArray([p.housenumber, p.street], " ");
@@ -103,7 +103,7 @@ function geocoderResultEntry(result) {
 
   let description = collapseArray(
     [addr, p.city, p.county, p.state, p.country],
-    ", "
+    ", ",
   );
 
   let item = document.createElement("li");
@@ -232,7 +232,7 @@ function arrowNavigate(e) {
 
   if (priorIndex >= 0) {
     liveResults.children[priorIndex].classList.remove(
-      "gc-result-item-selected"
+      "gc-result-item-selected",
     );
   }
   if (resultSelectIndex >= 0) {

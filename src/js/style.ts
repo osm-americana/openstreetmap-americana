@@ -7,7 +7,7 @@ export function build(
   tileURL: string,
   spriteURL: string,
   glyphURL: string,
-  locales: string[]
+  locales: string[],
 ): StyleSpecification {
   return {
     name: "Americana",

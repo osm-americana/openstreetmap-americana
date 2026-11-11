@@ -14,7 +14,7 @@ import Pbf from "pbf";
 const layers = build(["en"])
   .filter(
     (layer: LayerSpecification) =>
-      layer["source-layer"] === "transportation" && "filter" in layer
+      layer["source-layer"] === "transportation" && "filter" in layer,
   )
   //TODO: this map call will fail if there is a BackgroundLayerSpecification in the layers array, because it doesn't have a filter property.
   .map(
@@ -22,7 +22,7 @@ const layers = build(["en"])
       (
         expression.createExpression((layer as any).filter)
           .value as StyleExpression
-      ).expression
+      ).expression,
   );
 
 const suite = new Benchmark.Suite();
@@ -31,11 +31,11 @@ async function addTest(
   name: string,
   z: number,
   x: number,
-  y: number
+  y: number,
 ): Promise<void> {
   const tile = await (
     await fetch(
-      `https://d1zqyi8v6vm8p9.cloudfront.net/planet/${z}/${x}/${y}.mvt`
+      `https://d1zqyi8v6vm8p9.cloudfront.net/planet/${z}/${x}/${y}.mvt`,
     )
   ).arrayBuffer();
 

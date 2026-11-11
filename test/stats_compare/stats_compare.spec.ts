@@ -46,29 +46,29 @@ describe("stats_compare", function () {
     it("tests stats diff", function () {
       expect(calculateDifference(simpleA, simpleB)).to.deep.equal(diffSimpleAB);
       expect(calculateDifference(complexA, complexB)).to.deep.equal(
-        diffComplexAB
+        diffComplexAB,
       );
     });
   });
   describe("#mdCompareRow", function () {
     it("tests md compare same", function () {
       expect(mdCompareRow("a", simpleA.a, simpleA.a, simpleA0.a)).to.deep.equal(
-        simpleAAmdRow
+        simpleAAmdRow,
       );
       expect(mdCompareRow("a", simpleA.a, null, negSimpleA.a)).to.deep.equal(
-        simpleAnullmdRow
+        simpleAnullmdRow,
       );
     });
     it("tests md compare with undefined values", function () {
       // Test that undefined values are handled properly (this was the original bug)
       expect(mdCompareRow("test", 5, undefined, 5)).to.deep.equal(
-        "test | 5 | N/A | 5 | -100.0%"
+        "test | 5 | N/A | 5 | -100.0%",
       );
       expect(mdCompareRow("test", undefined, 5, 5)).to.deep.equal(
-        "test | N/A | 5 | 5 | N/A"
+        "test | N/A | 5 | 5 | N/A",
       );
       expect(mdCompareRow("test", undefined, undefined, 0)).to.deep.equal(
-        "test | N/A | N/A | 0 | N/A"
+        "test | N/A | N/A | 0 | N/A",
       );
     });
   });
@@ -94,7 +94,7 @@ describe("stats_compare", function () {
       const filePath = path.join(
         path.dirname(new URL(import.meta.url).pathname),
         "test-cases",
-        filename
+        filename,
       );
       const content = fs.readFileSync(filePath, "utf8");
       return JSON.parse(content);

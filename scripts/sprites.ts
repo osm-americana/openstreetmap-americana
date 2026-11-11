@@ -7,13 +7,13 @@ import { Sprites, type SpriteSheetResult, type SvgId } from "@basemaps/sprites";
 await fs.mkdir("./dist/sprites/", { recursive: true });
 
 const sprites: SvgId[] = await Promise.all(
-  (
-    await glob("./icons/*.svg")
-  ).map(async (spritePath: string): Promise<SvgId> => {
-    const id = path.parse(spritePath).name;
-    const buffer = await fs.readFile(spritePath);
-    return { id, buffer };
-  })
+  (await glob("./icons/*.svg")).map(
+    async (spritePath: string): Promise<SvgId> => {
+      const id = path.parse(spritePath).name;
+      const buffer = await fs.readFile(spritePath);
+      return { id, buffer };
+    },
+  ),
 );
 
 console.log(`Building ${sprites.length} sprites`);

@@ -34,49 +34,49 @@ const layersRow: string = mdCompareRow(
   "Layers",
   stats1.layerCount,
   stats2.layerCount,
-  difference.layerCount
+  difference.layerCount,
 );
 
 const sizeRow: string = mdCompareRow(
   "StyleJSON Size (b)",
   stats1.styleSize,
   stats2.styleSize,
-  difference.styleSize
+  difference.styleSize,
 );
 
 const gzSizeRow: string = mdCompareRow(
   "Compressed StyleJSON Size (b)",
   stats1.gzipStyleSize,
   stats2.gzipStyleSize,
-  difference.gzipStyleSize
+  difference.gzipStyleSize,
 );
 
 const shieldRow: string = mdCompareRow(
   "ShieldJSON Size (b)",
   stats1.shieldJSONSize,
   stats2.shieldJSONSize,
-  difference.shieldJSONSize
+  difference.shieldJSONSize,
 );
 
 const gzShieldRow: string = mdCompareRow(
   "Compressed ShieldJSON Size (b)",
   stats1.gzipShieldJSONSize,
   stats2.gzipShieldJSONSize,
-  difference.gzipShieldJSONSize
+  difference.gzipShieldJSONSize,
 );
 
 const ss1xRow: string = mdCompareRow(
   "1x Sprite Sheet Size (b)",
   stats1.spriteSheet1xSize,
   stats2.spriteSheet1xSize,
-  difference.spriteSheet1xSize
+  difference.spriteSheet1xSize,
 );
 
 const ss2xRow: string = mdCompareRow(
   "2x Sprite Sheet Size (b)",
   stats1.spriteSheet2xSize,
   stats2.spriteSheet2xSize,
-  difference.spriteSheet2xSize
+  difference.spriteSheet2xSize,
 );
 
 printTable("Style size statistics", [
@@ -101,8 +101,8 @@ for (const layer in difference.layerGroup) {
       layer,
       stats1.layerGroup[layer]?.layerCount,
       stats2.layerGroup[layer]?.layerCount,
-      difference.layerGroup[layer]?.layerCount
-    )
+      difference.layerGroup[layer]?.layerCount,
+    ),
   );
 }
 
@@ -120,8 +120,8 @@ for (const layer in difference.layerGroup) {
       layer,
       stats1.layerGroup[layer]?.size,
       stats2.layerGroup[layer]?.size,
-      difference.layerGroup[layer]?.size
-    )
+      difference.layerGroup[layer]?.size,
+    ),
   );
 }
 

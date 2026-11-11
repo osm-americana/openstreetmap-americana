@@ -5,7 +5,7 @@ import * as ShieldDef from "../src/js/shield_defs.js";
 
 function fillPaths(svg: string, codes: string[]): string {
   const selectors: Set<string> = new Set(
-    codes.map((code) => `.${code.toLowerCase()}`)
+    codes.map((code) => `.${code.toLowerCase()}`),
   );
   if (selectors.has(".cy")) {
     // Akrotiri and Dhekelia uses Cypriot road signage.
@@ -40,17 +40,17 @@ let worldSVG: string = fs.readFileSync(
   `${process.cwd()}/scripts/blank_map_world.svg`,
   {
     encoding: "utf8",
-  }
+  },
 );
 worldSVG = fillPaths(
   worldSVG,
   Object.keys(shields.networks)
     .map((network) => network.match(/^(\w\w)(?::|$)|^omt-(\w\w)-/))
     .filter((m): m is RegExpMatchArray => m !== null)
-    .map((m) => m[1] || m[2])
+    .map((m) => m[1] || m[2]),
 );
 worldSVG = worldSVG.replace(
   /<title>.+?<\/title>/,
-  "<title>Countries with shields supported by OpenStreetMap Americana</title>"
+  "<title>Countries with shields supported by OpenStreetMap Americana</title>",
 );
 fs.writeFileSync(`${process.cwd()}/doc-img/shield_map_world.svg`, worldSVG);

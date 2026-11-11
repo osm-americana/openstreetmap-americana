@@ -21,7 +21,7 @@ export const map = createMap(
     attributionControl: false,
     experimentalZoomLevelsToOverscale: 0,
   },
-  debugOptions
+  debugOptions,
 );
 
 function shieldDefLoad() {
@@ -32,7 +32,7 @@ function shieldDefLoad() {
 
   if (window.LIVE_RELOAD) {
     new EventSource("/esbuild").addEventListener("change", () =>
-      location.reload()
+      location.reload(),
     );
   }
 }

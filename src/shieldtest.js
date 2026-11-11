@@ -384,7 +384,7 @@ const renderAllShields = async () => {
   const progress = document.querySelector("#progress-overlay progress");
   progress.max = allShields.flatMap((d) => mergeArrays(d.refs, d.names)).length;
   const columns = Math.max(
-    ...allShields.flatMap((d) => mergeArrays(d.refs, d.names).length)
+    ...allShields.flatMap((d) => mergeArrays(d.refs, d.names).length),
   );
   const table = document.querySelector("#shield-table").createTBody();
   for (const { network, refs, names } of allShields) {
@@ -397,7 +397,7 @@ const renderAllShields = async () => {
           performance,
           progress,
           () => getShieldImage(network, ref),
-          network
+          network,
         );
       }
     } else if (names) {
@@ -407,7 +407,7 @@ const renderAllShields = async () => {
           performance,
           progress,
           () => getShieldImage(network, "", name),
-          network
+          network,
         );
       }
     }
@@ -428,9 +428,9 @@ const renderAllShields = async () => {
         img.decode().catch(
           () =>
             /* occasionally fails for no reason */
-            new Promise(requestAnimationFrame)
-        )
-      )
+            new Promise(requestAnimationFrame),
+        ),
+      ),
     );
   }
 };
@@ -440,7 +440,7 @@ function renderAndRecordPerformance(
   performance,
   progress,
   shieldFunc,
-  network
+  network,
 ) {
   performance.mark(`start-${network}`);
   tr.insertCell().append(shieldFunc());
@@ -461,5 +461,5 @@ function mergeArrays(arr1, arr2) {
 }
 
 await renderAllShields().finally(() =>
-  document.querySelector("#progress-overlay").remove()
+  document.querySelector("#progress-overlay").remove(),
 );

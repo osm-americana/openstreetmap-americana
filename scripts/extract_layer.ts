@@ -9,8 +9,8 @@ program
   .addOption(
     new Option(
       "-pg, --print-group <group prefix>",
-      "print a list of the layers in a group"
-    ).conflicts("printLayer")
+      "print a list of the layers in a group",
+    ).conflicts("printLayer"),
   )
   .option("-pl, --print-layer <layer id>", "print the JSON of a layer")
   .option("-loc, --locales <locale1 locale2...>", "language codes", ["mul"]);
@@ -26,7 +26,7 @@ const style = Style.build(
   config.OPENMAPTILES_URL,
   "https://americanamap.org/sprites/sprite",
   "https://font.americanamap.org/{fontstack}/{range}.pbf",
-  locales
+  locales,
 );
 
 const layers = style.layers as LayerSpecification[];
@@ -59,5 +59,5 @@ if (opts.printLayer) {
 }
 
 process.stdout.write(
-  JSON.stringify(outputObj, null, opts.pretty ? 2 : undefined)
+  JSON.stringify(outputObj, null, opts.pretty ? 2 : undefined),
 );

@@ -6,7 +6,7 @@ export function restrictLayer(def, layer) {
   return filteredClone(
     def,
     ["==", ["coalesce", ["get", "layer"], 0], layer],
-    "_layer_" + layer
+    "_layer_" + layer,
   );
 }
 

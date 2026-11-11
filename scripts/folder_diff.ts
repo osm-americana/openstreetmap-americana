@@ -23,7 +23,7 @@ const sampleLocations: Locations = sampleLocationJSON as Locations;
 
 function getLocationByName(name: string): string | undefined {
   const locationData = sampleLocations.find(
-    (location) => location.name === name
+    (location) => location.name === name,
   );
   return locationData?.location;
 }
@@ -45,7 +45,7 @@ if (!fs.existsSync(outputFolder)) {
 // Function to compare two images using resemble.js
 async function compareImages(
   image1Path: string,
-  image2Path: string
+  image2Path: string,
 ): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const image1 = fs.readFileSync(image1Path);
@@ -75,22 +75,22 @@ async function processImageComparisons() {
         // Compare the files using resemble.js
         const areDifferent = await compareImages(
           `${folder1}/${basefile}`,
-          `${folder2}/${basefile}`
+          `${folder2}/${basefile}`,
         );
 
         if (areDifferent) {
           // If files are visually different
           fs.copyFileSync(
             `${folder1}/${basefile}`,
-            `${outputFolder}/${basefile.split(".")[0]}_${sha}_before.png`
+            `${outputFolder}/${basefile.split(".")[0]}_${sha}_before.png`,
           );
           fs.copyFileSync(
             `${folder2}/${basefile}`,
-            `${outputFolder}/${basefile.split(".")[0]}_${sha}_after.png`
+            `${outputFolder}/${basefile.split(".")[0]}_${sha}_after.png`,
           );
         }
       }
-    })
+    }),
   );
 }
 

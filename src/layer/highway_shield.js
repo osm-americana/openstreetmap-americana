@@ -34,7 +34,7 @@ export function parseImageName(imageName) {
   let lines = imageName.split("\n");
   lines.shift(); // "shield"
   let parsed = Object.fromEntries(
-    orderedRouteAttributes.map((a, i) => [a, lines[i]])
+    orderedRouteAttributes.map((a, i) => [a, lines[i]]),
   );
   parsed.imageName = imageName;
   return parsed;

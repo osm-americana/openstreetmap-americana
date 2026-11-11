@@ -113,12 +113,12 @@ function getLanguageNamesByCode() {
   const allLanguageCodes = "abcdefghijklmnopqrstuvwxyz"
     .split("")
     .flatMap((l1, i, a) =>
-      a.flatMap((l2) => [l1 + l2].concat(a.map((l3) => l1 + l2 + l3)))
+      a.flatMap((l2) => [l1 + l2].concat(a.map((l3) => l1 + l2 + l3))),
     );
   allLanguageCodes.push(...subtags);
   allLanguageCodes.sort();
   const canonicalLanguageCodes = new Set(
-    allLanguageCodes.map((c) => new Intl.Locale(c).baseName)
+    allLanguageCodes.map((c) => new Intl.Locale(c).baseName),
   );
   // Map language codes to localized language names then memoize them.
   const languageNamesByCode = {};
@@ -129,7 +129,7 @@ function getLanguageNamesByCode() {
     }
   }
   _languageNamesByCode = Object.entries(languageNamesByCode).map(
-    ([id, name]) => ({ id, name })
+    ([id, name]) => ({ id, name }),
   );
   const collator = new Intl.Collator(initialLocales);
   _languageNamesByCode.sort((a, b) => collator.compare(a.name, b.name));
@@ -256,7 +256,7 @@ export class LanguageControl {
     const bestFormattedName = formattedNames[0];
     // Isolate parentheticals between opening and close punctuation marks.
     const bestFormattedComponents = bestFormattedName.split(
-      /(\p{gc=Ps}.+?\p{gc=Pe})/u
+      /(\p{gc=Ps}.+?\p{gc=Pe})/u,
     );
     const languageNameNodes = [];
     for (const component of bestFormattedComponents) {

@@ -25,52 +25,52 @@ program
     new Option("-a, --all-layers", "summary layer stats")
       .conflicts("layerCount")
       .conflicts("layerSize")
-      .conflicts("allJson")
+      .conflicts("allJson"),
   )
   .addOption(
     new Option("-c, --layer-count", "count number of layers")
       .conflicts("layerSize")
-      .conflicts("allJson")
+      .conflicts("allJson"),
   )
   .addOption(
-    new Option("-s, --layer-size", "size of all layers").conflicts("allJson")
+    new Option("-s, --layer-size", "size of all layers").conflicts("allJson"),
   )
   .addOption(
     new Option(
       "-ss1, --spritesheet-1x-size",
-      "size of 1x sprite sheet"
-    ).conflicts("allJson")
+      "size of 1x sprite sheet",
+    ).conflicts("allJson"),
   )
   .addOption(
     new Option(
       "-ss2, --spritesheet-2x-size",
-      "size of 2x sprite sheet"
-    ).conflicts("allJson")
+      "size of 2x sprite sheet",
+    ).conflicts("allJson"),
   )
   .addOption(
     new Option("-sh, --shield-json-size", "size of ShieldJSON").conflicts(
-      "allJson"
-    )
+      "allJson",
+    ),
   )
   .addOption(
     new Option(
       "-gsh, --gzip-shield-json-size",
-      "gzip compressed size of ShieldJSON"
-    ).conflicts("allJson")
+      "gzip compressed size of ShieldJSON",
+    ).conflicts("allJson"),
   )
   .addOption(
     new Option(
       "-gs, --gzip-style-size",
-      "gzip compressed size of style"
-    ).conflicts("allJson")
+      "gzip compressed size of style",
+    ).conflicts("allJson"),
   )
   .addOption(new Option("-j, --all-json", "output all stats in JSON"))
   .addOption(new Option("-pp, --pretty", "pretty-print JSON output"))
   .addOption(
     new Option(
       "-d, --directory <dir>",
-      "specify location of Americana distribution"
-    ).default("dist")
+      "specify location of Americana distribution",
+    ).default("dist"),
   );
 
 program.parse(process.argv);
@@ -182,7 +182,7 @@ for (let i = 0; i < layerCount; i++) {
 
 if (opts.allJson) {
   process.stdout.write(
-    JSON.stringify(stats, undefined, opts.pretty ? 2 : undefined)
+    JSON.stringify(stats, undefined, opts.pretty ? 2 : undefined),
   );
   process.exit();
 }
@@ -194,7 +194,7 @@ if (opts.allLayers) {
     console.log(
       `${layerString}${layerStats.size
         .toLocaleString("en-US")
-        .padStart(10, ".")} bytes`
+        .padStart(10, ".")} bytes`,
     );
   }
 }

@@ -428,7 +428,7 @@ function iconImageDefs() {
       }
       mapping[poiClass].push(classes[poiClass]);
       mapping[poiClass].push(
-        `sprite=${iconDefs[key].sprite}\ncolor=${iconDefs[key].color}`
+        `sprite=${iconDefs[key].sprite}\ncolor=${iconDefs[key].color}`,
       );
     }
   }
@@ -560,7 +560,7 @@ export const poi = {
             Color.poi.outdoor,
           ],
         ],
-        Color.poi.infrastructure //Fallback for match expression in helper function
+        Color.poi.infrastructure, //Fallback for match expression in helper function
       ),
       Color.poi.infrastructure, //Fallback for match expression here
     ],
@@ -638,7 +638,7 @@ export const poi = {
           [[iconDefs.medical, iconDefs.parking, iconDefs.cemetery], 17],
           [[iconDefs.four_square], 18],
         ],
-        99 //Fallback for match expression in helper function
+        99, //Fallback for match expression in helper function
       ),
       99, //Fallback for match expression here
     ],
@@ -677,7 +677,7 @@ export const poi = {
               "",
             ],
           ],
-          localizedName
+          localizedName,
         ),
         localizedName,
       ],
@@ -758,7 +758,7 @@ export const legendEntries = Object.values(
     }
 
     return unique_list;
-  }, {})
+  }, {}),
 ).map(({ description, classes }) => ({
   description,
   layers: [poi.id],

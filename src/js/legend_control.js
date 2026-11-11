@@ -115,7 +115,7 @@ export default class LegendControl {
     let shieldSection = this.sections.find((s) => s.id === "shields");
     shieldSection.rows = this.getShieldRows();
     shieldSection.sourceURL = `https://query.wikidata.org/embed.html#${encodeURIComponent(
-      this.getNetworkMetadataQuery()
+      this.getNetworkMetadataQuery(),
     )}`;
 
     for (let data of this.sections) {
@@ -201,14 +201,14 @@ export default class LegendControl {
       // an outline.
       matchedEntry.fill = mainFeature;
       matchedEntry.stroke = features.find(
-        (f) => f.id === mainFeature.id && f.layer.type === "line"
+        (f) => f.id === mainFeature.id && f.layer.type === "line",
       );
     } else if (mainFeature.layer.type === "line") {
       // Pair a line layer's linestring with some polygon rendered as a fill.
       matchedEntry.fill = features.find(
         (f) =>
           f.id === mainFeature.id &&
-          (f.layer.type === "fill" || f.layer.type === "fill-extrusion")
+          (f.layer.type === "fill" || f.layer.type === "fill-extrusion"),
       );
       if (matchedEntry.fill) {
         matchedEntry.stroke = mainFeature;
@@ -257,7 +257,7 @@ export default class LegendControl {
       let swatchCell = row.querySelector(".swatch");
       Object.assign(
         swatchCell.style,
-        this.getSwatchStyle(entry.fill, entry.stroke)
+        this.getSwatchStyle(entry.fill, entry.stroke),
       );
     } else if (entry.lines) {
       let lineCell = row.querySelector(".line");
@@ -313,7 +313,7 @@ export default class LegendControl {
       textField.sections?.[0].text ??
       textField.replace(
         /\{(\w+)\}/g,
-        (match, prop) => symbol.properties[prop] ?? match
+        (match, prop) => symbol.properties[prop] ?? match,
       );
 
     // The fontstack name obscures the original font names. Look for words that
@@ -339,8 +339,8 @@ export default class LegendControl {
     let haloBlur = symbol.layer.paint["text-halo-blur"] ?? 0;
     let textShadows = [-shadowOffset, shadowOffset].flatMap((x) =>
       [-shadowOffset, shadowOffset].map(
-        (y) => `${haloColor} ${x}px ${y}px ${haloBlur}px`
-      )
+        (y) => `${haloColor} ${x}px ${y}px ${haloBlur}px`,
+      ),
     );
 
     Object.assign(container.style, {
@@ -418,7 +418,7 @@ export default class LegendControl {
       // stroke-dasharray is measured in pixels.
       let simpleLineWidth = feature.layer.paint["line-width"] ?? 1;
       let dashArray = feature.layer.paint["line-dasharray"]?.from.map(
-        (d) => d * simpleLineWidth
+        (d) => d * simpleLineWidth,
       );
 
       let lineWidth = getLineWidth(feature);
@@ -546,7 +546,7 @@ export default class LegendControl {
       // Add the images for this network and any network associated with the same QID.
       let relatedNetworks = (qid && this._networksByQID[qid]) || [network];
       let sortedImages = relatedNetworks.flatMap((network) =>
-        getSortedImages(network)
+        getSortedImages(network),
       );
 
       let row = this.getShieldRow(network, sortedImages, binding);
@@ -689,7 +689,7 @@ export default class LegendControl {
     let imageData = new ImageData(
       userImage?.data || new Uint8ClampedArray(styleImage.data.data),
       userImage?.width || styleImage.data.width,
-      userImage?.height || styleImage.data.height
+      userImage?.height || styleImage.data.height,
     );
 
     // Draw the image onto a canvas of the same size.
@@ -702,7 +702,7 @@ export default class LegendControl {
     // Embed the canvas in an HTML image of the same size.
     let img = new Image(
       (imageData.width * iconSize) / PXR,
-      (imageData.height * iconSize) / PXR
+      (imageData.height * iconSize) / PXR,
     );
     img.src = canvas.toDataURL("image/png");
     img.className = "shield";
@@ -745,7 +745,7 @@ export default class LegendControl {
     }
 
     let url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(
-      this.getNetworkMetadataQuery()
+      this.getNetworkMetadataQuery(),
     )}&format=json`;
     const response = await fetch(url, {
       headers: {
@@ -756,7 +756,7 @@ export default class LegendControl {
     this._networkMetadata = Object.fromEntries(
       json.results.bindings.map((binding) => {
         return [binding.value.value, binding];
-      })
+      }),
     );
 
     let networksByQID = {};
@@ -782,7 +782,7 @@ export default class LegendControl {
     }
 
     let url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(
-      this.getNetworkMetadataQuery("GB")
+      this.getNetworkMetadataQuery("GB"),
     )}&format=json`;
     const response = await fetch(url, {
       headers: {
@@ -793,7 +793,7 @@ export default class LegendControl {
     this._ukNetworkMetadata = Object.fromEntries(
       json.results.bindings.map((binding) => {
         return [binding.value.value, binding];
-      })
+      }),
     );
     return this._ukNetworkMetadata;
   }

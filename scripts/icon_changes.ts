@@ -24,11 +24,11 @@ function generateGridPattern(xOffset: number, yOffset: number): Buffer {
   const gridSvg = `<svg width="${scale}" height="${scale}" xmlns="http://www.w3.org/2000/svg">
         <rect x="0" y="0" width="${scale}" height="${scale}" fill="none"/>
         <path d="M ${scale - xOffset} 0 V ${scale} M 0 ${
-    scale - yOffset
-  } H ${scale}" stroke="magenta" stroke-opacity="0.9" stroke-width="1"/>
+          scale - yOffset
+        } H ${scale}" stroke="magenta" stroke-opacity="0.9" stroke-width="1"/>
         <path d="M ${scale / 2 - xOffset} 0 V ${scale} M 0 ${
-    scale / 2 - yOffset
-  } H ${scale}" stroke="gray" stroke-opacity="0.2" stroke-width="1"/>
+          scale / 2 - yOffset
+        } H ${scale}" stroke="gray" stroke-opacity="0.2" stroke-width="1"/>
   </svg>`;
   return Buffer.from(gridSvg);
 }
@@ -36,7 +36,7 @@ function generateGridPattern(xOffset: number, yOffset: number): Buffer {
 // Convert and scale SVG (copied from icon_grid.ts)
 async function convertAndScaleSVG(
   svgFilename: string,
-  outputFilename: string
+  outputFilename: string,
 ): Promise<void> {
   const svgBuffer = fs.readFileSync(svgFilename);
 
@@ -122,7 +122,7 @@ async function main() {
     const prIconPath = path.join(prIconsDir, icon);
     const outputFilename = path.join(
       outputDir,
-      `${path.parse(icon).name}_preview.png`
+      `${path.parse(icon).name}_preview.png`,
     );
 
     try {
@@ -161,7 +161,7 @@ async function main() {
   fs.writeFileSync(path.join(outputDir, "icon-changes.md"), mdContent);
 
   console.log(
-    `Generated icon grids for ${allChangedIcons.length} icons in ${outputDir}/`
+    `Generated icon grids for ${allChangedIcons.length} icons in ${outputDir}/`,
   );
   console.log(`Changed icons: ${changedIcons.length}`);
   console.log(`New icons: ${newIcons.length}`);

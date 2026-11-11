@@ -16,7 +16,7 @@ describe("highway_shield", function () {
       expression
         .createExpression(
           HighwayShieldLayers.getImageNameExpression(1),
-          "layers[0].layout.text-field"
+          "layers[0].layout.text-field",
         )
         .value.expression.evaluate(expressionContext(properties));
 
@@ -36,7 +36,7 @@ describe("highway_shield", function () {
         color: color || "",
       };
       expect(HighwayShieldLayers.parseImageName(evaluated)).to.be.deep.equal(
-        expectedProperties
+        expectedProperties,
       );
     };
 
@@ -46,14 +46,14 @@ describe("highway_shield", function () {
         "REF",
         undefined,
         undefined,
-        "shield\nNET\nREF\n\n"
+        "shield\nNET\nREF\n\n",
       );
       expectImageName(
         "NET",
         "REF",
         "NAME",
         undefined,
-        "shield\nNET\nREF\nNAME\n"
+        "shield\nNET\nREF\nNAME\n",
       );
     });
     it("parses an image name for an unnumbered route", function () {
@@ -62,7 +62,7 @@ describe("highway_shield", function () {
         undefined,
         undefined,
         undefined,
-        "shield\nNET\n\n\n"
+        "shield\nNET\n\n\n",
       );
     });
     it("parses an image name for a named route", function () {
@@ -71,14 +71,14 @@ describe("highway_shield", function () {
         undefined,
         "NAME",
         undefined,
-        "shield\nUS:KY:Parkway\n\nNAME\n"
+        "shield\nUS:KY:Parkway\n\nNAME\n",
       );
       expectImageName(
         "US:KY:Parkway",
         "REF",
         "NAME",
         undefined,
-        "shield\nUS:KY:Parkway\nREF\nNAME\n"
+        "shield\nUS:KY:Parkway\nREF\nNAME\n",
       );
     });
     it("parses an image name for a network-independent route", function () {
@@ -87,7 +87,7 @@ describe("highway_shield", function () {
         "REF",
         "NAME",
         undefined,
-        "shield\n\nREF\nNAME\n"
+        "shield\n\nREF\nNAME\n",
       );
     });
   });

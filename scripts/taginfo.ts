@@ -34,7 +34,7 @@ const colorNames = new Map<string, string>();
 
 function getNamedColor(
   colorString: string | undefined,
-  defaultColor: string
+  defaultColor: string,
 ): string {
   if (colorString) {
     if (colorString.startsWith("#")) {
@@ -146,7 +146,7 @@ function addNetworkTags(project: ProjectDescription): void {
         let prettyFillColor = getNamedColor(shapeDef.params.fillColor, "white");
         let prettyStrokeColor = getNamedColor(
           shapeDef.params.strokeColor,
-          "black"
+          "black",
         );
 
         switch (shapeDef.drawFunc) {
@@ -198,10 +198,10 @@ function addNetworkTags(project: ProjectDescription): void {
 }
 
 let project = JSON.parse(
-  fs.readFileSync(`${process.cwd()}/scripts/taginfo_template.json`).toString()
+  fs.readFileSync(`${process.cwd()}/scripts/taginfo_template.json`).toString(),
 );
 addNetworkTags(project);
 fs.writeFileSync(
   `${process.cwd()}/dist/taginfo.json`,
-  JSON.stringify(project, null, 2)
+  JSON.stringify(project, null, 2),
 );
