@@ -1,13 +1,44 @@
 "use strict";
 
-const orderedRouteAttributes = ["network", "ref", "name", "color"];
+import { orderedRouteAttributes } from "../js/shield_format.ts";
+import featureAzCnIr from "../features/az-cn-ir.json" with { type: "json" };
+import featureId from "../features/id.json" with { type: "json" };
+import featureIn from "../features/in.json" with { type: "json" };
+import featureJpKr from "../features/jp-kr.json" with { type: "json" };
+
 const maxConcurrencyCardinality = 8;
 
 export function getImageNameExpression(routeIndex) {
   let concat = ["concat", "shield"];
   for (let attr of orderedRouteAttributes) {
     concat.push("\n");
-    concat.push(["coalesce", ["get", `route_${routeIndex}_${attr}`], ""]);
+    if (attr === "name") {
+      concat.push([
+        "match",
+        ["get", `route_${routeIndex}_network`],
+        ["AsianHighway", "AH"],
+        [
+          "case",
+          // Azerbaijan, China, Iran
+          ["within", featureAzCnIr || nullIsland],
+          "green",
+          // Japan, South Korea
+          ["within", featureJpKr || nullIsland],
+          "white",
+          // Indonesia
+          ["within", featureId || nullIsland],
+          "white_id",
+          // India
+          ["within", featureIn || nullIsland],
+          "green_in",
+          // Armenia, Cambodia, Malaysia, Myanmar, Philippines, Russia, Thailand, Vietnam
+          "blue",
+        ],
+        ["coalesce", ["get", `route_${routeIndex}_${attr}`], ""],
+      ]);
+    } else {
+      concat.push(["coalesce", ["get", `route_${routeIndex}_${attr}`], ""]);
+    }
   }
   return concat;
 }
@@ -22,22 +53,6 @@ function routeConcurrency(routeIndex) {
     ["image", getImageNameExpression(routeIndex)],
     ["literal", ""],
   ];
-}
-
-/**
- * Returns a structured representation of the given image name.
- *
- * @param name An image name in the format returned by `routeConcurrency`.
- * @return An object with the keys in `orderedRouteAttributes` plus the full image name in `imageName`.
- */
-export function parseImageName(imageName) {
-  let lines = imageName.split("\n");
-  lines.shift(); // "shield"
-  let parsed = Object.fromEntries(
-    orderedRouteAttributes.map((a, i) => [a, lines[i]])
-  );
-  parsed.imageName = imageName;
-  return parsed;
 }
 
 let shieldTextField = ["format"];

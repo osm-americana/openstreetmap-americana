@@ -30,6 +30,10 @@ function fillPaths(svg: string, codes: string[]): string {
     // Routes in United States insular areas use US prefix with the U.S.
     selectors.add(".ust");
   }
+  // The Asian Highway Network isn't a real country.
+  if (selectors.has(".ah")) {
+    selectors.delete(".ah");
+  }
   return svg.replace(".supported", Array.from(selectors).join(",\n"));
 }
 
