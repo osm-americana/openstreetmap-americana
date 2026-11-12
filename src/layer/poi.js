@@ -726,7 +726,7 @@ export const iconlessPoi = {
     "text-radial-offset": 0,
     "text-max-width": 5,
     "text-padding": 0,
-    "symbol-sort-key": ["*", -1, ["get", "area_km2"]],
+    "symbol-sort-key": ["*", -1, ["get", "area"]],
   },
   source: "ohm",
   "source-layer": "landuse_points_centroids",
