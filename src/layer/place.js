@@ -469,7 +469,7 @@ export const countryOther = {
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
   },
-  filter: filterCentroid([2]),
+  filter: ["all", ["<", ["get", "area"], 1e6], filterCentroid([2])],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -494,7 +494,12 @@ export const country3 = {
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 7, 2.5],
   },
-  filter: ["all", [">=", ["get", "area_km2"], 100000], filterCentroid([2])],
+  filter: [
+    "all",
+    [">=", ["get", "area"], 1e6],
+    ["<", ["get", "area"], 1e9],
+    filterCentroid([2]),
+  ],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -519,7 +524,12 @@ export const country2 = {
     "text-halo-color": labelHaloColor,
     "text-halo-width": ["interpolate", ["linear"], ["zoom"], 1, 1, 5, 2.4],
   },
-  filter: ["all", [">=", ["get", "area_km2"], 300000], filterCentroid([2])],
+  filter: [
+    "all",
+    [">=", ["get", "area"], 1e9],
+    ["<", ["get", "area"], 2e12],
+    filterCentroid([2]),
+  ],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
@@ -554,7 +564,7 @@ export const country1 = {
       3,
     ],
   },
-  filter: filterCentroid([1]),
+  filter: ["all", [">=", ["get", "area"], 2e12], filterCentroid([2])],
   layout: {
     "text-font": ["Americana-Regular"],
     "text-size": {
