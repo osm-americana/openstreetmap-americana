@@ -3,6 +3,7 @@
 import config from "./config.js";
 
 import { LanguageControl } from "./js/language_control.js";
+import { TimeControl } from "./js/time_control.js";
 
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -71,6 +72,7 @@ function shieldDefLoad(shields) {
   map.addControl(new maplibregl.NavigationControl(), "top-left");
   map.addControl(new maplibregl.GlobeControl(), "top-left");
   map.addControl(new HillshadeControl(), "top-left");
+  map.addControl(new TimeControl(), "bottom-right");
 
   window.addEventListener("languagechange", (event) => {
     map.localize();
@@ -111,6 +113,12 @@ function hashChanged(oldURL, newURL) {
 
   if (oldParams.has("terrain") !== newParams.has("terrain")) {
     map.shadesHills = newParams.has("terrain");
+  }
+
+  if ((oldParams.get("date") || null) !== (newParams.get("date") || null)) {
+    map.date = new Date(newParams.get("date"));
+  } else if (!map.date) {
+    map.date = new Date();
   }
 }
 
