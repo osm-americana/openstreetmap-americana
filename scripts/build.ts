@@ -37,6 +37,10 @@ const buildWith = async (
     "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
     "dist/gh-fork-ribbon.css"
   );
+  await copyFile(
+    "node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs",
+    "dist/maplibre-gl-worker.mjs"
+  );
 
   const localConfig = await maybeLocalConfig();
 

@@ -1,7 +1,7 @@
 "use strict";
 
 import * as ShieldDef from "./js/shield_defs.js";
-import * as maplibregl from "maplibre-gl";
+import { Map } from "maplibre-gl";
 import { ShieldRenderer } from "@americana/maplibre-shield-generator";
 import {
   shieldPredicate,
@@ -13,8 +13,7 @@ import { debugOptions } from "./debug_config.js";
 var getUrl = window.location;
 var baseUrl = getUrl.protocol + "//" + getUrl.host + getUrl.pathname;
 
-window.maplibregl = maplibregl;
-export const map = (window.map = new maplibregl.Map({
+export const map = (window.map = new Map({
   container: "map", // container id
   antialias: true,
   style: {

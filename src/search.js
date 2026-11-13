@@ -1,6 +1,6 @@
 "use strict";
 
-import * as maplibregl from "maplibre-gl";
+import { Evented } from "maplibre-gl";
 
 import "./search.css";
 
@@ -244,7 +244,7 @@ function arrowNavigate(e) {
   }
 }
 
-export class PhotonSearchControl extends maplibregl.Evented {
+export class PhotonSearchControl extends Evented {
   constructor() {
     super();
   }
