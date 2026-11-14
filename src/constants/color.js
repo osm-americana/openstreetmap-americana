@@ -86,6 +86,9 @@ export const tramFill = "hsl(0, 0%, 60%)";
 export const monorailFill = "hsl(0, 0%, 50%)";
 export const funicularFill = "hsl(0, 0%, 50%)";
 
+export const trackStroke = "hsl(33, 55%, 55%)";
+export const trackTunnelStroke = "hsl(33, 55%, 80%)";
+
 export const hue = {
   tollRoad: 48,
   park: 136,
