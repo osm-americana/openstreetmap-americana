@@ -62,7 +62,7 @@ export const parkFill = {
 export const cemeteryFill = {
   id: "cemetery-fill",
   type: "fill",
-  filter: ["==", "class", "cemetery"],
+  filter: ["==", ["get", "class"], "cemetery"],
   paint: {
     "fill-color": Color.cemeteryFill,
   },
@@ -77,7 +77,7 @@ export const cemeteryFill = {
 export const pitchFill = {
   id: "pitch-fill",
   type: "fill",
-  filter: ["==", "class", "pitch"],
+  filter: ["==", ["get", "class"], "pitch"],
   paint: {
     "fill-color": Color.pitchFill,
   },
@@ -99,7 +99,7 @@ export const parkOutline = {
 export const cemeteryOutline = {
   id: "cemetery-outline",
   type: "line",
-  filter: ["==", "class", "cemetery"],
+  filter: ["==", ["get", "class"], "cemetery"],
   paint: {
     "line-color": Color.cemeteryOutline,
   },
@@ -114,7 +114,7 @@ export const cemeteryOutline = {
 export const pitchOutline = {
   id: "pitch-outline",
   type: "line",
-  filter: ["==", "class", "pitch"],
+  filter: ["==", ["get", "class"], "pitch"],
   paint: {
     "line-color": Color.pitchOutline,
   },

@@ -8,5 +8,5 @@
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true
   },
-  "include": ["src/**/*.ts", "shieldlib/src/headless_graphics.ts"]
+  "include": ["src/**/*.ts"]
 }

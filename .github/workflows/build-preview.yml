@@ -50,15 +50,12 @@ jobs:
         with:
           node-version-file: pr-branch/package.json
       - name: Install and Build PR Branch 🔧
-        # TODO: when we move shieldlib to its own repo, move shieldlib docs CI also
         run: |
           npm ci --include=dev
           npm run build
           npm run style
           npm run shields
           cp src/configs/config.osmus.js src/config.js
-          mkdir -p dist/shield-docs
-          cp -r shieldlib/docs/* dist/shield-docs
           mkdir -p ../pr
         working-directory: pr-branch
       - name: Save PR attributes

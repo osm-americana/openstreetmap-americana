@@ -64,7 +64,7 @@ let networks = [
   "CA:YT",
   "IS",
   "e-road",
-  "pl:motorways",
+  "PL:motorway",
 
   // Basic Angular Shapes
   "CA:ON:secondary",
@@ -156,6 +156,8 @@ let networks = [
   "TW:freeway",
   "US:MP",
   "US:AS",
+
+  "Arab Mashreq International Road Network",
 
   // Fancy Rectangles
   "US:AK",
