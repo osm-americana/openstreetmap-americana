@@ -1,12 +1,13 @@
-import type {
-  StringPredicate,
-  RouteParser,
+import {
+  OPENMAPTILES,
+  isSchemaShieldId,
+  routeParserFromSchema,
+  type StringPredicate,
+  type RouteParser,
 } from "@americana/maplibre-shield-generator";
 
-import { parseImageName } from "../layer/highway_shield.js";
-
 export const shieldPredicate: StringPredicate = (imageID: string) =>
-  imageID && imageID.startsWith("shield");
+  Boolean(imageID) && isSchemaShieldId(OPENMAPTILES, imageID);
 
 export const networkPredicate: StringPredicate = (network: string) =>
   // On recreational route relations, network=* indicates the network's scope,
@@ -14,10 +15,22 @@ export const networkPredicate: StringPredicate = (network: string) =>
   // https://github.com/osm-americana/openstreetmap-americana/issues/94
   !/^[lrni][chimpw]n$/.test(network);
 
+const schemaParser = routeParserFromSchema(OPENMAPTILES);
+
+/**
+ * OpenMapTiles route parser that always returns string fields.
+ * The schema helper omits empty ref/name; Americana's shield defs treat "" as
+ * "no ref" rather than undefined.
+ */
 export const routeParser: RouteParser = {
-  parse: (id: string) => {
-    return parseImageName(id);
+  parse: (imageID: string) => {
+    const route = schemaParser.parse(imageID);
+    return {
+      network: route.network ?? "",
+      ref: route.ref ?? "",
+      name: route.name ?? "",
+    };
   },
   format: (network: string, ref: string, name: string) =>
-    `shield\n${network}\n${ref}\n${name}\n`,
+    schemaParser.format(network, ref, name),
 };
