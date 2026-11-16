@@ -44,7 +44,7 @@
     "tokenfield": "^1.5.2"
   },
   "devDependencies": {
-    "@basemaps/sprites": "^7.0.0",
+    "@basemaps/sprites": "^8.0.0",
     "@mapbox/vector-tile": "^3.0.0",
     "@maplibre/maplibre-gl-style-spec": "^26.1.0",
     "@playwright/test": "^1.38.1",
