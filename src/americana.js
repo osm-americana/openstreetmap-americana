@@ -4,7 +4,11 @@ import config from "./config.js";
 
 import { LanguageControl } from "./js/language_control.js";
 
-import * as maplibregl from "maplibre-gl";
+import {
+  AttributionControl,
+  GlobeControl,
+  NavigationControl,
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as search from "./search.js";
 
@@ -14,7 +18,7 @@ import * as LegendConfig from "./js/legend_config.js";
 import SampleControl from "openmapsamples-maplibre/OpenMapSamplesControl.js";
 import { default as OpenMapTilesSamples } from "openmapsamples/samples/OpenMapTiles/index.js";
 
-import { createMap, loadRTLPlugin, buildStyle } from "./js/map_builder.js";
+import { createMap, buildStyle } from "./js/map_builder.js";
 import { debugOptions } from "./debug_config.js";
 
 function upgradeLegacyHash() {
@@ -25,8 +29,6 @@ function upgradeLegacyHash() {
   window.location.hash = hash;
 }
 upgradeLegacyHash();
-
-loadRTLPlugin();
 
 export const map = createMap(
   window,
@@ -39,7 +41,6 @@ export const map = createMap(
     center: [-94, 40.5],
     zoom: 4,
     attributionControl: false,
-    experimentalZoomLevelsToOverscale: 0,
   },
   debugOptions
 );
@@ -64,12 +65,12 @@ function shieldDefLoad(shields) {
   }
 
   const languageControl = new LanguageControl();
-  map.addControl(new maplibregl.AttributionControl(attributionConfig));
+  map.addControl(new AttributionControl(attributionConfig));
   map.addControl(languageControl, "bottom-right");
 
   map.addControl(new search.PhotonSearchControl(), "top-left");
-  map.addControl(new maplibregl.NavigationControl(), "top-left");
-  map.addControl(new maplibregl.GlobeControl(), "top-left");
+  map.addControl(new NavigationControl(), "top-left");
+  map.addControl(new GlobeControl(), "top-left");
   map.addControl(new HillshadeControl(), "top-left");
 
   window.addEventListener("languagechange", (event) => {
