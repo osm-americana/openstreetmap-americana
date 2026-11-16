@@ -1,6 +1,7 @@
 @font-face {
   font-family: "Noto Sans Condensed";
-  src: url("https://webfont.americanamap.org/noto/NotoSans-CondensedMedium-PropNums.woff2")
+  src:
+    url("https://webfont.americanamap.org/noto/NotoSans-CondensedMedium-PropNums.woff2")
       format("woff2"),
     url("https://webfont.americanamap.org/noto/NotoSans-CondensedMedium-PropNums.woff")
       format("woff");
@@ -10,7 +11,8 @@
 }
 @font-face {
   font-family: "Noto Sans Armenian Condensed";
-  src: url("https://webfont.americanamap.org/noto/NotoSansArmenian-CondensedMedium-PropNums.woff2")
+  src:
+    url("https://webfont.americanamap.org/noto/NotoSansArmenian-CondensedMedium-PropNums.woff2")
       format("woff2"),
     url("https://webfont.americanamap.org/noto/NotoSansArmenian-CondensedMedium-PropNums.woff")
       format("woff");
