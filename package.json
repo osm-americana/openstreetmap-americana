@@ -58,7 +58,7 @@
     "chai": "^6.2.1",
     "color-namer": "^1.4.0",
     "commander": "^10.0.0",
-    "esbuild": "^0.27.2",
+    "esbuild": "^0.28.2",
     "glob": "^10.3.10",
     "google-font-installer": "^1.2.0",
     "maplibre-gl": "^5.13.0",
