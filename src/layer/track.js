@@ -59,9 +59,11 @@ export const pavedTrack = {
   "source-layer": "transportation",
   filter: ["all", trackSelect, pavedSelect, notBridgeTunnelSelect],
   minzoom: 12,
-  paint: { ...track.paint },
+  paint: {
+    ...track.paint,
+    "line-dasharray": [1, 0],
+   },
 };
-pavedTrack["paint"]["line-dasharray"] = [1, 0];
 
 export const trackBridge = {
   id: "highway-track-bridge",
