@@ -62,7 +62,7 @@ export const pavedTrack = {
   paint: {
     ...track.paint,
     "line-dasharray": [1, 0],
-   },
+  },
 };
 
 export const trackBridge = {
