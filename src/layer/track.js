@@ -167,18 +167,8 @@ export const legendEntries = [
     filter: notFordSelect,
   },
   {
-    description: "Unpaved track - ford",
-    layers: [track.id],
-    filter: fordSelect,
-  },
-  {
     description: "Paved track",
     layers: [pavedTrack.id],
     filter: notFordSelect,
-  },
-  {
-    description: "Paved track - ford",
-    layers: [pavedTrack.id],
-    filter: fordSelect,
   },
 ];
