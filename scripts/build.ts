@@ -1,4 +1,4 @@
-import { stat, copyFile, mkdir } from "node:fs/promises";
+import { stat, copyFile, cp, mkdir } from "node:fs/promises";
 
 import esbuild, { type BuildContext, type BuildOptions } from "esbuild";
 
@@ -22,7 +22,7 @@ const buildWith = async (
   key: string,
   buildOptions: BuildOptions
 ): Promise<BuildContext[]> => {
-  await mkdir("dist", { recursive: true });
+  await mkdir("dist/features", { recursive: true });
 
   await Promise.all(
     [
@@ -37,6 +37,7 @@ const buildWith = async (
     "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
     "dist/gh-fork-ribbon.css"
   );
+  await cp("src/features", "dist/features", { recursive: true });
 
   const localConfig = await maybeLocalConfig();
 
