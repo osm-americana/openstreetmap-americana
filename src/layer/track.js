@@ -162,12 +162,12 @@ export const bridgeFill = {
 
 export const legendEntries = [
   {
-    description: "Unpaved track",
+    description: "Unpaved track road",
     layers: [track.id],
     filter: notFordSelect,
   },
   {
-    description: "Paved track",
+    description: "Paved track road",
     layers: [pavedTrack.id],
     filter: notFordSelect,
   },
