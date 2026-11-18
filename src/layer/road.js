@@ -1282,8 +1282,8 @@ export const legendEntries = [
   },
   {
     description: "Principal highway",
-    layers: [trunk.casing().id],
-    filter: isNotToll,
+    layers: [roadSimpleFill.fill().id, trunk.casing().id],
+    filter: ["all", ["==", getClass, "trunk"], isNotExpressway, isNotToll],
   },
   {
     description: "Major arterial road",
