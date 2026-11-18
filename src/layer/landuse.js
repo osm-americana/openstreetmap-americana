@@ -7,7 +7,7 @@ export const urbanizedArea = {
   type: "fill",
   minzoom: 4,
   maxzoom: 6,
-  filter: ["==", ["get", "class"], "residential"],
+  filter: ["==", ["get", "type"], "residential"],
   paint: {
     "fill-color": [
       "interpolate-lab",
@@ -23,8 +23,8 @@ export const urbanizedArea = {
       Color.backgroundFill,
     ],
   },
-  source: "openmaptiles",
-  "source-layer": "landuse",
+  source: "ohm",
+  "source-layer": "landuse_areas",
 };
 
 export const legendEntries = [
