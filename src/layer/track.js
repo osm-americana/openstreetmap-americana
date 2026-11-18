@@ -45,7 +45,7 @@ export const track = {
       ["exponential", 1.2],
       ["zoom"],
       13,
-      1.2,
+      1,
       20,
       6,
     ],
