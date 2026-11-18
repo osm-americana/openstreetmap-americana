@@ -13,7 +13,7 @@ const notBridgeTunnelSelect = [
   "!",
   ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]],
 ];
-const opacity = ["interpolate", ["exponential", 1.2], ["zoom"], 12, 0, 13, 1];
+const opacity = ["interpolate", ["exponential", 1.2], ["zoom"], 11.9, 0, 14, 1];
 const getBrunnel = ["get", "brunnel"];
 const getLayer = ["coalesce", ["get", "layer"], 0];
 
@@ -45,7 +45,7 @@ export const track = {
       ["exponential", 1.2],
       ["zoom"],
       13,
-      1,
+      1.2,
       20,
       6,
     ],
