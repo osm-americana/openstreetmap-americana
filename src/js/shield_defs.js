@@ -826,7 +826,7 @@ export function loadShields() {
   // Native Sovereign Nations
 
   // Navajo Nation
-  shields["US:Navajo"] = {
+  shields["US:Navajo"] = shields.Q141155104 = {
     spriteBlank: [
       "shield_us_navajo_2",
       "shield_us_navajo_3",
