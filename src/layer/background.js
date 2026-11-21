@@ -14,19 +14,43 @@ export const base = {
   id: "background",
   type: "background",
   paint: {
-    "background-color": backgroundColor,
+    "background-color": Color.waterFill,
   },
   layout: { visibility: "visible" },
+};
+
+export const land = {
+  id: "land",
+  type: "fill",
+  source: "osm_land",
+  "source-layer": "land",
+  paint: {
+    "fill-color": backgroundColor,
+  },
+};
+
+export const landLine = {
+  id: "land_line",
+  type: "line",
+  paint: {
+    "line-color": Color.waterLineBold,
+  },
+  layout: {
+    "line-cap": "round",
+    "line-join": "round",
+  },
+  source: "osm_land",
+  "source-layer": "land",
 };
 
 export const pierArea = {
   id: "pier_area",
   type: "fill",
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "other_areas",
   filter: [
     "all",
-    ["==", ["get", "class"], "pier"],
+    ["==", ["get", "type"], "pier"],
     ["==", ["geometry-type"], "Polygon"],
   ],
   paint: {
@@ -38,11 +62,11 @@ export const pierArea = {
 export const pierLine = {
   id: "pier_line",
   type: "line",
-  source: "openmaptiles",
-  "source-layer": "transportation",
+  source: "ohm",
+  "source-layer": "other_lines",
   filter: [
     "all",
-    ["==", ["get", "class"], "pier"],
+    ["==", ["get", "type"], "pier"],
     ["==", ["geometry-type"], "LineString"],
   ],
   paint: {
