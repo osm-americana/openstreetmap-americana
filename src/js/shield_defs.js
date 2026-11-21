@@ -1241,19 +1241,22 @@ export function loadShields() {
   };
 
   // Florida
-  shields["US:FL"] = shields.Q98399543 = {
-    spriteBlank: ["shield_us_fl_2", "shield_us_fl_3"],
-    textColor: Color.shields.black,
-    padding: {
-      left: 2,
-      right: 4.5,
-      top: 6,
-      bottom: 4,
-    },
-    bannerMap: {
-      "US:FL:Business": ["BUS"],
-    },
-  };
+  shields["US:FL"] =
+    shields.Q98399543 =
+    shields.Q141845167 =
+      {
+        spriteBlank: ["shield_us_fl_2", "shield_us_fl_3"],
+        textColor: Color.shields.black,
+        padding: {
+          left: 2,
+          right: 4.5,
+          top: 6,
+          bottom: 4,
+        },
+        bannerMap: {
+          "US:FL:Business": ["BUS"],
+        },
+      };
   shields["US:FL:Toll"] = {
     spriteBlank: "shield_us_fl_toll",
     textColor: Color.shields.black,
