@@ -2959,7 +2959,7 @@ export function loadShields() {
     },
   };
 
-  shields["US:TX"] = {
+  shields["US:TX"] = shields.Q97452239 = {
     ...roundedRectShield(Color.shields.white, Color.shields.black),
     bannerMap: {
       "US:TX:Beltway": ["BELT"],
@@ -2971,12 +2971,16 @@ export function loadShields() {
       "US:TX:Spur": ["SPUR"],
     },
   };
-  shields["US:TX:FM"] = shields["US:TX:RM"] = {
-    ...usTexasShapedShield,
-    bannerMap: {
-      "US:TX:FM:Business": ["BUS"],
-    },
-  };
+  shields["US:TX:FM"] =
+    shields.Q97452889 =
+    shields["US:TX:RM"] =
+    shields.Q97453357 =
+      {
+        ...usTexasShapedShield,
+        bannerMap: {
+          "US:TX:FM:Business": ["BUS"],
+        },
+      };
   shields["US:TX:Recreational"] = banneredShield(
     {
       ...usTexasShapedShield,
