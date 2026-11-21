@@ -74,7 +74,7 @@ let shieldLayout = {
   "text-pitch-alignment": "viewport",
   "symbol-sort-key": [
     "match",
-    ["get", "class"],
+    ["get", "highway"],
     ["motorway", "motorway_link"],
     0,
     ["trunk", "trunk_link"],
@@ -99,19 +99,19 @@ export const shield = {
     "text-opacity": [
       "step",
       ["zoom"],
-      ["match", ["get", "class"], ["motorway", "motorway_link"], 1, 0],
+      ["match", ["get", "highway"], ["motorway", "motorway_link"], 1, 0],
       8,
       [
         "match",
-        ["get", "class"],
+        ["get", "highway"],
         ["motorway", "motorway_link", "trunk", "trunk_link"],
         1,
-        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
+        0,
       ],
       10,
       [
         "match",
-        ["get", "class"],
+        ["get", "highway"],
         [
           "motorway",
           "motorway_link",
@@ -121,12 +121,12 @@ export const shield = {
           "primary_link",
         ],
         1,
-        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
+        0,
       ],
       11,
       [
         "match",
-        ["get", "class"],
+        ["get", "highway"],
         [
           "motorway",
           "motorway_link",
@@ -138,12 +138,12 @@ export const shield = {
           "secondary_link",
         ],
         1,
-        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
+        0,
       ],
       12,
       [
         "match",
-        ["get", "class"],
+        ["get", "highway"],
         [
           "motorway",
           "motorway_link",
@@ -157,7 +157,7 @@ export const shield = {
           "tertiary_link",
         ],
         1,
-        1, // https://github.com/OpenHistoricalMap/issues/issues/1272
+        0,
       ],
       14,
       1,
