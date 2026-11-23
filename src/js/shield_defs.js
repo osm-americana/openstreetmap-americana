@@ -3034,7 +3034,7 @@ export function loadShields() {
       "Fort Bend Westpark Tollway": "WPT",
     },
   };
-  shields["US:TX:Harris:HCTRA"] = {
+  shields["US:TX:Harris:HCTRA"] = shields.Q5664855 = {
     ...pentagonUpShield(3, 15, Color.shields.purple, Color.shields.yellow),
     refsByName: {
       "Sam Houston Tollway": "SHT",
