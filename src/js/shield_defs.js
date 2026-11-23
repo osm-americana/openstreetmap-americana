@@ -2965,6 +2965,7 @@ export function loadShields() {
       "US:TX:Beltway": ["BELT"],
       "US:TX:Business": ["BUS"],
       "US:TX:Loop": ["LOOP"],
+      Q97452546: ["LOOP"],
       "US:TX:NASA": ["NASA"],
       "US:TX:Park": ["PARK"],
       "US:TX:PA": ["P.A."],
