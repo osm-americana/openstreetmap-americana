@@ -373,23 +373,60 @@ export default class LegendControl {
         (fillColor.g * 255) / opacity
       }, ${(fillColor.b * 255) / opacity}, ${opacity})`;
     }
+    let borderColor =
+      stroke?.layer.paint["line-color"] || fillColor || "transparent";
+    let opacity = fill?.layer.paint["fill-extrusion-opacity"] ?? 1;
+
+    let dashArray = stroke && this.getDashArray(stroke);
+    if (dashArray) {
+      // A CSS dashed border has no way to set the dash pattern, so draw the
+      // outline as an SVG background image instead. Half of the stroke falls
+      // outside the rectangle and is clipped, so double the stroke width.
+      let strokeWidth = Math.max(
+        1 / PXR,
+        stroke.layer.paint["line-width"] ?? 1
+      );
+      let svg =
+        `<svg xmlns="http://www.w3.org/2000/svg">` +
+        `<rect width="100%" height="100%" fill="none" stroke="${borderColor}"` +
+        ` stroke-width="${strokeWidth * 2}"` +
+        ` stroke-dasharray="${dashArray.join(" ")}"/></svg>`;
+      return {
+        backgroundColor: fillColor,
+        backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(svg)}")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        borderStyle: "none",
+        opacity,
+      };
+    }
+
     let borderStyle = "solid";
-    if (stroke?.layer.paint["line-dasharray"]) {
-      // Just give an idea of the outline being dashed.
-      borderStyle = "dashed";
-    } else if (fill?.layer.paint["fill-extrusion-height"]) {
+    if (fill?.layer.paint["fill-extrusion-height"]) {
       // Assume the only fill extrusion layers are for buildings and that the
       // height is fixed to a small value.
       borderStyle = "outset";
     }
     return {
       backgroundColor: fillColor,
-      borderColor:
-        stroke?.layer.paint["line-color"] || fillColor || "transparent",
+      borderColor,
       borderStyle: borderStyle,
       borderWidth: `${stroke?.layer.paint["line-width"] ?? 1}px`,
-      opacity: fill?.layer.paint["fill-extrusion-opacity"] ?? 1,
+      opacity,
     };
+  }
+
+  /**
+   * Returns the given line feature's dash pattern in pixels, suitable for an
+   * SVG `stroke-dasharray`, or `undefined` if the line is solid.
+   */
+  getDashArray(feature) {
+    // line-dasharray is measured in multiples of line-width, whereas
+    // stroke-dasharray is measured in pixels.
+    let lineWidth = feature.layer.paint["line-width"] ?? 1;
+    return feature.layer.paint["line-dasharray"]?.from.map(
+      (d) => d * lineWidth
+    );
   }
 
   /**
@@ -414,12 +451,7 @@ export default class LegendControl {
       line.setAttribute("y2", `${height / 2}px`);
       line.setAttribute("x2", "100%");
 
-      // line-dasharray is measured in multiples of line-width, whereas
-      // stroke-dasharray is measured in pixels.
-      let simpleLineWidth = feature.layer.paint["line-width"] ?? 1;
-      let dashArray = feature.layer.paint["line-dasharray"]?.from.map(
-        (d) => d * simpleLineWidth
-      );
+      let dashArray = this.getDashArray(feature);
 
       let lineWidth = getLineWidth(feature);
       let gapWidth = feature.layer.paint["line-gap-width"];
