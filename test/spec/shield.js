@@ -12,7 +12,7 @@ import {
   InMemorySpriteRepository,
 } from "@americana/maplibre-shield-generator";
 
-import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/src/headless_graphics";
+import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/headless";
 
 const shields = loadShields();
 const mockRepo = new InMemorySpriteRepository();

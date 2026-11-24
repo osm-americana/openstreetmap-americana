@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import {
-  Browser,
-  BrowserContext,
+  type Browser,
+  type BrowserContext,
   chromium,
   firefox,
   webkit,

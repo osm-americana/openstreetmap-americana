@@ -1,6 +1,7 @@
 import fs from "fs";
 import { basename } from "path";
-import { execSync } from "child_process";
+// @ts-ignore - resemblejs is a CommonJS module
+import resemble from "resemblejs";
 
 interface Viewport {
   width: number;
@@ -41,30 +42,60 @@ if (!fs.existsSync(outputFolder)) {
   fs.mkdirSync(outputFolder);
 }
 
-// Loop through files in folder1
-fs.readdirSync(folder1)
-  .filter((file) => file.endsWith(".png"))
-  .forEach((file) => {
-    const basefile = basename(file);
+// Function to compare two images using resemble.js
+async function compareImages(
+  image1Path: string,
+  image2Path: string
+): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const image1 = fs.readFileSync(image1Path);
+    const image2 = fs.readFileSync(image2Path);
 
-    // Check if file exists in folder2
-    if (fs.existsSync(`${folder2}/${basefile}`)) {
-      // Compare the files
-      try {
-        execSync(`cmp -s "${folder1}/${basefile}" "${folder2}/${basefile}"`);
-      } catch (e) {
-        // If files are different
-        fs.copyFileSync(
-          `${folder1}/${basefile}`,
-          `${outputFolder}/${basefile.split(".")[0]}_${sha}_before.png`
-        );
-        fs.copyFileSync(
-          `${folder2}/${basefile}`,
-          `${outputFolder}/${basefile.split(".")[0]}_${sha}_after.png`
-        );
-      }
-    }
+    resemble(image1)
+      .compareTo(image2)
+      .onComplete((data) => {
+        // Consider images different if there's any mismatch
+        // misMatchPercentage of 0 means images are identical
+        resolve(data.misMatchPercentage > 0);
+      });
   });
+}
+
+// Main async function to process image comparisons
+async function processImageComparisons() {
+  const files = fs.readdirSync(folder1).filter((file) => file.endsWith(".png"));
+
+  // Process all comparisons in parallel
+  await Promise.all(
+    files.map(async (file) => {
+      const basefile = basename(file);
+
+      // Check if file exists in folder2
+      if (fs.existsSync(`${folder2}/${basefile}`)) {
+        // Compare the files using resemble.js
+        const areDifferent = await compareImages(
+          `${folder1}/${basefile}`,
+          `${folder2}/${basefile}`
+        );
+
+        if (areDifferent) {
+          // If files are visually different
+          fs.copyFileSync(
+            `${folder1}/${basefile}`,
+            `${outputFolder}/${basefile.split(".")[0]}_${sha}_before.png`
+          );
+          fs.copyFileSync(
+            `${folder2}/${basefile}`,
+            `${outputFolder}/${basefile.split(".")[0]}_${sha}_after.png`
+          );
+        }
+      }
+    })
+  );
+}
+
+// Run the async comparison process
+await processImageComparisons();
 
 const outputMD = "pr_preview-extra.md";
 let mdContent =

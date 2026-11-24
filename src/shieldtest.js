@@ -45,7 +45,7 @@ let networks = [
   "default",
 
   // Circles, pills, ovals
-  "NZ:WRR",
+  "VE:L:ZU",
   "US:DE",
   "CA:MB:PR",
   "KR:national",
@@ -64,7 +64,7 @@ let networks = [
   "CA:YT",
   "IS",
   "e-road",
-  "pl:motorways",
+  "PL:motorway",
 
   // Basic Angular Shapes
   "CA:ON:secondary",
@@ -73,6 +73,7 @@ let networks = [
   "US:MN:Hennepin:Park_Access",
   "US:PA",
   "US:PA:Turnpike",
+  "PA:national",
 
   "CA:AB:primary",
   "CA:SK:tertiary",
@@ -97,6 +98,7 @@ let networks = [
   "JP:prefectural",
   "PK:national",
   "ID:national",
+  "KR:26",
 
   "AU:QLD:MR",
   "GR:motorway",
@@ -132,6 +134,8 @@ let networks = [
   "US:I:Business:Loop",
   "co:national",
   "US:BIA",
+  "US:AZ:Indian",
+  "US:Navajo",
   "US:MT:secondary",
 
   "CA:PE",
@@ -153,6 +157,8 @@ let networks = [
   "US:MP",
   "US:AS",
 
+  "Arab Mashreq International Road Network",
+
   // Fancy Rectangles
   "US:AK",
   "US:ID",
@@ -161,7 +167,7 @@ let networks = [
   "US:MN",
   "US:MN:Business",
   "US:CO",
-  "US:CO:E470",
+  "US:CO:NW",
   "US:DC",
   "US:FL",
   "US:NH",
@@ -204,6 +210,9 @@ let networks = [
   "CA:ON:primary:Toll",
 
   "US:SD:Custer:CSP",
+
+  "US:UT:San_Juan",
+  "US:UT:Uintah",
 
   // With banners
   "US:I:Truck",
@@ -259,6 +268,8 @@ let refs = [
   "111",
   "281",
   "980",
+  "1610",
+  "2032",
   "H201",
   "480N",
   "A 562",

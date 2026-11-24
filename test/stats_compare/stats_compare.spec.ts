@@ -3,6 +3,8 @@ import {
   mdCompareRow,
 } from "../../scripts/object_compare";
 import { expect } from "chai";
+import * as fs from "fs";
+import * as path from "path";
 
 const a = 3;
 const b = 4;
@@ -56,6 +58,106 @@ describe("stats_compare", function () {
       expect(mdCompareRow("a", simpleA.a, null, negSimpleA.a)).to.deep.equal(
         simpleAnullmdRow
       );
+    });
+    it("tests md compare with undefined values", function () {
+      // Test that undefined values are handled properly (this was the original bug)
+      expect(mdCompareRow("test", 5, undefined, 5)).to.deep.equal(
+        "test | 5 | N/A | 5 | -100.0%"
+      );
+      expect(mdCompareRow("test", undefined, 5, 5)).to.deep.equal(
+        "test | N/A | 5 | 5 | N/A"
+      );
+      expect(mdCompareRow("test", undefined, undefined, 0)).to.deep.equal(
+        "test | N/A | N/A | 0 | N/A"
+      );
+    });
+  });
+
+  describe("#calculateDifference with JSON test cases", function () {
+    interface Stats {
+      layerCount: number;
+      styleSize: number;
+      gzipStyleSize: number;
+      shieldJSONSize: number;
+      gzipShieldJSONSize: number;
+      spriteSheet1xSize: number;
+      spriteSheet2xSize: number;
+      layerGroup: {
+        [key: string]: {
+          layerCount: number;
+          size: number;
+        };
+      };
+    }
+
+    function loadStats(filename: string): Stats {
+      const filePath = path.join(
+        path.dirname(new URL(import.meta.url).pathname),
+        "test-cases",
+        filename
+      );
+      const content = fs.readFileSync(filePath, "utf8");
+      return JSON.parse(content);
+    }
+
+    it("tests layer group added", function () {
+      const baseStats = loadStats("base_stats.json");
+      const addedStats = loadStats("layer_group_added.json");
+      const difference = calculateDifference(baseStats, addedStats);
+
+      // Check that urbanareas was added
+      expect(difference.layerGroup.urbanareas).to.deep.equal({
+        size: 18183,
+        layerCount: 3,
+      });
+
+      // Check that place was modified
+      expect(difference.layerGroup.place).to.deep.equal({
+        size: -18113, // 21701 - 39814
+        layerCount: -3, // 9 - 12
+      });
+
+      // Check overall stats changes
+      expect(difference.layerCount).to.equal(3); // 350 - 347
+      expect(difference.styleSize).to.equal(70); // 1122329 - 1122259
+    });
+
+    it("tests layer group removed", function () {
+      const baseStats = loadStats("base_stats.json");
+      const removedStats = loadStats("layer_group_removed.json");
+      const difference = calculateDifference(baseStats, removedStats);
+
+      // Check that place was removed (negated)
+      expect(difference.layerGroup.place).to.deep.equal({
+        size: -39814, // -39814
+        layerCount: -12, // -12
+      });
+
+      // Check overall stats changes
+      expect(difference.layerCount).to.equal(-12); // 335 - 347
+      expect(difference.styleSize).to.equal(-7259); // 1115000 - 1122259
+    });
+
+    it("tests mixed changes (removed and added)", function () {
+      const removedStats = loadStats("layer_group_removed.json");
+      const addedStats = loadStats("layer_group_added.json");
+      const difference = calculateDifference(removedStats, addedStats);
+
+      // Check that place was added back (since it was removed in removedStats)
+      expect(difference.layerGroup.place).to.deep.equal({
+        size: 21701, // Just the new value since it was missing in removedStats
+        layerCount: 9, // Just the new value since it was missing in removedStats
+      });
+
+      // Check that urbanareas was added
+      expect(difference.layerGroup.urbanareas).to.deep.equal({
+        size: 18183,
+        layerCount: 3,
+      });
+
+      // Check overall stats changes
+      expect(difference.layerCount).to.equal(15); // 350 - 335
+      expect(difference.styleSize).to.equal(7329); // 1122329 - 1115000
     });
   });
 });

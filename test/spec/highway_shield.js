@@ -14,7 +14,10 @@ describe("highway_shield", function () {
   describe("#parseImageName", function () {
     let evaluatedExpression = (properties) =>
       expression
-        .createExpression(HighwayShieldLayers.getImageNameExpression(1))
+        .createExpression(
+          HighwayShieldLayers.getImageNameExpression(1),
+          "layers[0].layout.text-field"
+        )
         .value.expression.evaluate(expressionContext(properties));
 
     let expectImageName = (network, ref, name, color, expectedImageName) => {

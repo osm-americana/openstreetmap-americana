@@ -41,6 +41,14 @@
     }
   },
   {
+    "location": "16/41.681034/-70.966837",
+    "name": "airport_cemetery",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
     "location": "12/52.43818/-1.70563",
     "name": "uk_all_roads_routes_z12",
     "viewport": {
@@ -91,6 +99,14 @@
   {
     "location": "12/38.86185/-77.20877",
     "name": "northen_va_highways",
+    "viewport": {
+      "width": 400,
+      "height": 400
+    }
+  },
+  {
+    "location": "14.01/37.74236/-119.57984",
+    "name": "yosemite_valley_camping",
     "viewport": {
       "width": 400,
       "height": 400

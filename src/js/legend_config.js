@@ -4,6 +4,7 @@ import * as PlaceLayers from "../layer/place.js";
 import * as LanduseLayers from "../layer/landuse.js";
 import * as BoundaryLayers from "../layer/boundary.js";
 import * as RoadLayers from "../layer/road.js";
+import * as TrackLayers from "../layer/track.js";
 import * as ConstructionLayers from "../layer/construction.js";
 import * as HighwayExitLayers from "../layer/highway_exit.js";
 import * as RailLayers from "../layer/rail.js";
@@ -14,6 +15,8 @@ import * as BuildingLayers from "../layer/building.js";
 import * as WaterLayers from "../layer/water.js";
 import * as FerryLayers from "../layer/ferry.js";
 import * as AerialwayLayers from "../layer/aerialway.js";
+import * as AboriginalLayers from "../layer/aboriginal.js";
+import * as PeakLayers from "../layer/peak.js";
 
 export const sections = [
   {
@@ -28,6 +31,7 @@ export const sections = [
     name: "Roads",
     entries: [
       ...RoadLayers.legendEntries,
+      ...TrackLayers.legendEntries,
       ...ConstructionLayers.legendEntries,
       ...HighwayExitLayers.legendEntries,
     ],
@@ -51,7 +55,7 @@ export const sections = [
   },
   {
     name: "Points of interest",
-    entries: POILayers.legendEntries,
+    entries: [...POILayers.legendEntries, ...PeakLayers.legendEntries],
   },
   {
     name: "Structures",
@@ -59,7 +63,11 @@ export const sections = [
   },
   {
     name: "Land use",
-    entries: [...LanduseLayers.legendEntries, ...ParkLayers.legendEntries],
+    entries: [
+      ...LanduseLayers.legendEntries,
+      ...ParkLayers.legendEntries,
+      ...AboriginalLayers.legendEntries,
+    ],
   },
   {
     name: "Water",

@@ -7,6 +7,12 @@ function fillPaths(svg: string, codes: string[]): string {
   const selectors: Set<string> = new Set(
     codes.map((code) => `.${code.toLowerCase()}`)
   );
+  if (selectors.has(".cy")) {
+    // Akrotiri and Dhekelia uses Cypriot road signage.
+    selectors.add(".akrotiridhekelia");
+    // Northern Cyprus routes use CY prefix with Cyprus.
+    selectors.add(".northerncyprus");
+  }
   if (selectors.has(".fr")) {
     // French overseas territories use the FR prefix.
     selectors.add(".bl");

@@ -1,6 +1,6 @@
 import * as ShieldDef from "../src/js/shield_defs.js";
 import * as fs from "node:fs";
-import { Command, OptionValues } from "commander";
+import { Command, type OptionValues } from "commander";
 
 const program = new Command();
 program.option("-o, --outfile <file>", "output file", "-");

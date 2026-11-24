@@ -1,0 +1,14 @@
+<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-3 -3) scale(.99994)">
+  <circle style="fill:#000;stroke:#fff;stroke-width:2.00082;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" cx="10" cy="10" r="6"/>
+  <path style="fill:#000;stroke:#fff;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;paint-order:stroke fill markers" d="m 4.413632,10.007413 h 11.17798 M 10.002622,4.4138425 V 15.613841"/>
+  <g style="stroke-width:1.16722;stroke-dasharray:none">
+   <path style="fill:none;stroke:#fff;stroke-width:1.16722;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" d="m 6.4671567,-12.678784 a 7,7 0 0 1 0,5.357568" transform="matrix(0 .85714 -.85633 0 1.348 1.442)"/>
+   <path style="fill:#fff;fill-opacity:1;stroke:#fff;stroke-width:1.16722;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;paint-order:stroke fill markers" d="M 13.225873,6.2208727 15.341238,5.2135559 M 4.8556293,5.4639358 7.0276205,6.3425212" transform="matrix(.85633 0 0 .85714 1.348 1.442)"/>
+  </g>
+  <g style="stroke-width:1.16722;stroke-dasharray:none">
+   <path style="fill:none;stroke:#fff;stroke-width:1.16722;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" d="m 6.4671567,-12.678784 a 7,7 0 0 1 0,5.357568" transform="matrix(0 -.85714 .85633 0 18.657 18.476)"/>
+   <path style="fill:#fff;fill-opacity:1;stroke:#fff;stroke-width:1.16722;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;paint-order:stroke fill markers" d="M 13.225873,6.2208727 15.341238,5.2135559 M 4.8556293,5.4639358 7.0276205,6.3425212" transform="matrix(-.85633 0 0 -.85714 18.657 18.476)"/>
+  </g>
+ </g>
+</svg>

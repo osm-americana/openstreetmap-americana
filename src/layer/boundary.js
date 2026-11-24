@@ -1,7 +1,7 @@
 "use strict";
 
 import * as Color from "../constants/color.js";
-import * as Label from "../constants/label.js";
+import { getLocalizedCountryNameExpression } from "@americana/diplomat";
 
 export const city = {
   id: "boundary_city",
@@ -206,6 +206,13 @@ export const state = {
   "source-layer": "boundary",
 };
 
+// adm0_* properties are only available on international borders.
+const maritime = [
+  "any",
+  ["==", ["get", "maritime"], 0],
+  ["all", ["has", "adm0_l"], ["has", "adm0_r"]],
+];
+
 export const countryCasing = {
   id: "boundary_country_casing",
   type: "line",
@@ -283,7 +290,7 @@ export const country = {
     "all",
     ["==", ["get", "admin_level"], 2],
     ["==", ["get", "disputed"], 0],
-    ["==", ["get", "maritime"], 0],
+    [...maritime],
   ],
   maxzoom: 24,
   layout: {
@@ -293,29 +300,6 @@ export const country = {
   source: "openmaptiles",
   "source-layer": "boundary",
 };
-
-/**
- * Returns an expression that converts the given country code to a
- * human-readable name in the user's preferred language.
- *
- * @param code An expression that evaluates to an ISO 3166-1 alpha-3 country
- *  code.
- */
-function getCountryName(code) {
-  return [
-    "let",
-    "code",
-    code,
-    "countryNamesByCode",
-    ["literal", Label.countryNamesByCode],
-    [
-      "coalesce",
-      ["get", ["var", "code"], ["var", "countryNamesByCode"]],
-      // Fall back to the country code in parentheses.
-      ["concat", "(", ["var", "code"], ")"],
-    ],
-  ];
-}
 
 export const countryLabelLeft = {
   id: "boundary_country_label_left",
@@ -338,13 +322,13 @@ export const countryLabelLeft = {
         [7, 10],
       ],
     },
-    "text-field": getCountryName(["get", "adm0_l"]),
+    "text-field": getLocalizedCountryNameExpression(["get", "adm0_l"]),
     "text-offset": [0, -1],
     "text-max-angle": 30,
     "text-letter-spacing": 0.1,
     "text-ignore-placement": true,
   },
-  filter: ["==", ["get", "maritime"], 0],
+  filter: [...maritime],
   maxzoom: 24,
   source: "openmaptiles",
   "source-layer": "boundary",
@@ -355,7 +339,7 @@ export const countryLabelRight = {
   id: "boundary_country_label_right",
   layout: {
     ...countryLabelLeft.layout,
-    "text-field": getCountryName(["get", "adm0_r"]),
+    "text-field": getLocalizedCountryNameExpression(["get", "adm0_r"]),
     "text-offset": [0, 1],
   },
 };

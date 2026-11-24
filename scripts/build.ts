@@ -1,6 +1,6 @@
 import { stat, copyFile, mkdir } from "node:fs/promises";
 
-import esbuild, { BuildContext, BuildOptions } from "esbuild";
+import esbuild, { type BuildContext, type BuildOptions } from "esbuild";
 
 const maybeLocalConfig = async (name = "local.config.js") => {
   let exists = await stat(name)
@@ -33,6 +33,10 @@ const buildWith = async (
       "fonts.css",
     ].map((f) => copyFile(`src/${f}`, `dist/${f}`))
   );
+  await copyFile(
+    "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
+    "dist/gh-fork-ribbon.css"
+  );
 
   const localConfig = await maybeLocalConfig();
 
@@ -56,30 +60,11 @@ const buildWith = async (
     },
   };
 
-  const shieldLibOptions = {
-    entryPoints: ["shieldlib/src/index.ts"],
-    format: "esm",
-    bundle: true,
-    minify: true,
-    sourcemap: true,
-    outdir: "shieldlib/dist",
-    logLevel: "info",
-    ...localConfig,
-    ...buildOptions,
-    define: {
-      ...localConfig?.define,
-      ...buildOptions?.define,
-    },
-  };
-
   // esbuild will pretty-print its own error messages;
   // suppress node.js from printing the exception.
   const suppressErrors = () => process.exit(1);
 
-  return await Promise.all([
-    esbuild[key](options).catch(suppressErrors),
-    esbuild[key](shieldLibOptions).catch(suppressErrors),
-  ]);
+  return await Promise.all([esbuild[key](options).catch(suppressErrors)]);
 };
 
 export const buildContext = (

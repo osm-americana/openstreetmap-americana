@@ -1,10 +1,10 @@
 import Benchmark from "benchmark";
 import {
   expression,
-  LayerSpecification,
+  type LayerSpecification,
   StyleExpression,
   EvaluationContext,
-  Feature,
+  type Feature,
 } from "@maplibre/maplibre-gl-style-spec";
 
 import { build } from "../src/layer/index.js";
