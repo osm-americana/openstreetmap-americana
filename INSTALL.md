@@ -89,27 +89,32 @@ and re-running `npm install`.
 
 ## Configuration file
 
-Environment specific settings go in the untracked file `config.js`. Copy from one of
-the templates in the configs/ folder `config.*.js` and rename it `config.js` in
-the src/ root. The variables in this file can then be changed without the risk of
-accidentally committing to the main repo. By default, the repository `config.js` points
-to a development tile server operated by the project maintainers. It is free to use
-for development purposes but service is not guaranteed.
+By default, `src/config.js` loads `src/configs/config.osmus.js`, which points to the
+[OpenStreetMap U.S. Tileservice](https://tiles.openstreetmap.us/vector/openmaptiles/).
+It is free to use for development purposes, subject to its
+[usage policy](https://tiles.openstreetmap.us/usage-policy/), but service is not guaranteed.
 
-You can create a new copy of the config file by running `npm run config`
+Environment-specific settings go in the untracked file `local.config.js` in the project
+root (alongside `package.json`). If this file exists, the build script uses it instead of
+the default configuration. Copy one of the templates in `src/configs/` to
+`local.config.js` and change the variables in it without the risk of accidentally
+committing them to the main repo.
+
+You can create a `local.config.js` based on the MapTiler template by running
+`npm run config`.
 
 ### MapTiler API key
 
 This project can use vector tiles provided by MapTiler.
 For this to work, you must create an account and obtain a free key from
 [MapTiler Cloud][20]. This key should be pasted into the `MAPTILER_KEY` variable of
-the `config.js` file.
+the `local.config.js` file.
 
 ### Custom OpenMapTiles URL
 
 For testing upcoming features of the [OpenMapTiles schema][21] or for fresher data than
 MapTiler Cloud provides, a custom vector tile url can be set in the `OPENMAPTILES_URL`
-variable of the `config.js` file. However, this requires setting up a custom OpenMapTiles
+variable of the `local.config.js` file. However, this requires setting up a custom OpenMapTiles
 server which is beyond the scope of this guide.
 
 [20]: https://cloud.maptiler.com/maps/

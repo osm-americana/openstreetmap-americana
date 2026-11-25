@@ -24,6 +24,7 @@ The style is located within **src/** and is organized as follows:
 - **constants/** - Style elements that are frequently re-used
 - **icons/** - SVG icons, which get converted into PNG stylesheets
 - **js/** - Dynamic javascript code for highway shields and stylesheet building
-- **config.js** - Configuration settings (MapTiler API key, OpenMapTiles tile server URL, etc)
+- **config.js** - Loads the configuration settings (MapTiler API key, OpenMapTiles tile server URL, etc) from `local.config.js` in the project root if it exists, otherwise from `configs/config.osmus.js`. See [INSTALL.md](INSTALL.md#configuration-file).
+- **configs/** - Configuration templates that can be copied to `local.config.js`
 - **americana.js** - MapLibre loader and configuration for the demo map
 - **index.html** - Demonstration map HTML page
