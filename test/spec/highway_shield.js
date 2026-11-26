@@ -2,7 +2,6 @@
 
 import { expect } from "chai";
 import {
-  OPENMAPTILES,
   getShieldExpression,
   getShieldLayer,
   routeParserFromSchema,
@@ -11,20 +10,21 @@ import * as HighwayShieldLayers from "../../src/layer/highway_shield.js";
 
 describe("highway_shield", function () {
   describe("layer", function () {
-    it("matches getShieldLayer for OpenMapTiles with Americana's font", function () {
+    it("matches getShieldLayer for the OpenMapTiles schema", function () {
       expect(HighwayShieldLayers.shield).to.deep.equal(
-        getShieldLayer(OPENMAPTILES, {
-          textFont: ["Americana-Regular"],
-        })
+        getShieldLayer("openmaptiles")
       );
       expect(HighwayShieldLayers.shield.layout["text-field"]).to.deep.equal(
-        getShieldExpression(OPENMAPTILES)
+        getShieldExpression("openmaptiles")
+      );
+      expect(HighwayShieldLayers.shield.layout["text-font"]).to.equal(
+        undefined
       );
     });
   });
 
   describe("#parseImageName", function () {
-    const parser = routeParserFromSchema(OPENMAPTILES);
+    const parser = routeParserFromSchema("openmaptiles");
 
     it("parses an image name for a numbered route", function () {
       expect(

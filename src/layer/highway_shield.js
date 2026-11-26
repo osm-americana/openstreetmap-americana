@@ -1,20 +1,18 @@
 "use strict";
 
 import {
-  OPENMAPTILES,
   getShieldLayer,
   routeParserFromSchema,
 } from "@americana/maplibre-shield-generator";
 
 /**
  * Highway shield symbol layer for the OpenMapTiles transportation_name encoding.
- * Font stays Americana-specific; tile schema comes from OPENMAPTILES.
+ * Uses Trailblazer's `"openmaptiles"` schema; `text-font` is left to MapLibre's
+ * style-spec default.
  */
-export const shield = getShieldLayer(OPENMAPTILES, {
-  textFont: ["Americana-Regular"],
-});
+export const shield = getShieldLayer("openmaptiles");
 
-const routeParser = routeParserFromSchema(OPENMAPTILES);
+const routeParser = routeParserFromSchema("openmaptiles");
 
 /**
  * Returns a structured representation of a shield image id.

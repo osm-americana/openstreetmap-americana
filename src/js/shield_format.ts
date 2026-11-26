@@ -1,5 +1,4 @@
 import {
-  OPENMAPTILES,
   isSchemaShieldId,
   routeParserFromSchema,
   type StringPredicate,
@@ -7,7 +6,7 @@ import {
 } from "@americana/maplibre-shield-generator";
 
 export const shieldPredicate: StringPredicate = (imageID: string) =>
-  Boolean(imageID) && isSchemaShieldId(OPENMAPTILES, imageID);
+  Boolean(imageID) && isSchemaShieldId("openmaptiles", imageID);
 
 export const networkPredicate: StringPredicate = (network: string) =>
   // On recreational route relations, network=* indicates the network's scope,
@@ -15,7 +14,7 @@ export const networkPredicate: StringPredicate = (network: string) =>
   // https://github.com/osm-americana/openstreetmap-americana/issues/94
   !/^[lrni][chimpw]n$/.test(network);
 
-const schemaParser = routeParserFromSchema(OPENMAPTILES);
+const schemaParser = routeParserFromSchema("openmaptiles");
 
 /**
  * OpenMapTiles route parser that always returns string fields.

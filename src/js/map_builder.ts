@@ -2,7 +2,6 @@
  * Functions for assembling user-facing map components
  */
 import {
-  OPENMAPTILES,
   createShieldRenderer,
   type DebugOptions,
   type ShieldDefinitions,
@@ -58,7 +57,7 @@ export function createMap(
 
   const shieldRenderer = createShieldRenderer(
     new URL("shields.json", window.location.href),
-    OPENMAPTILES
+    "openmaptiles"
   )
     .debugOptions(debugOptions)
     .filterNetwork(networkPredicate)
