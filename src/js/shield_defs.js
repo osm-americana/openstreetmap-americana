@@ -1414,6 +1414,11 @@ export function loadShields() {
         Color.shields.yellow
       ))
   );
+  shields["US:IL:Cook:Chicago:Boulevards"] = {
+    noref: {
+      spriteBlank: "shield_us_il_blvd",
+    },
+  };
   shields["US:IL:Cook:Chicago:Skyway"] = {
     noref: {
       spriteBlank: "shield_us_il_skyway",
