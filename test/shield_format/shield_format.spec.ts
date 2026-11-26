@@ -1,26 +1,12 @@
 import { expect } from "chai";
-import { shieldPredicate, routeParser } from "../../src/js/shield_format.js";
-
-const image_id_I95 = "shield\nUS:I\n95\nEye Ninety-Five";
-const route_def_I95 = {
-  network: "US:I",
-  ref: "95",
-  name: "Eye Ninety-Five",
-};
+import { filterNetworks } from "../../src/js/shield_format.js";
 
 describe("shield_format", function () {
-  describe("shieldPredicate", function () {
-    it("rejects a non-shield images IDs", function () {
-      expect(shieldPredicate(image_id_I95)).to.be.true;
-      expect(shieldPredicate("poi\nice_cream")).to.be.false;
-    });
-  });
-  describe("routeParser", function () {
-    it("extracts a route", function () {
-      let extractedDef = routeParser.parse(image_id_I95);
-      expect(extractedDef.network).to.be.equal(route_def_I95.network);
-      expect(extractedDef.ref).to.be.equal(route_def_I95.ref);
-      expect(extractedDef.name).to.be.equal(route_def_I95.name);
+  describe("filterNetworks", function () {
+    it("matches recreational route scope networks", function () {
+      expect(filterNetworks.test("rwn")).to.be.true;
+      expect(filterNetworks.test("lcn")).to.be.true;
+      expect(filterNetworks.test("US:I")).to.be.false;
     });
   });
 });

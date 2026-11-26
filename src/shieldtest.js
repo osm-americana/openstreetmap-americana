@@ -2,12 +2,8 @@
 
 import * as ShieldDef from "./js/shield_defs.js";
 import { Map } from "maplibre-gl";
-import { ShieldRenderer } from "@americana/maplibre-shield-generator";
-import {
-  shieldPredicate,
-  networkPredicate,
-  routeParser,
-} from "./js/shield_format.js";
+import { createShieldRenderer } from "@americana/maplibre-shield-generator";
+import { filterNetworks } from "./js/shield_format.js";
 import { debugOptions } from "./debug_config.js";
 
 var getUrl = window.location;
@@ -26,11 +22,10 @@ export const map = (window.map = new Map({
 
 const shields = ShieldDef.loadShields();
 
-const shieldRenderer = new ShieldRenderer(shields, routeParser)
-  .debugOptions(debugOptions)
-  .filterImageID(shieldPredicate)
-  .filterNetwork(networkPredicate)
-  .renderOnMaplibreGL(map);
+const shieldRenderer = createShieldRenderer(shields, "openmaptiles", {
+  filterNetworks,
+  debugOptions,
+}).renderOnMaplibreGL(map);
 
 const once = (emitter, name, { signal } = {}) =>
   new Promise((resolve, reject) => {

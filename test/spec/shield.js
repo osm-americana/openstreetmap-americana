@@ -1,14 +1,10 @@
 "use strict";
 
 import { expect } from "chai";
-import {
-  routeParser,
-  shieldPredicate,
-  networkPredicate,
-} from "../../src/js/shield_format";
+import { filterNetworks } from "../../src/js/shield_format";
 import { loadShields } from "../../src/js/shield_defs";
 import {
-  ShieldRenderer,
+  createShieldRenderer,
   InMemorySpriteRepository,
 } from "@americana/maplibre-shield-generator";
 
@@ -17,20 +13,20 @@ import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/he
 const shields = loadShields();
 const mockRepo = new InMemorySpriteRepository();
 
-const shieldRenderer = new ShieldRenderer(shields, routeParser)
-  .filterImageID(shieldPredicate)
-  .filterNetwork(networkPredicate)
+const shieldRenderer = createShieldRenderer(shields, "openmaptiles", {
+  filterNetworks,
+})
   .graphicsFactory(new HeadlessGraphicsFactory())
   .renderOnRepository(mockRepo);
 
-const handler = shieldRenderer.getStyleImageMissingHandler();
+const handler = shieldRenderer.getMissingStyleImageResolver();
 
-handler({ id: "shield\nBAB\n5\n\n" });
-handler({ id: "shield\nUS:RI\n\n\n" });
-handler({ id: "shield\nUS:RI\nABC1234\n\n" });
-handler({ id: "shield\nUS:RI\nLatitude\n\n" });
-handler({ id: "shield\nrwn\n\n\n" });
-handler({ id: "foo" });
+handler("shield\nBAB\n5\n\n");
+handler("shield\nUS:RI\n\n\n");
+handler("shield\nUS:RI\nABC1234\n\n");
+handler("shield\nUS:RI\nLatitude\n\n");
+handler("shield\nrwn\n\n\n");
+handler("foo");
 
 function isBlankSprite(id) {
   return mockRepo.getSprite(id).width == 1;

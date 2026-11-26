@@ -2,17 +2,13 @@
  * Functions for assembling user-facing map components
  */
 import {
-  URLShieldRenderer,
+  createShieldRenderer,
   type DebugOptions,
   type ShieldDefinitions,
 } from "@americana/maplibre-shield-generator";
 import config from "../config.js";
 
-import {
-  shieldPredicate,
-  networkPredicate,
-  routeParser,
-} from "../js/shield_format.js";
+import { filterNetworks } from "../js/shield_format.js";
 
 import * as Poi from "../js/poi.js";
 import * as Style from "./style.js";
@@ -59,15 +55,29 @@ export function createMap(
   setWorkerUrl(new URL("./maplibre-gl-worker.mjs", import.meta.url).toString());
   let map: MapView = (window.map = new MapView(options));
 
-  const shieldRenderer = new URLShieldRenderer(
+  const shieldRenderer = createShieldRenderer(
     new URL("shields.json", window.location.href),
-    routeParser
+    "openmaptiles",
+    { filterNetworks, debugOptions }
   )
-    .debugOptions(debugOptions)
-    .filterImageID(shieldPredicate)
-    .filterNetwork(networkPredicate)
     .renderOnMaplibreGL(map)
     .onShieldDefLoad(shieldDefCallback);
+
+  // Compose shield + POI missing-image handling. renderOnMaplibreGL installs
+  // the shield resolver; replace it with a dispatcher that keeps both.
+  const resolveShield = shieldRenderer.getMissingStyleImageResolver();
+  map.setMissingStyleImageResolver((id) => {
+    switch (id.split("\n")[0]) {
+      case "shield":
+        return resolveShield(id);
+      case "poi":
+        Poi.missingIconHandler(shieldRenderer, map, id);
+        break;
+      default:
+        console.warn("Image id not recognized:", JSON.stringify(id));
+        break;
+    }
+  });
 
   map.once("styledata", (event) => {
     let localizationState = getGlobalStateForLocalization(getLocales(), {
@@ -78,17 +88,5 @@ export function createMap(
     }
   });
 
-  map.setMissingStyleImageResolver((id) => {
-    switch (id.split("\n")[0]) {
-      case "shield":
-        break;
-      case "poi":
-        Poi.missingIconHandler(shieldRenderer, map, id);
-        break;
-      default:
-        console.warn("Image id not recognized:", JSON.stringify(id));
-        break;
-    }
-  });
   return map;
 }
