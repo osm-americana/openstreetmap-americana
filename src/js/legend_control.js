@@ -255,10 +255,7 @@ export default class LegendControl {
     // feature.
     if (entry.fill) {
       let swatchCell = row.querySelector(".swatch");
-      Object.assign(
-        swatchCell.style,
-        this.getSwatchStyle(entry.fill, entry.stroke)
-      );
+      this.populateSwatchCell(swatchCell, entry.fill, entry.stroke);
     } else if (entry.lines) {
       let lineCell = row.querySelector(".line");
       this.populateLineCell(lineCell, entry.lines);
@@ -373,34 +370,6 @@ export default class LegendControl {
         (fillColor.g * 255) / opacity
       }, ${(fillColor.b * 255) / opacity}, ${opacity})`;
     }
-    let borderColor =
-      stroke?.layer.paint["line-color"] || fillColor || "transparent";
-    let opacity = fill?.layer.paint["fill-extrusion-opacity"] ?? 1;
-
-    let dashArray = stroke && this.getDashArray(stroke);
-    if (dashArray) {
-      // A CSS dashed border has no way to set the dash pattern, so draw the
-      // outline as an SVG background image instead. Half of the stroke falls
-      // outside the rectangle and is clipped, so double the stroke width.
-      let strokeWidth = Math.max(
-        1 / PXR,
-        stroke.layer.paint["line-width"] ?? 1
-      );
-      let svg =
-        `<svg xmlns="http://www.w3.org/2000/svg">` +
-        `<rect width="100%" height="100%" fill="none" stroke="${borderColor}"` +
-        ` stroke-width="${strokeWidth * 2}"` +
-        ` stroke-dasharray="${dashArray.join(" ")}"/></svg>`;
-      return {
-        backgroundColor: fillColor,
-        backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(svg)}")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%",
-        borderStyle: "none",
-        opacity,
-      };
-    }
-
     let borderStyle = "solid";
     if (fill?.layer.paint["fill-extrusion-height"]) {
       // Assume the only fill extrusion layers are for buildings and that the
@@ -409,11 +378,44 @@ export default class LegendControl {
     }
     return {
       backgroundColor: fillColor,
-      borderColor,
+      borderColor:
+        stroke?.layer.paint["line-color"] || fillColor || "transparent",
       borderStyle: borderStyle,
       borderWidth: `${stroke?.layer.paint["line-width"] ?? 1}px`,
-      opacity,
+      opacity: fill?.layer.paint["fill-extrusion-opacity"] ?? 1,
     };
+  }
+
+  /**
+   * Populates the given table cell with a swatch resembling the given fill and
+   * line.
+   */
+  populateSwatchCell(cell, fill, stroke) {
+    let style = this.getSwatchStyle(fill, stroke);
+
+    let dashArray = stroke && this.getDashArray(stroke);
+    if (dashArray) {
+      // A CSS dashed border has no way to set the dash pattern, so draw the
+      // outline in SVG instead, like a line.
+      let rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("width", "100%");
+      rect.setAttribute("height", "100%");
+
+      // Round the stroke width up to one point to ensure legibility. Half of
+      // the stroke falls outside the rectangle and is clipped, so double it.
+      let lineWidth = Math.max(1 / PXR, stroke.layer.paint["line-width"] ?? 1);
+      Object.assign(rect.style, {
+        fill: "none",
+        stroke: style.borderColor,
+        strokeDasharray: dashArray.join(" "),
+        strokeWidth: lineWidth * 2,
+      });
+
+      cell.querySelector("svg").appendChild(rect);
+      style.borderStyle = "none";
+    }
+
+    Object.assign(cell.style, style);
   }
 
   /**
