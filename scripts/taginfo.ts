@@ -5,16 +5,12 @@ import * as ShieldDef from "../src/js/shield_defs.js";
 import namer from "color-namer";
 import { mkdir } from "node:fs/promises";
 import {
-  ShieldRenderer,
+  createShieldRenderer,
   InMemorySpriteRepository,
   type ShieldSpecification,
 } from "@americana/maplibre-shield-generator";
 import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/headless";
-import {
-  routeParser,
-  shieldPredicate,
-  networkPredicate,
-} from "../src/js/shield_format.js";
+import { filterNetworks } from "../src/js/shield_format.js";
 
 await mkdir("dist/shield-sample", { recursive: true });
 
@@ -24,9 +20,9 @@ const shieldGfxMap = new Map<string, number>();
 const shields: ShieldSpecification =
   ShieldDef.loadShields() as unknown as ShieldSpecification;
 
-const shieldRenderer = new ShieldRenderer(shields, routeParser)
-  .filterImageID(shieldPredicate)
-  .filterNetwork(networkPredicate)
+const shieldRenderer = createShieldRenderer(shields, "openmaptiles", {
+  filterNetworks,
+})
   .graphicsFactory(new HeadlessGraphicsFactory("svg"))
   .renderOnRepository(new InMemorySpriteRepository());
 

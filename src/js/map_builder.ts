@@ -8,7 +8,7 @@ import {
 } from "@americana/maplibre-shield-generator";
 import config from "../config.js";
 
-import { networkPredicate } from "../js/shield_format.js";
+import { filterNetworks } from "../js/shield_format.js";
 
 import * as Poi from "../js/poi.js";
 import * as Style from "./style.js";
@@ -57,10 +57,9 @@ export function createMap(
 
   const shieldRenderer = createShieldRenderer(
     new URL("shields.json", window.location.href),
-    "openmaptiles"
+    "openmaptiles",
+    { filterNetworks, debugOptions }
   )
-    .debugOptions(debugOptions)
-    .filterNetwork(networkPredicate)
     .renderOnMaplibreGL(map)
     .onShieldDefLoad(shieldDefCallback);
 

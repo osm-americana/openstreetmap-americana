@@ -1,14 +1,10 @@
 "use strict";
 
 import { expect } from "chai";
-import {
-  routeParser,
-  shieldPredicate,
-  networkPredicate,
-} from "../../src/js/shield_format";
+import { filterNetworks } from "../../src/js/shield_format";
 import { loadShields } from "../../src/js/shield_defs";
 import {
-  ShieldRenderer,
+  createShieldRenderer,
   InMemorySpriteRepository,
 } from "@americana/maplibre-shield-generator";
 
@@ -17,9 +13,9 @@ import { HeadlessGraphicsFactory } from "@americana/maplibre-shield-generator/he
 const shields = loadShields();
 const mockRepo = new InMemorySpriteRepository();
 
-const shieldRenderer = new ShieldRenderer(shields, routeParser)
-  .filterImageID(shieldPredicate)
-  .filterNetwork(networkPredicate)
+const shieldRenderer = createShieldRenderer(shields, "openmaptiles", {
+  filterNetworks,
+})
   .graphicsFactory(new HeadlessGraphicsFactory())
   .renderOnRepository(mockRepo);
 
