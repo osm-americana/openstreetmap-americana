@@ -722,6 +722,22 @@
       "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_envelope.svg"
     },
     {
+      "key": "amenity",
+      "value": "theatre",
+      "object_types": ["node", "area"],
+      "description": "Theaters are marked by an icon representing the drama masks.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_theater_masks.svg"
+    },
+    {
+      "key": "amenity",
+      "value": "cinema",
+      "object_types": ["node", "area"],
+      "description": "Movie theaters are marked by an icon representing a film projector.",
+      "doc_url": "https://openmaptiles.org/schema/#poi",
+      "icon_url": "https://raw.githubusercontent.com/osm-americana/openstreetmap-americana/main/icons/poi_film_projector.svg"
+    },
+    {
       "key": "tourism",
       "value": "guest_house",
       "object_types": ["node", "area"],

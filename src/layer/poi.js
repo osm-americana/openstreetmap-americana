@@ -164,6 +164,22 @@ var iconDefs = {
     color: Color.poi.attraction,
     description: "Museum",
   },
+  cinema: {
+    classes: {
+      cinema: ["cinema"],
+    },
+    sprite: "poi_film_projector",
+    color: Color.poi.attraction,
+    description: "Movie theater",
+  },
+  theater: {
+    classes: {
+      theater: ["theater"],
+    },
+    sprite: "poi_theater_masks",
+    color: Color.poi.attraction,
+    description: "Theater",
+  },
   parking: {
     classes: {
       parking: ["parking"],
@@ -526,7 +542,10 @@ export const poi = {
             ],
             Color.poi.transport,
           ],
-          [[iconDefs.museum], Color.poi.attraction],
+          [
+            [iconDefs.museum, iconDefs.theater, iconDefs.cinema],
+            Color.poi.attraction,
+          ],
           [
             [
               iconDefs.hospital,
@@ -601,6 +620,8 @@ export const poi = {
               iconDefs.hospital,
               iconDefs.library,
               iconDefs.museum,
+              iconDefs.theater,
+              iconDefs.cinema,
               iconDefs.police,
               iconDefs.fuel,
               iconDefs.post_office,
