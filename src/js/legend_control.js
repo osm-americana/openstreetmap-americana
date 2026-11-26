@@ -1,6 +1,9 @@
 "use strict";
 
-import { getDOMPixelRatio } from "@americana/maplibre-shield-generator";
+import {
+  getDOMPixelRatio,
+  parseShieldImageId,
+} from "@americana/maplibre-shield-generator";
 import { getLocales } from "@americana/diplomat";
 
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
@@ -464,7 +467,7 @@ export default class LegendControl {
     let images = shieldFeatures
       .flatMap((f) => f.layer.layout["text-field"].sections)
       .filter((s) => s.image && s.image)
-      .map((s) => HighwayShieldLayers.parseImageName(s.image.name));
+      .map((s) => parseShieldImageId("openmaptiles", s.image.name));
 
     // Unique the images by network.
     let imagesByNetwork = {};
