@@ -438,7 +438,10 @@ export default class LegendControl {
           [100, lineWidth / 2.0],
           [0, lineWidth / 2.0],
         ].map((p) => `${p[0]}% ${p[1]}px`);
-        clipPath = `polygon(evenodd, ${points.join(", ")})`;
+        // The default reference box for SVG lines is the stroke-box. By
+        // specifying fill-box instead of stroke-box we can see double lines
+        // for tracks separated using line-gap-width.
+        clipPath = `polygon(evenodd, ${points.join(", ")}) fill-box`;
       }
 
       Object.assign(line.style, {

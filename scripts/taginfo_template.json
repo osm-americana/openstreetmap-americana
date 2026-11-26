@@ -243,6 +243,12 @@
       "doc_url": "https://openmaptiles.org/schema/#surface"
     },
     {
+      "key": "surface",
+      "object_types": ["way"],
+      "description": "Track roads have a two-track line pattern that is dashed if unpaved and solid if paved.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
       "key": "iata",
       "object_types": ["node", "area"],
       "description": "Airports at low zoom levels are labeled by their IATA codes.",
@@ -414,6 +420,20 @@
       "value": "trunk",
       "object_types": ["way"],
       "description": "Major roads under construction have a dotted line pattern and a more prominent color.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "highway",
+      "value": "track",
+      "object_types": ["way"],
+      "description": "Track roads have a two-track line pattern that is dashed if unpaved and solid if paved.",
+      "doc_url": "https://openmaptiles.org/schema/#transportation"
+    },
+    {
+      "key": "ford",
+      "value": "yes",
+      "object_types": ["way"],
+      "description": "A track road with a ford blends in with the waterway it crosses.",
       "doc_url": "https://openmaptiles.org/schema/#transportation"
     },
     {
