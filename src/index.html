@@ -106,6 +106,14 @@
       }
       .legend-row > .swatch {
         border-style: solid;
+        position: relative;
+      }
+      .legend-row > .swatch > svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
       }
       .legend-row > .line > svg {
         vertical-align: middle;
@@ -201,7 +209,9 @@
     </template>
     <template id="legend-row-swatch">
       <tr class="legend-row legend-row-swatch">
-        <td class="swatch" colspan="2"></td>
+        <td class="swatch" colspan="2">
+          <svg></svg>
+        </td>
         <td class="description"></td>
       </tr>
     </template>
