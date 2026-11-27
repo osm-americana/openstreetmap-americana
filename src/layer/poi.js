@@ -174,7 +174,7 @@ var iconDefs = {
   },
   theater: {
     classes: {
-      theater: ["theater"],
+      theatre: ["theatre"],
     },
     sprite: "poi_theater_masks",
     color: Color.poi.attraction,
