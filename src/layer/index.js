@@ -11,6 +11,7 @@ import * as lyrConstruction from "./construction.js";
 import * as lyrHighwayShield from "./highway_shield.js";
 import * as lyrHillshade from "./hillshade.js";
 import * as lyrLanduse from "./landuse.js";
+import * as lyrMilitary from "./military.js";
 import * as lyrOneway from "./oneway.js";
 import * as lyrPark from "./park.js";
 import * as lyrPlace from "./place.js";
@@ -37,6 +38,7 @@ export function build(locales) {
     lyrBackground.base,
     lyrLanduse.urbanizedArea,
     lyrAboriginal.fill,
+    lyrMilitary.fill,
     lyrPark.fill,
     lyrAeroway.fill,
     lyrPark.cemeteryFill,
@@ -57,6 +59,7 @@ export function build(locales) {
     lyrWater.water,
 
     lyrAboriginal.outline,
+    lyrMilitary.outline,
     lyrPark.outline,
     lyrAeroway.outline,
     lyrPark.parkOutline,
@@ -238,6 +241,7 @@ export function build(locales) {
     lyrTransportationLabel.label,
 
     lyrAboriginal.label,
+    lyrMilitary.label,
     lyrPark.label,
     lyrPark.parkLabel,
 
