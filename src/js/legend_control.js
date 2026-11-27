@@ -3,6 +3,7 @@
 import { getDOMPixelRatio } from "@americana/maplibre-shield-generator";
 import { getLocales } from "@americana/diplomat";
 
+import { parseImageName } from "./shield_format.ts";
 import * as HighwayShieldLayers from "../layer/highway_shield.js";
 
 import * as maplibregl from "maplibre-gl";
@@ -467,7 +468,7 @@ export default class LegendControl {
     let images = shieldFeatures
       .flatMap((f) => f.layer.layout["text-field"].sections)
       .filter((s) => s.image && s.image)
-      .map((s) => HighwayShieldLayers.parseImageName(s.image.name));
+      .map((s) => parseImageName(s.image.name));
 
     // Unique the images by network.
     let imagesByNetwork = {};
@@ -491,7 +492,7 @@ export default class LegendControl {
         // Store a different image for each override in the shield definition.
         if (!networkImages.overridesByName[image.name]) {
           networkImages.overridesByName[image.name] =
-            shieldDef.overrideByName[image.name].spriteBlank;
+            shieldDef.overrideByName[image.name].spriteBlank ?? image.imageName;
         }
       } else if (!networkImages.ref && image.ref) {
         // Store the numbered variant of a shield if required by the shield
@@ -618,6 +619,7 @@ export default class LegendControl {
   getShieldRow(network, names, binding) {
     let images = names
       .map((n) => this._map.style.getImage(n))
+      .filter((n) => n)
       .map((i) => this.getImageFromStyle(i))
       .filter((i) => i);
     if (!images.length) return;
